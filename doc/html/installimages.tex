@@ -9,15 +9,36 @@
 \usepackage{ae,lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{tocloft}%
-\providecommand{\hpxversion}{3.40}%
-\providecommand{\hpxverstex}{3\_40}%
+\providecommand{\hpxversion}{3.50}%
+\providecommand{\hpxverstex}{3\_50}%
 \providecommand{\idlversion}{6.4 }%2013-10%
 \providecommand{\gdlversion}{0.9.8}% Mar 2018%
 \providecommand{\gdlreldate}{March 2018}%
+\providecommand{\gdlsite}{https://github.com/gnudatalanguage/gdl}%
 \providecommand{\flversion}{0.79.44 }% Apr 2018%
 \providecommand{\flsitea}{https://www.flxpert.hu/fl}%
 \providecommand{\flsiteb}{http://85.255.9.75/fl}%
-\providecommand{\hpyversion}{1.12.0 } 
+\providecommand{\hpyversion}{1.12.8 }% 2018-12-07%
+\providecommand{\hpysite}{https://github.com/healpy/healpy}%
+\providecommand{\srcurl}{https://sourceforge.net/p/healpix/code/1005/tree/trunk/} 
+
+
+
+%
+\providecommand{\healpixmail}{{\em healpix-support} \texttt{at} {\em lists.sourceforge.net}} 
+
+%
+\providecommand{\hpxwebsite}{https://healpix.sourceforge.io}%
+\providecommand{\oldhpxwebsite}{http://healpix.sf.net} 
+
+%
+\providecommand{\healpixwebpage}{https://healpix.sourceforge.io}%
+\providecommand{\healpixsupport}{https://healpix.sourceforge.io/support.php} 
+
+%
+\providecommand{\defwebsite}{\website{\htmladdnormallink{https://healpix.sourceforge.io}{https://healpix.sourceforge.io}\\\htmladdnormallink{http://healpix.sf.net}{http://healpix.sf.net}}} 
+
+
 \hypersetup{%
 	pdftitle={HEALPix Installation Guidelines},%
 	pdfauthor={E. Hivon et al},%
@@ -25,12 +46,9 @@
 	colorlinks=true}
 
 %
-\providecommand{\nside}{N_\mathrm{side}}%
-\providecommand{\npix}{N_\mathrm{pix}}%
-\providecommand{\lmax}{\ell_{\mathrm{max}}}%
-\providecommand{\healpixwebpage}{http://healpix.sourceforge.net}%
-\providecommand{\healpixmail}{{\em healpix-support} \texttt{at} {\em lists.sourceforge.net}}%
-\providecommand{\healpixsupport}{http://healpix.sourceforge.net/support.php} 
+\providecommand{\nside}{N_{\mathrm{side}}}%
+\providecommand{\npix}{N_{\mathrm{pix}}}%
+\providecommand{\lmax}{\ell_{\mathrm{max}}} 
 %
 \renewcommand{\contentsname}{{TABLE OF CONTENTS}}
 
@@ -75,10 +93,7 @@
 \externallabels{.}{/tmp/sub_labels.pl}
 
 
-\usepackage[dvips]{color}
-
-
-\pagecolor[gray]{.7}
+\usepackage{xcolor}
 
 \usepackage[latin1]{inputenc}
 
@@ -123,56 +138,40 @@
  \parindent=0pt\abovedisplayskip=0pt\belowdisplayskip=0pt}%
  \def\phantompar{\csname par\endcsname}\normalsize}%
 \def\lthtmltypeout#1{{\let\protect\string \immediate\write\lthtmlwrite{#1}}}%
-\newcommand\lthtmlhboxmathA{\adjustnormalsize\setbox\sizebox=\hbox\bgroup\kern.05em }%
-\newcommand\lthtmlhboxmathB{\adjustnormalsize\setbox\sizebox=\hbox to\hsize\bgroup\hfill }%
-\newcommand\lthtmlvboxmathA{\adjustnormalsize\setbox\sizebox=\vbox\bgroup %
- \let\ifinner=\iffalse \let\)\liih@math }%
-\newcommand\lthtmlboxmathZ{\@next\next\@currlist{}{\def\next{\voidb@x}}%
- \expandafter\box\next\egroup}%
-\newcommand\lthtmlmathtype[1]{\gdef\lthtmlmathenv{#1}}%
-\newcommand\lthtmllogmath{\dimen0\ht\sizebox \advance\dimen0\dp\sizebox
-  \ifdim\dimen0>.95\vsize
-   \lthtmltypeout{%
-*** image for \lthtmlmathenv\space is too tall at \the\dimen0, reducing to .95 vsize ***}%
-   \ht\sizebox.95\vsize \dp\sizebox\z@ \fi
-  \lthtmltypeout{l2hSize %
-:\lthtmlmathenv:\the\ht\sizebox::\the\dp\sizebox::\the\wd\sizebox.\preveqno}}%
-\newcommand\lthtmlfigureA[1]{\let\@savefreelist\@freelist
-       \lthtmlmathtype{#1}\lthtmlvboxmathA}%
-\newcommand\lthtmlpictureA{\bgroup\catcode`\_=8 \lthtmlpictureB}%
-\newcommand\lthtmlpictureB[1]{\lthtmlmathtype{#1}\egroup
-       \let\@savefreelist\@freelist \lthtmlhboxmathB}%
-\newcommand\lthtmlpictureZ[1]{\hfill\lthtmlfigureZ}%
-\newcommand\lthtmlfigureZ{\lthtmlboxmathZ\lthtmllogmath\copy\sizebox
-       \global\let\@freelist\@savefreelist}%
-\newcommand\lthtmldisplayA{\bgroup\catcode`\_=8 \lthtmldisplayAi}%
-\newcommand\lthtmldisplayAi[1]{\lthtmlmathtype{#1}\egroup\lthtmlvboxmathA}%
-\newcommand\lthtmldisplayB[1]{\edef\preveqno{(\theequation)}%
-  \lthtmldisplayA{#1}\let\@eqnnum\relax}%
-\newcommand\lthtmldisplayZ{\lthtmlboxmathZ\lthtmllogmath\lthtmlsetmath}%
-\newcommand\lthtmlinlinemathA{\bgroup\catcode`\_=8 \lthtmlinlinemathB}
-\newcommand\lthtmlinlinemathB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA
-  \vrule height1.5ex width0pt }%
-\newcommand\lthtmlinlineA{\bgroup\catcode`\_=8 \lthtmlinlineB}%
-\newcommand\lthtmlinlineB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA}%
-\newcommand\lthtmlinlineZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
-  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetinline}
-\newcommand\lthtmlinlinemathZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
-  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetmath}
-\newcommand\lthtmlindisplaymathZ{\egroup %
-  \centerinlinemath\lthtmllogmath\lthtmlsetmath}
-\def\lthtmlsetinline{\hbox{\vrule width.1em \vtop{\vbox{%
-  \kern.1em\copy\sizebox}\ifdim\dp\sizebox>0pt\kern.1em\else\kern.3pt\fi
-  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
-\def\lthtmlsetmath{\hbox{\vrule width.1em\kern-.05em\vtop{\vbox{%
-  \kern.1em\kern1.000405 pt\hbox{\hglue.17em\copy\sizebox\hglue1.000405 pt}}\kern.3pt%
-  \ifdim\dp\sizebox>0pt\kern.1em\fi \kern1.000405 pt%
-  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
-\def\centerinlinemath{%
-  \dimen1=\ifdim\ht\sizebox<\dp\sizebox \dp\sizebox\else\ht\sizebox\fi
-  \advance\dimen1by.5pt \vrule width0pt height\dimen1 depth\dimen1 
- \dp\sizebox=\dimen1\ht\sizebox=\dimen1\relax}
-
+\usepackage[tightpage,active]{preview}
+\newbox\lthtmlPageBox
+\newdimen\lthtmlCropMarkHeight
+\newdimen\lthtmlCropMarkDepth
+\long\def\lthtmlTightVBox#1#2{%
+    \setbox\lthtmlPageBox\vbox{\hbox{\catcode`\_=8 #2}}%
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}}%
+\long\def\lthtmlTightFBox#1#2{%
+    \adjustnormalsize\setbox\lthtmlPageBox=\vbox\bgroup %
+    \let\ifinner=\iffalse \let\)\liih@math %
+    {\catcode`\_=8 #2}%
+    \@next\next\@currlist{}{\def\next{\voidb@x}}%
+    \expandafter\box\next\egroup %
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}%
+    \long\def\lthtmlinlinemathA#1#2\lthtmlindisplaymathZ{\lthtmlTightVBox{#1}{#2}}
+    \def\lthtmlinlineA#1#2\lthtmlinlineZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayA#1#2\lthtmldisplayZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmlinlinemathA#1#2\lthtmlindisplaymathZ{\lthtmlTightVBox{#1}{#2}}
+    \def\lthtmlinlineA#1#2\lthtmlinlineZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayA#1#2\lthtmldisplayZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayB#1#2\lthtmldisplayZ{\\edef\preveqno{(\theequation)}%
+        \lthtmlTightVBox{#1}{\let\@eqnnum\relax#2}}
+    \long\def\lthtmlfigureA#1#2\lthtmlfigureZ{\let\@savefreelist\@freelist
+        \lthtmlTightFBox{#1}{#2}\global\let\@freelist\@savefreelist}
+    \long\def\lthtmlpictureA#1#2\lthtmlpictureZ{\let\@savefreelist\@freelist
+        \lthtmlTightVBox{#1}{#2}\global\let\@freelist\@savefreelist}
 \def\lthtmlcheckvsize{\ifdim\ht\sizebox<\vsize 
   \ifdim\wd\sizebox<\hsize\expandafter\hfill\fi \expandafter\vfill
   \else\expandafter\vss\fi}%
@@ -207,9 +206,9 @@
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2110}%
+\lthtmlinlinemathA{tex2html_wrap_inline2270}%
 $2^{128}-1 \approx 3.4\ 10^{38}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
@@ -217,15 +216,15 @@ $2^{128}-1 \approx 3.4\ 10^{38}$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2112}%
+\lthtmlinlinemathA{tex2html_wrap_inline2272}%
 $\langle$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2114}%
+\lthtmlinlinemathA{tex2html_wrap_inline2274}%
 $\rangle$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -233,9 +232,9 @@ $\rangle$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2120}%
+\lthtmlinlinemathA{tex2html_wrap_inline2280}%
 $\ldots$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
@@ -243,27 +242,27 @@ $\ldots$%
 \stepcounter{subsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2122}%
-$(\mu$%
-\lthtmlinlinemathZ
+\lthtmlinlinemathA{tex2html_wrap_inline2282}%
+$(\mu{\mathrm{K}})^2$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2126}%
+\lthtmlinlinemathA{tex2html_wrap_inline2284}%
 $C(\ell)$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2132}%
-$[0, \ell_\mathrm{max}]$%
-\lthtmlinlinemathZ
+\lthtmlinlinemathA{tex2html_wrap_inline2288}%
+$[0, \ell_{\mathrm{max}}]$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2134}%
-$\ell_\mathrm{max}$%
-\lthtmlinlinemathZ
+\lthtmlinlinemathA{tex2html_wrap_inline2290}%
+$\ell_{\mathrm{max}}$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsection}
@@ -317,35 +316,40 @@ $\ell_\mathrm{max}$%
 \stepcounter{section}
 \stepcounter{subsection}
 \stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2138}%
-$\ell_{\mathrm{max}}=1.5 N_\mathrm{side}$%
-\lthtmlinlinemathZ
+\lthtmlinlinemathA{tex2html_wrap_inline2298}%
+$\Lambda$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline2302}%
+$\ell_{\mathrm{max}}=1.5 N_{\mathrm{side}}$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2140}%
+\lthtmlinlinemathA{tex2html_wrap_inline2304}%
 $a_{\ell m}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2144}%
+\lthtmlinlinemathA{tex2html_wrap_inline2308}%
 $\{16,\ldots,2048\}$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
-\stepcounter{subsubsection}
-\stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2148}%
+\lthtmlinlinemathA{tex2html_wrap_inline2312}%
 $n \ge 100$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
-\stepcounter{subsubsection}
-\stepcounter{subsubsection}
-\stepcounter{section}
 
 
 \setlength{\itemsep}{0pt}%
@@ -435,9 +439,9 @@ $n \ge 100$%
 \setlength{\parsep}{0pt}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2180}%
+\lthtmlinlinemathA{tex2html_wrap_inline2344}%
 $\langle\ldots\rangle$%
-\lthtmlinlinemathZ
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 

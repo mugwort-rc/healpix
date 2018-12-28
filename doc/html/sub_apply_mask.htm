@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>apply_mask</TITLE>
+<META NAME="description" CONTENT="apply_mask">
+<META NAME="keywords" CONTENT="subroutines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
+
+<LINK REL="STYLESHEET" HREF="subroutines.css">
+
+<LINK REL="next" HREF="sub_assert_assert_alloc_assert_.htm">
+<LINK REL="previous" HREF="sub_angdist.htm">
+<LINK REL="next" HREF="sub_assert_assert_alloc_assert_.htm">
+</HEAD>
+
+<body text="#000000" bgcolor="#FFFFFA">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_angdist.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_assert_assert_alloc_assert_.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html322"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A
+ HREF="sub_angdist.htm">angdist</A>
+
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A
+ HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION1500"></A>
+<A ID="sub:apply_mask"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">apply_mask</FONT></font></b><hr>
+<H3>This routine multiplies a <b>HEALPix</b> map by an arbitrary pixel mask and/or sets to 0 pixels
+lying in or out a constant latitude strip</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">apply_mask</FONT>(
+ <A HREF="#sub:apply_mask:map">map</A>, <A HREF="#sub:apply_mask:ordering">ordering</A>[, <A HREF="#sub:apply_mask:mask">mask</A>=, <A HREF="#sub:apply_mask:zbounds">zbounds</A>=]
+)</h3></blockquote>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=160><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>
+map<A ID="sub:apply_mask:map"></A>(0:npix-1,1:p)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225><b>HEALPix</b> map(s) on which the mask(s) and/or cut will be applied. The map will obviously be modified on output if either 
+<A HREF="#sub:apply_mask:mask">mask</A> or 
+<A HREF="#sub:apply_mask:zbounds">zbounds</A> are provided.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>ordering<A ID="sub:apply_mask:ordering"></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225><b>HEALPix</b>  scheme of the map(s) (and mask(s)) 1:RING, 2: NESTED (relevant for <A HREF="#sub:apply_mask:zbounds">zbounds</A>).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>mask<A ID="sub:apply_mask:mask"></A>(0:npix-1,1:q)  OPTIONAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>pixel mask(s). 
+Should have the same <A HREF="#sub:apply_mask:ordering">ordering</A> 
+and number of pixels (npix) as <A HREF="#sub:apply_mask:map">map</A>. If several maps are provided (<SPAN CLASS="MATH"><I>p</I>&gt;1</SPAN>), each map is multiplied by its respective mask, and if there are fewer masks than maps (<SPAN CLASS="MATH"><I>q</I>&lt;<I>p</I></SPAN>) the last mask is duplicated as many times as necessary to match the number of maps.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>zbounds<A ID="sub:apply_mask:zbounds"></A>(1:2)  OPTIONAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>section of the map to be set to 0, expressed in terms of <!-- MATH
+ $z=\sin({\rm latitude}) =
+                   \cos(\theta)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img88.png"
+ ALT="$z=\sin({\rm latitude}) =
+\cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), pixels 
+<EM>outsise</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2) are set to 0; if not,
+pixels <EM>on</EM> the strip
+zbounds(2)<SPAN CLASS="MATH"><IMG STYLE="height: 1.87ex; vertical-align: -0.41ex; " SRC="sub_img43.png"
+ ALT="$\le z \le$"></SPAN>zbounds(1) are set to 0.
+If absent, the map is unchanged.
+</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<HR><H1>EXAMPLE:</H1> 
+<tt>s = sin(15.0_dp * <A HREF="sub_healpix_types_module.htm#sub:healpix_types:deg2rad">DEG2RAD</A>) 
+<BR>
+call <FONT COLOR="#CC0000">apply_mask</FONT>(map, 1, zbounds=(<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img17.png"
+ ALT="$\backslash$"></SPAN> s, -s <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img17.png"
+ ALT="$\backslash$"></SPAN>) )  
+<BR></tt>
+<blockquote>
+Will set to 0 pixels of the input (RING ordered) map lying in the strip <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img89.png"
+ ALT="$\vert b\vert \le 15^o$"></SPAN>.
+</blockquote>
+
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">apply_mask</FONT>.</h3>
+  <DL COMPACT><DT>
+<B><SPAN  CLASS="textbf">pix_tools</SPAN></B>
+<DD>module, containing:
+</DL>
+
+<P>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sub_angdist.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_assert_assert_alloc_assert_.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html322"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A
+ HREF="sub_angdist.htm">angdist</A>
+
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A
+ HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.50, 2018-12-10
+</ADDRESS>
+</BODY>
+</HTML>

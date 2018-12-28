@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>write_fits_cut4</TITLE>
 <META NAME="description" CONTENT="write_fits_cut4">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_write_minimal_header.htm">
 <LINK REL="previous" HREF="sub_write_dbintab.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_write_minimal_header.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1634"
-  HREF="sub_write_dbintab.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1640"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1644"
-  HREF="sub_write_minimal_header.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1642"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_write_dbintab.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_write_minimal_header.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html518"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1635"
-  HREF="sub_write_dbintab.htm">write_dbintab</A>
+<B> Previous:</B> <A
+ HREF="sub_write_dbintab.htm">write_dbintab</A>
 
-<B>Up:</B> <A NAME="tex2html1641"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1645"
-  HREF="sub_write_minimal_header.htm">write_minimal_header</A>
+<B> Next:</B> <A
+ HREF="sub_write_minimal_header.htm">write_minimal_header</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION11200"></A>
-<A NAME="sub:write_fits_cut4"></A>
+<H1><A ID="SECTION11300"></A>
+<A ID="sub:write_fits_cut4"></A>
 <BR>
  
 </H1>
@@ -66,7 +70,7 @@ FITS file follows the one used for Boomerang98 and is adapted from COBE/DMR.
 This routine can be used to store polarized maps, where the
 information relative to the Stokes parameters I, Q and U are placed in extension
 0, 1 and 2 respectively by successive invocation of the routine.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">write_fits_cut4</FONT>(
@@ -91,72 +95,70 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-filename<A NAME="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
+filename<A ID="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from,
                    containing a cut sky map</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>np<A NAME="sub:write_fits_cut4:np"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>np<A ID="sub:write_fits_cut4:np"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels to be written in the file</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel<A NAME="sub:write_fits_cut4:pixel"></A>(0:np-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel<A ID="sub:write_fits_cut4:pixel"></A>(0:np-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>index of observed (or valid) pixels</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>signal<A NAME="sub:write_fits_cut4:signal"></A>(0:np-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>signal<A ID="sub:write_fits_cut4:signal"></A>(0:np-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value of signal in each observed pixel</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>n_obs<A NAME="sub:write_fits_cut4:n_obs"></A>(0:np-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>n_obs<A ID="sub:write_fits_cut4:n_obs"></A>(0:np-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of observation per pixel</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>serror<A NAME="sub:write_fits_cut4:serror"></A>(0:np-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>serror<A ID="sub:write_fits_cut4:serror"></A>(0:np-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><EM>rms</EM> of signal in pixel, for white noise,
                    this is <!-- MATH
  $\propto 1/\sqrt{{\rm n\_obs}}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img108.png"
- ALT="$ \propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>.</TD>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.68ex; " SRC="sub_img171.png"
+ ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A NAME="sub:write_fits_cut4:header"></A></font></i>(LEN=80)(1:)  (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A ID="sub:write_fits_cut4:header"></A></font></i>(LEN=80)(1:)  (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header to be included in the FITS file</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">coord<A NAME="sub:write_fits_cut4:coord"></A></font></i>(LEN=1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">coord<A ID="sub:write_fits_cut4:coord"></A></font></i>(LEN=1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>astrophysical coordinates ('C' or 'Q'
                    Celestial/eQuatorial, 'G' for Galactic, 'E' for Ecliptic)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">nside<A NAME="sub:write_fits_cut4:nside"></A></font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">nside<A ID="sub:write_fits_cut4:nside"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b> resolution parameter of data set</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">order<A NAME="sub:write_fits_cut4:order"></A></font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">order<A ID="sub:write_fits_cut4:order"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b> ordering scheme, 1: RING, 2: NESTED</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">units<A NAME="sub:write_fits_cut4:units"></A></font></i>(LEN=20)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">units<A ID="sub:write_fits_cut4:units"></A></font></i>(LEN=20)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maps units (applies only to Signal and
                    Serror)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extno</font></i><A NAME="sub:write_fits_cut4:extno"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extno</font></i><A ID="sub:write_fits_cut4:extno"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>(0 based) extension number in which to write data. <b>default:</b>0.
@@ -167,7 +169,7 @@ filename<A NAME="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</T
 		  All extensions of the same file should use the same Nside,
 Order and Coord</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">polarisaton</font></i><A NAME="sub:write_fits_cut4:polarisation"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">polarisaton</font></i><A ID="sub:write_fits_cut4:polarisation"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to a non zero value, specifies that file will contain the I, Q and U polarisation
@@ -233,31 +235,31 @@ FITS header keywords accordingly. If not set, the keywords found in <A HREF="#su
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1634"
-  HREF="sub_write_dbintab.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1640"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1644"
-  HREF="sub_write_minimal_header.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1642"
+<A
+ HREF="sub_write_dbintab.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_write_minimal_header.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html518"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1635"
-  HREF="sub_write_dbintab.htm">write_dbintab</A>
+<B> Previous:</B> <A
+ HREF="sub_write_dbintab.htm">write_dbintab</A>
 
-<B>Up:</B> <A NAME="tex2html1641"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1645"
-  HREF="sub_write_minimal_header.htm">write_minimal_header</A>
+<B> Next:</B> <A
+ HREF="sub_write_minimal_header.htm">write_minimal_header</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

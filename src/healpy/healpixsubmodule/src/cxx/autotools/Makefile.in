@@ -108,7 +108,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/m4_ax_create_pkgconfig_info.m4 \
 	$(top_srcdir)/m4/m4_ax_cxx_compile_stdcxx.m4 \
 	$(top_srcdir)/m4/m4_ax_cxx_compile_stdcxx_11.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -153,11 +153,11 @@ libhealpix_cxx_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = c_utils/c_utils.lo c_utils/walltime_c.lo \
 	c_utils/trig_utils.lo
-am__objects_2 = libfftpack/bluestein.lo libfftpack/fftpack.lo \
-	libfftpack/ls_fft.lo
+am__objects_2 = pocketfft/pocketfft.lo
 am__objects_3 = libsharp/sharp.lo libsharp/sharp_almhelpers.lo \
-	libsharp/sharp_core.lo libsharp/sharp_geomhelpers.lo \
-	libsharp/sharp_ylmgen_c.lo libsharp/sharp_legendre_roots.lo
+	libsharp/sharp_core.lo libsharp/sharp_core_avx.lo \
+	libsharp/sharp_geomhelpers.lo libsharp/sharp_ylmgen_c.lo \
+	libsharp/sharp_legendre_roots.lo
 am__objects_4 = cxxsupport/announce.lo cxxsupport/geom_utils.lo \
 	cxxsupport/string_utils.lo cxxsupport/ls_image.lo \
 	cxxsupport/paramfile.lo cxxsupport/pointing.lo \
@@ -173,128 +173,79 @@ am__objects_6 = Healpix_cxx/alm.lo Healpix_cxx/alm_healpix_tools.lo \
 am__objects_7 = Healpix_cxx/healpix_data_io.lo \
 	Healpix_cxx/healpix_map_fitsio.lo Healpix_cxx/alm_fitsio.lo \
 	Healpix_cxx/powspec_fitsio.lo Healpix_cxx/moc_fitsio.lo
-am__objects_8 = Healpix_cxx/alm2map_cxx_module.lo \
-	Healpix_cxx/anafast_cxx_module.lo \
-	Healpix_cxx/calc_powspec_module.lo \
-	Healpix_cxx/hotspots_cxx_module.lo \
-	Healpix_cxx/map2tga_module.lo \
-	Healpix_cxx/median_filter_cxx_module.lo \
-	Healpix_cxx/mult_alm_module.lo \
-	Healpix_cxx/smoothing_cxx_module.lo \
-	Healpix_cxx/syn_alm_cxx_module.lo \
-	Healpix_cxx/udgrade_cxx_module.lo \
-	Healpix_cxx/udgrade_harmonic_cxx_module.lo \
-	Healpix_cxx/compute_weights_module.lo \
-	Healpix_cxx/needlet_tool_module.lo
 am_libhealpix_cxx_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4) $(am__objects_5) \
-	$(am__objects_6) $(am__objects_7) $(am__objects_8)
+	$(am__objects_6) $(am__objects_7)
 libhealpix_cxx_la_OBJECTS = $(am_libhealpix_cxx_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libhealpy_la_LIBADD =
-am_libhealpy_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
-	$(am__objects_3) $(am__objects_4) $(am__objects_6)
-libhealpy_la_OBJECTS = $(am_libhealpy_la_OBJECTS)
+libhealpix_cxx_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(AM_CXXFLAGS) $(CXXFLAGS) $(libhealpix_cxx_la_LDFLAGS) \
+	$(LDFLAGS) -o $@
 PROGRAMS = $(bin_PROGRAMS)
-am_alm2map_cxx_OBJECTS = Healpix_cxx/alm2map_cxx.$(OBJEXT)
+am_alm2map_cxx_OBJECTS = Healpix_cxx/alm2map_cxx.$(OBJEXT) \
+	Healpix_cxx/alm2map_cxx_module.$(OBJEXT)
 alm2map_cxx_OBJECTS = $(am_alm2map_cxx_OBJECTS)
 alm2map_cxx_DEPENDENCIES = libhealpix_cxx.la
-alm2map_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(alm2map_cxx_LDFLAGS) $(LDFLAGS) -o $@
-am_anafast_cxx_OBJECTS = Healpix_cxx/anafast_cxx.$(OBJEXT)
+am_anafast_cxx_OBJECTS = Healpix_cxx/anafast_cxx.$(OBJEXT) \
+	Healpix_cxx/anafast_cxx_module.$(OBJEXT)
 anafast_cxx_OBJECTS = $(am_anafast_cxx_OBJECTS)
 anafast_cxx_DEPENDENCIES = libhealpix_cxx.la
-anafast_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(anafast_cxx_LDFLAGS) $(LDFLAGS) -o $@
-am_calc_powspec_OBJECTS = Healpix_cxx/calc_powspec.$(OBJEXT)
+am_calc_powspec_OBJECTS = Healpix_cxx/calc_powspec.$(OBJEXT) \
+	Healpix_cxx/calc_powspec_module.$(OBJEXT)
 calc_powspec_OBJECTS = $(am_calc_powspec_OBJECTS)
 calc_powspec_DEPENDENCIES = libhealpix_cxx.la
-calc_powspec_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(calc_powspec_LDFLAGS) $(LDFLAGS) -o $@
-am_compute_weights_OBJECTS = Healpix_cxx/compute_weights.$(OBJEXT)
+am_compute_weights_OBJECTS = Healpix_cxx/compute_weights.$(OBJEXT) \
+	Healpix_cxx/compute_weights_module.$(OBJEXT)
 compute_weights_OBJECTS = $(am_compute_weights_OBJECTS)
 compute_weights_DEPENDENCIES = libhealpix_cxx.la
-compute_weights_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(compute_weights_LDFLAGS) \
-	$(LDFLAGS) -o $@
-am_hotspots_cxx_OBJECTS = Healpix_cxx/hotspots_cxx.$(OBJEXT)
+am_hotspots_cxx_OBJECTS = Healpix_cxx/hotspots_cxx.$(OBJEXT) \
+	Healpix_cxx/hotspots_cxx_module.$(OBJEXT)
 hotspots_cxx_OBJECTS = $(am_hotspots_cxx_OBJECTS)
 hotspots_cxx_DEPENDENCIES = libhealpix_cxx.la
-hotspots_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(hotspots_cxx_LDFLAGS) $(LDFLAGS) -o $@
 am_hpxtest_OBJECTS = Healpix_cxx/hpxtest.$(OBJEXT)
 hpxtest_OBJECTS = $(am_hpxtest_OBJECTS)
 hpxtest_DEPENDENCIES = libhealpix_cxx.la
-hpxtest_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(hpxtest_LDFLAGS) $(LDFLAGS) -o $@
-am_map2tga_OBJECTS = Healpix_cxx/map2tga.$(OBJEXT)
+am_map2tga_OBJECTS = Healpix_cxx/map2tga.$(OBJEXT) \
+	Healpix_cxx/map2tga_module.$(OBJEXT)
 map2tga_OBJECTS = $(am_map2tga_OBJECTS)
 map2tga_DEPENDENCIES = libhealpix_cxx.la
-map2tga_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(map2tga_LDFLAGS) $(LDFLAGS) -o $@
 am_median_filter_cxx_OBJECTS =  \
-	Healpix_cxx/median_filter_cxx.$(OBJEXT)
+	Healpix_cxx/median_filter_cxx.$(OBJEXT) \
+	Healpix_cxx/median_filter_cxx_module.$(OBJEXT)
 median_filter_cxx_OBJECTS = $(am_median_filter_cxx_OBJECTS)
 median_filter_cxx_DEPENDENCIES = libhealpix_cxx.la
-median_filter_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(median_filter_cxx_LDFLAGS) \
-	$(LDFLAGS) -o $@
-am_mult_alm_OBJECTS = Healpix_cxx/mult_alm.$(OBJEXT)
+am_mult_alm_OBJECTS = Healpix_cxx/mult_alm.$(OBJEXT) \
+	Healpix_cxx/mult_alm_module.$(OBJEXT)
 mult_alm_OBJECTS = $(am_mult_alm_OBJECTS)
 mult_alm_DEPENDENCIES = libhealpix_cxx.la
-mult_alm_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(mult_alm_LDFLAGS) $(LDFLAGS) -o $@
-am_needlet_tool_OBJECTS = Healpix_cxx/needlet_tool.$(OBJEXT)
+am_needlet_tool_OBJECTS = Healpix_cxx/needlet_tool.$(OBJEXT) \
+	Healpix_cxx/needlet_tool_module.$(OBJEXT)
 needlet_tool_OBJECTS = $(am_needlet_tool_OBJECTS)
 needlet_tool_DEPENDENCIES = libhealpix_cxx.la
-needlet_tool_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(needlet_tool_LDFLAGS) $(LDFLAGS) -o $@
 am_rotalm_cxx_OBJECTS = Healpix_cxx/rotalm_cxx.$(OBJEXT)
 rotalm_cxx_OBJECTS = $(am_rotalm_cxx_OBJECTS)
 rotalm_cxx_DEPENDENCIES = libhealpix_cxx.la
-rotalm_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(rotalm_cxx_LDFLAGS) $(LDFLAGS) -o $@
-am_smoothing_cxx_OBJECTS = Healpix_cxx/smoothing_cxx.$(OBJEXT)
+am_smoothing_cxx_OBJECTS = Healpix_cxx/smoothing_cxx.$(OBJEXT) \
+	Healpix_cxx/smoothing_cxx_module.$(OBJEXT)
 smoothing_cxx_OBJECTS = $(am_smoothing_cxx_OBJECTS)
 smoothing_cxx_DEPENDENCIES = libhealpix_cxx.la
-smoothing_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(smoothing_cxx_LDFLAGS) $(LDFLAGS) \
-	-o $@
-am_syn_alm_cxx_OBJECTS = Healpix_cxx/syn_alm_cxx.$(OBJEXT)
+am_syn_alm_cxx_OBJECTS = Healpix_cxx/syn_alm_cxx.$(OBJEXT) \
+	Healpix_cxx/syn_alm_cxx_module.$(OBJEXT)
 syn_alm_cxx_OBJECTS = $(am_syn_alm_cxx_OBJECTS)
 syn_alm_cxx_DEPENDENCIES = libhealpix_cxx.la
-syn_alm_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(syn_alm_cxx_LDFLAGS) $(LDFLAGS) -o $@
-am_udgrade_cxx_OBJECTS = Healpix_cxx/udgrade_cxx.$(OBJEXT)
+am_udgrade_cxx_OBJECTS = Healpix_cxx/udgrade_cxx.$(OBJEXT) \
+	Healpix_cxx/udgrade_cxx_module.$(OBJEXT)
 udgrade_cxx_OBJECTS = $(am_udgrade_cxx_OBJECTS)
 udgrade_cxx_DEPENDENCIES = libhealpix_cxx.la
-udgrade_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(udgrade_cxx_LDFLAGS) $(LDFLAGS) -o $@
 am_udgrade_harmonic_cxx_OBJECTS =  \
-	Healpix_cxx/udgrade_harmonic_cxx.$(OBJEXT)
+	Healpix_cxx/udgrade_harmonic_cxx.$(OBJEXT) \
+	Healpix_cxx/udgrade_harmonic_cxx_module.$(OBJEXT)
 udgrade_harmonic_cxx_OBJECTS = $(am_udgrade_harmonic_cxx_OBJECTS)
 udgrade_harmonic_cxx_DEPENDENCIES = libhealpix_cxx.la
-udgrade_harmonic_cxx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(udgrade_harmonic_cxx_LDFLAGS) \
-	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -347,18 +298,18 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libhealpix_cxx_la_SOURCES) $(libhealpy_la_SOURCES) \
-	$(alm2map_cxx_SOURCES) $(anafast_cxx_SOURCES) \
-	$(calc_powspec_SOURCES) $(compute_weights_SOURCES) \
-	$(hotspots_cxx_SOURCES) $(hpxtest_SOURCES) $(map2tga_SOURCES) \
+SOURCES = $(libhealpix_cxx_la_SOURCES) $(alm2map_cxx_SOURCES) \
+	$(anafast_cxx_SOURCES) $(calc_powspec_SOURCES) \
+	$(compute_weights_SOURCES) $(hotspots_cxx_SOURCES) \
+	$(hpxtest_SOURCES) $(map2tga_SOURCES) \
 	$(median_filter_cxx_SOURCES) $(mult_alm_SOURCES) \
 	$(needlet_tool_SOURCES) $(rotalm_cxx_SOURCES) \
 	$(smoothing_cxx_SOURCES) $(syn_alm_cxx_SOURCES) \
 	$(udgrade_cxx_SOURCES) $(udgrade_harmonic_cxx_SOURCES)
-DIST_SOURCES = $(libhealpix_cxx_la_SOURCES) $(libhealpy_la_SOURCES) \
-	$(alm2map_cxx_SOURCES) $(anafast_cxx_SOURCES) \
-	$(calc_powspec_SOURCES) $(compute_weights_SOURCES) \
-	$(hotspots_cxx_SOURCES) $(hpxtest_SOURCES) $(map2tga_SOURCES) \
+DIST_SOURCES = $(libhealpix_cxx_la_SOURCES) $(alm2map_cxx_SOURCES) \
+	$(anafast_cxx_SOURCES) $(calc_powspec_SOURCES) \
+	$(compute_weights_SOURCES) $(hotspots_cxx_SOURCES) \
+	$(hpxtest_SOURCES) $(map2tga_SOURCES) \
 	$(median_filter_cxx_SOURCES) $(mult_alm_SOURCES) \
 	$(needlet_tool_SOURCES) $(rotalm_cxx_SOURCES) \
 	$(smoothing_cxx_SOURCES) $(syn_alm_cxx_SOURCES) \
@@ -567,7 +518,7 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in NEWS ar-lib compile \
+am__DIST_COMMON = $(srcdir)/Makefile.in COPYING NEWS ar-lib compile \
 	config.guess config.sub depcomp install-sh ltmain.sh missing \
 	test-driver
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -720,7 +671,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I m4
-lib_LTLIBRARIES = libhealpix_cxx.la libhealpy.la
+lib_LTLIBRARIES = libhealpix_cxx.la
 src_c_utils = \
   c_utils/c_utils.c \
   c_utils/c_utils.h \
@@ -729,13 +680,9 @@ src_c_utils = \
   c_utils/trig_utils.c \
   c_utils/trig_utils.h
 
-src_libfftpack = \
-  libfftpack/bluestein.h \
-  libfftpack/bluestein.c \
-  libfftpack/fftpack.h \
-  libfftpack/fftpack.c \
-  libfftpack/ls_fft.h \
-  libfftpack/ls_fft.c
+src_libpocketfft = \
+  pocketfft/pocketfft.c \
+  pocketfft/pocketfft.h
 
 src_libsharp = \
   libsharp/sharp.c \
@@ -745,6 +692,7 @@ src_libsharp = \
   libsharp/sharp_almhelpers.h \
   libsharp/sharp_complex_hacks.h \
   libsharp/sharp_core.c \
+  libsharp/sharp_core_avx.c \
   libsharp/sharp_core.h \
   libsharp/sharp_geomhelpers.c \
   libsharp/sharp_geomhelpers.h \
@@ -839,27 +787,13 @@ src_healpix_cxx_fits = \
   Healpix_cxx/moc_fitsio.h \
   Healpix_cxx/moc_fitsio.cc
 
-src_healpix_cxx_mod = \
-  Healpix_cxx/alm2map_cxx_module.cc \
-  Healpix_cxx/anafast_cxx_module.cc \
-  Healpix_cxx/calc_powspec_module.cc \
-  Healpix_cxx/hotspots_cxx_module.cc \
-  Healpix_cxx/map2tga_module.cc \
-  Healpix_cxx/median_filter_cxx_module.cc \
-  Healpix_cxx/mult_alm_module.cc \
-  Healpix_cxx/smoothing_cxx_module.cc \
-  Healpix_cxx/syn_alm_cxx_module.cc \
-  Healpix_cxx/udgrade_cxx_module.cc \
-  Healpix_cxx/udgrade_harmonic_cxx_module.cc \
-  Healpix_cxx/compute_weights_module.cc \
-  Healpix_cxx/needlet_tool_module.cc
-
 EXTRA_DIST = \
-  libfftpack/fftpack_inc.c \
+  libsharp/sharp_core_inc0.c \
   libsharp/sharp_core_inc.c \
   libsharp/sharp_core_inc2.c \
   libsharp/sharp_core_inchelper.c \
-  cxxsupport/font_data.inc
+  cxxsupport/font_data.inc \
+  pocketfft/LICENSE.md
 
 include_HEADERS = \
   libsharp/sharp.h \
@@ -899,55 +833,40 @@ include_HEADERS = \
   Healpix_cxx/moc_query.h \
   Healpix_cxx/weight_utils.h
 
-libhealpix_cxx_la_SOURCES = $(src_c_utils) $(src_libfftpack) $(src_libsharp) $(src_cxxsupport) $(src_cxxsupport_fits) $(src_healpix_cxx) $(src_healpix_cxx_fits) $(src_healpix_cxx_mod)
+libhealpix_cxx_la_SOURCES = $(src_c_utils) $(src_libpocketfft) $(src_libsharp) $(src_cxxsupport) $(src_cxxsupport_fits) $(src_healpix_cxx) $(src_healpix_cxx_fits) $(src_healpix_cxx_mod)
 libhealpix_cxx_la_LIBADD = $(CFITSIO_LIBS)
-libhealpy_la_SOURCES = $(src_c_utils) $(src_libfftpack) $(src_libsharp) $(src_cxxsupport) $(src_healpix_cxx)
-alm2map_cxx_SOURCES = Healpix_cxx/alm2map_cxx.cc
+libhealpix_cxx_la_LDFLAGS = -version-info 2:1:0
+alm2map_cxx_SOURCES = Healpix_cxx/alm2map_cxx.cc Healpix_cxx/alm2map_cxx_module.cc
 alm2map_cxx_LDADD = libhealpix_cxx.la
-alm2map_cxx_LDFLAGS = -static-libtool-libs
-anafast_cxx_SOURCES = Healpix_cxx/anafast_cxx.cc
+anafast_cxx_SOURCES = Healpix_cxx/anafast_cxx.cc Healpix_cxx/anafast_cxx_module.cc
 anafast_cxx_LDADD = libhealpix_cxx.la
-anafast_cxx_LDFLAGS = -static-libtool-libs
-calc_powspec_SOURCES = Healpix_cxx/calc_powspec.cc
+calc_powspec_SOURCES = Healpix_cxx/calc_powspec.cc Healpix_cxx/calc_powspec_module.cc
 calc_powspec_LDADD = libhealpix_cxx.la
-calc_powspec_LDFLAGS = -static-libtool-libs
-hotspots_cxx_SOURCES = Healpix_cxx/hotspots_cxx.cc
+hotspots_cxx_SOURCES = Healpix_cxx/hotspots_cxx.cc Healpix_cxx/hotspots_cxx_module.cc
 hotspots_cxx_LDADD = libhealpix_cxx.la
-hotspots_cxx_LDFLAGS = -static-libtool-libs
-map2tga_SOURCES = Healpix_cxx/map2tga.cc
+map2tga_SOURCES = Healpix_cxx/map2tga.cc Healpix_cxx/map2tga_module.cc
 map2tga_LDADD = libhealpix_cxx.la
-map2tga_LDFLAGS = -static-libtool-libs
-median_filter_cxx_SOURCES = Healpix_cxx/median_filter_cxx.cc
+median_filter_cxx_SOURCES = Healpix_cxx/median_filter_cxx.cc Healpix_cxx/median_filter_cxx_module.cc
 median_filter_cxx_LDADD = libhealpix_cxx.la
-median_filter_cxx_LDFLAGS = -static-libtool-libs
-mult_alm_SOURCES = Healpix_cxx/mult_alm.cc
+mult_alm_SOURCES = Healpix_cxx/mult_alm.cc Healpix_cxx/mult_alm_module.cc
 mult_alm_LDADD = libhealpix_cxx.la
-mult_alm_LDFLAGS = -static-libtool-libs
 rotalm_cxx_SOURCES = Healpix_cxx/rotalm_cxx.cc
 rotalm_cxx_LDADD = libhealpix_cxx.la
-rotalm_cxx_LDFLAGS = -static-libtool-libs
-smoothing_cxx_SOURCES = Healpix_cxx/smoothing_cxx.cc
+smoothing_cxx_SOURCES = Healpix_cxx/smoothing_cxx.cc Healpix_cxx/smoothing_cxx_module.cc
 smoothing_cxx_LDADD = libhealpix_cxx.la
-smoothing_cxx_LDFLAGS = -static-libtool-libs
-syn_alm_cxx_SOURCES = Healpix_cxx/syn_alm_cxx.cc
+syn_alm_cxx_SOURCES = Healpix_cxx/syn_alm_cxx.cc Healpix_cxx/syn_alm_cxx_module.cc
 syn_alm_cxx_LDADD = libhealpix_cxx.la
-syn_alm_cxx_LDFLAGS = -static-libtool-libs
-udgrade_cxx_SOURCES = Healpix_cxx/udgrade_cxx.cc
+udgrade_cxx_SOURCES = Healpix_cxx/udgrade_cxx.cc Healpix_cxx/udgrade_cxx_module.cc
 udgrade_cxx_LDADD = libhealpix_cxx.la
-udgrade_cxx_LDFLAGS = -static-libtool-libs
-udgrade_harmonic_cxx_SOURCES = Healpix_cxx/udgrade_harmonic_cxx.cc
+udgrade_harmonic_cxx_SOURCES = Healpix_cxx/udgrade_harmonic_cxx.cc Healpix_cxx/udgrade_harmonic_cxx_module.cc
 udgrade_harmonic_cxx_LDADD = libhealpix_cxx.la
-udgrade_harmonic_cxx_LDFLAGS = -static-libtool-libs
-compute_weights_SOURCES = Healpix_cxx/compute_weights.cc
+compute_weights_SOURCES = Healpix_cxx/compute_weights.cc Healpix_cxx/compute_weights_module.cc
 compute_weights_LDADD = libhealpix_cxx.la
-compute_weights_LDFLAGS = -static-libtool-libs
-needlet_tool_SOURCES = Healpix_cxx/needlet_tool.cc
+needlet_tool_SOURCES = Healpix_cxx/needlet_tool.cc Healpix_cxx/needlet_tool_module.cc
 needlet_tool_LDADD = libhealpix_cxx.la
-needlet_tool_LDFLAGS = -static-libtool-libs
 hpxtest_SOURCES = Healpix_cxx/hpxtest.cc
 hpxtest_LDADD = libhealpix_cxx.la
-hpxtest_LDFLAGS = -static-libtool-libs
-AM_CPPFLAGS = $(CFITSIO_CFLAGS) -I$(top_srcdir)/c_utils -I$(top_srcdir)/libfftpack -I$(top_srcdir)/libsharp -I$(top_srcdir)/cxxsupport
+AM_CPPFLAGS = $(CFITSIO_CFLAGS) -I$(top_srcdir)/c_utils -I$(top_srcdir) -I$(top_srcdir)/libsharp -I$(top_srcdir)/cxxsupport
 pkgconfigdir = $(libdir)/pkgconfig
 nodist_pkgconfig_DATA = @PACKAGE_NAME@.pc
 DISTCLEANFILES = @PACKAGE_NAME@.pc @PACKAGE_NAME@.pc.in  @PACKAGE_NAME@-uninstalled.pc  @PACKAGE_NAME@-uninstalled.sh
@@ -1035,18 +954,14 @@ c_utils/walltime_c.lo: c_utils/$(am__dirstamp) \
 	c_utils/$(DEPDIR)/$(am__dirstamp)
 c_utils/trig_utils.lo: c_utils/$(am__dirstamp) \
 	c_utils/$(DEPDIR)/$(am__dirstamp)
-libfftpack/$(am__dirstamp):
-	@$(MKDIR_P) libfftpack
-	@: > libfftpack/$(am__dirstamp)
-libfftpack/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) libfftpack/$(DEPDIR)
-	@: > libfftpack/$(DEPDIR)/$(am__dirstamp)
-libfftpack/bluestein.lo: libfftpack/$(am__dirstamp) \
-	libfftpack/$(DEPDIR)/$(am__dirstamp)
-libfftpack/fftpack.lo: libfftpack/$(am__dirstamp) \
-	libfftpack/$(DEPDIR)/$(am__dirstamp)
-libfftpack/ls_fft.lo: libfftpack/$(am__dirstamp) \
-	libfftpack/$(DEPDIR)/$(am__dirstamp)
+pocketfft/$(am__dirstamp):
+	@$(MKDIR_P) pocketfft
+	@: > pocketfft/$(am__dirstamp)
+pocketfft/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) pocketfft/$(DEPDIR)
+	@: > pocketfft/$(DEPDIR)/$(am__dirstamp)
+pocketfft/pocketfft.lo: pocketfft/$(am__dirstamp) \
+	pocketfft/$(DEPDIR)/$(am__dirstamp)
 libsharp/$(am__dirstamp):
 	@$(MKDIR_P) libsharp
 	@: > libsharp/$(am__dirstamp)
@@ -1058,6 +973,8 @@ libsharp/sharp.lo: libsharp/$(am__dirstamp) \
 libsharp/sharp_almhelpers.lo: libsharp/$(am__dirstamp) \
 	libsharp/$(DEPDIR)/$(am__dirstamp)
 libsharp/sharp_core.lo: libsharp/$(am__dirstamp) \
+	libsharp/$(DEPDIR)/$(am__dirstamp)
+libsharp/sharp_core_avx.lo: libsharp/$(am__dirstamp) \
 	libsharp/$(DEPDIR)/$(am__dirstamp)
 libsharp/sharp_geomhelpers.lo: libsharp/$(am__dirstamp) \
 	libsharp/$(DEPDIR)/$(am__dirstamp)
@@ -1129,39 +1046,9 @@ Healpix_cxx/powspec_fitsio.lo: Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 Healpix_cxx/moc_fitsio.lo: Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/alm2map_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/anafast_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/calc_powspec_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/hotspots_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/map2tga_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/median_filter_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/mult_alm_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/smoothing_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/syn_alm_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/udgrade_cxx_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/udgrade_harmonic_cxx_module.lo:  \
-	Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/compute_weights_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
-Healpix_cxx/needlet_tool_module.lo: Healpix_cxx/$(am__dirstamp) \
-	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 libhealpix_cxx.la: $(libhealpix_cxx_la_OBJECTS) $(libhealpix_cxx_la_DEPENDENCIES) $(EXTRA_libhealpix_cxx_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(libhealpix_cxx_la_OBJECTS) $(libhealpix_cxx_la_LIBADD) $(LIBS)
-
-libhealpy.la: $(libhealpy_la_OBJECTS) $(libhealpy_la_DEPENDENCIES) $(EXTRA_libhealpy_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(libhealpy_la_OBJECTS) $(libhealpy_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(libhealpix_cxx_la_LINK) -rpath $(libdir) $(libhealpix_cxx_la_OBJECTS) $(libhealpix_cxx_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
@@ -1222,95 +1109,128 @@ clean-checkPROGRAMS:
 	rm -f $$list
 Healpix_cxx/alm2map_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/alm2map_cxx_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 alm2map_cxx$(EXEEXT): $(alm2map_cxx_OBJECTS) $(alm2map_cxx_DEPENDENCIES) $(EXTRA_alm2map_cxx_DEPENDENCIES) 
 	@rm -f alm2map_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(alm2map_cxx_LINK) $(alm2map_cxx_OBJECTS) $(alm2map_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(alm2map_cxx_OBJECTS) $(alm2map_cxx_LDADD) $(LIBS)
 Healpix_cxx/anafast_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/anafast_cxx_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 anafast_cxx$(EXEEXT): $(anafast_cxx_OBJECTS) $(anafast_cxx_DEPENDENCIES) $(EXTRA_anafast_cxx_DEPENDENCIES) 
 	@rm -f anafast_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(anafast_cxx_LINK) $(anafast_cxx_OBJECTS) $(anafast_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(anafast_cxx_OBJECTS) $(anafast_cxx_LDADD) $(LIBS)
 Healpix_cxx/calc_powspec.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/calc_powspec_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 calc_powspec$(EXEEXT): $(calc_powspec_OBJECTS) $(calc_powspec_DEPENDENCIES) $(EXTRA_calc_powspec_DEPENDENCIES) 
 	@rm -f calc_powspec$(EXEEXT)
-	$(AM_V_CXXLD)$(calc_powspec_LINK) $(calc_powspec_OBJECTS) $(calc_powspec_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(calc_powspec_OBJECTS) $(calc_powspec_LDADD) $(LIBS)
 Healpix_cxx/compute_weights.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/compute_weights_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 compute_weights$(EXEEXT): $(compute_weights_OBJECTS) $(compute_weights_DEPENDENCIES) $(EXTRA_compute_weights_DEPENDENCIES) 
 	@rm -f compute_weights$(EXEEXT)
-	$(AM_V_CXXLD)$(compute_weights_LINK) $(compute_weights_OBJECTS) $(compute_weights_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(compute_weights_OBJECTS) $(compute_weights_LDADD) $(LIBS)
 Healpix_cxx/hotspots_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/hotspots_cxx_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 hotspots_cxx$(EXEEXT): $(hotspots_cxx_OBJECTS) $(hotspots_cxx_DEPENDENCIES) $(EXTRA_hotspots_cxx_DEPENDENCIES) 
 	@rm -f hotspots_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(hotspots_cxx_LINK) $(hotspots_cxx_OBJECTS) $(hotspots_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(hotspots_cxx_OBJECTS) $(hotspots_cxx_LDADD) $(LIBS)
 Healpix_cxx/hpxtest.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 hpxtest$(EXEEXT): $(hpxtest_OBJECTS) $(hpxtest_DEPENDENCIES) $(EXTRA_hpxtest_DEPENDENCIES) 
 	@rm -f hpxtest$(EXEEXT)
-	$(AM_V_CXXLD)$(hpxtest_LINK) $(hpxtest_OBJECTS) $(hpxtest_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(hpxtest_OBJECTS) $(hpxtest_LDADD) $(LIBS)
 Healpix_cxx/map2tga.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/map2tga_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 map2tga$(EXEEXT): $(map2tga_OBJECTS) $(map2tga_DEPENDENCIES) $(EXTRA_map2tga_DEPENDENCIES) 
 	@rm -f map2tga$(EXEEXT)
-	$(AM_V_CXXLD)$(map2tga_LINK) $(map2tga_OBJECTS) $(map2tga_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(map2tga_OBJECTS) $(map2tga_LDADD) $(LIBS)
 Healpix_cxx/median_filter_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/median_filter_cxx_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 median_filter_cxx$(EXEEXT): $(median_filter_cxx_OBJECTS) $(median_filter_cxx_DEPENDENCIES) $(EXTRA_median_filter_cxx_DEPENDENCIES) 
 	@rm -f median_filter_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(median_filter_cxx_LINK) $(median_filter_cxx_OBJECTS) $(median_filter_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(median_filter_cxx_OBJECTS) $(median_filter_cxx_LDADD) $(LIBS)
 Healpix_cxx/mult_alm.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/mult_alm_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 mult_alm$(EXEEXT): $(mult_alm_OBJECTS) $(mult_alm_DEPENDENCIES) $(EXTRA_mult_alm_DEPENDENCIES) 
 	@rm -f mult_alm$(EXEEXT)
-	$(AM_V_CXXLD)$(mult_alm_LINK) $(mult_alm_OBJECTS) $(mult_alm_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(mult_alm_OBJECTS) $(mult_alm_LDADD) $(LIBS)
 Healpix_cxx/needlet_tool.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/needlet_tool_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 needlet_tool$(EXEEXT): $(needlet_tool_OBJECTS) $(needlet_tool_DEPENDENCIES) $(EXTRA_needlet_tool_DEPENDENCIES) 
 	@rm -f needlet_tool$(EXEEXT)
-	$(AM_V_CXXLD)$(needlet_tool_LINK) $(needlet_tool_OBJECTS) $(needlet_tool_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(needlet_tool_OBJECTS) $(needlet_tool_LDADD) $(LIBS)
 Healpix_cxx/rotalm_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 rotalm_cxx$(EXEEXT): $(rotalm_cxx_OBJECTS) $(rotalm_cxx_DEPENDENCIES) $(EXTRA_rotalm_cxx_DEPENDENCIES) 
 	@rm -f rotalm_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(rotalm_cxx_LINK) $(rotalm_cxx_OBJECTS) $(rotalm_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(rotalm_cxx_OBJECTS) $(rotalm_cxx_LDADD) $(LIBS)
 Healpix_cxx/smoothing_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/smoothing_cxx_module.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 smoothing_cxx$(EXEEXT): $(smoothing_cxx_OBJECTS) $(smoothing_cxx_DEPENDENCIES) $(EXTRA_smoothing_cxx_DEPENDENCIES) 
 	@rm -f smoothing_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(smoothing_cxx_LINK) $(smoothing_cxx_OBJECTS) $(smoothing_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(smoothing_cxx_OBJECTS) $(smoothing_cxx_LDADD) $(LIBS)
 Healpix_cxx/syn_alm_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/syn_alm_cxx_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 syn_alm_cxx$(EXEEXT): $(syn_alm_cxx_OBJECTS) $(syn_alm_cxx_DEPENDENCIES) $(EXTRA_syn_alm_cxx_DEPENDENCIES) 
 	@rm -f syn_alm_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(syn_alm_cxx_LINK) $(syn_alm_cxx_OBJECTS) $(syn_alm_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(syn_alm_cxx_OBJECTS) $(syn_alm_cxx_LDADD) $(LIBS)
 Healpix_cxx/udgrade_cxx.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/udgrade_cxx_module.$(OBJEXT): Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 udgrade_cxx$(EXEEXT): $(udgrade_cxx_OBJECTS) $(udgrade_cxx_DEPENDENCIES) $(EXTRA_udgrade_cxx_DEPENDENCIES) 
 	@rm -f udgrade_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(udgrade_cxx_LINK) $(udgrade_cxx_OBJECTS) $(udgrade_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(udgrade_cxx_OBJECTS) $(udgrade_cxx_LDADD) $(LIBS)
 Healpix_cxx/udgrade_harmonic_cxx.$(OBJEXT):  \
+	Healpix_cxx/$(am__dirstamp) \
+	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
+Healpix_cxx/udgrade_harmonic_cxx_module.$(OBJEXT):  \
 	Healpix_cxx/$(am__dirstamp) \
 	Healpix_cxx/$(DEPDIR)/$(am__dirstamp)
 
 udgrade_harmonic_cxx$(EXEEXT): $(udgrade_harmonic_cxx_OBJECTS) $(udgrade_harmonic_cxx_DEPENDENCIES) $(EXTRA_udgrade_harmonic_cxx_DEPENDENCIES) 
 	@rm -f udgrade_harmonic_cxx$(EXEEXT)
-	$(AM_V_CXXLD)$(udgrade_harmonic_cxx_LINK) $(udgrade_harmonic_cxx_OBJECTS) $(udgrade_harmonic_cxx_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(udgrade_harmonic_cxx_OBJECTS) $(udgrade_harmonic_cxx_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1320,55 +1240,55 @@ mostlyclean-compile:
 	-rm -f c_utils/*.lo
 	-rm -f cxxsupport/*.$(OBJEXT)
 	-rm -f cxxsupport/*.lo
-	-rm -f libfftpack/*.$(OBJEXT)
-	-rm -f libfftpack/*.lo
 	-rm -f libsharp/*.$(OBJEXT)
 	-rm -f libsharp/*.lo
+	-rm -f pocketfft/*.$(OBJEXT)
+	-rm -f pocketfft/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm2map_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm2map_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm2map_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm_fitsio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm_healpix_tools.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/alm_powspec_tools.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/anafast_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/anafast_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/anafast_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/calc_powspec.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/calc_powspec_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/calc_powspec_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/compute_weights.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/compute_weights_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/compute_weights_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/healpix_base.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/healpix_data_io.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/healpix_map.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/healpix_map_fitsio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/healpix_tables.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/hotspots_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/hotspots_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/hotspots_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/hpxtest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/map2tga.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/map2tga_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/map2tga_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/median_filter_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/median_filter_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/median_filter_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/moc_fitsio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/moc_query.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/mult_alm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/mult_alm_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/mult_alm_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/needlet_tool.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/needlet_tool_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/needlet_tool_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/powspec.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/powspec_fitsio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/rotalm_cxx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/smoothing_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/smoothing_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/smoothing_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/syn_alm_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/syn_alm_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/syn_alm_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_harmonic_cxx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_harmonic_cxx_module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/udgrade_harmonic_cxx_module.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@Healpix_cxx/$(DEPDIR)/weight_utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@c_utils/$(DEPDIR)/c_utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@c_utils/$(DEPDIR)/trig_utils.Plo@am__quote@
@@ -1385,15 +1305,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@cxxsupport/$(DEPDIR)/trafos.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@cxxsupport/$(DEPDIR)/walltimer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@cxxsupport/$(DEPDIR)/wigner.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@libfftpack/$(DEPDIR)/bluestein.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@libfftpack/$(DEPDIR)/fftpack.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@libfftpack/$(DEPDIR)/ls_fft.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_almhelpers.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_core.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_core_avx.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_geomhelpers.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_legendre_roots.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libsharp/$(DEPDIR)/sharp_ylmgen_c.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@pocketfft/$(DEPDIR)/pocketfft.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1451,8 +1370,8 @@ clean-libtool:
 	-rm -rf Healpix_cxx/.libs Healpix_cxx/_libs
 	-rm -rf c_utils/.libs c_utils/_libs
 	-rm -rf cxxsupport/.libs cxxsupport/_libs
-	-rm -rf libfftpack/.libs libfftpack/_libs
 	-rm -rf libsharp/.libs libsharp/_libs
+	-rm -rf pocketfft/.libs pocketfft/_libs
 
 distclean-libtool:
 	-rm -f libtool config.lt
@@ -1930,10 +1849,10 @@ distclean-generic:
 	-rm -f c_utils/$(am__dirstamp)
 	-rm -f cxxsupport/$(DEPDIR)/$(am__dirstamp)
 	-rm -f cxxsupport/$(am__dirstamp)
-	-rm -f libfftpack/$(DEPDIR)/$(am__dirstamp)
-	-rm -f libfftpack/$(am__dirstamp)
 	-rm -f libsharp/$(DEPDIR)/$(am__dirstamp)
 	-rm -f libsharp/$(am__dirstamp)
+	-rm -f pocketfft/$(DEPDIR)/$(am__dirstamp)
+	-rm -f pocketfft/$(am__dirstamp)
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
@@ -1946,7 +1865,7 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf Healpix_cxx/$(DEPDIR) c_utils/$(DEPDIR) cxxsupport/$(DEPDIR) libfftpack/$(DEPDIR) libsharp/$(DEPDIR)
+	-rm -rf Healpix_cxx/$(DEPDIR) c_utils/$(DEPDIR) cxxsupport/$(DEPDIR) libsharp/$(DEPDIR) pocketfft/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-tags
@@ -1994,7 +1913,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf Healpix_cxx/$(DEPDIR) c_utils/$(DEPDIR) cxxsupport/$(DEPDIR) libfftpack/$(DEPDIR) libsharp/$(DEPDIR)
+	-rm -rf Healpix_cxx/$(DEPDIR) c_utils/$(DEPDIR) cxxsupport/$(DEPDIR) libsharp/$(DEPDIR) pocketfft/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

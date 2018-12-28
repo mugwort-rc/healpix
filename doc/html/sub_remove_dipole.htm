@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>remove_dipole*</TITLE>
 <META NAME="description" CONTENT="remove_dipole*">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_ring_analysis.htm">
 <LINK REL="previous" HREF="sub_real_fft.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_ring_analysis.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1382"
-  HREF="sub_real_fft.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1388"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1392"
-  HREF="sub_ring_analysis.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1390"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_real_fft.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_ring_analysis.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html476"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1383"
-  HREF="sub_real_fft.htm">real_fft</A>
+<B> Previous:</B> <A
+ HREF="sub_real_fft.htm">real_fft</A>
 
-<B>Up:</B> <A NAME="tex2html1389"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1393"
-  HREF="sub_ring_analysis.htm">ring_analysis</A>
+<B> Next:</B> <A
+ HREF="sub_ring_analysis.htm">ring_analysis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION9100"></A>
-<A NAME="sub:remove_dipole"></A>
+<H1><A ID="SECTION9200"></A>
+<A ID="sub:remove_dipole"></A>
 <BR>
  
 </H1>
@@ -64,97 +68,93 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This routine provides a means to fit and remove the dipole and monopole
 from a <b>HEALPix</b> map. The fit is obtained by solving the linear system
 <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<DIV ALIGN="CENTER">
 
 <!-- MATH
- \begin{equation}
+ \begin{eqnarray}
 \sum_{j=0}^{d^2-1}\ A_{ij}\ f_j = b_i
-\end{equation}
+\end{eqnarray}
  -->
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="111" HEIGHT="56" BORDER="0"
- SRC="sub_img109.png"
- ALT="\begin{displaymath}
-\sum_{j=0}^{d^2-1} A_{ij} f_j = b_i
-\end{displaymath}"></TD>
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 6.53ex; vertical-align: -2.91ex; " SRC="sub_img172.png"
+ ALT="$\displaystyle \sum_{j=0}^{d^2-1}\ A_{ij}\ f_j = b_i$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">19</SPAN>)</TD></TR>
 </TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-with, <SPAN CLASS="MATH"><I>d</I>=1</SPAN> or 2, and
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
+with, <SPAN CLASS="MATH"><I>d</I>=1</SPAN> or <SPAN CLASS="MATH">2</SPAN>, and
 <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<DIV ALIGN="CENTER">
 
 <!-- MATH
- \begin{equation}
-b_i = \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
-\end{equation}
+ \begin{eqnarray}
+b_i \equiv \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
+\end{eqnarray}
  -->
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="166" HEIGHT="46" BORDER="0"
- SRC="sub_img110.png"
- ALT="\begin{displaymath}
-b_i = \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
-\end{displaymath}"></TD>
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 4.66ex; vertical-align: -2.94ex; " SRC="sub_img173.png"
+ ALT="$\displaystyle b_i \equiv \sum_{p \in \cal{P}} s_i(p) w(p) m(p),$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">20</SPAN>)</TD></TR>
 </TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
 <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<DIV ALIGN="CENTER">
 
 <!-- MATH
- \begin{equation}
-A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
-\end{equation}
+ \begin{eqnarray}
+A_{ij} \equiv \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
+\end{eqnarray}
  -->
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="176" HEIGHT="46" BORDER="0"
- SRC="sub_img111.png"
- ALT="\begin{displaymath}
-A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
-\end{displaymath}"></TD>
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 4.66ex; vertical-align: -2.94ex; " SRC="sub_img174.png"
+ ALT="$\displaystyle A_{ij} \equiv \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">21</SPAN>)</TD></TR>
 </TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-where <SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img112.png"
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
+where <SPAN CLASS="MATH"><IMG STYLE="height: 1.75ex; vertical-align: -0.10ex; " SRC="sub_img175.png"
  ALT="$\cal{P}$"></SPAN> is the set of
 valid, unmasked pixels, <SPAN CLASS="MATH"><I>m</I></SPAN> is the input map, <SPAN CLASS="MATH"><I>w</I></SPAN> is pixel weighting, while
-<SPAN CLASS="MATH"><I>s</I><SUB>0</SUB>(<I>p</I>) = 1</SPAN> and <!-- MATH
+<SPAN CLASS="MATH"><I>s</I><SUB><i>0</i></SUB>(<I>p</I>) = 1</SPAN> and <!-- MATH
  $s_1(p)=x,\ s_2(p)=y,\ s_3(p)=z$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="231" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img113.png"
- ALT="$s_1(p)=x, s_2(p)=y, s_3(p)=z$"></SPAN> are
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img176.png"
+ ALT="$s_1(p)=x,\ s_2(p)=y,\ s_3(p)=z$"></SPAN> are
 respectively the monopole and dipole templates. The output map is then
 <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<DIV ALIGN="CENTER">
 
 <!-- MATH
- \begin{equation}
+ \begin{eqnarray}
 m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
-\end{equation}
+\end{eqnarray}
  -->
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="198" HEIGHT="54" BORDER="0"
- SRC="sub_img114.png"
- ALT="\begin{displaymath}
-m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
-\end{displaymath}"></TD>
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 6.24ex; vertical-align: -2.60ex; " SRC="sub_img177.png"
+ ALT="$\displaystyle m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">22</SPAN>)</TD></TR>
 </TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">remove_dipole*</FONT>(
@@ -176,40 +176,40 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>
-nside<A NAME="sub:remove_dipole:nside"></A></TD>
+nside<A ID="sub:remove_dipole:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>value of <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> resolution parameter for input map</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> resolution parameter for input map</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>map<A NAME="sub:remove_dipole:map"></A>(0:12*nside*nside-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>map<A ID="sub:remove_dipole:map"></A>(0:12*nside*nside-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>INOUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225><b>HEALPix</b> map from which the monopole and dipole will be
                    removed. Those are removed from <EM>all unflagged pixels</EM>,
                    even those excluded by the cut <TT>zounds</TT> or the <TT>mask</TT>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>ordering<A NAME="sub:remove_dipole:ordering"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>ordering<A ID="sub:remove_dipole:ordering"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225><b>HEALPix</b>  scheme 1:RING, 2: NESTED</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>degree<A NAME="sub:remove_dipole:degree"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>degree<A ID="sub:remove_dipole:degree"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>multipoles to fit and remove. It is either 0 (nothing done),
                    1 (monopole only) or 2 (monopole and dipole).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>multipoles<A NAME="sub:remove_dipole:multipoles"></A>(0:degree*degree-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>multipoles<A ID="sub:remove_dipole:multipoles"></A>(0:degree*degree-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>values of best fit monopole and
                    dipole. The monopole is described as a scalar in the same
                    units as the input map, the dipole as a 3D cartesian vector, in the same units.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>zbounds<A NAME="sub:remove_dipole:zbounds"></A>(1:2)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>zbounds<A ID="sub:remove_dipole:zbounds"></A>(1:2)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>section of the map on which to perform the
@@ -217,30 +217,30 @@ nside<A NAME="sub:remove_dipole:nside"></A></TD>
  $z=\sin({\rm latitude}) =
                    \cos(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="190" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img89.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img88.png"
  ALT="$z=\sin({\rm latitude}) =
-\cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the fit is
-                   performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not, the
-                   fit is performed <EM>outside</EM> of the strip
-                   zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1).</TD>
+\cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), it is
+performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
+it is performed <EM>outside</EM> the strip
+zbounds(2)<SPAN CLASS="MATH"><IMG STYLE="height: 1.87ex; vertical-align: -0.41ex; " SRC="sub_img43.png"
+ ALT="$\le z \le$"></SPAN>zbounds(1). If absent, the whole map is processed.
+</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>fmissval<A NAME="sub:remove_dipole:fmissval"></A>  (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>fmissval<A ID="sub:remove_dipole:fmissval"></A>  (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>value used to flag bad pixel on input
                    <b>default:</b>-1.6375e30. Pixels with that value are ignored
                    during the fit, and left unchanged on output.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>mask<A NAME="sub:remove_dipole:mask"></A>(0:12*nside*nside-1)  (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>mask<A ID="sub:remove_dipole:mask"></A>(0:12*nside*nside-1)  (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>mask of valid pixels. 
                        Pixels with <SPAN CLASS="MATH">|</SPAN>mask<SPAN CLASS="MATH">|&lt;10<SUP>-10</SUP></SPAN> are not used for fit. Note:
                    the map is <EM>not</EM> multiplied by the mask.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>weights<A NAME="sub:remove_dipole:weights"></A>(0:12*nside*nside-1)  (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=160>weights<A ID="sub:remove_dipole:weights"></A>(0:12*nside*nside-1)  (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>weight to be
@@ -253,22 +253,18 @@ a uniform weight of 1. Note:
 <P>
 
 <HR><H1>EXAMPLE:</H1> 
-<tt>s = sin(15.0_dp * PI / 180.0_dp) 
+<tt>s = sin(15.0_dp * <A HREF="sub_healpix_types_module.htm#sub:healpix_types:deg2rad">DEG2RAD</A>) 
 <BR>
-call <FONT COLOR="#CC0000">remove_dipole*</FONT>(128, map, 1, 2, multipoles, (<SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img12.png"
- ALT="$\backslash$"></SPAN> s, -s <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img12.png"
+call <FONT COLOR="#CC0000">remove_dipole*</FONT>(128, map, 1, 2, multipoles, (<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img17.png"
+ ALT="$\backslash$"></SPAN> s, -s <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img17.png"
  ALT="$\backslash$"></SPAN>) )  
 <BR></tt>
 <blockquote>
 Will compute and remove the best fit monopole and dipole from a map with
 <!-- MATH
- $N_\mathrm{side}=128$
+ $N_{\mathrm{side}}=128$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I>=128</SPAN> in RING ordering scheme. The fit is performed on pixels with <SPAN CLASS="MATH">|b|&gt;15<SUP><I>o</I></SUP></SPAN>.
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=128</SPAN> in RING ordering scheme. The fit is performed on pixels with <SPAN CLASS="MATH">|b|&gt;15<SUP><i>o</i></SUP></SPAN>.
 </blockquote>
 
 <P>
@@ -298,31 +294,31 @@ Will compute and remove the best fit monopole and dipole from a map with
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1382"
-  HREF="sub_real_fft.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1388"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1392"
-  HREF="sub_ring_analysis.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1390"
+<A
+ HREF="sub_real_fft.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_ring_analysis.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html476"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1383"
-  HREF="sub_real_fft.htm">real_fft</A>
+<B> Previous:</B> <A
+ HREF="sub_real_fft.htm">real_fft</A>
 
-<B>Up:</B> <A NAME="tex2html1389"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1393"
-  HREF="sub_ring_analysis.htm">ring_analysis</A>
+<B> Next:</B> <A
+ HREF="sub_ring_analysis.htm">ring_analysis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

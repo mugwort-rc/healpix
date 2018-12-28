@@ -1,4 +1,4 @@
-# HEALPix 3.40
+# HEALPix 3.50
 #parameter file for the hotspot test run.
 
 infile = test_LOres.fits

@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>change_polcconv </TITLE>
 <META NAME="description" CONTENT="change_polcconv ">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
 <LINK REL="next" HREF="idl_cl2fits.htm">
 <LINK REL="previous" HREF="idl_cartview.htm">
-<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
 <LINK REL="next" HREF="idl_cl2fits.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html475"
-  HREF="idl_cartview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html481"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html485"
-  HREF="idl_cl2fits.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html483"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="idl_cartview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_cl2fits.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html311"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html476"
-  HREF="idl_cartview.htm">cartview</A>
+<B> Previous:</B> <A
+ HREF="idl_cartview.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html482"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html486"
-  HREF="idl_cl2fits.htm">cl2fits</A>
+<B> Next:</B> <A
+ HREF="idl_cl2fits.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION1800"></A>
-<A NAME="idl:change_polcconv"></A>
+<H1><A ID="SECTION1900"></A>
+<A ID="idl:change_polcconv"></A>
 <BR>
  
 </H1>
@@ -63,12 +67,12 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr>
 <H3>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
 The main effect is to change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter,
-and add/update the <TT>POLCCONV</TT> FITS header keyword with either
-<TT>COSMO</TT> or <TT>IAU</TT> value.
+and add/update the <SPAN  CLASS="texttt">POLCCONV</SPAN> FITS header keyword with either
+<SPAN  CLASS="texttt">COSMO</SPAN> or <SPAN  CLASS="texttt">IAU</SPAN> value.
 <BR>
-See <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A NAME="tex2html27"
+See <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A ID="tex2html29"
   HREF="intro.htm">The <b>HEALPix</b> Primer</A></H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
@@ -82,12 +86,12 @@ CHANGE_POLCCONV, <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#i
  
   <DL COMPACT><DT>
 <B>File_In</B>
-<DD><A NAME="idl:change_polcconv:File_In"></A>          name of a FITS file to be read
+<DD><A ID="idl:change_polcconv:File_In"></A>          name of a FITS file to be read
 
 <P>
 <DT>
 <B>File_Out</B>
-<DD><A NAME="idl:change_polcconv:File_Out"></A>          name of a FITS file to be written, after modification of the
+<DD><A ID="idl:change_polcconv:File_Out"></A>          name of a FITS file to be written, after modification of the
           polarisation coordinate convention, if applicable. 
 	It must be different from <A HREF="#idl:change_polcconv:File_In">File_In</A>
 
@@ -104,7 +108,7 @@ One and only one among
 <A HREF="#idl:change_polcconv:I2I">I2I</A> must be set.
 <BR>  <DL COMPACT><DT>
 <B>/I2C</B>
-<DD><A NAME="idl:change_polcconv:I2C"></A> changes from IAU to COSMO coordinate convention 
+<DD><A ID="idl:change_polcconv:I2C"></A> changes from IAU to COSMO coordinate convention 
 <BR>            -if POLCCONV is not found or found with value 'IAU', 
 	     or <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is set,
              it is added/replaced with value 'COSMO', and the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter map is changed; 
@@ -116,7 +120,7 @@ One and only one among
 <P>
 <DT>
 <B>/C2I</B>
-<DD><A NAME="idl:change_polcconv:C2I"></A> changes from COSMO to IAU coordinate convention 
+<DD><A ID="idl:change_polcconv:C2I"></A> changes from COSMO to IAU coordinate convention 
 <BR>            -if POLCCONV is not found or found with value 'COSMO', 
 	     or <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is set,
              it is added/replaced with value 'IAU', and the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter map is changed; 
@@ -128,7 +132,7 @@ One and only one among
 <P>
 <DT>
 <B>/C2C</B>
-<DD><A NAME="idl:change_polcconv:C2C"></A> does NOT change coordinate system 
+<DD><A ID="idl:change_polcconv:C2C"></A> does NOT change coordinate system 
 <BR>            -if POLCCONV is found with value 'IAU', 
              and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set,
              program will issue error message and no file is written; 
@@ -138,7 +142,7 @@ One and only one among
 <P>
 <DT>
 <B>/I2I</B>
-<DD><A NAME="idl:change_polcconv:I2I"></A> does NOT change coordinate system 
+<DD><A ID="idl:change_polcconv:I2I"></A> does NOT change coordinate system 
 <BR>            -if POLCCONV is found with value 'COSMO', 
              and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set,
              program will issue error message and no file is written; 
@@ -148,8 +152,8 @@ One and only one among
 <P>
 <DT>
 <B>/FORCE</B>
-<DD><A NAME="idl:change_polcconv:FORCE"></A> if set, 
-           the value of <TT>POLCCONV</TT> read from 
+<DD><A ID="idl:change_polcconv:FORCE"></A> if set, 
+           the value of <SPAN  CLASS="texttt">POLCCONV</SPAN> read from 
 	<A HREF="#idl:change_polcconv:File_In">File_In</A> FITS header is ignored.
               The sign of <SPAN CLASS="MATH"><I>U</I></SPAN> is swapped (if used with 
               <A HREF="#idl:change_polcconv:C2I">/C2I</A> or 
@@ -169,12 +173,12 @@ One and only one among
 <blockquote>
 This routine will change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameters (and related
 quantities, such as the <SPAN CLASS="MATH"><I>TU</I></SPAN> and <SPAN CLASS="MATH"><I>QU</I></SPAN> cross-correlations) and update the
-<TT>POLCCONV</TT> FITS keyword where applicable.
+<SPAN  CLASS="texttt">POLCCONV</SPAN> FITS keyword where applicable.
 The recognised formats are: 
 <BR>- standard <b>HEALPix</b> full sky polarised format, 
 <BR>- cut sky <b>HEALPix</b> polarised format, 
-<BR>- WMAP 9-year release polarised <TT>*_iqumap_*</TT> and <TT>*_iqusmap_*</TT> formats,
-<BR>- Planck <TT>*_SkyMap_*</TT> and <TT>*_CMB_IQU*</TT> formats
+<BR>- WMAP 9-year release polarised <SPAN  CLASS="texttt">*_iqumap_*</SPAN> and <SPAN  CLASS="texttt">*_iqusmap_*</SPAN> formats,
+<BR>- Planck <SPAN  CLASS="texttt">*_SkyMap_*</SPAN> and <SPAN  CLASS="texttt">*_CMB_IQU*</SPAN> formats
 </blockquote>
 
 <P>
@@ -224,31 +228,31 @@ The recognised formats are:
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html475"
-  HREF="idl_cartview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html481"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html485"
-  HREF="idl_cl2fits.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html483"
+<A
+ HREF="idl_cartview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_cl2fits.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html311"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html476"
-  HREF="idl_cartview.htm">cartview</A>
+<B> Previous:</B> <A
+ HREF="idl_cartview.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html482"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html486"
-  HREF="idl_cl2fits.htm">cl2fits</A>
+<B> Next:</B> <A
+ HREF="idl_cl2fits.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

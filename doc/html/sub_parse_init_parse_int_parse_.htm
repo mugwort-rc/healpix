@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>parse_init, parse_int, , parse_finish</TITLE>
 <META NAME="description" CONTENT="parse_init, parse_int, , parse_finish">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_pixel_window.htm">
 <LINK REL="previous" HREF="sub_output_map.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_pixel_window.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1154"
-  HREF="sub_output_map.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1160"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1164"
-  HREF="sub_pixel_window.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1162"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_output_map.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_pixel_window.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html438"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1155"
-  HREF="sub_output_map.htm">output_map*</A>
+<B> Previous:</B> <A
+ HREF="sub_output_map.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1161"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1165"
-  HREF="sub_pixel_window.htm">pixel_window</A>
+<B> Next:</B> <A
+ HREF="sub_pixel_window.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION7200"></A>
-<A NAME="sub:parse_xxx"></A>
+<H1><A ID="SECTION7300"></A>
+<A ID="sub:parse_xxx"></A>
 <BR>
  
 </H1>
@@ -63,7 +67,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">parse_init,&nbsp;parse_int,&nbsp;...,&nbsp;parse_finish</FONT></font></b><hr>
 <H3>The Fortran90 module paramfile_io contains functions to obtain
 parameters from parameter files or interactively</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/paramfile_io.F90"><b>src/f90/mod/paramfile_io.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/paramfile_io.F90"><b>src/f90/mod/paramfile_io.F90</b></a>&nbsp;  
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -180,9 +184,8 @@ respectively.
 <BR>
 Note: <TT>parse_string</TT> will expand all environment variables of
 the form ${XXX} (eg: ${HOME}). It will also replace a <EM>leading</EM> 
-<code>~</code><SPAN CLASS="MATH"><IMG
- WIDTH="3" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img11.png"
+<code>~</code><SPAN CLASS="MATH"><IMG STYLE="vertical-align: 20px"
+ SRC="sub_img16.png"
  ALT="$\!$"></SPAN><TT>/</TT>
 by the user's home directory.
 
@@ -227,7 +230,7 @@ character(len=256) :: parafile, name
 real(DP) :: age 
 <BR>
 <BR>
-parafile = ''  
+parafile = &rdquo;  
 <BR>
 if (<A HREF="sub_nArguments.htm#sub:narguments">nArguments()</A> == 1) call <A HREF="sub_getArgument.htm#sub:getargument">getArgument</A>(1, parafile)  
 <BR>
@@ -273,31 +276,31 @@ end program who_r_u</tt>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1154"
-  HREF="sub_output_map.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1160"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1164"
-  HREF="sub_pixel_window.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1162"
+<A
+ HREF="sub_output_map.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_pixel_window.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html438"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1155"
-  HREF="sub_output_map.htm">output_map*</A>
+<B> Previous:</B> <A
+ HREF="sub_output_map.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1161"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1165"
-  HREF="sub_pixel_window.htm">pixel_window</A>
+<B> Next:</B> <A
+ HREF="sub_pixel_window.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

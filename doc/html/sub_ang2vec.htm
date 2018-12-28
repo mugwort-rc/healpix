@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>ang2vec</TITLE>
 <META NAME="description" CONTENT="ang2vec">
@@ -13,77 +9,77 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_angdist.htm">
 <LINK REL="previous" HREF="sub_alter_alm.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_angdist.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html446"
-  HREF="sub_alter_alm.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html452"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html456"
-  HREF="sub_angdist.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html454"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_alter_alm.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_angdist.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html318"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html447"
-  HREF="sub_alter_alm.htm">alter_alm*</A>
+<B> Previous:</B> <A
+ HREF="sub_alter_alm.htm">alter_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html453"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html457"
-  HREF="sub_angdist.htm">angdist</A>
+<B> Next:</B> <A
+ HREF="sub_angdist.htm">angdist</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION1300"></A>
-<A NAME="sub:ang2vec"></A>
+<H1><A ID="SECTION1300"></A>
+<A ID="sub:ang2vec"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">ang2vec</FONT></font></b><hr>
-<H3>Routine to convert the position angles <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img37.png"
+<H3>Routine to convert the position angles <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img81.png"
  ALT="$(\theta,\phi) $"></SPAN> of a point on the sphere 
 into its 3D position vector <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> with
 <!-- MATH
  $x = \sin\theta\cos\phi$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="105" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img38.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.10ex; vertical-align: -0.55ex; " SRC="sub_img82.png"
  ALT="$x = \sin\theta\cos\phi $"></SPAN>, <!-- MATH
  $y=\sin\theta\sin\phi$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="102" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img39.png"
- ALT="$y=\sin\theta\sin\phi $"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="69" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img40.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.10ex; vertical-align: -0.55ex; " SRC="sub_img83.png"
+ ALT="$y=\sin\theta\sin\phi $"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img84.png"
  ALT="$z=\cos\theta $"></SPAN>. 
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">ang2vec</FONT>(
@@ -105,24 +101,20 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-theta<A NAME="sub:ang2vec:theta"></A></TD>
+theta<A ID="sub:ang2vec:theta"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>colatitude in radians measured southward from north pole (in
-    <SPAN CLASS="MATH"><IMG
- WIDTH="45" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img41.png"
- ALT="$[0, \pi] $"></SPAN>).</TD>
+    <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img85.png"
+ ALT="$[0,\ \pi] $"></SPAN>).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi<A NAME="sub:ang2vec:phi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi<A ID="sub:ang2vec:phi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>longitude in radians measured eastward (in <SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img42.png"
- ALT="$[0, 2\pi] $"></SPAN>).</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>longitude in radians measured eastward (in <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img86.png"
+ ALT="$[0,\ 2\pi] $"></SPAN>).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vector<A NAME="sub:ang2vec:vector"></A>(3)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vector<A ID="sub:ang2vec:vector"></A>(3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>three dimensional cartesian position vector
@@ -154,31 +146,31 @@ theta<A NAME="sub:ang2vec:theta"></A></TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html446"
-  HREF="sub_alter_alm.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html452"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html456"
-  HREF="sub_angdist.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html454"
+<A
+ HREF="sub_alter_alm.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_angdist.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html318"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html447"
-  HREF="sub_alter_alm.htm">alter_alm*</A>
+<B> Previous:</B> <A
+ HREF="sub_alter_alm.htm">alter_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html453"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html457"
-  HREF="sub_angdist.htm">angdist</A>
+<B> Next:</B> <A
+ HREF="sub_angdist.htm">angdist</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

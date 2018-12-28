@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>bl2fits</TITLE>
 <META NAME="description" CONTENT="bl2fits">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
 <LINK REL="next" HREF="idl_cartcursor.htm">
 <LINK REL="previous" HREF="idl_bl2beam.htm">
-<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
 <LINK REL="next" HREF="idl_cartcursor.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html439"
-  HREF="idl_bl2beam.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html445"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html449"
-  HREF="idl_cartcursor.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html447"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="idl_bl2beam.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_cartcursor.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html305"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html440"
-  HREF="idl_bl2beam.htm">bl2beam</A>
+<B> Previous:</B> <A
+ HREF="idl_bl2beam.htm">bl2beam</A>
 
-<B>Up:</B> <A NAME="tex2html446"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html450"
-  HREF="idl_cartcursor.htm">cartcursor</A>
+<B> Next:</B> <A
+ HREF="idl_cartcursor.htm">cartcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION1500"></A>
-<A NAME="idl:bl2fits"></A>
+<H1><A ID="SECTION1600"></A>
+<A ID="idl:bl2fits"></A>
 <BR>
  
 </H1>
@@ -63,18 +67,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">bl2fits</FONT></font></b><hr>
 <H3>This IDL facility provides a means to
 write into a FITS file as an ascii table extension a (beam) window function
-<SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN>. Adds additional
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img2.png"
+ ALT="$B(\ell)$"></SPAN>. Adds additional
 headers if required. The facility is primarily intended to allow the
 user to write an arbitrary window function into a FITS file in 
 the correct format to be ingested by the <b>HEALPix</b> simulation facilities
 <A HREF="./fac_synfast.htm#fac:synfast"><TT>synfast</TT></A>, 
 <A HREF="idl_isynfast.htm#idl:isynfast"><TT>isynfast</TT></A>, 
 and others 
-(see <A HREF="./fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">''Beam window function files''</A>
-in the <A NAME="tex2html26"
+(see <A HREF="./fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">&rdquo;Beam window function files&rdquo;</A>
+in the <A ID="tex2html28"
   HREF="facilities.htm"><b>HEALPix</b> Fortran Facilities document</A>).
 <br><br></H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/fits/bl2fits.pro"><b>src/idl/fits/bl2fits.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/idl/fits/bl2fits.pro"><b>src/idl/fits/bl2fits.pro</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
@@ -86,14 +91,12 @@ BL2FITS, <A HREF="#idl:bl2fits:bl_array">bl_array</A>, <A HREF="#idl:bl2fits:fit
 <H1>QUALIFIERS</H1>
  
   <DL COMPACT><DT>
-<B>bl_array<A NAME="idl:bl2fits:bl_array"></A></B>
+<B>bl_array<A ID="idl:bl2fits:bl_array"></A></B>
 <DD>real or double array of Bl coefficients to be written to
-      file. This has dimension (lmax+1,<SPAN CLASS="MATH"><I>n</I></SPAN>) with <SPAN CLASS="MATH"><IMG
- WIDTH="76" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img36.png"
+      file. This has dimension (lmax+1,<SPAN CLASS="MATH"><I>n</I></SPAN>) with <SPAN CLASS="MATH"><IMG STYLE="height: 1.92ex; vertical-align: -0.41ex; " SRC="idl_img52.png"
  ALT="$1\le n \le 3$"></SPAN>, given in the sequence T E B.
     <DT>
-<B>fitsfile<A NAME="idl:bl2fits:fitsfile"></A></B>
+<B>fitsfile<A ID="idl:bl2fits:fitsfile"></A></B>
 <DD>String containing the name of the file to be written.
   </DL>
 
@@ -101,16 +104,16 @@ BL2FITS, <A HREF="#idl:bl2fits:bl_array">bl_array</A>, <A HREF="#idl:bl2fits:fit
 <hr><H1>KEYWORDS</H1>
 
   <DL COMPACT><DT>
-<B>HDR<A NAME="idl:bl2fits:HDR"></A>=</B>
+<B>HDR<A ID="idl:bl2fits:HDR"></A>=</B>
 <DD>String array containing the (non-trivial) primary header
       for the FITS file. 
     <DT>
-<B>/HELP<A NAME="idl:bl2fits:HELP"></A></B>
+<B>/HELP<A ID="idl:bl2fits:HELP"></A></B>
 <DD>If set, a help message is printed out, no file is written
 
 <P>
 <DT>
-<B>XHDR<A NAME="idl:bl2fits:XHDR"></A>=</B>
+<B>XHDR<A ID="idl:bl2fits:XHDR"></A>=</B>
 <DD>String array containing the (non-trivial) extension header
       for the FITS file. 
 
@@ -121,7 +124,8 @@ BL2FITS, <A HREF="#idl:bl2fits:bl_array">bl_array</A>, <A HREF="#idl:bl2fits:fit
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">bl2fits</FONT> writes the input <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> coefficients into a FITS
+<FONT COLOR="#CC0000">bl2fits</FONT> writes the input <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img2.png"
+ ALT="$B(\ell)$"></SPAN> coefficients into a FITS
 file containing an ascii table extension. Optional headers conforming
 to the FITS convention can also be written to the output file. All
 required FITS header keywords (like SIMPLE, BITPIX, ...) are automatically generated by the
@@ -175,31 +179,31 @@ into the output FITS file <TT>beam.fits</TT>.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html439"
-  HREF="idl_bl2beam.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html445"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html449"
-  HREF="idl_cartcursor.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html447"
+<A
+ HREF="idl_bl2beam.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_cartcursor.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html305"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html440"
-  HREF="idl_bl2beam.htm">bl2beam</A>
+<B> Previous:</B> <A
+ HREF="idl_bl2beam.htm">bl2beam</A>
 
-<B>Up:</B> <A NAME="tex2html446"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html450"
-  HREF="idl_cartcursor.htm">cartcursor</A>
+<B> Next:</B> <A
+ HREF="idl_cartcursor.htm">cartcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

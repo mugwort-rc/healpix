@@ -1,84 +1,86 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=latex 2018.3.9)  22 JUN 2018 15:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.17)  10 DEC 2018 10:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **./sub_images.tex
 (./sub_images.tex
-LaTeX2e <2017-04-15>
-Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
-
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls
+LaTeX2e <2018-04-01> patch level 5
+Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
+Loading SK hyphenation patterns: Jana Chlebikova, 1992
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/size12.clo
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size12.clo
 File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/xr-hyper.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/xr-hyper.sty
 Package: xr-hyper 2000/03/22 v6.00beta4 eXternal References (DPC)
-) (/tmp/Healpix_3.40/doc/TeX/healpix.sty
+) (/tmp/Healpix_3.50/doc/TeX/healpix.sty
 Package: healpix 
 Package: healpix macros (A.J. Banday, M. Bartelmann)
 Document format
-(/usr/local/texlive/2017/texmf-dist/tex/latex/a4wide/a4wide.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
-(/usr/local/texlive/2017/texmf-dist/tex/latex/ntgclass/a4.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ntgclass/a4.sty
 Package: a4 2004/04/15 v1.2g A4 based page layout
-)) (/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks14
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+\KV@toks@=\toks16
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
+(/usr/local/texlive/2018/texmf-dist/doc/latex/latex-graphics-companion/inputs/g
+raphics.cfg)
 Package graphics Info: Driver file: dvips.def on input line 99.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/dvips.def
-File: dvips.def 2016/07/10 v3.1a Driver-dependent file (DPC,SPQR)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-Package: fancyhdr 2016/09/06 3.8 Extensive control of page headers and footers
-\fancy@headwidth=\skip43
-\f@ncyO@elh=\skip44
-\f@ncyO@erh=\skip45
-\f@ncyO@olh=\skip46
-\f@ncyO@orh=\skip47
-\f@ncyO@elf=\skip48
-\f@ncyO@erf=\skip49
-\f@ncyO@olf=\skip50
-\f@ncyO@orf=\skip51
-) (/tmp/Healpix_3.40/doc/TeX/hpxversion.tex) (/tmp/Healpix_3.40/doc/TeX/idlvers
-ion.tex) (/tmp/Healpix_3.40/doc/TeX/gdlversion.tex) (/tmp/Healpix_3.40/doc/TeX/
-flversion.tex) (/tmp/Healpix_3.40/doc/TeX/hpyversion.tex)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip43
+\f@nch@O@elh=\skip44
+\f@nch@O@erh=\skip45
+\f@nch@O@olh=\skip46
+\f@nch@O@orh=\skip47
+\f@nch@O@elf=\skip48
+\f@nch@O@erf=\skip49
+\f@nch@O@olf=\skip50
+\f@nch@O@orf=\skip51
+) (/tmp/Healpix_3.50/doc/TeX/hpxversion.tex) (/tmp/Healpix_3.50/doc/TeX/idlvers
+ion.tex) (/tmp/Healpix_3.50/doc/TeX/gdlversion.tex) (/tmp/Healpix_3.50/doc/TeX/
+flversion.tex) (/tmp/Healpix_3.50/doc/TeX/hpyversion.tex) (/tmp/Healpix_3.50/do
+c/TeX/healpix_src_url.tex) (/tmp/Healpix_3.50/doc/TeX/hpxwebsites.tex)
 \bigicon=\skip52
 \smallicon=\skip53
 \blocksize=\skip54
-\c@creq=\count87
-\c@savecreq=\count88
-) (/Users/hivon/Library/texmf/tex/latex/html/html.sty (/usr/local/texlive/2017/
-texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2017/03/14 v6.85a Hypertext links for LaTeX
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+\c@creq=\count88
+\c@savecreq=\count89
+) (/tmp/Healpix_3.50/doc/TeX/html.sty (/usr/local/texlive/2018/texmf-dist/tex/l
+atex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
@@ -96,12 +98,12 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
+Package pdftexcmds Info: \pdfdraftmode found.
 Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
 Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
@@ -117,74 +119,83 @@ Package atveryend Info: \enddocument detected (standard20110627).
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
-) (/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/auxhook.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen105
-\Hy@linkcounter=\count89
-\Hy@pagecounter=\count90
-(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2017/03/14 v6.85a Hyperref: PDFDocEncoding definition (HO)
+\Hy@linkcounter=\count90
+\Hy@pagecounter=\count91
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count91
-(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperref.cfg
-File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+\Hy@SavedSpaceFactor=\count92
+(/usr/local/texlive/2018/texmf-dist/doc/latex/listings-ext/hyperref.cfg
+File: hyperref.cfg 2009/08/23 v1.0 hyperref configuration of listings-ext
+Package hyperref Info: Option `colorlinks' set `true' on input line 24.
+Package hyperref Info: Option `plainpages' set `false' on input line 24.
+Package hyperref Info: Option `hyperindex' set `true' on input line 24.
+Package hyperref Info: Option `bookmarks' set `true' on input line 24.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 24.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 24.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 24.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 24.
+
 )
-Package hyperref Info: Hyper figures OFF on input line 4498.
-Package hyperref Info: Link nesting OFF on input line 4503.
-Package hyperref Info: Hyper index ON on input line 4506.
-Package hyperref Info: Plain pages OFF on input line 4513.
-Package hyperref Info: Backreferencing OFF on input line 4518.
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing ON on input line 4527.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4751.
-\c@Hy@tempcnt=\count92
-(/Users/hivon/Library/texmf/tex/latex/html/url.sty
-Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
- names
-)
-LaTeX Info: Redefining \url on input line 5104.
-\XeTeXLinkMargin=\dimen106
-\Fld@menulength=\count93
-\Field@Width=\dimen107
-\Fld@charsize=\dimen108
-Package hyperref Info: Hyper figures OFF on input line 6358.
-Package hyperref Info: Link nesting OFF on input line 6363.
-Package hyperref Info: Hyper index ON on input line 6366.
-Package hyperref Info: backreferencing OFF on input line 6373.
-Package hyperref Info: Link coloring OFF on input line 6378.
-Package hyperref Info: Link coloring with OCG OFF on input line 6383.
-Package hyperref Info: PDF/A mode OFF on input line 6388.
-LaTeX Info: Redefining \ref on input line 6428.
-LaTeX Info: Redefining \pageref on input line 6432.
-\Hy@abspage=\count94
-\c@Item=\count95
-\c@Hfootnote=\count96
-)
-
-Package hyperref Message: Driver (default): hdvips.
-
-(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hdvips.def
-File: hdvips.def 2017/03/14 v6.85a Hyperref driver for dvips
-(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pdfmark.def
-File: pdfmark.def 2017/03/14 v6.85a Hyperref definitions for pdfmark specials
-\pdf@docset=\toks15
-\pdf@box=\box26
-\pdf@toks=\toks16
-\pdf@defaulttoks=\toks17
-\HyField@AnnotCount=\count97
-\Fld@listcount=\count98
-\c@bookmark@seq@number=\count99
-(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package hyperref Info: Bookmarks ON on input line 4762.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/backref.sty
+Package: backref 2016/05/21 v1.39 Bibliographical back referencing
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
-)
-\Hy@SectionHShift=\skip55
 ))
+\c@Hy@tempcnt=\count93
+(/usr/local/texlive/2018/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen106
+\Fld@menulength=\count94
+\Field@Width=\dimen107
+\Fld@charsize=\dimen108
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing ON on input line 6382.
+Package hyperref Info: Link coloring ON on input line 6387.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count95
+\c@Item=\count96
+\c@Hfootnote=\count97
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count98
+\c@bookmark@seq@number=\count99
+\Hy@SectionHShift=\skip55
+)
 Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
 
 \c@lpart=\count100
@@ -197,17 +208,19 @@ Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
 \c@lsubparagraph=\count107
 \c@lsubsubparagraph=\count108
 \ptrfile=\write3
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/makeidx.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
-(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty
-Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
 \col@sep=\dimen109
+\ar@mcellbox=\box26
 \extrarowheight=\dimen110
-\NC@list=\toks18
+\NC@list=\toks17
 \extratabsurround=\skip56
 \backup@length=\skip57
+\ar@cellbox=\box27
 )
 \TX@col@width=\dimen111
 \TX@old@table=\dimen112
@@ -215,19 +228,19 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \TX@target=\dimen114
 \TX@delta=\dimen115
 \TX@cols=\count109
-\TX@ftn=\toks19
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/ae/ae.sty
+\TX@ftn=\toks18
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/ae/ae.sty
 Package: ae 2001/02/12 1.3 Almost European Computer Modern
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 105.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/ae/t1aer.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))) (/usr/local/texlive/2017/texmf-dist/tex/latex/lm/lmodern.sty
+))) (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -261,259 +274,317 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1enc.def
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
-Package hyperref Info: Option `colorlinks' set `true' on input line 22.
-Package xr Info: IMPORTING LABELS FROM intro.aux on input line 98.
-Package xr Info: IMPORTING LABELS FROM install.aux on input line 99.
-Package xr Info: IMPORTING LABELS FROM csub.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM ang2vec_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM get_fits_size_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM npix2nside_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM nside2npix_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM pix_tools_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM read_healpix_map_c.aux on input line 100
+Package hyperref Info: Option `colorlinks' set `true' on input line 41.
+Package xr Info: IMPORTING LABELS FROM intro.aux on input line 120.
+Package xr Info: IMPORTING LABELS FROM install.aux on input line 121.
+Package xr Info: IMPORTING LABELS FROM csub.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM ang2vec_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM get_fits_size_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM npix2nside_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM nside2npix_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM pix_tools_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM read_healpix_map_c.aux on input line 122
 .
-Package xr Info: IMPORTING LABELS FROM vec2ang_c.aux on input line 100.
-Package xr Info: IMPORTING LABELS FROM write_healpix_map_c.aux on input line 10
-0.
-Package xr Info: IMPORTING LABELS FROM idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM alm_i2t_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM alm_t2i_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM alm2fits_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM ang2vec_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM angulardistance_idl.aux on input line 10
-1.
-Package xr Info: IMPORTING LABELS FROM azeqview_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM beam2bl_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM bin_llcl_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM bl2beam_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM bl2fits_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM cartcursor_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM cartview_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM change_polcconv_idl.aux on input line 10
-1.
-Package xr Info: IMPORTING LABELS FROM cl2fits_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM vec2ang_c.aux on input line 122.
+Package xr Info: IMPORTING LABELS FROM write_healpix_map_c.aux on input line 12
+2.
+Package xr Info: IMPORTING LABELS FROM idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM alm_i2t_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM alm_t2i_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM alm2fits_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM ang2vec_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM angulardistance_idl.aux on input line 12
+3.
+Package xr Info: IMPORTING LABELS FROM azeqview_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM beam2bl_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM bin_llcl_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM bl2beam_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM bl2fits_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM cartcursor_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM cartview_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM change_polcconv_idl.aux on input line 12
+3.
+Package xr Info: IMPORTING LABELS FROM cl2fits_idl.aux on input line 123.
 Package xr Info: IMPORTING LABELS FROM convert_oldhpx2cmbfast_idl.aux on input 
-line 101.
+line 123.
 Package xr Info: IMPORTING LABELS FROM euler_matrix_new_idl.aux on input line 1
-01.
-Package xr Info: IMPORTING LABELS FROM fits2alm_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM fits2cl_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM gaussbeam_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM getdisc_ring_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM getsize_fits_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM gnomcursor_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM gnomview_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM healpix_doc_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM healpixwindow_idl.aux on input line 101.
+23.
+Package xr Info: IMPORTING LABELS FROM fits2alm_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM fits2cl_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM gaussbeam_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM getdisc_ring_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM getsize_fits_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM gnomcursor_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM gnomview_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM healpix_doc_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM healpixwindow_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM help_st_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM hpx2dm_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM hpx2gs_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM ialteralm_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM ianafast_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM index2lm_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM init_healpix_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM iprocess_mask_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM help_st_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM hpx2dm_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM hpx2gs_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM ialteralm_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM ianafast_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM index2lm_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM init_healpix_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM iprocess_mask_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM ismoothing_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM isynfast_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM lm2index_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM median_filter_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM ismoothing_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM isynfast_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM lm2index_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM median_filter_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM mollcursor_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM mollview_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM neighbours_nest_idl.aux on input line 10
-1.
-Package xr Info: IMPORTING LABELS FROM neighbours_ring_idl.aux on input line 10
-1.
-Package xr Info: IMPORTING LABELS FROM nest2uniq_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM npix2nside_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM nside2npix_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM nside2npweights_idl.aux on input line 10
-1.
+Package xr Info: IMPORTING LABELS FROM mollcursor_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM mollview_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM neighbours_nest_idl.aux on input line 12
+3.
+Package xr Info: IMPORTING LABELS FROM neighbours_ring_idl.aux on input line 12
+3.
+Package xr Info: IMPORTING LABELS FROM nest2uniq_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM npix2nside_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM nside2npix_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM nside2npweights_idl.aux on input line 12
+3.
 Package xr Info: IMPORTING LABELS FROM nside2ntemplates_idl.aux on input line 1
-01.
-Package xr Info: IMPORTING LABELS FROM orthcursor_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM orthview_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM pix_tools_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM planck_colors_idl.aux on input line 101.
+23.
+Package xr Info: IMPORTING LABELS FROM orthcursor_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM orthview_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM pix_tools_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM planck_colors_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM query_disc_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM query_polygon_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM query_disc_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM query_polygon_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM query_strip_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM query_triangle_idl.aux on input line 101
+Package xr Info: IMPORTING LABELS FROM query_strip_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM query_triangle_idl.aux on input line 123
 .
-Package xr Info: IMPORTING LABELS FROM read_fits_cut4_idl.aux on input line 101
+Package xr Info: IMPORTING LABELS FROM read_fits_cut4_idl.aux on input line 123
 .
-Package xr Info: IMPORTING LABELS FROM read_fits_map_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM read_fits_map_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM read_fits_s_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM read_tqu_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM remove_dipole_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM read_fits_s_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM read_tqu_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM remove_dipole_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM reorder_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM rotate_coord_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM reorder_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM rotate_coord_idl.aux on input line 123.
 Package xr Info: IMPORTING LABELS FROM same_shape_pixels_xxx_idl.aux on input l
-ine 101.
+ine 123.
 Package xr Info: IMPORTING LABELS FROM template_pixel_xxx_idl.aux on input line
- 101.
-Package xr Info: IMPORTING LABELS FROM ud_grade_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM unfold_weights_idl.aux on input line 101
+ 123.
+Package xr Info: IMPORTING LABELS FROM ud_grade_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM unfold_weights_idl.aux on input line 123
 .
-Package xr Info: IMPORTING LABELS FROM uniq2nest_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM vec2ang_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM write_fits_cut4_idl.aux on input line 10
-1.
-Package xr Info: IMPORTING LABELS FROM write_fits_map_idl.aux on input line 101
+Package xr Info: IMPORTING LABELS FROM uniq2nest_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM vec2ang_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM write_fits_cut4_idl.aux on input line 12
+3.
+Package xr Info: IMPORTING LABELS FROM write_fits_map_idl.aux on input line 123
 .
-Package xr Info: IMPORTING LABELS FROM write_fits_sb_idl.aux on input line 101.
+Package xr Info: IMPORTING LABELS FROM write_fits_sb_idl.aux on input line 123.
 
-Package xr Info: IMPORTING LABELS FROM write_tqu_idl.aux on input line 101.
-Package xr Info: IMPORTING LABELS FROM facilities.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM alteralm_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM anafast_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM hotspot_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM map2gif_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM median_filter_fac.aux on input line 102.
+Package xr Info: IMPORTING LABELS FROM write_tqu_idl.aux on input line 123.
+Package xr Info: IMPORTING LABELS FROM facilities.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM alteralm_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM anafast_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM hotspot_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM map2gif_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM median_filter_fac.aux on input line 124.
 
-Package xr Info: IMPORTING LABELS FROM plmgen_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM process_mask_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM sky_ng_sim_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM smoothing_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM synfast_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM ud_grade_fac.aux on input line 102.
-Package xr Info: IMPORTING LABELS FROM fac_appendix.aux on input line 102.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
+Package xr Info: IMPORTING LABELS FROM plmgen_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM process_mask_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM sky_ng_sim_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM smoothing_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM synfast_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM ud_grade_fac.aux on input line 124.
+Package xr Info: IMPORTING LABELS FROM fac_appendix.aux on input line 124.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package color Info: Driver file: dvips.def on input line 147.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/dvipsnam.def
-File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
-)) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2015/03/17 v1.2c Input encoding file
-\inpenc@prehook=\toks20
-\inpenc@posthook=\toks21
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/latin1.def
-File: latin1.def 2015/03/17 v1.2c Input encoding file
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/04/06 v1.3b Input encoding file
+\inpenc@prehook=\toks19
+\inpenc@posthook=\toks20
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2018/04/06 v1.3b Input encoding file
 ))
-\sizebox=\box27
+\sizebox=\box28
 \lthtmlwrite=\write4
+(/usr/local/texlive/2018/texmf-dist/tex/latex/preview/preview.sty
+Package: preview 2017/04/24 11.91 (AUCTeX/preview-latex)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/luatex85/luatex85.sty
+Package: luatex85 2016/06/15 v1.4 pdftex aliases for luatex
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/preview/prtightpage.def
+\PreviewBorder=\dimen116
+)
+\pr@snippet=\count110
+\pr@box=\box29
+\pr@output=\toks21
+)
+\lthtmlPageBox=\box30
+\lthtmlCropMarkHeight=\dimen117
+\lthtmlCropMarkDepth=\dimen118
+! Too many }'s.
+l.191 ...review}\copy\lthtmlPageBox\end{preview}}}
+                                                  %
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
 (./sub_images.aux
 
 LaTeX Warning: Label `sub:subroutines' multiply defined.
 
-(/tmp/Healpix_3.40/doc/TeX/add_card.aux) (/tmp/Healpix_3.40/doc/TeX/add_dipole.
-aux) (/tmp/Healpix_3.40/doc/TeX/alm2cl.aux) (/tmp/Healpix_3.40/doc/TeX/alm2map.
-aux) (/tmp/Healpix_3.40/doc/TeX/alm2map_der.aux) (/tmp/Healpix_3.40/doc/TeX/alm
-2map_spin.aux) (/tmp/Healpix_3.40/doc/TeX/alms2fits.aux) (/tmp/Healpix_3.40/doc
-/TeX/alter_alm.aux) (/tmp/Healpix_3.40/doc/TeX/ang2vec.aux) (/tmp/Healpix_3.40/
-doc/TeX/angdist.aux) (/tmp/Healpix_3.40/doc/TeX/assert.aux) (/tmp/Healpix_3.40/
-doc/TeX/brag_openmp.aux) (/tmp/Healpix_3.40/doc/TeX/complex_fft.aux) (/tmp/Heal
-pix_3.40/doc/TeX/compute_statistics.aux) (/tmp/Healpix_3.40/doc/TeX/concatnl.au
-x) (/tmp/Healpix_3.40/doc/TeX/convert_inplace.aux) (/tmp/Healpix_3.40/doc/TeX/c
-onvert_nest2ring.aux) (/tmp/Healpix_3.40/doc/TeX/convert_ring2nest.aux) (/tmp/H
-ealpix_3.40/doc/TeX/coordsys2euler_zyz.aux) (/tmp/Healpix_3.40/doc/TeX/create_a
-lm.aux) (/tmp/Healpix_3.40/doc/TeX/del_card.aux) (/tmp/Healpix_3.40/doc/TeX/dis
-t2holes_nest.aux) (/tmp/Healpix_3.40/doc/TeX/dump_alms.aux) (/tmp/Healpix_3.40/
-doc/TeX/fill_holes_nest.aux) (/tmp/Healpix_3.40/doc/TeX/fits2alms.aux) (/tmp/He
-alpix_3.40/doc/TeX/fits2cl.aux) (/tmp/Healpix_3.40/doc/TeX/gaussbeam.aux) (/tmp
-/Healpix_3.40/doc/TeX/generate_beam.aux) (/tmp/Healpix_3.40/doc/TeX/get_card.au
-x) (/tmp/Healpix_3.40/doc/TeX/get_healpix_xxx_dir.aux) (/tmp/Healpix_3.40/doc/T
-eX/get_healpix_xxx_file.aux) (/tmp/Healpix_3.40/doc/TeX/getargument.aux) (/tmp/
-Healpix_3.40/doc/TeX/getenvironment.aux) (/tmp/Healpix_3.40/doc/TeX/getdisc_rin
-g.aux) (/tmp/Healpix_3.40/doc/TeX/getnumext_fits.aux) (/tmp/Healpix_3.40/doc/Te
-X/getsize_fits.aux) (/tmp/Healpix_3.40/doc/TeX/healpix_modules.aux) (/tmp/Healp
-ix_3.40/doc/TeX/healpix_types.aux) (/tmp/Healpix_3.40/doc/TeX/in_ring.aux) (/tm
-p/Healpix_3.40/doc/TeX/input_map.aux) (/tmp/Healpix_3.40/doc/TeX/input_tod.aux)
-(/tmp/Healpix_3.40/doc/TeX/long_intrinsic.aux) (/tmp/Healpix_3.40/doc/TeX/map2a
-lm.aux) (/tmp/Healpix_3.40/doc/TeX/map2alm_iterative.aux) (/tmp/Healpix_3.40/do
-c/TeX/map2alm_spin.aux) (/tmp/Healpix_3.40/doc/TeX/maskborder_nest.aux) (/tmp/H
-ealpix_3.40/doc/TeX/medfiltmap.aux) (/tmp/Healpix_3.40/doc/TeX/median.aux) (/tm
-p/Healpix_3.40/doc/TeX/merge_headers.aux) (/tmp/Healpix_3.40/doc/TeX/mpi_alm_to
-ols.aux) (/tmp/Healpix_3.40/doc/TeX/mpi_alm2map.aux) (/tmp/Healpix_3.40/doc/TeX
-/mpi_alm2map_simple.aux) (/tmp/Healpix_3.40/doc/TeX/mpi_alm2map_slave.aux) (/tm
-p/Healpix_3.40/doc/TeX/mpi_cleanup_alm_tools.aux) (/tmp/Healpix_3.40/doc/TeX/mp
-i_initialize_alm_tools.aux) (/tmp/Healpix_3.40/doc/TeX/mpi_map2alm.aux) (/tmp/H
-ealpix_3.40/doc/TeX/mpi_map2alm_simple.aux) (/tmp/Healpix_3.40/doc/TeX/mpi_map2
-alm_slave.aux) (/tmp/Healpix_3.40/doc/TeX/narguments.aux) (/tmp/Healpix_3.40/do
-c/TeX/neighbours_nest.aux) (/tmp/Healpix_3.40/doc/TeX/nest2uniq.aux) (/tmp/Heal
-pix_3.40/doc/TeX/npix2nside.aux) (/tmp/Healpix_3.40/doc/TeX/nside2npix.aux) (/t
-mp/Healpix_3.40/doc/TeX/nside2npweights.aux) (/tmp/Healpix_3.40/doc/TeX/nside2n
-templates.aux) (/tmp/Healpix_3.40/doc/TeX/number_of_alms.aux) (/tmp/Healpix_3.4
-0/doc/TeX/output_map.aux) (/tmp/Healpix_3.40/doc/TeX/parse_xxx.aux) (/tmp/Healp
-ix_3.40/doc/TeX/pixel_window.aux) (/tmp/Healpix_3.40/doc/TeX/pix_tools.aux) (/t
-mp/Healpix_3.40/doc/TeX/planck_rng.aux) (/tmp/Healpix_3.40/doc/TeX/plm_gen.aux)
-(/tmp/Healpix_3.40/doc/TeX/query_disc.aux) (/tmp/Healpix_3.40/doc/TeX/query_pol
-ygon.aux) (/tmp/Healpix_3.40/doc/TeX/query_strip.aux) (/tmp/Healpix_3.40/doc/Te
-X/query_triangle.aux) (/tmp/Healpix_3.40/doc/TeX/rand_gauss.aux) (/tmp/Healpix_
-3.40/doc/TeX/rand_init.aux) (/tmp/Healpix_3.40/doc/TeX/rand_uni.aux) (/tmp/Heal
-pix_3.40/doc/TeX/read_asctab.aux) (/tmp/Healpix_3.40/doc/TeX/read_bintab.aux) (
-/tmp/Healpix_3.40/doc/TeX/read_conbintab.aux) (/tmp/Healpix_3.40/doc/TeX/read_d
-bintab.aux) (/tmp/Healpix_3.40/doc/TeX/read_fits_cut4.aux) (/tmp/Healpix_3.40/d
-oc/TeX/read_par.aux) (/tmp/Healpix_3.40/doc/TeX/real_fft.aux) (/tmp/Healpix_3.4
-0/doc/TeX/remove_dipole.aux) (/tmp/Healpix_3.40/doc/TeX/ring_analysis.aux) (/tm
-p/Healpix_3.40/doc/TeX/ring_num.aux) (/tmp/Healpix_3.40/doc/TeX/ring_synthesis.
-aux) (/tmp/Healpix_3.40/doc/TeX/rotate_alm.aux) (/tmp/Healpix_3.40/doc/TeX/same
-_shape_pixels_xxx.aux) (/tmp/Healpix_3.40/doc/TeX/scan_directories.aux) (/tmp/H
-ealpix_3.40/doc/TeX/size_holes_nest.aux) (/tmp/Healpix_3.40/doc/TeX/string.aux)
-(/tmp/Healpix_3.40/doc/TeX/surface_triangle.aux) (/tmp/Healpix_3.40/doc/TeX/tem
-plate_pixel_xxx.aux) (/tmp/Healpix_3.40/doc/TeX/udgrade_nest.aux) (/tmp/Healpix
-_3.40/doc/TeX/udgrade_ring.aux) (/tmp/Healpix_3.40/doc/TeX/unfold_weightsfile.a
-ux) (/tmp/Healpix_3.40/doc/TeX/uniq2nest.aux) (/tmp/Healpix_3.40/doc/TeX/vec2an
-g.aux) (/tmp/Healpix_3.40/doc/TeX/vect_prod.aux) (/tmp/Healpix_3.40/doc/TeX/wri
-te_asctab.aux) (/tmp/Healpix_3.40/doc/TeX/write_bintab.aux) (/tmp/Healpix_3.40/
-doc/TeX/write_bintabh.aux) (/tmp/Healpix_3.40/doc/TeX/write_dbintab.aux) (/tmp/
-Healpix_3.40/doc/TeX/write_fits_cut4.aux) (/tmp/Healpix_3.40/doc/TeX/write_mini
-mal_header.aux) (/tmp/Healpix_3.40/doc/TeX/write_plm.aux) (/tmp/Healpix_3.40/do
-c/TeX/xcc_v_convert.aux))
+(/tmp/Healpix_3.50/doc/TeX/add_card.aux) (/tmp/Healpix_3.50/doc/TeX/add_dipole.
+aux) (/tmp/Healpix_3.50/doc/TeX/alm2cl.aux) (/tmp/Healpix_3.50/doc/TeX/alm2map.
+aux) (/tmp/Healpix_3.50/doc/TeX/alm2map_der.aux) (/tmp/Healpix_3.50/doc/TeX/alm
+2map_spin.aux) (/tmp/Healpix_3.50/doc/TeX/alms2fits.aux) (/tmp/Healpix_3.50/doc
+/TeX/alter_alm.aux) (/tmp/Healpix_3.50/doc/TeX/ang2vec.aux) (/tmp/Healpix_3.50/
+doc/TeX/angdist.aux) (/tmp/Healpix_3.50/doc/TeX/apply_mask.aux) (/tmp/Healpix_3
+.50/doc/TeX/assert.aux) (/tmp/Healpix_3.50/doc/TeX/brag_openmp.aux) (/tmp/Healp
+ix_3.50/doc/TeX/complex_fft.aux) (/tmp/Healpix_3.50/doc/TeX/compute_statistics.
+aux) (/tmp/Healpix_3.50/doc/TeX/concatnl.aux) (/tmp/Healpix_3.50/doc/TeX/conver
+t_inplace.aux) (/tmp/Healpix_3.50/doc/TeX/convert_nest2ring.aux) (/tmp/Healpix_
+3.50/doc/TeX/convert_ring2nest.aux) (/tmp/Healpix_3.50/doc/TeX/coordsys2euler_z
+yz.aux) (/tmp/Healpix_3.50/doc/TeX/create_alm.aux) (/tmp/Healpix_3.50/doc/TeX/d
+el_card.aux) (/tmp/Healpix_3.50/doc/TeX/dist2holes_nest.aux) (/tmp/Healpix_3.50
+/doc/TeX/dump_alms.aux) (/tmp/Healpix_3.50/doc/TeX/fill_holes_nest.aux) (/tmp/H
+ealpix_3.50/doc/TeX/fits2alms.aux) (/tmp/Healpix_3.50/doc/TeX/fits2cl.aux) (/tm
+p/Healpix_3.50/doc/TeX/gaussbeam.aux) (/tmp/Healpix_3.50/doc/TeX/generate_beam.
+aux) (/tmp/Healpix_3.50/doc/TeX/get_card.aux) (/tmp/Healpix_3.50/doc/TeX/get_he
+alpix_xxx_dir.aux) (/tmp/Healpix_3.50/doc/TeX/get_healpix_xxx_file.aux) (/tmp/H
+ealpix_3.50/doc/TeX/getargument.aux) (/tmp/Healpix_3.50/doc/TeX/getenvironment.
+aux) (/tmp/Healpix_3.50/doc/TeX/getdisc_ring.aux) (/tmp/Healpix_3.50/doc/TeX/ge
+tnumext_fits.aux) (/tmp/Healpix_3.50/doc/TeX/getsize_fits.aux) (/tmp/Healpix_3.
+50/doc/TeX/healpix_modules.aux) (/tmp/Healpix_3.50/doc/TeX/healpix_types.aux) (
+/tmp/Healpix_3.50/doc/TeX/in_ring.aux) (/tmp/Healpix_3.50/doc/TeX/input_map.aux
+) (/tmp/Healpix_3.50/doc/TeX/input_tod.aux) (/tmp/Healpix_3.50/doc/TeX/long_int
+rinsic.aux) (/tmp/Healpix_3.50/doc/TeX/map2alm.aux) (/tmp/Healpix_3.50/doc/TeX/
+map2alm_iterative.aux) (/tmp/Healpix_3.50/doc/TeX/map2alm_spin.aux) (/tmp/Healp
+ix_3.50/doc/TeX/maskborder_nest.aux) (/tmp/Healpix_3.50/doc/TeX/medfiltmap.aux)
+(/tmp/Healpix_3.50/doc/TeX/median.aux) (/tmp/Healpix_3.50/doc/TeX/merge_headers
+.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_alm_tools.aux) (/tmp/Healpix_3.50/doc/TeX/
+mpi_alm2map.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_alm2map_simple.aux) (/tmp/Healp
+ix_3.50/doc/TeX/mpi_alm2map_slave.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_cleanup_a
+lm_tools.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_initialize_alm_tools.aux) (/tmp/He
+alpix_3.50/doc/TeX/mpi_map2alm.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_map2alm_simp
+le.aux) (/tmp/Healpix_3.50/doc/TeX/mpi_map2alm_slave.aux) (/tmp/Healpix_3.50/do
+c/TeX/narguments.aux) (/tmp/Healpix_3.50/doc/TeX/neighbours_nest.aux) (/tmp/Hea
+lpix_3.50/doc/TeX/nest2uniq.aux) (/tmp/Healpix_3.50/doc/TeX/npix2nside.aux) (/t
+mp/Healpix_3.50/doc/TeX/nside2npix.aux) (/tmp/Healpix_3.50/doc/TeX/nside2npweig
+hts.aux) (/tmp/Healpix_3.50/doc/TeX/nside2ntemplates.aux) (/tmp/Healpix_3.50/do
+c/TeX/number_of_alms.aux) (/tmp/Healpix_3.50/doc/TeX/output_map.aux) (/tmp/Heal
+pix_3.50/doc/TeX/parse_xxx.aux) (/tmp/Healpix_3.50/doc/TeX/pixel_window.aux) (/
+tmp/Healpix_3.50/doc/TeX/pix_tools.aux) (/tmp/Healpix_3.50/doc/TeX/planck_rng.a
+ux) (/tmp/Healpix_3.50/doc/TeX/plm_gen.aux) (/tmp/Healpix_3.50/doc/TeX/query_di
+sc.aux) (/tmp/Healpix_3.50/doc/TeX/query_polygon.aux) (/tmp/Healpix_3.50/doc/Te
+X/query_strip.aux) (/tmp/Healpix_3.50/doc/TeX/query_triangle.aux) (/tmp/Healpix
+_3.50/doc/TeX/rand_gauss.aux) (/tmp/Healpix_3.50/doc/TeX/rand_init.aux) (/tmp/H
+ealpix_3.50/doc/TeX/rand_uni.aux) (/tmp/Healpix_3.50/doc/TeX/read_asctab.aux) (
+/tmp/Healpix_3.50/doc/TeX/read_bintab.aux) (/tmp/Healpix_3.50/doc/TeX/read_conb
+intab.aux) (/tmp/Healpix_3.50/doc/TeX/read_dbintab.aux) (/tmp/Healpix_3.50/doc/
+TeX/read_fits_cut4.aux) (/tmp/Healpix_3.50/doc/TeX/read_par.aux) (/tmp/Healpix_
+3.50/doc/TeX/real_fft.aux) (/tmp/Healpix_3.50/doc/TeX/remove_dipole.aux) (/tmp/
+Healpix_3.50/doc/TeX/ring_analysis.aux) (/tmp/Healpix_3.50/doc/TeX/ring_num.aux
+) (/tmp/Healpix_3.50/doc/TeX/ring_synthesis.aux) (/tmp/Healpix_3.50/doc/TeX/rot
+ate_alm.aux) (/tmp/Healpix_3.50/doc/TeX/same_shape_pixels_xxx.aux) (/tmp/Healpi
+x_3.50/doc/TeX/scan_directories.aux) (/tmp/Healpix_3.50/doc/TeX/size_holes_nest
+.aux) (/tmp/Healpix_3.50/doc/TeX/string.aux) (/tmp/Healpix_3.50/doc/TeX/surface
+_triangle.aux) (/tmp/Healpix_3.50/doc/TeX/template_pixel_xxx.aux) (/tmp/Healpix
+_3.50/doc/TeX/udgrade_nest.aux) (/tmp/Healpix_3.50/doc/TeX/udgrade_ring.aux) (/
+tmp/Healpix_3.50/doc/TeX/unfold_weightsfile.aux) (/tmp/Healpix_3.50/doc/TeX/uni
+q2nest.aux) (/tmp/Healpix_3.50/doc/TeX/vec2ang.aux) (/tmp/Healpix_3.50/doc/TeX/
+vect_prod.aux) (/tmp/Healpix_3.50/doc/TeX/write_asctab.aux) (/tmp/Healpix_3.50/
+doc/TeX/write_bintab.aux) (/tmp/Healpix_3.50/doc/TeX/write_bintabh.aux) (/tmp/H
+ealpix_3.50/doc/TeX/write_dbintab.aux) (/tmp/Healpix_3.50/doc/TeX/write_fits_cu
+t4.aux) (/tmp/Healpix_3.50/doc/TeX/write_minimal_header.aux) (/tmp/Healpix_3.50
+/doc/TeX/write_plm.aux) (/tmp/Healpix_3.50/doc/TeX/xcc_v_convert.aux))
 \openout1 = `sub_images.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 219.
-LaTeX Font Info:    ... okay on input line 219.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 219.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/t1lmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for IL2/cmr/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 222.
+LaTeX Font Info:    ... okay on input line 222.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 222.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-\AtBeginShipoutBox=\box28
-Package hyperref Info: Link coloring ON on input line 219.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+\AtBeginShipoutBox=\box31
+Package hyperref Info: Link coloring ON on input line 222.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count110
+\c@section@level=\count111
 )
-LaTeX Info: Redefining \ref on input line 219.
-LaTeX Info: Redefining \pageref on input line 219.
-LaTeX Info: Redefining \nameref on input line 219.
+LaTeX Info: Redefining \ref on input line 222.
+LaTeX Info: Redefining \pageref on input line 222.
+LaTeX Info: Redefining \nameref on input line 222.
 (./sub_images.out) (./sub_images.out)
 \@outlinefile=\write5
 \openout5 = `sub_images.out'.
 
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
+(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count112
+\scratchdimen=\dimen119
+\scratchbox=\box32
+\nofMPsegments=\count113
+\nofMParguments=\count114
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count115
+\MPscratchDim=\dimen120
+\MPnumerator=\count116
+\makeMPintoPDFobject=\count117
+\everyMPtoPDFconversion=\toks23
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Preview: Fontsize 12pt
+Preview: PDFoutput 1
 
 latex2htmlLength hsize=349.0pt
 
@@ -539,22 +610,22 @@ latex2htmlLength evensidemargin=0.0pt
 
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 247.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/ot1lmr.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 247.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omllmm.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 247
 .
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omslmsy.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 247
 .
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omxlmex.fd
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -563,61 +634,1117 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 247.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 247.
-l2hSize :tex2html_wrap_inline830:8.33331pt::0.0pt::6.38954pt.
+
+:tex2html_wrap_inline24029:lthtmlCropMarkHeight:=7.16666pt
+
+:tex2html_wrap_inline24029:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+Preview: Tightpage -32891 -32891 32891 32891
 [1
+Non-PDF special ignored!
+<special> papersize=614.295pt,794.96999pt
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+:tex2html_wrap_inline815:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline815:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[2]
+
+:tex2html_wrap_inline817:lthtmlCropMarkHeight:=11.16667pt
+
+:tex2html_wrap_inline817:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[3]
+
+:tex2html_wrap_inline819:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline819:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[4]
+
+:tex2html_wrap_inline821:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline821:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[5]
+
+:tex2html_wrap_inline825:lthtmlCropMarkHeight:=11.16667pt
+
+:tex2html_wrap_inline825:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[6]
+
+:tex2html_wrap_inline827:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline827:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[7]
+
+:tex2html_wrap_inline831:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline831:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[8]
+
+:tex2html_wrap_inline833:lthtmlCropMarkHeight:=7.16666pt
+
+:tex2html_wrap_inline833:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[9]
+
+:tex2html_wrap_inline835:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline835:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[10]
+
+:tex2html_wrap_inline837:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline837:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[11]
+
+:tex2html_wrap_inline851:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline851:lthtmlCropMarkDepth:=0.32pt:1ex:=5.16667pt
+[12]
+
+:tex2html_wrap_inline855:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline855:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[13]
+
+:tex2html_wrap_inline857:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline857:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[14]
+
+:tex2html_wrap_inline859:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline859:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[15]
+
+:tex2html_wrap_inline863:lthtmlCropMarkHeight:=6.0pt
+
+:tex2html_wrap_inline863:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[16]
+
+:tex2html_wrap_inline1502:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline1502:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[17]
+
+:tex2html_wrap_indisplay38324:lthtmlCropMarkHeight:=25.5556pt
+
+:tex2html_wrap_indisplay38324:lthtmlCropMarkDepth:=14.05565pt:1ex:=5.16667pt
+[18]
+
+:tex2html_wrap_inline1744:lthtmlCropMarkHeight:=14.33333pt
+
+:tex2html_wrap_inline1744:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[19]
+
+:tex2html_wrap_indisplay38330:lthtmlCropMarkHeight:=23.93945pt
+
+:tex2html_wrap_indisplay38330:lthtmlCropMarkDepth:=8.23141pt:1ex:=5.16667pt
+[20]
+
+:tex2html_wrap_inline1746:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline1746:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[21]
+
+:tex2html_wrap_inline1762:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1762:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[22]
+
+:tex2html_wrap_inline1770:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1770:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[23]
+
+:tex2html_wrap_inline1772:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1772:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[24]
+
+:tex2html_wrap_inline1774:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1774:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[25]
+
+:tex2html_wrap_inline1776:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline1776:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[26]
+
+:tex2html_wrap_inline1780:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1780:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[27]
+
+:tex2html_wrap_inline1782:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1782:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[28]
+
+:tex2html_wrap_inline1784:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline1784:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[29]
+
+:tex2html_wrap_inline1788:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1788:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[30]
+
+:tex2html_wrap_inline1790:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1790:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[31]
+
+:tex2html_wrap_inline1792:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1792:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[32]
+
+:tex2html_wrap_inline1794:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline1794:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[33]
+
+:tex2html_wrap_inline1804:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1804:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[34]
+
+:tex2html_wrap_inline1806:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1806:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[35]
+
+:tex2html_wrap_inline1808:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1808:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[36]
+
+:tex2html_wrap_inline1812:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline1812:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[37]
+
+:tex2html_wrap_inline1978:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1978:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[38]
+
+:tex2html_wrap_inline1980:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1980:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[39]
+
+:tex2html_wrap_inline1982:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline1982:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[40]
+
+:tex2html_wrap_inline2000:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2000:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[41]
+
+:tex2html_wrap_inline2004:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2004:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[42]
+
+:tex2html_wrap_inline2090:lthtmlCropMarkHeight:=13.63165pt
+
+:tex2html_wrap_inline2090:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[43]
+
+:tex2html_wrap_inline2108:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline2108:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[44]
+
+:tex2html_wrap_inline2114:lthtmlCropMarkHeight:=11.16667pt
+
+:tex2html_wrap_inline2114:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[45]
+
+:tex2html_wrap_inline2291:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2291:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[46]
+
+:tex2html_wrap_inline2293:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2293:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[47]
+
+:tex2html_wrap_inline2295:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2295:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[48]
+
+:tex2html_wrap_inline2297:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline2297:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[49]
+
+:tex2html_wrap_inline2299:lthtmlCropMarkHeight:=15.54558pt
+
+:tex2html_wrap_inline2299:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[50]
+
+:tex2html_wrap_inline2301:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline2301:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[51]
+
+:tex2html_wrap_inline2376:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline2376:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[52]
+
+:tex2html_wrap_indisplay38564:lthtmlCropMarkHeight:=17.00006pt
+
+:tex2html_wrap_indisplay38564:lthtmlCropMarkDepth:=13.22227pt:1ex:=5.16667pt
+[53]
+
+:tex2html_wrap_inline2603:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline2603:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[54]
+
+:tex2html_wrap_inline2607:lthtmlCropMarkHeight:=15.2587pt
+
+:tex2html_wrap_inline2607:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[55]
+
+:tex2html_wrap_inline2609:lthtmlCropMarkHeight:=15.2587pt
+
+:tex2html_wrap_inline2609:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[56]
+
+:tex2html_wrap_indisplay38570:lthtmlCropMarkHeight:=15.86931pt
+
+:tex2html_wrap_indisplay38570:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[57]
+
+:tex2html_wrap_indisplay38571:lthtmlCropMarkHeight:=10.248pt
+
+:tex2html_wrap_indisplay38571:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[58]
+
+:tex2html_wrap_indisplay38572:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay38572:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[59]
+
+:tex2html_wrap_indisplay38573:lthtmlCropMarkHeight:=15.80006pt
+
+:tex2html_wrap_indisplay38573:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[60]
+
+:tex2html_wrap_indisplay38575:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay38575:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[61]
+
+:tex2html_wrap_inline2611:lthtmlCropMarkHeight:=13.63165pt
+
+:tex2html_wrap_inline2611:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[62]
+
+:tex2html_wrap_indisplay38579:lthtmlCropMarkHeight:=15.86931pt
+
+:tex2html_wrap_indisplay38579:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[63]
+
+:tex2html_wrap_indisplay38581:lthtmlCropMarkHeight:=15.86931pt
+
+:tex2html_wrap_indisplay38581:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[64]
+
+:tex2html_wrap_indisplay38582:lthtmlCropMarkHeight:=15.80006pt
+
+:tex2html_wrap_indisplay38582:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[65]
+
+:tex2html_wrap_indisplay38584:lthtmlCropMarkHeight:=15.80006pt
+
+:tex2html_wrap_indisplay38584:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[66]
+
+:tex2html_wrap_inline2629:lthtmlCropMarkHeight:=15.86931pt
+
+:tex2html_wrap_inline2629:lthtmlCropMarkDepth:=3.02216pt:1ex:=5.16667pt
+[67]
+
+:tex2html_wrap_inline2631:lthtmlCropMarkHeight:=15.80006pt
+
+:tex2html_wrap_inline2631:lthtmlCropMarkDepth:=3.02216pt:1ex:=5.16667pt
+[68]
+
+:tex2html_wrap_inline2633:lthtmlCropMarkHeight:=15.2587pt
+
+:tex2html_wrap_inline2633:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[69]
+
+:tex2html_wrap_inline2635:lthtmlCropMarkHeight:=15.18808pt
+
+:tex2html_wrap_inline2635:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[70]
+
+:tex2html_wrap_inline2649:lthtmlCropMarkHeight:=15.86931pt
+
+:tex2html_wrap_inline2649:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[71]
+
+:tex2html_wrap_inline2651:lthtmlCropMarkHeight:=15.80006pt
+
+:tex2html_wrap_inline2651:lthtmlCropMarkDepth:=3.86668pt:1ex:=5.16667pt
+[72]
+
+:tex2html_wrap_inline2902:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline2902:lthtmlCropMarkDepth:=0.924pt:1ex:=5.16667pt
+[73]
+
+:tex2html_wrap_inline2908:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline2908:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[74]
+
+:tex2html_wrap_inline2910:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline2910:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[75]
+
+:tex2html_wrap_inline2912:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline2912:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[76]
+
+:tex2html_wrap_inline3130:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3130:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[77]
+
+:tex2html_wrap_inline3150:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline3150:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[78]
+
+:tex2html_wrap_inline3158:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3158:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[79]
+
+:tex2html_wrap_inline3168:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline3168:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[80]
+
+:tex2html_wrap_inline3279:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3279:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[81]
+
+:tex2html_wrap_inline3283:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline3283:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[82]
+
+:tex2html_wrap_inline3285:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline3285:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[83]
+
+:tex2html_wrap_inline3287:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline3287:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[84]
+
+:tex2html_wrap_inline3289:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3289:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[85]
+
+:tex2html_wrap_inline3291:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3291:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[86]
+
+:tex2html_wrap_inline3383:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline3383:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[87]
+
+:tex2html_wrap_inline3498:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3498:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[88]
+
+:tex2html_wrap_inline3544:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3544:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[89]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 916.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Underfull \hbox (badness 10000) in paragraph at lines 916--916
+[]
+ []
 
 
+:tex2html_wrap_inline38964:lthtmlCropMarkHeight:=48.63324pt
 
-]
-l2hSize :tex2html_wrap_inline876:7.75pt::0.0pt::-1.41245pt.
-[2
+:tex2html_wrap_inline38964:lthtmlCropMarkDepth:=36.63324pt:1ex:=5.16667pt
+[90]
+
+:tex2html_wrap_inline3959:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3959:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[91]
+
+:tex2html_wrap_inline3961:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline3961:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[92]
+
+:tex2html_wrap_inline3963:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline3963:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[93]
+
+:tex2html_wrap_inline3965:lthtmlCropMarkHeight:=11.16667pt
+
+:tex2html_wrap_inline3965:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[94]
+
+:tex2html_wrap_inline3967:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline3967:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[95]
+
+:tex2html_wrap_inline3969:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline3969:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[96]
+
+:tex2html_wrap_inline39085:lthtmlCropMarkHeight:=34.88324pt
+
+:tex2html_wrap_inline39085:lthtmlCropMarkDepth:=22.88324pt:1ex:=5.16667pt
+[97]
+
+:tex2html_wrap_inline4145:lthtmlCropMarkHeight:=13.86708pt
+
+:tex2html_wrap_inline4145:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[98]
+
+:tex2html_wrap_inline4147:lthtmlCropMarkHeight:=13.86708pt
+
+:tex2html_wrap_inline4147:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[99]
+
+:tex2html_wrap_inline4487:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline4487:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[100]
+
+:tex2html_wrap_inline4489:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline4489:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[101]
+
+:tex2html_wrap_inline4491:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline4491:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[102]
+
+:tex2html_wrap_inline4493:lthtmlCropMarkHeight:=11.16667pt
+
+:tex2html_wrap_inline4493:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[103]
+
+:tex2html_wrap_inline4800:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline4800:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[104]
+
+:tex2html_wrap_inline4812:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline4812:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[105]
+
+:tex2html_wrap_inline5758:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5758:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[106]
+
+:tex2html_wrap_inline5762:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5762:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[107]
+
+:tex2html_wrap_inline5764:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5764:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[108]
+
+:tex2html_wrap_inline5766:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5766:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[109]
+
+:tex2html_wrap_inline5768:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5768:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[110]
+
+:tex2html_wrap_inline5770:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5770:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[111]
+
+:tex2html_wrap_inline5772:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5772:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[112]
+
+:tex2html_wrap_inline5774:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5774:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[113]
+
+:tex2html_wrap_inline5776:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline5776:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[114]
+
+:tex2html_wrap_inline5782:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline5782:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[115]
+
+:tex2html_wrap_inline5899:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline5899:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[116]
+
+:tex2html_wrap_inline6948:lthtmlCropMarkHeight:=13.63165pt
+
+:tex2html_wrap_inline6948:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[117]
+
+:tex2html_wrap_inline7233:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline7233:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[118]
+
+:tex2html_wrap_inline7235:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline7235:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[119]
+
+:tex2html_wrap_inline7237:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline7237:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[120]
+
+:tex2html_wrap_inline7239:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline7239:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[121]
+
+:tex2html_wrap_inline7241:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline7241:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[122]
+
+:tex2html_wrap_inline7243:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline7243:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[123]
+
+:tex2html_wrap_inline7245:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline7245:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[124]
+
+:tex2html_wrap_inline7247:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline7247:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[125]
+
+:tex2html_wrap_inline7249:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline7249:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[126]
+
+:tex2html_wrap_inline7251:lthtmlCropMarkHeight:=16.74832pt
+
+:tex2html_wrap_inline7251:lthtmlCropMarkDepth:=1.73164pt:1ex:=5.16667pt
+[127]
+
+:tex2html_wrap_inline7253:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline7253:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[128]
+
+:tex2html_wrap_inline7255:lthtmlCropMarkHeight:=16.74832pt
+
+:tex2html_wrap_inline7255:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[129]
+
+:tex2html_wrap_inline7259:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline7259:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[130]
+
+:tex2html_wrap_inline7261:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline7261:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[131]
+
+:tex2html_wrap_inline7263:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline7263:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[132]
+
+:tex2html_wrap_inline7448:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline7448:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[133]
+
+:tex2html_wrap_inline7454:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline7454:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[134]
+
+:tex2html_wrap_inline7456:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline7456:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[135]
+
+:tex2html_wrap_inline7646:lthtmlCropMarkHeight:=13.0pt
+
+:tex2html_wrap_inline7646:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[136]
+
+:tex2html_wrap_inline8245:lthtmlCropMarkHeight:=14.0075pt
+
+:tex2html_wrap_inline8245:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[137]
+
+:tex2html_wrap_indisplay40269:lthtmlCropMarkHeight:=18.00008pt
+
+:tex2html_wrap_indisplay40269:lthtmlCropMarkDepth:=6.00009pt:1ex:=5.16667pt
+[138]
+
+:tex2html_wrap_inline8511:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline8511:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[139]
+
+:tex2html_wrap_inline8513:lthtmlCropMarkHeight:=18.00008pt
+
+:tex2html_wrap_inline8513:lthtmlCropMarkDepth:=6.00009pt:1ex:=5.16667pt
+[140]
+
+:tex2html_wrap_inline8519:lthtmlCropMarkHeight:=19.23651pt
+
+:tex2html_wrap_inline8519:lthtmlCropMarkDepth:=5.16364pt:1ex:=5.16667pt
+[141]
+
+:tex2html_wrap_inline8521:lthtmlCropMarkHeight:=17.59998pt
+
+:tex2html_wrap_inline8521:lthtmlCropMarkDepth:=4.52216pt:1ex:=5.16667pt
+[142]
+
+:tex2html_wrap_inline8527:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline8527:lthtmlCropMarkDepth:=2.33331pt:1ex:=5.16667pt
+[143]
+
+:tex2html_wrap_inline8533:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline8533:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[144]
+
+:tex2html_wrap_inline8539:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline8539:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[145]
+
+:tex2html_wrap_inline9294:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline9294:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[146]
+
+:tex2html_wrap_inline10124:lthtmlCropMarkHeight:=15.8657pt
+
+:tex2html_wrap_inline10124:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[147]
+
+:tex2html_wrap_inline10128:lthtmlCropMarkHeight:=15.8657pt
+
+:tex2html_wrap_inline10128:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[148]
+
+:tex2html_wrap_inline10854:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline10854:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[149]
+
+:tex2html_wrap_inline10856:lthtmlCropMarkHeight:=18.6723pt
+
+:tex2html_wrap_inline10856:lthtmlCropMarkDepth:=5.72784pt:1ex:=5.16667pt
+[150]
+
+:tex2html_wrap_inline10958:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline10958:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[151]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1437 \lthtmldisplayZ
+                      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
 
-]
-l2hSize :tex2html_wrap_inline2484:10.36931pt::10.36931pt::68.03018pt.
-[3
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1437 \lthtmldisplayZ
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1437 \lthtmldisplayZ
+                      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
 
-]
-l2hSize :tex2html_wrap_inline3084:8.33331pt::0.0pt::45.91972pt.
-[4
+:displaymath11044:lthtmlCropMarkHeight:=17.59998pt
+
+:displaymath11044:lthtmlCropMarkDepth:=4.13809pt:1ex:=5.16667pt
+[152]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1445 \lthtmldisplayZ
+                      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
 
-]
-l2hSize :tex2html_wrap_inline4131:8.33331pt::0.0pt::6.38954pt.
-[5
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1445 \lthtmldisplayZ
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1445 \lthtmldisplayZ
+                      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
 
-]
-l2hSize :tex2html_wrap_inline8155:12.09998pt::12.09998pt::69.53465pt.
-[6
+:displaymath11143:lthtmlCropMarkHeight:=17.59998pt
 
+:displaymath11143:lthtmlCropMarkDepth:=4.13809pt:1ex:=5.16667pt
+[153]
 
-]
-l2hSize :tex2html_wrap_inline13615:10.84595pt::10.84595pt::67.43506pt.
-[7
+:tex2html_wrap_inline11681:lthtmlCropMarkHeight:=15.0pt
 
+:tex2html_wrap_inline11681:lthtmlCropMarkDepth:=3.35548pt:1ex:=5.16667pt
+[154]
 
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 667.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 667.
+:tex2html_wrap_inline11685:lthtmlCropMarkHeight:=18.13332pt
+
+:tex2html_wrap_inline11685:lthtmlCropMarkDepth:=3.02216pt:1ex:=5.16667pt
+[155]
+
+:tex2html_wrap_inline11689:lthtmlCropMarkHeight:=18.13332pt
+
+:tex2html_wrap_inline11689:lthtmlCropMarkDepth:=3.35548pt:1ex:=5.16667pt
+[156]
+
+:tex2html_wrap_inline11695:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline11695:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[157]
+
+:tex2html_wrap_inline12436:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline12436:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[158]
+
+:tex2html_wrap_inline12438:lthtmlCropMarkHeight:=15.91026pt
+
+:tex2html_wrap_inline12438:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[159]
+
+:tex2html_wrap_inline12466:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12466:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[160]
+
+:tex2html_wrap_inline12468:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12468:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[161]
+
+:tex2html_wrap_inline12470:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12470:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[162]
+
+:tex2html_wrap_inline12472:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12472:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[163]
+
+:tex2html_wrap_inline12474:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12474:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[164]
+
+:tex2html_wrap_inline12476:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12476:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[165]
+
+:tex2html_wrap_inline12966:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12966:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[166]
+
+:tex2html_wrap_inline12968:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline12968:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[167]
+
+:tex2html_wrap_inline13329:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline13329:lthtmlCropMarkDepth:=1.0pt:1ex:=5.16667pt
+[168]
+
+:tex2html_wrap_inline13934:lthtmlCropMarkHeight:=14.2pt
+
+:tex2html_wrap_inline13934:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[169]
+
+:tex2html_wrap_inline13944:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline13944:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[170]
+
+:tex2html_wrap_inline14104:lthtmlCropMarkHeight:=16.34595pt
+
+:tex2html_wrap_inline14104:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[171]
+
+:tex2html_wrap_indisplay41773:lthtmlCropMarkHeight:=26.69003pt
+
+:tex2html_wrap_indisplay41773:lthtmlCropMarkDepth:=14.51097pt:1ex:=5.16667pt
+[172]
+
+:tex2html_wrap_indisplay41777:lthtmlCropMarkHeight:=17.00006pt
+
+:tex2html_wrap_indisplay41777:lthtmlCropMarkDepth:=14.68893pt:1ex:=5.16667pt
+[173]
+
+:tex2html_wrap_indisplay41779:lthtmlCropMarkHeight:=17.00006pt
+
+:tex2html_wrap_indisplay41779:lthtmlCropMarkDepth:=14.68893pt:1ex:=5.16667pt
+[174]
+
+:tex2html_wrap_inline14475:lthtmlCropMarkHeight:=14.19998pt
+
+:tex2html_wrap_inline14475:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[175]
+
+:tex2html_wrap_inline14483:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline14483:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[176]
+
+:tex2html_wrap_indisplay41786:lthtmlCropMarkHeight:=26.69003pt
+
+:tex2html_wrap_indisplay41786:lthtmlCropMarkDepth:=12.95541pt:1ex:=5.16667pt
+[177]
+
+:tex2html_wrap_inline14715:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline14715:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[178]
+
+:tex2html_wrap_inline15112:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline15112:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[179]
+
+:tex2html_wrap_inline15114:lthtmlCropMarkHeight:=15.51021pt
+
+:tex2html_wrap_inline15114:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[180]
+
+:tex2html_wrap_inline15136:lthtmlCropMarkHeight:=14.33331pt
+
+:tex2html_wrap_inline15136:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[181]
+
+:tex2html_wrap_inline15138:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_inline15138:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[182]
+
+:tex2html_wrap_indisplay42026:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay42026:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[183]
+
+:tex2html_wrap_indisplay42027:lthtmlCropMarkHeight:=6.0pt
+
+:tex2html_wrap_indisplay42027:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[184]
+
+:tex2html_wrap_indisplay42028:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay42028:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[185]
+
+:tex2html_wrap_indisplay42029:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay42029:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[186]
+
+:tex2html_wrap_indisplay42031:lthtmlCropMarkHeight:=19.28476pt
+
+:tex2html_wrap_indisplay42031:lthtmlCropMarkDepth:=10.0314pt:1ex:=5.16667pt
+[187]
+
+:tex2html_wrap_indisplay42223:lthtmlCropMarkHeight:=15.0pt
+
+:tex2html_wrap_indisplay42223:lthtmlCropMarkDepth:=3.0pt:1ex:=5.16667pt
+[188]
+
+:tex2html_wrap_indisplay42225:lthtmlCropMarkHeight:=19.28476pt
+
+:tex2html_wrap_indisplay42225:lthtmlCropMarkDepth:=10.0314pt:1ex:=5.16667pt
+[189]
+
+:tex2html_wrap_inline16587:lthtmlCropMarkHeight:=13.63165pt
+
+:tex2html_wrap_inline16587:lthtmlCropMarkDepth:=1.63165pt:1ex:=5.16667pt
+[190]
+
+:tex2html_wrap_inline16792:lthtmlCropMarkHeight:=11.33331pt
+
+:tex2html_wrap_inline16792:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[191]
+
+:tex2html_wrap_inline16794:lthtmlCropMarkHeight:=11.33331pt
+
+:tex2html_wrap_inline16794:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[192]
+
+:tex2html_wrap_inline16796:lthtmlCropMarkHeight:=13.0pt
+
+:tex2html_wrap_inline16796:lthtmlCropMarkDepth:=1.79999pt:1ex:=5.16667pt
+[193]
+
+:tex2html_wrap_inline16952:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline16952:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[194]
+
+:tex2html_wrap_inline16956:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline16956:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[195]
+
+:tex2html_wrap_inline16958:lthtmlCropMarkHeight:=15.82137pt
+
+:tex2html_wrap_inline16958:lthtmlCropMarkDepth:=2.9666pt:1ex:=5.16667pt
+[196]
+
+:tex2html_wrap_inline16960:lthtmlCropMarkHeight:=16.43335pt
+
+:tex2html_wrap_inline16960:lthtmlCropMarkDepth:=3.02216pt:1ex:=5.16667pt
+[197]
+
+:tex2html_wrap_inline17304:lthtmlCropMarkHeight:=13.55675pt
+
+:tex2html_wrap_inline17304:lthtmlCropMarkDepth:=0.0pt:1ex:=5.16667pt
+[198]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1843.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1843.
 (./sub_images.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 667.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 667.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1843.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1843.
+
 Package rerunfilecheck Info: File `sub_images.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 667.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1843.
  ) 
 Here is how much of TeX's memory you used:
- 7982 strings out of 492996
- 135067 string characters out of 6132731
- 293467 words of memory out of 5000000
- 11011 multiletter control sequences out of 15000+600000
- 28287 words of font info for 30 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 36i,5n,45p,351b,690s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 9038 strings out of 494499
+ 149755 string characters out of 6176252
+ 311747 words of memory out of 5000000
+ 12176 multiletter control sequences out of 15000+600000
+ 31603 words of font info for 32 fonts, out of 8000000 for 9000
+ 24 hyphenation exceptions out of 8191
+ 39i,7n,45p,351b,693s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section*.109} has been referenced but does not ex
+ist, replaced by a fixed one
 
-Output written on sub_images.dvi (7 pages, 6540 bytes).
+pdfTeX warning (dest): name{section*.106} has been referenced but does not exis
+t, replaced by a fixed one
+
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/te
+xlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2018/tex
+mf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2018/texmf-dist/fo
+nts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dv
+ips/lm/lm-mathit.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/
+lmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmex10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2018/texmf-
+dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
+ype1/public/lm/lmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+lm/lmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmsy8.p
+fb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on sub_images.pdf (198 pages, 199298 bytes).
+PDF statistics:
+ 698 PDF objects out of 1000 (max. 8388607)
+ 483 compressed objects within 5 object streams
+ 2 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

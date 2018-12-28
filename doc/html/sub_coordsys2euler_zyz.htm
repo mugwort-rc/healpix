@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>coordsys2euler_zyz</TITLE>
 <META NAME="description" CONTENT="coordsys2euler_zyz">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_create_alm.htm">
 <LINK REL="previous" HREF="sub_convert_ring2nest.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_create_alm.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html566"
-  HREF="sub_convert_ring2nest.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html572"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html576"
-  HREF="sub_create_alm.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html574"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_convert_ring2nest.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_create_alm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html340"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html567"
-  HREF="sub_convert_ring2nest.htm">convert_ring2nest*</A>
+<B> Previous:</B> <A
+ HREF="sub_convert_ring2nest.htm">convert_ring2nest*</A>
 
-<B>Up:</B> <A NAME="tex2html573"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html577"
-  HREF="sub_create_alm.htm">create_alm*</A>
+<B> Next:</B> <A
+ HREF="sub_create_alm.htm">create_alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION2300"></A>
-<A NAME="sub:coordsys2euler_zyz"></A>
+<H1><A ID="SECTION2400"></A>
+<A ID="sub:coordsys2euler_zyz"></A>
 <BR>
  
 </H1>
@@ -64,13 +68,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This routine returns the three Euler angles <!-- MATH
  $\psi, \theta, \varphi$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img54.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.16ex; vertical-align: -0.55ex; " SRC="sub_img100.png"
  ALT="$\psi, \theta, \varphi
 $"></SPAN>, corresponding to a rotation between standard astronomical
 coordinate systems. This angles can then be used in rotate_alm</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/coord_v_convert.f90"><b>src/f90/mod/coord_v_convert.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/coord_v_convert.f90"><b>src/f90/mod/coord_v_convert.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">coordsys2euler_zyz</FONT>(
@@ -92,49 +94,43 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>
-iepoch<A NAME="sub:coordsys2euler_zyz:iepoch"></A></TD>
+iepoch<A ID="sub:coordsys2euler_zyz:iepoch"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the input astronomical coordinate system.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>oepoch<A NAME="sub:coordsys2euler_zyz:oepoch"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>oepoch<A ID="sub:coordsys2euler_zyz:oepoch"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the output astronomical coordinate system.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>isys<A NAME="sub:coordsys2euler_zyz:isys"></A>(len=*)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>isys<A ID="sub:coordsys2euler_zyz:isys"></A>(len=*)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>input coordinate system, should be one of 'E'=Ecliptic, 'G'=Galactic, 'C'/'Q'=Celestial/eQuatorial.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>osys<A NAME="sub:coordsys2euler_zyz:osys"></A>(len=*)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>osys<A ID="sub:coordsys2euler_zyz:osys"></A>(len=*)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>output coordinate system, same choice as above.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>psi<A NAME="sub:coordsys2euler_zyz:psi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>psi<A ID="sub:coordsys2euler_zyz:psi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>first Euler angle: rotation <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img55.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>first Euler angle: rotation <SPAN CLASS="MATH"><IMG STYLE="height: 2.10ex; vertical-align: -0.55ex; " SRC="sub_img101.png"
  ALT="$\psi$"></SPAN> about the z-axis.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>theta<A NAME="sub:coordsys2euler_zyz:theta"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>theta<A ID="sub:coordsys2euler_zyz:theta"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>second Euler angle: rotation <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img56.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>second Euler angle: rotation <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img102.png"
  ALT="$\theta$"></SPAN> about the original
 (unrotated) y-axis;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>phi<A NAME="sub:coordsys2euler_zyz:phi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>phi<A ID="sub:coordsys2euler_zyz:phi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>third Euler angle: rotation <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img57.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>third Euler angle: rotation <SPAN CLASS="MATH"><IMG STYLE="height: 1.57ex; vertical-align: -0.55ex; " SRC="sub_img103.png"
  ALT="$\varphi$"></SPAN> about the original (unrotated) z-axis;</TD>
 </TR>
 </TABLE>
@@ -151,7 +147,8 @@ call coordsys2euler_zyz(2000.0_dp, 2000.0_dp, 'E', 'G', psi, theta, phi)
 call rotate_alm(64, alm_TGC, psi, theta, phi)  
 <BR></tt>
 <blockquote>
-Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic to Galactic coordinates.
+Rotate the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> from Ecliptic to Galactic coordinates.
 </blockquote>
 
 <P>
@@ -160,7 +157,8 @@ Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic 
   <DL COMPACT><DT>
 <B><A HREF="sub_rotate_alm.htm#sub:rotate_alm">rotate_alm</A></B>
 <DD>apply arbitrary sky rotation to a
-  set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
+  set of <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> coefficients.
   <DT>
 <B><A HREF="sub_xcc_v_convert.htm#sub:xcc_v_convert">xcc_v_convert</A></B>
 <DD>rotates a 3D coordinate
@@ -178,31 +176,31 @@ vector from one astronomical coordinate system to another.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html566"
-  HREF="sub_convert_ring2nest.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html572"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html576"
-  HREF="sub_create_alm.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html574"
+<A
+ HREF="sub_convert_ring2nest.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_create_alm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html340"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html567"
-  HREF="sub_convert_ring2nest.htm">convert_ring2nest*</A>
+<B> Previous:</B> <A
+ HREF="sub_convert_ring2nest.htm">convert_ring2nest*</A>
 
-<B>Up:</B> <A NAME="tex2html573"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html577"
-  HREF="sub_create_alm.htm">create_alm*</A>
+<B> Next:</B> <A
+ HREF="sub_create_alm.htm">create_alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

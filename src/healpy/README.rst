@@ -36,7 +36,7 @@ Characteristics
 Requirements
 ------------
 
-* `Python <http://www.python.org>`_ 2.7, 3.4, 3.5, or 3.6
+* `Python <http://www.python.org>`_ 2.7, 3.5, or 3.6
 
 * `Numpy <http://numpy.scipy.org/>`_ (tested with version >=1.5.0)
 
@@ -150,6 +150,7 @@ Core developers:
 * Andrea Zonca
 * Martin Reinecke
 * Leo Singer 
+* Daniel Lenz
 
 List of contributors: https://github.com/healpy/healpy/graphs/contributors
 
@@ -161,10 +162,10 @@ publications based on work using the HEALPix software package should include
 both of the following:
 
 1. an acknowledgment statement: "Some of the results in this paper have been
-   derived using the HEALPix (Górski et al., 2005) package". The complete
+   derived using the HEALPix (Gorski et al., 2005) package". The complete
    reference is:
 
-      Górski, K.M., E. Hivon, A.J. Banday, B.D. Wandelt, F.K. Hansen,
+      Gorski, K.M., E. Hivon, A.J. Banday, B.D. Wandelt, F.K. Hansen,
       M. Reinecke, and M. Bartelmann, HEALPix: A Framework for
       High-resolution Discretization and Fast Analysis of Data
       Distributed on the Sphere, Ap.J., 622, 759-771, 2005.

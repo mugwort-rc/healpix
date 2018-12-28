@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>isynfast</TITLE>
 <META NAME="description" CONTENT="isynfast">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
 <LINK REL="next" HREF="idl_lm2index.htm">
 <LINK REL="previous" HREF="idl_ismoothing.htm">
-<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
 <LINK REL="next" HREF="idl_lm2index.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html739"
-  HREF="idl_ismoothing.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html745"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html749"
-  HREF="idl_lm2index.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html747"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="idl_ismoothing.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_lm2index.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html355"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html740"
-  HREF="idl_ismoothing.htm">ismoothing</A>
+<B> Previous:</B> <A
+ HREF="idl_ismoothing.htm">ismoothing</A>
 
-<B>Up:</B> <A NAME="tex2html746"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html750"
-  HREF="idl_lm2index.htm">lm2index</A>
+<B> Next:</B> <A
+ HREF="idl_lm2index.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION4000"></A>
-<A NAME="idl:isynfast"></A>
+<H1><A ID="SECTION4100"></A>
+<A ID="idl:isynfast"></A>
 <BR>
  
 </H1>
@@ -62,9 +66,14 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">isynfast</FONT></font></b><hr>
 <H3>This IDL facility provides an interface to F90 '<A HREF="./fac_synfast.htm#fac:synfast">synfast</A>' facility. It can be
-used to generate sky maps and/or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from power spectra (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>), synthesize maps from
-<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or simulate maps from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> and constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/interfaces/isynfast.pro"><b>src/idl/interfaces/isynfast.pro</b></a>&nbsp;  
+used to generate sky maps and/or <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="idl_img1.png"
+ ALT="$a_{\ell m}$"></SPAN> from power spectra (<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img4.png"
+ ALT="$C(\ell)$"></SPAN>), synthesize maps from
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="idl_img1.png"
+ ALT="$a_{\ell m}$"></SPAN> or simulate maps from <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img4.png"
+ ALT="$C(\ell)$"></SPAN> and constraining <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="idl_img1.png"
+ ALT="$a_{\ell m}$"></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/idl/interfaces/isynfast.pro"><b>src/idl/interfaces/isynfast.pro</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
@@ -79,14 +88,15 @@ ISYNFAST, <A HREF="#idl:isynfast:cl_in">cl_in</A>[, <A HREF="#idl:isynfast:map_o
 <H1>QUALIFIERS</H1>
  
   <DL COMPACT><DT>
-<B>cl_in<A NAME="idl:isynfast:cl_in"></A></B>
+<B>cl_in<A ID="idl:isynfast:cl_in"></A></B>
 <DD>input power spectrum, can be a FITS file, or a memory array containing the
-        <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, used to generate a map or a set of gaussian alm 
+        <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img4.png"
+ ALT="$C(\ell)$"></SPAN>, used to generate a map or a set of gaussian alm 
 <BR>
-If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No input C(l)", in
+If empty quotes (&rdquo;) or a zero (0) are provided, it will be interpreted as "No input C(l)", in
    which case some input alm's (alm_in) are required.
     <DT>
-<B>map_out<A NAME="idl:isynfast:map_out"></A></B>
+<B>map_out<A ID="idl:isynfast:map_out"></A></B>
 <DD>optional output: <EM>RING ordered</EM> map synthetised from the power spectrum or from constraining alm
   </DL>
 
@@ -94,67 +104,65 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <hr><H1>KEYWORDS</H1>
 
   <DL COMPACT><DT>
-<B>alm_in<A NAME="idl:isynfast:alm_in"></A>=</B>
+<B>alm_in<A ID="idl:isynfast:alm_in"></A>=</B>
 <DD>optional input (constraining) alm (must be a FITS file)           <b>default:</b>no alm
 
 <P>
 <DT>
-<B>alm_out<A NAME="idl:isynfast:alm_out"></A>=</B>
+<B>alm_out<A ID="idl:isynfast:alm_out"></A>=</B>
 <DD>contains on output the effective alm (must be a FITS file)
 
 <P>
 <DT>
-<B>/apply_windows<A NAME="idl:isynfast:apply_windows"></A></B>
+<B>/apply_windows<A ID="idl:isynfast:apply_windows"></A></B>
 <DD>if set, beam and pixel windows are applied to input alm_in
 (if any)
 
 <P>
 <DT>
-<B>beam_file<A NAME="idl:isynfast:beam_file"></A>=</B>
-<DD>beam window function, either a FITS file or an array (see <A HREF="./fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">''Beam window function files''</A> section
-in the <A NAME="tex2html37"
+<B>beam_file<A ID="idl:isynfast:beam_file"></A>=</B>
+<DD>beam window function, either a FITS file or an array (see <A HREF="./fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">&rdquo;Beam window function files&rdquo;</A> section
+in the <A ID="tex2html47"
   HREF="facilities.htm"><b>HEALPix</b> Fortran Facilities document</A>)
 
 <P>
 <DT>
-<B>binpath<A NAME="idl:isynfast:binpath"></A>=</B>
+<B>binpath<A ID="idl:isynfast:binpath"></A>=</B>
 <DD>full path to back-end routine <b>default:</b>$HEXE/synfast, then $HEALPIX/bin/synfast
-<BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img49.png"
+<BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img74.png"
  ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
 <BR>              - a binpath starting with ./ is interpreted as relative to current directory
 <BR>              - all other binpaths are relative to $HEALPIX
 
 <P>
 <DT>
-<B>/double<A NAME="idl:isynfast:double"></A></B>
+<B>/double<A ID="idl:isynfast:double"></A></B>
 <DD>if set, I/O is done in double precision <b>default:</b>single precision I/O
 
 <P>
 <DT>
-<B>fwhm_arcmin<A NAME="idl:isynfast:fwhm_arcmin"></A>=</B>
+<B>fwhm_arcmin<A ID="idl:isynfast:fwhm_arcmin"></A>=</B>
 <DD>gaussian beam FWHM in arcmin <b>default:</b>0
 
 <P>
 <DT>
-<B>/help<A NAME="idl:isynfast:help"></A></B>
+<B>/help<A ID="idl:isynfast:help"></A></B>
 <DD>if set, prints extended help
 
 <P>
 <DT>
-<B>iseed<A NAME="idl:isynfast:iseed"></A>=</B>
+<B>iseed<A ID="idl:isynfast:iseed"></A>=</B>
 <DD>integer seed of radom sequence <b>default:</b>0
 
 <P>
 <DT>
-<B>/keep_tmp_files<A NAME="idl:isynfast:keep_tmp_files"></A></B>
+<B>/keep_tmp_files<A ID="idl:isynfast:keep_tmp_files"></A></B>
 <DD>if set, temporary files are not discarded at the end of the
                    run
 
 <P>
 <DT>
-<B>lmax<A NAME="idl:isynfast:lmax"></A>=, nlmax<A NAME="idl:isynfast:nlmax"></A>=</B>
+<B>lmax<A ID="idl:isynfast:lmax"></A>=, nlmax<A ID="idl:isynfast:nlmax"></A>=</B>
 <DD>maximum multipole simulation <b>default:</b>2*<!-- MATH
  $N_{\mathrm{side}}$
  -->
@@ -162,7 +170,7 @@ in the <A NAME="tex2html37"
 
 <P>
 <DT>
-<B>nside<A NAME="idl:isynfast:nside"></A>=, nsmax<A NAME="idl:isynfast:nsmax"></A>=</B>
+<B>nside<A ID="idl:isynfast:nside"></A>=, nsmax<A ID="idl:isynfast:nsmax"></A>=</B>
 <DD>Healpix resolution parameter <!-- MATH
  $N_{\mathrm{side}}$
  -->
@@ -170,12 +178,12 @@ in the <A NAME="tex2html37"
 
 <P>
 <DT>
-<B>plmfile<A NAME="idl:isynfast:plmfile"></A>=</B>
+<B>plmfile<A ID="idl:isynfast:plmfile"></A>=</B>
 <DD>FITS file containing precomputed Spherical Harmonics (deprecated) <b>default:</b>no file
 
 <P>
 <DT>
-<B>simul_type<A NAME="idl:isynfast:simul_type"></A>=</B>
+<B>simul_type<A ID="idl:isynfast:simul_type"></A>=</B>
 <DD>1) Temperature only 
 <BR>
 2) Temperature + polarisation 
@@ -191,25 +199,25 @@ in the <A NAME="tex2html37"
 
 <P>
 <DT>
-<B>/silent<A NAME="idl:isynfast:silent"></A></B>
+<B>/silent<A ID="idl:isynfast:silent"></A></B>
 <DD>if set, works silently
 
 <P>
 <DT>
-<B>tmpdir<A NAME="idl:isynfast:tmpdir"></A>=</B>
+<B>tmpdir<A ID="idl:isynfast:tmpdir"></A>=</B>
 <DD>directory in which are written temporary files 
  <b>default:</b>IDL_TMPDIR (see IDL documentation)
 
 <P>
 <DT>
-<B>windowfile<A NAME="idl:isynfast:windowfile"></A>=</B>
+<B>windowfile<A ID="idl:isynfast:windowfile"></A>=</B>
 <DD>FITS file containing pixel window 
         <b>default:</b>determined automatically by back-end routine.
       Do not set this keyword unless you really know what you are doing
 
 <P>
 <DT>
-<B>winfiledir<A NAME="idl:isynfast:winfiledir"></A>=</B>
+<B>winfiledir<A ID="idl:isynfast:winfiledir"></A>=</B>
 <DD>directory where the pixel windows are to be found 
         <b>default:</b>determined automatically by back-end routine.
       Do not set this keyword unless you really know what you are doing
@@ -273,31 +281,31 @@ spectrum and observed with a circular gaussian 30 arcmin beam.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html739"
-  HREF="idl_ismoothing.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html745"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html749"
-  HREF="idl_lm2index.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html747"
+<A
+ HREF="idl_ismoothing.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_lm2index.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html355"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html740"
-  HREF="idl_ismoothing.htm">ismoothing</A>
+<B> Previous:</B> <A
+ HREF="idl_ismoothing.htm">ismoothing</A>
 
-<B>Up:</B> <A NAME="tex2html746"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html750"
-  HREF="idl_lm2index.htm">lm2index</A>
+<B> Next:</B> <A
+ HREF="idl_lm2index.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

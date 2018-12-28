@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>brag_openmp</TITLE>
 <META NAME="description" CONTENT="brag_openmp">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_complex_fft.htm">
 <LINK REL="previous" HREF="sub_assert_assert_alloc_assert_.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_complex_fft.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html482"
-  HREF="sub_assert_assert_alloc_assert_.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html488"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html492"
-  HREF="sub_complex_fft.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html490"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_assert_assert_alloc_assert_.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_complex_fft.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html326"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html483"
-  HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
+<B> Previous:</B> <A
+ HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
 
-<B>Up:</B> <A NAME="tex2html489"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html493"
-  HREF="sub_complex_fft.htm">complex_fft</A>
+<B> Next:</B> <A
+ HREF="sub_complex_fft.htm">complex_fft</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION1600"></A>
-<A NAME="sub:brag_openmp"></A>
+<H1><A ID="SECTION1700"></A>
+<A ID="sub:brag_openmp"></A>
 <BR>
  
 </H1>
@@ -63,7 +67,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">brag_openmp</FONT></font></b><hr>
 <H3>If compiled with shared memory libraries (OpenMP), this routine prints out the number of
 CPUs used (controlled by the environment variable <TT>OMP_NUM_THREADS</TT>) and the number of CPUs available.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/misc_utils.F90"><b>src/f90/mod/misc_utils.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/misc_utils.F90"><b>src/f90/mod/misc_utils.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">brag_openmp</FONT>(
@@ -77,15 +81,13 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 call <FONT COLOR="#CC0000">brag_openmp</FONT>() 
 <BR></tt>
 <blockquote>
-<IMG
- WIDTH="333" HEIGHT="128" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img44.png"
+<IMG STYLE="height: 15.33ex; vertical-align: -7.19ex; " SRC="sub_img90.png"
  ALT="$\textstyle \parbox{8.2cm}{
-Will&nbsp;print&nbsp;out: \hfill\\
+Will~print~out: \hfill\\
 \parbox[t]{8cm}{\tt
----...
+------...
 ...
-------------------- }
+-------------------------------------- }
 on a bi-pro (or dual core) computer}$"></blockquote>
 
 <P>
@@ -97,31 +99,31 @@ on a bi-pro (or dual core) computer}$"></blockquote>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html482"
-  HREF="sub_assert_assert_alloc_assert_.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html488"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html492"
-  HREF="sub_complex_fft.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html490"
+<A
+ HREF="sub_assert_assert_alloc_assert_.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_complex_fft.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html326"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html483"
-  HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
+<B> Previous:</B> <A
+ HREF="sub_assert_assert_alloc_assert_.htm">assert, assert_alloc, assert_directory_present, assert_present, fatal_error</A>
 
-<B>Up:</B> <A NAME="tex2html489"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html493"
-  HREF="sub_complex_fft.htm">complex_fft</A>
+<B> Next:</B> <A
+ HREF="sub_complex_fft.htm">complex_fft</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

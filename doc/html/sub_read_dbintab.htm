@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>read_dbintab</TITLE>
 <META NAME="description" CONTENT="read_dbintab">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_read_fits_cut4.htm">
 <LINK REL="previous" HREF="sub_read_conbintab.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_read_fits_cut4.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1334"
-  HREF="sub_read_conbintab.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1340"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1344"
-  HREF="sub_read_fits_cut4.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1342"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_read_conbintab.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_read_fits_cut4.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html468"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1335"
-  HREF="sub_read_conbintab.htm">read_conbintab*</A>
+<B> Previous:</B> <A
+ HREF="sub_read_conbintab.htm">read_conbintab*</A>
 
-<B>Up:</B> <A NAME="tex2html1341"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1345"
-  HREF="sub_read_fits_cut4.htm">read_fits_cut4</A>
+<B> Next:</B> <A
+ HREF="sub_read_fits_cut4.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION8700"></A>
-<A NAME="sub:read_dbintab"></A>
+<H1><A ID="SECTION8800"></A>
+<A ID="sub:read_dbintab"></A>
 <BR>
  
 </H1>
@@ -62,13 +66,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">read_dbintab</FONT></font></b><hr>
 <H3>This routine reads a double precision binary array from a FITS-file. It is used by <b>HEALPix</b> to read precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> values and pixel window functions.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> values and pixel window functions.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">read_dbintab</FONT>(
@@ -90,43 +92,45 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-filename<A NAME="sub:read_dbintab:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
+filename<A ID="sub:read_dbintab:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>filename of FITS-file containing the double precision array.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>npixtot<A NAME="sub:read_dbintab:npixtot"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>npixtot<A ID="sub:read_dbintab:npixtot"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Number of values to be read from the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmaps<A NAME="sub:read_dbintab:nmaps"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmaps<A ID="sub:read_dbintab:nmaps"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number of 1-dim. arrays, 1 for scalar <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img107.png"
- ALT="$P_{lm}\!\!$"></SPAN> s and pixel windows, 3 for scalar and tensor <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img107.png"
- ALT="$P_{lm}\!\!$"></SPAN> s.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number of 1-dim. arrays, 1 for scalar <!-- MATH
+ $P_{\ell m}\!\!$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img169.png"
+ ALT="$P_{\ell m}\!\!$"></SPAN> s and pixel windows, 3 for scalar and tensor <!-- MATH
+ $P_{\ell m}\!\!$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img169.png"
+ ALT="$P_{\ell m}\!\!$"></SPAN> s.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map<A NAME="sub:read_dbintab:map"></A>(0:npixtot-1,1:nmaps)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map<A ID="sub:read_dbintab:map"></A>(0:npixtot-1,1:nmaps)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the array read from the FITS-file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nullval<A NAME="sub:read_dbintab:nullval"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nullval<A ID="sub:read_dbintab:nullval"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>value of missing pixels in the array.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>anynull<A NAME="sub:read_dbintab:anynull"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>anynull<A ID="sub:read_dbintab:anynull"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>TRUE, if there are missing pixels, and FALSE otherwise.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>units<A NAME="sub:read_dbintab:units"></A>(len=20)(1:nmaps)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>units<A ID="sub:read_dbintab:units"></A>(len=20)(1:nmaps)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>respective physical units of the maps in the FITS file.</TD>
@@ -139,24 +143,21 @@ filename<A NAME="sub:read_dbintab:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <BR></tt>
 <blockquote>
 Reads precomputed scalar <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> from the file `plm_32.fits'. The values are returned in the array plm(0:65*66*32,1:1). The number of values 65*66*32 is the number of precomputed <!-- MATH
- $P_{lm}(\theta)$
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> from the file `plm_32.fits'. The values are returned in the array plm(0:65*66*32,1:1). The number of values 65*66*32 is the number of precomputed <!-- MATH
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> for a <!-- MATH
- $N_\mathrm{side}=32$
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> for a <!-- MATH
+ $N_{\mathrm{side}}=32$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I>=32</SPAN>, <!-- MATH
- $l_{\mathrm{max}}=64$
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=32</SPAN>, <!-- MATH
+ $\ell_{\mathrm{max}}=64$
  -->
-<SPAN CLASS="MATH"><I>l</I><SUB>max</SUB>=64</SPAN> map. If there are missing values in the file, anynull is TRUE and nullval contains the values of these pixels.
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img170.png"
+ ALT="$\ell_{\mathrm{max}}=64$"></SPAN> map. If there are missing values in the file, anynull is TRUE and nullval contains the values of these pixels.
 </blockquote>
 
 <P>
@@ -178,12 +179,10 @@ Reads precomputed scalar <!-- MATH
   <DL COMPACT><DT>
 <B>plmgen</B>
 <DD>Executable to create files with precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN>.
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN>.
   <DT>
 <B><A HREF="sub_write_plm.htm#sub:write_plm">write_plm</A></B>
 <DD>Routine to create a file to be read by read_dbintab.
@@ -200,31 +199,31 @@ Reads precomputed scalar <!-- MATH
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1334"
-  HREF="sub_read_conbintab.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1340"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1344"
-  HREF="sub_read_fits_cut4.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1342"
+<A
+ HREF="sub_read_conbintab.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_read_fits_cut4.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html468"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1335"
-  HREF="sub_read_conbintab.htm">read_conbintab*</A>
+<B> Previous:</B> <A
+ HREF="sub_read_conbintab.htm">read_conbintab*</A>
 
-<B>Up:</B> <A NAME="tex2html1341"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1345"
-  HREF="sub_read_fits_cut4.htm">read_fits_cut4</A>
+<B> Next:</B> <A
+ HREF="sub_read_fits_cut4.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

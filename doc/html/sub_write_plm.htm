@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>write_plm</TITLE>
 <META NAME="description" CONTENT="write_plm">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_xcc_v_convert.htm">
 <LINK REL="previous" HREF="sub_write_minimal_header.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_xcc_v_convert.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1658"
-  HREF="sub_write_minimal_header.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1664"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1668"
-  HREF="sub_xcc_v_convert.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1666"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_write_minimal_header.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_xcc_v_convert.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html522"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1659"
-  HREF="sub_write_minimal_header.htm">write_minimal_header</A>
+<B> Previous:</B> <A
+ HREF="sub_write_minimal_header.htm">write_minimal_header</A>
 
-<B>Up:</B> <A NAME="tex2html1665"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1669"
-  HREF="sub_xcc_v_convert.htm">xcc_v_convert</A>
+<B> Next:</B> <A
+ HREF="sub_xcc_v_convert.htm">xcc_v_convert</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION11400"></A>
-<A NAME="sub:write_plm"></A>
+<H1><A ID="SECTION11500"></A>
+<A ID="sub:write_plm"></A>
 <BR>
  
 </H1>
@@ -62,13 +66,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">write_plm</FONT></font></b><hr>
 <H3>This routine creates a double precision binary FITS-file from a given array. The routine is used by the <b>HEALPix</b> facility plmgen to store precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">write_plm</FONT>(
@@ -90,66 +92,67 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-plm<A NAME="sub:write_plm:plm"></A>(0:nplm-1,1:nhar)</TD>
+plm<A ID="sub:write_plm:plm"></A>(0:nplm-1,1:nhar)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the array with the precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> values.</TD>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> values.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nplm<A NAME="sub:write_plm:nplm"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nplm<A ID="sub:write_plm:nplm"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> values to store.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img10.png"
+ ALT="$P_{\ell m}$"></SPAN> values to store.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nhar<A NAME="sub:write_plm:nhar"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nhar<A ID="sub:write_plm:nhar"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>1 for scalar <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> only and 3 for tensor harmonics.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>1 for scalar <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img10.png"
+ ALT="$P_{\ell m}$"></SPAN> only and 3 for tensor harmonics.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header<A NAME="sub:write_plm:header"></A>(LEN=80) (1:nlheader)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header<A ID="sub:write_plm:header"></A>(LEN=80) (1:nlheader)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The header for the FITS-file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader<A NAME="sub:write_plm:nlheader"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader<A ID="sub:write_plm:nlheader"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of header lines to write to the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename<A NAME="sub:write_plm:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename<A ID="sub:write_plm:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> values are written to this file.</TD>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> values are written to this file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax<A NAME="sub:write_plm:nsmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax<A ID="sub:write_plm:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> for the precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img107.png"
- ALT="$P_{lm}\!\!$"></SPAN> s.</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> for the precomputed <!-- MATH
+ $P_{\ell m}\!\!$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img169.png"
+ ALT="$P_{\ell m}\!\!$"></SPAN> s.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:write_plm:nlmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A ID="sub:write_plm:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img107.png"
- ALT="$P_{lm}\!\!$"></SPAN> s.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> value for the precomputed <!-- MATH
+ $P_{\ell m}\!\!$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img169.png"
+ ALT="$P_{\ell m}\!\!$"></SPAN> s.</TD>
 </TR>
 </TABLE>
 
@@ -158,18 +161,17 @@ plm<A NAME="sub:write_plm:plm"></A>(0:nplm-1,1:nhar)</TD>
 <BR></tt>
 <blockquote>
 Makes a double precision binary FITS-file called `plm_32.fits' from the precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN> in the array plm(0:65*66*32-1,1:1). The number 65*66*32 corresponds to the number of precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img107.png"
- ALT="$P_{lm}\!\!$"></SPAN> s needed for a <!-- MATH
- $N_\mathrm{side}=32$
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN> in the array plm(0:65*66*32-1,1:1). The number 65*66*32 corresponds to the number of precomputed <!-- MATH
+ $P_{\ell m}\!\!$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I>=32</SPAN> <b>HEALPix</b> map synthesis/analysis. The header for the FITS-file is given in the string array header and the number of lines in the header is 120. 
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img169.png"
+ ALT="$P_{\ell m}\!\!$"></SPAN> s needed for a <!-- MATH
+ $N_{\mathrm{side}}=32$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=32</SPAN> <b>HEALPix</b> map synthesis/analysis. The header for the FITS-file is given in the string array header and the number of lines in the header is 120. 
 </blockquote>
 
 <P>
@@ -194,12 +196,10 @@ Makes a double precision binary FITS-file called `plm_32.fits' from the precompu
   <DT>
 <B><A HREF="sub_map2alm.htm#sub:map2alm">map2alm</A>, <A HREF="sub_alm2map.htm#sub:alm2map">alm2map</A></B>
 <DD>routines using precomputed <!-- MATH
- $P_{lm}(\theta)$
+ $P_{\ell m}(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img19.png"
- ALT="$P_{lm}(\theta)$"></SPAN>.
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img41.png"
+ ALT="$P_{\ell m}(\theta)$"></SPAN>.
   </DL>
 
 <P>
@@ -211,31 +211,31 @@ Makes a double precision binary FITS-file called `plm_32.fits' from the precompu
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1658"
-  HREF="sub_write_minimal_header.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1664"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1668"
-  HREF="sub_xcc_v_convert.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1666"
+<A
+ HREF="sub_write_minimal_header.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_xcc_v_convert.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html522"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1659"
-  HREF="sub_write_minimal_header.htm">write_minimal_header</A>
+<B> Previous:</B> <A
+ HREF="sub_write_minimal_header.htm">write_minimal_header</A>
 
-<B>Up:</B> <A NAME="tex2html1665"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1669"
-  HREF="sub_xcc_v_convert.htm">xcc_v_convert</A>
+<B> Next:</B> <A
+ HREF="sub_xcc_v_convert.htm">xcc_v_convert</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

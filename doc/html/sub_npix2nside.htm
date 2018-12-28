@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>npix2nside</TITLE>
 <META NAME="description" CONTENT="npix2nside">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_nside2npix.htm">
 <LINK REL="previous" HREF="sub_nest2uniq.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_nside2npix.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1082"
-  HREF="sub_nest2uniq.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1088"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1092"
-  HREF="sub_nside2npix.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1090"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_nest2uniq.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_nside2npix.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html426"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1083"
-  HREF="sub_nest2uniq.htm">nest2uniq</A>
+<B> Previous:</B> <A
+ HREF="sub_nest2uniq.htm">nest2uniq</A>
 
-<B>Up:</B> <A NAME="tex2html1089"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1093"
-  HREF="sub_nside2npix.htm">nside2npix</A>
+<B> Next:</B> <A
+ HREF="sub_nside2npix.htm">nside2npix</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION6600"></A>
-<A NAME="sub:npix2nside"></A>
+<H1><A ID="SECTION6700"></A>
+<A ID="sub:npix2nside"></A>
 <BR>
  
 </H1>
@@ -62,15 +66,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">npix2nside</FONT></font></b><hr>
 <H3>Function to provide the resolution parameter <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> correspoonding to <!-- MATH
- $N_\mathrm{pix}$
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> correspoonding to <!-- MATH
+ $N_{\mathrm{pix}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>pix</I></SPAN>
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB></SPAN>
 pixels over the full sky. 
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>var=<FONT COLOR="#CC0000">npix2nside</FONT>(
@@ -92,37 +96,33 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-npix<A NAME="sub:npix2nside:npix"></A></TD>
+npix<A ID="sub:npix2nside:npix"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the number <!-- MATH
- $N_\mathrm{pix}$
+ $N_{\mathrm{pix}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>pix</I></SPAN> of pixels over the whole sky.</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB></SPAN> of pixels over the whole sky.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the parameter <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN>. If <!-- MATH
- $N_\mathrm{pix}$
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN>. If <!-- MATH
+ $N_{\mathrm{pix}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>pix</I></SPAN> is valid (12 times a power of 2 in
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB></SPAN> is valid (12 times a power of 2 in
 <!-- MATH
  $\{1,\ldots,2^{28}\}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="88" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img90.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.45ex; vertical-align: -0.68ex; " SRC="sub_img149.png"
  ALT="$\{1,\ldots,2^{28}\}$"></SPAN>), <!-- MATH
- $N_\mathrm{side}=\sqrt{N_\mathrm{pix}/12}$
+ $N_{\mathrm{side}}=\sqrt{N_{\mathrm{pix}}/12}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="130" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img91.png"
- ALT="$N_\mathrm{side}=\sqrt{N_\mathrm{pix}/12}$"></SPAN> is returned; if not, an error message is
+<SPAN CLASS="MATH"><IMG STYLE="height: 3.56ex; vertical-align: -1.21ex; " SRC="sub_img150.png"
+ ALT="$N_{\mathrm{side}}=\sqrt{N_{\mathrm{pix}}/12}$"></SPAN> is returned; if not, an error message is
 issued and -1 is returned.</TD>
 </TR>
 </TABLE>
@@ -137,9 +137,9 @@ nside= npix2nside(786432)
 <BR></tt>
 <blockquote>
 Returns the resolution parameter <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> (256) corresponding to 786432 pixels
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> (256) corresponding to 786432 pixels
 on the sky.
 </blockquote>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">npix2nside</FONT></b></h3>
@@ -147,13 +147,13 @@ on the sky.
   <DL COMPACT><DT>
 <B><A HREF="sub_nside2npix.htm#sub:nside2npix">nside2npix</A></B>
 <DD>returns the number of pixels <!-- MATH
- $N_\mathrm{pix}$
+ $N_{\mathrm{pix}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>pix</I></SPAN> correspondinng to
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB></SPAN> correspondinng to
   resolution parameter <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN></DL>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN></DL>
 
 <P>
 
@@ -164,31 +164,31 @@ on the sky.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1082"
-  HREF="sub_nest2uniq.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1088"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1092"
-  HREF="sub_nside2npix.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1090"
+<A
+ HREF="sub_nest2uniq.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_nside2npix.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html426"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1083"
-  HREF="sub_nest2uniq.htm">nest2uniq</A>
+<B> Previous:</B> <A
+ HREF="sub_nest2uniq.htm">nest2uniq</A>
 
-<B>Up:</B> <A NAME="tex2html1089"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1093"
-  HREF="sub_nside2npix.htm">nside2npix</A>
+<B> Next:</B> <A
+ HREF="sub_nside2npix.htm">nside2npix</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

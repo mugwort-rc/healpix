@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>Discretisation of Functions on the Sphere</TITLE>
 <META NAME="description" CONTENT="Discretisation of Functions on the Sphere">
@@ -13,8 +9,9 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
    <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
    <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
    <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
@@ -25,45 +22,42 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
    <meta name='application-name' content='HEALPix'>
    <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
    <meta name='theme-color' content='#ffffff'>
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
 <LINK REL="STYLESHEET" HREF="intro.css">
 
 <LINK REL="next" HREF="intro_Geometric_Algebraic_Propert.htm">
 <LINK REL="previous" HREF="intro_Introduction.htm">
-<LINK REL="up" HREF="intro_Introduction_HEALPix.htm">
 <LINK REL="next" HREF="intro_Geometric_Algebraic_Propert.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html114"
-  HREF="intro_Introduction.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html120"
-  HREF="intro_Introduction_HEALPix.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html124"
-  HREF="intro_Geometric_Algebraic_Propert.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html122"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="intro_Introduction.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="intro_Introduction_HEALPix.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="intro_Geometric_Algebraic_Propert.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html89"
   HREF="intro_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html115"
-  HREF="intro_Introduction.htm">Introduction</A>
+<B> Previous:</B> <A
+ HREF="intro_Introduction.htm">Introduction</A>
 
-<B>Up:</B> <A NAME="tex2html121"
-  HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
+<B>Up:</B> <A
+ HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html125"
-  HREF="intro_Geometric_Algebraic_Propert.htm">Geometric and Algebraic Properties of HEALPix</A>
+<B> Next:</B> <A
+ HREF="intro_Geometric_Algebraic_Propert.htm">Geometric and Algebraic Properties of HEALPix</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION300">
+<H1><A ID="SECTION300">
 Discretisation of Functions on the Sphere for 
 High Resolution Applications:
 a Motivation for <b>HEALPix</b> </A>
@@ -122,8 +116,8 @@ essential for very large data bases, and was  postulated
 in construction
 of the Quadrilateralized Spherical Cube 
 (or quad-sphere, see 
-<A NAME="tex2html5"
-  HREF="https://lambda.gsfc.nasa.gov/product/cobe/skymap_info_new.cfm"><TT>https://lambda.gsfc.nasa.gov/product/cobe/skymap_info_new.cfm</TT></A>),
+<A ID="tex2html6"
+  HREF="https://lambda.gsfc.nasa.gov/product/cobe/skymap_info_new.cfm"><SPAN  CLASS="texttt">https://lambda.gsfc.nasa.gov/product/cobe/skymap_info_new.cfm</SPAN></A>),
 which was used for the
 <I>COBE</I> data. An  argument in favour of this 
 proposition
@@ -144,9 +138,9 @@ of the data base.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:quadtree"></A><A NAME="1062"></A>
+<DIV class="CENTER"><A ID="fig:quadtree"></A><A ID="1019"></A>
 <TABLE>
-<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+<CAPTION class="BOTTOM"><STRONG>Figure 1:</STRONG>
 Quadrilateral tree pixel numbering. 
 The coarsely pixelated coordinate patch on
 the left consists 
@@ -163,9 +157,8 @@ are joined at the boundaries to cover
 the sphere. All pixels indices carry a prefix (here omitted for clarity) 
 which identifies which base-resolution pixel they belong to.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3793" ALIGN="CENTER">
-<IMG
-  WIDTH="717" HEIGHT="280" ALIGN="BOTTOM" BORDER="0"
+<DIV CLASS="centerline" ID="par4112" ALIGN="CENTER">
+<IMG STYLE=""
  SRC="./quad_tree.png"
  ALT="Image quad_tree"></DIV>
 
@@ -231,9 +224,9 @@ A more detailed description of
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:HEALPIX"></A><A NAME="1147"></A>
+<DIV class="CENTER"><A ID="fig:HEALPIX"></A><A ID="1112"></A>
 <TABLE>
-<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+<CAPTION class="BOTTOM"><STRONG>Figure 2:</STRONG>
 Orthographic view of <b>HEALPix</b> partition of the sphere. 
 Overplot of equator and  meridians illustrates the octahedral symmetry of  
 <b>HEALPix</b>. 
@@ -253,7 +246,7 @@ and the total number of pixels  equal to
 <!-- MATH
  $N_{\mathrm{pix}}= 12 \times N_{\mathrm{side}}^2$
  -->
-<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>= 12 x <I>N</I><SUB>side</SUB><SUP>2</SUP></SPAN> = 12, 48, 192, 768. 
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>= 12 x <I>N</I><SUB>side</SUB><SUP><i>2</i></SUP></SPAN> = 12, 48, 192, 768. 
 All pixel centers are located on <!-- MATH
  $N_{\mathrm{ring}} = 4 \times N_{\mathrm{side}}- 1$
  -->
@@ -261,9 +254,8 @@ All pixel centers are located on <!-- MATH
 constant latitude.
 Within each panel the areas of all pixels are identical.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3797" ALIGN="CENTER">
-<IMG
-  WIDTH="587" HEIGHT="582" ALIGN="BOTTOM" BORDER="0"
+<DIV CLASS="centerline" ID="par4116" ALIGN="CENTER">
+<IMG STYLE=""
  SRC="./introf1.png"
  ALT="Image introf1"></DIV>
 
@@ -275,31 +267,31 @@ Within each panel the areas of all pixels are identical.</CAPTION>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html114"
-  HREF="intro_Introduction.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html120"
-  HREF="intro_Introduction_HEALPix.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html124"
-  HREF="intro_Geometric_Algebraic_Propert.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html122"
+<A
+ HREF="intro_Introduction.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="intro_Introduction_HEALPix.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="intro_Geometric_Algebraic_Propert.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html89"
   HREF="intro_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html115"
-  HREF="intro_Introduction.htm">Introduction</A>
+<B> Previous:</B> <A
+ HREF="intro_Introduction.htm">Introduction</A>
 
-<B>Up:</B> <A NAME="tex2html121"
-  HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
+<B>Up:</B> <A
+ HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html125"
-  HREF="intro_Geometric_Algebraic_Propert.htm">Geometric and Algebraic Properties of HEALPix</A>
+<B> Next:</B> <A
+ HREF="intro_Geometric_Algebraic_Propert.htm">Geometric and Algebraic Properties of HEALPix</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

@@ -423,11 +423,16 @@ class custom_build_ext(build_ext):
 
 exec(open("healpy/version.py").read())
 
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
 
 setup(
     name="healpy",
     version=__version__,
     description="Healpix tools package for Python",
+    long_description=readme(),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
@@ -439,6 +444,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Scientific/Engineering :: Astronomy",
         "Topic :: Scientific/Engineering :: Visualization",
     ],
@@ -458,7 +464,7 @@ setup(
         (
             "healpix_cxx",
             {
-                "pkg_config_name": "healpix_cxx >= 3.30.0",
+                "pkg_config_name": "healpix_cxx >= 3.40.0",
                 "local_source": "healpixsubmodule/src/cxx/autotools",
             },
         ),
@@ -509,11 +515,12 @@ setup(
             "data/*.fits",
             "data/totcls.dat",
             "test/data/*.fits",
+            "test/data/*.fits.gz",
             "test/data/*.sh",
         ]
     },
-    install_requires=["matplotlib", "numpy", "six", "astropy"],
-    setup_requires=["pytest-runner"],
+    install_requires=["matplotlib", "numpy>=1.13", "six", "astropy", "scipy"],
+    setup_requires=["pytest-runner", "six"],
     tests_require=["pytest", "pytest-cython"],
     test_suite="healpy",
     license="GPLv2",

@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>mpi_initialize_alm_tools</TITLE>
 <META NAME="description" CONTENT="mpi_initialize_alm_tools">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_mpi_map2alm.htm">
 <LINK REL="previous" HREF="sub_mpi_cleanup_alm_tools.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_mpi_map2alm.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html998"
-  HREF="sub_mpi_cleanup_alm_tools.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1004"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1008"
-  HREF="sub_mpi_map2alm.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1006"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_mpi_cleanup_alm_tools.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_mpi_map2alm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html412"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html999"
-  HREF="sub_mpi_cleanup_alm_tools.htm">mpi_cleanup_alm_tools</A>
+<B> Previous:</B> <A
+ HREF="sub_mpi_cleanup_alm_tools.htm">mpi_cleanup_alm_tools</A>
 
-<B>Up:</B> <A NAME="tex2html1005"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1009"
-  HREF="sub_mpi_map2alm.htm">mpi_map2alm*</A>
+<B> Next:</B> <A
+ HREF="sub_mpi_map2alm.htm">mpi_map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION5900"></A>
-<A NAME="sub:mpi_initialize_alm_tools"></A>
+<H1><A ID="SECTION6000"></A>
+<A ID="sub:mpi_initialize_alm_tools"></A>
 <BR>
  
 </H1>
@@ -70,23 +74,24 @@ if they do.
 A major advantage of MPI parallelization is large quantities
 of memory, allowing for pre-computation of the Legendre 
 polynomials even with high <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> and
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> and
 <!-- MATH
- $l_{\mathrm{max}}$
+ $\ell_{\mathrm{max}}$
  -->
-<SPAN CLASS="MATH"><I>l</I><SUB>max</SUB></SPAN>, since each processor only needs a fraction
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img144.png"
+ ALT="$\ell_{\mathrm{max}}$"></SPAN>, since each processor only needs a fraction
 <!-- MATH
  $(1/N_{\mathrm{procs}})$
  -->
 <SPAN CLASS="MATH">(1/<I>N</I><SUB>procs</SUB>)</SPAN> of the complete table. This feature is
-controlled by the ``precompute_plms'' parameter. In general, the CPU
+controlled by the &ldquo;precompute_plms&rdquo; parameter. In general, the CPU
 time can be expected to decrease by roughly 50% using pre-computed
 Legendre polynomials for temperature calculations, and by about 30%
 for polarization calculations.
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">mpi_initialize_alm_tools</FONT>(
@@ -108,71 +113,78 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-comm<A NAME="sub:mpi_initialize_alm_tools:comm"></A></TD>
+comm<A ID="sub:mpi_initialize_alm_tools:comm"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>MPI communicator.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax<A NAME="sub:mpi_initialize_alm_tools:nsmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax<A ID="sub:mpi_initialize_alm_tools:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> value of the HEALPix map. (OPTIONAL)</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> value of the HEALPix map. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:mpi_initialize_alm_tools:nlmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A ID="sub:mpi_initialize_alm_tools:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> value used for the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A NAME="sub:mpi_initialize_alm_tools:nmmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A ID="sub:mpi_initialize_alm_tools:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>. (OPTIONAL)</TD>
 </TR>
 </TABLE>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>zbounds<A NAME="sub:mpi_initialize_alm_tools:zbounds"></A>(1:2)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>zbounds<A ID="sub:mpi_initialize_alm_tools:zbounds"></A>(1:2)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>section of the map on which to perform the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>section of the map on which to perform the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>
                    analysis, expressed in terms of <!-- MATH
  $z=\sin({\rm latitude}) =
                    \cos(\theta)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="190" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img89.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img88.png"
  ALT="$z=\sin({\rm latitude}) =
-\cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
-                   performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
-                   it is performed <EM>outside</EM> of the strip
-                   zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1). (OPTIONAL)</TD>
+\cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), it is
+performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
+it is performed <EM>outside</EM> the strip
+zbounds(2)<SPAN CLASS="MATH"><IMG STYLE="height: 1.87ex; vertical-align: -0.41ex; " SRC="sub_img43.png"
+ ALT="$\le z \le$"></SPAN>zbounds(1). If absent, the whole map is processed.
+ (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>polarization<A NAME="sub:mpi_initialize_alm_tools:polarization"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>polarization<A ID="sub:mpi_initialize_alm_tools:polarization"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>if polarization is required, this should be
 set to true, else it should be set to false. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>precompute_plms<A NAME="sub:mpi_initialize_alm_tools:precompute_plms"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>precompute_plms<A ID="sub:mpi_initialize_alm_tools:precompute_plms"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>0 = do not pre-compute any <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I>
-<I>m</I></SUB></SPAN>'s; 1 = pre-compute <!-- MATH
- $P_{lm}^\mathrm{T}$
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>0 = do not pre-compute any <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img10.png"
+ ALT="$P_{\ell m}$"></SPAN>'s; 1 = pre-compute <!-- MATH
+ $P_{\ell m}^\mathrm{T}$
  -->
-<SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB><I>T</I></SPAN>; 2 = pre-compute
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img147.png"
+ ALT="$P_{\ell m}^\mathrm{T}$"></SPAN>; 2 = pre-compute
 <!-- MATH
- $P_{lm}^\mathrm{T}$
+ $P_{\ell m}^\mathrm{T}$
  -->
-<SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB><I>T</I></SPAN> and <!-- MATH
- $P_{lm}^\mathrm{P}$
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img147.png"
+ ALT="$P_{\ell m}^\mathrm{T}$"></SPAN> and <!-- MATH
+ $P_{\ell m}^\mathrm{P}$
  -->
-<SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB><I>P</I></SPAN>.  (OPTIONAL)</TD>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img148.png"
+ ALT="$P_{\ell m}^\mathrm{P}$"></SPAN>.  (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring<A NAME="sub:mpi_initialize_alm_tools:w8ring"></A>_TQU(1:2*nsmax, 1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring<A ID="sub:mpi_initialize_alm_tools:w8ring"></A>_TQU(1:2*nsmax, 1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ring weights for quadrature corrections. If ring weights are not used, this array should be 1 everywhere. p is 1 for a temperature analysis and 3 for (T,Q,U). (OPTIONAL)</TD>
@@ -245,31 +257,31 @@ allocated memory.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html998"
-  HREF="sub_mpi_cleanup_alm_tools.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1004"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1008"
-  HREF="sub_mpi_map2alm.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1006"
+<A
+ HREF="sub_mpi_cleanup_alm_tools.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_mpi_map2alm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html412"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html999"
-  HREF="sub_mpi_cleanup_alm_tools.htm">mpi_cleanup_alm_tools</A>
+<B> Previous:</B> <A
+ HREF="sub_mpi_cleanup_alm_tools.htm">mpi_cleanup_alm_tools</A>
 
-<B>Up:</B> <A NAME="tex2html1005"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1009"
-  HREF="sub_mpi_map2alm.htm">mpi_map2alm*</A>
+<B> Next:</B> <A
+ HREF="sub_mpi_map2alm.htm">mpi_map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

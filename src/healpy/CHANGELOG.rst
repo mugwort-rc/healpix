@@ -1,5 +1,43 @@
+Release 1.12.8 7 Dec 2018, included in HEALPix 3.5.0
+
+* Update HEALPix C++ to latest 3.5.0 commits
+
+Release 1.12.7 6 Dec 2018
+
+* Rebuild of broken release 1.12.6, it was built with Cython 0.26 instead of a newer version needed for Python 3.7 support
+
+Release 1.12.6 5 Dec 2018
+
+* Broken release due to a packaging issue
+* Important bugfix that affected only 1.12.5, synfast had a fixed seed <https://github.com/healpy/healpy/pull/510>
+* Updated HEALPix C++ to 3.5.0, dynamic AVX support <https://github.com/healpy/healpy/pull/514>
+
+Release 1.12.5 13 Nov 2018
+
+* Explicitely set Numpy version requirement to >= 1.13 <https://github.com/healpy/healpy/pull/506>
+* Implemented `hp.Rotator.rotate_map_alms` and `hp.Rotator.rotate_map_pixel` to rotate maps in spherical harmonics and pixel domain <https://github.com/healpy/healpy/pull/489>
+
+Release 1.12.4, 25 Ago 2018
+
+* Support for Python 3.7 on PyPi
+* Update minimum `healpix-cxx` version required <https://github.com/healpy/healpy/pull/478>
+
+Release 1.12.3, 30 Giu 2018
+
+* No changes, just fixed Unicode Error on README.rst
+
+Release 1.12.2, 29 Giu 2018
+
+* No changes, just fixed upload issue to PyPI
+
+Release 1.12.1, 29 Giu 2018
+
+* Fixed bug in polarization rotation in `hp.Rotator.rotate_map` <https://github.com/healpy/healpy/pull/459>
+* Fixed packaging issue: Add six to `setup_requires` <https://github.com/healpy/healpy/pull/457>
+
 Release 1.12.0, 12 Giu 2018
 
+* New `hp.Rotator.rotate_map` function to change reference frame of a full map <https://github.com/healpy/healpy/pull/450>
 * Implementation of pixel weights for map2alm that makes transform exact <https://github.com/healpy/healpy/pull/442>
 * Change default output FITS column names to agree with other HEALPix packages <https://github.com/healpy/healpy/pull/446>
 * Reformatted the Python code with black, this made a huge changeset  <https://github.com/healpy/healpy/pull/454>

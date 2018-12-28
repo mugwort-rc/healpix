@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Healpix C++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">3.50</span>
    </div>
   </td>
  </tr>
@@ -249,6 +249,59 @@ pro (string, default="mollw"):
 interpol (bool, default=false):
   false: no interpolation
   true : bilinear interpolation
+</pre><h1><a class="anchor" id="alice3"></a>
+alice3</h1>
+<p>This program visualizes spin-2 fields of the sphere using the line integral convolution (LIC) technique.<br />
+ It was originally written by David Larson and has later been adjusted to output Healpix maps instead of image files.</p>
+<pre class="fragment">Usage:
+  alice3 ...
+  where ... indicates any combination of the optional parameters below.
+
+  examples:
+    alice3 in=wmap_ilc_3yr_v2_r6_sim.fits nside=512 ell=300 out=test
+
+  NOTE: the syntax is slightly different from the one used in alice2!
+  There must not be any spaces on either side of the "=" signs!
+
+  [in=&lt;fits file&gt;] FITS file containing the Q and U polarization
+  components in the second and third columns.
+
+  [out=&lt;string&gt;] string used as a prefix for output files
+  alice3 generates three different output FITS files:
+  &lt;out&gt;_background.fits: the texture before the LI convolution
+  &lt;out&gt;_texture.fits: the texture after LI convolution
+  &lt;out&gt;_mod_texture.fits: the convolved texture, modulated with
+    polarization intensity
+  By default the code will exit with an error instead of overwriting
+  an existing FITS file! If you want to override this behaviour,
+  prepend your prefix with an exclamation mark (which may need to be
+  protected from shell expansion by a leading backslash).
+
+  [texture=&lt;fits file&gt;] optional input background texture
+  if left empty, a texture is generated using the "ell" parameter
+
+  [nside=&lt;int&gt;] nside of all generated maps
+
+  [ell=&lt;int&gt;] ell value at which the generated background texture has power
+  if ell==-1, use ell=2*nside
+  if not supplied at all, use a Healpix map with given Nside containing white
+    noise
+
+  [rand_seed=&lt;int&gt;] seed for the random number generator
+  (default=42). Only used when a texture is generated internally.
+
+  [steps=&lt;int&gt;] number of steps to use for each line of the convolution
+  (default: 100)
+
+  [kernel_steps=&lt;int&gt;] extent of the convolution kernel (in steps)
+  (default: 50)
+
+  [step_arcmin=&lt;float&gt;] arcminutes for each step in the convolution
+  (default: 10)
+
+  [polmin=&lt;float&gt;] minimum value for the polarization magnitude
+
+  [polmax=&lt;float&gt;] maximum value for the polarization magnitude
 </pre><h1><a class="anchor" id="rotalm_cxx"></a>
 rotalm_cxx</h1>
 <p>Performs a coordinate transformation on a set of <img class="formulaInl" alt="$a_{lm}$" src="form_3.png"/>.</p>
@@ -353,7 +406,7 @@ median_filter_cxx</h1>
 <p>This program inputs a HEALPix map, runs a median filter with the desired radius on it and saves the result to another file.</p>
 <pre class="fragment">Usage: median_filter_cxx &lt;input map&gt; &lt;output map&gt; &lt;radius in arcmin&gt;</pre> </div></div><!-- contents -->
 <hr><address style="align: right;"><small>
-Generated on Fri Jun 22 2018 15:18:23 for Healpix C++
+Generated on Mon Dec 10 2018 10:24:22 for Healpix C++
 </a> </small></address>
 </body>
 </html>

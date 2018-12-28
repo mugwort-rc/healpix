@@ -1,114 +1,121 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
-<TITLE>Changes between releases 3.31 and 3.40</TITLE>
-<META NAME="description" CONTENT="Changes between releases 3.31 and 3.40">
+<TITLE>Changes between releases 3.40 and 3.50</TITLE>
+<META NAME="description" CONTENT="Changes between releases 3.40 and 3.50">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_Older_Changes.htm">
 <LINK REL="previous" HREF="sub_Conventions.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_Older_Changes.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html313"
-  HREF="sub_Conventions.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html319"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html323"
-  HREF="sub_Older_Changes.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html321"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_Conventions.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_Older_Changes.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html284"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html314"
-  HREF="sub_Conventions.htm">Conventions</A>
+<B> Previous:</B> <A
+ HREF="sub_Conventions.htm">Conventions</A>
 
-<B>Up:</B> <A NAME="tex2html320"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html324"
-  HREF="sub_Older_Changes.htm">Older Changes</A>
+<B> Next:</B> <A
+ HREF="sub_Older_Changes.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION300">
-Changes between releases 3.31 and
-3.40</A>
+<H1><A ID="SECTION300"></A>
+<A ID="sub:new3p50"></A>
+<BR>
+Changes between releases 3.40 and
+3.50
 </H1>
-
-<P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- The facilities 
-<A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> and 
-<A HREF="./fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A> now support pixel-based quadrature weights.
-Introduction of the supporting 
-<A HREF="sub_nside2npweights.htm#sub:nside2npweights"><TT>nside2npweights</TT></A>,
-<A HREF="sub_unfold_weightsfile.htm#sub:unfold_weightsfile"><TT>unfold_weightsfile</TT></A>,
-<A HREF="sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghw8f"><TT>get_healpix_weight_file</TT></A>,
-<A HREF="sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghpw8f"><TT>get_healpix_pixel_weight_file</TT></A>.
+ correction of a bug in 
+<A HREF="sub_map2alm_iterative.htm#sub:map2alm_iterative"><SPAN  CLASS="texttt">map2alm_iterative</SPAN></A>,
+when a <A HREF="sub_map2alm_iterative.htm#sub:map2alm_iterative:mask"><SPAN  CLASS="texttt">mask</SPAN></A> is used in combination with 
+<A HREF="sub_map2alm_iterative.htm#sub:map2alm_iterative:iter_order"><SPAN  CLASS="texttt">iter_order</SPAN></A> <SPAN CLASS="MATH">&gt; 0</SPAN>,
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- The subroutine 
-<A HREF="sub_input_map.htm#sub:input_map"><TT>input_map</TT></A> in its default mode
-test the value of the <TT>POLCCONV</TT> FITS keyword when reading a polarized map,
-and interpret the polarization accordingly, 
-as described in the <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A NAME="tex2html2"
-  HREF="intro.htm">The <b>HEALPix</b> Primer</A>.
+ addition of <A HREF="sub_alm2map.htm#sub:alm2map:zbounds"><SPAN  CLASS="texttt">zbounds</SPAN></A> in 
+<A HREF="sub_alm2map.htm#sub:alm2map"><SPAN  CLASS="texttt">alm2map</SPAN></A>,
+<A HREF="sub_alm2map_der.htm#sub:alm2map_der"><SPAN  CLASS="texttt">alm2map_der</SPAN></A>,
+<A HREF="sub_alm2map_spin.htm#sub:alm2map_spin"><SPAN  CLASS="texttt">alm2map_spin</SPAN></A>
+in order to simulate (faster) a signal on only a fraction of the sphere,
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="sub_median.htm#sub:median"><TT>median</TT></A> subroutine: faster by moving an internal array from heap to stack; 
-does not crash anymore when dealing with empty data sets.
+ introduction of <A HREF="sub_apply_mask.htm#sub:apply_mask"><SPAN  CLASS="texttt">apply_mask</SPAN></A> to apply an arbitrary mask and/or
+a latitude cut to a map,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+  <A ID="tex2html3"
+  HREF="https://sourceforge.net/p/healpix/bugs/78">improved support for version 18 and more of Intel C and F90 compilers</A>
+in <SPAN  CLASS="texttt">configure</SPAN> script,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A ID="tex2html4"
+  HREF="https://sourceforge.net/p/healpix/bugs/84">edition to fitstools.F90</A>
+allowing a proper compilation with g95.
 </DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html313"
-  HREF="sub_Conventions.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html319"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html323"
-  HREF="sub_Older_Changes.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html321"
+<A
+ HREF="sub_Conventions.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_Older_Changes.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html284"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html314"
-  HREF="sub_Conventions.htm">Conventions</A>
+<B> Previous:</B> <A
+ HREF="sub_Conventions.htm">Conventions</A>
 
-<B>Up:</B> <A NAME="tex2html320"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html324"
-  HREF="sub_Older_Changes.htm">Older Changes</A>
+<B> Next:</B> <A
+ HREF="sub_Older_Changes.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

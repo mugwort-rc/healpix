@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>beam2bl</TITLE>
 <META NAME="description" CONTENT="beam2bl">
@@ -13,60 +9,67 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
 <LINK REL="next" HREF="idl_bin_llcl.htm">
 <LINK REL="previous" HREF="idl_azeqview.htm">
-<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
 <LINK REL="next" HREF="idl_bin_llcl.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html403"
-  HREF="idl_azeqview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html409"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html413"
-  HREF="idl_bin_llcl.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html411"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="idl_azeqview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_bin_llcl.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html299"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html404"
-  HREF="idl_azeqview.htm">azeqview</A>
+<B> Previous:</B> <A
+ HREF="idl_azeqview.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html410"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html414"
-  HREF="idl_bin_llcl.htm">bin_llcl</A>
+<B> Next:</B> <A
+ HREF="idl_bin_llcl.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION1200"></A>
-<A NAME="idl:beam2bl"></A>
+<H1><A ID="SECTION1300"></A>
+<A ID="idl:beam2bl"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">beam2bl</FONT></font></b><hr>
-<H3>This IDL facility computes a transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> for a circular beam profile <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img22.png"
+<H3>This IDL facility computes a transfer (or window) function <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img35.png"
+ ALT="$b(\ell)$"></SPAN> for a circular beam profile <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img36.png"
  ALT="$b(\theta)$"></SPAN>.
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/misc/beam2bl.pro"><b>src/idl/misc/beam2bl.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/idl/misc/beam2bl.pro"><b>src/idl/misc/beam2bl.pro</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
@@ -86,23 +89,18 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
  
   <DL COMPACT><DT>
 <B>beam</B>
-<DD><A NAME="idl:beam2bl:beam"></A>input beam profile <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img22.png"
+<DD><A ID="idl:beam2bl:beam"></A>input beam profile <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img36.png"
  ALT="$b(\theta)$"></SPAN> 
     <DT>
 <B>theta</B>
-<DD><A NAME="idl:beam2bl:theta"></A>angles <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img23.png"
+<DD><A ID="idl:beam2bl:theta"></A>angles <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="idl_img37.png"
  ALT="$\theta$"></SPAN> (in arcmin, degrees or radians) 
-  at which the input beam <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img22.png"
+  at which the input beam <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img36.png"
  ALT="$b(\theta)$"></SPAN> is defined
     <DT>
 <B>lmax</B>
-<DD><A NAME="idl:beam2bl:lmax"></A>maximum multipole on which the output <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> is to be computed
+<DD><A ID="idl:beam2bl:lmax"></A>maximum multipole on which the output <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img35.png"
+ ALT="$b(\ell)$"></SPAN> is to be computed
   </DL>
 
 <P>
@@ -110,24 +108,18 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 
   <DL COMPACT><DT>
 <B>/ARCMIN</B>
-<DD><A NAME="idl:beam2bl:arcmin"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img23.png"
+<DD><A ID="idl:beam2bl:arcmin"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="idl_img37.png"
  ALT="$\theta$"></SPAN></A> is in arcmin
     <DT>
 <B>/DEGREES</B>
-<DD><A NAME="idl:beam2bl:degrees"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img23.png"
+<DD><A ID="idl:beam2bl:degrees"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="idl_img37.png"
  ALT="$\theta$"></SPAN></A> is in degrees
     <DT>
 <B>/HELP</B>
-<DD><A NAME="idl:beam2bl:help"></A>if set, prints out the help header and exits
+<DD><A ID="idl:beam2bl:help"></A>if set, prints out the help header and exits
     <DT>
 <B>/RADIANS</B>
-<DD><A NAME="idl:beam2bl:radians"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img23.png"
+<DD><A ID="idl:beam2bl:radians"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="idl_img37.png"
  ALT="$\theta$"></SPAN></A> is in radians
   </DL>
 
@@ -137,59 +129,55 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 <blockquote>
 Since the SH Transform of an arbitrary beam is
 <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
-
-<!-- MATH
- \begin{equation}
-b_{lm} = \int d{\textbf{r}}\ b({\textbf{r}})\ Y_{lm}^*({\textbf{r}})
-\end{equation}
- -->
-<A NAME="eq:beam2bl_idl:b_lm"></A>
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:beam2bl_idl:b_lm"></A><IMG
- WIDTH="157" HEIGHT="57" BORDER="0"
- SRC="idl_img24.png"
- ALT="\begin{displaymath}
-b_{lm} = \int d{\textbf{r}} b({\textbf{r}}) Y_{lm}^*({\textbf{r}})
-\end{displaymath}"></TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
-</TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-then, for a circular beam
-<BR>
-<DIV ALIGN="CENTER"><A NAME="eq:beam2bl_idl:bl"></A>
+<DIV ALIGN="CENTER"><A ID="eq:beam2bl_idl:b_lm"></A>
 <!-- MATH
  \begin{eqnarray}
-b(l) &=& b_{l0}  \sqrt{\frac{4 \pi}{2l+1}} \nonumber \\
-             &=& \int  b(\theta) P_l(\theta) \sin(\theta)\ d\theta\ 2\pi
+b_{\ell m} &=& \int d{\textbf{r}}\ b({\textbf{r}})\ Y_{\ell m}^*({\textbf{r}})
 \end{eqnarray}
  -->
 <SPAN CLASS="MATH">
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>b</I>(<I>l</I>)</TD>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="idl_img38.png"
+ ALT="$\displaystyle b_{\ell m}$"></TD>
 <TD ALIGN="CENTER" NOWRAP>=</TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="82" HEIGHT="64" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img25.png"
- ALT="$\displaystyle b_{l0} \sqrt{\frac{4 \pi}{2l+1}}$"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 4.31ex; vertical-align: -1.67ex; " SRC="idl_img39.png"
+ ALT="$\displaystyle \int d{\textbf{r}}\ b({\textbf{r}})\ Y_{\ell m}^*({\textbf{r}})$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
+</TABLE>
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
+then, for a circular beam
+<BR>
+<DIV ALIGN="CENTER"><A ID="eq:beam2bl_idl:bl"></A>
+<!-- MATH
+ \begin{eqnarray}
+b(\ell) &=& b_{\ell 0}  \sqrt{\frac{4 \pi}{2\ell+1}} \nonumber \\
+             &=& \int  b(\theta) P_\ell(\theta) \sin(\theta)\ d\theta\ 2\pi
+\end{eqnarray}
+ -->
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img40.png"
+ ALT="$\displaystyle b(\ell)$"></TD>
+<TD ALIGN="CENTER" NOWRAP>=</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 5.83ex; vertical-align: -2.17ex; " SRC="idl_img41.png"
+ ALT="$\displaystyle b_{\ell 0} \sqrt{\frac{4 \pi}{2\ell+1}}$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
 <TD ALIGN="CENTER" NOWRAP>=</TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="176" HEIGHT="49" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img26.png"
- ALT="$\displaystyle \int b(\theta) P_l(\theta) \sin(\theta)\ d\theta\ 2\pi$"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 4.31ex; vertical-align: -1.67ex; " SRC="idl_img42.png"
+ ALT="$\displaystyle \int b(\theta) P_\ell(\theta) \sin(\theta)\ d\theta\ 2\pi$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
 </TABLE>
 </SPAN></DIV>
 <BR CLEAR="ALL"><P></P>
-where <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I></SUB></SPAN> is the Legendre Polynomial, <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> is the beam window (or transfer)
-function returned by <FONT COLOR="#CC0000">beam2bl</FONT> and <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img22.png"
+where <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="idl_img43.png"
+ ALT="$P_\ell$"></SPAN> is the Legendre Polynomial, <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img35.png"
+ ALT="$b(\ell)$"></SPAN> is the beam window (or transfer)
+function returned by <FONT COLOR="#CC0000">beam2bl</FONT> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img36.png"
  ALT="$b(\theta)$"></SPAN> is the beam radial
 profile expected as input of <FONT COLOR="#CC0000">beam2bl</FONT>.
 <BR>
@@ -208,10 +196,12 @@ IDL's routine <TT>INT_TABULATED</TT> is used to perform the integration.
 transform to <FONT COLOR="#CC0000">beam2bl</FONT>.
     <DT>
 <B><A HREF="idl_bl2fits.htm#idl:bl2fits">bl2fits</A></B>
-<DD>facility to write a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function into a FITS file.
+<DD>facility to write a <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img35.png"
+ ALT="$b(\ell)$"></SPAN> window function into a FITS file.
     <DT>
 <B><A HREF="idl_fits2cl.htm#idl:fits2cl">fits2cl</A></B>
-<DD>facility to read a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window
+<DD>facility to read a <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img35.png"
+ ALT="$b(\ell)$"></SPAN> window
 function from a FITS file
   </DL>
 
@@ -231,12 +221,11 @@ function from a FITS file
 </TABLE></tt>
 <blockquote>
 the example above generates a beam window function (defined for
-all <SPAN CLASS="MATH"><I>l</I></SPAN> in <!-- MATH
+all <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="idl_img15.png"
+ ALT="$\ell$"></SPAN> in <!-- MATH
  $\{0,\ldots,4000\}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="100" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img27.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img44.png"
  ALT="$\{0,\ldots,4000\}$"></SPAN>) for a 15arcmin-FWHM gaussian beam, computes the
 beam profile for angles in <SPAN CLASS="MATH">[0,40]</SPAN> arcmin, computes back the beam window
 function from the beam profile and finally plots the difference between the beam
@@ -252,31 +241,31 @@ window functions.</blockquote>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html403"
-  HREF="idl_azeqview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html409"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html413"
-  HREF="idl_bin_llcl.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html411"
+<A
+ HREF="idl_azeqview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_bin_llcl.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html299"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html404"
-  HREF="idl_azeqview.htm">azeqview</A>
+<B> Previous:</B> <A
+ HREF="idl_azeqview.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html410"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html414"
-  HREF="idl_bin_llcl.htm">bin_llcl</A>
+<B> Next:</B> <A
+ HREF="idl_bin_llcl.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>write_asctab*</TITLE>
 <META NAME="description" CONTENT="write_asctab*">
@@ -13,59 +9,72 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_write_bintab.htm">
 <LINK REL="previous" HREF="sub_vect_prod.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_write_bintab.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1586"
-  HREF="sub_vect_prod.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1592"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1596"
-  HREF="sub_write_bintab.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1594"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_vect_prod.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_write_bintab.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html510"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1587"
-  HREF="sub_vect_prod.htm">vect_prod</A>
+<B> Previous:</B> <A
+ HREF="sub_vect_prod.htm">vect_prod</A>
 
-<B>Up:</B> <A NAME="tex2html1593"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1597"
-  HREF="sub_write_bintab.htm">write_bintab*</A>
+<B> Next:</B> <A
+ HREF="sub_write_bintab.htm">write_bintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION10800"></A>
-<A NAME="sub:write_asctab"></A>
+<H1><A ID="SECTION10900"></A>
+<A ID="sub:write_asctab"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">write_asctab*</FONT></font></b><hr>
-<H3>This routine stores a power spectrum in an ascii FITS-file. The routine can store temperature coeffecients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> or both temperature and polarisation coeffecients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
- $C_l^{T\times E}$
+<H3>This routine stores a power spectrum in an ascii FITS-file. The routine can store temperature coeffecients <SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img194.png"
+ ALT="$C_\ell^T$"></SPAN> or both temperature and polarisation coeffecients <SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img194.png"
+ ALT="$C_\ell^T$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img195.png"
+ ALT="$C_\ell^E$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img196.png"
+ ALT="$C_\ell^B$"></SPAN>, <!-- MATH
+ $C_\ell^{T\times E}$
  -->
-<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.62ex; vertical-align: -0.68ex; " SRC="sub_img197.png"
+ ALT="$C_\ell^{T\times E}$"></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">write_asctab*</FONT>(
@@ -89,37 +98,38 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-filename<A NAME="sub:write_asctab:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
+filename<A ID="sub:write_asctab:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the FITS file to which the power spectrum is written.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax<A NAME="sub:write_asctab:lmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax<A ID="sub:write_asctab:lmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value to be written.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> value to be written.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ncl<A NAME="sub:write_asctab:ncl"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ncl<A ID="sub:write_asctab:ncl"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>1 for temperature coeffecients only, 4 for polarisation.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>clout<A NAME="sub:write_asctab:clout"></A>(0:lmax,1:ncl)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>clout<A ID="sub:write_asctab:clout"></A>(0:lmax,1:ncl)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the powerspectrum to be saved in the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader<A NAME="sub:write_asctab:nlheader"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader<A ID="sub:write_asctab:nlheader"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number of header lines to write to the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header<A NAME="sub:write_asctab:header"></A>(LEN=80) (1:nlheader)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header<A ID="sub:write_asctab:header"></A>(LEN=80) (1:nlheader)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the header to the FITS-file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">extno<A NAME="sub:write_asctab:extno"></A></font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">extno<A ID="sub:write_asctab:extno"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>extension number in which to write the data (0
@@ -142,7 +152,9 @@ call <A HREF="sub_write_minimal_header.htm#sub:write_minimal_header">write_minim
 call write_asctab (cl,64,1,header,100,'cl.fits')  
 <BR></tt>
 <blockquote>
-Writes a power spectrum in the array cl(0:64,1:1) to a FITS-file called `cl.fits'. The cl array contains the temperature power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> up to an <SPAN CLASS="MATH"><I>l</I></SPAN> value of 64. 100 header lines are written to the file from the array header(1:100) which was previously filled the minimal required information for a power spectrum file.
+Writes a power spectrum in the array cl(0:64,1:1) to a FITS-file called `cl.fits'. The cl array contains the temperature power spectrum <SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img194.png"
+ ALT="$C_\ell^T$"></SPAN> up to an <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> value of 64. 100 header lines are written to the file from the array header(1:100) which was previously filled the minimal required information for a power spectrum file.
 </blockquote>
 
 <P>
@@ -164,7 +176,8 @@ Writes a power spectrum in the array cl(0:64,1:1) to a FITS-file called `cl.fits
   <DL COMPACT><DT>
 <B><A HREF="sub_alm2cl.htm#sub:alm2cl">alm2cl</A></B>
 <DD>Routine computing the power spectrum from
-  spherical harmonics coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  spherical harmonics coefficients <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>
   <DT>
 <B><A HREF="sub_fits2cl.htm#sub:fits2cl">fits2cl</A></B>
 <DD>Routine to read a FITS file created by write_asctab.
@@ -184,31 +197,31 @@ Writes a power spectrum in the array cl(0:64,1:1) to a FITS-file called `cl.fits
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1586"
-  HREF="sub_vect_prod.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1592"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1596"
-  HREF="sub_write_bintab.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1594"
+<A
+ HREF="sub_vect_prod.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_write_bintab.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html510"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1587"
-  HREF="sub_vect_prod.htm">vect_prod</A>
+<B> Previous:</B> <A
+ HREF="sub_vect_prod.htm">vect_prod</A>
 
-<B>Up:</B> <A NAME="tex2html1593"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1597"
-  HREF="sub_write_bintab.htm">write_bintab*</A>
+<B> Next:</B> <A
+ HREF="sub_write_bintab.htm">write_bintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

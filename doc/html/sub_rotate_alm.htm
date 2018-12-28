@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>rotate_alm*</TITLE>
 <META NAME="description" CONTENT="rotate_alm*">
@@ -13,70 +9,80 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_same_shape_pixels_nest_same.htm">
 <LINK REL="previous" HREF="sub_ring_synthesis.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_same_shape_pixels_nest_same.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1430"
-  HREF="sub_ring_synthesis.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1436"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1440"
-  HREF="sub_same_shape_pixels_nest_same.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1438"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_ring_synthesis.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_same_shape_pixels_nest_same.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html484"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1431"
-  HREF="sub_ring_synthesis.htm">ring_synthesis</A>
+<B> Previous:</B> <A
+ HREF="sub_ring_synthesis.htm">ring_synthesis</A>
 
-<B>Up:</B> <A NAME="tex2html1437"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1441"
-  HREF="sub_same_shape_pixels_nest_same.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
+<B> Next:</B> <A
+ HREF="sub_same_shape_pixels_nest_same.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION9500"></A>
-<A NAME="sub:rotate_alm"></A>
+<H1><A ID="SECTION9600"></A>
+<A ID="sub:rotate_alm"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">rotate_alm*</FONT></font></b><hr>
-<H3>This routine transform the scalar (and tensor) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients to
+<H3>This routine transform the scalar (and tensor) <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> coefficients to
 emulate the effect of an arbitrary rotation of the underlying map. The rotation is done
-directly on the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> using the Wigner rotation matrices, computed by
+directly on the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> using the Wigner rotation matrices, computed by
 recursion.
-To rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> for <!-- MATH
- $l\leq l_{\mathrm{max}}$
+To rotate the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> for <!-- MATH
+ $\ell \leq \ell_{\mathrm{max}}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="61" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img116.png"
- ALT="$l\leq l_{\mathrm{max}}$"></SPAN> the number of
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img179.png"
+ ALT="$\ell \leq \ell_{\mathrm{max}}$"></SPAN> the number of
 operations scales like <!-- MATH
- $l_{\mathrm{max}}^3$
+ $\ell_{\mathrm{max}}^3$
  -->
-<SPAN CLASS="MATH"><I>l</I><SUB>max</SUB><SUP>3</SUP></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.67ex; " SRC="sub_img180.png"
+ ALT="$\ell_{\mathrm{max}}^3$"></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">rotate_alm*</FONT>(
@@ -98,33 +104,30 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>
-nlmax<A NAME="sub:rotate_alm:nlmax"></A></TD>
+nlmax<A ID="sub:rotate_alm:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> value for the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>alm_TGC<A NAME="sub:rotate_alm:alm_TGC"></A>(1:p,0:nlmax,0:nlmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>alm_TGC<A ID="sub:rotate_alm:alm_TGC"></A>(1:p,0:nlmax,0:nlmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>complex <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>complex <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> values
                    before and after rotation of the coordinate system.  
 	The first index here runs from 1:1 for
                    temperature only, and 1:3 for polarisation. In the latter
                    case,  1=T, 2=E, 3=B.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>psi<A NAME="sub:rotate_alm:psi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>psi<A ID="sub:rotate_alm:psi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>first rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img55.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>first rotation: angle <SPAN CLASS="MATH"><IMG STYLE="height: 2.10ex; vertical-align: -0.55ex; " SRC="sub_img101.png"
  ALT="$\psi$"></SPAN> about the z-axis.
-All angles are in radians and should lie in [-2<SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img3.png"
- ALT="$\pi$"></SPAN>,2<SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img3.png"
+All angles are in radians and should lie in [-2<SPAN CLASS="MATH"><IMG STYLE="height: 1.11ex; vertical-align: -0.10ex; " SRC="sub_img3.png"
+ ALT="$\pi$"></SPAN>,2<SPAN CLASS="MATH"><IMG STYLE="height: 1.11ex; vertical-align: -0.10ex; " SRC="sub_img3.png"
  ALT="$\pi$"></SPAN>], the rotations are
 active and the referential system is assumed to be right handed, the routine
 <A HREF="sub_coordsys2euler_zyz.htm#sub:coordsys2euler_zyz">coordsys2euler_zyz</A> can be used to generate
@@ -132,28 +135,22 @@ the Euler angles
 <!-- MATH
  $\psi, \theta, \varphi$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img54.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.16ex; vertical-align: -0.55ex; " SRC="sub_img100.png"
  ALT="$\psi, \theta, \varphi
 $"></SPAN> for rotation between standard astronomical coordinate
 systems;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>theta<A NAME="sub:rotate_alm:theta"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>theta<A ID="sub:rotate_alm:theta"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>second rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img56.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>second rotation: angle <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img102.png"
  ALT="$\theta$"></SPAN> about the original
 (unrotated) y-axis;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>phi<A NAME="sub:rotate_alm:phi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>phi<A ID="sub:rotate_alm:phi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>third rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img57.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>third rotation: angle <SPAN CLASS="MATH"><IMG STYLE="height: 1.57ex; vertical-align: -0.55ex; " SRC="sub_img103.png"
  ALT="$\varphi$"></SPAN> about the original (unrotated) z-axis;</TD>
 </TR>
 </TABLE>
@@ -166,16 +163,16 @@ systems;</TD>
 call rotate_alm(64, alm_TGC, PI/3., 0.5_dp, 0.0_dp)  
 <BR></tt>
 <blockquote>
-Transforms scalar and tensor <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> for <!-- MATH
- $l_{\mathrm{max}}= m_{\mathrm{max}}= 64$
+Transforms scalar and tensor <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> for <!-- MATH
+ $\ell_{\mathrm{max}}= m_{\mathrm{max}}= 64$
  -->
-<SPAN CLASS="MATH"><I>l</I><SUB>max</SUB>= <I>m</I><SUB>max</SUB>= 64</SPAN> to emulate a rotation of the underlying map by
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img181.png"
+ ALT="$\ell_{\mathrm{max}}= m_{\mathrm{max}}= 64$"></SPAN> to emulate a rotation of the underlying map by
 (<!-- MATH
  $\psi=\pi/3, \theta=0.5, \varphi=0$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="172" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img117.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img182.png"
  ALT="$\psi=\pi/3, \theta=0.5, \varphi=0 $"></SPAN>).
 </blockquote>
 
@@ -191,7 +188,8 @@ call coordsys2euler_zyz(2000.0_dp, 2000.0_dp, 'E', 'G', psi, theta, phi)
 call rotate_alm(64, alm_TGC, psi, theta, phi)  
 <BR></tt>
 <blockquote>
-Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic to Galactic coordinates.
+Rotate the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> from Ecliptic to Galactic coordinates.
 </blockquote>
 
 <P>
@@ -203,29 +201,32 @@ Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic 
 the Euler angles <!-- MATH
  $\psi, \theta, \varphi$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img54.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.16ex; vertical-align: -0.55ex; " SRC="sub_img100.png"
  ALT="$\psi, \theta, \varphi
 $"></SPAN> for rotation between standard astronomical coordinate systems
   <DT>
 <B><A HREF="sub_create_alm.htm#sub:create_alm">create_alm</A></B>
-<DD>Routine to create <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
+<DD>Routine to create <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> coefficients.
   <DT>
 <B><A HREF="sub_alter_alm.htm#sub:alter_alm">alter_alm</A></B>
-<DD>Routine to modify <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+<DD>Routine to modify <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>
   coefficients to apply or remove the effect of an instrumental beam.
   <DT>
 <B><A HREF="sub_map2alm.htm#sub:map2alm">map2alm</A></B>
-<DD>Routines to analyze a <b>HEALPix</b> sky map into its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+<DD>Routines to analyze a <b>HEALPix</b> sky map into its <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>
   coefficients.
   <DT>
 <B><A HREF="sub_alm2map.htm#sub:alm2map">alm2map</A></B>
-<DD>Routines to synthetize a <b>HEALPix</b> sky map from its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+<DD>Routines to synthetize a <b>HEALPix</b> sky map from its <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN>
   coefficients.
   <DT>
 <B><A HREF="sub_alms2fits.htm#sub:alms2fits">alms2fits</A>, <A HREF="sub_dump_alms.htm#sub:dump_alms">dump_alms</A></B>
-<DD>Routines to save a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> in a FITS file.  
+<DD>Routines to save a set of <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> in a FITS file.  
   <DT>
 <B><A HREF="sub_xcc_v_convert.htm#sub:xcc_v_convert">xcc_v_convert</A></B>
 <DD>rotates a 3D coordinate
@@ -243,31 +244,31 @@ vector from one astronomical coordinate system to another.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1430"
-  HREF="sub_ring_synthesis.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1436"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1440"
-  HREF="sub_same_shape_pixels_nest_same.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1438"
+<A
+ HREF="sub_ring_synthesis.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_same_shape_pixels_nest_same.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html484"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1431"
-  HREF="sub_ring_synthesis.htm">ring_synthesis</A>
+<B> Previous:</B> <A
+ HREF="sub_ring_synthesis.htm">ring_synthesis</A>
 
-<B>Up:</B> <A NAME="tex2html1437"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1441"
-  HREF="sub_same_shape_pixels_nest_same.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
+<B> Next:</B> <A
+ HREF="sub_same_shape_pixels_nest_same.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

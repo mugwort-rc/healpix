@@ -58,18 +58,12 @@ void openmp_status()
 #endif
   }
 
+extern "C" {
+int sharp_veclen(void);
+}
 void vec_status()
   {
-  cout << "Vector math: ";
-#if(defined(__AVX__))
-  cout << "AVX" << endl;
-#elif(defined(__SSE2__))
-  cout << "SSE2" << endl;
-#elif(defined(__SSE__))
-  cout << "SSE" << endl;
-#else
-  cout << "not supported by this binary" << endl;
-#endif
+  cout << "Supported vector length: " << sharp_veclen() << endl;
   }
 
 } //unnamed namespace
@@ -77,7 +71,7 @@ void vec_status()
 void announce (const string &name)
   {
 #ifndef VERSION
-#define VERSION "3.40"
+#define VERSION "3.50"
 #endif
   string version = "v" VERSION;
   string name2 = name+" "+version;

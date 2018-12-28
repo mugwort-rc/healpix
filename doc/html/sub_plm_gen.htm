@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>plm_gen</TITLE>
 <META NAME="description" CONTENT="plm_gen">
@@ -13,70 +9,77 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_query_disc.htm">
 <LINK REL="previous" HREF="sub_planck_rng_derived_type.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_query_disc.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1202"
-  HREF="sub_planck_rng_derived_type.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1208"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1212"
-  HREF="sub_query_disc.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1210"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_planck_rng_derived_type.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_query_disc.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html446"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1203"
-  HREF="sub_planck_rng_derived_type.htm">planck_rng derived type</A>
+<B> Previous:</B> <A
+ HREF="sub_planck_rng_derived_type.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1209"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1213"
-  HREF="sub_query_disc.htm">query_disc</A>
+<B> Next:</B> <A
+ HREF="sub_query_disc.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION7600"></A>
-<A NAME="sub:plm_gen"></A>
+<H1><A ID="SECTION7700"></A>
+<A ID="sub:plm_gen"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">plm_gen</FONT></font></b><hr>
-<H3>This routine computes the latitude dependent part <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> of the
-  spherical harmonics (<!-- MATH
- $Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$
+<H3>This routine computes the latitude dependent part <!-- MATH
+ $\lambda_{\ell m}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="165" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img97.png"
- ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> of the
+  spherical harmonics (<!-- MATH
+ $Y_{\ell m}(\theta,\phi) = \lambda_{\ell m}(\theta) e^{i m \phi}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.51ex; vertical-align: -0.68ex; " SRC="sub_img159.png"
+ ALT="$Y_{\ell m}(\theta,\phi) = \lambda_{\ell m}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
   (see <b>HEALPix</b> primer)
   used to synthetize or analyze <b>HEALPix</b> maps of temperature and polarisation.
   Since version 2.20, which introduced optimized algorithms for spherical
   harmonic transforms, it has become obsolete and should no longer be used.</H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">plm_gen</FONT>(
@@ -98,89 +101,82 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
+nsmax<A ID="sub:plm_gen:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> value for which to compute the <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN>.</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> value for which to compute the <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:plm_gen:nlmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A ID="sub:plm_gen:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><I>l</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> of the generated <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A NAME="sub:plm_gen:nmmax"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A ID="sub:plm_gen:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A NAME="sub:plm_gen:plm"></A>(0:n_plm-1, 1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A ID="sub:plm_gen:plm"></A>(0:n_plm-1, 1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> values, either for temperature only
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> values, either for temperature only
                    (<SPAN CLASS="MATH"><I>p</I>=1</SPAN>) or temperature and polarisation (<SPAN CLASS="MATH"><I>p</I>=3</SPAN>). The number
-                    of <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> is n_plm =
+                    of <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> is n_plm =
                     nsmax*(nmmax+1)*(2*nlmax-nmmax+2). They are stored in the
-                    order of increasing order <SPAN CLASS="MATH"><I>l</I></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
-                    all the <b>HEALPix</b> ring colatitudes <SPAN CLASS="MATH"><IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="sub_img56.png"
+                    order of increasing order <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
+                    all the <b>HEALPix</b> ring colatitudes <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img102.png"
  ALT="$\theta$"></SPAN> from North Pole to Equator, ie
  		   <!-- MATH
  $\lambda_{00}(\theta_1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img98.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img160.png"
  ALT="$\lambda_{00}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{10}(\theta_1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img99.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img161.png"
  ALT="$\lambda_{10}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{20}(\theta_1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img100.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img162.png"
  ALT="$\lambda_{20}(\theta_1)$"></SPAN>,
                     ..., <!-- MATH
  $\lambda_{11}(\theta_1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img101.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img163.png"
  ALT="$\lambda_{11}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{21}(\theta_1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img102.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img164.png"
  ALT="$\lambda_{21}(\theta_1)$"></SPAN>;
                     ...,  <!-- MATH
  $\lambda_{00}(\theta_2)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img103.png"
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img165.png"
  ALT="$\lambda_{00}(\theta_2)$"></SPAN> ...</TD>
 </TR>
 </TABLE>
@@ -209,9 +205,10 @@ call <FONT COLOR="#CC0000">plm_gen</FONT>(nside, lmax, mmax, plm)
 <BR></tt>
 <blockquote>
 Computes the spherical harmonics for temperature and polarisation for <!-- MATH
- $N_\mathrm{side}= 256$
+ $N_{\mathrm{side}}= 256$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I>= 256</SPAN>, up to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>= 256</SPAN>, up to 512 in <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="sub_img21.png"
+ ALT="$\ell$"></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
 </blockquote>
 
 <P>
@@ -223,10 +220,11 @@ Computes the spherical harmonics for temperature and polarisation for <!-- MATH
 <DD><DT>
 <B>gen_recfac, init_rescale, l_min_ylm</B>
 <DD>Ancillary routines used
-  for <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> recursion
+  for <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> recursion
   <DT>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
 <DD>module, containing:
@@ -242,31 +240,29 @@ Computes the spherical harmonics for temperature and polarisation for <!-- MATH
   <DL COMPACT><DT>
 <B><A HREF="sub_alm2map.htm#sub:alm2map">alm2map</A></B>
 <DD>routine generating maps of temperature
-   and polarisation from their <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> that can use precomputed <!-- MATH
- $\lambda_{l
+   and polarisation from their <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="sub_img6.png"
+ ALT="$a_{\ell m}$"></SPAN> that can use precomputed <!-- MATH
+ $\lambda_{\ell
    m}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
    <DT>
 <B><A HREF="sub_map2alm.htm#sub:map2alm">map2alm</A></B>
 <DD>routine analysing maps of temperature
    and polarisation that can use precomputed <!-- MATH
- $\lambda_{l
+ $\lambda_{\ell
    m}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
   <DT>
 <B>plmgen</B>
-<DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img96.png"
- ALT="$\lambda_{lm}$"></SPAN> and
+<DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <!-- MATH
+ $\lambda_{\ell m}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="sub_img158.png"
+ ALT="$\lambda_{\ell m}$"></SPAN> and
   writting them on disc 
 </DL>
 
@@ -281,31 +277,31 @@ Computes the spherical harmonics for temperature and polarisation for <!-- MATH
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1202"
-  HREF="sub_planck_rng_derived_type.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1208"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1212"
-  HREF="sub_query_disc.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1210"
+<A
+ HREF="sub_planck_rng_derived_type.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_query_disc.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html446"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1203"
-  HREF="sub_planck_rng_derived_type.htm">planck_rng derived type</A>
+<B> Previous:</B> <A
+ HREF="sub_planck_rng_derived_type.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1209"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1213"
-  HREF="sub_query_disc.htm">query_disc</A>
+<B> Next:</B> <A
+ HREF="sub_query_disc.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

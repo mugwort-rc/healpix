@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>pix2xxx, ang2xxx, vec2xxx, nest2ring, ring2nest</TITLE>
 <META NAME="description" CONTENT="pix2xxx, ang2xxx, vec2xxx, nest2ring, ring2nest">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
 <LINK REL="next" HREF="idl_planck_colors.htm">
 <LINK REL="previous" HREF="idl_orthview.htm">
-<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
 <LINK REL="next" HREF="idl_planck_colors.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html907"
-  HREF="idl_orthview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html913"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html917"
-  HREF="idl_planck_colors.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html915"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="idl_orthview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_planck_colors.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html383"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html908"
-  HREF="idl_orthview.htm">orthview</A>
+<B> Previous:</B> <A
+ HREF="idl_orthview.htm">orthview</A>
 
-<B>Up:</B> <A NAME="tex2html914"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html918"
-  HREF="idl_planck_colors.htm">planck_colors</A>
+<B> Next:</B> <A
+ HREF="idl_planck_colors.htm">planck_colors</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION5400"></A>
-<A NAME="idl:pix_tools"></A>
+<H1><A ID="SECTION5500"></A>
+<A ID="idl:pix_tools"></A>
 <BR>
  
 </H1>
@@ -62,12 +66,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">pix2xxx,&nbsp;ang2xxx, vec2xxx,&nbsp;nest2ring,&nbsp;ring2nest</FONT></font></b><hr>
-<H3>These routines provide conversion between pixel number in the <b>HEALPix</b> map and <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img10.png"
+<H3>These routines provide conversion between pixel number in the <b>HEALPix</b> map and <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img23.png"
  ALT="$(\theta,\phi)$"></SPAN> or <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> coordinates on the sphere. Some of these routines are listed here.
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/toolkit/"><b>src/idl/toolkit/</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/idl/toolkit/"><b>src/idl/toolkit/</b></a>&nbsp;  
 
 <P>
 <hr>
@@ -86,7 +88,7 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>
-nside<A NAME="idl:pix_tools:nside"></A></TD>
+nside<A ID="idl:pix_tools:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>scalar integer</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><!-- MATH
@@ -94,7 +96,7 @@ nside<A NAME="idl:pix_tools:nside"></A></TD>
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> parameter for the <b>HEALPix</b> map.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>ipnest(n)<A NAME="idl:pix_tools:ipnest"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>ipnest(n)<A ID="idl:pix_tools:ipnest"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector integer</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel identification number in NESTED scheme over the range {0,<!-- MATH
@@ -102,7 +104,7 @@ nside<A NAME="idl:pix_tools:nside"></A></TD>
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>-1</SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>ipring(n)<A NAME="idl:pix_tools:ipring"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>ipring(n)<A ID="idl:pix_tools:ipring"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector integer</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel identification number in RING scheme over the range {0,<!-- MATH
@@ -110,24 +112,20 @@ nside<A NAME="idl:pix_tools:nside"></A></TD>
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>-1</SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>theta(n)<A NAME="idl:pix_tools:theta"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>theta(n)<A ID="idl:pix_tools:theta"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector double</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>colatitude in radians measured southward from
-                   north pole in {0,<SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img7.png"
+                   north pole in {0,<SPAN CLASS="MATH"><IMG STYLE="height: 1.11ex; vertical-align: -0.10ex; " SRC="idl_img20.png"
  ALT="$\pi$"></SPAN>}</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>phi(n)<A NAME="idl:pix_tools:phi"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>phi(n)<A ID="idl:pix_tools:phi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector double</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>longitude in radians, measured eastward in {0,<SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="idl_img8.png"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>longitude in radians, measured eastward in {0,<SPAN CLASS="MATH"><IMG STYLE="height: 1.57ex; vertical-align: -0.10ex; " SRC="idl_img21.png"
  ALT="$2\pi$"></SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector(n,3)<A NAME="idl:pix_tools:vector"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vector(n,3)<A ID="idl:pix_tools:vector"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>array double</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>three dimensional cartesian position vector
@@ -136,12 +134,10 @@ nside<A NAME="idl:pix_tools:nside"></A></TD>
                    <!-- MATH
  $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="413" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img9.png"
- ALT="$x(0),\ldots,x(n-1), y(0),\ldots,y(n-1), z(0),\ldots,z(n-1)$"></SPAN></TD>
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img22.png"
+ ALT="$x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$"></SPAN></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vertex(n,3,4)<A NAME="idl:pix_tools:vertex"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>vertex(n,3,4)<A ID="idl:pix_tools:vertex"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>array double</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>optional OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>three dimensional cartesian position vector
@@ -152,18 +148,14 @@ nside<A NAME="idl:pix_tools:nside"></A></TD>
                    <!-- MATH
  $x_N(0),\ldots,x_N(n-1),\ y_N(0),\ldots,y_N(n-1),\ z_N(0),\ldots,z_N(n-1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="479" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img72.png"
- ALT="$x_N(0),\ldots,x_N(n-1), y_N(0),\ldots,y_N(n-1), z_N(0),\ldots,z_N(n-1)$"></SPAN>,
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img98.png"
+ ALT="$x_N(0),\ldots,x_N(n-1),\ y_N(0),\ldots,y_N(n-1),\ z_N(0),\ldots,z_N(n-1)$"></SPAN>,
                    <!-- MATH
  $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
                    z_W(0),\ldots,z_W(n-1)$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="493" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idl_img73.png"
- ALT="$x_W(0),\ldots,x_W(n-1), y_W(0),\ldots,y_W(n-1),\
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="idl_img99.png"
+ ALT="$x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
 z_W(0),\ldots,z_W(n-1)$"></SPAN>,
 			and so on with South and East vertices</TD>
 </TR>
@@ -313,7 +305,7 @@ z_W(0),\ldots,z_W(n-1)$"></SPAN>,
 </TR>
 </TABLE></tt>
 <blockquote>
-<TABLE  WIDTH="441">
+<TABLE   STYLE="width:374;">
 <TR><TD>
 returns  
 <BR>
@@ -337,31 +329,31 @@ position of the two pixels #17 and 1000 in the RING scheme with parameter <!-- M
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html907"
-  HREF="idl_orthview.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html913"
-  HREF="idl_HEALPix_IDL_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html917"
-  HREF="idl_planck_colors.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html915"
+<A
+ HREF="idl_orthview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="idl_planck_colors.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html383"
   HREF="idl_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html908"
-  HREF="idl_orthview.htm">orthview</A>
+<B> Previous:</B> <A
+ HREF="idl_orthview.htm">orthview</A>
 
-<B>Up:</B> <A NAME="tex2html914"
-  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+<B>Up:</B> <A
+ HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html918"
-  HREF="idl_planck_colors.htm">planck_colors</A>
+<B> Next:</B> <A
+ HREF="idl_planck_colors.htm">planck_colors</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

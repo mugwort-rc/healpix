@@ -125,26 +125,30 @@ pro outline_coord2uv, outline, coord_out, eul_mat, outline_uv, projection=projec
 ;       2013-02-08: replaced SYMCAT with CGSYMCAT
 ;       2014-06-23: allow different sub-structure to use different customized
 ;         symbols (via CGSYMCAT when PSYM in [9,46])
+;       2018-??: introduced COLOR
+;       2018-11-30: allow for large number of substructures
+;       2018-12-04: avoid creation of intermediate structure, 
+;          slightly changed number of interpolated points
 ;-
 
 ; outline : from astro coordinate to uv plan
 
 identify_projection, projtype, projection=projection, mollweide=mollweide, gnomic=gnomic
 
-if keyword_set(flip) then flipconv=1 else flipconv = -1  ; longitude increase leftward by default (astro convention)
-
+flipconv = keyword_set(flip) ? 1 : -1  ; longitude increase leftward by default (astro convention)
 
 if (datatype(outline) ne 'STC') then return
-
 n_outlines = n_tags(outline)
 no_sub = 0
 if (datatype(outline.(0)) ne 'STC') then begin
     n_outlines = 1
     no_sub = 1
 endif
+do_show   = keyword_set(show)
+do_outstc = arg_present(outline_uv)
 
-ist = 0
-for i=0,n_outlines-1 do begin
+ist = 0L
+for i=0L,n_outlines-1 do begin
     if (no_sub eq 1) then c1 = outline else c1 = outline.(i)
     ;--------- parse structure fields ----------
     nc1 = n_tags(c1)
@@ -264,7 +268,9 @@ for i=0,n_outlines-1 do begin
             pcont_type = cont_type
             psym_type = 0
             rf = 20
-            np_out = rf*np_in + 1
+            if (np_in gt 500) then rf = 10
+            ;np_out = rf*np_in + 1 ! 2018-12-04
+            np_out = rf*(np_in-1L) + 1
         endif else begin
             pcont_type = 0
             psym_type = abs(sym_type)
@@ -324,31 +330,27 @@ for i=0,n_outlines-1 do begin
                 message,'Unsupported projection: '+projection
             end
         endcase
-                                ; store (U,V) in structure
+               
+        ; make plot and/or create output structure
         if (nkeep gt 0) then begin
-            ;c1uv = create_struct('U',u_cont,'V',v_cont,'T',pcont_type,'ST',psym_type,'SS',ssize,'COL',colors)
-            c1uv = {U:u_cont, V:v_cont, T:pcont_type, ST:psym_type, SS:ssize, COL:colors}
-            ;tag = 's'+strtrim(string(ist,form='(i2)'),2)
-            tag = 's'+string(ist,form='(i4.4)')
-            if (ist eq 0) then begin
-                outline_uv = create_struct(tag,c1uv) 
-            endif else begin
-                outline_uv = create_struct(outline_uv,tag,c1uv)
-            endelse
-            ist = ist + 1
+            if do_outstc then begin ;  store (U,V) in structure
+                c1uv = {U:u_cont, V:v_cont, T:pcont_type, ST:psym_type, SS:ssize, COL:colors}
+                tag = 's'+string(ist,form='(i6.6)')
+                if (ist eq 0) then begin
+                    outline_uv = create_struct(tag,c1uv) 
+                endif else begin
+                    outline_uv = create_struct(outline_uv,tag,c1uv)
+                endelse
+                ist += 1
+            endif 
+            if do_show then begin
+                if (psym_type ge 9 && psym_type le 46) then  psym_type = cgsymcat(psym_type) ; call usersym and set psym_type to 8
+                oplot_sphere, u_cont, v_cont, line_type=pcont_type, _extra = oplot_kw, psym=psym_type, symsize=ssize, color=colors
+            endif
         endif
     endfor ; loop on type
 endfor ; loop on outline
 
-if (keyword_set(show)) then begin
-    n_outlines= n_tags(outline_uv)
-    for i=0,n_outlines-1 do begin
-        c1 = outline_uv.(i)
-        psym_type = c1.ST
-        if (psym_type ge 9 && psym_type le 46) then  psym_type = cgsymcat(psym_type) ; call usersym and set psym_type to 8
-        oplot_sphere, c1.U, c1.V, line_type=c1.T, _extra = oplot_kw, psym=psym_type, symsize=c1.SS, color=c1.COL
-    endfor
-endif
 
 return
 end

@@ -350,7 +350,7 @@ writeCpkgconfigFile (){
     echo "Name: chealpix"                      >> ${pkgconfigFile}
     echo "Description: C library for HEALPix (Hierarchical Equal-Area iso-Latitude) pixelisation of the sphere" >> ${pkgconfigFile}
     echo "Version: ${HPX_VERSION}"             >> ${pkgconfigFile}
-    echo "URL: http://healpix.sourceforge.net" >> ${pkgconfigFile}
+    echo "URL: https://healpix.sourceforge.io" >> ${pkgconfigFile}
     if [ ${C_WITHOUT_CFITSIO} -eq 0 ] ; then
 	echo "Requires: cfitsio"               >> ${pkgconfigFile}
     fi
@@ -1498,7 +1498,7 @@ IdentifyCParallCompiler () {
     npath=`$CC -v 2>&1         | ${GREP} -i ekopath  | ${WC} -l` # pathscale EKOPath
     PRCFLAGS=""
     if [ $nicc != 0 ] ; then
-	PRCFLAGS='-openmp' # -openmp-report0
+	PRCFLAGS='-qopenmp' # -openmp-report0
     elif [ $ngcc != 0 ] ; then
 	PRCFLAGS='-fopenmp'
     elif [ $nclang != 0 ] ; then
@@ -2153,7 +2153,7 @@ includedir=\${prefix}/include\${suffix}
 Name: HEALPix
 Description: F90 library for HEALPix (Hierarchical Equal-Area iso-Latitude) pixelisation of the sphere
 Version: ${HPX_VERSION}
-URL: http://healpix.sourceforge.net
+URL: https://healpix.sourceforge.io
 Requires: cfitsio >= ${CFITSIOVREQ}
 Libs: -L\${libdir} -lhealpix -lhpxgif
 Cflags: -I\${includedir} ${PRFLAGS} ${F90PIC} 

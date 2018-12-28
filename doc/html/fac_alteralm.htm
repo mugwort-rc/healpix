@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>alteralm</TITLE>
 <META NAME="description" CONTENT="alteralm">
@@ -13,97 +9,115 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="facilities.css">
 
 <LINK REL="next" HREF="fac_anafast.htm">
 <LINK REL="previous" HREF="fac_Older_Changes.htm">
-<LINK REL="up" HREF="fac_HEALPix_F90_facilities.htm">
 <LINK REL="next" HREF="fac_anafast.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html158"
-  HREF="fac_Older_Changes.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html164"
-  HREF="fac_HEALPix_F90_facilities.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html168"
-  HREF="fac_anafast.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html166"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="fac_Older_Changes.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="fac_anafast.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html115"
   HREF="fac_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html159"
-  HREF="fac_Older_Changes.htm">Older Changes</A>
+<B> Previous:</B> <A
+ HREF="fac_Older_Changes.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html165"
-  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+<B>Up:</B> <A
+ HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html169"
-  HREF="fac_anafast.htm">anafast</A>
+<B> Next:</B> <A
+ HREF="fac_anafast.htm">anafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION500"></A>
-<A NAME="fac:alteralm"></A>
+<H1><A ID="SECTION500"></A>
+<A ID="fac:alteralm"></A>
 <BR>
  
 </H1>
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">alteralm</FONT></font></b><hr>
-<H3>This program can be used to modify a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> spherical harmonics
+<H3>This program can be used to modify a set of <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> spherical harmonics
   coefficients, as those extracted by <A HREF="fac_anafast.htm#fac:anafast">anafast</A> or 
   simulated by <A HREF="fac_synfast.htm#fac:synfast">synfast</A>, before
   they are used as constraints on a synfast run. Currently the alterations
   possible are <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- rotation (using Wigner matrices) of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from the input
+ rotation (using Wigner matrices) of the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> from the input
     coordinate system to any other standard astrophysical coordinate system. The
-    resulting <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> can be used with e.g. synfast to generate a map in the
+    resulting <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> can be used with e.g. synfast to generate a map in the
     new coordinate system.
     <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  removal of the pixel and beam window functions of the input
-  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (corresponding to the pixel size and beam shape of the map from which
+  <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> (corresponding to the pixel size and beam shape of the map from which
   they were extracted) and implementation of an arbitrary pixel and beam window
   function.
  <BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
-
+<DIV ALIGN="CENTER"><A ID="eq:alteralm"></A>
 <!-- MATH
- \begin{equation}
-a_{lm}^\mathrm{OUT} = a_{lm}^\mathrm{IN} 
- \frac{B^\mathrm{OUT}(l) P^\mathrm{OUT}(l)}{B^\mathrm{IN}(l) 
- P^\mathrm{IN}(l)},
-\end{equation}
+ \begin{eqnarray}
+a_{\ell m}^\mathrm{OUT} &=& a_{\ell m}^\mathrm{IN}
+ \frac{B^\mathrm{OUT}(\ell) P^\mathrm{OUT}(\ell)}{B^\mathrm{IN}(\ell) 
+ P^\mathrm{IN}(\ell)}, 
+\end{eqnarray}
  -->
-<A NAME="eq:alteralm"></A>
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:alteralm"></A><IMG
- WIDTH="207" HEIGHT="47" BORDER="0"
- SRC="fac_img9.png"
- ALT="\begin{displaymath}a_{lm}^\mathrm{OUT} = a_{lm}^\mathrm{IN}
-\frac{B^\mathrm{OUT}(l) P^\mathrm{OUT}(l)}{B^\mathrm{IN}(l)
-P^\mathrm{IN}(l)},
-\end{displaymath}"></TD>
+<SPAN CLASS="MATH">
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 2.68ex; vertical-align: -0.67ex; " SRC="fac_img18.png"
+ ALT="$\displaystyle a_{\ell m}^\mathrm{OUT}$"></TD>
+<TD ALIGN="CENTER" NOWRAP>=</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 5.65ex; vertical-align: -2.27ex; " SRC="fac_img19.png"
+ ALT="$\displaystyle a_{\ell m}^\mathrm{IN}
+\frac{B^\mathrm{OUT}(\ell) P^\mathrm{OUT}(\ell)}{B^\mathrm{IN}(\ell)
+P^\mathrm{IN}(\ell)},$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
 </TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-where <SPAN CLASS="MATH"><I>P</I>(<I>l</I>)</SPAN> is the pixel window function, and <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> is the beam window
- function (assuming a circular beam) or any other <SPAN CLASS="MATH"><I>l</I></SPAN> space filter (eg,
- Wiener filter). For an infinitely small pixel (or beam) one would have <SPAN CLASS="MATH"><I>P</I>(<I>l</I>) =
- 1</SPAN> (resp. <SPAN CLASS="MATH"><I>B</I>(<I>l</I>) = 1</SPAN>) for any <SPAN CLASS="MATH"><I>l</I></SPAN>.
+</SPAN></DIV>
+<BR CLEAR="ALL"><P></P>
+where <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="fac_img20.png"
+ ALT="$P(\ell)$"></SPAN> is the pixel window function, and <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="fac_img21.png"
+ ALT="$B(\ell)$"></SPAN> is the beam window
+ function (assuming a circular beam) or any other <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="fac_img5.png"
+ ALT="$\ell$"></SPAN> space filter (eg,
+ Wiener filter). For an infinitely small pixel (or beam) one would have <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="fac_img22.png"
+ ALT="$P(\ell) =
+1$"></SPAN> (resp. <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="fac_img23.png"
+ ALT="$B(\ell) = 1$"></SPAN>) for any <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="fac_img5.png"
+ ALT="$\ell$"></SPAN>.
 </DL></H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/alteralm/alteralm.f90"><b>src/f90/alteralm/alteralm.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/alteralm/alteralm.f90"><b>src/f90/alteralm/alteralm.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
@@ -131,92 +145,108 @@ alteralm [options] [parameter_file]
  
   <DL COMPACT><DT>
 <B>infile_alms = </B>
-<DD><A NAME="fac:alteralm:infile_alms"></A>Defines the FITS file from which to read the input
-	<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+<DD><A ID="fac:alteralm:infile_alms"></A>Defines the FITS file from which to read the input
+	<SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>.
     <DT>
 <B>outfile_alms = </B>
-<DD><A NAME="fac:alteralm:outfile_alms"></A>Defines the FITS file in which to write the altered
-	<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+<DD><A ID="fac:alteralm:outfile_alms"></A>Defines the FITS file in which to write the altered
+	<SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>.
     <DT>
 <B>fwhm_arcmin_in = </B>
-<DD><A NAME="fac:alteralm:fwhm_arcmin_in"></A>Defines the FWHM size in arcminutes 
-      of the Gaussian beam present in the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. The output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be
+<DD><A ID="fac:alteralm:fwhm_arcmin_in"></A>Defines the FWHM size in arcminutes 
+      of the Gaussian beam present in the input <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. The output <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> will be
       corrected from it, see Eq.&nbsp;(<A HREF="#eq:alteralm">3</A>). (default= value of FWHM keyword in <TT>infile_alms</TT>).
     <DT>
 <B>beam_file_in = </B>
-<DD><A NAME="fac:alteralm:beam_file_in"></A>Defines the FITS file (see <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">''Beam window function files'' in introduction</A>) describing the
-      Legendre window function of the circular beam present in the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. The output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be
+<DD><A ID="fac:alteralm:beam_file_in"></A>Defines the FITS file (see <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">&rdquo;Beam window function files&rdquo; in introduction</A>) describing the
+      Legendre window function of the circular beam present in the input <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. The output <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> will be
       corrected from it, see Eq.&nbsp;(<A HREF="#eq:alteralm">3</A>). If set to an existing file name, it will override the
     <TT>fhwm_arcmin_in</TT> given above. (default= value of the BEAM_LEG keyword in <TT>infile_alms</TT>)
      <DT>
 <B>nlmax_out = </B>
-<DD><A NAME="fac:alteralm:nlmax_out"></A>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
-       to be used for the output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s. (default= maximum <SPAN CLASS="MATH"><I>l</I></SPAN> of input
-       <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> = value of MAX-LPOL keyword in <TT>infile_alms</TT>).
+<DD><A ID="fac:alteralm:nlmax_out"></A>Defines the maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="fac_img5.png"
+ ALT="$\ell$"></SPAN> value 
+       to be used for the output <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>s. (default= maximum <SPAN CLASS="MATH"><IMG STYLE="height: 1.69ex; vertical-align: -0.10ex; " SRC="fac_img5.png"
+ ALT="$\ell$"></SPAN> of input
+       <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> = value of MAX-LPOL keyword in <TT>infile_alms</TT>).
      <DT>
 <B>nsmax_in = </B>
-<DD><A NAME="fac:alteralm:nsmax_in"></A>If it can not be determined from the input file <TT>infile_alms</TT>, asks
+<DD><A ID="fac:alteralm:nsmax_in"></A>If it can not be determined from the input file <TT>infile_alms</TT>, asks
        for the <b>HEALPix</b> resolution parameter <!-- MATH
  $N_{\mathrm{side}}$
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> whose
-       window function is applied to the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+       window function is applied to the input <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>
      <DT>
 <B>nsmax_out = </B>
-<DD><A NAME="fac:alteralm:nsmax_out"></A>Defines the <b>HEALPix</b> resolution parameter <!-- MATH
+<DD><A ID="fac:alteralm:nsmax_out"></A>Defines the <b>HEALPix</b> resolution parameter <!-- MATH
  $N_{\mathrm{side}}$
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> whose
-       window function will be applied to the output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. Could be set
+       window function will be applied to the output <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. Could be set
        to 0 for infinitely small pixels, ie no pixel window function (default= same as input's <!-- MATH
  $N_{\mathrm{side}}$
  -->
 <SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN>).
     <DT>
 <B>fwhm_arcmin_out = </B>
-<DD><A NAME="fac:alteralm:fwhm_arcmin_out"></A>Defines the FWHM size in arcminutes 
-      of the Gaussian beam to be applied to <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, see
+<DD><A ID="fac:alteralm:fwhm_arcmin_out"></A>Defines the FWHM size in arcminutes 
+      of the Gaussian beam to be applied to <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>, see
       Eq.&nbsp;(<A HREF="#eq:alteralm">3</A>). (default= <TT>fwhm_arcmin_in</TT>).
     <DT>
 <B>beam_file_out = </B>
 <DD>Defines the FITS file 
-(see <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">''Beam window function files'' in introduction</A>) describing the
-      Legendre window function of the circular beam to be applied <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. If
+(see <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:beamfiles">&rdquo;Beam window function files&rdquo; in introduction</A>) describing the
+      Legendre window function of the circular beam to be applied <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. If
       set to an existing file name, it will override the 
-    <TT>fhwm_arcmin_out</TT> given above. (default= '' '')
+    <TT>fhwm_arcmin_out</TT> given above. (default= &rdquo; &rdquo;)
     <DT>
 <B>coord_in = </B>
-<DD><A NAME="fac:alteralm:coord_in"></A>Defines astrophysical coordinates used to compute the
-    input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. Valid choices are 'G' = Galactic, 'E' = Ecliptic, 
+<DD><A ID="fac:alteralm:coord_in"></A>Defines astrophysical coordinates used to compute the
+    input <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. Valid choices are 'G' = Galactic, 'E' = Ecliptic, 
     'C'/'Q' = Celestial = eQuatorial. (default = value of COORDSYS keyword read
     from input FITS file)
     <DT>
 <B>epoch_in = </B>
-<DD><A NAME="fac:alteralm:epoch_in"></A>Defines astronomical epoch of input coordinate system (default=2000)
+<DD><A ID="fac:alteralm:epoch_in"></A>Defines astronomical epoch of input coordinate system (default=2000)
     <DT>
 <B>coord_out = </B>
-<DD><A NAME="fac:alteralm:coord_out"></A>Defines astrophysical coordinates into which to rotate
-    the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (default = <TT>coord_in</TT>)
+<DD><A ID="fac:alteralm:coord_out"></A>Defines astrophysical coordinates into which to rotate
+    the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> (default = <TT>coord_in</TT>)
     <DT>
 <B>epoch_out = </B>
-<DD><A NAME="fac:alteralm:epoch_out"></A>Defines astronomical epoch of output coordinate system
+<DD><A ID="fac:alteralm:epoch_out"></A>Defines astronomical epoch of output coordinate system
     (default=<TT>epoch_in</TT>)
      <DT>
 <B>windowfile_in = </B>
-<DD><A NAME="fac:alteralm:windowfile_in"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_in</TT>
+<DD><A ID="fac:alteralm:windowfile_in"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_in</TT>
 (default= pixel_window_n????.fits, see 
 <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:defdir">Notes on default files and directories</A>)
      <DT>
 <B>winfiledir_in = </B>
-<DD><A NAME="fac:alteralm:winfiledir_in"></A>Defines the directory in which <TT>windowfile_in</TT>
+<DD><A ID="fac:alteralm:winfiledir_in"></A>Defines the directory in which <TT>windowfile_in</TT>
     is located (default : see above).
      <DT>
 <B>windowfile_out = </B>
-<DD><A NAME="fac:alteralm:windowfile_out"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_out</TT>
+<DD><A ID="fac:alteralm:windowfile_out"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_out</TT>
 (default= pixel_window_n????.fits, see above)
      <DT>
 <B>winfiledir_out = </B>
-<DD><A NAME="fac:alteralm:winfiledir_out"></A>Defines the directory in which <TT>windowfile_out</TT>
+<DD><A ID="fac:alteralm:winfiledir_out"></A>Defines the directory in which <TT>windowfile_out</TT>
     is located (default : see above).
 
 <P>
@@ -226,8 +256,10 @@ alteralm [options] [parameter_file]
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-Alteralm can modify temperature as well as polarisation <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. It will also
-modify the error on the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> if those are provided. It works best if the
+Alteralm can modify temperature as well as polarisation <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN>. It will also
+modify the error on the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> if those are provided. It works best if the
 input FITS file contains the relevant information on the beam size and shape,
 maximum multipoles, ...
 
@@ -263,17 +295,21 @@ maximum multipoles, ...
   <DL COMPACT><DT>
 <B><A HREF="./sub_generate_beam.htm#sub:generate_beam">generate_beam</A></B>
 <DD>This <b>HEALPix</b> Fortran
-subroutine generates or reads the <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> window function(s) used in <FONT COLOR="#CC0000">alteralm</FONT>
+subroutine generates or reads the <SPAN CLASS="MATH"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="fac_img21.png"
+ ALT="$B(\ell)$"></SPAN> window function(s) used in <FONT COLOR="#CC0000">alteralm</FONT>
   <DT>
 <B><A HREF="fac_anafast.htm#fac:anafast">anafast</A></B>
 <DD>This <b>HEALPix</b> Fortran facility can
-     	       analyse a <b>HEALPix</b> map to extract the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> that can be
+     	       analyse a <b>HEALPix</b> map to extract the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> that can be
      	       altered by <FONT COLOR="#CC0000">alteralm</FONT>.
   <DT>
 <B><A HREF="fac_synfast.htm#fac:synfast">synfast</A></B>
 <DD>This <b>HEALPix</b> facility can generate a
-  <b>HEALPix</b> map from a power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>, with the possibility of including
-  constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> as those obtained with <FONT COLOR="#CC0000">alteralm</FONT>.
+  <b>HEALPix</b> map from a power spectrum <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.45ex; " SRC="fac_img24.png"
+ ALT="$C_\ell$"></SPAN>, with the possibility of including
+  constraining <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> as those obtained with <FONT COLOR="#CC0000">alteralm</FONT>.
 
 <P>
 </DL>
@@ -312,7 +348,8 @@ In this example, the file contains the following qualifiers:
 <tt><A HREF="#fac:alteralm:outfile_alms">outfile_alms</A>= newalm.fits</tt><br>
 
 <P>
-Alteralm reads the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from 'alm.fits'. Since <BR>
+Alteralm reads the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> from 'alm.fits'. Since <BR>
 <tt><A HREF="#fac:alteralm:nsmax_in">nsmax_in</A></tt><br>
 <tt><A HREF="#fac:alteralm:nsmax_out">nsmax_out</A></tt><br>
 <tt><A HREF="#fac:alteralm:fwhm_arcmin_in">fwhm_arcmin_in</A></tt><br>
@@ -324,10 +361,12 @@ Alteralm reads the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from '
 <tt><A HREF="#fac:alteralm:winfiledir_in">winfiledir_in</A></tt><br>
 <tt><A HREF="#fac:alteralm:windowfile_out">windowfile_out</A></tt><br>
 <tt><A HREF="#fac:alteralm:winfiledir_out">winfiledir_out</A></tt><br>
-have their default values, the pixel size will remain the same, the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be corrected
+have their default values, the pixel size will remain the same, the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> will be corrected
 from its input beam (whatever it was, assuming the relevant information can be
 found), and a gaussian beam of 20.0 arcmin will be applied
-instead, the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will also be rotated from their original coordinate system
+instead, the <SPAN CLASS="MATH"><IMG STYLE="height: 1.46ex; vertical-align: -0.45ex; " SRC="fac_img14.png"
+ ALT="$a_{\ell m}$"></SPAN> will also be rotated from their original coordinate system
 (whatever it was, assuming the relevant information can be found)
 into Galactic coordinates, assuming a year 2000 epoch for both,
  and only the multipoles up to 512 will be written in
@@ -442,31 +481,31 @@ what the user provided.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html158"
-  HREF="fac_Older_Changes.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html164"
-  HREF="fac_HEALPix_F90_facilities.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html168"
-  HREF="fac_anafast.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html166"
+<A
+ HREF="fac_Older_Changes.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="fac_anafast.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html115"
   HREF="fac_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html159"
-  HREF="fac_Older_Changes.htm">Older Changes</A>
+<B> Previous:</B> <A
+ HREF="fac_Older_Changes.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html165"
-  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+<B>Up:</B> <A
+ HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html169"
-  HREF="fac_anafast.htm">anafast</A>
+<B> Next:</B> <A
+ HREF="fac_anafast.htm">anafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

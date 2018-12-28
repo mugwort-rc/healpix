@@ -15,7 +15,6 @@ warnings.filterwarnings("ignore")
 
 
 class TestSphtFunc(unittest.TestCase):
-
     def setUp(self):
         self.lmax = 64
         self.path = os.path.dirname(os.path.realpath(__file__))
@@ -182,6 +181,21 @@ class TestSphtFunc(unittest.TestCase):
         gauss_beam = hp.gauss_beam(np.radians(10. / 60.), lmax=512, pol=True)
         np.testing.assert_allclose(idl_gauss_beam, gauss_beam)
 
+    def test_alm2cl(self):
+        nside = 32
+        lmax = 64
+        lmax_out = 100
+        seed = 12345
+        np.random.seed(seed)
+
+        # Input power spectrum and alm
+        alm_syn = hp.synalm(self.cla, lmax=lmax)
+
+        cl_out = hp.alm2cl(alm_syn, lmax_out=lmax_out-1)
+
+        np.testing.assert_array_almost_equal(
+            cl_out, self.cla[:lmax_out], decimal=4)
+
     def test_map2alm(self):
         nside = 32
         lmax = 64
@@ -257,6 +271,20 @@ class TestSphtFunc(unittest.TestCase):
             hp.rotate_alm(o, -0.3, -0.2, -0.1)
             # FIXME: rtol=1e-6 works here, except on Debian with Python 3.4.
             np.testing.assert_allclose(i, o, rtol=1e-5)
+
+    def test_rotate_alm_rotmatrix(self):
+        """rotate_alm also support rotation matrix instead of angles"""
+        lmax = 32
+        nalm = hp.Alm.getsize(lmax)
+        alm = np.zeros([3, nalm], dtype=np.complex)
+        alm[0, 1] = 1
+        alm[1, 2] = 1
+        alm_rotated_angles = alm.copy()
+        angles = hp.rotator.coordsys2euler_zyz(coord=["G", "E"])
+        hp.rotate_alm(alm_rotated_angles, *angles)
+        gal2ecl = hp.Rotator(coord=["G", "E"])
+        hp.rotate_alm(alm, matrix=gal2ecl.mat)
+        np.testing.assert_allclose(alm_rotated_angles, alm)
 
     def test_rotate_alm2(self):
         # Test rotate_alm against the Fortran library
@@ -365,6 +393,18 @@ class TestSphtFunc(unittest.TestCase):
 
         beam = hp.bl2beam(gaussian_window, theta)
         np.testing.assert_allclose(gaussian_beam, beam, rtol=1e-3)
+
+    def test_max_nside_check(self):
+        """ Test whether the max_nside_check correctly raises ValueErrors for nsides
+        that are too large."""
+
+        # Test an nside that is too large
+        with self.assertRaises(ValueError):
+            hp.check_max_nside(16384)
+        
+        # Test an nside that is valid
+        # hp.check_max_nside will return 0 if no exceptions are raised
+        self.assertEqual(hp.check_max_nside(1024), 0)
 
 
 if __name__ == "__main__":

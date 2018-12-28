@@ -1,11 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
-<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
-original version by:  Nikos Drakos, CBLU, University of Leeds
-* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
-* with significant contributions from:
-  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<HTML>
+<!--Converted with LaTeX2HTML 2018.3 (Released July 19, 2018) -->
+<HTML lang="EN">
 <HEAD>
 <TITLE>template_pixel_nest, template_pixel_ring</TITLE>
 <META NAME="description" CONTENT="template_pixel_nest, template_pixel_ring">
@@ -13,48 +9,56 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
-<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2018.3">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
 <LINK REL="next" HREF="sub_udgrade_nest.htm">
 <LINK REL="previous" HREF="sub_surface_triangle.htm">
-<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
 <LINK REL="next" HREF="sub_udgrade_nest.htm">
 </HEAD>
 
-<BODY >
+<body text="#000000" bgcolor="#FFFFFA">
 
-<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
-<!--Navigation Panel-->
-<A NAME="tex2html1502"
-  HREF="sub_surface_triangle.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1508"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1512"
-  HREF="sub_udgrade_nest.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1510"
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_surface_triangle.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_udgrade_nest.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html496"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1503"
-  HREF="sub_surface_triangle.htm">surface_triangle</A>
+<B> Previous:</B> <A
+ HREF="sub_surface_triangle.htm">surface_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html1509"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1513"
-  HREF="sub_udgrade_nest.htm">udgrade_nest*</A>
+<B> Next:</B> <A
+ HREF="sub_udgrade_nest.htm">udgrade_nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION10100"></A>
-<A NAME="sub:template_pixel_xxx"></A>
+<H1><A ID="SECTION10200"></A>
+<A ID="sub:template_pixel_xxx"></A>
 <BR>
  
 </H1>
@@ -63,9 +67,9 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">template_pixel_nest, template_pixel_ring</FONT></font></b><hr>
 <H3>Routines to provide the index of the template pixel associated with a given
   <b>HEALPix</b> pixel, for a resolution parameter <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN>. 
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN>. 
 <br><br>Any pixel can be <EM>matched in shape</EM>
   to a single of these templates by a combination of  a rotation around the polar axis with 
   reflexion(s) around a meridian and/or the equator. 
@@ -73,42 +77,32 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  Equator.
 They are chosen to have their center located at
 <BR>
-<DIV ALIGN="CENTER"><A NAME="eq:template_pixel_xxx"></A>
+<DIV ALIGN="CENTER"><A ID="eq:template_pixel_xxx"></A>
 <!-- MATH
  \begin{eqnarray}
 z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
-     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4N_\mathrm{side}}.  %\nonumber %[Nside]
+     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4N_{\mathrm{side}}}.  %\nonumber %[Nside]
 \end{eqnarray}
  -->
 <SPAN CLASS="MATH">
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
- WIDTH="131" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img118.png"
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img183.png"
  ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$"></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="10" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img119.png"
- ALT="$\textstyle  $"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="99" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img120.png"
+<TD ALIGN="CENTER" NOWRAP><IMG STYLE="vertical-align: 20px"
+ SRC="sub_img184.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img185.png"
  ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
- WIDTH="95" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img123.png"
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG STYLE="height: 2.33ex; vertical-align: -0.68ex; " SRC="sub_img188.png"
  ALT="$\displaystyle %[Nside*(Nside+2)/4]
 2/3 &gt; z \geq 0,$"></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="10" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img119.png"
- ALT="$\textstyle  $"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="182" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img124.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4N_\mathrm{side}}. %\nonumber %[Nside]
+<TD ALIGN="CENTER" NOWRAP><IMG STYLE="vertical-align: 20px"
+ SRC="sub_img184.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG STYLE="height: 4.60ex; vertical-align: -2.04ex; " SRC="sub_img189.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4N_{\mathrm{side}}}. %\nonumber %[Nside]
 $"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">24</SPAN>)</TD></TR>
@@ -116,12 +110,10 @@ $"></TD>
 </SPAN></DIV>
 <BR CLEAR="ALL"><P></P>
 They are numbered continuously from 0, starting at the North Pole, with the index
- increasing in <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="sub_img76.png"
+ increasing in <SPAN CLASS="MATH"><IMG STYLE="height: 2.10ex; vertical-align: -0.55ex; " SRC="sub_img133.png"
  ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
 </H3>
-Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/1005/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 
@@ -154,39 +146,39 @@ Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/c
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-nside<A NAME="sub:template_pixel_xxx:nside"></A></TD>
+nside<A ID="sub:template_pixel_xxx:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <b>HEALPix</b> <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> parameter.</TD>
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> parameter.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_nest<A NAME="sub:template_pixel_xxx:pixel_nest"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_nest<A ID="sub:template_pixel_xxx:pixel_nest"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>NESTED scheme pixel identification number over the range {0,<!-- MATH
- $12N_\mathrm{side}^2-1$
+ $12N_{\mathrm{side}}^2-1$
  -->
-<SPAN CLASS="MATH">12<I>N</I><I>side</I><SUP>2</SUP>-1</SPAN>}.</TD>
+<SPAN CLASS="MATH">12<I>N</I><SUB>side</SUB><SUP><i>2</i></SUP>-1</SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_ring<A NAME="sub:template_pixel_xxx:pixel_ring"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_ring<A ID="sub:template_pixel_xxx:pixel_ring"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>RING scheme pixel identification number over the
                    range {0,<!-- MATH
- $12N_\mathrm{side}^2-1$
+ $12N_{\mathrm{side}}^2-1$
  -->
-<SPAN CLASS="MATH">12<I>N</I><I>side</I><SUP>2</SUP>-1</SPAN>}.</TD>
+<SPAN CLASS="MATH">12<I>N</I><SUB>side</SUB><SUP><i>2</i></SUP>-1</SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>template<A NAME="sub:template_pixel_xxx:template"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>template<A ID="sub:template_pixel_xxx:template"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>identification number of the
                    template matching in shape the pixel provided (the numbering
                    scheme of the pixel templates is the same for both routines).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>reflexion<A NAME="sub:template_pixel_xxx:reflexion"></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>reflexion<A ID="sub:template_pixel_xxx:reflexion"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>in {0, 3} encodes the transformation(s) to
@@ -205,9 +197,9 @@ nside<A NAME="sub:template_pixel_xxx:nside"></A></TD>
 <blockquote>
 Returns in <TT>template</TT> the index of the template pixel (16663) whose shape matches
 that of the pixel #500000 for <!-- MATH
- $N_\mathrm{side}=256$
+ $N_{\mathrm{side}}=256$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I>=256</SPAN>. Upon return <TT>reflexion</TT> will
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=256</SPAN>. Upon return <TT>reflexion</TT> will
 contain 2, meaning that the template must be reflected around a meridian and
 around the equator (and then rotated around the polar axis) in order to match
 the pixel.
@@ -218,9 +210,9 @@ the pixel.
 <B><A HREF="sub_nside2ntemplates.htm#sub:nside2ntemplates">nside2templates</A></B>
 <DD>returns the
   number of template pixel shapes available for a given <!-- MATH
- $N_\mathrm{side}$
+ $N_{\mathrm{side}}$
  -->
-<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN>.
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN>.
   <DT>
 <B><A HREF="sub_same_shape_pixels_nest_same.htm#sub:same_shape_pixels_xxx">same_shape_pixels_ring</A></B>
 <DD><DT>
@@ -238,31 +230,31 @@ the pixel.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1502"
-  HREF="sub_surface_triangle.htm">
-<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1508"
-  HREF="sub_HEALPix_F90_subroutines.htm">
-<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1512"
-  HREF="sub_udgrade_nest.htm">
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1510"
+<A
+ HREF="sub_surface_triangle.htm">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A> 
+<A
+ HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_udgrade_nest.htm">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A ID="tex2html496"
   HREF="sub_TABLE_CONTENTS.htm">
-<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<IMG WIDTH="65" HEIGHT="24" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1503"
-  HREF="sub_surface_triangle.htm">surface_triangle</A>
+<B> Previous:</B> <A
+ HREF="sub_surface_triangle.htm">surface_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html1509"
-  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+<B>Up:</B> <A
+ HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1513"
-  HREF="sub_udgrade_nest.htm">udgrade_nest*</A>
+<B> Next:</B> <A
+ HREF="sub_udgrade_nest.htm">udgrade_nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.40, 2018-06-22
+Version 3.50, 2018-12-10
 </ADDRESS>
 </BODY>
 </HTML>

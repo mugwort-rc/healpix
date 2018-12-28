@@ -170,6 +170,10 @@ def mollview(
     # Create the figure
     import pylab
 
+    # Ensure that the nside is valid
+    nside = pixelfunc.get_nside(map)
+    pixelfunc.check_nside(nside, nest=nest)
+
     if not (hold or sub):
         f = pylab.figure(fig, figsize=(8.5, 5.4))
         extent = (0.02, 0.05, 0.96, 0.9)
@@ -323,6 +327,7 @@ def gnomview(
     margins=None,
     notext=False,
     return_projected_map=False,
+    no_plot=False,
 ):
     """Plot a healpix map (given as an array) in Gnomonic projection.
 
@@ -385,14 +390,20 @@ def gnomview(
       Default: None
     notext: bool, optional
       If True: do not add resolution info text. Default=False
-    return_projected_map : bool
+    return_projected_map : bool, optional
       if True returns the projected map in a 2d numpy array
+    no_plot : bool, optional
+      if True no figure will be created      
 
     See Also
     --------
     mollview, cartview, orthview, azeqview
     """
     import pylab
+
+    # Ensure that the nside is valid
+    nside = pixelfunc.get_nside(map)
+    pixelfunc.check_nside(nside, nest=nest)
 
     if not (hold or sub):
         f = pylab.figure(fig, figsize=(5.8, 6.4))
@@ -542,6 +553,10 @@ def gnomview(
         if wasinteractive:
             pylab.ion()
             # pylab.show()
+        if no_plot:        
+            pylab.close(f)  
+            f.clf()
+            ax.cla()
     if return_projected_map:
         return img
 
@@ -650,6 +665,10 @@ def cartview(
     mollview, gnomview, orthview, azeqview
     """
     import pylab
+
+    # Ensure that the nside is valid
+    nside = pixelfunc.get_nside(map)
+    pixelfunc.check_nside(nside, nest=nest)
 
     if not (hold or sub):
         f = pylab.figure(fig, figsize=(8.5, 5.4))
@@ -889,6 +908,10 @@ def orthview(
     """
     # Create the figure
     import pylab
+
+    # Ensure that the nside is valid
+    nside = pixelfunc.get_nside(map)
+    pixelfunc.check_nside(nside, nest=nest)
 
     if not (hold or sub):
         f = pylab.figure(fig, figsize=(8.5, 5.4))
@@ -1130,6 +1153,10 @@ def azeqview(
     """
     # Create the figure
     import pylab
+
+    # Ensure that the nside is valid
+    nside = pixelfunc.get_nside(map)
+    pixelfunc.check_nside(nside, nest=nest)
 
     if not (hold or sub):
         f = pylab.figure(fig, figsize=(8.5, 5.4))

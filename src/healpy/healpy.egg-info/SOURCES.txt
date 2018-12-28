@@ -158,6 +158,7 @@ cfitsio/zlib/zlib.h
 cfitsio/zlib/zuncompress.c
 cfitsio/zlib/zutil.c
 cfitsio/zlib/zutil.h
+healpixsubmodule/src/cxx/autotools/COPYING
 healpixsubmodule/src/cxx/autotools/Makefile.am
 healpixsubmodule/src/cxx/autotools/Makefile.in
 healpixsubmodule/src/cxx/autotools/NEWS
@@ -298,16 +299,6 @@ healpixsubmodule/src/cxx/autotools/cxxsupport/walltimer.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/wigner.cc
 healpixsubmodule/src/cxx/autotools/cxxsupport/wigner.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/xcomplex.h
-healpixsubmodule/src/cxx/autotools/libfftpack/README
-healpixsubmodule/src/cxx/autotools/libfftpack/bluestein.c
-healpixsubmodule/src/cxx/autotools/libfftpack/bluestein.h
-healpixsubmodule/src/cxx/autotools/libfftpack/fftpack.c
-healpixsubmodule/src/cxx/autotools/libfftpack/fftpack.h
-healpixsubmodule/src/cxx/autotools/libfftpack/fftpack_inc.c
-healpixsubmodule/src/cxx/autotools/libfftpack/libfftpack.dox
-healpixsubmodule/src/cxx/autotools/libfftpack/ls_fft.c
-healpixsubmodule/src/cxx/autotools/libfftpack/ls_fft.h
-healpixsubmodule/src/cxx/autotools/libfftpack/planck.make
 healpixsubmodule/src/cxx/autotools/libsharp/libsharp.dox
 healpixsubmodule/src/cxx/autotools/libsharp/planck.make
 healpixsubmodule/src/cxx/autotools/libsharp/sharp.c
@@ -317,7 +308,9 @@ healpixsubmodule/src/cxx/autotools/libsharp/sharp_almhelpers.h
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_complex_hacks.h
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_core.c
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_core.h
+healpixsubmodule/src/cxx/autotools/libsharp/sharp_core_avx.c
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_core_inc.c
+healpixsubmodule/src/cxx/autotools/libsharp/sharp_core_inc0.c
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_core_inc2.c
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_core_inchelper.c
 healpixsubmodule/src/cxx/autotools/libsharp/sharp_cxx.h
@@ -339,6 +332,11 @@ healpixsubmodule/src/cxx/autotools/m4/lt~obsolete.m4
 healpixsubmodule/src/cxx/autotools/m4/m4_ax_create_pkgconfig_info.m4
 healpixsubmodule/src/cxx/autotools/m4/m4_ax_cxx_compile_stdcxx.m4
 healpixsubmodule/src/cxx/autotools/m4/m4_ax_cxx_compile_stdcxx_11.m4
+healpixsubmodule/src/cxx/autotools/m4/pkg.m4
+healpixsubmodule/src/cxx/autotools/pocketfft/LICENSE.md
+healpixsubmodule/src/cxx/autotools/pocketfft/planck.make
+healpixsubmodule/src/cxx/autotools/pocketfft/pocketfft.c
+healpixsubmodule/src/cxx/autotools/pocketfft/pocketfft.h
 healpy/__init__.py
 healpy/cookbook.py
 healpy/fitsfunc.py
