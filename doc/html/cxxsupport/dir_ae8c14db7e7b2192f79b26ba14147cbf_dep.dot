@@ -1,6 +1,0 @@
-digraph G {
-  compound=true
-  node [ fontsize=10, fontname="FreeSans"];
-  edge [ labelfontsize=9, labelfontname="FreeSans"];
-  dir_ae8c14db7e7b2192f79b26ba14147cbf [shape=box, label="cxxsupport", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_ae8c14db7e7b2192f79b26ba14147cbf.html"];
-}

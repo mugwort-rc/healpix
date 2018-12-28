@@ -84,8 +84,8 @@ PRO gnomview, file_in, select_in, $
 
 defsysv, '!healpix', exists = exists
 if (exists ne 1) then init_healpix
-
 @viewcom ; define common
+
 data_plot = 0 ; empty common array
 ; record original color table and PLOTS settings
 record_original_settings, original_settings
@@ -157,7 +157,6 @@ loaddata_healpix, $
   POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list, $
   TRUECOLORS=truecolors, DATA_TC=data_tc
 if error NE 0 then return
-
 
 data2gnom, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, $

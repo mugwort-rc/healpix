@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.15</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.15">
+<TITLE>Changes between release 2.0 and 2.15a</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.15a">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -53,7 +53,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 2.0 and 2.15</A>
+Changes between release 2.0 and 2.15a</A>
 </H1>
 Several routines have been added or improved since version 2.0, as listed below.
 Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
@@ -72,21 +72,25 @@ pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Recent edition (version 2.15)
+ Recent editions (versions 2.15 and 2.15a)
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
         <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  export of projected map into a FITS file (<A HREF="idlnode33.htm#idl:mollview:fits"><TT>FITS</TT></A> keyword), or an
 IDL array (<A HREF="idlnode33.htm#idl:mollview:fits"><TT>MAP_OUT</TT></A> option) now available with all viewing routines,
 		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- added <A HREF="idlnode33.htm#idl:mollview:charthick"><TT>CHARTHICK</TT></A> support; accept array of <A HREF="idlnode33.htm#idl:mollview:outline"><TT>OUTLINE</TT></A> structures (if they have the same fields);
+ added <A HREF="idlnode33.htm#idl:mollview:charthick"><TT>CHARTHICK</TT></A> support; accept array of <A HREF="idlnode33.htm#idl:mollview:outline"><TT>OUTLINE</TT></A> structures (if they have the same fields),
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ correction of a bug (in <TT>loaddata_healpix</TT>) that was
+affecting the behavior of these viewing routines after consecutive calls with
+very partial cut-sky <EM>and then</EM> full-sky data sets [2.15a];
 	</DL>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode50.htm#idl:remove_dipole"><TT>remove_dipole</TT></A> now outputs the monopole and dipole
 <A HREF="idlnode50.htm#idl:remove_dipole:covariance_matrix">covariance matrix</A>;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  
-<A HREF="#idl:write_fits_maps"><TT>write_fits_map</TT></A>, 
+<A HREF="idlnode58.htm#idl:write_fits_map"><TT>write_fits_map</TT></A>, 
 <A HREF="idlnode60.htm#idl:write_tqu"><TT>write_tqu</TT></A>, 
 <A HREF="idlnode59.htm#idl:write_fits_sb"><TT>write_fits_sb</TT></A>: <TT>BAD_DATA</TT> keyword added to FITS header;
         <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -322,7 +326,7 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-16
+2010-06-18
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2009.7.21)  16 JUN 2010 17:41
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2009.7.21)  18 JUN 2010 16:14
 entering extended mode
 **./subroutinesimages.tex
 (./subroutinesimages.tex
@@ -27,7 +27,7 @@ File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 \bibindent=\dimen102
 ) (/sw2/share/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) (/tmp/Healpix_2.15/doc/TeX/healpix.sty
+) (/tmp/Healpix_2.15a/doc/TeX/healpix.sty
 Package: healpix 
 Package: healpix macros (A.J. Banday, M. Bartelmann)
 Document format
@@ -60,8 +60,8 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \plainfootrulewidth=\dimen108
 \headwidth=\dimen109
 \footruleskip=\dimen110
-) (/tmp/Healpix_2.15/doc/TeX/hpxversion.tex) (/tmp/Healpix_2.15/doc/TeX/idlvers
-ion.tex) (/tmp/Healpix_2.15/doc/TeX/gdlversion.tex)
+) (/tmp/Healpix_2.15a/doc/TeX/hpxversion.tex) (/tmp/Healpix_2.15a/doc/TeX/idlve
+rsion.tex) (/tmp/Healpix_2.15a/doc/TeX/gdlversion.tex)
 \bigicon=\skip43
 \smallicon=\skip44
 \blocksize=\skip45
@@ -161,64 +161,65 @@ File: latin1.def 2004/02/05 v1.0d Input encoding file
 ))
 \sizebox=\box27
 \lthtmlwrite=\write5
-(./subroutinesimages.aux (/tmp/Healpix_2.15/doc/TeX/add_card.aux) (/tmp/Healpix
-_2.15/doc/TeX/add_dipole.aux) (/tmp/Healpix_2.15/doc/TeX/alm2cl.aux) (/tmp/Heal
-pix_2.15/doc/TeX/alm2map.aux) (/tmp/Healpix_2.15/doc/TeX/alm2map_der.aux) (/tmp
-/Healpix_2.15/doc/TeX/alm2map_spin.aux) (/tmp/Healpix_2.15/doc/TeX/alms2fits.au
-x) (/tmp/Healpix_2.15/doc/TeX/alter_alm.aux) (/tmp/Healpix_2.15/doc/TeX/ang2vec
-.aux) (/tmp/Healpix_2.15/doc/TeX/angdist.aux) (/tmp/Healpix_2.15/doc/TeX/assert
-.aux) (/tmp/Healpix_2.15/doc/TeX/brag_openmp.aux) (/tmp/Healpix_2.15/doc/TeX/co
-mplex_fft.aux) (/tmp/Healpix_2.15/doc/TeX/compute_statistics.aux) (/tmp/Healpix
-_2.15/doc/TeX/concatnl.aux) (/tmp/Healpix_2.15/doc/TeX/convert_inplace.aux) (/t
-mp/Healpix_2.15/doc/TeX/convert_nest2ring.aux) (/tmp/Healpix_2.15/doc/TeX/conve
-rt_ring2nest.aux) (/tmp/Healpix_2.15/doc/TeX/coordsys2euler_zyz.aux) (/tmp/Heal
-pix_2.15/doc/TeX/create_alm.aux) (/tmp/Healpix_2.15/doc/TeX/del_card.aux) (/tmp
-/Healpix_2.15/doc/TeX/dump_alms.aux) (/tmp/Healpix_2.15/doc/TeX/fits2alms.aux) 
-(/tmp/Healpix_2.15/doc/TeX/fits2cl.aux) (/tmp/Healpix_2.15/doc/TeX/gaussbeam.au
-x) (/tmp/Healpix_2.15/doc/TeX/generate_beam.aux) (/tmp/Healpix_2.15/doc/TeX/get
-_card.aux) (/tmp/Healpix_2.15/doc/TeX/get_healpix_xxx_dir.aux) (/tmp/Healpix_2.
-15/doc/TeX/getargument.aux) (/tmp/Healpix_2.15/doc/TeX/getenvironment.aux) (/tm
-p/Healpix_2.15/doc/TeX/getdisc_ring.aux) (/tmp/Healpix_2.15/doc/TeX/getnumext_f
-its.aux) (/tmp/Healpix_2.15/doc/TeX/getsize_fits.aux) (/tmp/Healpix_2.15/doc/Te
-X/healpix_modules.aux) (/tmp/Healpix_2.15/doc/TeX/healpix_types.aux) (/tmp/Heal
-pix_2.15/doc/TeX/in_ring.aux) (/tmp/Healpix_2.15/doc/TeX/input_map.aux) (/tmp/H
-ealpix_2.15/doc/TeX/input_tod.aux) (/tmp/Healpix_2.15/doc/TeX/map2alm.aux) (/tm
-p/Healpix_2.15/doc/TeX/map2alm_iterative.aux) (/tmp/Healpix_2.15/doc/TeX/map2al
-m_spin.aux) (/tmp/Healpix_2.15/doc/TeX/medfiltmap.aux) (/tmp/Healpix_2.15/doc/T
-eX/median.aux) (/tmp/Healpix_2.15/doc/TeX/merge_headers.aux) (/tmp/Healpix_2.15
-/doc/TeX/mpi_alm_tools.aux) (/tmp/Healpix_2.15/doc/TeX/mpi_alm2map.aux) (/tmp/H
-ealpix_2.15/doc/TeX/mpi_alm2map_simple.aux) (/tmp/Healpix_2.15/doc/TeX/mpi_alm2
-map_slave.aux) (/tmp/Healpix_2.15/doc/TeX/mpi_cleanup_alm_tools.aux) (/tmp/Heal
-pix_2.15/doc/TeX/mpi_initialize_alm_tools.aux) (/tmp/Healpix_2.15/doc/TeX/mpi_m
-ap2alm.aux) (/tmp/Healpix_2.15/doc/TeX/mpi_map2alm_simple.aux) (/tmp/Healpix_2.
-15/doc/TeX/mpi_map2alm_slave.aux) (/tmp/Healpix_2.15/doc/TeX/narguments.aux) (/
-tmp/Healpix_2.15/doc/TeX/neighbours_nest.aux) (/tmp/Healpix_2.15/doc/TeX/npix2n
-side.aux) (/tmp/Healpix_2.15/doc/TeX/nside2npix.aux) (/tmp/Healpix_2.15/doc/TeX
-/nside2ntemplates.aux) (/tmp/Healpix_2.15/doc/TeX/number_of_alms.aux) (/tmp/Hea
-lpix_2.15/doc/TeX/output_map.aux) (/tmp/Healpix_2.15/doc/TeX/parse_xxx.aux) (/t
-mp/Healpix_2.15/doc/TeX/pixel_window.aux) (/tmp/Healpix_2.15/doc/TeX/pix_tools.
-aux) (/tmp/Healpix_2.15/doc/TeX/planck_rng.aux) (/tmp/Healpix_2.15/doc/TeX/plm_
-gen.aux) (/tmp/Healpix_2.15/doc/TeX/query_disc.aux) (/tmp/Healpix_2.15/doc/TeX/
-query_polygon.aux) (/tmp/Healpix_2.15/doc/TeX/query_strip.aux) (/tmp/Healpix_2.
-15/doc/TeX/query_triangle.aux) (/tmp/Healpix_2.15/doc/TeX/rand_gauss.aux) (/tmp
-/Healpix_2.15/doc/TeX/rand_init.aux) (/tmp/Healpix_2.15/doc/TeX/rand_uni.aux) (
-/tmp/Healpix_2.15/doc/TeX/read_asctab.aux) (/tmp/Healpix_2.15/doc/TeX/read_bint
-ab.aux) (/tmp/Healpix_2.15/doc/TeX/read_conbintab.aux) (/tmp/Healpix_2.15/doc/T
-eX/read_dbintab.aux) (/tmp/Healpix_2.15/doc/TeX/read_fits_cut4.aux) (/tmp/Healp
-ix_2.15/doc/TeX/read_par.aux) (/tmp/Healpix_2.15/doc/TeX/real_fft.aux) (/tmp/He
-alpix_2.15/doc/TeX/remove_dipole.aux) (/tmp/Healpix_2.15/doc/TeX/ring_analysis.
-aux) (/tmp/Healpix_2.15/doc/TeX/ring_num.aux) (/tmp/Healpix_2.15/doc/TeX/ring_s
-ynthesis.aux) (/tmp/Healpix_2.15/doc/TeX/rotate_alm.aux) (/tmp/Healpix_2.15/doc
-/TeX/same_shape_pixels_xxx.aux) (/tmp/Healpix_2.15/doc/TeX/scan_directories.aux
-) (/tmp/Healpix_2.15/doc/TeX/string.aux) (/tmp/Healpix_2.15/doc/TeX/surface_tri
-angle.aux) (/tmp/Healpix_2.15/doc/TeX/template_pixel_xxx.aux) (/tmp/Healpix_2.1
-5/doc/TeX/udgrade_nest.aux) (/tmp/Healpix_2.15/doc/TeX/udgrade_ring.aux) (/tmp/
-Healpix_2.15/doc/TeX/vec2ang.aux) (/tmp/Healpix_2.15/doc/TeX/vect_prod.aux) (/t
-mp/Healpix_2.15/doc/TeX/write_asctab.aux) (/tmp/Healpix_2.15/doc/TeX/write_bint
-ab.aux) (/tmp/Healpix_2.15/doc/TeX/write_bintabh.aux) (/tmp/Healpix_2.15/doc/Te
-X/write_dbintab.aux) (/tmp/Healpix_2.15/doc/TeX/write_fits_cut4.aux) (/tmp/Heal
-pix_2.15/doc/TeX/write_minimal_header.aux) (/tmp/Healpix_2.15/doc/TeX/write_plm
-.aux) (/tmp/Healpix_2.15/doc/TeX/xcc_v_convert.aux))
+(./subroutinesimages.aux (/tmp/Healpix_2.15a/doc/TeX/add_card.aux) (/tmp/Healpi
+x_2.15a/doc/TeX/add_dipole.aux) (/tmp/Healpix_2.15a/doc/TeX/alm2cl.aux) (/tmp/H
+ealpix_2.15a/doc/TeX/alm2map.aux) (/tmp/Healpix_2.15a/doc/TeX/alm2map_der.aux) 
+(/tmp/Healpix_2.15a/doc/TeX/alm2map_spin.aux) (/tmp/Healpix_2.15a/doc/TeX/alms2
+fits.aux) (/tmp/Healpix_2.15a/doc/TeX/alter_alm.aux) (/tmp/Healpix_2.15a/doc/Te
+X/ang2vec.aux) (/tmp/Healpix_2.15a/doc/TeX/angdist.aux) (/tmp/Healpix_2.15a/doc
+/TeX/assert.aux) (/tmp/Healpix_2.15a/doc/TeX/brag_openmp.aux) (/tmp/Healpix_2.1
+5a/doc/TeX/complex_fft.aux) (/tmp/Healpix_2.15a/doc/TeX/compute_statistics.aux)
+(/tmp/Healpix_2.15a/doc/TeX/concatnl.aux) (/tmp/Healpix_2.15a/doc/TeX/convert_i
+nplace.aux) (/tmp/Healpix_2.15a/doc/TeX/convert_nest2ring.aux) (/tmp/Healpix_2.
+15a/doc/TeX/convert_ring2nest.aux) (/tmp/Healpix_2.15a/doc/TeX/coordsys2euler_z
+yz.aux) (/tmp/Healpix_2.15a/doc/TeX/create_alm.aux) (/tmp/Healpix_2.15a/doc/TeX
+/del_card.aux) (/tmp/Healpix_2.15a/doc/TeX/dump_alms.aux) (/tmp/Healpix_2.15a/d
+oc/TeX/fits2alms.aux) (/tmp/Healpix_2.15a/doc/TeX/fits2cl.aux) (/tmp/Healpix_2.
+15a/doc/TeX/gaussbeam.aux) (/tmp/Healpix_2.15a/doc/TeX/generate_beam.aux) (/tmp
+/Healpix_2.15a/doc/TeX/get_card.aux) (/tmp/Healpix_2.15a/doc/TeX/get_healpix_xx
+x_dir.aux) (/tmp/Healpix_2.15a/doc/TeX/getargument.aux) (/tmp/Healpix_2.15a/doc
+/TeX/getenvironment.aux) (/tmp/Healpix_2.15a/doc/TeX/getdisc_ring.aux) (/tmp/He
+alpix_2.15a/doc/TeX/getnumext_fits.aux) (/tmp/Healpix_2.15a/doc/TeX/getsize_fit
+s.aux) (/tmp/Healpix_2.15a/doc/TeX/healpix_modules.aux) (/tmp/Healpix_2.15a/doc
+/TeX/healpix_types.aux) (/tmp/Healpix_2.15a/doc/TeX/in_ring.aux) (/tmp/Healpix_
+2.15a/doc/TeX/input_map.aux) (/tmp/Healpix_2.15a/doc/TeX/input_tod.aux) (/tmp/H
+ealpix_2.15a/doc/TeX/map2alm.aux) (/tmp/Healpix_2.15a/doc/TeX/map2alm_iterative
+.aux) (/tmp/Healpix_2.15a/doc/TeX/map2alm_spin.aux) (/tmp/Healpix_2.15a/doc/TeX
+/medfiltmap.aux) (/tmp/Healpix_2.15a/doc/TeX/median.aux) (/tmp/Healpix_2.15a/do
+c/TeX/merge_headers.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_alm_tools.aux) (/tmp/H
+ealpix_2.15a/doc/TeX/mpi_alm2map.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_alm2map_s
+imple.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_alm2map_slave.aux) (/tmp/Healpix_2.1
+5a/doc/TeX/mpi_cleanup_alm_tools.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_initializ
+e_alm_tools.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_map2alm.aux) (/tmp/Healpix_2.1
+5a/doc/TeX/mpi_map2alm_simple.aux) (/tmp/Healpix_2.15a/doc/TeX/mpi_map2alm_slav
+e.aux) (/tmp/Healpix_2.15a/doc/TeX/narguments.aux) (/tmp/Healpix_2.15a/doc/TeX/
+neighbours_nest.aux) (/tmp/Healpix_2.15a/doc/TeX/npix2nside.aux) (/tmp/Healpix_
+2.15a/doc/TeX/nside2npix.aux) (/tmp/Healpix_2.15a/doc/TeX/nside2ntemplates.aux)
+(/tmp/Healpix_2.15a/doc/TeX/number_of_alms.aux) (/tmp/Healpix_2.15a/doc/TeX/out
+put_map.aux) (/tmp/Healpix_2.15a/doc/TeX/parse_xxx.aux) (/tmp/Healpix_2.15a/doc
+/TeX/pixel_window.aux) (/tmp/Healpix_2.15a/doc/TeX/pix_tools.aux) (/tmp/Healpix
+_2.15a/doc/TeX/planck_rng.aux) (/tmp/Healpix_2.15a/doc/TeX/plm_gen.aux) (/tmp/H
+ealpix_2.15a/doc/TeX/query_disc.aux) (/tmp/Healpix_2.15a/doc/TeX/query_polygon.
+aux) (/tmp/Healpix_2.15a/doc/TeX/query_strip.aux) (/tmp/Healpix_2.15a/doc/TeX/q
+uery_triangle.aux) (/tmp/Healpix_2.15a/doc/TeX/rand_gauss.aux) (/tmp/Healpix_2.
+15a/doc/TeX/rand_init.aux) (/tmp/Healpix_2.15a/doc/TeX/rand_uni.aux) (/tmp/Heal
+pix_2.15a/doc/TeX/read_asctab.aux) (/tmp/Healpix_2.15a/doc/TeX/read_bintab.aux)
+(/tmp/Healpix_2.15a/doc/TeX/read_conbintab.aux) (/tmp/Healpix_2.15a/doc/TeX/rea
+d_dbintab.aux) (/tmp/Healpix_2.15a/doc/TeX/read_fits_cut4.aux) (/tmp/Healpix_2.
+15a/doc/TeX/read_par.aux) (/tmp/Healpix_2.15a/doc/TeX/real_fft.aux) (/tmp/Healp
+ix_2.15a/doc/TeX/remove_dipole.aux) (/tmp/Healpix_2.15a/doc/TeX/ring_analysis.a
+ux) (/tmp/Healpix_2.15a/doc/TeX/ring_num.aux) (/tmp/Healpix_2.15a/doc/TeX/ring_
+synthesis.aux) (/tmp/Healpix_2.15a/doc/TeX/rotate_alm.aux) (/tmp/Healpix_2.15a/
+doc/TeX/same_shape_pixels_xxx.aux) (/tmp/Healpix_2.15a/doc/TeX/scan_directories
+.aux) (/tmp/Healpix_2.15a/doc/TeX/string.aux) (/tmp/Healpix_2.15a/doc/TeX/surfa
+ce_triangle.aux) (/tmp/Healpix_2.15a/doc/TeX/template_pixel_xxx.aux) (/tmp/Heal
+pix_2.15a/doc/TeX/udgrade_nest.aux) (/tmp/Healpix_2.15a/doc/TeX/udgrade_ring.au
+x) (/tmp/Healpix_2.15a/doc/TeX/vec2ang.aux) (/tmp/Healpix_2.15a/doc/TeX/vect_pr
+od.aux) (/tmp/Healpix_2.15a/doc/TeX/write_asctab.aux) (/tmp/Healpix_2.15a/doc/T
+eX/write_bintab.aux) (/tmp/Healpix_2.15a/doc/TeX/write_bintabh.aux) (/tmp/Healp
+ix_2.15a/doc/TeX/write_dbintab.aux) (/tmp/Healpix_2.15a/doc/TeX/write_fits_cut4
+.aux) (/tmp/Healpix_2.15a/doc/TeX/write_minimal_header.aux) (/tmp/Healpix_2.15a
+/doc/TeX/write_plm.aux) (/tmp/Healpix_2.15a/doc/TeX/xcc_v_convert.aux))
 \openout1 = `subroutinesimages.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
@@ -950,8 +951,8 @@ l2hSize :tex2html_wrap_inline10726:7.75pt::0.0pt::36.75392pt.
 ] (./subroutinesimages.aux) ) 
 Here is how much of TeX's memory you used:
  3582 strings out of 94501
- 54488 string characters out of 1175974
- 149517 words of memory out of 1500000
+ 54699 string characters out of 1175974
+ 149518 words of memory out of 1500000
  6428 multiletter control sequences out of 10000+50000
  7473 words of font info for 27 fonts, out of 1200000 for 2000
  580 hyphenation exceptions out of 8191

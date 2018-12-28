@@ -146,7 +146,6 @@ endif else begin
 ;     stop
     message,'Unrecognised format'
 endelse
-
 return, map
 end
 
@@ -180,10 +179,15 @@ pro loaddata_healpix, file_in, select_in,$
 ;  Oct 2008: allows offsetting of polarization norm when POLARIZATION=1
 ;  Oct 2009: can read truecolors data
 ;          : replaced findfile with file_test
+;  Jun 2010: make sure that pixel_list is undefined by default
 ;-
 
 factor = defined(factor_u) ? factor_u : 1.
 offset = defined(offset_u) ? offset_u : 0.
+; make sure pixel_list is undefined by default
+if defined(pixel_list) then begin
+    pixel_list = -1 & junk = temporary(pixel_list)
+endif
 ; ----------------------------------------------
 ; check consistency of parameters
 ; ----------------------------------------------
