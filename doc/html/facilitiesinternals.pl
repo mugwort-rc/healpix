@@ -39,11 +39,11 @@ $ref_files{$key} = "$dir".q|facilitiesnode11.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/fac:sky_ng_sim/;
-$ref_files{$key} = "$dir".q|facilitiesnode13.htm|; 
+$ref_files{$key} = "$dir".q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eq:nongauss_sho/;
-$ref_files{$key} = "$dir".q|facilitiesnode13.htm|; 
+$ref_files{$key} = "$dir".q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:map2gif/;
@@ -51,11 +51,11 @@ $ref_files{$key} = "$dir".q|facilitiesnode8.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/eq:nongauss_powgauss/;
-$ref_files{$key} = "$dir".q|facilitiesnode13.htm|; 
+$ref_files{$key} = "$dir".q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:smoothing/;
-$ref_files{$key} = "$dir".q|facilitiesnode12.htm|; 
+$ref_files{$key} = "$dir".q|facilitiesnode13.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:appendix/;

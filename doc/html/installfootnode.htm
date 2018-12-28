@@ -23,13 +23,14 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BODY >
 
 <DL>
-<DT><A NAME="foot975">... set</A><A
+<DT><A NAME="foot1251">... set</A><A
  HREF="install.htm#tex2html24"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
 <DD>In particular, the Intel Fortran
-Compiler, available for free for PC's with Intel-like processors, have a set of
-optimization options for each of Intel processor families (Pro, II, MMX, 4). Please consult
-the online help (<TT>ifort -help</TT>) or PDF documentation (<TT>/opt/intel_fc_80/doc/</TT> or <TT>/opt/intel/fc/9.*/doc</TT>) or HTML documentation
-(<TT>/opt/intel/fce/10.*/doc/Doc_Index.htm</TT>) for further information.
+Compiler, available for free for Linux systems with Intel-like processors, have
+specific tuning options for each Intel processor family and instructions set. Please consult
+the online help (<TT>ifort -help</TT>) or PDF documentation (<TT>/opt/intel/composer*/Documentation/en_US/Release_NotesF.pdf</TT>) or HTML documentation
+(<TT>/opt/intel/composer*/Documentation/en_US/documentation_f.htm</TT>) for further
+information.
 
 <PRE>.
 .
@@ -63,9 +64,86 @@ the online help (<TT>ifort -help</TT>) or PDF documentation (<TT>/opt/intel_fc_8
 .
 </PRE>
 </DD>
-<DT><A NAME="foot999">... results</A><A
- HREF="install.htm#tex2html40"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
-<DD>All the caveats listed below have been noticed in GDL v0.9.2
+<DT><A NAME="foot1260">...<TT>PKG_CONFIG_PATH</TT></A><A
+ HREF="install.htm#tex2html30"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>a
+third option is provide the location of the <TT>.pc</TT> file in full at each
+<TT>pkg-config</TT> invocation : <I>eg</I>
+<BR><TT>pkg-config -cflags -libs </TT><EM>full_path</EM><TT>/healpix.pc</TT>
+
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE>
+</DD>
+<DT><A NAME="foot1261">... 14.*</A><A
+ HREF="install.htm#tex2html34"><SUP><SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>problems have been reported with one of the code (<TT>sky_ng_sim</TT>) when compiled with
+<TT>ifort 14.0.1.106</TT>
+
+<PRE>.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+</PRE>
+</DD>
+<DT><A NAME="foot1281">... results</A><A
+ HREF="install.htm#tex2html45"><SUP><SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>All the caveats listed below have been noticed in
+GDL v0.9.2 and v0.9.3
 and may be solved in subsequent versions. Please send all your questions
 <EM>on</EM> GDL directly to GDL developpers.
 

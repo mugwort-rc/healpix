@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>remove_dipole</TITLE>
-<META NAME="description" CONTENT="remove_dipole">
+<TITLE>read_fits_map</TITLE>
+<META NAME="description" CONTENT="read_fits_map">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,199 +28,192 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html893"
+<A NAME="tex2html906"
   HREF="idlnode58.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html912"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html903"
+<A NAME="tex2html916"
   HREF="idlnode60.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html914"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html894"
-  HREF="idlnode58.htm">read_tqu</A>
+<B> Previous:</B> <A NAME="tex2html907"
+  HREF="idlnode58.htm">read_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html900"
+<B>Up:</B> <A NAME="tex2html913"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html904"
-  HREF="idlnode60.htm">reorder</A>
+<B> Next:</B> <A NAME="tex2html917"
+  HREF="idlnode60.htm">read_fits_s</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000590000000000000000"></A>
-<A NAME="idl:remove_dipole"></A>
+<A NAME="idl:read_fits_map"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">remove_dipole</FONT></font></b><hr>
-<H3>This IDL facility provides a means to fit and remove the dipole and monopole
-from a <b>HEALPix</b> map.
-</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/misc/remove_dipole.pro"><b>src/idl/misc/remove_dipole.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">read_fits_map</FONT></font></b><hr>
+<H3>This IDL facility reads in a <b>HEALPix</b> map from a FITS file.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/fits/read_fits_map.pro"><b>src/idl/fits/read_fits_map.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-REMOVE_DIPOLE,
-<A HREF="#idl:remove_dipole:map"> Map</A> [,
-<A HREF="#idl:remove_dipole:weight"> Weight</A>,
-<A HREF="#idl:remove_dipole:bad_data">BAD_DATA=</A>,
-<A HREF="#idl:remove_dipole:gal_cut">GAL_CUT=</A>,
-<A HREF="#idl:remove_dipole:coord_in">COORD_IN=</A>,
-<A HREF="#idl:remove_dipole:coord_out">COORD_OUT=</A>,
-<A HREF="#idl:remove_dipole:covariance_matrix">Covariance_Matrix=</A>,
-<A HREF="#idl:remove_dipole:dipole">Dipole=</A>,
-<A HREF="#idl:remove_dipole:monopole">Monopole=</A>,
-<A HREF="#idl:remove_dipole:noremove">/NOREMOVE</A>,
-<A HREF="#idl:remove_dipole:nside">NSIDE=</A>,
-<A HREF="#idl:remove_dipole:onlymonopole">/ONLYMONOPOLE</A>,
-<A HREF="#idl:remove_dipole:ordering">ORDERING=</A>,
-<A HREF="#idl:remove_dipole:pixel">PIXEL=</A>,
-<A HREF="#idl:remove_dipole:silent">/SILENT</A>,
-<A HREF="#idl:remove_dipole:units">UNITS=</A>,
-<A HREF="#idl:remove_dipole:help">/HELP</A>]
+READ_FITS_MAP , File, T_sky, [Hdr, Exthdr, PIXEL=, SILENT=, NSIDE=, ORDERING=,
+COORDSYS=, EXTENSION=, HELP=]
+
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Map</B>
-<DD><A NAME="idl:remove_dipole:map"></A> input and output, vector
+<B>File</B>
+<DD>name of a FITS file containing 
+               the <b>HEALPix</b> map in an extension or in the image field 
+
+<P>
+<DT>
+<B>T_sky</B>
+<DD>variable containing on output the <b>HEALPix</b> map
+
+<P>
+<DT>
+<B>Hdr</B>
+<DD>(optional), 
 <BR>
-map from which monopole and dipole are to be removed
-      (also used for output).
-      Assumed to be a full sky data set, unless PIXEL is set and has the same
-      size as map
-    <DT>
-<B>Weight</B>
-<DD><A NAME="idl:remove_dipole:weight"></A> input, vector, optional
+string variable containing on output
+		  the FITS primary header
+
+<P>
+<DT>
+<B>Exthdr</B>
+<DD>(optional), 
 <BR>
-same size as map,
-     describe weighting scheme to apply to each pixel for the fit 
-<BR>	<b>default:</b>uniform weight
-    <DT>
-<B>BAD_DATA =</B>
-<DD><A NAME="idl:remove_dipole:bad_data"></A> 
-    scalar float, value given on input to bad pixels 
-<BR>          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
- $\equiv -1.6375\ 10^{30}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="131" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg83.png"
- ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
-    <DT>
-<B>GAL_CUT=</B>
-<DD><A NAME="idl:remove_dipole:gal_cut"></A> 
-    if set to a value larger than 0, the pixels with galactic
-    latitude <SPAN CLASS="MATH">|b|&lt;</SPAN>gal_cut degrees are not considered in the
-      fit. 
-<BR><B>NB:</B>
-      the cut is <EM>really</EM> done in Galactic coordinates. If the input
-      coordinates are different (see Coord_In), the map is rotated into galactic
-      before applying the cut.
-    <DT>
-<B>COORD_IN =</B>
-<DD><A NAME="idl:remove_dipole:coord_in"></A> 
-     string, map coordinate system (either 'Q' or 'C': equatorial,
-    'G': galactic or 'E': ecliptic; upper/lower case accepted)
-<BR>         <b>default:</b>'G' (galactic)
-    <DT>
-<B>COORD_OUT =</B>
-<DD><A NAME="idl:remove_dipole:coord_out"></A> 
-    string, coordinate system (see above) in which
-    to output dipole vector in variable Dipole 
-<BR>         <b>default:</b>same as coord_in
-    <DT>
-<B>Covariance_Matrix =</B>
-<DD><A NAME="idl:remove_dipole:covariance_matrix"></A> 
-    OUTPUT, scalar (or symmetric 4x4 matrix), 
-<BR>
-covariance
-     of the statistical errors made on monopole (and dipole) determination
-    <DT>
-<B>Dipole=</B>
-<DD><A NAME="idl:remove_dipole:dipole"></A> 
-	OUTPUT, 3d vector, 
-<BR>
-coordinates of best fit dipole (done simultaneously with monopole), same
-        units as input map
-    <DT>
-<B>Monopole=</B>
-<DD><A NAME="idl:remove_dipole:monopole"></A> 
-        OUTPUT, scalar float, 
-<BR>
-value found for the best fit monopole (done simultaneously with dipole),
-        same units as input map
-    <DT>
-<B>NSIDE=</B>
-<DD><A NAME="idl:remove_dipole:nside"></A> 
-    scalar integer, healpix resolution parameter
-    <DT>
-<B>ORDERING=</B>
-<DD><A NAME="idl:remove_dipole:ordering"></A> 
-    string, ordering scheme (either 'RING' or 'NESTED')
-    <DT>
+string variable containing on output
+		  the FITS extension header
+
+<P>
+<DT>
 <B>PIXEL=</B>
-<DD><A NAME="idl:remove_dipole:pixel"></A> 
-    input, vector, gives the Healpix index of the pixels
-        whose temperature is actually given in map (for cut sky
-    maps). If present, must match Map in size. If absent, it is
-    assumed that the map covers the whole sky.
-    <DT>
-<B>UNITS=</B>
-<DD><A NAME="idl:remove_dipole:units"></A> 
-   string, units of the input map
-  </DL><SMALL CLASS="FOOTNOTESIZE">
+<DD>(optional), 
+<BR>
+pixel number to read from or pixel range to read
+                 (in the order of appearance in the file), starting from 0. 
+<BR>
+if <SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg89.png"
+ ALT="$\ge$"></SPAN> 0 scalar        : read from pixel to the end of the file 
+<BR>
+if two elements array : reads from pixel[0] to pixel[1]
+		(included) 
+<BR>
+if absent             : read the whole file
+
+<P>
+<DT>
+<B>NSIDE=</B>
+<DD>(optional), 
+<BR>
+returns on output the <b>HEALPix</b> resolution parameter, as read
+		from the FITS header. Set to -1 if not found
+
+<P>
+<DT>
+<B>ORDERING=</B>
+<DD>(optional), 
+<BR>
+returns on output the pixel ordering, as read from the FITS
+	        header. Either 'RING' or 'NESTED' or ' ' (if not found).
+
+<P>
+<DT>
+<B>COORDSYS=</B>
+<DD>(optional), 
+<BR>
+returns on output the astrophysical coordinate system used, 
+		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
+
+<P>
+<DT>
+<B>Extension=</B>
+<DD>(optional), 
+<BR>
+extension unit to be read from FITS file: 
+ either its 0-based ID number (ie, 0 for first extension <EM>after</EM> primary array) 
+ or the case-insensitive value of its EXTNAME keyword.
+	If absent, all available extensions are read.
+
+<P>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>/NOREMOVE</B>
-<DD><A NAME="idl:remove_dipole:noremove"></A> 
-   if set, the best fit dipole and monopole are computed but not
-    removed (ie, Map is unchanged)
-    <DT>
-<B>/ONLYMONOPOLE</B>
-<DD><A NAME="idl:remove_dipole:onlymonopole"></A> 
-   if set, fit (and remove) only the monopole
-    <DT>
-<B>/HELP</B>
-<DD><A NAME="idl:remove_dipole:help"></A> 
-    if set, only display documentation header
-    <DT>
-<B>/SILENT</B>
-<DD><A NAME="idl:remove_dipole:silent"></A> 
-    if set, the routine works silently
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-<SMALL CLASS="FOOTNOTESIZE">  
-</SMALL>
+<B>HELP=</B>
+<DD>if set, an extensive help is displayed and no
+	file is read
+  <DT>
+<B>SILENT=</B>
+<DD>if set, no message is issued during normal execution
+   </DL><SMALL CLASS="FOOTNOTESIZE">
+
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-remove_dipolemakes a simultaneous least square fit of the monopole and dipole on all the valid
-pixels of Map (those with a value different from BAD_DATA) with a galactic
-latitude larger in magnitude than GAL_CUT (in degrees). The position of the pixels
-on the sky is reconstructed from NSIDE and ORDERING.
-If Map does not cover the full sky, the actual indices of the concerned pixels should be given in PIXEL
+<FONT COLOR="#CC0000">read_fits_map</FONT> reads in a <b>HEALPix</b> sky map from a FITS file, and outputs
+the variable <TT>T_sky</TT>, where the optional variables <TT>Hdr</TT> 
+and <TT>Exthdr</TT> contain
+respectively the primary and extension headers. According to <b>HEALPix</b> 
+convention, the map should be is stored as a FITS file binary table
+extension. Note:the routine <A HREF="idlnode61.htm#idl:read_tqu">read_tqu</A> which requires less
+memory is recommended when reading <EM>large polarized</EM> maps.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">remove_dipole</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_map</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run remove_dipole.
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">read_fits_map</FONT>
+  <DT>
+<B><A HREF="idlnode58.htm#idl:read_fits_cut4">read_fits_cut4</A>,
+<A HREF="#idl:read_fits_map">read_fits_map</A></B>
+<DD><DT>
+<B><A HREF="idlnode61.htm#idl:read_tqu">read_tqu</A>,
+<A HREF="idlnode60.htm#idl:read_fits_s">read_fits_s</A></B>
+<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
+arbitrary data sets from FITS files
+    <DT>
+<B>sxpar</B>
+<DD>This IDL routine (included in <b>HEALPix</b> package) can be
+  used to extract FITS keywords from the header(s) Hdr or Xhdr read with <FONT COLOR="#CC0000">read_fits_map</FONT>.
+  <DT>
+<B>synfast</B>
+<DD>This <b>HEALPix</b> facility will generate the FITS format 
+            sky map that can be read by <FONT COLOR="#CC0000">read_fits_map</FONT>.
+  <DT>
+<B><A HREF="idlnode70.htm#idl:write_fits_map">write_fits_map</A></B>
+<DD>This <b>HEALPix</b> IDL facility can be used to generate the FITS format 
+            sky maps complient with <b>HEALPix</b> convention and readable by <FONT COLOR="#CC0000">read_fits_map</FONT>.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<SMALL CLASS="FOOTNOTESIZE"></SMALL>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">read_fits_map</FONT>, 'planck100GHZ-LFI.fits', map, hdr, xhdr, /silent </SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote><FONT COLOR="#CC0000">read_fits_map</FONT> reads in the file 'planck100GHZ-LFI.fits' and outputs the
+<b>HEALPix</b> map in <TT>map</TT>, the primary header in <TT>hdr</TT> and the extension
+header in <TT>xhdr</TT>.
+</blockquote>
 <P>
 
 <P>
@@ -228,31 +221,31 @@ If Map does not cover the full sky, the actual indices of the concerned pixels s
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html893"
+<A NAME="tex2html906"
   HREF="idlnode58.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html912"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html903"
+<A NAME="tex2html916"
   HREF="idlnode60.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html914"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html894"
-  HREF="idlnode58.htm">read_tqu</A>
+<B> Previous:</B> <A NAME="tex2html907"
+  HREF="idlnode58.htm">read_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html900"
+<B>Up:</B> <A NAME="tex2html913"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html904"
-  HREF="idlnode60.htm">reorder</A>
+<B> Next:</B> <A NAME="tex2html917"
+  HREF="idlnode60.htm">read_fits_s</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

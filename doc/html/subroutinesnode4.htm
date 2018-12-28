@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html295"
+<A NAME="tex2html303"
   HREF="subroutinesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html301"
+<A NAME="tex2html309"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html305"
+<A NAME="tex2html313"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html303"
+<A NAME="tex2html311"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html296"
+<B> Previous:</B> <A NAME="tex2html304"
   HREF="subroutinesnode3.htm">Changes between releases 3.00</A>
 
-<B>Up:</B> <A NAME="tex2html302"
+<B>Up:</B> <A NAME="tex2html310"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html306"
+<B> Next:</B> <A NAME="tex2html314"
   HREF="subroutinesnode5.htm">add_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -55,17 +55,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html307"
+<LI><A NAME="tex2html315"
   HREF="subroutinesnode4.htm#SECTION00041000000000000000">Changes between releases 2.20 and 3.00</A>
-<LI><A NAME="tex2html308"
+<LI><A NAME="tex2html316"
   HREF="subroutinesnode4.htm#SECTION00042000000000000000">Changes between releases 2.14 and 2.20</A>
-<LI><A NAME="tex2html309"
+<LI><A NAME="tex2html317"
   HREF="subroutinesnode4.htm#SECTION00043000000000000000">Changes between releases 2.13 and 2.14</A>
-<LI><A NAME="tex2html310"
+<LI><A NAME="tex2html318"
   HREF="subroutinesnode4.htm#SECTION00044000000000000000">Changes between releases 2.0 and 2.13</A>
-<LI><A NAME="tex2html311"
+<LI><A NAME="tex2html319"
   HREF="subroutinesnode4.htm#SECTION00045000000000000000">Changes between releases 1.2 and 2.0</A>
-<LI><A NAME="tex2html312"
+<LI><A NAME="tex2html320"
   HREF="subroutinesnode4.htm#SECTION00046000000000000000">Changes between releases 1.1 and 1.2</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -87,11 +87,11 @@ and 3.00
 extension) and/or remotely located (with a <TT>ftp://</TT> or <TT>http://</TT>
 prefix). Besides, the <A HREF="subroutinesnode30.htm#sub:fits2cl">fits2cl</A> routine, used to read
 external beam window functions from FITS files, supports (part of) the CFTISIO 
-<A NAME="tex2html5"
+<A NAME="tex2html8"
   HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/c/c_user/node81.html">Extended File Name Syntax</A>
 in
 order to read an arbitrary extension identified by its number or its name. 
-<BR><EM>Version 3.14 (March 2009) or newer of CFITSIO is required for <b>HEALPix</b> 3.11.</EM>
+<BR><EM>Version 3.14 (March 2009) or newer of CFITSIO is required for <b>HEALPix</b> 3.20.</EM>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  new code <TT>process_mask</TT> and new module <TT>mask_tools</TT> containing the routines
 <A HREF="subroutinesnode26.htm#sub:dist2holes_nest">dist2holes_nest</A>, 
@@ -123,7 +123,7 @@ Changes between releases 2.14 and
 2.20
 </H2>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Spherical Harmonics Transform routines now transparently call <A NAME="tex2html7"
+ Spherical Harmonics Transform routines now transparently call <A NAME="tex2html10"
   HREF="http://libpsht.sourceforge.net"><TT>libpsht</TT></A>
 C routines, leading to a significant (2 to 4) speed-up factor. This
 concerns temperature and polarized transforms (<A HREF="subroutinesnode8.htm#sub:alm2map">alm2map</A>, 
@@ -140,8 +140,8 @@ weighted (<A HREF="subroutinesnode10.htm#sub:alm2map_spin">alm2map_spin</A>,
 but <EM>not</EM> the generation of spatial derivatives
 (<A HREF="subroutinesnode9.htm#sub:alm2map_der">alm2map_der</A>) which still uses the original F90 code.
 The compilation and linking to <TT>libpsht</TT>, now shipped with <b>HEALPix</b> , is done
-automatically, without any extra download or installation for the user<A NAME="tex2html6"
-  HREF="subroutinesfootnode.htm#foot484"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>.
+automatically, without any extra download or installation for the user<A NAME="tex2html9"
+  HREF="subroutinesfootnode.htm#foot535"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>.
 
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -232,7 +232,7 @@ Changes between releases 2.13 and 2.14</A>
  WIDTH="76" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="subroutinesimg10.png"
  ALT="$\partial^2 X/\partial \theta^2$"></SPAN>, 
-for <SPAN CLASS="MATH"><I>X</I>=<I>Q</I>,<I>U</I></SPAN> has been corrected. See <A NAME="tex2html8"
+for <SPAN CLASS="MATH"><I>X</I>=<I>Q</I>,<I>U</I></SPAN> has been corrected. See <A NAME="tex2html11"
   HREF="facilities.htm">''Fortran
 Facilities''</A>
 Appendix for details.
@@ -433,31 +433,31 @@ smoothing_getpar (initially in <TT>utilities</TT> module).
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html295"
+<A NAME="tex2html303"
   HREF="subroutinesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html301"
+<A NAME="tex2html309"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html305"
+<A NAME="tex2html313"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html303"
+<A NAME="tex2html311"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html296"
+<B> Previous:</B> <A NAME="tex2html304"
   HREF="subroutinesnode3.htm">Changes between releases 3.00</A>
 
-<B>Up:</B> <A NAME="tex2html302"
+<B>Up:</B> <A NAME="tex2html310"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html306"
+<B> Next:</B> <A NAME="tex2html314"
   HREF="subroutinesnode5.htm">add_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

@@ -162,6 +162,10 @@ $key = q/def:basis/;
 $external_labels{$key} = "$URL/" . q|intronode6.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_glesp/;
+$external_labels{$key} = "$URL/" . q|intronode9.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/eq:hata/;
 $external_labels{$key} = "$URL/" . q|intronode6.htm|; 
 $noresave{$key} = "$nosave";

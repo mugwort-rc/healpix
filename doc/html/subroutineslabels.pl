@@ -230,6 +230,10 @@ $key = q/sub:planck_rng/;
 $external_labels{$key} = "$URL/" . q|subroutinesnode72.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sub:ex:generate_beam/;
+$external_labels{$key} = "$URL/" . q|subroutinesnode32.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sub:gaussbeam/;
 $external_labels{$key} = "$URL/" . q|subroutinesnode31.htm|; 
 $noresave{$key} = "$nosave";
@@ -382,12 +386,12 @@ $key = q/sub:read_par/;
 $external_labels{$key} = "$URL/" . q|subroutinesnode86.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sub:neighbours_nest/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode63.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sub:mpi_alm2map_slave/;
 $external_labels{$key} = "$URL/" . q|subroutinesnode56.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sub:neighbours_nest/;
+$external_labels{$key} = "$URL/" . q|subroutinesnode63.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:pix_tools/;

@@ -15,7 +15,7 @@
  *  along with Healpix_cxx; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.sourceforge.net
+ *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
  */
 
 /*
@@ -325,45 +325,37 @@ template<typename I>void check_query_disc()
   for (int order=0; order<=omax; ++order)
     {
     T_Healpix_Base<I> rbase (order,RING), nbase (order,NEST);
-    rangeset<I> pr,pn;
+    rangeset<I> pixset;
     int niter=max(1,min(1000,100000>>order));
     for (int m=0; m<niter; ++m)
       {
       pointing ptg;
       random_dir (ptg);
       double rad = pi/1 * rng.rand_uni();
-      rbase.query_disc(ptg,rad,pr);
-      nbase.query_disc(ptg,rad,pn);
-      if (pn.nval()!=pr.nval())
-        cout << "PROBLEM: set size mismatch" << endl;
-      if (order<5) // takes too long for high resolutions
-        for (tsize i=0; i<pr.size(); ++i)
-          for (tsize j=pr.ivbegin(i);j<pr.ivend(i); ++j)
-            if (!pn.contains(rbase.ring2nest(j)))
-              cout << "PROBLEM: set mismatch" << endl;
-
+      rbase.query_disc(ptg,rad,pixset);
+      rangeset<I> pslast=pixset;
+      for (tsize fct=5; fct>0; --fct)
+        {
+        rangeset<I> psi;
+        rbase.query_disc_inclusive(ptg,rad,psi,fct);
+        if (!psi.contains(pslast))
+          cout << "  PROBLEM: pixel sets inconsistent" << endl;
+        swap(pslast,psi);
+        }
+      I nval = pixset.nval();
+      nbase.query_disc(ptg,rad,pixset);
+      pslast=pixset;
       for (tsize fct=8; fct>0; fct>>=1)
         {
-        rangeset<I> pri,pni;
-        rbase.query_disc_inclusive(ptg,rad,pri,fct);
-        nbase.query_disc_inclusive(ptg,rad,pni,fct);
-        if (pni.nval()>pri.nval())
-          cout << "PROBLEM: RING inclusive < NEST inclusive" << endl;
-        if (pni.nval()<pri.nval())
-          cout << "Warning: RING inclusive > NEST inclusive "
-               << order << " " << fct << endl;
-        if (order<5) // takes too long for high resolutions
-          {
-          for (tsize i=0; i<pni.size(); ++i)
-            for (tsize j=pni.ivbegin(i);j<pni.ivend(i); ++j)
-              if (!pri.contains(rbase.nest2ring(j)))
-                cout << "PROBLEM: NEST inclusive not in RING inclusive" << endl;
-          for (tsize i=0; i<pn.size(); ++i)
-            for (tsize j=pn.ivbegin(i);j<pn.ivend(i); ++j)
-              if (!pni.contains(j))
-                cout << "PROBLEM: Inclusive not superset of normal" << endl;
-          }
+        rangeset<I> psi;
+        nbase.query_disc_inclusive(ptg,rad,psi,fct);
+        if (!psi.contains(pslast))
+          cout << "  PROBLEM: pixel sets inconsistent" << endl;
+        swap(pslast,psi);
         }
+      if (nval!=pixset.nval())
+        cout << "  PROBLEM: number of pixels different: "
+             << nval << " vs. " << pixset.nval() << endl;
       }
     }
   }
@@ -457,20 +449,20 @@ void check_average()
     {
     Healpix_Map<double> map (order,RING), map2(1,RING);
     for (int m=0; m<map.Npix(); ++m)
-      map[m] = rng.rand_uni()+2;
+      map[m] = rng.rand_uni()+0.01;
     map2.Import(map);
     double avg=map.average(), avg2=map2.average();
-    if (!approx(avg,avg2,1e-12))
+    if (!approx(avg,avg2,1e-10))
       cout << "PROBLEM: order = " << order << " " << avg/avg2-1 << endl;
     }
   for (int nside=3; nside<1000; nside += nside/2+1)
     {
     Healpix_Map<double> map (nside,RING,SET_NSIDE), map2(1,RING,SET_NSIDE);
     for (int m=0; m<map.Npix(); ++m)
-      map[m] = rng.rand_uni()+2;
+      map[m] = rng.rand_uni()+0.01;
     map2.Import(map);
     double avg=map.average(), avg2=map2.average();
-    if (!approx(avg,avg2,1e-12))
+    if (!approx(avg,avg2,1e-10))
       cout << "PROBLEM: nside = " << nside << " " << avg/avg2-1 << endl;
     }
   }

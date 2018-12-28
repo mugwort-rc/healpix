@@ -39,11 +39,11 @@ $external_labels{$key} = "$URL/" . q|facilitiesnode11.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/fac:sky_ng_sim/;
-$external_labels{$key} = "$URL/" . q|facilitiesnode13.htm|; 
+$external_labels{$key} = "$URL/" . q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eq:nongauss_sho/;
-$external_labels{$key} = "$URL/" . q|facilitiesnode13.htm|; 
+$external_labels{$key} = "$URL/" . q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:map2gif/;
@@ -51,11 +51,11 @@ $external_labels{$key} = "$URL/" . q|facilitiesnode8.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/eq:nongauss_powgauss/;
-$external_labels{$key} = "$URL/" . q|facilitiesnode13.htm|; 
+$external_labels{$key} = "$URL/" . q|facilitiesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:smoothing/;
-$external_labels{$key} = "$URL/" . q|facilitiesnode12.htm|; 
+$external_labels{$key} = "$URL/" . q|facilitiesnode13.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fac:appendix/;

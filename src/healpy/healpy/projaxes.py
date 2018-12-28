@@ -17,13 +17,13 @@
 # 
 #  For more information about Healpy, see http://code.google.com/p/healpy
 # 
-import projector as P
-import rotator as R
-import pixelfunc
+from . import projector as P
+from . import rotator as R
+from . import pixelfunc
 import matplotlib
 from matplotlib import axes,ticker,colors,cm,lines,cbook,figure
 import numpy as np
-from _healpy_pixel_lib import UNSEEN
+from ._healpy_pixel_lib import UNSEEN
 
 pi = np.pi
 dtor = pi/180.
@@ -177,6 +177,7 @@ class SphericalProjAxes(axes.Axes):
         xmin,xmax,ymin,ymax = self.proj.get_extent()
         self.set_xlim(xmin,xmax)
         self.set_ylim(ymin,ymax)
+        return img
 
     def projplot(self,*args,**kwds):
         """projplot is a wrapper around :func:`matplotlib.Axes.plot` to take into account the
@@ -480,7 +481,9 @@ class SphericalProjAxes(axes.Axes):
         if u_pmax: pmax = u_pmax
         if u_mmin: mmin = u_mmin
         if u_mmax: mmax = u_pmax
-        if verbose: print pmin/dtor,pmax/dtor,mmin/dtor,mmax/dtor
+        if verbose:
+            print('{0} {1} {2} {3}'.format(
+                pmin/dtor, pmax/dtor, mmin/dtor, mmax/dtor))
         if not kwds.pop('force',False):
             dpar,dmer = self._get_interv_graticule(pmin,pmax,dpar,
                                                    mmin,mmax,dmer,
@@ -548,7 +551,7 @@ class SphericalProjAxes(axes.Axes):
                         if l in self.lines:
                             self.lines.remove(l)
                         else:
-                            print 'line not in lines'
+                            print('line not in lines')
             del self._graticules
 
     def _get_interv_graticule(self,pmin,pmax,dpar,mmin,mmax,dmer,verbose=True):
@@ -577,10 +580,10 @@ class SphericalProjAxes(axes.Axes):
             dmer = dpar = max(dmer,dpar)
         vdeg = np.floor(np.around(dpar/dtor,10))
         varcmin = (dpar/dtor-vdeg)*60.
-        if verbose: print "The interval between parallels is %d deg %.2f'."%(vdeg,varcmin)
+        if verbose: print("The interval between parallels is {0:d} deg {1:.2f}'.".format(vdeg,varcmin))
         vdeg = np.floor(np.around(dmer/dtor,10))
         varcmin = (dmer/dtor-vdeg)*60.
-        if verbose: print "The interval between meridians is %d deg %.2f'."%(vdeg,varcmin)
+        if verbose: print("The interval between meridians is {0:d} deg {1:.2f}'.".format(vdeg,varcmin))
         return dpar,dmer
         
 class GnomonicAxes(SphericalProjAxes):
@@ -602,7 +605,7 @@ class GnomonicAxes(SphericalProjAxes):
 
     def projmap(self,map,vec2pix_func,xsize=200,ysize=None,reso=1.5,**kwds):
         self.proj.set_proj_plane_info(xsize=xsize,ysize=ysize,reso=reso)
-        super(GnomonicAxes,self).projmap(map,vec2pix_func,**kwds)
+        return super(GnomonicAxes,self).projmap(map,vec2pix_func,**kwds)
         
 class HpxGnomonicAxes(GnomonicAxes):
     def projmap(self,map,nest=False,**kwds):
@@ -611,7 +614,7 @@ class HpxGnomonicAxes(GnomonicAxes):
         xsize = kwds.pop('xsize',200)
         ysize = kwds.pop('ysize',None)
         reso = kwds.pop('reso',1.5)
-        super(HpxGnomonicAxes,self).projmap(map,f,xsize=xsize,
+        return super(HpxGnomonicAxes,self).projmap(map,f,xsize=xsize,
                                             ysize=ysize,reso=reso,**kwds)
 
 
@@ -633,15 +636,16 @@ class MollweideAxes(SphericalProjAxes):
 
     def projmap(self,map,vec2pix_func,xsize=800,**kwds):
         self.proj.set_proj_plane_info(xsize=xsize)
-        super(MollweideAxes,self).projmap(map,vec2pix_func,**kwds)
+        img = super(MollweideAxes,self).projmap(map,vec2pix_func,**kwds)
         self.set_xlim(-2.01,2.01)
         self.set_ylim(-1.01,1.01)
+        return img
         
 class HpxMollweideAxes(MollweideAxes):
     def projmap(self,map,nest=False,**kwds):
         nside = pixelfunc.npix2nside(pixelfunc.get_map_size(map))
         f = lambda x,y,z: pixelfunc.vec2pix(nside,x,y,z,nest=nest)
-        super(HpxMollweideAxes,self).projmap(map,f,**kwds)
+        return super(HpxMollweideAxes,self).projmap(map,f,**kwds)
 
 class CartesianAxes(SphericalProjAxes):
     """Define a cylindrical Axes to handle cylindrical projection.
@@ -655,15 +659,46 @@ class CartesianAxes(SphericalProjAxes):
         
     def projmap(self,map,vec2pix_func,xsize=800,ysize=None,lonra=None,latra=None,**kwds):
         self.proj.set_proj_plane_info(xsize=xsize,ysize=ysize,lonra=lonra,latra=latra)
-        super(CartesianAxes,self).projmap(map,vec2pix_func,**kwds)
+        return super(CartesianAxes,self).projmap(map,vec2pix_func,**kwds)
         
 class HpxCartesianAxes(CartesianAxes):
     def projmap(self,map,nest=False,**kwds):
         nside = pixelfunc.npix2nside(pixelfunc.get_map_size(map))
         f = lambda x,y,z: pixelfunc.vec2pix(nside,x,y,z,nest=nest)
-        super(HpxCartesianAxes,self).projmap(map,f,**kwds)
+        return super(HpxCartesianAxes,self).projmap(map,f,**kwds)
 
         
+class OrthographicAxes(SphericalProjAxes):
+    """Define an orthographic Axes to handle orthographic projection.
+    
+    Input:
+    - rot=, coord= : define rotation and coordinate system. See rotator.
+    - coordprec= : num of digits after floating point for coordinates display.
+    - format= : format string for value display.
+    
+    Other keywords from Axes (see Axes).
+    """
+    def __init__(self,*args,**kwds):
+        kwds.setdefault('coordprec',2)
+        super(OrthographicAxes,self).__init__(P.OrthographicProj, *args,**kwds)
+        self._segment_threshold = 0.01
+        self._do_border = False
+        
+    def projmap(self,map,vec2pix_func,xsize=800,half_sky=False,**kwds):
+        self.proj.set_proj_plane_info(xsize=xsize,half_sky=half_sky)
+        img = super(OrthographicAxes,self).projmap(map,vec2pix_func,**kwds)
+        if half_sky: ratio = 1.01
+        else: ratio = 2.01
+        self.set_xlim(-ratio,ratio)
+        self.set_ylim(-1.01,1.01)
+        return img
+        
+class HpxOrthographicAxes(OrthographicAxes):
+    def projmap(self,map,nest=False,**kwds):
+        nside = pixelfunc.npix2nside(len(map))
+        f = lambda x,y,z: pixelfunc.vec2pix(nside,x,y,z,nest=nest)
+        return super(HpxOrthographicAxes,self).projmap(map,f,**kwds)
+
 
 ###################################################################
 #
@@ -824,10 +859,9 @@ class HistEqNorm(colors.Normalize):
             # new bins format, remove last point
             bins = bins[:-1]
         hist = hist.astype(np.float)/np.float(hist.sum())
-        self.yval = np.concatenate([0., hist.cumsum(), 1.], None)
-        self.xval = np.concatenate([self.vmin,
-                                     bins + 0.5*(bins[1]-bins[0]),
-                                     self.vmax], None)
+        self.yval = np.concatenate([[0.], hist.cumsum(), [1.]])
+        self.xval = np.concatenate([[self.vmin], bins + 0.5*(bins[1]-bins[0]),
+                                    [self.vmax]])
 
     def _lininterp(self,x,X,Y):
         if hasattr(x,'__len__'):

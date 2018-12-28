@@ -1,4 +1,4 @@
-# Healpix 2.10
+# HEALPix 3.20
 # parameter file for the ud_grade test run used by 'make test'
 
 infile = map.fits

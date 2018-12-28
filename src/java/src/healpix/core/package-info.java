@@ -3,4 +3,5 @@
  *
  ** <img src="doc-files/package_overview.jpg">
  */
+@Deprecated
 package healpix.core;

@@ -66,14 +66,18 @@ class Rotator(object):
     >>> r = Rotator(coord=['G','E'])  # Transforms galactic to ecliptic coordinates
     >>> theta_gal, phi_gal = np.pi/2., 0.
     >>> theta_ecl, phi_ecl = r(theta_gal, phi_gal)  # Apply the conversion
-    >>> print theta_ecl, phi_ecl
-    1.66742286715 -1.62596400306
+    >>> print(theta_ecl)
+    1.66742286715
+    >>> print(phi_ecl)
+    -1.62596400306
     >>> theta_ecl, phi_ecl = Rotator(coord='ge')(theta_gal, phi_gal) # In one line
-    >>> print theta_ecl, phi_ecl
-    1.66742286715 -1.62596400306
+    >>> print(theta_ecl)
+    1.66742286715
+    >>> print(phi_ecl)
+    -1.62596400306
     >>> vec_gal = np.array([1, 0, 0]) #Using vectors
     >>> vec_ecl = r(vec_gal)
-    >>> print vec_ecl
+    >>> print(vec_ecl)
     [-0.05488249 -0.99382103 -0.09647625]
     """
     ErrMessWrongPar = ("rot and coord must be single elements or "
@@ -149,7 +153,8 @@ class Rotator(object):
             self._do_rotation = self._do_rotation or (do_rot or do_conv)
 
     def _is_coords_consistent(self):
-        c,i = zip(self._coords,self._invs)[0]
+        for c,i in zip(self._coords,self._invs):
+            break
         for cnext,inext in zip(self._coords[1:],self._invs[1:]):
             if c[i] != cnext[not inext]:
                 return False
@@ -262,7 +267,8 @@ class Rotator(object):
         """The input coordinate system.
         """
         if not self.consistent: return None
-        c,i = zip(self._coords,self._invs)[-1]
+        for c,i in zip(self._coords,self._invs):
+            pass
         return c[i]
 
     @property
@@ -270,7 +276,8 @@ class Rotator(object):
         """The output coordinate system.
         """
         if not self.consistent: return None
-        c,i = zip(self._coords,self._invs)[0]
+        for c,i in zip(self._coords,self._invs):
+            pass
         return c[not i]
 
     @property
@@ -530,6 +537,9 @@ def angdist(dir1,dir2,lonlat=False):
 
     Examples
     --------
+    >>> import healpy as hp
+    >>> hp.rotator.angdist([.2,0], [.2, 1e-6])
+    array([  1.98669331e-07])
     """
     if hasattr(lonlat,'__len__') and len(lonlat) == 2:
         lonlat1,lonlat2 = lonlat
@@ -561,11 +571,12 @@ def angdist(dir1,dir2,lonlat=False):
         else:
             vec2 = np.reshape(dir2, (3, 1))
             vec2 = normalize_vec(vec2)
+    # compute vec product
+    vec_prod = np.sqrt((np.cross(vec1.T, vec2.T)**2).sum(axis=1))
     # compute scalar product
-    pscal = (vec1*vec2).sum(axis=0)
-    # if scalar product is greater than 1 but close, set it to 1
-    pscal[(pscal - 1. > 0.) & (pscal - 1. < 1.e-14)] = 1. 
-    return np.arccos(pscal)
+    scal_prod = (vec1*vec2).sum(axis=0)
+
+    return np.arctan2(vec_prod, scal_prod)
 
 def normalize_vec(vec):
     """Normalize the vector(s) *vec* (in-place if it is a ndarray).

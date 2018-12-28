@@ -1,104 +1,136 @@
 Installation procedure for Healpy
 =================================
 
-* Note: Healpix is included, so you don't need to get it separately
-
 Requirements
 ------------
 
-Healpy needs HEALPix. You can either:
-* let Healpy build its own HEALPix library from the source code included in
-this package (the default behavior)
-* use an existing installation :
-Define the environment variable HEALPIX_EXT_PREFIX where to find the
-healpix libraries and include files (eg /usr/local, so that
-/usr/local/include/healpix_base.h and /usr/local/lib/libhealpix_cxx.a
-exist)
+Healpy depends on the HEALPix C++ and cfitsio C libraries. Source code for both
+is include with Healpy and is built automatically, so you do not need to
+install them yourself.
 
-Healpix needs cfitsio. You can either:
-* use an existing installation :
-Either define the environment variable CFITSIO_EXT_PREFIX where to find the
-cfitsio library and include file (eg /usr/local, so that
-/usr/local/include/fitsio.h and /usr/local/lib/libcfitsio.a exists),
-or CFITSIO_EXT_INC with the include folder, e.g. /usr/local/include and 
-CFITSIO_EXT_LIB with full path to the libcfitsio.* library with full filename
-e.g. /usr/local/lib/libcfitsio.a or .so
-* compile a specific cfitsio lib:
-Define EXTERNAL_CFITSIO=no, place the  cfitsioXXXX.tar.gz in
-hpbeta/libcfitsio before installing. The cfitsio version XXXX must
-match the version in hpbeta/planck.make (or you need to modify it there).
+Quick installation with Pip
+---------------------------
 
-the psht spherical transform library is integrated into healpy with the
-pshyt cython wrapper. a pregenerated c code is included in the repository, but
-if you have cython installed it will be run in the build phase.
+The quickest way to install Healpy is with `pip <http://www.pip-installer.org>`_
+(>= 1.4.2), which automatically fetches the latest version of Healpy and any
+missing dependencies::
 
-Installation
-------------
+    pip install --user healpy
 
-    cd healpy
-    python setup.py build
+If you have installed with ``pip``, you can keep your installation up to date
+by upgrading from time to time::
 
-OR, if you do not want OpenMP support (sometimes, it causes SegFault)
+    pip install --user --upgrade healpy
 
-    python setup.py build --without-openmp
+Even quicker installation on Mac OS with MacPorts
+-------------------------------------------------
 
-(alternatively, you can define the environment variable HEALPY_WITHOUT_OPENMP)
+If you are using a Mac and have the `MacPorts <https://www.macports.org>`_
+package manager, it's even easer to install Healpy with::
 
-If you do not want the "-march=native" flag (if your g++ is too old)
+    sudo port install py27-healpy
 
-    python setup.py build --without-native
+Binary `apt-get` style packages are also available in the development versions of 
+`Debian (sid) <https://packages.debian.org/sid/python-healpy>`_ and
+`Ubuntu (utopic) <http://packages.ubuntu.com/utopic/python-healpy>`_.
 
-(alternatively, you can define the environment variable HEALPY_WITHOUT_NATIVE)
+Almost-as-quick installation from official source release
+---------------------------------------------------------
 
-If everything goes fine, you can test it:
+Healpy is also available in the
+`Python Package Index (PyPI) <https://pypi.python.org/pypi/healpy>`_. You can
+download it with::
 
-    cd build/lib*
-    ipython -pylab
+    curl -O https://pypi.python.org/packages/source/h/healpy/healpy-1.7.4.tar.gz
 
->>> import healpy as H
->>> H.mollview(arange(12))
->>> pylab.show()
+and build it with::
 
-or run the test suite with nose:
+    tar -xzf healpy-1.7.4.tar.gz
+    pushd healpy-1.7.4
+    python setup.py install --user
+    popd
 
-nosetests -v
+If everything goes fine, you can test it::
 
-If the plot looks good, you can install:
-$ sudo python setup.py install  # install in default location, need root rights
-or
-$ python setup.py install --install-lib=~/Softs/Python # will install healpy in directory ~/Softs/Python, which then must be in your PYTHONPATH
-or
-$ python setup.py install --user # will install it in your User python directory (python >= 2.6)
+    python
+>>> import matplotlib.pyplot as plt
+>>> import numpy as np
+>>> import healpy as hp 
+>>> hp.mollview(np.arange(12))
+>>> plt.show()
 
-Compile on OSX
---------------
+or run the test suite with nose::
 
-Suggested compilation on OSX Lion is installing pyfits, cython and cfitsio using mac ports and run:
->>> python setup.py --without-openmp
+    cd healpy-1.7.4 && python setup.py test
+
+Building against external Healpix and cfitsio
+---------------------------------------------
+
+Healpy uses pkg-config to detect the presence of the Healpix and cfitsio
+libraries. pkg-config is available on most systems. If you do not have
+pkg-config installed, then Healpy will download and use (but not install) a
+Python clone called pykg-config.
+
+If you want to provide your own external builds of Healpix and cfitsio, then
+download the following packages:
+
+* `pkg-config <http://pkg-config.freedesktop.org>`_
+
+* `HEALPix
+  <http://sourceforge.net/projects/healpix/files/Healpix_3.11/autotools_packages/>`_
+  autotools-style C++ package
+
+* `cfitsio <http://heasarc.gsfc.nasa.gov/fitsio/>`_
+
+If you are going to install the packages in a nonstandard location (say,
+``--prefix=/path/to/local``), then you should set the environment variable
+``PKG_CONFIG_PATH=/path/to/local/lib/pkgconfig`` when building. No other
+environment variable settings are necessary, and you do not need to set
+``PKG_CONFIG_PATH`` to use Healpy after you have built it.
+
+Then, unpack each of the above packages and build them with the usual
+``configure; make; make install`` recipe.
 
 Known issues
 ------------
 
-* Incompatibility with cfitisio from HEASOFT: due to a conflict of header file names it is currently not possible to use the cfitsio library provided with the HEASOFT package for compilation of Healpix C++. HEASOFT's include directory contains a file called "rotmatrix.h" which clashes with Healpix's own rotmatrix.h.
+* Incompatibility with ``cfitisio`` from ``HEASOFT``: due to a conflict of
+  header file names it is currently not possible to use the cfitsio library
+  provided with the HEASOFT package for compilation of Healpix C++. HEASOFT's
+  include directory contains a file called "rotmatrix.h" which clashes with
+  Healpix's own rotmatrix.h.
+
+* Compilation problems in the C++ package: some gcc versions (we have reports
+  for 4.4.5 and 4.4.6) crash with an internal compiler error during compilation
+  of libsharp. Unfortunately we have not found a workaround for this compiler
+  problem. To our knowledge, it has been fixed in gcc 4.4.7 and in the 4.5.x
+  and newer versions.
 
 Development install
 -------------------
 
 Developers building from a snapshot of the github repository need:
-  * cython > 0.14 
-  * run `git submodule init` and `git submodule update` to get the healpix sources
 
-the best way to install healpy if you plan to develop is to build the C++ extensions in place with:
+* ``autoconf`` and ``libtool`` (in Debian or Ubuntu:
+  ``sudo apt-get install autoconf automake libtool pkg-config``)
 
-python setup.py build_ext --inplace
+* `cython` > 0.16
 
-the add the healpy/healpy folder to your PYTHONPATH
+* run ``git submodule init`` and ``git submodule update`` to get the bundled
+  HEALPix sources
+
+the best way to install healpy if you plan to develop is to build the C++
+extensions in place with::
+
+    python setup.py build_ext --inplace
+
+then add the ``healpy/healpy`` folder to your ``PYTHONPATH``.
 
 Clean
 -----
 
 When you run "python setup.py", temporary build products are placed in the
-"build" directory. If you want to clean out and remove the "build" directory,
-then run:
+"build" directory. If you want to clean out and remove the ``build`` directory,
+then run::
 
-python setup.py clean --all
+    python setup.py clean --all

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>read_fits_s </TITLE>
-<META NAME="description" CONTENT="read_fits_s ">
+<TITLE>query_triangle </TITLE>
+<META NAME="description" CONTENT="query_triangle ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,184 +28,161 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html869"
+<A NAME="tex2html882"
   HREF="idlnode56.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html875"
+<A NAME="tex2html888"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html879"
+<A NAME="tex2html892"
   HREF="idlnode58.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html877"
+<A NAME="tex2html890"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html870"
-  HREF="idlnode56.htm">read_fits_map</A>
+<B> Previous:</B> <A NAME="tex2html883"
+  HREF="idlnode56.htm">query_strip</A>
 
-<B>Up:</B> <A NAME="tex2html876"
+<B>Up:</B> <A NAME="tex2html889"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html880"
-  HREF="idlnode58.htm">read_tqu</A>
+<B> Next:</B> <A NAME="tex2html893"
+  HREF="idlnode58.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000570000000000000000"></A>
-<A NAME="idl:read_fits_s"></A>
+<A NAME="idl:query_triangle"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">read_fits_s </FONT></font></b><hr>
-<H3>This IDL facility reads a FITS file into an IDL structure.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/read_fits_s.pro"><b>src/idl/fits/read_fits_s.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">query_triangle </FONT></font></b><hr>
+<H3>This IDL facility provides a means to find the index of all pixels belonging to
+a sperical triangle defined by its vertices
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/query_triangle.pro"><b>src/idl/toolkit/query_triangle.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-READ_FITS_S , File, Prim_stc, [Xten_stc, COLUMNS=, EXTENSION=, /HELP, /MERGE]
-
+query_triangle , Nside, Vector1, Vector2, Vector3, Listpix, [Nlist, NESTED=, INCLUSIVE=]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file containing 
-               the healpix map(s) in an extension or in the image field 
-
-<P>
-<DT>
-<B>Prim_stc</B>
-<DD>variable containing on output an IDL structure with the following fields: 
-<BR>		- primary header (tag : 0, tag name : HDR) 
-<BR>		- primary image (if any, tag : 1, tag name : IMG)
-
-<P>
-<DT>
-<B>Xten_stc</B>
-<DD>(optional), 
-<BR>
-variable containing on output an IDL structure with the following fields: 
-<BR>		- extension header (tag : 0, tag name : HDR) 
-<BR>		- data column 1 (if any, tag : 1, tag name given by TTYPE1 (with all
-                    spaces removed and only letters, digits and underscore) 
-<BR>		- data column 2 (if any, tag : 2, tag name given by TTYPE2)  
-<BR>		...
-
-<P>
-<DT>
-<B>Columns=</B>
-<DD>(optional), 
-<BR>
-list of columns to be read from a binary table 
-        can be a list of integer (1 based) indexing the columns positions
-        or a list of names matching the TTYPE* of the columns
-        by default, all columns are read
-
-<P>
-<DT>
-<B>Extension=</B>
-<DD>(optional), 
-<BR>
-extension unit to be read from FITS file: 
- either its 0-based ID number (ie, 0 for first extension <EM>after</EM> primary array) 
- or the case-insensitive value of its EXTNAME keyword.
-	<b>default:</b>0
+<B>Nside</B>
+<DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
+    <DT>
+<B>Vector1</B>
+<DD>3D cartesian position vector of the triangle first  vertex
+    <DT>
+<B>Vector2</B>
+<DD>3D cartesian position vector of the triangle second vertex
+    <DT>
+<B>Vector3</B>
+<DD>3D cartesian position vector of the triangle third  vertex
+          NB : the norm of Vector* does not have to be one, what is
+          considered is the intersection of the sphere with the line of
+          direction Vector*.
+    <DT>
+<B>Listpix</B>
+<DD>on output: list of ordered index for the pixels found 
+    in the triangle. The RING numbering scheme is used unless the keyword <TT>NESTED</TT> is set.
+     (=-1 if the triangle is too small and no pixel is found)
+    <DT>
+<B>Nlist</B>
+<DD>on output: number of pixels in Listpix (=0 if no pixel is found).
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>/HELP</B>
-<DD>if set, an extensive help is displayed and no
-	file is read
-	<DT>
-<B>/MERGE</B>
-<DD>if set <TT>Prim_stc</TT> contains : 
-<BR>		- the concatenated primary and extension header (tag name : HDR) 
-<BR>		- primary image (if any, tag name : IMG) 
-<BR>		- data column 1 ... 
-<BR>
-and <TT>Exten_stc</TT> is set to 0 
-<BR>	<b>default:</b>: not set (or set to 0)
-   </DL><SMALL CLASS="FOOTNOTESIZE">
-
+<B>NESTED =</B>
+<DD>if set, the output list uses the NESTED numbering scheme
+    instead of the default RING
+    <DT>
+<B>INCLUSIVE = </B>
+<DD>if set, all the pixels overlapping (even partially)
+                   with the triangle are listed, otherwise only those whose
+                   center lies within the triangle are listed
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">read_fits_s </FONT>reads in any type of FITS file (Image, Binary table or Ascii table) 
-and outputs the data in IDL structures
+query_triangle finds the pixels within the given triangle in a selective way WITHOUT
+scanning all the sky pixels. The numbering scheme of the output list and the
+inclusiveness of the triangle can be changed
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_s </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_triangle </FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">read_fits_s </FONT>
-  <DT>
-<B>synfast</B>
-<DD>This <b>HEALPix</b> facility will generate the FITS format 
-            sky map that can be read by <FONT COLOR="#CC0000">read_fits_s </FONT>.
-  <DT>
-<B><A HREF="idlnode55.htm#idl:read_fits_cut4">read_fits_cut4</A>,
-<A HREF="idlnode56.htm#idl:read_fits_map">read_fits_map</A></B>
+<DD>version 6.4 or more is necessary to run query_triangle .
+    <DT>
+<B>ang2pix, pix2ang</B>
+<DD>conversion between angles and pixel index
+    <DT>
+<B>vec2pix, pix2vec</B>
+<DD>conversion between vector and pixel index
+    <DT>
+<B><A HREF="idlnode54.htm#idl:query_disc">query_disc</A>, <A HREF="idlnode55.htm#idl:query_polygon">query_polygon</A>,</B>
 <DD><DT>
-<B><A HREF="idlnode58.htm#idl:read_tqu">read_tqu</A>,
-<A HREF="#idl:read_fits_s">read_fits_s</A></B>
-<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
-arbitrary data sets from FITS files
-  <DT>
-<B><A HREF="idlnode68.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to generate FITS format 
-            sky maps readable by <FONT COLOR="#CC0000">read_fits_s </FONT>.
+<B><A HREF="idlnode56.htm#idl:query_strip">query_strip</A>, <A HREF="#idl:query_triangle">query_triangle</A></B>
+<DD>render the list of pixels enclosed
+  respectively in a given disc, polygon, latitude strip and triangle
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">read_fits_s </FONT>,  'dmr_skymap_90a_4yr.fits', pdata, xdata </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> query_triangle , 256L, [1,0,0],[0,1,0],[0,0,1], listpix, nlist</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
-<blockquote><FONT COLOR="#CC0000">read_fits_s </FONT>reads in the file 'dmr_skymap_90a_4yr.fits'. On output, pdata
-contains the primary header and xdata is a structure whose first field is the
-extension header, and the other fields are vectors with respective tag names 
-PIXEL, SIGNAL, N_OBS, SERROR, ... (see <TT>help,/struc,xdata</TT>)</blockquote>
+<blockquote>
+On return listpix contains the index of the (98560) pixels lying in the octant
+<SPAN CLASS="MATH">(<I>x</I>&gt;0,<I>y</I>&gt;0,<I>y</I>&gt;0)</SPAN>.
+The pixel indices correspond to the RING scheme with resolution 256.
+</blockquote>
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html869"
+<A NAME="tex2html882"
   HREF="idlnode56.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html875"
+<A NAME="tex2html888"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html879"
+<A NAME="tex2html892"
   HREF="idlnode58.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html877"
+<A NAME="tex2html890"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html870"
-  HREF="idlnode56.htm">read_fits_map</A>
+<B> Previous:</B> <A NAME="tex2html883"
+  HREF="idlnode56.htm">query_strip</A>
 
-<B>Up:</B> <A NAME="tex2html876"
+<B>Up:</B> <A NAME="tex2html889"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html880"
-  HREF="idlnode58.htm">read_tqu</A>
+<B> Next:</B> <A NAME="tex2html893"
+  HREF="idlnode58.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>same_shape_pixels_XXXX</TITLE>
-<META NAME="description" CONTENT="same_shape_pixels_XXXX">
+<TITLE>remove_dipole</TITLE>
+<META NAME="description" CONTENT="remove_dipole">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,227 +28,199 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html929"
+<A NAME="tex2html942"
   HREF="idlnode61.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html935"
+<A NAME="tex2html948"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html939"
+<A NAME="tex2html952"
   HREF="idlnode63.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html937"
+<A NAME="tex2html950"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html930"
-  HREF="idlnode61.htm">rotate_coord</A>
+<B> Previous:</B> <A NAME="tex2html943"
+  HREF="idlnode61.htm">read_tqu</A>
 
-<B>Up:</B> <A NAME="tex2html936"
+<B>Up:</B> <A NAME="tex2html949"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html940"
-  HREF="idlnode63.htm">template_pixel_xxxx</A>
+<B> Next:</B> <A NAME="tex2html953"
+  HREF="idlnode63.htm">reorder</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000620000000000000000"></A>
-<A NAME="idl:same_shape_pixels_xxx"></A>
+<A NAME="idl:remove_dipole"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT></font></b><hr>
-<H3>These IDL facilities provide the ordered list of all <b>HEALPix</b> pixels having the same shape
-  as a given template, for a resolution parameter <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>.
+<b><font size=+6><FONT COLOR="#CC0000">remove_dipole</FONT></font></b><hr>
+<H3>This IDL facility provides a means to fit and remove the dipole and monopole
+from a <b>HEALPix</b> map.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/same_shape_pixels_nest.pro"><b>src/idl/toolkit/same_shape_pixels_nest.pro</b></a>&nbsp;  <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/same_shape_pixels_ring.pro"><b>src/idl/toolkit/same_shape_pixels_ring.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/misc/remove_dipole.pro"><b>src/idl/misc/remove_dipole.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-same_shape_pixels_nest, Nside, Template, List_Pixels_Nest [, Reflexion, NREPLICATIONS=]
-</h3><hr><h1>FORMAT </h1><h3>IDL>
-same_shape_pixels_ring, Nside, Template, List_Pixels_Ring [, Reflexion, NREPLICATIONS=]
+REMOVE_DIPOLE,
+<A HREF="#idl:remove_dipole:map"> Map</A> [,
+<A HREF="#idl:remove_dipole:weight"> Weight</A>,
+<A HREF="#idl:remove_dipole:bad_data">BAD_DATA=</A>,
+<A HREF="#idl:remove_dipole:gal_cut">GAL_CUT=</A>,
+<A HREF="#idl:remove_dipole:coord_in">COORD_IN=</A>,
+<A HREF="#idl:remove_dipole:coord_out">COORD_OUT=</A>,
+<A HREF="#idl:remove_dipole:covariance_matrix">Covariance_Matrix=</A>,
+<A HREF="#idl:remove_dipole:dipole">Dipole=</A>,
+<A HREF="#idl:remove_dipole:monopole">Monopole=</A>,
+<A HREF="#idl:remove_dipole:noremove">/NOREMOVE</A>,
+<A HREF="#idl:remove_dipole:nside">NSIDE=</A>,
+<A HREF="#idl:remove_dipole:onlymonopole">/ONLYMONOPOLE</A>,
+<A HREF="#idl:remove_dipole:ordering">ORDERING=</A>,
+<A HREF="#idl:remove_dipole:pixel">PIXEL=</A>,
+<A HREF="#idl:remove_dipole:silent">/SILENT</A>,
+<A HREF="#idl:remove_dipole:units">UNITS=</A>,
+<A HREF="#idl:remove_dipole:help">/HELP</A>]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Nside</B>
-<DD>(IN, scalar) the <b>HEALPix</b> <!-- MATH
- ${N_{\rm side}}$
+<B>Map</B>
+<DD><A NAME="idl:remove_dipole:map"></A> input and output, vector
+<BR>
+map from which monopole and dipole are to be removed
+      (also used for output).
+      Assumed to be a full sky data set, unless PIXEL is set and has the same
+      size as map
+    <DT>
+<B>Weight</B>
+<DD><A NAME="idl:remove_dipole:weight"></A> input, vector, optional
+<BR>
+same size as map,
+     describe weighting scheme to apply to each pixel for the fit 
+<BR>	<b>default:</b>uniform weight
+    <DT>
+<B>BAD_DATA =</B>
+<DD><A NAME="idl:remove_dipole:bad_data"></A> 
+    scalar float, value given on input to bad pixels 
+<BR>          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
+ $\equiv -1.6375\ 10^{30}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN> parameter. 
-<DT>
-<B>Template</B>
-<DD>(IN, scalar) identification number of the
-                   template (this number is independent of the numbering scheme considered).
-<DT>
-<B>List_Pixel_Nest</B>
-<DD>(OUT, vector) ordered list of NESTED scheme identification numbers
-  for all pixels having the same shape as the template provided
-<DT>
-<B>List_Pixel_Ring</B>
-<DD>(OUT, vector) ordered list of RING scheme identification numbers
-  for all pixels having the same shape as the template provided
-<DT>
-<B>Reflexion</B>
-<DD>(OUT, OPTIONAL, vector) in {0, 3} encodes the transformation(s) to
-                   apply to each of the returned pixels to match exactly in
-                   shape and position the template provided. 0: rotation around the polar axis only,
-                   1: rotation + East-West swap (ie, reflexion around meridian),
-                   2: rotation + North-South swap (ie, reflexion around
-                   Equator), 3: rotation + East-West and North-South swaps
+ WIDTH="131" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg92.png"
+ ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
+    <DT>
+<B>GAL_CUT=</B>
+<DD><A NAME="idl:remove_dipole:gal_cut"></A> 
+    if set to a value larger than 0, the pixels with galactic
+    latitude <SPAN CLASS="MATH">|b|&lt;</SPAN>gal_cut degrees are not considered in the
+      fit. 
+<BR><B>NB:</B>
+      the cut is <EM>really</EM> done in Galactic coordinates. If the input
+      coordinates are different (see Coord_In), the map is rotated into galactic
+      before applying the cut.
+    <DT>
+<B>COORD_IN =</B>
+<DD><A NAME="idl:remove_dipole:coord_in"></A> 
+     string, map coordinate system (either 'Q' or 'C': equatorial,
+    'G': galactic or 'E': ecliptic; upper/lower case accepted)
+<BR>         <b>default:</b>'G' (galactic)
+    <DT>
+<B>COORD_OUT =</B>
+<DD><A NAME="idl:remove_dipole:coord_out"></A> 
+    string, coordinate system (see above) in which
+    to output dipole vector in variable Dipole 
+<BR>         <b>default:</b>same as coord_in
+    <DT>
+<B>Covariance_Matrix =</B>
+<DD><A NAME="idl:remove_dipole:covariance_matrix"></A> 
+    OUTPUT, scalar (or symmetric 4x4 matrix), 
+<BR>
+covariance
+     of the statistical errors made on monopole (and dipole) determination
+    <DT>
+<B>Dipole=</B>
+<DD><A NAME="idl:remove_dipole:dipole"></A> 
+	OUTPUT, 3d vector, 
+<BR>
+coordinates of best fit dipole (done simultaneously with monopole), same
+        units as input map
+    <DT>
+<B>Monopole=</B>
+<DD><A NAME="idl:remove_dipole:monopole"></A> 
+        OUTPUT, scalar float, 
+<BR>
+value found for the best fit monopole (done simultaneously with dipole),
+        same units as input map
+    <DT>
+<B>NSIDE=</B>
+<DD><A NAME="idl:remove_dipole:nside"></A> 
+    scalar integer, healpix resolution parameter
+    <DT>
+<B>ORDERING=</B>
+<DD><A NAME="idl:remove_dipole:ordering"></A> 
+    string, ordering scheme (either 'RING' or 'NESTED')
+    <DT>
+<B>PIXEL=</B>
+<DD><A NAME="idl:remove_dipole:pixel"></A> 
+    input, vector, gives the Healpix index of the pixels
+        whose temperature is actually given in map (for cut sky
+    maps). If present, must match Map in size. If absent, it is
+    assumed that the map covers the whole sky.
+    <DT>
+<B>UNITS=</B>
+<DD><A NAME="idl:remove_dipole:units"></A> 
+   string, units of the input map
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
- </SMALL><DL COMPACT><DT>
-<B>NREPLICATIONS</B>
-<DD>(OUT, OPTIONAL, scalar) number of pixels having the same shape as
-  the template. It is also the length of the vectors <TT>List_Pixel_Nest</TT>,
-  <TT>List_Pixel_Ring</TT> and <TT>Reflexion</TT>. It is either 8, 16, 4<!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN> or
-  8<!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>.
- </DL><SMALL CLASS="FOOTNOTESIZE">
-
+  </SMALL><DL COMPACT><DT>
+<B>/NOREMOVE</B>
+<DD><A NAME="idl:remove_dipole:noremove"></A> 
+   if set, the best fit dipole and monopole are computed but not
+    removed (ie, Map is unchanged)
+    <DT>
+<B>/ONLYMONOPOLE</B>
+<DD><A NAME="idl:remove_dipole:onlymonopole"></A> 
+   if set, fit (and remove) only the monopole
+    <DT>
+<B>/HELP</B>
+<DD><A NAME="idl:remove_dipole:help"></A> 
+    if set, only display documentation header
+    <DT>
+<B>/SILENT</B>
+<DD><A NAME="idl:remove_dipole:silent"></A> 
+    if set, the routine works silently
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT> provide the ordered list of all <b>HEALPix</b> pixels having the same shape
-  as a given template, for a resolution parameter <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>. Depending on the
-  template considered the number of such pixels is either 8, 16, 4<!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN> or
-  8<!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>. The template pixels are all located in the Northern Hemisphere, or on the
- Equator.
-They are chosen to have their center located at
-</SMALL>
-<BR>
-<DIV ALIGN="CENTER">
-
-<!-- MATH
- \begin{eqnarray}
-z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
-     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
-\end{eqnarray}
- -->
-<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
- WIDTH="147" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg84.png"
- ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$"></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg85.png"
- ALT="$\textstyle \ $"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="111" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg86.png"
- ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$"></TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-&nbsp;</TD></TR>
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
- WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg87.png"
- ALT="$\displaystyle %[Nside*(Nside+2)/4]
-2/3 &gt; z \geq 0,$"></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg85.png"
- ALT="$\textstyle \ $"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg88.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
-$"></TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-&nbsp;</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P><SMALL CLASS="FOOTNOTESIZE">
- They are numbered continuously from 0, starting at the North Pole, with the index
- increasing in <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg89.png"
- ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
-
+remove_dipolemakes a simultaneous least square fit of the monopole and dipole on all the valid
+pixels of Map (those with a value different from BAD_DATA) with a galactic
+latitude larger in magnitude than GAL_CUT (in degrees). The position of the pixels
+on the sky is reconstructed from NSIDE and ORDERING.
+If Map does not cover the full sky, the actual indices of the concerned pixels should be given in PIXEL
 </blockquote>
 <P>
-<HR><H1>EXAMPLE:</H1> 
-<tt>same_shape_pixels_ring, 256, 1234, list_pixels, reflexion, nrep=np  
-<BR></tt>
-<blockquote>
-Returns in <TT>list_pixels</TT> the RING-scheme index of the all the pixels having
-the same shape as the template #1234 for <!-- MATH
- ${N_{\rm side}}=256$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg90.png"
- ALT="${N_{\rm side}}=256$"></SPAN>. Upon return <TT>reflexion</TT> will
-contain the reflexions to apply to each pixel returned to match the template,
-and <TT>np</TT> will contain the number of pixels having that same shape (16 in that case).
-</blockquote><hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">remove_dipole</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
-<B><A HREF="idlnode47.htm#idl:nside2ntemplates">nside2templates</A></B>
-<DD>returns the
-  number of template pixel shapes available for a given <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>.
-  <DT>
-<B><A HREF="idlnode63.htm#idl:template_pixel_xxx">template_pixel_ring</A></B>
-<DD><DT>
-<B><A HREF="idlnode63.htm#idl:template_pixel_xxx">template_pixel_nest</A></B>
-<DD>return
-  the template shape matching the pixel provided
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run remove_dipole.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -256,31 +228,31 @@ and <TT>np</TT> will contain the number of pixels having that same shape (16 in 
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html929"
+<A NAME="tex2html942"
   HREF="idlnode61.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html935"
+<A NAME="tex2html948"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html939"
+<A NAME="tex2html952"
   HREF="idlnode63.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html937"
+<A NAME="tex2html950"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html930"
-  HREF="idlnode61.htm">rotate_coord</A>
+<B> Previous:</B> <A NAME="tex2html943"
+  HREF="idlnode61.htm">read_tqu</A>
 
-<B>Up:</B> <A NAME="tex2html936"
+<B>Up:</B> <A NAME="tex2html949"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html940"
-  HREF="idlnode63.htm">template_pixel_xxxx</A>
+<B> Next:</B> <A NAME="tex2html953"
+  HREF="idlnode63.htm">reorder</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

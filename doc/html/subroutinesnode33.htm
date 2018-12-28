@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html649"
+<A NAME="tex2html657"
   HREF="subroutinesnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html663"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html659"
+<A NAME="tex2html667"
   HREF="subroutinesnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html657"
+<A NAME="tex2html665"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html650"
+<B> Previous:</B> <A NAME="tex2html658"
   HREF="subroutinesnode32.htm">generate_beam</A>
 
-<B>Up:</B> <A NAME="tex2html656"
+<B>Up:</B> <A NAME="tex2html664"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html660"
+<B> Next:</B> <A NAME="tex2html668"
   HREF="subroutinesnode34.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -62,7 +62,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">get_card</FONT></font></b><hr>
 <H3>This routine reads a keyword of any kind from a FITS header. It is a wrapper to
 other routines that read keywords of different kinds.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">get_card</FONT>(
@@ -103,7 +103,8 @@ The type of the fortran variable 'value' (double, real, integer, logical or
                    value is written in the FITS file, except if
                    'value' is a character string, in which case it can read any
                    keyword value, or if 'value' if real or double, in which case
-                   it can read any numerical value</TD>
+                   it can read any numerical value. Note that long string values
+(more than 68 characters in length) are supported.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>comment(LEN=*)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
@@ -171,31 +172,31 @@ will contain on output the value of ORDERING (say 'RING') found in header
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html649"
+<A NAME="tex2html657"
   HREF="subroutinesnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html663"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html659"
+<A NAME="tex2html667"
   HREF="subroutinesnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html657"
+<A NAME="tex2html665"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html650"
+<B> Previous:</B> <A NAME="tex2html658"
   HREF="subroutinesnode32.htm">generate_beam</A>
 
-<B>Up:</B> <A NAME="tex2html656"
+<B>Up:</B> <A NAME="tex2html664"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html660"
+<B> Next:</B> <A NAME="tex2html668"
   HREF="subroutinesnode34.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

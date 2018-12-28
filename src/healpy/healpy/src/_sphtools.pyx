@@ -1,49 +1,21 @@
+# coding: utf-8
 # Wrapper around the query_disc method of Healpix_base class
 
 import numpy as np
 cimport numpy as np
-#from libcpp cimport bool
-#from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libc.math cimport sqrt, floor, fabs
 cimport libc
-from healpy import npix2nside
+from healpy import npix2nside, nside2npix
 from healpy.pixelfunc import maptype
-ctypedef unsigned size_t
-ctypedef size_t tsize
 import os
 import cython
+from libcpp cimport bool as cbool
+
+from _common cimport tsize, arr, xcomplex, Healpix_Ordering_Scheme, RING, NEST, Healpix_Map, Alm, ndarray2map, ndarray2alm
 
 cdef double UNSEEN = -1.6375e30
 cdef double rtol_UNSEEN = 1.e-7 * 1.6375e30
-
-cdef extern from "arr.h":    
-    cdef cppclass arr[T]:
-        arr()
-        arr(T *ptr, tsize sz)
-        void allocAndFill (tsize sz, T &inival)
-        tsize size()
-        T &operator[] (tsize n)
-
-cdef extern from "xcomplex.h":
-    cdef cppclass xcomplex[T]:
-       T re, im
-
-cdef extern from "alm.h":
-    cdef cppclass Alm[T]:
-        Alm(int lmax_=0, int mmax_=0)
-        void Set (int lmax_, int mmax_)
-        void Set (arr[T] &data, int lmax_, int mmax_)
-        tsize Num_Alms (int l, int m)
-
-cdef extern from "healpix_map.h":
-    cdef enum Healpix_Ordering_Scheme:
-        RING, NEST
-    cdef cppclass Healpix_Map[T]:
-        Healpix_Map()
-        void Set(arr[T] &data, Healpix_Ordering_Scheme scheme)
-        T average()
-        void Add(T x)
 
 cdef extern from "alm_healpix_tools.h":
     cdef void map2alm_iter(Healpix_Map[double] &m,
@@ -57,62 +29,25 @@ cdef extern from "alm_healpix_tools.h":
                                Alm[xcomplex[double]] &almC,
                                int num_iter,
                                arr[double] &weight)
+    cdef void map2alm_spin(    Healpix_Map[double] &map1, 
+                               Healpix_Map[double] &map2,
+                               Alm[xcomplex[double]] &alm1, 
+                               Alm[xcomplex[double]] &alm2, 
+                               int spin, 
+                               arr[double] &weight, 
+                               cbool add_alm)
+    cdef void alm2map_spin(    Alm[xcomplex[double]] &alm1, 
+                               Alm[xcomplex[double]] &alm2, 
+                               Healpix_Map[double] &map1, 
+                               Healpix_Map[double] &map2,
+                               int spin) 
+
+cdef extern from "alm_powspec_tools.h":
+    cdef void c_rotate_alm "rotate_alm" (Alm[xcomplex[double]] &alm, double psi, double theta, double phi)
+    cdef void c_rotate_alm "rotate_alm" (Alm[xcomplex[double]] &ai, Alm[xcomplex[double]] &ag, Alm[xcomplex[double]] &ac, double psi, double theta, double phi)
 
 cdef extern from "healpix_data_io.h":
     cdef void read_weight_ring (string &dir, int nside, arr[double] &weight)
-
-cdef extern from "hack.h":
-    cdef xcomplex[double]* cast_to_ptr_xcomplex_d(char *)
-
-cdef Num_Alms(int l, int m):
-    if not m <= l:
-        raise ValueError("mmax must be <= lmax")
-    return ((m+1)*(m+2))/2 + (m+1)*(l-m)
-
-cdef class WrapMap(object):
-    """This class provides a wrapper to a ndarray so it can be sent as Map to healpix_cxx functions.
-    """
-    cdef Healpix_Map[double] * h
-    cdef arr[double] * a
-    cdef object m
-    cdef int is_init
-
-    def __init__(self, np.ndarray[double] m):
-        if self.is_init == 1:
-            raise Exception('Already init...')
-        self.is_init = 1
-        self.m = np.ascontiguousarray(m)
-        self.a = new arr[double](<double*>(<np.ndarray>self.m).data, (<np.ndarray>self.m).size)
-        self.h = new Healpix_Map[double]()
-        self.h.Set(self.a[0], RING)
-
-    def __dealloc__(self):
-        if self.is_init == 1:
-            #print "deallocating map wrapper..."
-            del self.a, self.h
-
-cdef class WrapAlm(object):
-    """This class provides a wrapper to a ndarray so it can be sent as Alm to healpix_cxx functions.
-    """
-    cdef Alm[xcomplex[double]] * h
-    cdef arr[xcomplex[double]] * a
-    cdef object m
-    cdef int is_init
-
-    def __init__(self, np.ndarray[np.complex128_t] m, int lmax, int mmax):
-        if self.is_init == 1:
-            raise Exception('Already init...')
-        self.is_init = 1
-        self.m = np.ascontiguousarray(m)
-        self.h = new Alm[xcomplex[double]]()
-        self.a = new arr[xcomplex[double]](cast_to_ptr_xcomplex_d((<np.ndarray>self.m).data),
-                                           (<np.ndarray>self.m).size)
-        self.h.Set(self.a[0], lmax, mmax)
-
-    def __dealloc__(self):
-        if self.is_init == 1:
-            #print "deallocating alm wrapper..."
-            del self.a, self.h
 
 DATAPATH = None
 
@@ -122,9 +57,127 @@ def get_datapath():
         DATAPATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     return DATAPATH
 
+def map2alm_spin_healpy(maps, spin, lmax = None, mmax = None):
+    """Computes the spinned alm of a 2 Healpix maps.
+
+    Parameters
+    ----------
+    m : list of 2 arrays
+        list of 2 input maps as numpy arrays
+    spin : int
+        spin of the alms (either 1, 2 or 3)
+    lmax : int, scalar, optional
+      Maximum l of the power spectrum. Default: 3*nside-1
+    mmax : int, scalar, optional
+      Maximum m of the alm. Default: lmax
+    
+    Returns
+    -------
+    alms : list of 2 arrays
+      list of 2 alms
+    """
+    maps_c = [np.ascontiguousarray(m, dtype=np.float64) for m in maps]
+
+    # create UNSEEN mask for map
+    masks = [False if count_bad(m) == 0 else mkmask(m) for m in maps_c]
+
+    # Adjust lmax and mmax
+    cdef int lmax_, mmax_, nside, npix
+    npix = maps_c[0].size
+    nside = npix2nside(npix)
+    if lmax is None:
+        lmax_ = 3 * nside - 1
+    else:
+        lmax_ = lmax
+    if mmax is None:
+        mmax_ = lmax_
+    else:
+        mmax_ = mmax
+
+    # Check all maps have same npix
+    if maps_c[1].size != npix:
+        raise ValueError("Input maps must have same size")
+    
+    # View the ndarray as a Healpix_Map
+    M1 = ndarray2map(maps_c[0], RING)
+    M2 = ndarray2map(maps_c[1], RING)
+
+    # replace UNSEEN pixels with zeros
+    for m, mask in zip(maps_c, masks):
+        if mask:
+            m[mask] = 0.0
+
+    # Create an ndarray object that will contain the alm for output (to be returned)
+    n_alm = alm_getn(lmax_, mmax_)
+    alms = [np.empty(n_alm, dtype=np.complex128) for m in maps]
+
+    # View the ndarray as an Alm
+    # Alms = [ndarray2alm(alm, lmax_, mmax_) for alm in alms]
+    A1 = ndarray2alm(alms[0], lmax_, mmax_) 
+    A2 = ndarray2alm(alms[1], lmax_, mmax_) 
+    
+    # ring weights
+    cdef arr[double] * w_arr = new arr[double]()
+    cdef int i
+    cdef char *c_datapath
+    w_arr.allocAndFill(2 * nside, 1.)
+    
+    map2alm_spin(M1[0], M2[0], A1[0], A2[0], spin, w_arr[0], False)
+    
+    # restore input map with UNSEEN pixels
+    for m, mask in zip(maps_c, masks):
+        if mask:
+            m[mask] = UNSEEN
+
+    del w_arr
+    del M1, M2, A1, A2
+    return alms
+
+def alm2map_spin_healpy(alms, nside, spin, lmax, mmax=None):
+    """Computes maps from a set of 2 spinned alm
+
+    Parameters
+    ----------
+    alms : list of 2 arrays
+      list of 2 alms
+    nside : int
+        requested nside of the output map 
+    spin : int
+        spin of the alms (either 1, 2 or 3)
+    lmax : int, scalar
+      Maximum l of the power spectrum.
+    mmax : int, scalar, optional
+      Maximum m of the alm. Default: lmax
+    
+    Returns
+    -------
+    m : list of 2 arrays
+        list of 2 out maps in RING scheme as numpy arrays
+    """
+    alms_c = [np.ascontiguousarray(alm, dtype=np.complex128) for alm in alms]
+
+    npix = nside2npix(nside)
+    maps = [np.zeros(npix, dtype=np.float64) for alm in alms]
+
+    # View the ndarray as a Healpix_Map
+    M1 = ndarray2map(maps[0], RING)
+    M2 = ndarray2map(maps[1], RING)
+
+    if not mmax:
+        mmax = lmax
+
+    # View the ndarray as an Alm
+    A1 = ndarray2alm(alms_c[0], lmax, mmax) 
+    A2 = ndarray2alm(alms_c[1], lmax, mmax) 
+    
+    alm2map_spin(A1[0], A2[0], M1[0], M2[0], spin)
+    
+    del M1, M2, A1, A2
+    return maps
+
 def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False, 
-            regression = True, datapath = None):
-    """Computes the alm of an Healpix map.
+            datapath = None):
+    """Computes the alm of a Healpix map.
 
     Parameters
     ----------
@@ -138,8 +191,6 @@ def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False,
       Number of iteration (default: 1)
     use_weights: bool, scalar, optional
       If True, use the ring weighting. Default: False.
-    regression: bool, scalar, optional
-      If True, subtract map average before computing alm. Default: True.
     
     Returns
     -------
@@ -150,39 +201,25 @@ def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False,
     info = maptype(m)
     if info == 0:
         polarization = False
-        mmi = m
+        mi = np.ascontiguousarray(m, dtype=np.float64)
     elif info == 1:
         polarization = False
-        mmi = m[0]
+        mi = np.ascontiguousarray(m[0], dtype=np.float64)
     elif info == 3:
         polarization = True
-        mmi = m[0]
-        mmq = m[1]
-        mmu = m[2]
+        mi = np.ascontiguousarray(m[0], dtype=np.float64)
+        mq = np.ascontiguousarray(m[1], dtype=np.float64)
+        mu = np.ascontiguousarray(m[2], dtype=np.float64)
     else:
         raise ValueError("Wrong input map (must be a valid healpix map "
                          "or a sequence of 1 or 3 maps)")
-    
-    # Get the map as a contiguous ndarray object if it isn't
-    cdef np.ndarray[np.float64_t, ndim=1] mi, mq, mu
-    mi = np.ascontiguousarray(mmi, dtype = np.float64)
+
     # create UNSEEN mask for I map
     mask_mi = False if count_bad(mi) == 0 else mkmask(mi)
     # same for polarization maps if needed
     if polarization:
-        mq = np.ascontiguousarray(mmq, dtype = np.float64)
         mask_mq = False if count_bad(mq) == 0 else mkmask(mq)
-        mu = np.ascontiguousarray(mmu, dtype = np.float64)
         mask_mu = False if count_bad(mu) == 0 else mkmask(mu)
-
-    # replace UNSEEN pixels with zeros
-    if mask_mi is not False:
-        mi[mask_mi] = 0.0
-    if polarization:
-        if mask_mq is not False:
-            mq[mask_mq] = 0.0
-        if mask_mu is not False:
-            mu[mask_mu] = 0.0
 
     # Adjust lmax and mmax
     cdef int lmax_, mmax_, nside, npix
@@ -202,32 +239,35 @@ def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False,
         if mq.size != npix or mu.size != npix:
             raise ValueError("Input maps must have same size")
     
-    # Wrap the map into an Healpix_Map
-    MI = WrapMap(mi)
+    # View the ndarray as a Healpix_Map
+    MI = ndarray2map(mi, RING)
     if polarization:
-        MQ = WrapMap(mq)
-        MU = WrapMap(mu)
+        MQ = ndarray2map(mq, RING)
+        MU = ndarray2map(mu, RING)
 
-    # if regression is True, remove average of the intensity map before computing alm
-    cdef double avg = 0.0
-    if regression:
-        avg = MI.h.average()
-        MI.h.Add(-avg)
+    # replace UNSEEN pixels with zeros
+    if mask_mi is not False:
+        mi[mask_mi] = 0.0
+    if polarization:
+        if mask_mq is not False:
+            mq[mask_mq] = 0.0
+        if mask_mu is not False:
+            mu[mask_mu] = 0.0
+
 
     # Create an ndarray object that will contain the alm for output (to be returned)
-    cdef np.ndarray almI, almQ, almC
-    n_alm = Num_Alms(lmax_, mmax_)
-    almI = np.empty(n_alm, dtype = np.complex128)
+    n_alm = alm_getn(lmax_, mmax_)
+    almI = np.empty(n_alm, dtype=np.complex128)
     if polarization:
-        almG = np.empty(n_alm, dtype = np.complex128)
-        almC = np.empty(n_alm, dtype = np.complex128)
-    
-    # Wrap it into an healpix Alm object
-    AI = WrapAlm(almI, lmax_, mmax_)
-    if polarization:
-        AG = WrapAlm(almG, lmax_, mmax_)
-        AC = WrapAlm(almC, lmax_, mmax_)
+        almG = np.empty(n_alm, dtype=np.complex128)
+        almC = np.empty(n_alm, dtype=np.complex128)
 
+    # View the ndarray as an Alm
+    AI = ndarray2alm(almI, lmax_, mmax_)
+    if polarization:
+        AG = ndarray2alm(almG, lmax_, mmax_)
+        AC = ndarray2alm(almC, lmax_, mmax_)
+    
     # ring weights
     cdef arr[double] * w_arr = new arr[double]()
     cdef int i
@@ -246,10 +286,9 @@ def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False,
         w_arr.allocAndFill(2 * nside, 1.)
     
     if polarization:
-        map2alm_pol_iter(MI.h[0], MQ.h[0], MU.h[0], AI.h[0], AG.h[0], AC.h[0],
-                         niter, w_arr[0])
+        map2alm_pol_iter(MI[0], MQ[0], MU[0], AI[0], AG[0], AC[0], niter, w_arr[0])
     else:
-        map2alm_iter(MI.h[0], AI.h[0], niter, w_arr[0])
+        map2alm_iter(MI[0], AI[0], niter, w_arr[0])
     
     # restore input map with UNSEEN pixels
     if mask_mi is not False:
@@ -260,14 +299,12 @@ def map2alm(m, lmax = None, mmax = None, niter = 3, use_weights = False,
         if mask_mu is not False:
             mu[mask_mu] = UNSEEN
     
-    if regression:
-        MI.h.Add(avg)
-        almI[0] += avg * sqrt(4 * np.pi)
-
     del w_arr
     if polarization:
+        del MI, MQ, MU, AI, AG, AC
         return almI, almG, almC
     else:
+        del MI, AI
         return almI
 
 
@@ -338,15 +375,7 @@ def alm2cl(alms, alms2 = None, lmax = None, mmax = None, lmax_out = None):
         if alms[i].size != almsize or alms2[i].size != almsize:
             raise ValueError('all alms must have same size')
 
-    if lmax is None:
-        if mmax is None:
-            lmax = alm_getlmax(almsize)
-            mmax = lmax
-        else:
-            lmax = alm_getlmax2(almsize, mmax)
-
-    if mmax is None:
-        mmax = lmax
+    lmax, mmax = alm_getlmmax(alms[0], lmax, mmax)
 
     if lmax_out is None:
         lmax_out = lmax
@@ -425,12 +454,7 @@ def almxfl(alm, fl, mmax = None, inplace = False):
 
     cdef int lmax_, mmax_
     cdef int l, m
-    if mmax is None:
-        lmax_ = alm_getlmax(alm_.size)
-        mmax_ = lmax_
-    else:
-        lmax_ = alm_getlmax2(alm_.size, mmax)
-        mmax_ = mmax
+    lmax_, mmax_ = alm_getlmmax(alm_, None, mmax)
     
     cdef np.complex128_t f
     cdef int maxm, i
@@ -445,9 +469,80 @@ def almxfl(alm, fl, mmax = None, inplace = False):
     return alm_
 
 
-@cython.cdivision(True)
-cdef inline int alm_getidx(int lmax, int l, int m):
-    return m*(2*lmax+1-m)/2+l
+def rotate_alm(alm not None, double psi, double theta, double phi, lmax=None,
+               mmax=None):
+    """
+    This routine transforms the scalar (and tensor) a_lm coefficients
+    to emulate the effect of an arbitrary rotation of the underlying
+    map. The rotation is done directly on the a_lm using the Wigner
+    rotation matrices, computed by recursion. To rotate the a_lm for
+    l ≤ l_max the number of operations scales like l_max^3.
+
+    Parameters
+    ----------
+    alm : array-like of shape (n,) or (k,n), or list of arrays
+        Complex a_lm values before and after rotation of the coordinate system.
+    psi : float
+        First rotation: angle ψ about the z-axis. All angles are in radians
+        and should lie in [-2pi,2pi], the rotations are active and the
+        referential system is assumed to be right handed. The routine
+        coordsys2euler zyz can be used to generate the Euler angles ψ, θ, φ
+        for rotation between standard astronomical coordinate systems.
+    theta : float
+        Second rotation: angle θ about the original (unrotated) y-axis
+    phi : float.
+        Third rotation: angle φ about the original (unrotated) z-axis.
+    lmax : int
+        Maximum multipole order l of the data set.
+    mmax : int
+        Maximum degree m of data set.
+
+    """
+    if isinstance(alm, np.ndarray) and alm.ndim == 1:
+        alm = [alm]
+
+    if not isinstance(alm, (list, tuple, np.ndarray)) or len(alm) == 0:
+        raise ValueError('Invalid input.')
+
+    # C++ rotate_alm only handles 1 or 3 maps. The function handling 3 maps
+    # is faster than running 3 times the 1-map function, but gives identical
+    # results.
+    if len(alm) not in (1, 3):
+        for a in alm:
+            rotate_alm(a, psi, theta, phi)
+        return
+
+    lmax, mmax = alm_getlmmax(alm[0], lmax, mmax)
+    ai = np.ascontiguousarray(alm[0], dtype=np.complex128)
+    AI = ndarray2alm(ai, lmax, mmax)
+    if len(alm) == 1:
+        c_rotate_alm(AI[0], psi, theta, phi)
+        del AI
+    else:
+        ag = np.ascontiguousarray(alm[1], dtype=np.complex128)
+        ac = np.ascontiguousarray(alm[2], dtype=np.complex128)
+        AG = ndarray2alm(ag, lmax, mmax)
+        AC = ndarray2alm(ac, lmax, mmax)
+        c_rotate_alm(AI[0], AG[0], AC[0], psi, theta, phi)
+        del AI, AG, AC
+
+
+cdef int alm_getn(int l, int m):
+    if not m <= l:
+        raise ValueError("mmax must be <= lmax")
+    return ((m+1)*(m+2))/2 + (m+1)*(l-m)
+
+
+def alm_getlmmax(a, lmax, mmax):
+    if lmax is None:
+        if mmax is None:
+            lmax = alm_getlmax(a.size)
+            mmax = lmax
+        else:
+            lmax = alm_getlmax2(a.size, mmax)
+    elif mmax is None:
+        mmax = lmax
+    return lmax, mmax
 
 
 @cython.cdivision(True)
@@ -459,6 +554,7 @@ cdef inline int alm_getlmax(int s):
     else:
         return <int>floor(x)
 
+
 @cython.cdivision(True)
 cdef inline int alm_getlmax2(int s, int mmax):
     cdef double x
@@ -467,6 +563,12 @@ cdef inline int alm_getlmax2(int s, int mmax):
         return -1
     else:
         return <int>floor(x)
+
+
+@cython.cdivision(True)
+cdef inline int alm_getidx(int lmax, int l, int m):
+    return m*(2*lmax+1-m)/2+l
+
 
 @cython.wraparound(False)
 @cython.boundscheck(False)
@@ -499,4 +601,3 @@ cpdef int count_bad(np.ndarray[double, ndim=1] m):
         if fabs(m[i] - UNSEEN) < rtol_UNSEEN:
             nbad += 1
     return nbad
-

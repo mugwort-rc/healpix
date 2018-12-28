@@ -2,8 +2,8 @@ import unittest
 import numpy as np
 
 import healpy as hp
-from healpy.visufunc import *
-from healpy.zoomtool import mollzoom
+from ..visufunc import *
+from ..zoomtool import mollzoom
 
 class TestNoCrash(unittest.TestCase):
     
@@ -23,6 +23,9 @@ class TestNoCrash(unittest.TestCase):
     def test_gnomview_nocrash(self):
         gnomview(self.m)
 
+    def test_orthview_nocrash(self):
+        orthview(self.m)
+
     def test_mollzoom_nocrash(self):
         mollzoom(self.m)
 
@@ -34,6 +37,9 @@ class TestNoCrash(unittest.TestCase):
 
     def test_gnomview_ma_nocrash(self):
         gnomview(self.ma)
+
+    def test_orthview_ma_nocrash(self):
+        orthview(self.ma)
 
     def test_mollzoom_ma_nocrash(self):
         mollzoom(self.ma)

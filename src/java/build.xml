@@ -263,10 +263,10 @@
       <fileset dir="${basedir}" includes="src/healpix/essentials/** COPYING" />
       <manifest>
         <attribute name="Specification-Title"    value="${project-description}"/>
-        <attribute name="Specification-Version"  value="3.0pre"/>
+        <attribute name="Specification-Version"  value="3.20"/>
         <attribute name="Specification-Vendor"   value="Max-Planck-Institute for Astrophysics"/>
         <attribute name="Implementation-Title"   value="${project-description}"/>
-        <attribute name="Implementation-Version" value="3.0pre"/>
+        <attribute name="Implementation-Version" value="3.20"/>
         <attribute name="Implementation-Vendor"  value="Max-Planck-Institute for Astrophysics"/>
         <attribute name="Author"                 value="Martin Reinecke" />
         <attribute name="Svn-Revision"           value="${svn.revision}" />
@@ -287,10 +287,10 @@
       <fileset dir="${docs}" />
       <manifest>
         <attribute name="Specification-Title"    value="${project-description}"/>
-        <attribute name="Specification-Version"  value="3.0pre"/>
+        <attribute name="Specification-Version"  value="3.20"/>
         <attribute name="Specification-Vendor"   value="Max-Planck-Institute for Astrophysics"/>
         <attribute name="Implementation-Title"   value="${project-description}"/>
-        <attribute name="Implementation-Version" value="3.0pre"/>
+        <attribute name="Implementation-Version" value="3.20"/>
         <attribute name="Implementation-Vendor"  value="Max-Planck-Institute for Astrophysics"/>
         <attribute name="Author"                 value="Martin Reinecke" />
         <attribute name="Svn-Revision"           value="${svn.revision}" />

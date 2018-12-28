@@ -1,3 +1,13 @@
+IMPORTANT DEPRECATION WARNING:
+
+The Java packages healpix.core, healpix.fits, healpix.plot3d and healpix.tools
+are deprecated and will be removed in the next major release. When starting new
+projects using the Healpix Java functionality please make sure to use only the
+healpix.essentials package.
+If there is functionality missing in that packe which you consider necessary for
+the Healpix library, please do not hesitate to contact us via the
+healpix-support@lists.sourceforge.net mailing list!
+
 New features and improvements introduced with the healpix.essentials package,
 compared to the HealpixIndex, Healpix and PixTools classes:
 

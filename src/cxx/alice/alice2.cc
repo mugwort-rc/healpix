@@ -273,6 +273,8 @@ int main(int argc, char* argv[])
   SetupVars s;
 
   announce("alice 0.2.1");
+  cout << "\nNote: this code is deprecated and will be replaced in the next"
+          "\n      major HEALPix release!\n" << endl;
   if (argc < 2) usage();
   parse_argv(argc, argv, s);
   print_setup(s);

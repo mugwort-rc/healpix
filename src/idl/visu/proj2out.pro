@@ -25,6 +25,42 @@
 ;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
+function parse_planck_colorstring, color, colshift
+; -----------------------
+;   number   -> number
+;  'number'  -> number
+;  'planckN' -> colshift + N
+;  'other'   -> Error !
+;
+; ------------------------
+
+if size(/tname, color) eq 'STRING' then begin
+    col = strupcase(strcompress(color,/remove_all)); upper case, no blank
+    case col of
+        'PLANCK1':  color_out = colshift+1
+        'PLANCK2':  color_out = colshift+2
+        '+PLANCK1': color_out = colshift+1
+        '+PLANCK2': color_out = colshift+2
+        '-PLANCK1': color_out = -(colshift+1)
+        '-PLANCK2': color_out = -(colshift+2)
+        else: begin
+            On_IOError, bad
+            reads,format='(d)', col, color_out
+        end
+    endcase
+endif else begin
+    color_out = color
+endelse
+
+return, color_out
+
+bad:
+color_out=0
+message_patch,'Unknown color provided: '+color, level=-1
+
+end
+; -----------------------------------------------------------------------------
+
 pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               coord_out, do_rot, eul_mat, planvec, vector_scale, $
               CHARSIZE=charsize, COLT=colt, CROP=crop, GIF = gif, GRATICULE = graticule, $
@@ -39,7 +75,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
               TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
               SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick, $
-              STAGGER=stagger, AZEQ=azeq, JPEG=jpeg
+              STAGGER=stagger, AZEQ=azeq, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color
 
 ;===============================================================================
 ;+
@@ -122,7 +158,7 @@ do_polamplitude = (polarization[0] eq 1)
 do_poldirection = (polarization[0] eq 2)
 do_polvector    = (polarization[0] eq 3)
 ;-------------------------------------------------
-in_gdl = is_gdl()
+in_gdl = 0 ;is_gdl()
 in_idl = ~in_gdl
 ;if (do_ps) then 
 test_preview
@@ -434,7 +470,6 @@ if (projtype eq 6) then begin
     endif
 endif
 ;====================================================
-
 do_shade = (do_orth && defined(shademap))
 ; set color table and character size
 ct          = defined(colt)     ? colt     : 33
@@ -444,6 +479,11 @@ be_verbose  = ~keyword_set(silent)
 
 ; alter the color table
 ; -----------------------
+; save the color and background before playing with the color table
+my_background = !p.background
+my_color      = !p.color
+back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
+
 if (be_verbose) then print,'... computing the color table ...'
 if (do_true) then begin
     loadct, 0, /silent
@@ -455,12 +495,22 @@ endif else begin
         one = replicate(1.,ncol)
         tvlct,[0,0,0,findgen(ncol-3)]/(ncol-3)*720,one,one,/hsv ; hue is in degrees
     endif else begin
+        color_names = '' ; seems necessary on some (?) IDL version
         loadct, get_names = color_names
         nmax_col = n_elements(color_names)-1
-        if (abs(ct) le nmax_col) then begin
-            LOADCT, abs(ct), /SILENT
+        colshift = 1000
+        ct = parse_planck_colorstring(ct, colshift)
+        absct = abs(ct)
+        if (absct le nmax_col) then begin
+            LOADCT, absct, /SILENT
         endif else begin
-            if (be_verbose) then print,'... color table '+strtrim(abs(ct),2)+' unknown, using current color table instead ...'
+            absct_test = absct-colshift
+            if (absct_test eq 1 || absct_test eq 2) then begin
+                planck_colors, absct_test, get=planck_rgb
+                tvlct, planck_rgb
+            endif else begin
+                if (be_verbose) then print,'... color table '+strtrim(abs(ct),2)+' unknown, using current color table instead ...'
+            endelse
         endelse
     endelse
     tvlct,red,green,blue,/get
@@ -470,22 +520,21 @@ endif else begin
 endelse
 ; set up some specific definitions
 ; reserve first colors for Black, White and Neutral grey
-idx_black = 0B & idx_white = 1B   & idx_grey = 2B   & idx_bwg = [idx_black, idx_white, idx_grey]
-col_black = 0B & col_white = 255B & col_grey = 175B & col_bwg = [col_black, col_white, col_grey]
-red  [idx_bwg] = col_bwg
-green[idx_bwg] = col_bwg
-blue [idx_bwg] = col_bwg
+; idx_black = 0B & idx_white = 1B   & idx_grey = 2B   & idx_bwg = [idx_black, idx_white, idx_grey]
+; col_black = 0B & col_white = 255B & col_grey = 175B & col_bwg = [col_black, col_white, col_grey]
+; red  [idx_bwg] = col_bwg
+; green[idx_bwg] = col_bwg
+; blue [idx_bwg] = col_bwg
+reserved_colors, red, green, blue, bad_color=bad_color, bg_color=bg_color, fg_color=fg_color, idx_bwg=idx_bwg
+idx_black = idx_bwg[0] & idx_white = idx_bwg[1] & idx_grey = idx_bwg[2]
 TVLCT,red,green,blue
 
 ; ---------------------
 ; open the device
 ; ---------------------
 old_device=!d.name
-my_background = !p.background
-my_color = !p.color
 if (be_verbose) then print,'... here it is.'
 titlewindow = proj_big+' projection : ' + title_display
-back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
 use_z_buffer = 0 ; set it to 0 (for postscript) 2010-03-18
 if (do_ps) then begin
     ; 2009-11-04: 'ps' in GDL does not support: COLOR, BITS, XSIZE, ...
@@ -534,13 +583,19 @@ endif else begin ; X, png, gif or jpeg output
     ;to_patch = ((!d.n_colors GT 256) && do_image && in_idl)
     n_colors = !d.n_colors
     if (in_gdl && (!d.name eq 'X' || !d.name eq 'WIN')) then begin ; work-around for GDL0.9.2 bug (!d.n_colors gets correct only after first call to WINDOW)
-        device,get_visual_depth=gvd
+        device, window_state=ws0
+        device, get_visual_depth=gvd, window_state=ws1
+        junk = where(ws1-ws0 eq 1, njunk) 
+        if (njunk eq 1)  then wdelete, junk[0] ; GDL 0.9.5 bug: spurious window created
         n_colors = 2L^gvd
     endif
+    ;;;;help,n_colors
     to_patch = (n_colors GT 256 && do_image)
     if (in_gdl) then begin
         if (use_z_buffer) then device else device,decomposed=0 ; in GDL0.9.2, decomposed is only available (but ignored) when device='X', or unvalid when device='Z'
-        if (to_patch) then loadct,0,/silent ; emulate decomposed
+        ;if (to_patch) then loadct,0,/silent ; emulate decomposed
+        device, decomposed = to_patch ; does it work for GDL 0.9.5 ?
+        ;;;;;;device, decomposed = 0 ; does it work for GDL 0.9.5 ?
     endif else begin
         device, decomposed = use_z_buffer || to_patch
     endelse
@@ -572,6 +627,16 @@ endelse
 ; -------------------------------------------------------------
 ; make the plot
 ; -------------------------------------------------------------
+; window,/free
+; print,!p.background
+; print,!p.color
+; tvlct,/get,rgb
+; print,rgb[0:5,0:2]
+; plot,[1,2],title='Done'
+; return
+; print,!p.background,!p.color,red[0:3],green[0:3],blue[0:3]
+; print,back[0:4,0:4]
+
 myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur],xstyle:5,ystyle:5}
 plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
 ; Set the background when doing a plot in Z buffer
@@ -663,7 +728,7 @@ endif
 ;  the color bar
 if (~(keyword_set(nobar) || do_poldirection || do_true)) then begin
     color_bar_out = BYTE(CONGRID(color_bar,xsize*cbar_dx)) # REPLICATE(1.,(ysize*cbar_dy*w_dx_dy)>1)
-    back(xsize*cbar_xll,0) = color_bar_out
+    back[xsize*cbar_xll,0] = color_bar_out
     TV, back,0,cbar_yll,/normal,xsize = 1.
     ; For Totor <<<<<<<<<<<<<<<<<<<<<<<<<
 ;     plot, /nodata, [tmin,tmax],[0,1],pos=[cbar_xll,cbar_yll,cbar_xur,cbar_yur],/noerase
@@ -815,11 +880,17 @@ if do_image then begin
         if (valid_transparent) then begin
             image3d[3,*,*] = 255B
             if (itr   and 1) then begin ; turn grey  into transparent
-                pix_tr = where( total(abs(image3d[0:2,*,*]-col_grey ),1) eq 0, n_tr)
+                ;pix_tr = where( total(abs(image3d[0:2,*,*]-col_grey ),1) eq 0, n_tr)
+                pix_tr = where( (abs(image3d[0,*,*]-red[  idx_grey])$
+                                +abs(image3d[1,*,*]-green[idx_grey])$
+                                +abs(image3d[2,*,*]-blue[ idx_grey])) eq 0, n_tr)
                 if (n_tr gt 0) then image3d[3 +4*pix_tr] = 0B
             endif
             if (itr/2 and 1) then begin ; turn white into transparent
-                pix_tr = where( total(abs(image3d[0:2,*,*]-col_white),1) eq 0, n_tr)
+                ;pix_tr = where( total(abs(image3d[0:2,*,*]-col_white),1) eq 0, n_tr)
+                pix_tr = where( (abs(image3d[0,*,*]-red[  idx_white])$
+                                +abs(image3d[1,*,*]-green[idx_white])$
+                                +abs(image3d[2,*,*]-blue[ idx_white])) eq 0, n_tr)
                 if (n_tr gt 0) then image3d[3 +4*pix_tr] = 0B
             endif
         endif

@@ -43,7 +43,7 @@
 ;			IF ERRMSG NE '' THEN ...
 ;
 ; Calls       : 
-;	HOST_TO_IEEE
+;	None.
 ; Common      : 
 ;	Uses common block FXBINTABLE--see "fxbintable.pro" for more
 ;	information.
@@ -141,7 +141,7 @@
 			2: STYPE = 'short integer'
 			3: STYPE = 'long integer'
 			4: STYPE = 'floating point'
-			5: STYPE = 'double precison'
+			5: STYPE = 'double precision'
 			6: STYPE = 'complex'
 			7: STYPE = 'string'
 			9: STYPE = 'double complex'
@@ -216,7 +216,7 @@
 		POINTER = LONARR(2)
 		POINTER[0] = N_ELEM0
 		POINTER[1] = DHEAP[ILUN]
-		HOST_TO_IEEE,POINTER
+		SWAP_ENDIAN_INPLACE,POINTER,/SWAP_IF_LITTLE
 		WRITEU,UNIT,POINTER
 		POINT_LUN,UNIT,NHEADER[ILUN] + HEAP[ILUN] + DHEAP[ILUN]
 ;
@@ -271,7 +271,7 @@
 		END ELSE COUNT = 0
 ;
 		NEWDATA = DATA
-		HOST_TO_IEEE, NEWDATA
+		SWAP_ENDIAN_INPLACE, NEWDATA, /SWAP_IF_LITTLE
 		IF COUNT GT 0 THEN NEWDATA[W] = NAN
 		WRITEU,UNIT,NEWDATA 
 	ENDELSE

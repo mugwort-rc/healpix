@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html829"
+<A NAME="tex2html837"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html843"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html839"
+<A NAME="tex2html847"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html837"
+<A NAME="tex2html845"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html830"
+<B> Previous:</B> <A NAME="tex2html838"
   HREF="subroutinesnode47.htm">map2alm_iterative*</A>
 
-<B>Up:</B> <A NAME="tex2html836"
+<B>Up:</B> <A NAME="tex2html844"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html840"
+<B> Next:</B> <A NAME="tex2html848"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -78,7 +78,7 @@ A (complex) map <SPAN CLASS="MATH"><I>S</I></SPAN> of spin <SPAN CLASS="MATH"><I
 {_s}S(p) = \sum_{lm} {_s}a_{lm}\ \ {_s}Y_{lm}(p)
 \end{displaymath}"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">8</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">10</SPAN>)</TD></TR>
 </TABLE>
 <BR CLEAR="ALL"></DIV><P></P>
 for <!-- MATH
@@ -93,6 +93,19 @@ and is such that <!-- MATH
  -->
 <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>S</I><SUP>*</SUP> = <SUB>-<I>s</I></SUB><I>S</I></SPAN>.
 <BR>
+The 
+<A NAME="tex2html18"
+  HREF="http://en.wikipedia.org/wiki/Spin-weighted_spherical_harmonics#Calculating">usual phase convention for the spin weighted harmonics</A>
+is
+<!-- MATH
+ ${_s}Y_{lm}^* = (-1)^{s+m} {_{-s}}Y_{l-m}$
+ -->
+<SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>Y</I><SUB><I>lm</I></SUB><SUP>*</SUP> = (-1)<SUP><I>s</I>+<I>m</I></SUP> <SUB>-<I>s</I></SUB><I>Y</I><SUB><I>l</I>-<I>m</I></SUB></SPAN>
+and therefore 
+<!-- MATH
+ ${_s}a_{lm}^* = (-1)^{s+m} {_{-s}}a_{l-m}$
+ -->
+<SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>a</I><SUB><I>lm</I></SUB><SUP>*</SUP> = (-1)<SUP><I>s</I>+<I>m</I></SUP> <SUB>-<I>s</I></SUB><I>a</I><SUB><I>l</I>-<I>m</I></SUB></SPAN>.
 The two (real) input maps for <FONT COLOR="#CC0000">map2alm_spin*</FONT> are defined respectively as
 <BR>
 <DIV ALIGN="CENTER">
@@ -111,7 +124,7 @@ The two (real) input maps for <FONT COLOR="#CC0000">map2alm_spin*</FONT> are def
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> + <SUB>-|s|</SUB><I>S</I>)/2</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">9</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">11</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>S</I><SUP>-</SUP></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
@@ -119,7 +132,7 @@ The two (real) input maps for <FONT COLOR="#CC0000">map2alm_spin*</FONT> are def
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> - <SUB>-|s|</SUB><I>S</I>)/(2<I>i</I>).</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">10</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">12</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 <FONT COLOR="#CC0000">map2alm_spin*</FONT> outputs the alm coefficients defined as
@@ -140,7 +153,7 @@ The two (real) input maps for <FONT COLOR="#CC0000">map2alm_spin*</FONT> are def
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> + (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/2</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">11</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">13</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
@@ -148,7 +161,7 @@ The two (real) input maps for <FONT COLOR="#CC0000">map2alm_spin*</FONT> are def
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> - (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/(2<I>i</I>)</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">12</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">14</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 for <SPAN CLASS="MATH"><IMG
@@ -173,7 +186,7 @@ coefficients for <SPAN CLASS="MATH"><I>m</I>&lt;0</SPAN> are given by
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>+*</SUP><SUB><I>lm</I></SUB>,</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">13</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">15</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>l</I>-<I>m</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
@@ -181,7 +194,7 @@ coefficients for <SPAN CLASS="MATH"><I>m</I>&lt;0</SPAN> are given by
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>-*</SUP><SUB><I>lm</I></SUB>.</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">14</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">16</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 With these definitions, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>+</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>-</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>+</SUP></SPAN> and <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>-</SUP></SPAN>
@@ -210,7 +223,7 @@ match <b>HEALPix</b> polarization <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP>
  SRC="subroutinesimg32.png"
  ALT="$\ {_0}S^- = 0.$"></SPAN>
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">map2alm_spin*</FONT>(
@@ -280,7 +293,7 @@ value is relevant).</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg84.png"
+ SRC="subroutinesimg85.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta).$"></SPAN> If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
@@ -378,31 +391,31 @@ polarization maps
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html829"
+<A NAME="tex2html837"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html843"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html839"
+<A NAME="tex2html847"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html837"
+<A NAME="tex2html845"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html830"
+<B> Previous:</B> <A NAME="tex2html838"
   HREF="subroutinesnode47.htm">map2alm_iterative*</A>
 
-<B>Up:</B> <A NAME="tex2html836"
+<B>Up:</B> <A NAME="tex2html844"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html840"
+<B> Next:</B> <A NAME="tex2html848"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

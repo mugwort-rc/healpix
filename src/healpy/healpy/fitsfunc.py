@@ -22,10 +22,16 @@
 
 import pyfits as pf
 import numpy as np
-import pixelfunc
-from sphtfunc import Alm
+from . import pixelfunc
+from .sphtfunc import Alm
 import warnings
-from pixelfunc import UNSEEN
+from .pixelfunc import UNSEEN
+
+standard_column_names = {
+    1 : "I_STOKES",
+    3 : ["%s_STOKES" % comp for comp in "IQU"],
+    6 : ["II", "IQ", "IU", "QQ", "QU", "UU"]
+}
 
 class HealpixFitsWarning(Warning):
     pass
@@ -80,7 +86,7 @@ def write_cl(filename, cl, dtype=np.float64):
     tbhdu.header.update('CREATOR','healpy')
     tbhdu.writeto(filename,clobber=True)
 
-def write_map(filename,m,nest=False,dtype=np.float32,fits_IDL=True,coord=None):
+def write_map(filename,m,nest=False,dtype=np.float32,fits_IDL=True,coord=None,column_names=None):
     """Writes an healpix map into an healpix file.
 
     Parameters
@@ -92,52 +98,55 @@ def write_map(filename,m,nest=False,dtype=np.float32,fits_IDL=True,coord=None):
       They will be considered as I, Q, U maps. 
       Supports masked maps, see the `ma` function.
     nest : bool, optional
-      If False, ordering scheme is NESTED, otherwise, it is RING. Default: RING.
+      If True, ordering scheme is assumed to be NESTED, otherwise, RING. Default: RING.
+      The map ordering is not modified by this function, the input map array
+      should already be in the desired ordering (run `ud_grade` beforehand).
     fits_IDL : bool, optional
       If True, reshapes columns in rows of 1024, otherwise all the data will 
       go in one column. Default: True
     coord : str
-      The coordinate system, typically 'E' for Ecliptic, 'G' for Galactic or 'Q' for Equatorial  
+      The coordinate system, typically 'E' for Ecliptic, 'G' for Galactic or 'C' for
+      Celestial (equatorial)
+    column_names : str or list
+      Column name or list of column names, if None we use:
+      I_STOKES for 1 component,
+      I/Q/U_STOKES for 3 components,
+      II, IQ, IU, QQ, QU, UU for 6 components,
+      COLUMN_0, COLUMN_1... otherwise
     """
     if not hasattr(m, '__len__'):
         raise TypeError('The map must be a sequence')
     # check the dtype and convert it
     fitsformat = getformat(dtype)
-    #print 'format to use: "%s"'%fitsformat
-    if hasattr(m[0], '__len__'):
-        # we should have three maps
-        if len(m) != 3 or len(m[1]) != len(m[0]) or len(m[2]) != len(m[0]):
-            raise ValueError("You should give 3 maps of same size "
-                             "for polarisation...")
-        nside = pixelfunc.npix2nside(len(m[0]))
-        if nside < 0:
-            raise ValueError('Invalid healpix map : wrong number of pixel')
-        m = pixelfunc.ma_to_array(m)
-        cols=[]
-        colnames=['I_STOKES','Q_STOKES','U_STOKES']
-        for cn,mm in zip(colnames,m):
-            if len(mm) > 1024 and fits_IDL:
-                # I need an ndarray, for reshape:
-                mm2 = np.asarray(mm)
-                cols.append(pf.Column(name=cn,
-                                       format='1024%s'%fitsformat,
-                                       array=mm2.reshape(mm2.size/1024,1024)))
-            else:
-                cols.append(pf.Column(name=cn,
-                                       format='%s'%fitsformat,
-                                       array=mm))
-    else: # we write only one map
-        nside = pixelfunc.npix2nside(len(m))
-        if nside < 0:
-            raise ValueError('Invalid healpix map : wrong number of pixel')
-        if m.size > 1024 and fits_IDL:
-            cols = [pf.Column(name='I_STOKES',
-                               format='1024%s'%fitsformat,
-                               array=m.reshape(m.size/1024,1024))]
+
+    m = pixelfunc.ma_to_array(m)
+    if pixelfunc.maptype(m) == 0: # a single map is converted to a list
+        m = [m]
+
+    if column_names is None:
+        column_names = standard_column_names.get(len(m), ["COLUMN_%d" % n for n in range(len(m))])
+    else:
+        assert len(column_names) == len(m), "Length column_names != number of maps"
+
+    # maps must have same length
+    assert len(set(map(len, m))) == 1, "Maps must have same length"
+    nside = pixelfunc.npix2nside(len(m[0]))
+
+    if nside < 0:
+        raise ValueError('Invalid healpix map : wrong number of pixel')
+
+    cols=[]
+    for cn, mm in zip(column_names, m):
+        if len(mm) > 1024 and fits_IDL:
+            # I need an ndarray, for reshape:
+            mm2 = np.asarray(mm)
+            cols.append(pf.Column(name=cn,
+                                   format='1024%s' % fitsformat,
+                                   array=mm2.reshape(mm2.size/1024,1024)))
         else:
-            cols = [pf.Column(name='I_STOKES',
-                               format='%s'%fitsformat,
-                               array=m)]
+            cols.append(pf.Column(name=cn,
+                                   format='%s' % fitsformat,
+                                   array=mm))
             
     tbhdu = pf.new_table(cols)
     # add needed keywords
@@ -148,7 +157,7 @@ def write_map(filename,m,nest=False,dtype=np.float32,fits_IDL=True,coord=None):
                         'Pixel ordering scheme, either RING or NESTED')
     if coord:
         tbhdu.header.update('COORDSYS',coord,
-                            'Ecliptic, Galactic or eQuatorial')
+                            'Ecliptic, Galactic or Celestial (equatorial)')
     tbhdu.header.update('EXTNAME','xtension',
                         'name of this binary table extension')
     tbhdu.header.update('NSIDE',nside,'Resolution parameter of HEALPIX')
@@ -161,7 +170,7 @@ def write_map(filename,m,nest=False,dtype=np.float32,fits_IDL=True,coord=None):
 
 
 def read_map(filename,field=0,dtype=np.float64,nest=False,hdu=1,h=False,
-             verbose=False):
+             verbose=True,memmap=False):
     """Read an healpix map from a fits file.
 
     Parameters
@@ -184,22 +193,23 @@ def read_map(filename,field=0,dtype=np.float64,nest=False,hdu=1,h=False,
       If True, return also the header. Default: False.
     verbose : bool, optional
       If True, print a number of diagnostic messages
-    as_ma : bool, optional
-      If True, return also the header. Default: False.
+    memmap : bool, optional
+      Argument passed to pyfits.open, if True, the map is not read into memory,
+      but only the required pixels are read when needed. Default: False.
 
     Returns
     -------
     m | (m0, m1, ...) [, header] : array or a tuple of arrays, optionally with header appended
       The map(s) read from the file, and the header if *h* is True.
     """
-    hdulist=pf.open(filename)
+    hdulist=pf.open(filename, memmap=memmap)
     #print hdulist[1].header
     nside = hdulist[hdu].header.get('NSIDE')
     if nside is None:
         warnings.warn("No NSIDE in the header file : will use length of array", HealpixFitsWarning)
     else:
         nside = int(nside)
-    if verbose: print 'NSIDE = %d'%nside
+    if verbose: print('NSIDE = {0:d}'.format(nside))
 
     if not pixelfunc.isnsideok(nside):
         raise ValueError('Wrong nside parameter.')
@@ -208,7 +218,7 @@ def read_map(filename,field=0,dtype=np.float64,nest=False,hdu=1,h=False,
         ordering = (nest and 'NESTED' or 'RING')
         warnings.warn("No ORDERING keyword in header file : "
                       "assume %s"%ordering)
-    if verbose: print 'ORDERING = %s in fits file'%ordering
+    if verbose: print('ORDERING = {0:s} in fits file'.format(ordering))
 
     sz=pixelfunc.nside2npix(nside)
     if not (hasattr(field, '__len__') or isinstance(field, str)):
@@ -218,24 +228,24 @@ def read_map(filename,field=0,dtype=np.float64,nest=False,hdu=1,h=False,
     for ff in field:
         try:
             m=hdulist[hdu].data.field(ff).astype(dtype).ravel()
-        except pf.VerifyError, e:
+        except pf.VerifyError as e:
             print(e)
             print("Trying to fix a badly formatted header")
             m=hdulist[hdu].verify("fix")
             m=hdulist[hdu].data.field(ff).astype(dtype).ravel()
             
         if (not pixelfunc.isnpixok(m.size) or (sz>0 and sz != m.size)) and verbose:
-            print 'nside=%d, sz=%d, m.size=%d'%(nside,sz,m.size)
+            print('nside={0:d}, sz={1:d}, m.size={2:d}'.format(nside,sz,m.size))
             raise ValueError('Wrong nside parameter.')
         if not nest is None: # no conversion with None
             if nest and ordering == 'RING':
                 idx = pixelfunc.nest2ring(nside,np.arange(m.size,dtype=np.int32))
                 m = m[idx]
-                if verbose: print 'Ordering converted to NEST'
+                if verbose: print('Ordering converted to NEST')
             elif (not nest) and ordering == 'NESTED':
                 idx = pixelfunc.ring2nest(nside,np.arange(m.size,dtype=np.int32))
                 m = m[idx]
-                if verbose: print 'Ordering converted to RING'
+                if verbose: print('Ordering converted to RING')
         try:
             m[pixelfunc.mask_bad(m)] = UNSEEN
         except OverflowError:
@@ -269,7 +279,7 @@ def write_alm(filename,alms,out_dtype=None,lmax=-1,mmax=-1,mmax_in=-1):
     filename : str
       The filename of the output fits file
     alms : array, complex
-      A complex ndarray holding the alms.
+      A complex ndarray holding the alms, index = m*(2*lmax+1-m)/2+l, see Alm.getidx
     lmax : int, optional
       The maximum l in the output file
     mmax : int, optional
@@ -287,12 +297,12 @@ def write_alm(filename,alms,out_dtype=None,lmax=-1,mmax=-1,mmax_in=-1):
         lmax = l2max
 
     if mmax_in == -1:
-	mmax_in = l2max
+        mmax_in = l2max
 
     if mmax == -1:
         mmax = lmax
     if mmax > mmax_in:
-	mmax = mmax_in
+        mmax = mmax_in
 
     if (out_dtype == None):
         out_dtype = alms.real.dtype
@@ -344,7 +354,7 @@ def read_alm(filename,hdu=1,return_mmax=False):
       The alms read from the file and optionally mmax read from the file
     """
     idx, almr, almi = mrdfits(filename,hdu=hdu)
-    l = np.floor(np.sqrt(idx-1)).astype(long)
+    l = np.floor(np.sqrt(idx-1)).astype(np.long)
     m = idx - l**2 - l - 1
     if (m<0).any():
         raise ValueError('Negative m value encountered !')

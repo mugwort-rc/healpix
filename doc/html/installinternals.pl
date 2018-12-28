@@ -2,6 +2,10 @@
 # Associate internals original text with physical files.
 
 
+$key = q/sec:pkg-config/;
+$ref_files{$key} = "$dir".q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/install:cpp:gccreleases/;
 $ref_files{$key} = "$dir".q|install.htm|; 
 $noresave{$key} = "$nosave";

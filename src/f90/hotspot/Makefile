@@ -1,39 +1,47 @@
 # -*- Makefile -*-
 
+fac	= hotspot
+inc     = 
 VPATH	= $(BINDIR)
-exec	= $(BINDIR)/hotspot
-src	= maxima_tools.f90 HotSpots.f90
+exec	= $(BINDIR)/$(fac)
+#src	= maxima_tools.f90 HotSpots.F90
 obj 	= maxima_tools.o HotSpots.o
 
-# %.o: %.F90
-# 	case $(OS) in \
-# 	AIX ) \
-# 	ln -s -f $< $*.F; \
-# 	$(FC) $(FFLAGS) -c $*.F -o $@; \
-# 	rm $*.F;; \
-# 	OSF ) \
-# 	ln -s -f $< $*.f90; \
-# 	$(FC) $(FFLAGS) -cpp -c $(basename $<).f90 -o $@;; \
-# 	* ) \
-# 	$(FC) $(FFLAGS) -c $< -o $@;; \
-# 	esac
-# %.o: %.f90
-# 	case $(OS) in \
-# 	AIX ) \
-# 	ln -s -f $< $*.f; \
-# 	$(FC) $(FFLAGS) -c $*.f -o $@; \
-# 	rm $*.f;; \
-# 	* ) \
-# 	$(FC) $(FFLAGS) -c $< -o $@;; \
-# 	esac
-%.o: %.f90
-	$(FC) $(FFLAGS) -c $< -o $@
+MKDIR   = mkdir -p
+OD :=$(BUILDDIR)/$(fac)
+SD :=$(shell pwd)
+OBJ:=$(obj:%=$(OD)/%)
+LIB:=$(LIBDIR)/libhealpix$(LIBSUFFIX)
 
-default: $(exec)
 
-$(exec): $(obj) $(LIBDIR)/libhealpix.a
-	$(FC) $(FFLAGS) -o $(exec) $(obj) $(LDFLAGS)
+%_mkdir:
+	@if [ ! -d $* ]; then $(MKDIR) $* ; fi 
+
+
+$(OD)/%.o: $(SD)/%.f90 $(inc) $(OD)_mkdir
+	$(FC) $(FFLAGS) -c $< -o $@ $(MODDIR)$(OD)
+
+$(OD)/%.o: $(SD)/%.F90 $(inc) $(OD)_mkdir
+	@echo compiling $(SD)/$*.F90
+	@case $(OS) in \
+	Darwin ) \
+	ln -s -f $< $*.junk.F90; \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $*.junk.F90 -o $@ $(MODDIR)$(OD) ; \
+	rm $*.junk.F90;; \
+	OSF ) \
+	ln -s -f $< $*.f90; \
+	$(FC) $(FFLAGS) $(ADDUS) -cpp       -c $(basename $<).f90 -o $@ $(MODDIR)$(OD) ;; \
+	* ) \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $< -o $@  $(MODDIR)$(OD);; \
+	esac
+
+default:  $(exec) 
+
+$(exec): $(OBJ) $(LIB)
+	$(FC) $(FFLAGS) -o $(exec) $(OBJ) $(LDFLAGS)
 
 # spell out dependencies to allow parallel compilation (make -j)
-HotSpots.o: maxima_tools.o
+$(OD)/HotSpots.o: $(OD)/maxima_tools.o
+
+
 

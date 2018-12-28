@@ -28,27 +28,27 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html198"
+<A NAME="tex2html204"
   HREF="facilitiesnode10.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html204"
+<A NAME="tex2html210"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html208"
+<A NAME="tex2html214"
   HREF="facilitiesnode12.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html206"
+<A NAME="tex2html212"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html199"
+<B> Previous:</B> <A NAME="tex2html205"
   HREF="facilitiesnode10.htm">plmgen</A>
 
-<B>Up:</B> <A NAME="tex2html205"
+<B>Up:</B> <A NAME="tex2html211"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html209"
-  HREF="facilitiesnode12.htm">smoothing</A>
+<B> Next:</B> <A NAME="tex2html215"
+  HREF="facilitiesnode12.htm">sky_ng_sim</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
@@ -63,7 +63,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 or invalid pixels (hereafter 'holes') and by computing the distance of each
 valid pixel to the closest invalid one, with the purpose of, for instance,
 defining a new apodized mask</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/process_mask/process_mask.F90"><b>src/f90/process_mask/process_mask.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/process_mask/process_mask.F90"><b>src/f90/process_mask/process_mask.F90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 process_mask [parameter_file]
@@ -124,7 +124,7 @@ and the resulting new mask can be output.
 though the code has been optimized to reduce the number of calculations by a
 factor <SPAN CLASS="MATH">10<SUP>2</SUP></SPAN> to <SPAN CLASS="MATH">10<SUP>3</SUP></SPAN> compared to a naive implementation, and the most
 computationally intensive loops are parallelized with OpenMP.
-On a 3.06GHz Intel Core 2 Duo, the distances on a <A NAME="tex2html11"
+On a 3.06GHz Intel Core 2 Duo, the distances on a <A NAME="tex2html14"
   HREF="http://lambda.gsfc.nasa.gov/product/map/dr4/masks_get.cfm"><!-- MATH
  ${N_{\rm side}}=512$
  -->
@@ -154,7 +154,7 @@ distance map.
 <B>mask_tools</B>
 <DD>F90 module containing the routines   
 	<TT>dist2holes_nest</TT>, <TT>fill_holes_nest</TT>, <TT>maskborder_nest</TT>, <TT>size_holes_nest</TT>  used in <FONT COLOR="#CC0000">process_mask</FONT> and
-described in the <A NAME="tex2html12"
+described in the <A NAME="tex2html15"
   HREF="subroutines.htm">''Fortran Subroutines''</A>
 document
   </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -209,31 +209,31 @@ the holes containing fewer than 100 pixels, and outputs the result in '/tmp/dist
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html198"
+<A NAME="tex2html204"
   HREF="facilitiesnode10.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html204"
+<A NAME="tex2html210"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html208"
+<A NAME="tex2html214"
   HREF="facilitiesnode12.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html206"
+<A NAME="tex2html212"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html199"
+<B> Previous:</B> <A NAME="tex2html205"
   HREF="facilitiesnode10.htm">plmgen</A>
 
-<B>Up:</B> <A NAME="tex2html205"
+<B>Up:</B> <A NAME="tex2html211"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html209"
-  HREF="facilitiesnode12.htm">smoothing</A>
+<B> Next:</B> <A NAME="tex2html215"
+  HREF="facilitiesnode12.htm">sky_ng_sim</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

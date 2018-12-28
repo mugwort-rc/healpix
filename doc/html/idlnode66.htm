@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>write_fits_cut4 </TITLE>
-<META NAME="description" CONTENT="write_fits_cut4 ">
+<TITLE>template_pixel_xxxx</TITLE>
+<META NAME="description" CONTENT="template_pixel_xxxx">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,283 +28,209 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html977"
+<A NAME="tex2html990"
   HREF="idlnode65.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html983"
+<A NAME="tex2html996"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html987"
+<A NAME="tex2html1000"
   HREF="idlnode67.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html985"
+<A NAME="tex2html998"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html978"
-  HREF="idlnode65.htm">vec2ang</A>
+<B> Previous:</B> <A NAME="tex2html991"
+  HREF="idlnode65.htm">same_shape_pixels_XXXX</A>
 
-<B>Up:</B> <A NAME="tex2html984"
+<B>Up:</B> <A NAME="tex2html997"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html988"
-  HREF="idlnode67.htm">write_fits_map</A>
+<B> Next:</B> <A NAME="tex2html1001"
+  HREF="idlnode67.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000660000000000000000"></A>
-<A NAME="idl:write_fits_cut4"></A>
+<A NAME="idl:template_pixel_xxx"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_fits_cut4 </FONT></font></b><hr>
-<H3>This IDL facility writes out a cut sky <b>HEALPix</b> map into a FITS file according to
-the <b>HEALPix</b> convention. The format used for the
-FITS file follows the one used for Boomerang98 and is adapted from
-COBE/DMR. This routine can be used to store polarized maps, where the
-information relative to the Stokes parameters I, Q and U are placed in extension
-0, 1 and 2 respectively by successive invocation of the routine.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/write_fits_cut4.pro"><b>src/idl/fits/write_fits_cut4.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">template_pixel_xxxx</FONT></font></b><hr>
+<H3>These IDL facilities provide the index of the template pixel associated with a given
+  <b>HEALPix</b> pixel, for a resolution parameter <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg3.png"
+ ALT="${N_{\rm side}}$"></SPAN>. 
+<br><br></H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/template_pixel_nest.pro"><b>src/idl/toolkit/template_pixel_nest.pro</b></a>&nbsp;  <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/template_pixel_ring.pro"><b>src/idl/toolkit/template_pixel_ring.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-WRITE_FITS_CUT4 , File, Pixel, Signal [, N_Obs, Serror, 
-COORDSYS=, 
-EXTENSION=, 
-HDR=,
-/NESTED, 
-NSIDE=, 
-ORDERING=, 
-/POLARISATION,
-/RING,
-UNITS=,
-XHDR=]
-
+template_pixel_nest, Nside, Pixel_Nest, Template, Reflexion
+</h3><hr><h1>FORMAT </h1><h3>IDL>
+template_pixel_ring, Nside, Pixel_Ring, Template, Reflexion
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file in which the map is to be written
-
-<P>
-<DT>
-<B>Pixel</B>
-<DD>(LONG or LONG64 vector), 
-<BR>
-index of observed (or valid) pixels
-
-<P>
-<DT>
-<B>Signal</B>
-<DD>(FLOAT or DOUBLE vector, same size as Pixel), 
-<BR>
-value of signal in each observed pixel
-
-<P>
-<DT>
-<B>N_Obs</B>
-<DD>(LONG or INT or LONG64 vector, Optional, same size as Pixel), 
-<BR>
-number of
-	 observation per pixel. 
-<BR>
-If absent, the field <TT>N_OBS</TT> will take a value of 1 in the output file.
-         If set to a scalar constant, <TT>N_OBS</TT> will take this value in the
-	 output file
-
-<P>
-<DT>
-<B>Serror</B>
-<DD>(FLOAT or DOUBLE vector, Optional, same size as Pixel)
-<BR><EM>rms</EM> of signal in pixel, for white noise,
-                   this is <!-- MATH
- $\propto 1/\sqrt{{\rm n\_obs}}$
+<B>Nside</B>
+<DD>(IN, scalar) the <b>HEALPix</b> <!-- MATH
+ ${N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg79.png"
- ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN> 
-<BR>
-If absent, the field <TT>SERROR</TT> will take a value of 0.0 in the output file.
-         If set to a scalar constant, <TT>SERROR</TT> will take this value in the
-	 output file
-
-<P>
-</DL><SMALL CLASS="FOOTNOTESIZE">
-
-<P>
-<hr><H1>KEYWORDS</H1>
-
-  </SMALL><DL COMPACT><DT>
-<B>COORDSYS=</B>
-<DD>(optional), 
-<BR>
-if set to either 'C', 'E' or 'G',  specifies that the
-		Healpix coordinate system is respectively Celestial=equatorial,
-		  Ecliptic or Galactic.
-		(The relevant keyword is then added/updated in the extension
-		  header, but the map is NOT rotated)
-
-<P>
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg3.png"
+ ALT="${N_{\rm side}}$"></SPAN> parameter. 
 <DT>
-<B>EXTENSION=</B>
-<DD>(optional), 
-<BR>	  (0 based) extension number in which to write data. <b>default:</b>0.
-	  If set to 0 (or not set) <EM>a new file is written from scratch</EM>.
-	  If set to a value
-		  larger than 1, the corresponding extension is added or
-		  updated, as long as all previous extensions already exist.
-		  All extensions of the same file should use the same ORDERING,
-		  NSIDE and COORDSYS.
-
-<P>
+<B>Pixel_Nest</B>
+<DD>(IN, scalar or vector) NESTED scheme pixel identification number(s) over the range {0,<!-- MATH
+ $12{N_{\rm side}}^2-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg100.png"
+ ALT="$12{N_{\rm side}}^2-1$"></SPAN>}.
 <DT>
-<B>HDR=</B>
-<DD>(optional), 
-<BR>
-String array containing the information to be put in
-		the primary header. 
-
-<P>
+<B>Pixel_Ring</B>
+<DD>(IN, scalar or vector) RING scheme pixel identification number(s) over the
+                   range {0,<!-- MATH
+ $12{N_{\rm side}}^2-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg100.png"
+ ALT="$12{N_{\rm side}}^2-1$"></SPAN>}.
 <DT>
-<B>/NESTED</B>
-<DD>if set, specifies that the map is in the NESTED ordering
-	scheme
-<BR>	<i>see also:</i>Ordering and Ring 
-
-<P>
+<B>Template</B>
+<DD>(OUT, scalar or vector) identification number(s) of the
+                   template matching in shape the pixel(s) provided (the numbering
+                   scheme of the pixel templates is the same for both routines). 
 <DT>
-<B>NSIDE=</B>
-<DD>(optional), 
-<BR>
-scalar integer, <b>HEALPix</b> resolution parameter of the
-		data set. The resolution parameter should be made
-		available to the FITS file, either thru this
-		qualifier, or via the header (see XHDR).
-
-<P>
-<DT>
-<B>ORDERING=</B>
-<DD>(optional), 
-<BR>
-if set to either 'ring' or 'nested' (case un-sensitive),
-		  specifies that the map is respectively in RING or NESTED
-		  ordering scheme
-<BR>		<i>see also:</i>Nested and Ring 
-<BR>
-The ordering information should be made
-		available to the FITS file, either thru a combination
-		  of Ordering/Ring/Nested, or via the header (see XHDR).
-
-<P>
-<DT>
-<B>/POLARISATION</B>
-<DD>specifies that file will contain the I, Q and U polarisation
-           Stokes parameter in extensions 0, 1 and 2 respectively, and sets the
-FITS header keywords accordingly
-
-<P>
-<DT>
-<B>/RING</B>
-<DD>if set, specifies that the map is in the RING ordering
-	scheme
-<BR>	<i>see also:</i>Ordering and Nested
-
-<P>
-<DT>
-<B>UNITS=</B>
-<DD>(optional), 
-<BR>
-string describing the physical units of the data set (only applies
-		to Signal and Serror)
-
-<P>
-<DT>
-<B>XHDR=</B>
-<DD>(optional), 
-<BR>
-String array containing the information to be put in
-		the extension header. 
-
-<P>
-</DL><SMALL CLASS="FOOTNOTESIZE">
+<B>Reflexion</B>
+<DD>(OUT, scalar or vector) in {0, 3} encodes the transformation(s) to
+                   apply to each pixel provided to match exactly in
+                   shape and position its respective template. 0: rotation around the polar axis only,
+                   1: rotation + East-West swap (ie, reflexion around meridian),
+                   2: rotation + North-South swap (ie, reflexion around
+                   Equator), 3: rotation + East-West and North-South swaps
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<br><br></blockquote>
+<FONT COLOR="#CC0000">template_pixel_xxxx</FONT> provide the index of the template pixel associated with a given
+  <b>HEALPix</b> pixel, for a resolution parameter <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg3.png"
+ ALT="${N_{\rm side}}$"></SPAN>. 
+<br><br>Any pixel can be <EM>matched in shape</EM>
+  to a single of these templates by a combination of  a rotation around the polar axis with 
+  reflexion(s) around a meridian and/or the equator. 
+<br><br>The template pixels are all located in the Northern Hemisphere, or on the
+ Equator.
+They are chosen to have their center located at
+</SMALL>
+<BR>
+<DIV ALIGN="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
+     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="147" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg93.png"
+ ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg94.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="111" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg95.png"
+ ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg101.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg94.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg102.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P><SMALL CLASS="FOOTNOTESIZE">
+ They are numbered continuously from 0, starting at the North Pole, with the index
+ increasing in <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg98.png"
+ ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
+
+</blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_fits_cut4 </FONT></b></h3>
+<HR><H1>EXAMPLE:</H1> 
+<tt>template_pixel_ring, 256, 500000, template, reflexion  
+<BR></tt>
+<blockquote>
+Returns in <TT>template</TT> the index of the template pixel (16663) whose shape matches
+that of the pixel #500000 for <!-- MATH
+ ${N_{\rm side}}=256$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg99.png"
+ ALT="${N_{\rm side}}=256$"></SPAN>. Upon return <TT>reflexion</TT> will
+contain 2, meaning that the template must be reflected around a meridian and
+around the equator (and then rotated around the polar axis) in order to match
+the pixel.
+</blockquote><hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">template_pixel_xxxx</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
-<B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">write_fits_cut4 </FONT>
+<B><A HREF="idlnode49.htm#idl:nside2ntemplates">nside2templates</A></B>
+<DD>returns the
+  number of template pixel shapes available for a given <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg3.png"
+ ALT="${N_{\rm side}}$"></SPAN>.
   <DT>
-<B><A HREF="idlnode55.htm#idl:read_fits_cut4">read_fits_cut4</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to read in maps
-  written by <FONT COLOR="#CC0000">write_fits_cut4 </FONT>.
-  <DT>
-<B><A HREF="#idl:write_fits_cut4">write_fits_cut4</A>,
-<A HREF="idlnode67.htm#idl:write_fits_map">write_fits_map</A></B>
+<B><A HREF="idlnode65.htm#idl:same_shape_pixels_xxx">same_shape_pixels_ring</A></B>
 <DD><DT>
-<B><A HREF="idlnode69.htm#idl:write_tqu">write_tqu</A>,
-<A HREF="idlnode68.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD><b>HEALPix</b> IDL routines to write cut-sky maps, full-sky maps, polarized full-sky maps and
-arbitrary data sets into FITS files
-  <DT>
-<B>sxaddpar</B>
-<DD>This IDL routine (included in <b>HEALPix</b> package) can be used to update
-  or add FITS keywords to the header in <TT>HDR</TT> and <TT>XHDR</TT>
+<B><A HREF="idlnode65.htm#idl:same_shape_pixels_xxx">same_shape_pixels_nest</A></B>
+<DD>return
+  the ordered list of pixels having the same shape as a given pixel template
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>EXAMPLE # 1:</H1> 
-<tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">write_fits_cut4 </FONT>, 'map_cut.fits', pixel, temperature, /ring,nside=32, /pol </SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
-<blockquote>writes in 'map_cut.fits' a FITS file containing the temperature measured in a
-  set of <b>HEALPix</b> pixel.
-</blockquote><hr><H1>EXAMPLE # 2:</H1> 
-<tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, temperature, n_t, s_t, $ </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg43.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, qstokes, n_q, s_q, $ </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg43.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=1</SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, ustokes, n_u, s_u, $ </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg43.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=2</SMALL></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
-<blockquote>writes in 'tqu_cut.fits' a FITS file with three extensions, each of them containing
-information on the observed pixel, the measured signal, the number of
-observations and noise per pixel, for the three Stokes parameters I, Q and U
-respectively. The <b>HEALPix</b> ring ordered scheme and the resolution <!-- MATH
- ${N_{\rm side}}=32$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg95.png"
- ALT="${N_{\rm side}}=32$"></SPAN> is assumed.
-</blockquote>
+<SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
+<P>
+
 <P>
 
 <P>
@@ -312,31 +238,31 @@ respectively. The <b>HEALPix</b> ring ordered scheme and the resolution <!-- MAT
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html977"
+<A NAME="tex2html990"
   HREF="idlnode65.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html983"
+<A NAME="tex2html996"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html987"
+<A NAME="tex2html1000"
   HREF="idlnode67.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html985"
+<A NAME="tex2html998"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html978"
-  HREF="idlnode65.htm">vec2ang</A>
+<B> Previous:</B> <A NAME="tex2html991"
+  HREF="idlnode65.htm">same_shape_pixels_XXXX</A>
 
-<B>Up:</B> <A NAME="tex2html984"
+<B>Up:</B> <A NAME="tex2html997"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html988"
-  HREF="idlnode67.htm">write_fits_map</A>
+<B> Next:</B> <A NAME="tex2html1001"
+  HREF="idlnode67.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

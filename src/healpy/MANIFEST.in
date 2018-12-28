@@ -1,12 +1,16 @@
-recursive-include hpbeta *
 recursive-include healpy/data *.fits
-prune hpbeta/generic_gcc
-prune hpbeta/build.generic_gcc
-prune hpbeta/healpy
-prune hpbeta/build.healpy
-prune hpbeta/healpy_osx
-prune hpbeta/build.healpy_osx
-include COPYING INSTALL MANIFEST.in ChangeLog
+recursive-include healpy/test/data *
+exclude healpy/test/data/ipython*
+exclude cfitsio/*pdf cfitsio/*ps cfitsio/*doc cfitsio/*tex
+prune cfitsio/docs
+exclude *.so
+exclude *.a
+include COPYING CITATION INSTALL.rst README.rst MANIFEST.in CHANGELOG.rst ez_setup.py pykg_config.py
 include healpy/src/_healpy_utils.h
-include healpy/src/hack.h
-include pshyt/pshyt.pyx pshyt/pshyt.c
+include healpy/src/_query_disc.cpp
+include healpy/src/_sphtools.cpp
+include healpy/src/_pixelfunc.cpp
+include healpy/src/_common.pxd
+include healpy/src/_query_disc.pyx
+include healpy/src/_sphtools.pyx
+include healpy/src/_pixelfunc.pyx

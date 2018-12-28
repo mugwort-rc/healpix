@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>isynfast</TITLE>
-<META NAME="description" CONTENT="isynfast">
+<TITLE>iprocess_mask</TITLE>
+<META NAME="description" CONTENT="iprocess_mask">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,185 +28,156 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html641"
+<A NAME="tex2html654"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html647"
+<A NAME="tex2html660"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html664"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html649"
+<A NAME="tex2html662"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html642"
-  HREF="idlnode37.htm">ismoothing</A>
+<B> Previous:</B> <A NAME="tex2html655"
+  HREF="idlnode37.htm">init_healpix and !healpix system</A>
 
-<B>Up:</B> <A NAME="tex2html648"
+<B>Up:</B> <A NAME="tex2html661"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html652"
-  HREF="idlnode39.htm">lm2index</A>
+<B> Next:</B> <A NAME="tex2html665"
+  HREF="idlnode39.htm">ismoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000380000000000000000"></A>
-<A NAME="idl:isynfast"></A>
+<A NAME="idl:iprocess_mask"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">isynfast</FONT></font></b><hr>
-<H3>This IDL facility provides an interface to F90 'synfast' facility. It can be
-used to generate sky maps and/or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from power spectra (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>), synthesize maps from
-<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or simulate maps from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> and constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/interfaces/isynfast.pro"><b>src/idl/interfaces/isynfast.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">iprocess_mask</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to F90 '<A HREF="#fac:process_mask">process_mask</A>' facility. For a
+given input binary mask, it can determine the angular distance in Radians of each valid (1 valued)
+pixel to the closest invalid (0 valued) pixel, with the option of ignoring small
+clusters of invalid pixels. The distance map can then be used to generate an
+apodized mask.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/interfaces/iprocess_mask.pro"><b>src/idl/interfaces/iprocess_mask.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-ISYNFAST, cl_in [, map_out,
-      alm_in=,  alm_out=, apply_windows=, beam_file=, binpath=, double=, fwhm_arcmin=, help=,
-      iseed=, keep_tmp_files=, lmax=, nlmax=, nside=, nsmax=, plmfile=,
-      simul_type=, silent=, tmpdir=, windowfile=, winfiledir=]
+IPROCESS_MASK, 
+<A HREF="#idl:iprocess_mask:mask_in">mask_in</A>,  
+<A HREF="#idl:iprocess_mask:distance_map">distance_map</A>,[
+<A HREF="#idl:iprocess_mask:binpath">binpath=</A>,
+<A HREF="#idl:iprocess_mask:filled_mask">filled_mask=</A>,
+<A HREF="#idl:iprocess_mask:help">/help</A>,
+<A HREF="#idl:iprocess_mask:hole_arcmin2">hole_arcmin2=</A>,
+<A HREF="#idl:iprocess_mask:hole_pixels">hole_pixels=</A>,
+<A HREF="#idl:iprocess_mask:keep_tmp_files">keep_tmp_files=</A>, 
+<A HREF="#idl:iprocess_mask:nested">/nested</A>,
+<A HREF="#idl:iprocess_mask:ordering">ordering=</A>, 
+<A HREF="#idl:iprocess_mask:ring">/ring</A>,
+<A HREF="#idl:iprocess_mask:silent">/silent</A>,
+<A HREF="#idl:iprocess_mask:tmpdir">tmpdir=</A>]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>cl_in</B>
-<DD>input power spectrum, can be a FITS file, or a memory array containing the
-        <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, used to generate a map or a set of gaussian alm 
-<BR>
-If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No input C(l)", in
-   which case some input alm's (alm_in) are required.
+<B>mask_in</B>
+<DD><A NAME="idl:iprocess_mask:mask_in"></A> required input: input binary
+mask. It can be a FITS file, or a memory array containing the mask to process.
     <DT>
-<B>map_out</B>
-<DD>optional output: <EM>RING ordered</EM> map synthetised from the power spectrum or from constraining alm
+<B>distance_map</B>
+<DD><A NAME="idl:iprocess_mask:distance_map"></A> optional
+output: double precision angular distance map in Radians. It can be a FITS file, or a
+   memory array. It will have the same ordering as the input mask.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>alm_in=</B>
-<DD>optional input (constraining) alm (must be a FITS file)           <b>default:</b>no alm
-
-<P>
-<DT>
-<B>alm_out=</B>
-<DD>contains on output the effective alm (must be a FITS file)
-
-<P>
-<DT>
-<B>/apply_windows</B>
-<DD>if set, beam and pixel windows are applied to input alm_in
-(if any)
-
-<P>
-<DT>
-<B>beam_file=</B>
-<DD>beam window function, either a FITS file or an array
-
-<P>
-<DT>
 <B>binpath=</B>
-<DD>full path to back-end routine <b>default:</b>$HEXE/synfast, then $HEALPIX/bin/synfast
+<DD><A NAME="idl:iprocess_mask:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/process_mask, then $HEALPIX/bin/process_mask
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg56.png"
+ SRC="idlimg58.png"
  ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
 <BR>              - a binpath starting with ./ is interpreted as relative to current directory
 <BR>              - all other binpathes are relative to $HEALPIX
 
 <P>
 <DT>
-<B>/double</B>
-<DD>if set, I/O is done in double precision <b>default:</b>single precision I/O
-
-<P>
-<DT>
-<B>fwhm_arcmin=</B>
-<DD>gaussian beam FWHM in arcmin <b>default:</b>0
+<B>filled_mask=</B>
+<DD><A NAME="idl:iprocess_mask:filled_mask"></A> optional output
+mask with holes smaller than 
+<A HREF="#idl:iprocess_mask:hole_arcmin2"><TT>hole_arcmin2</TT></A> or 
+<A HREF="#idl:iprocess_mask:hole_pixels"><TT>hole_pixels</TT></A> filled in.
+     Will have the same ordering as the input mask
 
 <P>
 <DT>
 <B>/help</B>
-<DD>if set, prints extended help
+<DD><A NAME="idl:iprocess_mask:help"></A> if set, prints extended help
 
 <P>
 <DT>
-<B>iseed=</B>
-<DD>integer seed of radom sequence <b>default:</b>0
+<B>hole_arcmin2</B>
+<DD><A NAME="idl:iprocess_mask:hole_arcmin2"></A> Minimal size
+(in arcmin<SPAN CLASS="MATH"><SUP>2</SUP></SPAN>) of invalid regions to be kept 
+    (can be used together with <A HREF="#idl:iprocess_mask:hole_pixels"><TT>hole_pixels</TT></A>, 
+     the result will be the largest of the two). <b>default:</b>0.0
+
+<P>
+<DT>
+<B>hole_pixels</B>
+<DD><A NAME="idl:iprocess_mask:hole_pixels"></A> Minimal size (in pixels) of invalid regions to be kept 
+    (can be used together with <A HREF="#idl:iprocess_mask:hole_arcmin2"><TT>hole_arcmin2</TT></A>, 
+     the result will be the largest of the two). <b>default:</b>0
 
 <P>
 <DT>
 <B>/keep_tmp_files</B>
-<DD>if set, temporary files are not discarded at the end of the
-                   run
+<DD><A NAME="idl:iprocess_mask:keep_tmp_files"></A> if set,
+temporary files are not discarded at the end of the run
 
 <P>
 <DT>
-<B>lmax=, nlmax=</B>
-<DD>maximum multipole simulation <b>default:</b>2*<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg58.png"
- ALT="$N_{\rm side}$"></SPAN>
+<B>/nested</B>
+<DD><A NAME="idl:iprocess_mask:nested"></A> if set, signals that the mask read online is in
+   NESTED scheme (does not apply to FITS file), see also
+<A HREF="#idl:iprocess_mask:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:iprocess_mask:ordering"><TT>Ordering</TT></A>
 
 <P>
 <DT>
-<B>nside=, nsmax=</B>
-<DD>Healpix resolution parameter <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg58.png"
- ALT="$N_{\rm side}$"></SPAN>
+<B>ordering=</B>
+<DD><A NAME="idl:iprocess_mask:ordering"></A> either 'RING' or 'NESTED', ordering of online mask,
+ see 
+<A HREF="#idl:iprocess_mask:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:iprocess_mask:nested"><TT>/nested</TT></A>
 
 <P>
 <DT>
-<B>plmfile=</B>
-<DD>FITS file containing precomputed Spherical Harmonics (deprecated) <b>default:</b>no file
-
-<P>
-<DT>
-<B>simul_type=</B>
-<DD>1) Temperature only 
-<BR>
-2) Temperature + polarisation 
-<BR>
-3) Temperature + 1st derivatives 
-<BR>
-4) Temperature + 1st &amp; 2nd derivatives 
-<BR>
-5) T+P + 1st derivatives 
-<BR>
-6) T+P + 1st &amp; 2nd derivates
-	<b>default:</b>2: T+P
+<B>/ring</B>
+<DD><A NAME="idl:iprocess_mask:ring"></A> see 
+<A HREF="#idl:iprocess_mask:nested"><TT>/nested</TT></A> and 
+<A HREF="#idl:iprocess_mask:ordering"><TT>Ordering</TT></A> above
 
 <P>
 <DT>
 <B>/silent</B>
-<DD>if set, works silently
+<DD><A NAME="idl:iprocess_mask:silent"></A> if set, works silently
 
 <P>
 <DT>
 <B>tmpdir=</B>
-<DD>directory in which are written temporary files 
- <b>default:</b>IDL_TMPDIR (see IDL documentation)
-
-<P>
-<DT>
-<B>windowfile=</B>
-<DD>FITS file containing pixel window 
-        <b>default:</b>determined automatically by back-end routine.
-      Do not set this keyword unless you really know what you are doing
-
-<P>
-<DT>
-<B>winfiledir=</B>
-<DD>directory where the pixel windows are to be found 
-        <b>default:</b>determined automatically by back-end routine.
-      Do not set this keyword unless you really know what you are doing
+<DD><A NAME="idl:iprocess_mask:tmpdir"></A> directory in which are written temporary files 
+<b>default:</b>IDL_TMPDIR (see IDL documentation)
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -216,44 +187,50 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">isynfast</FONT> is an interface to F90 'synfast' F90 facility. It
+<FONT COLOR="#CC0000">iprocess_mask</FONT> is an interface to '<A HREF="#fac:process_mask">process_mask</A>' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">isynfast</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">iprocess_mask</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">isynfast</FONT>.
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">iprocess_mask</FONT>.
     <DT>
-<B>synfast</B>
-<DD>F90 facility called by <FONT COLOR="#CC0000">isynfast</FONT>.
+<B>process_mask</B>
+<DD>F90 facility called by <FONT COLOR="#CC0000">iprocess_mask</FONT>.
+    <DT>
+<B><A HREF="idlnode34.htm#idl:ialteralm">ialteralm</A></B>
+<DD>IDL Interface to F90 <A HREF="#fac:alteralm">alteralm</A>
+    <DT>
+<B><A HREF="idlnode35.htm#idl:ianafast">ianafast</A></B>
+<DD>IDL Interface to F90 <A HREF="#fac:anafast">anafast</A> and C++ anafast_cxx
 <DT>
-<B><A HREF="idlnode33.htm#idl:ianafast">ianafast</A></B>
-<DD>IDL Interface to F90 anafast and C++ anafast_cxx
+<B><A HREF="idlnode39.htm#idl:ismoothing">ismoothing</A></B>
+<DD>IDL Interface to F90 <A HREF="#fac:smoothing">smoothing</A>
     <DT>
-<B><A HREF="idlnode36.htm#idl:iprocess_mask">iprocess_mask</A></B>
-<DD>IDL Interface to F90 process_mask
-    <DT>
-<B><A HREF="idlnode37.htm#idl:ismoothing">ismoothing</A></B>
-<DD>IDL Interface to F90 smoothing
+<B><A HREF="idlnode40.htm#idl:isynfast">isynfast</A></B>
+<DD>IDL Interface to F90 <A HREF="#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">isynfast</FONT>, '$HEALPIX/test/cl.fits', map, fwhm=30, nside=256, /silent  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> npix = nside2npix(256) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 1, title='I'  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  mask = replicate(1, npix) &amp; mask[randomu(seed,100)*npix] = 0 </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 2, title='Q'  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <FONT COLOR="#CC0000">iprocess_mask</FONT>, mask, distance, /ring, /silent </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  mollview, distance</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
 <blockquote>
-will synthetize and plot I and Q  maps consistent with WMAP-1yr best fit power
-spectrum and observed with a circular gaussian 30 arcmin beam.
+A binary mask in which 100 randomly located pixels are 0-valued
+(=invalid) is generated. Then the distance (in Radians) of the valid pixels to
+the closest invalid pixels is computed and plotted.
 </blockquote>
 <P>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL>
@@ -264,31 +241,31 @@ spectrum and observed with a circular gaussian 30 arcmin beam.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html641"
+<A NAME="tex2html654"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html647"
+<A NAME="tex2html660"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html664"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html649"
+<A NAME="tex2html662"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html642"
-  HREF="idlnode37.htm">ismoothing</A>
+<B> Previous:</B> <A NAME="tex2html655"
+  HREF="idlnode37.htm">init_healpix and !healpix system</A>
 
-<B>Up:</B> <A NAME="tex2html648"
+<B>Up:</B> <A NAME="tex2html661"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html652"
-  HREF="idlnode39.htm">lm2index</A>
+<B> Next:</B> <A NAME="tex2html665"
+  HREF="idlnode39.htm">ismoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

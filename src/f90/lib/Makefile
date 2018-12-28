@@ -1,31 +1,51 @@
 # -*- Makefile -*-
 
-# VPATH	= $(HEALPIX)/lib
-
-modsrc	= gifmod.f90
+fac	= lib
+inc     = 
+VPATH	= $(BINDIR)
+#exec	= $(BINDIR)/$(fac)
+#src	= $(fac).f90
 modobj	= gifmod.o
-
-gifsrc	= gifout.c gifarr.c gifdim.c gifstr.c chopst.c
 gifobj	= gifout.o gifarr.o gifdim.o gifstr.o chopst.o
-
-libsrc	= gd.c gdfontt.c gdfonts.c gdfontmb.c gdfontl.c gdfontg.c
 libobj	= gd.o gdfontt.o gdfonts.o gdfontmb.o gdfontl.o gdfontg.o
-libhdr	= gd.h gdfontt.h gdfonts.h gdfontmb.h gdfontl.h gdfontg.h
+obj 	= $(libobj) $(gifobj) $(modobj)
 
-allobj	= $(libobj) $(gifobj) $(modobj)
+MKDIR   = mkdir -p
+OD :=$(BUILDDIR)/$(fac)
+SD :=$(shell pwd)
+OBJ:=$(obj:%=$(OD)/%)
+LIB:=$(LIBDIR)/libhpxgif$(LIBSUFFIX)
 
-%.o: %.f90
-	$(FC) $(FFLAGS) -c $< -o $@
+# add internal name of shared library
+ifneq ($(strip $(FLAGNAMELIB)),)
+NAMELIB = $(FLAGNAMELIB)$(notdir $(LIB))
+else
+NAMELIB = 
+endif
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# library creation
+.DEFAULT_GOAL := all
 
-default: libhpxgif.a
+all: $(OD)_mkdir $(LIB)
 
-libhpxgif.a: $(allobj)
-	$(AR) libhpxgif.a $(allobj)
-	@cp -p libhpxgif.a $(LIBDIR)/
-	@cp -p libhpxgif.a $(LIBDIR)/libgif.a
-	@for p in *.$(MOD); do \
+$(LIB): $(OBJ)
+	$(AR) $@ $(NAMELIB) $(OBJ)
+	@cp -p $@ $(LIBDIR)/libgif$(LIBSUFFIX)
+	@for p in $(OD)/*.$(MOD); do \
 	cp $$p $(INCDIR)/; \
 	done
+
+# create build sub-directory
+%_mkdir:
+	@if [ ! -d $* ]; then $(MKDIR) $* ; fi 
+
+
+# objects creation
+$(OD)/%.o: $(SD)/%.f90 $(inc)
+	$(FC) $(FFLAGS) -c $< -o $@ $(MODDIR)$(OD)
+
+$(OD)/%.o: $(SD)/%.c $(inc)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+

@@ -66,6 +66,8 @@ module fitstools
   !  do not write TTYPE# and TFORM# in excess of # of fields in the file
   ! 2010-11-23: implemented support for large (>2^31-1 pixel) map IO (ie, Nside > 8192)
   !             alm related IO is still limited to l<46340
+  ! 2013-12-13 : increased MAXDIM from 40 to MAXDIM_TOP
+  ! 2014-05-02: fixed problem with keywords having a long string value
   ! -------------------------------------------------------------
   !
   ! --------------------------- from include file (see fits_template.f90)
@@ -114,6 +116,7 @@ module fitstools
   real(kind=DP),     private, parameter :: d_bad_value = HPX_DBADVAL
   integer(kind=I4B), private, parameter :: i_bad_value = -1637500000
   integer(I4B) ,     private, parameter :: nchunk_max  = 12000
+  integer(I4B),      private, parameter :: MAXDIM_TOP  = 199 ! < 999
 
 !   interface read_fits_cut4
 !      module procedure read_fits_cut4_s,read_fits_cut4_d
@@ -358,7 +361,7 @@ contains
 
     integer(I4B) :: obs_npix
 
-    integer(I4B), parameter :: MAXDIM = 40 !number of columns in the extension
+    integer(I4B), parameter :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     integer(I4B) :: blocksize, datacode
     integer(I4B) :: firstpix, frow, hdutype
     integer(I4B) :: naxis, nfound, nmove, npix, nrows
@@ -511,7 +514,7 @@ contains
     logical(LGT) ::  simple, extend
     character(LEN=80) :: svalue, comment
 
-    integer(I4B), parameter :: MAXDIM = 40 !number of columns in the extension
+    integer(I4B), parameter :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     integer(I4B) :: nrows, tfields, varidat
     integer(I4B) :: frow,  felem, repeat, repeatg, hdutype
     character(len=20) :: ttype(MAXDIM), tform(MAXDIM), tunit(MAXDIM), extname
@@ -874,10 +877,10 @@ contains
     INTEGER(I4B) :: column, frow
     REAL(KCL), DIMENSION(:), ALLOCATABLE :: clin_file
 
-    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     INTEGER(I4B) :: rowlen, nrows, varidat
-    INTEGER(I4B),      dimension(1:maxdim) :: tbcol
-    CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
+    INTEGER(I4B),      dimension(1:MAXDIM) :: tbcol
+    CHARACTER(LEN=20), dimension(1:MAXDIM) :: ttype, tform, tunit
     CHARACTER(LEN=20)                      :: extname
     LOGICAL :: anynull
     REAL(KCL) ::  nullval
@@ -925,12 +928,12 @@ contains
 
        !        reads keywords related to table layout
        if (hdutype==1) then ! ASCII table
-         call ftghtb(unit, maxdim, rowlen, &
+         call ftghtb(unit, MAXDIM, rowlen, &
               &      nrows, ncl_file, ttype, tbcol, &
               &      tform, tunit, extname, status)
          repeat = 1
        else ! binary table
-         call ftghbn(unit, maxdim, &
+         call ftghbn(unit, MAXDIM, &
               &      nrows, ncl_file, ttype,        &
               &      tform, tunit,extname, varidat, status)
           call ftbnfm(tform(1), datacode, repeat, width, status)
@@ -1014,10 +1017,10 @@ contains
 !     INTEGER(I4B) :: column, frow
 !     REAL(KCL), DIMENSION(:), ALLOCATABLE :: clin_file
 
-!     INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
+!     INTEGER(I4B), PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
 !     INTEGER(I4B) :: rowlen, nrows, varidat
-!     INTEGER(I4B),      dimension(1:maxdim) :: tbcol
-!     CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
+!     INTEGER(I4B),      dimension(1:MAXDIM) :: tbcol
+!     CHARACTER(LEN=20), dimension(1:MAXDIM) :: ttype, tform, tunit
 !     CHARACTER(LEN=20)                      :: extname
 !     LOGICAL :: anynull
 !     REAL(KCL) ::  nullval
@@ -1058,11 +1061,11 @@ contains
 
 !        !        reads keywords related to table layout
 !        if (hdutype==1) then
-!          call ftghtb(unit, maxdim, &
+!          call ftghtb(unit, MAXDIM, &
 !               &        rowlen, nrows, ncl_file, ttype, tbcol, tform, tunit, &
 !               &        extname, status)
 !        else
-!          call ftghbn(unit, maxdim, &
+!          call ftghbn(unit, MAXDIM, &
 !               &        nrows, ncl_file, ttype, tform, tunit,extname, &
 !               &        varidat, status)
 !        endif
@@ -1347,11 +1350,11 @@ contains
     LOGICAL(LGT) ::  simple,extend
     CHARACTER(LEN=80) :: comment
 
-    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat, nmmax
     INTEGER(I8B) :: nlm, nf, i0, i1
     INTEGER(I4B) :: frow,  felem, colnum
-    CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
+    CHARACTER(LEN=20) :: ttype(MAXDIM), tform(MAXDIM), tunit(MAXDIM), extname
     CHARACTER(LEN=10) ::  card, num
     CHARACTER(LEN=2)  :: stn
     INTEGER(I4B)      :: itn, irow, np
@@ -1741,9 +1744,9 @@ contains
     INTEGER(I4B) :: column, frow, imap
     INTEGER(I4B) :: datacode, repeat, width
 
-    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
-    CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
+    CHARACTER(LEN=20), dimension(1:MAXDIM) :: ttype, tform, tunit
     CHARACTER(LEN=20)                      :: extname
     !-----------------------------------------------------------------------
     status=0
@@ -1840,7 +1843,7 @@ contains
        call assert (hdutype==2, 'this is not a binary table')
 
        !        reads all the keywords
-       call ftghbn(unit, maxdim, &
+       call ftghbn(unit, MAXDIM, &
             &        nrows, tfields, ttype, tform, tunit, extname, varidat, &
             &        status)
 
@@ -2158,10 +2161,10 @@ contains
     INTEGER(I4B)      ::  nmove, hdutype, hdunum
     INTEGER(I4B)      :: datacode, repeat1, repeat2, width
 
-    INTEGER(I4B),           PARAMETER :: maxdim = 40 !number of columns in the extension
+    INTEGER(I4B),           PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
     INTEGER(I4B)                      :: nrows, tfields, varidat, rowlen
-    CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
-    INTEGER(I4B),      dimension(1:maxdim) :: tbcol
+    CHARACTER(LEN=20), dimension(1:MAXDIM) :: ttype, tform, tunit
+    INTEGER(I4B),      dimension(1:MAXDIM) :: tbcol
     CHARACTER(LEN=20)                      :: extname
     !-----------------------------------------------------------------------
     status=0
@@ -2282,12 +2285,12 @@ contains
 
        !        reads all the keywords
        if (hdutype == 2) then ! binary table
-          call ftghbn(unit, maxdim, &
+          call ftghbn(unit, MAXDIM, &
             &         nrows, tfields, ttype, tform, tunit, extname, varidat, &
             &         status)
        else ! ASCII table (hdutype = 1)
           ftype_in = 1
-          call ftghtb(unit, maxdim, &
+          call ftghtb(unit, MAXDIM, &
             &         rowlen, nrows, tfields, ttype, tbcol, tform, tunit, &
             &         extname, status)
        endif
@@ -2586,16 +2589,17 @@ contains
     case (0) ! append or update
        if (kwd == 'CONTINUE') then
           call ftprec(unit, trim(card), status)
-          call ftplsw(unit, status)
        else
+          ! if long string, put LongStringWarning
+          if (index(card, "&'")>0) call ftplsw(unit, status)
           ! delete keyword in its current location (if any)
           call ftdkey(unit, kwd, status)
           status = 0
           ! append
-          call ftprec(unit, cardfits, status)
+          call ftprec(unit, trim(cardfits), status)
        endif
     case (1) ! append (for HISTORY and COMMENT)
-       call ftprec(unit, cardfits, status)
+       call ftprec(unit, trim(cardfits), status)
     case default
        write(unit=*,fmt=*)" Unexpected card format in fits header :"
        write(unit=*,fmt="(a80)") card

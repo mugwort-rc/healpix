@@ -1,5 +1,5 @@
 
-test data for Healpix 2.1
+test data for HEALPix 3.20
 
 used by 'make test'
 
@@ -76,4 +76,5 @@ Notes:
   for further details.                                                    
 
  It is defined up to l=4500.
+ (Edited 2014-05-27 to add POLNORM and TEMPTYPE keywords)
 

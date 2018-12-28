@@ -38,6 +38,13 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg8.png"
  ALT="$\theta$">|; 
 
+$key = q/left({partial^2T}slash{partialtheta^2},ldots;{partial^2T}slash{partialthetapartialphi}slashsintheta,ldots;right.;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="298" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg54.png"
+ ALT="$\left({\partial^2 T}/{\partial \theta^2},\ldots; {\partial^2 T}/{\partial
+\theta\partial\phi}/\sin\theta,\ldots ;\right. $">|; 
+
 $key = q/[1,{{tt{na}];MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="52" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
@@ -115,6 +122,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg56.png"
  ALT="$N_{\rm side}=32$">|; 
 
+$key = q/left.{partial^2T}slash{partialphi^2}slashsin^2thetaright);MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="142" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg52.png"
+ ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $">|; 
+
 $key = q/alpha;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="17" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
@@ -163,17 +176,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg37.png"
  ALT="$\le 3$">|; 
 
-$key = q/left.{<br><br>tial^2T}slash{<br><br>tialphi^2}slashsin^2thetaright);MSF=1.6;LFS=12;AAT/;
+$key = q/left({partialT}slash{partialtheta},{partialQ}slash{partialtheta},{partialU}slashaltheta};{partialT}slash{partialphi}slashsintheta,ldotsright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="415" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg52.png"
- ALT="$\left.{&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial \phi^2}/\sin^2\theta \right) $">|; 
-
-$key = q/left({<br><br>tialT}slash{<br><br>tialtheta},{<br><br>tialT}slash{<br><br>tialphi}slashsinthetaright);MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="728" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg50.png"
- ALT="$\left({&lt;br&gt;&lt;br&gt;tial T}/{&lt;br&gt;&lt;br&gt;tial \theta}, {&lt;br&gt;&lt;br&gt;tial T}/{&lt;br&gt;&lt;br&gt;tial \phi}/\sin\theta \right)
+ WIDTH="343" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg53.png"
+ ALT="$\left({\partial T}/{\partial \theta}, {\partial Q}/{\partial \theta}, {\partial
+U}/{\partial \theta}; {\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
 $">|; 
 
 $key = q/{displaymath}a_{lm}^{{rm{OUT}=a_{lm}^{{rm{IN}frac{B^{{rm{OUT}(l)P^{{rm{OUT}(l)}{B^{{rm{IN}(l)P^{{rm{IN}(l)},{displaymath};MSF=1.6;LFS=12;AAT/;
@@ -204,21 +212,6 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|facilitiesimg47.png"
  ALT="$N_{\rm side}=128$">|; 
-
-$key = q/left({<br><br>tialT}slash{<br><br>tialtheta},{<br><br>tialQ}slash{<br><br>tialth<br><br>tialT}slash{<br><br>tialphi}slashsintheta,ldotsright);MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="1431" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg53.png"
- ALT="$\left({&lt;br&gt;&lt;br&gt;tial T}/{&lt;br&gt;&lt;br&gt;tial \theta}, {&lt;br&gt;&lt;br&gt;tial Q}/{&lt;br&gt;&lt;br&gt;tial \t...
-...tial \theta}; {&lt;br&gt;&lt;br&gt;tial T}/{&lt;br&gt;&lt;br&gt;tial \phi}/\sin\theta, \ldots \right)
-$">|; 
-
-$key = q/left({<br><br>tial^2T}slash{<br><br>tialtheta^2},{<br><br>tial^2T}slash{<br><br>tialtheta<br><br>tialphi}slashsintheta,right.;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="911" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg51.png"
- ALT="$\left({&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial \theta^2}, {&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial
-\theta&lt;br&gt;&lt;br&gt;tial\phi}/\sin\theta,\right. $">|; 
 
 $key = q/epsilon<0.1;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -286,6 +279,12 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg1.png"
  ALT="${N_{\rm side}}&gt; 8192$">|; 
 
+$key = q/left.{partial^2T}slash{partialphi^2}slashsin^2thetaldotsright);MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="167" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg55.png"
+ ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \ldots \right) $">|; 
+
 $key = q/8N_lambdaN_p;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="60" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
@@ -331,6 +330,13 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg35.png"
  ALT="$4\cdot$">|; 
 
+$key = q/left({partialT}slash{partialtheta},{partialT}slash{partialphi}slashsinthetaright);MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="185" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg50.png"
+ ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
+$">|; 
+
 $key = q/2cdotnsmax<l_{max}<3cdotnsmax-1;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="281" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
@@ -361,13 +367,6 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|facilitiesimg34.png"
  ALT="${\cal {O}}(N_{\rm pix}^{1/2} l_{\rm max}^2)$">|; 
 
-$key = q/left({<br><br>tial^2T}slash{<br><br>tialtheta^2},ldots;{<br><br>tial^2T}slash{<br><br>tialtheta<br><br>tialphi}slashsintheta,ldots;right.;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="978" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg54.png"
- ALT="$\left({&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial \theta^2},\ldots; {&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial
-\theta&lt;br&gt;&lt;br&gt;tial\phi}/\sin\theta,\ldots ;\right. $">|; 
-
 $key = q/partial(Q,U)slashpartialtheta;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="97" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
@@ -393,12 +392,6 @@ $cached_env_img{$key} = q|<IMG
  ALT="$\propto {N_{\rm pix}}^p
 \propto{N_{\rm side}}^{2p}$">|; 
 
-$key = q/left.{<br><br>tial^2T}slash{<br><br>tialphi^2}slashsin^2thetaldotsright);MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="441" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|facilitiesimg55.png"
- ALT="$\left.{&lt;br&gt;&lt;br&gt;tial^2 T}/{&lt;br&gt;&lt;br&gt;tial \phi^2}/\sin^2\theta \ldots \right) $">|; 
-
 $key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
@@ -416,6 +409,13 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|facilitiesimg22.png"
  ALT="$\pm$">|; 
+
+$key = q/left({partial^2T}slash{partialtheta^2},{partial^2T}slash{partialthetapartialphi}slashsintheta,right.;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="231" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|facilitiesimg51.png"
+ ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
+\theta\partial\phi}/\sin\theta,\right. $">|; 
 
 $key = q/bullet;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG

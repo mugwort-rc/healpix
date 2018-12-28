@@ -4,8 +4,8 @@ import unittest
 import numpy as np
 
 import healpy
-from healpy.fitsfunc import *
-from healpy.sphtfunc import *
+from ..fitsfunc import *
+from ..sphtfunc import *
 
 class TestFitsFunc(unittest.TestCase):
     
@@ -26,6 +26,12 @@ class TestFitsFunc(unittest.TestCase):
         read_m = pyfits.open(self.filename)[1].data.field(0)
         self.assertEqual(read_m.ndim, 1)
         self.assertTrue(np.all(self.m == read_m))
+
+    def test_write_map_C_3comp(self):
+        write_map(self.filename, [self.m, self.m, self.m], fits_IDL=False)
+        read_m = pyfits.open(self.filename)[1].data
+        for comp in range(3):
+            self.assertTrue(np.all(self.m == read_m.field(comp)))
 
     def tearDown(self):
         os.remove(self.filename)

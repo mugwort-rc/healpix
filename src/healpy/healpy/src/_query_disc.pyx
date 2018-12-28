@@ -6,109 +6,11 @@ from libcpp cimport bool
 from libcpp.vector cimport vector
 cimport cython
 
-cdef extern from "healpix_base.h":
-    ctypedef long int64
-
-cdef extern from "stddef.h":
-    ctypedef long ptrdiff_t
-
-ctypedef size_t tsize
-ctypedef ptrdiff_t tdiff
-
-cdef extern from "rangeset.h":
-    cdef cppclass rangeset[T]:
-        tsize size()
-        int64 nval()
-        T ivbegin(tdiff i)
-        T ivend(tdiff i)
-
-cdef extern from "arr.h":
-    cdef cppclass arr[T]:
-        pass
-    cdef cppclass fix_arr[T, int]:
-        pass
-
-cdef extern from "vec3.h":
-    cdef cppclass vec3:
-        double x, y, z
-        vec3()
-        vec3(double xc, double yc, double zc)
-
-cdef extern from "pointing.h":
-    cdef cppclass pointing:
-        pointing()
-        pointing(vec3 inp)
-        double theta
-        double phi
-
-cdef extern from "healpix_base.h":
-    ctypedef int val_4 "4"
-    ctypedef int val_8 "8"
-    cdef enum Healpix_Ordering_Scheme:
-        RING, NEST
-    cdef cppclass nside_dummy:
-        pass
-    cdef nside_dummy SET_NSIDE
-
-    cdef cppclass T_Healpix_Base[I]:
-       int nside2order(I nside)
-       I npix2nside(I npix)
-       T_Healpix_Base()
-       T_Healpix_Base(int order, Healpix_Ordering_Scheme scheme)
-       T_Healpix_Base(I nside, Healpix_Ordering_Scheme scheme,
-                     nside_dummy)
-       void query_disc (pointing ptg, double radius,
-                        rangeset[I]& pixset) 
-       void query_disc_inclusive (pointing ptg, double radius,
-                                  rangeset[I]& pixset, int fact)
-       void query_polygon(vector[pointing] vert, rangeset[I]& pixset)
-       void query_polygon_inclusive(vector[pointing] vert,
-                                    rangeset[I]& pixset, int fact)
-       void query_strip(double theta1, double theta2, bool inclusive,
-                        rangeset[I]& pixset)
-       void Set(int order, Healpix_Ordering_Scheme scheme)
-       void SetNside(I nside, Healpix_Ordering_Scheme scheme)
-       double ring2z(I ring)
-       I pix2ring(I pix)
-       I xyf2pix(int ix, int iy, int face_num)
-       void pix2xyf(I pix, int &ix, int &iy, int &face_num)
-       I nest2ring (I pix)
-       I ring2nest (I pix)
-       I nest2peano (I pix)
-       I peano2nest (I pix)
-       I zphi2pix (double z, double phi)
-       I ang2pix (pointing &ang)
-       I vec2pix (vec3 &vec)
-       void pix2zphi (I pix, double &z, double &phi)
-       pointing pix2ang (I pix)
-       vec3 pix2vec (I pix)
-       void get_ring_info (I ring, I &startpix, I &ringpix,
-                           double &costheta, double &sintheta, bool &shifted)
-       void get_ring_info2 (I ring, I &startpix, I &ringpix,
-                            double &theta, bool &shifted)
-
-       void get_ring_info_small (I ring, I &startpix, I &ringpix,
-                                 bool &shifted)
-       void neighbors (I pix, fix_arr[I,val_8] &result)
-       void get_interpol (pointing &ptg, fix_arr[I,val_4] &pix,
-                          fix_arr[double,val_4] &wgt)
-
-       int Order()
-       I Nside()
-       I Npix()
-       Healpix_Ordering_Scheme Scheme()
-       bool conformable (T_Healpix_Base &other)
-       void swap (T_Healpix_Base &other)
-       double max_pixrad()
-       double max_pixrad(I ring)
-       void boundaries(I pix, size_t step, vector[vec3] &out)
-
-       arr[int] swap_cycles()
-
+from _common cimport int64, pointing, rangeset, vec3, Healpix_Ordering_Scheme, RING, NEST, SET_NSIDE, T_Healpix_Base
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def query_disc(nside, vec, radius, inclusive = False, fact = 4, nest = False):
+def query_disc(nside, vec, radius, inclusive = False, fact = 4, nest = False, np.ndarray[np.int64_t, ndim=1] buff=None):
     """Returns pixels whose centers lie within the disk defined by
     *vec* and *radius* (in radians) (if *inclusive* is False), or which
     overlap with this disk (if *inclusive* is True).
@@ -127,10 +29,13 @@ def query_disc(nside, vec, radius, inclusive = False, fact = 4, nest = False):
       and maybe a few more. Default: False
     fact : int, optional
       Only used when inclusive=True. The overlapping test will be done at
-      the resolution fact*nside. For NESTED ordering, fact must be a power of 2,
+      the resolution fact*nside. For NESTED ordering, fact must be a power of 2, less than 2**30,
       else it can be any positive integer. Default: 4.
     nest: bool, optional
       if True, assume NESTED pixel ordering, otherwise, RING pixel ordering
+    buff: int array, optional
+      if provided, this numpy array is used to contain the return values and must be
+      at least long enough to do so
 
     Returns
     -------
@@ -146,7 +51,7 @@ def query_disc(nside, vec, radius, inclusive = False, fact = 4, nest = False):
     """
     # Check Nside value
     if not isnsideok(nside):
-        raise ValueError('Wrong nside value, must be a power of 2')
+        raise ValueError('Wrong nside value, must be a power of 2, less than 2**30')
     cdef vec3 v = vec3(vec[0], vec[1], vec[2])
     cdef Healpix_Ordering_Scheme scheme
     if nest:
@@ -156,19 +61,21 @@ def query_disc(nside, vec, radius, inclusive = False, fact = 4, nest = False):
     cdef T_Healpix_Base[int64] hb = T_Healpix_Base[int64](nside, scheme, SET_NSIDE)
     cdef rangeset[int64] pixset
     cdef int factor = fact
+    cdef pointing ptg = pointing(v)
+    ptg.normalize()
     if inclusive:
         factor = abs(fact)
         if nest and (factor == 0 or (factor & (factor - 1) != 0)):
-            raise ValueError('fact must be a power of 2 when '
+            raise ValueError('fact must be a power of 2, less than 2**30 when '
                              'nest is True (fact=%d)' % (fact))
-        hb.query_disc_inclusive(pointing(v), radius, pixset, factor)
+        hb.query_disc_inclusive(ptg, radius, pixset, factor)
     else:
-        hb.query_disc(pointing(v), radius, pixset)
+        hb.query_disc(ptg, radius, pixset)
 
-    return pixset_to_array(pixset)
+    return pixset_to_array(pixset, buff)
 
 
-def query_polygon(nside, vertices, inclusive = False, fact = 4, nest = False):
+def query_polygon(nside, vertices, inclusive = False, fact = 4, nest = False, np.ndarray[np.int64_t, ndim=1] buff=None):
     """ Returns the pixels whose centers lie within the convex polygon 
     defined by the *vertices* array (if *inclusive* is False), or which 
     overlap with this polygon (if *inclusive* is True).
@@ -185,11 +92,14 @@ def query_polygon(nside, vertices, inclusive = False, fact = 4, nest = False):
       polygon, and maybe a few more. Default: False.
     fact : int, optional
       Only used when inclusive=True. The overlapping test will be done at
-      the resolution fact*nside. For NESTED ordering, fact must be a power of 2,
+      the resolution fact*nside. For NESTED ordering, fact must be a power of 2, less than 2**30,
       else it can be any positive integer. Default: 4.
     nest: bool, optional
       if True, assume NESTED pixel ordering, otherwise, RING pixel ordering
-    
+    buff: int array, optional
+      if provided, this numpy array is used to contain the return values and must be
+      at least long enough to do so
+      
     Returns
     -------
     ipix : int, array
@@ -204,11 +114,14 @@ def query_polygon(nside, vertices, inclusive = False, fact = 4, nest = False):
     """
     # Check Nside value
     if not isnsideok(nside):
-        raise ValueError('Wrong nside value, must be a power of 2')
+        raise ValueError('Wrong nside value, must be a power of 2, less than 2**30')
     # Create vector of vertices
     cdef vector[pointing] vert
+    cdef pointing ptg
     for v in vertices:
-        vert.push_back(pointing(vec3(v[0], v[1], v[2])))
+        ptg = pointing(vec3(v[0], v[1], v[2]))
+        ptg.normalize()
+        vert.push_back(ptg)
     # Create the Healpix_Base2 structure
     cdef Healpix_Ordering_Scheme scheme
     if nest:
@@ -222,15 +135,15 @@ def query_polygon(nside, vertices, inclusive = False, fact = 4, nest = False):
     if inclusive:
         factor = abs(fact)
         if nest and (factor == 0 or (factor & (factor - 1) != 0)):
-            raise ValueError('fact must be a power of 2 when '
+            raise ValueError('fact must be a power of 2, less than 2**30 when '
                              'nest is True (fact=%d)' % (fact))
         hb.query_polygon_inclusive(vert, pixset, factor)
     else:
         hb.query_polygon(vert, pixset)
 
-    return pixset_to_array(pixset)
+    return pixset_to_array(pixset, buff)
 
-def query_strip(nside, theta1, theta2, inclusive = False, nest = False):
+def query_strip(nside, theta1, theta2, inclusive = False, nest = False, np.ndarray[np.int64_t, ndim=1] buff=None):
     """Returns pixels whose centers lie within the colatitude range
     defined by *theta1* and *theta2* (if inclusive is False), or which 
     overlap with this region (if *inclusive* is True). If theta1<theta2, the
@@ -242,16 +155,19 @@ def query_strip(nside, theta1, theta2, inclusive = False, nest = False):
     nside : int
       The nside of the Healpix map.
     theta1 : float
-      First colatitude
+      First colatitude (radians)
     theta2 : float
-      Second colatitude
+      Second colatitude (radians)
     inclusive ; bool
       If False, return the exact set of pixels whose pixels centers lie 
       within the region; if True, return all pixels that overlap with the
       region.
     nest: bool, optional
       if True, assume NESTED pixel ordering, otherwise, RING pixel ordering
-
+    buff: int array, optional
+      if provided, this numpy array is used to contain the return values and must be
+      at least long enough to do so
+      
     Returns
     -------
     ipix : int, array
@@ -259,7 +175,7 @@ def query_strip(nside, theta1, theta2, inclusive = False, nest = False):
     """
     # Check Nside value
     if not isnsideok(nside):
-        raise ValueError('Wrong nside value, must be a power of 2')
+        raise ValueError('Wrong nside value, must be a power of 2, less than 2**30')
     # Create the Healpix_Base2 structure
     cdef Healpix_Ordering_Scheme scheme
     if nest:
@@ -271,8 +187,51 @@ def query_strip(nside, theta1, theta2, inclusive = False, nest = False):
     cdef rangeset[int64] pixset
     hb.query_strip(theta1, theta2, inclusive, pixset)
 
-    return pixset_to_array(pixset)
+    return pixset_to_array(pixset, buff)
 
+
+def _boundaries_single(nside, pix, step=1, nest=False):
+    cdef Healpix_Ordering_Scheme scheme
+    if nest:
+        scheme = NEST
+    else:
+        scheme = RING
+    cdef T_Healpix_Base[int64] hb = T_Healpix_Base[int64](nside, scheme, SET_NSIDE)
+    cdef vector[vec3] bounds
+    if pix >= (12*nside*nside):
+        raise ValueError('Pixel identifier is too large')
+    hb.boundaries(pix, step, bounds)
+    cdef size_t n = bounds.size()
+    cdef np.ndarray[double, ndim = 2] out = np.empty((3, n), dtype=np.float)
+    for i in range(n):
+        out[0,i] = bounds[i].x
+        out[1,i] = bounds[i].y
+        out[2,i] = bounds[i].z
+    return out
+
+def _boundaries_multiple(nside, pix, step=1, nest=False):
+    cdef Healpix_Ordering_Scheme scheme
+    if nest:
+        scheme = NEST
+    else:
+        scheme = RING
+    cdef T_Healpix_Base[int64] hb = T_Healpix_Base[int64](nside, scheme, SET_NSIDE)
+    cdef size_t npix = len(pix)
+    cdef size_t n = step * 4
+    cdef size_t maxnpix = 12*nside*nside
+    cdef np.ndarray[double, ndim = 3] out = np.empty((npix, 3, n), dtype=np.float)
+    cdef vector[vec3] bounds
+ 
+    for j in range(npix):
+        if pix[j] >= maxnpix:
+            raise ValueError('Pixel identifier is too large')
+
+        hb.boundaries(pix[j], step, bounds)
+        for i in range(n):
+            out[j, 0, i] = bounds[i].x
+            out[j, 1, i] = bounds[i].y
+            out[j, 2, i] = bounds[i].z
+    return out
 
 def boundaries(nside, pix, step=1, nest=False):
     """Returns an array containing vectors to the boundary of
@@ -306,37 +265,26 @@ def boundaries(nside, pix, step=1, nest=False):
     >>> import healpy as hp
     >>> import numpy as np
     >>> nside = 2
-    >>> corners = hp.boundary(nside, 5)
-    >>> print corners
-    [[  2.44716655e-17   5.27046277e-01   3.60797400e-01   4.56398915e-17]
-     [  3.99652627e-01   5.27046277e-01   8.71041977e-01   7.45355992e-01]
-     [  9.16666667e-01   6.66666667e-01   3.33333333e-01   6.66666667e-01]]
+    >>> corners = hp.boundaries(nside, 5)
 
     # Now convert to phi,theta representation:
+    >>> phi_theta = hp.vec2ang(np.transpose(corners))
 
-    >>> hp.vec2ang(np.transpose(corners))
-    (array([ 0.41113786,  0.84106867,  1.23095942,  0.84106867]), array([ 1.57079633,  0.78539816,  1.17809725,  1.57079633]))
+    >>> corners = hp.boundaries(nside, np.array([5,5]))
+
+    # doctest moved to test_query_disc.py
     """
 
-
     if not isnsideok(nside):
-        raise ValueError('Wrong nside value, must be a power of 2')
-    cdef Healpix_Ordering_Scheme scheme
-    if nest:
-        scheme = NEST
-    else:
-        scheme = RING
-    cdef T_Healpix_Base[int64] hb = T_Healpix_Base[int64](nside, scheme, SET_NSIDE)
-    cdef vector[vec3] bounds
-    hb.boundaries(pix, step, bounds)
-    cdef size_t n = bounds.size()
-    cdef np.ndarray[double, ndim = 2] out = np.empty((3, n), dtype=np.float)
-    for i in range(n):
-        out[0,i] = bounds[i].x
-        out[1,i] = bounds[i].y
-        out[2,i] = bounds[i].z
-    return out
-
+        raise ValueError('Wrong nside value, must be a power of 2, less than 2**30')
+    if isinstance(pix, (int, long)):
+        return _boundaries_single(nside, pix, step=step, nest=nest)
+    if type(pix) is np.ndarray:
+        if not issubclass(pix.dtype.type, np.integer):
+            raise ValueError('Array of pixels has to be integers')
+        if pix.ndim!=1:
+            raise ValueError('Array has to one dimensional')
+        return _boundaries_multiple(nside, pix, step=step, nest=nest)
 
 # Try to implement pix2ang
 ### @cython.boundscheck(False)
@@ -344,7 +292,7 @@ def boundaries(nside, pix, step=1, nest=False):
 ### def pix2ang(nside, ipix, nest = False):
 ###     # Check Nside value
 ###     if not isnsideok(nside):
-###         raise ValueError('Wrong nside value, must be a power of 2')
+###         raise ValueError('Wrong nside value, must be a power of 2, less than 2**30')
 ###     # Create the Healpix_Base2 structure
 ###     cdef Healpix_Ordering_Scheme scheme
 ###     if nest:
@@ -367,14 +315,23 @@ def boundaries(nside, pix, step=1, nest=False):
 ###     del out_r, ipix_r, ipix_
 ###     return out
     
-
-cdef pixset_to_array(rangeset[int64] &pixset):
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef pixset_to_array(rangeset[int64] &pixset, buff=None):
     cdef int64 i, n
     n = pixset.nval()
-    cdef np.ndarray[np.int64_t, ndim=1] ipix = np.empty(n, dtype=np.int64)
-    n = pixset.size()
+    cdef np.ndarray[np.int64_t, ndim=1] ipix 
+   		
+    if buff is None :
+       ipix = np.empty(n, dtype=np.int64)
+    else :
+       if n>=len(buff) :
+           raise ValueError("Buffer too small to contain return value")
+       ipix = buff[:n] 		
+    
     cdef int64 a, b, ii, ip
     ii = 0
+    n = pixset.size()
     for i in range(n):
         a = pixset.ivbegin(i)
         b = pixset.ivend(i)
@@ -384,9 +341,7 @@ cdef pixset_to_array(rangeset[int64] &pixset):
     return ipix
 
 cdef bool isnsideok(int nside):
-    if nside < 0 or nside != 2**int(round(np.log2(nside))):
-        return False
-    else:
-        return True
+     return nside > 0 and ((nside & (nside -1))==0)
+    
 
 

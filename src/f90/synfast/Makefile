@@ -1,15 +1,32 @@
 # -*- Makefile -*-
 
-VPATH	= $(BINDIR)
-exec	= $(BINDIR)/synfast
-src	= synfast.f90
-obj 	= synfast.o
+fac     = synfast
 inc     = syn_sub_inc.f90
+VPATH	= $(BINDIR)
+exec	= $(BINDIR)/$(fac)
+#src	= $(fac).f90
+obj 	= $(fac).o
 
-%.o: %.f90 $(inc)
-	$(FC) $(FFLAGS) -c $< -o $@
+MKDIR   = mkdir -p
+OD :=$(BUILDDIR)/$(fac)
+SD :=$(shell pwd)
+OBJ:=$(obj:%=$(OD)/%)
+LIB:=$(LIBDIR)/libhealpix$(LIBSUFFIX)
 
-default: $(exec)
+# executable creation
+.DEFAULT_GOAL := all
 
-$(exec): $(obj) $(LIBDIR)/libhealpix.a
-	$(FC) $(FFLAGS) -o $(exec) $(obj) $(LDFLAGS)
+all: $(OD)_mkdir $(exec)
+
+$(exec): $(OBJ) $(LIB)
+	$(FC) $(FFLAGS) -o $(exec) $(OBJ) $(LDFLAGS)
+
+# create build sub-directory
+%_mkdir:
+	@if [ ! -d $* ]; then $(MKDIR) $* ; fi 
+
+# objects creation
+$(OD)/%.o: $(SD)/%.f90 $(inc)
+	$(FC) $(FFLAGS) -c $< -o $@ $(MODDIR)$(OD)
+
+

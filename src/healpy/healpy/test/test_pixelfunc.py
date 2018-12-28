@@ -1,11 +1,15 @@
-from healpy.pixelfunc import *
-from healpy._query_disc import boundaries
-from healpy._pixelfunc import ringinfo, pix2ring
-import exceptions
+from ..pixelfunc import *
+from .._query_disc import boundaries
+from .._pixelfunc import ringinfo, pix2ring
 import numpy as np
 import unittest
 
 class TestPixelFunc(unittest.TestCase):
+
+    def setUp(self):
+        # data fixture
+        self.theta0 = [ 1.52911759,  0.78550497,  1.57079633,  0.05103658,  3.09055608] 
+        self.phi0   = [ 0.        ,  0.78539816,  1.61988371,  0.78539816,  0.78539816]
     
     def test_nside2npix(self):
         self.assertEqual(nside2npix(512), 3145728) 
@@ -19,23 +23,42 @@ class TestPixelFunc(unittest.TestCase):
         self.assertAlmostEqual(nside2pixarea(512), 3.9947416351188569e-06)
 
     def test_ang2pix_ring(self):
-        theta0, phi0 = ([ 1.52911759,  0.78550497,  1.57079633,  0.05103658,  3.09055608], 
-                      [ 0.        ,  0.78539816,  1.61988371,  0.78539816,  0.78539816])
-        id = ang2pix(1048576 * 8, theta0, phi0, nest=False)
+        # ensure nside = 1 << 23 is correctly calculated
+        # by comparing the original theta phi are restored.
+        # NOTE: nside needs to be sufficiently large!
+        id = ang2pix(1048576 * 8, self.theta0, self.phi0, nest=False)
         theta1, phi1 = pix2ang(1048576 * 8, id, nest=False)
-        np.testing.assert_array_almost_equal(theta1, theta0)
-        np.testing.assert_array_almost_equal(phi1, phi0)
+        np.testing.assert_array_almost_equal(theta1, self.theta0)
+        np.testing.assert_array_almost_equal(phi1, self.phi0)
+
+    def test_ang2pix_ring_outofrange(self):
+        # Healpy_Base2 works up to nside = 2**29.
+        # Check that a ValueError is raised for nside = 2**30.
+        self.assertRaises(
+            ValueError, ang2pix, 1<<30, self.theta0, self.phi0, nest=False)
 
     def test_ang2pix_nest(self):
-        theta0, phi0 = ([ 1.52911759,  0.78550497,  1.57079633,  0.05103658,  3.09055608], 
-                      [ 0.        ,  0.78539816,  1.61988371,  0.78539816,  0.78539816])
-        id = ang2pix(1048576 * 8, theta0, phi0, nest=True)
+        # ensure nside = 1 << 23 is correctly calculated
+        # by comparing the original theta phi are restored.
+        # NOTE: nside needs to be sufficiently large!
+        # NOTE: with Healpy_Base this will fail because nside
+        #       is limited to 1 << 13 with Healpy_Base.
+        id = ang2pix(1048576 * 8, self.theta0, self.phi0, nest=True)
         theta1, phi1 = pix2ang(1048576 * 8, id, nest=True)
-        np.testing.assert_array_almost_equal(theta1, theta0)
-        np.testing.assert_array_almost_equal(phi1, phi0)
+        np.testing.assert_array_almost_equal(theta1, self.theta0)
+        np.testing.assert_array_almost_equal(phi1, self.phi0)
+
+        self.assertTrue(np.allclose(theta1, self.theta0))
+        self.assertTrue(np.allclose(phi1, self.phi0))
+
+    def test_ang2pix_nest_outofrange_doesntcrash(self):
+        # Healpy_Base2 works up to nside = 2**29.
+        # Check that a ValueError is raised for nside = 2**30.
+        self.assertRaises(
+            ValueError, ang2pix, 1<<30, self.theta0, self.phi0, nest=False)
 
     def test_ang2pix_negative_theta(self):
-        self.assertRaises(exceptions.AssertionError, ang2pix, 32, -1, 0)
+        self.assertRaises(AssertionError, ang2pix, 32, -1, 0)
       
     def test_fit_dipole(self):
         nside = 32

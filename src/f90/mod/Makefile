@@ -28,52 +28,94 @@ obj6  = mask_tools.o alm_tools.o
 obj7  = healpix_modules.o
 
 obj   = $(obj0) $(obj1) $(obj2) $(obj3) $(obj4) $(obj5) $(obj6) $(obj7)
-objsharp = ../sharp/libsharp_all.o
+objsharp = $(BUILDDIR)/sharp/libsharp_all.o
 
-default: libhealpix.a 
+fac = mod
+MKDIR   = mkdir -p
+OD :=$(BUILDDIR)/$(fac)
+SD :=$(shell pwd)
+OBJ:=$(obj:%=$(OD)/%)
+LIB:=$(LIBDIR)/libhealpix$(LIBSUFFIX)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+# add internal name of shared library
+ifneq ($(strip $(FLAGNAMELIB)),)
+NAMELIB = $(FLAGNAMELIB)$(notdir $(LIB))
+else
+NAMELIB = 
+endif
 
-%.o: %.f90
-	$(FC) $(FFLAGS) -c -o $@ $<
+# library creation
+.DEFAULT_GOAL := all
 
-%.o: %.F90
-	@echo compiling $*.F90
-	@case $(OS) in \
-	Darwin ) \
-	ln -s -f $< $*.junk.F90; \
-	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $*.junk.F90 -o $@; \
-	rm $*.junk.F90;; \
-	OSF ) \
-	ln -s -f $< $*.f90; \
-	$(FC) $(FFLAGS) $(ADDUS) -cpp -c $(basename $<).f90 -o $@;; \
-	* ) \
-	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $< -o $@;; \
-	esac
+all: $(OD)_mkdir $(LIB)
 
-long_intrinsic.o: long_intrinsic.F90
-	@echo compiling $*.F90
-	@case $(OS) in \
-	Darwin ) \
-	ln -s -f $< $*.junk.F90; \
-	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) $(FI8FLAG) -c $*.junk.F90 -o $@; \
-	rm $*.junk.F90;; \
-	OSF ) \
-	ln -s -f $< $*.f90; \
-	$(FC) $(FFLAGS) $(ADDUS) -cpp $(FI8FLAG) -c $(basename $<).f90 -o $@;; \
-	* ) \
-	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) $(FI8FLAG) -c $< -o $@;; \
-	esac
-
-
-libhealpix.a: $(obj) $(objsharp) $(incpix) $(incalm) $(incfits) $(incudgrade)
-	$(AR) libhealpix.a $(obj) $(objsharp)
-	@cp -p libhealpix.a $(LIBDIR)/
-	@for p in *.$(MOD); do \
+$(LIB): $(OBJ) $(objsharp) $(incpix) $(incalm) $(incfits) $(incudgrade)
+	$(AR) $@ $(NAMELIB) $(OBJ) $(objsharp)
+	@for p in $(OD)/*.$(MOD); do \
 	cp $$p $(INCDIR)/; \
 	done
 
+# create build sub-directory
+%_mkdir:
+	@if [ ! -d $* ]; then $(MKDIR) $* ; fi 
+
+# objects creation
+$(obj1:%=$(OD)/%): $(obj0:%=$(OD)/%)
+$(obj2:%=$(OD)/%): $(obj1:%=$(OD)/%)
+$(obj3:%=$(OD)/%): $(obj2:%=$(OD)/%)
+$(obj4:%=$(OD)/%): $(obj3:%=$(OD)/%)
+$(obj5:%=$(OD)/%): $(obj4:%=$(OD)/%)
+$(obj6:%=$(OD)/%): $(obj5:%=$(OD)/%)
+$(obj7:%=$(OD)/%): $(obj6:%=$(OD)/%)
+
+$(OD)/%.o: $(SD)/%.c 
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OD)/%.o: $(SD)/%.f90
+	$(FC) $(FFLAGS) -c $< -o $@ $(MODDIR)$(OD)
+
+$(OD)/%.o: $(SD)/%.F90
+	@echo compiling $(SD)/$*.F90
+	@case $(OS) in \
+	Darwin ) \
+	ln -s -f $< $*.junk.F90; \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $*.junk.F90 -o $@ $(MODDIR)$(OD) ; \
+	rm $*.junk.F90;; \
+	OSF ) \
+	ln -s -f $< $*.f90; \
+	$(FC) $(FFLAGS) $(ADDUS) -cpp       -c $(basename $<).f90 -o $@ $(MODDIR)$(OD) ;; \
+	* ) \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $< -o $@  $(MODDIR)$(OD);; \
+	esac
+
+$(OD)/long_intrinsic.o: $(SD)/long_intrinsic.F90
+	@echo compiling $(SD)/long_intrinsic.F90
+	@case $(OS) in \
+	Darwin ) \
+	ln -s -f $< long_intrinsic.junk.F90; \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) $(FI8FLAG) -c long_intrinsic.junk.F90 -o $@ $(MODDIR)$(OD); \
+	rm long_intrinsic.junk.F90;; \
+	OSF ) \
+	ln -s -f $< long_intrinsic.f90; \
+	$(FC) $(FFLAGS) $(ADDUS) -cpp $(FI8FLAG) -c $(basename $<).f90 -o $@ $(MODDIR)$(OD) ;; \
+	* ) \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) $(FI8FLAG) -c $< -o $@ $(MODDIR)$(OD) ;; \
+	esac
+
+$(OD)/pix_tools.o:pix_tools.F90  $(incpix)
+
+$(OD)/alm_tools.o:alm_tools.F90  $(incalm)
+
+$(OD)/fitstools.o: fitstools.F90 $(incfits)
+
+$(OD)/udgrade_nr.o: udgrade_nr.f90 $(incudgrade)
+
+$(OD)/num_rec.o: num_rec.F90 $(incnumrec)
+
+$(OD)/mask_tools.o: mask_tools.F90
+
+
+# source generation
 alm_map_ss_inc.F90: alm_map_template.F90 gen_alm_code
 	@./gen_alm_code
 
@@ -92,49 +134,5 @@ udgrade_s_inc.f90: udgrade_template.f90 gen_udgrade_code
 udgrade_d_inc.f90: udgrade_template.f90 gen_udgrade_code udgrade_s_inc.f90
 	@./gen_udgrade_code
 
-pix_tools.o:pix_tools.F90  $(incpix)
 
-alm_tools.o:alm_tools.F90  $(incalm)
-
-fitstools.o: fitstools.F90 $(incfits)
-
-udgrade_nr.o: udgrade_nr.f90 $(incudgrade)
-
-num_rec.o: num_rec.F90 $(incnumrec)
-
-mask_tools.o: mask_tools.F90
-
-
-#obj1
-bit_manipulation.o:  $(obj0)
-extension.o:         $(obj0)
-long_intrinsic.o:    $(obj0)
-obsolete.o:          $(obj0)
-ran_tools_dist.o:    $(obj0)
-rngmod.o:            $(obj0)
-
-#obj2
-healpix_fft.o :  $(obj1)
-misc_utils.o:    $(obj1)
-
-#obj3
-head_fits.o :     $(obj2)
-num_rec.o :       $(obj2)
-paramfile_io.o :  $(obj2)
-statistics.o :    $(obj2)
-
-#obj4
-pix_tools.o:  $(obj3)
-
-#obj5
-fitstools.o :        $(obj4)
-coord_v_convert.o :  $(obj4)
-udgrade_nr.o :       $(obj4)
-
-#obj6
-alm_tools.o: $(obj5)
-mask_tools.o: $(obj5)
-
-#obj7
-healpix_modules.o: $(obj6)
 

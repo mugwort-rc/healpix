@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>npix2nside </TITLE>
-<META NAME="description" CONTENT="npix2nside ">
+<TITLE>neighbours_nest</TITLE>
+<META NAME="description" CONTENT="neighbours_nest">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,150 +28,117 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html725"
+<A NAME="tex2html738"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html731"
+<A NAME="tex2html744"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html748"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html733"
+<A NAME="tex2html746"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html726"
-  HREF="idlnode44.htm">neighbours_ring</A>
+<B> Previous:</B> <A NAME="tex2html739"
+  HREF="idlnode44.htm">mollview</A>
 
-<B>Up:</B> <A NAME="tex2html732"
+<B>Up:</B> <A NAME="tex2html745"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html736"
-  HREF="idlnode46.htm">nside2npix</A>
+<B> Next:</B> <A NAME="tex2html749"
+  HREF="idlnode46.htm">neighbours_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000450000000000000000"></A>
-<A NAME="idl:npix2nside"></A>
+<A NAME="idl:neighbours_nest"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">npix2nside </FONT></font></b><hr>
-<H3>This IDL facility provides the <b>HEALPix</b> resolution parameter Nside corresponding to Npix
-pixels over the full sky.
-</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/npix2nside.pro"><b>src/idl/toolkit/npix2nside.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">neighbours_nest</FONT></font></b><hr>
+<H3>This IDL facility returns the number and indices of the topological immediate neighbours 
+of a central pixel. The pixels
+are ordered in a clockwise sense (when watching the sphere from the outside) 
+about the central pixel with the
+southernmost pixel in first element. For the four pixels in the southern 
+corners of the
+equatorial faces which have two equally southern neighbours the
+routine returns the southwestern pixel first and proceeds clockwise.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/neighbours_nest.pro"><b>src/idl/toolkit/neighbours_nest.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-Nside=NPIX2NSIDE (Npix [,ERROR=])
+neighbours_nest (Nside, Ipix0, Listpix [,Nneigh])
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Npix</B>
-<DD>number of pixels over the full sky (scalar integer),
-         should be a valid Npix 
-	(<!-- MATH
- $N_{\rm pix} = 12N_{\rm side}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="121" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg68.png"
- ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN> with <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg58.png"
- ALT="$N_{\rm side}$"></SPAN> power of 2 in <!-- MATH
- $\{1,\ldots,2^{29}\}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg69.png"
- ALT="$\{1,\ldots,2^{29}\}$"></SPAN>)
-    <DT>
 <B>Nside</B>
-<DD>on output: resolution parameter if Npix is valid, -1 otherwise
+<DD><b>HEALPix</b> resolution parameter (scalar integer),
+         should be a valid Nside (power of 2)
+    <DT>
+<B>Ipix0</B>
+<DD>NESTED-scheme index of central pixel in [0,12*Nside<SPAN CLASS="MATH"><SUP>2</SUP></SPAN>-1]
+    <DT>
+<B>Listpix</B>
+<DD>output: list of neighbouring pixel (NESTED scheme index) of
+size <TT>Nneigh</TT>
+    <DT>
+<B>Nneigh</B>
+<DD>optional output: number of neighbours of pixel <TT>#Ipix0</TT>. 
+   Usually 8, sometimes 7 (for 8 particular pixels) or 6 (if Nside=1)
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
-<P>
-<hr><H1>KEYWORDS</H1>
-
-  </SMALL><DL COMPACT><DT>
-<B>ERROR =</B>
-<DD>error flag, set to 1 on output if Npix is NOT valid, or
-    stays to 0 otherwise.
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-<SMALL CLASS="FOOTNOTESIZE">  
-</SMALL>
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-npix2nside checks that the given Npix is valid 
-(<!-- MATH
- $N_{\rm pix} = 12N_{\rm side}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="121" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg68.png"
- ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN> with <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg58.png"
- ALT="$N_{\rm side}$"></SPAN> a power of 2 in
-<!-- MATH
- $\{1,\ldots,2^{29}\}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg69.png"
- ALT="$\{1,\ldots,2^{29}\}$"></SPAN>) and then computes the
-corresponding resolution parameter <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg58.png"
- ALT="$N_{\rm side}$"></SPAN>.
+neighbours_nest calls <TT>pix2xy_nest</TT> to find location of central pixel within the pixelation
+base-face, and then <TT>xy2pix_nest</TT> to find neighbouring pixels within the same
+face, or one of the bit manipulation routines if the neighbouring pixel
+is on a different base-face.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">npix2nside </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">neighbours_nest</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run npix2nside .	
+<DD>version 6.4 or more is necessary to run neighbours_nest .
     <DT>
-<B><A HREF="idlnode46.htm#idl:nside2npix">nside2npix</A></B>
-<DD>computes Npix corresponding to Nside 
+<B><A HREF="idlnode46.htm#idl:neighbours_ring">neighbours_ring</A></B>
+<DD>returns topological immediate
+neighbouring pixels of a given central pixel, using RING indexing.
     <DT>
-<B><A HREF="idlnode50.htm#idl:pix_tools">pix2xxx</A>, <A HREF="idlnode50.htm#idl:pix_tools">ang2xxx</A>, <A HREF="idlnode50.htm#idl:pix_tools">vec2xxx</A>, ... </B>
-<DD>conversion between vector or angles and pixel index and vice-versa
+<B><A HREF="idlnode54.htm#idl:query_disc">query_disc</A>, 
+          <A HREF="idlnode55.htm#idl:query_polygon">query_polygon</A>,</B>
+<DD><DT>
+<B><A HREF="idlnode56.htm#idl:query_strip">query_strip</A>, <A HREF="idlnode57.htm#idl:query_triangle">query_triangle</A></B>
+<DD>render the list of pixels enclosed
+  respectively in a given disc, polygon, latitude strip and triangle
     <DT>
-<B><A HREF="idlnode50.htm#idl:pix_tools">vec2pix</A>, <A HREF="idlnode50.htm#idl:pix_tools">pix2vec</A></B>
-<DD>conversion between vector and pixel index
-    <DT>
-<B><A HREF="idlnode50.htm#idl:pix_tools">nest2ring</A>, <A HREF="idlnode50.htm#idl:pix_tools">ring2nest</A></B>
+<B><A HREF="idlnode52.htm#idl:pix_tools">nest2ring</A>, <A HREF="idlnode52.htm#idl:pix_tools">ring2nest</A></B>
 <DD>conversion between NESTED and RING indices
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> Nside = npix2nside(49152, ERROR=error)</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> neighbours_nest , 4, 1, list, nneigh </SMALL></TD>
+<TD></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> print,nneigh,list</SMALL></TD>
 <TD></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
 <blockquote>
-Nside will be 64 because 49152 is a valid pixel number (=12*64<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> and 64 is a power of 2), and error will be 0</blockquote><HR><H1>EXAMPLE:</H1> 
-<tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> Nside = npix2nside(49151, ERROR=error)</SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
-<blockquote>
-Nside will be -1 and error: 1, because 49151 is not a valid number of <b>HEALPix</b> 
-pixels over the full sky.</blockquote>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"></SMALL>
+will return:8 90 0  2  3  6  4 94 91,
+listing the NESTED-indexed 8 neighbors of pixel #1 for Nside=4
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
@@ -181,31 +148,31 @@ pixels over the full sky.</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html725"
+<A NAME="tex2html738"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html731"
+<A NAME="tex2html744"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html748"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html733"
+<A NAME="tex2html746"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html726"
-  HREF="idlnode44.htm">neighbours_ring</A>
+<B> Previous:</B> <A NAME="tex2html739"
+  HREF="idlnode44.htm">mollview</A>
 
-<B>Up:</B> <A NAME="tex2html732"
+<B>Up:</B> <A NAME="tex2html745"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html736"
-  HREF="idlnode46.htm">nside2npix</A>
+<B> Next:</B> <A NAME="tex2html749"
+  HREF="idlnode46.htm">neighbours_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

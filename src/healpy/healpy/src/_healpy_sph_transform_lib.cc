@@ -46,7 +46,7 @@
 
 /* Some helpful macro */
 #define XMALLOC(X,Y,Z) if( !(X = (Y*)malloc(Z*sizeof(Y))) ) { PyErr_NoMemory(); goto fail;}
-#define XNEW(X,Y,Z) if( !(X = new(Y[Z])) ) { PyErr_NoMemory(); goto fail; }
+#define XNEW(X,Y,Z) if( !(X = new Y[Z]) ) { PyErr_NoMemory(); goto fail; }
 #define XFREE(X) if( X ) free(X);
 #define XDELETE(X) if( X ) delete[] X;
 #define DBGPRINTF(X,...) if( IS_DEBUG_ON ) printf(X, ## __VA_ARGS__)
@@ -153,15 +153,14 @@ static PyObject *healpy_map2alm(PyObject *self, PyObject *args,
   int use_weights=0;
   char * datapath=NULL;
   int polarisation = 0; /* not polarised by default */
-  int regression=1;
 
   static const char* kwlist[] = {"","lmax", "mmax","cl","iter",
-                           "use_weights", "data_path", "regression", NULL};
+                           "use_weights", "data_path", NULL};
 
   if (!PyArg_ParseTupleAndKeywords(args, kwds, "O!|iiiiisi", (char **)kwlist,
                                    &PyArray_Type, &mapIin,
                                    &lmax, &mmax, &docl,
-                                   &num_iter,&use_weights,&datapath,&regression))
+                                   &num_iter,&use_weights,&datapath))
     {
       PyErr_Clear(); /* I want to try the other calling way */
 
@@ -169,7 +168,7 @@ static PyObject *healpy_map2alm(PyObject *self, PyObject *args,
       if( !PyArg_ParseTupleAndKeywords(args, kwds, "O|iiiiisi", (char **)kwlist,
                                    &t,
                                    &lmax, &mmax, &docl,
-                                       &num_iter,&use_weights,&datapath,&regression) )
+                                       &num_iter,&use_weights,&datapath))
         return NULL;
       else
         {
@@ -310,22 +309,11 @@ static PyObject *healpy_map2alm(PyObject *self, PyObject *args,
   else
       weight.allocAndFill(2*nside,1.);
 
-  double avg = 0.0;
-  if( regression ) {
-    avg = mapI.average();
-    mapI.Add(-avg);
-  }
-
   if( !polarisation )
     map2alm_iter(mapI,almIalm,num_iter,weight);
   else
     map2alm_pol_iter(mapI, mapQ, mapU, almIalm, almGalm, almCalm, num_iter,
                      weight);
-
-  if( regression ) {
-    almIalm(0,0) += avg*sqrt(fourpi);
-    mapI.Add(avg);
-  }
 
   if( !docl )
     {
@@ -995,12 +983,12 @@ PyObject *healpy_getn(PyObject *self, PyObject *args)
   return Py_BuildValue("l",n);
 }
 
-static PyMethodDef SphtMethods[] = {
+static PyMethodDef methods[] = {
   {"_map2alm", (PyCFunction)healpy_map2alm, METH_VARARGS | METH_KEYWORDS,
    "Compute alm or cl from an input map.\n"
    "The input map is assumed to be ordered in RING.\n"
    "anafast(map,lmax=3*nside-1,mmax=lmax,cl=False,\n"
-   "        iter=3,use_weights=False,data_path=None,regression=True)"},
+   "        iter=3,use_weights=False,data_path=None"},
   {"_alm2map", (PyCFunction)healpy_alm2map, METH_VARARGS | METH_KEYWORDS,
    "Compute a map from alm.\n"
    "The output map is ordered in RING scheme.\n"
@@ -1016,12 +1004,26 @@ static PyMethodDef SphtMethods[] = {
   {NULL, NULL, 0, NULL} /* Sentinel */
 };
 
+#if PY_MAJOR_VERSION >= 3
+static PyModuleDef moduledef = {
+  PyModuleDef_HEAD_INIT,
+  "_healpy_sph_transform_lib",
+  NULL, -1, methods
+};
+#endif
 
 PyMODINIT_FUNC
+#if PY_MAJOR_VERSION < 3
 init_healpy_sph_transform_lib(void)
+#else
+PyInit__healpy_sph_transform_lib(void)
+#endif
 {
-  PyObject *m;
-  m =  Py_InitModule("_healpy_sph_transform_lib", SphtMethods);
-
   import_array();
+
+#if PY_MAJOR_VERSION < 3
+  Py_InitModule("_healpy_sph_transform_lib", methods);
+#else
+  return PyModule_Create(&moduledef);
+#endif
 }

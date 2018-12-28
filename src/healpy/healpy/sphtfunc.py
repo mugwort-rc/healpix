@@ -19,17 +19,18 @@
 # 
 import warnings
 import numpy as np
+import six
 pi = np.pi
 
-import _healpy_sph_transform_lib as sphtlib
-import _healpy_fitsio_lib as hfitslib
-import _sphtools as _sphtools
-import healpy.cookbook as cb
+from . import _healpy_sph_transform_lib as sphtlib
+from . import _healpy_fitsio_lib as hfitslib
+from . import _sphtools as _sphtools
+from . import cookbook as cb
 
 import os.path
-import healpy.pixelfunc as pixelfunc
+from . import pixelfunc
 
-from healpy.pixelfunc import maptype, UNSEEN, ma_to_array, accept_ma
+from .pixelfunc import maptype, UNSEEN, ma_to_array, accept_ma
 
 class FutureChangeWarning(UserWarning):
     pass
@@ -39,9 +40,10 @@ DATAPATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 # Spherical harmonics transformation
 def anafast(map1, map2 = None, nspec = None, lmax = None, mmax = None, 
             iter = 3, alm = False, pol = True, use_weights = False,
-            regression = True, datapath = None):
+            datapath = None):
     """Computes the power spectrum of an Healpix map, or the cross-spectrum
     between two maps if *map2* is given.
+    No removal of monopole or dipole is performed.
 
     Parameters
     ----------
@@ -68,8 +70,6 @@ def anafast(map1, map2 = None, nspec = None, lmax = None, mmax = None,
       If False, maps are assumed to be described by spin 0 spherical harmonics.
       (input can be any number of maps)
       If there is only one input map, it has no effect. Default: True.
-    regression : bool, scalar, optional
-      If True, map average is removed before computing alm. Default: True.
     datapath : None or str, optional
       If given, the directory where to find the weights data.
 
@@ -82,15 +82,16 @@ def anafast(map1, map2 = None, nspec = None, lmax = None, mmax = None,
       alm is the spherical harmonic transform or a list of almT, almE, almB
       for polarized input
     """
+
     map1 = ma_to_array(map1)
     alms1 = map2alm(map1, lmax = lmax, mmax = mmax, pol = pol, iter = iter, 
-                    use_weights = use_weights, regression = regression, 
+                    use_weights = use_weights,
                     datapath = datapath)
     if map2 is not None:
         map2 = ma_to_array(map2)
         alms2 = map2alm(map2, lmax = lmax, mmax = mmax, pol = pol,
                         iter = iter, use_weights = use_weights, 
-                        regression = regression, datapath = datapath)
+                        datapath = datapath)
     else:
         alms2 = None
     
@@ -106,7 +107,7 @@ def anafast(map1, map2 = None, nspec = None, lmax = None, mmax = None,
         return cls
 
 def map2alm(maps, lmax = None, mmax = None, iter = 3, pol = True, 
-            use_weights = False, regression = True, datapath = None):
+            use_weights = False, datapath = None):
     """Computes the alm of an Healpix map.
     
     Parameters
@@ -127,8 +128,6 @@ def map2alm(maps, lmax = None, mmax = None, iter = 3, pol = True,
       If there is only one input map, it has no effect. Default: True.
     use_weights: bool, scalar, optional
       If True, use the ring weighting. Default: False.
-    regression: bool, scalar, optional
-      If True, subtract map average before computing alm. Default: True.
     datapath : None or str, optional
       If given, the directory where to find the weights data.
     
@@ -147,12 +146,12 @@ def map2alm(maps, lmax = None, mmax = None, iter = 3, pol = True,
     maps = ma_to_array(maps)
     info = maptype(maps)
     if pol or info in (0, 1):
-        alms = _sphtools.map2alm(maps, niter = iter, regression = regression, 
+        alms = _sphtools.map2alm(maps, niter = iter, 
                                  datapath = datapath, use_weights = use_weights,
                                  lmax = lmax, mmax = mmax)
     else:
         # info >= 2 and pol is False : spin 0 spht for each map
-        alms = [_sphtools.map2alm(mm, niter = iter, regression = regression,
+        alms = [_sphtools.map2alm(mm, niter = iter,
                                   datapath = datapath, use_weights = use_weights,
                                   lmax = lmax, mmax = mmax)
                for mm in maps]
@@ -160,7 +159,7 @@ def map2alm(maps, lmax = None, mmax = None, iter = 3, pol = True,
 
 def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
             fwhm = 0.0, sigma = None, invert = False, pol = True,
-            inplace = False):
+            inplace = False, verbose=True):
     """Computes an Healpix map given the alm.
 
     The alm are given as a complex array. You can specify lmax
@@ -212,7 +211,7 @@ def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
         raise TypeError("alms must be a sequence")
 
     alms = smoothalm(alms, fwhm = fwhm, sigma = sigma, invert = invert, 
-                     pol = pol, inplace = inplace)
+                     pol = pol, inplace = inplace, verbose=verbose)
 
     if not cb.is_seq_of_seq(alms):
         alms = [alms]
@@ -246,7 +245,7 @@ def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
     else:
         return output
 
-def synalm(cls, lmax = None, mmax = None, new = False):
+def synalm(cls, lmax = None, mmax = None, new = False, verbose=True):
     """Generate a set of alm given cl.
     The cl are given as a float array. Corresponding alm are generated.
     If lmax is None, it is assumed lmax=cl.size-1
@@ -287,7 +286,7 @@ def synalm(cls, lmax = None, mmax = None, new = False):
     matrix. Eg, if fields are T, E, B, the spectra are TT, EE, BB, TE, EB, TB
     with new=True, and TT, TE, TB, EE, EB, BB if new=False.
     """
-    if not new:
+    if (not new) and verbose:
         warnings.warn("The order of the input cl's will change in a future "
                       "release.\n"
                       "Use new=True keyword to start using the new order.\n"
@@ -335,7 +334,7 @@ def synalm(cls, lmax = None, mmax = None, new = False):
     
     szalm = Alm.getsize(lmax,mmax)
     alms_list = []
-    for i in xrange(Nspec):
+    for i in six.moves.xrange(Nspec):
         alm = np.zeros(szalm,'D')
         alm.real = np.random.standard_normal(szalm)
         alm.imag = np.random.standard_normal(szalm)
@@ -350,7 +349,7 @@ def synalm(cls, lmax = None, mmax = None, new = False):
 
 def synfast(cls, nside, lmax = None, mmax = None, alm = False,
             pol = True, pixwin = False, fwhm = 0.0, sigma = None,
-            new = False):
+            new = False, verbose=True):
     """Create a map(s) from cl(s).
 
     Parameters
@@ -360,9 +359,9 @@ def synfast(cls, nside, lmax = None, mmax = None, alm = False,
     nside : int, scalar
       The nside of the output map(s)
     lmax : int, scalar, optional
-      Maximum l for alm. Default: 3*nside-1
+      Maximum l for alm. Default: min of 3*nside-1 or length of the cls - 1
     mmax : int, scalar, optional
-      Maximum m for alm. Default: 3*nside-1
+      Maximum m for alm.
     alm : bool, scalar, optional
       If True, return also alm(s). Default: False.
     pol : bool, optional
@@ -401,11 +400,12 @@ def synfast(cls, nside, lmax = None, mmax = None, alm = False,
     """
     if not pixelfunc.isnsideok(nside):
         raise ValueError("Wrong nside value (must be a power of two).")
+    cls_lmax = cb.len_array_or_arrays(cls) -1
     if lmax is None or lmax < 0:
-        lmax = 3 * nside - 1
-    alms = synalm(cls, lmax = lmax, mmax = mmax, new = new)
+        lmax = min(cls_lmax, 3 * nside - 1)
+    alms = synalm(cls, lmax = lmax, mmax = mmax, new = new, verbose=verbose)
     maps = alm2map(alms, nside, lmax = lmax, mmax = mmax, pixwin = pixwin,
-                   pol = pol, fwhm = fwhm, sigma = sigma, inplace = True)
+                   pol = pol, fwhm = fwhm, sigma = sigma, inplace = True, verbose=verbose)
     if alm:
         return maps, alms
     else:
@@ -439,7 +439,7 @@ class Alm(object):
         if i is None:
             i=np.arange(Alm.getsize(lmax))
         m=(np.ceil(((2*lmax+1)-np.sqrt((2*lmax+1)**2-8*(i-lmax)))/2)).astype(int)
-        l = i-m*(2*lmax+1-m)/2
+        l = i-m*(2*lmax+1-m)//2
         return (l,m)
 
     @staticmethod
@@ -460,7 +460,7 @@ class Alm(object):
         idx : int
           The index corresponding to (l,m)
         """
-        return m*(2*lmax+1-m)/2+l
+        return m*(2*lmax+1-m)//2+l
 
     @staticmethod
     def getsize(lmax,mmax = None):
@@ -480,7 +480,7 @@ class Alm(object):
         """
         if mmax is None or mmax < 0 or mmax > lmax:
             mmax = lmax
-        return mmax * (2 * lmax + 1 - mmax) / 2 + lmax + 1
+        return mmax * (2 * lmax + 1 - mmax) // 2 + lmax + 1
 
     @staticmethod
     def getlmax(s, mmax = None):
@@ -576,7 +576,7 @@ def almxfl(alm, fl, mmax = None, inplace = False):
     return almout
 
 def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
-              mmax = None, verbose = False, inplace = True):
+              mmax = None, verbose = True, inplace = True):
     """Smooth alm with a Gaussian symmetric beam function.
 
     Parameters
@@ -606,7 +606,7 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
       If True, the alm's are modified inplace if they are contiguous arrays
       of type complex128. Otherwise, a copy of alm is made. Default: True.
     verbose : bool, optional
-      If True prints diagnostic information. Default: False
+      If True prints diagnostic information. Default: True
 
     Returns
     -------
@@ -619,8 +619,8 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
         sigma = fwhm / (2.*np.sqrt(2.*np.log(2.)))
 
     if verbose:
-        print "Sigma is %f arcmin (%f rad) " %  (sigma*60*180/pi,sigma)
-        print "-> fwhm is %f arcmin" % (sigma*60*180/pi*(2.*np.sqrt(2.*np.log(2.))))
+        print("Sigma is {0:f} arcmin ({1:f} rad) ".format(sigma*60*180/pi,sigma))
+        print("-> fwhm is {0:f} arcmin".format(sigma*60*180/pi*(2.*np.sqrt(2.*np.log(2.)))))
 
     # Check alms
     if not cb.is_seq(alms):
@@ -656,7 +656,7 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
     if lonely:
         return retalm[0]
     # case 2: 2d input, check if in-place smoothing for all alm's
-    for i in xrange(len(alms)):
+    for i in six.moves.xrange(len(alms)):
         samearray = alms[i] is retalm[i]
         if not samearray:
             # Case 2a:
@@ -671,8 +671,10 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
 @accept_ma
 def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
               iter = 3, lmax = None, mmax = None, use_weights = False,
-              regression = True, datapath = None):
+              datapath = None, verbose = True):
     """Smooth a map with a Gaussian symmetric beam.
+
+    No removal of monopole or dipole is performed.
 
     Parameters
     ----------
@@ -702,10 +704,10 @@ def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
       Maximum m of the alm. Default: lmax
     use_weights: bool, scalar, optional
       If True, use the ring weighting. Default: False.
-    regression: bool, scalar, optional
-      If True, subtract map average before computing alm. Default: True.
     datapath : None or str, optional
       If given, the directory where to find the weights data.
+    verbose : bool, optional
+      If True prints diagnostic information. Default: True
 
     Returns
     -------
@@ -730,20 +732,20 @@ def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
         # Treat the maps together (1 or 3 maps)
         alms = map2alm(maps, lmax = lmax, mmax = mmax, iter = iter,
                        pol = pol, use_weights = use_weights,
-                       regression = regression, datapath = datapath)
+                       datapath = datapath)
         smoothalm(alms, fwhm = fwhm, sigma = sigma, invert = invert,
-                  inplace = True)
-        output_map = alm2map(alms, nside, pixwin = False)
+                  inplace = True, verbose = verbose)
+        output_map = alm2map(alms, nside, pixwin = False, verbose=verbose)
     else:
         # Treat each map independently (any number)
         output_map = []
         for m, mask in zip(maps, masks):
             alm = map2alm(maps, iter = iter, pol = pol,
                           use_weights = use_weights,
-                       regression = regression, datapath = datapath)
+                       datapath = datapath)
             smoothalm(alm, fwhm = fwhm, sigma = sigma, invert = invert,
-                      inplace = True)
-            output_map.append(alm2map(alm, nside, pixwin = False))
+                      inplace = True, verbose = verbose)
+            output_map.append(alm2map(alm, nside, pixwin = False, verbose=verbose))
     if pixelfunc.maptype(output_map) == 0:
         output_map[masks.flatten()] = UNSEEN
     else:
@@ -779,10 +781,7 @@ def pixwin(nside, pol = False):
     try:
         import pyfits
     except ImportError:
-        print "*********************************************************"
-        print "**   You need to install pyfits to use this function   **"
-        print "*********************************************************"
-        raise
+        raise ImportError("You need to install pyfits to use this function.")
     pw = pyfits.getdata(fname)
     pw_temp, pw_pol = pw.field(0), pw.field(1)
     if pol:
@@ -828,8 +827,8 @@ def new_to_old_spectra_order(cls_new_order):
     if Nspec < 0:
         raise ValueError("Input must be a list of n(n+1)/2 arrays")
     cls_old_order = []
-    for i in xrange(Nspec):
-        for j in xrange(i, Nspec):
+    for i in six.moves.xrange(Nspec):
+        for j in six.moves.xrange(i, Nspec):
             p = j - i
             q = i
             idx_new = p * (2 * Nspec + 1 - p) / 2 + q

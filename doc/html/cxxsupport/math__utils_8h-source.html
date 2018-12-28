@@ -15,7 +15,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_5f9c9fa12a3131de225ec694e2219a15.html">cxxsupport</a>
+  <div class="navpath"><a class="el" href="dir_910219961535e9cb6ce25cf2653fa13f.html">cxxsupport</a>
   </div>
 </div>
 <div class="contents">
@@ -60,18 +60,18 @@
 <a name="l00039"></a>00039 <span class="comment">/*! \defgroup mathutilsgroup Mathematical helper functions */</span><span class="comment"></span>
 <a name="l00040"></a>00040 <span class="comment">/*! \{ */</span>
 <a name="l00041"></a>00041 <span class="comment"></span>
-<a name="l00042"></a>00042 <span class="comment">/*! Returns \e true if | \a a-b | &lt;= \a epsilon * | \a b |, else \e false. */</span>
+<a name="l00042"></a>00042 <span class="comment">/*! Returns \e true if | \a a-b | &lt; \a epsilon * | \a b |, else \e false. */</span>
 <a name="l00043"></a><a class="code" href="group__mathutilsgroup.html#g9f9a706b45617b699e3b899a56f670ff">00043</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> F&gt; <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__mathutilsgroup.html#g9f9a706b45617b699e3b899a56f670ff">approx</a> (F a, F b, F epsilon=1e-5)
 <a name="l00044"></a>00044   {
 <a name="l00045"></a>00045   <span class="keyword">using namespace </span>std;
-<a name="l00046"></a>00046   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(a-b) &lt;= (epsilon*<a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(b));
+<a name="l00046"></a>00046   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(a-b) &lt; (epsilon*<a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(b));
 <a name="l00047"></a>00047   }
 <a name="l00048"></a>00048 <span class="comment"></span>
-<a name="l00049"></a>00049 <span class="comment">/*! Returns \e true if | \a a-b | &lt;= \a epsilon, else \e false. */</span>
+<a name="l00049"></a>00049 <span class="comment">/*! Returns \e true if | \a a-b | &lt; \a epsilon, else \e false. */</span>
 <a name="l00050"></a><a class="code" href="group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">00050</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> F&gt; <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">abs_approx</a> (F a, F b, F epsilon=1e-5)
 <a name="l00051"></a>00051   {
 <a name="l00052"></a>00052   <span class="keyword">using namespace </span>std;
-<a name="l00053"></a>00053   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(a-b) &lt;= epsilon;
+<a name="l00053"></a>00053   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(a-b) &lt; epsilon;
 <a name="l00054"></a>00054   }
 <a name="l00055"></a>00055 <span class="comment"></span>
 <a name="l00056"></a>00056 <span class="comment">/*! Returns the largest integer which is smaller than (or equal to) \a arg. */</span>
@@ -200,7 +200,7 @@
 <a name="l00179"></a>00179 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Apr 24 11:31:17 2013 for LevelS C++ support library
+Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

@@ -10,5 +10,6 @@
  *
  ** <img src="doc-files/package_overview.jpg">
  */
+@Deprecated
 package healpix.plot3d;
 

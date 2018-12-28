@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>read_fits_cut4 </TITLE>
-<META NAME="description" CONTENT="read_fits_cut4 ">
+<TITLE>query_polygon </TITLE>
+<META NAME="description" CONTENT="query_polygon ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,175 +28,128 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html845"
+<A NAME="tex2html858"
   HREF="idlnode54.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html851"
+<A NAME="tex2html864"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html868"
   HREF="idlnode56.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html853"
+<A NAME="tex2html866"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html846"
-  HREF="idlnode54.htm">query_triangle</A>
+<B> Previous:</B> <A NAME="tex2html859"
+  HREF="idlnode54.htm">query_disc</A>
 
-<B>Up:</B> <A NAME="tex2html852"
+<B>Up:</B> <A NAME="tex2html865"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html856"
-  HREF="idlnode56.htm">read_fits_map</A>
+<B> Next:</B> <A NAME="tex2html869"
+  HREF="idlnode56.htm">query_strip</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000550000000000000000"></A>
-<A NAME="idl:read_fits_cut4"></A>
+<A NAME="idl:query_polygon"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">read_fits_cut4 </FONT></font></b><hr>
-<H3>This IDL facility reads a cut sky <b>HEALPix</b> map from a FITS file according to
-the <b>HEALPix</b> convention. The format used for the
-FITS file follows the one used for Boomerang98 and is adapted from
-COBE/DMR. This routine can also be used to read polarized cut sky map, where
-each Stokes parameter is stored in a different extension of the same FITS file.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/read_fits_cut4.pro"><b>src/idl/fits/read_fits_cut4.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">query_polygon </FONT></font></b><hr>
+<H3>This IDL facility provides a means to find the index of all pixels belonging to
+a sperical polygon defined by its vertices
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/query_polygon.pro"><b>src/idl/toolkit/query_polygon.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-READ_FITS_CUT4 , File, Pixel, Signal [, N_Obs, Serror, EXTENSION=, HDR=, XHDR=, NSIDE=,
-    ORDERING=, COORDSYS=]
-
+query_polygon , Nside, Vlist, Listpix, [Nlist, HELP=, NESTED=, INCLUSIVE=]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file in which the map is to be written
-
-<P>
-<DT>
-<B>Pixel</B>
-<DD>(OUT, LONG vector), 
-<BR>
-index of observed (or valid) pixels
-
-<P>
-<DT>
-<B>Signal</B>
-<DD>(OUT, FLOAT vector), 
-<BR>
-value of signal in each observed pixel
-
-<P>
-<DT>
-<B>N_Obs</B>
-<DD>(OUT, LONG or INT vector, Optional), 
-<BR>
-number of observation per pixel
-
-<P>
-<DT>
-<B>Serror</B>
-<DD>(OUT, FLOAT vector, Optional), 
-<BR><EM>rms</EM> of signal in pixel. For white noise,
-                   this is <!-- MATH
- $\propto 1/\sqrt{{\rm n\_obs}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg79.png"
- ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>
-
-<P>
-</DL><SMALL CLASS="FOOTNOTESIZE">
+<B>Nside</B>
+<DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
+    <DT>
+<B>Vlist</B>
+<DD>3D cartesian position vector of the polygon vertices. Array of
+    dimension (n,3) where n is the number of vertices
+    <DT>
+<B>Listpix</B>
+<DD>on output: list of ordered index for the pixels found 
+    in the polygon. The RING numbering scheme is used unless the keyword <TT>NESTED</TT> is set.
+     (=-1 if the polygon is too small and no pixel is found)
+    <DT>
+<B>Nlist</B>
+<DD>on output: number of pixels in Listpix (=0 if no pixel is found).
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>EXTENSION =</B>
-<DD>(IN, optional), 
-<BR>
-0 based number of extension to read. Extension 0 contains the
-temperature information, while extensions 1 and 2 contain respectively the Q
-and U Stokes parameters related information. <b>default:</b>0 
-
-<P>
-<DT>
-<B>HDR =</B>
-<DD>(OUT, optional), 
-<BR>
-String array containing the primary header. 
-
-<P>
-<DT>
-<B>XHDR =</B>
-<DD>(OUT, optional), 
-<BR>
-String array containing the extension header. 
-
-<P>
-<DT>
-<B>NSIDE=</B>
-<DD>(OUT, optional), 
-<BR>
-returns on output the <b>HEALPix</b> resolution parameter, as read
-		from the FITS header. Set to -1 if not found
-
-<P>
-<DT>
-<B>ORDERING=</B>
-<DD>(OUT, optional), 
-<BR>
-returns on output the pixel ordering, as read from the FITS
-	        header. Either 'RING' or 'NESTED' or ' ' (if not found).
-
-<P>
-<DT>
-<B>COORDSYS=</B>
-<DD>(OUT, optional), 
-<BR>
-returns on output the astrophysical coordinate system used, 
-		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
-
-<P>
-</DL><SMALL CLASS="FOOTNOTESIZE">
-
+<B>HELP=</B>
+<DD>if set, the documentation header is printed out and the
+routine exits
+    <DT>
+<B>NESTED =</B>
+<DD>if set, the output list uses the NESTED numbering scheme
+    instead of the default RING
+    <DT>
+<B>INCLUSIVE = </B>
+<DD>if set, all the pixels overlapping (even partially)
+                   with the polygon are listed, otherwise only those whose
+                   center lies within the polygon are listed
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<br><br></blockquote>
+query_polygon finds the pixels within the given polygon in a selective way WITHOUT
+scanning all the sky pixels. The polygon should be convex, 
+or have only one concave vertex. The edges should not intersect each other. 
+The numbering scheme of the output list and the
+inclusiveness of the polygon can be changed
+</blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_cut4 </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_polygon </FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run read_fits_cut4 <DT>
-<B><A HREF="idlnode66.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
-<DD>This <b>HEALPix</b> IDL
-facility can be used to generate the FITS format <EM>cut-sky</EM> maps complient
-with <b>HEALPix</b> convention and readable by read_fits_cut4 .
-  <DT>
-<B><A HREF="#idl:read_fits_cut4">read_fits_cut4</A>,
-<A HREF="idlnode56.htm#idl:read_fits_map">read_fits_map</A></B>
-<DD><DT>
-<B><A HREF="idlnode58.htm#idl:read_tqu">read_tqu</A>,
-<A HREF="idlnode57.htm#idl:read_fits_s">read_fits_s</A></B>
-<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
-arbitrary data sets from FITS files
+<DD>version 6.4 or more is necessary to run query_polygon .
     <DT>
-<B>sxpar</B>
-<DD>This IDL routine (included in <b>HEALPix</b> package) can be
-  used to extract FITS keywords from the header(s) HDR or XHDR read with read_fits_map .
+<B>ang2pix, pix2ang</B>
+<DD>conversion between angles and pixel index
+    <DT>
+<B>vec2pix, pix2vec</B>
+<DD>conversion between vector and pixel index
+    <DT>
+<B><A HREF="idlnode54.htm#idl:query_disc">query_disc</A>, <A HREF="#idl:query_polygon">query_polygon</A>,</B>
+<DD><DT>
+<B><A HREF="idlnode56.htm#idl:query_strip">query_strip</A>, <A HREF="idlnode57.htm#idl:query_triangle">query_triangle</A></B>
+<DD>render the list of pixels enclosed
+  respectively in a given disc, polygon, latitude strip and triangle
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> query_polygon ,  256L, [[0,1,1,0],[0,0,1,1],[1,0,-1,0]], listpix, nlist</SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
+On return listpix contains the index of the (131191) pixels contained in the
+polygon with vertices of cartesian coordinates (0,0,1), (1,0,0), (1,1,-1) and (0,1,0).
+The pixel indices correspond to the RING scheme with resolution 256.
+</blockquote>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -204,31 +157,31 @@ arbitrary data sets from FITS files
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html845"
+<A NAME="tex2html858"
   HREF="idlnode54.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html851"
+<A NAME="tex2html864"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html868"
   HREF="idlnode56.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html853"
+<A NAME="tex2html866"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html846"
-  HREF="idlnode54.htm">query_triangle</A>
+<B> Previous:</B> <A NAME="tex2html859"
+  HREF="idlnode54.htm">query_disc</A>
 
-<B>Up:</B> <A NAME="tex2html852"
+<B>Up:</B> <A NAME="tex2html865"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html856"
-  HREF="idlnode56.htm">read_fits_map</A>
+<B> Next:</B> <A NAME="tex2html869"
+  HREF="idlnode56.htm">query_strip</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

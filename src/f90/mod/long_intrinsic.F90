@@ -40,7 +40,8 @@ module long_intrinsic
   ! g95:                   -i8
   !
   ! 2009-02-25: version 1.0, EH/IAP
-  !---------------------------------------------------------------------
+  ! 2013-05-07: G95-compatible
+    !---------------------------------------------------------------------
 
   use healpix_types, only: i4b, i8b, sp, dp, lgt
   implicit none
@@ -70,8 +71,13 @@ contains
     integer(i4b), dimension(:), intent(in)   :: array
     integer(i4b), optional,     intent(in)   :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -82,8 +88,13 @@ contains
     integer(i4b), dimension(:,:), intent(in) :: array
     integer(i4b), optional ,      intent(in) :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -98,8 +109,13 @@ contains
     integer(i8b), dimension(:), intent(in)   :: array
     integer(i4b), optional,     intent(in)   :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -110,8 +126,13 @@ contains
     integer(i8b), dimension(:,:), intent(in) :: array
     integer(i4b), optional ,      intent(in) :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -125,8 +146,13 @@ contains
     real(sp),     dimension(:), intent(in)   :: array
     integer(i4b), optional,     intent(in)   :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -137,8 +163,13 @@ contains
     real(sp),     dimension(:,:), intent(in) :: array
     integer(i4b), optional ,      intent(in) :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -152,8 +183,13 @@ contains
     real(dp),     dimension(:), intent(in)   :: array
     integer(i4b), optional,     intent(in)   :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif
@@ -164,8 +200,13 @@ contains
     real(dp),     dimension(:,:), intent(in) :: array
     integer(i4b), optional ,      intent(in) :: dim
     integer(i8b)                             :: mysize
+    integer                                  :: dim8
     if (present(dim)) then
+#ifdef G95
+       dim8=dim ; mysize = size(array, dim8)
+#else
        mysize = size(array, dim=dim)
+#endif
     else
        mysize = size(array) ! required for xlf
     endif

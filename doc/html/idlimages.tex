@@ -5,13 +5,14 @@
 \RequirePackage{ifthen}
 
 
-\usepackage{healpix,graphicx,xr-hyper,html,makeidx}
+\usepackage{xr-hyper,healpix,graphicx,html,makeidx} 
 %
 \renewcommand{\ell}{l}
 %
 \renewcommand{\lq}{'}%
-\providecommand{\hpxversion}{3.11}%
-\providecommand{\idlversion}{6.1 } 
+\providecommand{\hpxversion}{3.20}%
+\providecommand{\hpxverstex}{3\_20}%
+\providecommand{\idlversion}{6.4 }%2013-10
 \hypersetup{%
 	pdftitle={HEALPix IDL Overview},%
 	pdfauthor={E. Hivon et al},%
@@ -39,6 +40,8 @@
 \providecommand{\FACNAME}{} 
 
 
+\externaldocument{facilities}
+\externallabels{.}{/tmp/facilitieslabels.pl}
 \sloppy
 \setcounter{secnumdepth}{0}
 \setcounter{tocdepth}{2} % 1: sections only in TOC, 2:sections+subsections, ...
@@ -57,263 +60,271 @@
 
 \makeatletter
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/alm_i2t_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/alm_i2t_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/alm_t2i_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/alm_t2i_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/alm2fits_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/alm2fits_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/ang2vec_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/ang2vec_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/angulardistance_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/angulardistance_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/azeqview_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/azeqview_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/beam2bl_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/beam2bl_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/bin_llcl_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/bin_llcl_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/bl2beam_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/bl2beam_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/bl2fits_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/bl2fits_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/cartcursor_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/cartcursor_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/cartview_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/cartview_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/change_polcconv_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/change_polcconv_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/cl2fits_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/cl2fits_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/convert_oldhpx2cmbfast_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/convert_oldhpx2cmbfast_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/euler_matrix_new_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/euler_matrix_new_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/fits2alm_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/fits2alm_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/fits2cl_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/fits2cl_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/gaussbeam_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/gaussbeam_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/getdisc_ring_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/getdisc_ring_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/getsize_fits_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/getsize_fits_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/gnomcursor_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/gnomcursor_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/gnomview_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/gnomview_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/healpix_doc_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/healpix_doc_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/healpixwindow_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/healpixwindow_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/hpx2dm_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/hpx2dm_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/hpx2gs_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/hpx2gs_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/ianafast_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/ialteralm_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/index2lm_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/ianafast_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/init_healpix_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/index2lm_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/iprocess_mask_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/init_healpix_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/ismoothing_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/iprocess_mask_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/isynfast_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/ismoothing_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/lm2index_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/isynfast_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/median_filter_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/lm2index_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/mollcursor_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/median_filter_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/mollview_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/mollcursor_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/neighbours_nest_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/mollview_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/neighbours_ring_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/neighbours_nest_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/npix2nside_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/neighbours_ring_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/nside2npix_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/npix2nside_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/nside2ntemplates_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/nside2npix_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/orthcursor_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/nside2ntemplates_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/orthview_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/orthcursor_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/pix_tools_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/orthview_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/query_disc_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/pix_tools_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/query_polygon_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/planck_colors_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/query_strip_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/query_disc_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/query_triangle_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/query_polygon_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/read_fits_cut4_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/query_strip_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/read_fits_map_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/query_triangle_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/read_fits_s_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/read_fits_cut4_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/read_tqu_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/read_fits_map_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/remove_dipole_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/read_fits_s_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/reorder_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/read_tqu_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/rotate_coord_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/remove_dipole_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/same_shape_pixels_xxx_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/reorder_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/template_pixel_xxx_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/rotate_coord_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/ud_grade_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/same_shape_pixels_xxx_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/vec2ang_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/template_pixel_xxx_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/write_fits_cut4_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/ud_grade_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/write_fits_map_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/vec2ang_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/write_fits_sb_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/write_fits_cut4_idl.aux
 \makeatother
 }
 \AtBeginDocument{\makeatletter
-\input /tmp/Healpix_3.11/doc/TeX/write_tqu_idl.aux
+\input /tmp/Healpix_3.20/doc/TeX/write_fits_map_idl.aux
+\makeatother
+}
+\AtBeginDocument{\makeatletter
+\input /tmp/Healpix_3.20/doc/TeX/write_fits_sb_idl.aux
+\makeatother
+}
+\AtBeginDocument{\makeatletter
+\input /tmp/Healpix_3.20/doc/TeX/write_tqu_idl.aux
 \makeatother
 }
 
@@ -443,7 +454,7 @@
 \stepcounter{subsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline935}%
+\lthtmlinlinemathA{tex2html_wrap_inline1084}%
 $B(\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -451,22 +462,23 @@ $B(\theta)$%
 \stepcounter{subsection}
 \stepcounter{section}
 \stepcounter{section}
+\stepcounter{section}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline951}%
+\lthtmlinlinemathA{tex2html_wrap_inline1102}%
 $\ldots$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline955}%
+\lthtmlinlinemathA{tex2html_wrap_inline1106}%
 ${N_{\rm side}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline961}%
+\lthtmlinlinemathA{tex2html_wrap_inline1112}%
 $3.46\ 10^{18}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -474,44 +486,44 @@ $3.46\ 10^{18}$%
 \stepcounter{subsubsection}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1626}%
+\lthtmlinlinemathA{tex2html_wrap_inline1801}%
 $0 \le l \le l_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1628}%
+\lthtmlinlinemathA{tex2html_wrap_inline1803}%
 $0 \le m \le m_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1636}%
+\lthtmlinlinemathA{tex2html_wrap_inline1811}%
 $\le 100$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1785}%
+\lthtmlinlinemathA{tex2html_wrap_inline1960}%
 $l_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1789}%
+\lthtmlinlinemathA{tex2html_wrap_inline1964}%
 $m_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1793}%
+\lthtmlinlinemathA{tex2html_wrap_inline1968}%
 $s_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1805}%
+\lthtmlinlinemathA{tex2html_wrap_inline1980}%
 $s_{\rm max}+1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -523,43 +535,43 @@ $s_{\rm max}+1$%
 \renewcommand{\FACNAME}{{ANG2VEC }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2075}%
+\lthtmlinlinemathA{tex2html_wrap_inline2250}%
 $\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2077}%
+\lthtmlinlinemathA{tex2html_wrap_inline2252}%
 $2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2083}%
+\lthtmlinlinemathA{tex2html_wrap_inline2258}%
 $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2085}%
+\lthtmlinlinemathA{tex2html_wrap_inline2260}%
 $(\theta,\phi)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2089}%
+\lthtmlinlinemathA{tex2html_wrap_inline2264}%
 $x = \sin\theta\cos\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2091}%
+\lthtmlinlinemathA{tex2html_wrap_inline2266}%
 $y=\sin\theta\sin\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2093}%
+\lthtmlinlinemathA{tex2html_wrap_inline2268}%
 $z=\cos\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -574,55 +586,55 @@ $z=\cos\theta$%
 \providecommand{\vecW}{\ensuremath{\bf W}}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2292}%
+\lthtmlinlinemathA{tex2html_wrap_inline2467}%
 $\cos^{-1}(\ensuremath{\bf V}.\ensuremath{\bf W})$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2294}%
+\lthtmlinlinemathA{tex2html_wrap_inline2469}%
 $2 \sin^{-1}\left(||\ensuremath{\bf V}-\ensuremath{\bf W}||\right)/2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2296}%
+\lthtmlinlinemathA{tex2html_wrap_inline2471}%
 $\ensuremath{\bf V}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2298}%
+\lthtmlinlinemathA{tex2html_wrap_inline2473}%
 $\ensuremath{\bf W}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2308}%
+\lthtmlinlinemathA{tex2html_wrap_inline2483}%
 $d_i = {\rm dist}(\ensuremath{\bf V},{\ensuremath{\bf W}}_i)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2310}%
+\lthtmlinlinemathA{tex2html_wrap_inline2485}%
 $d_i = {\rm dist}({\ensuremath{\bf V}}_i,{\ensuremath{\bf W}})$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2316}%
+\lthtmlinlinemathA{tex2html_wrap_inline2491}%
 $d_i = {\rm dist}({\ensuremath{\bf V}}_i,{\ensuremath{\bf W}}_i)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2318}%
+\lthtmlinlinemathA{tex2html_wrap_inline2493}%
 ${N_{\rm side}}=8$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2320}%
+\lthtmlinlinemathA{tex2html_wrap_inline2495}%
 $(x,y,z) = (1,1,1)/\sqrt{3}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -630,19 +642,19 @@ $(x,y,z) = (1,1,1)/\sqrt{3}$%
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2961}%
+\lthtmlinlinemathA{tex2html_wrap_inline3154}%
 $b(\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2965}%
+\lthtmlinlinemathA{tex2html_wrap_inline3158}%
 $\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath2869}%
+\lthtmldisplayA{displaymath3062}%
 \begin{displaymath}
 	b_{lm} = \int d{\bf {r}}\ b({\bf {r}})\ Y_{lm}^*({\bf {r}})
 \end{displaymath}%
@@ -650,19 +662,19 @@ $\theta$%
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay22051}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay24163}%
 $\displaystyle b_{l0}  \sqrt{\frac{4 \pi}{2l+1}}$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay22052}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay24164}%
 $\displaystyle \int  b(\theta) P_l(\theta) \sin(\theta)\ d\theta\ 2\pi$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2989}%
+\lthtmlinlinemathA{tex2html_wrap_inline3182}%
 $\{0,\ldots,4000\}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -673,38 +685,38 @@ $\{0,\ldots,4000\}$%
 \renewcommand{\FACNAME}{{BIN\_LLCL}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3105}%
+\lthtmlinlinemathA{tex2html_wrap_inline3298}%
 $C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3107}%
+\lthtmlinlinemathA{tex2html_wrap_inline3300}%
 $\Delta l(b)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3111}%
+\lthtmlinlinemathA{tex2html_wrap_inline3304}%
 $l(l+1)/2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3115}%
+\lthtmlinlinemathA{tex2html_wrap_inline3308}%
 $\propto 2l+1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3117}%
+\lthtmlinlinemathA{tex2html_wrap_inline3310}%
 $\l (\l +1)/2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmldisplayA{displaymath3238}%
+\lthtmldisplayA{displaymath3431}%
 \begin{displaymath}
 	b({\bf {r}}) = \sum_{lm} b_{lm} Y_{lm}({\bf {r}}),
 \end{displaymath}%
@@ -712,7 +724,7 @@ $\l (\l +1)/2\pi$%
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath3245}%
+\lthtmldisplayA{displaymath3438}%
 \begin{displaymath}
 	b(\theta) = \sum_l  b(l) P_l(\theta) \frac{2l+1}{4 \pi},
 \end{displaymath}%
@@ -720,7 +732,7 @@ $\l (\l +1)/2\pi$%
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath3249}%
+\lthtmldisplayA{displaymath3442}%
 \begin{displaymath}
 	b(l)=b_{l0} \sqrt{\frac{4 \pi}{2l+1}}
 \end{displaymath}%
@@ -729,7 +741,7 @@ $\l (\l +1)/2\pi$%
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3432}%
+\lthtmlinlinemathA{tex2html_wrap_inline3625}%
 $1\le n \le 3$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -737,7 +749,7 @@ $1\le n \le 3$%
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3941}%
+\lthtmlinlinemathA{tex2html_wrap_inline4152}%
 $\quad$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -754,16 +766,37 @@ $\quad$%
 
 \renewcommand{\FACNAME}{{EULER\_MATRIX\_NEW}}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline24286}%
+$\textstyle \parbox{\hsize}{\facname \ ~\ allows the generation of a rotation Euler matrix. The user
+can choose the three Euler angles, and the three axes of rotation.
+\par
+If vec is an N$\times$3 array containing N 3D vectors, \\
+    vecr = vec  \# euler\_matrix\_new(a1,a2,a3,/Y) \\
+will be the rotated vectors\\
+\par
+This routine supersedes euler\_matrix, which had inconsistent angle
+definitions. The relation between the two routines is as follows  :
+\\[.2cm]
+euler\_matrix\_new(a,b,c,/X)  =  euler\_matrix($-$a,$-$b,$-$c,/X) \\
+= Transpose(euler\_matrix(c, b, a,/X)) \\[.2cm]
+euler\_matrix\_new(a,b,c,/Y)  =  euler\_matrix($-$a, b,$-$c,/Y) \\
+= Transpose(euler\_matrix(c,$-$b, a,/Y)) \\[.2cm]
+euler\_matrix\_new(a,b,c,/Z)  =  euler\_matrix($-$a, b,$-$c,/Z)
+}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4906}%
+\lthtmlinlinemathA{tex2html_wrap_inline5193}%
 $C(l) = \sum_m a_{lm}a^*_{lm} / (2l+1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4924}%
+\lthtmlinlinemathA{tex2html_wrap_inline5211}%
 $l(l+1)C(l)/2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -776,19 +809,19 @@ $l(l+1)C(l)/2\pi$%
 \renewcommand{\l}{{$l$\  }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5058}%
+\lthtmlinlinemathA{tex2html_wrap_inline5345}%
 $2 \le$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5060}%
+\lthtmlinlinemathA{tex2html_wrap_inline5347}%
 $\le 4$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5066}%
+\lthtmlinlinemathA{tex2html_wrap_inline5353}%
 $C(l)_{\rm meas} = C(l)
 B(l)^2$%
 \lthtmlinlinemathZ
@@ -805,19 +838,19 @@ B(l)^2$%
 \renewcommand{\FACNAME}{{GETSIZE\_FITS }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5236}%
+\lthtmlinlinemathA{tex2html_wrap_inline5523}%
 $=12{N_{\rm side}}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5240}%
+\lthtmlinlinemathA{tex2html_wrap_inline5527}%
 $\le 12{N_{\rm side}}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline22285}%
+\lthtmlinlinemathA{tex2html_wrap_inline24397}%
 $\textstyle \parbox{\hsize}{ should produce something like \\
    {\em 196608 \ \        128 \ \         256  \ \      2} \\
 meaning that the map contained in that file has 196608 pixels, the resolution parameter is
@@ -830,13 +863,13 @@ nside=128, the maximum multipole was 256, and this a full sky map
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5798}%
+\lthtmlinlinemathA{tex2html_wrap_inline6103}%
 $\pm$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5800}%
+\lthtmlinlinemathA{tex2html_wrap_inline6105}%
 $\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -850,13 +883,13 @@ $\mu$%
 \renewcommand{\l}{{$l$\  }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5971}%
+\lthtmlinlinemathA{tex2html_wrap_inline6276}%
 $ \sqrt{3/\pi}\ 3600/N_{\rm side}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5975}%
+\lthtmlinlinemathA{tex2html_wrap_inline6280}%
 $C(l)_{\rm pix} = C(l)
 W(l)^2$%
 \lthtmlinlinemathZ
@@ -886,14 +919,23 @@ W(l)^2$%
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline6792}%
+\lthtmldisplayA{displaymath7045}%
+\begin{displaymath} a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
+ OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)}, 
+\end{displaymath}%
+\lthtmldisplayZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline7414}%
 $\backslash$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
+\stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline6952}%
+\lthtmlinlinemathA{tex2html_wrap_inline7771}%
 $0 \le |m|\le l$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -907,7 +949,7 @@ $0 \le |m|\le l$%
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline7850}%
+\lthtmlinlinemathA{tex2html_wrap_inline8711}%
 $N_{\rm side}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -950,55 +992,97 @@ $N_{\rm side}$%
 \hyperref{Back to Format}{}{}{idl:mollview:TOP}}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10403}%
-$\sinh^{-1}$%
+\lthtmlinlinemathA{tex2html_wrap_inline11890}%
+$y=\sinh^{-1} (x)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10423}%
-${N_{\rm side}}=4$%
+\lthtmlinlinemathA{tex2html_wrap_inline11892}%
+$y \approx x$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10425}%
-$\simeq$%
+\lthtmlinlinemathA{tex2html_wrap_inline11894}%
+$x\ll 1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10427}%
+\lthtmlinlinemathA{tex2html_wrap_inline11896}%
+$y\approx \ln(2x)$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11898}%
+$x\gg 1$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11900}%
+$y=\sinh^{-1} (x/2)/\ln(10)$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11902}%
+$y \approx 0.21 x$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11906}%
+$y\approx \log(x)$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11912}%
 $=-1.6375\,10^{30}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10441}%
+\lthtmlinlinemathA{tex2html_wrap_inline11934}%
+${N_{\rm side}}=4$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11936}%
+$\simeq$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline11952}%
 $9\leq|\rm{psym}|\leq 46$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10443}%
+\lthtmlinlinemathA{tex2html_wrap_inline11954}%
 $\leq 0$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10447}%
+\lthtmlinlinemathA{tex2html_wrap_inline11958}%
 $P = \sqrt{\left(U^2 + Q^2\right)}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10449}%
+\lthtmlinlinemathA{tex2html_wrap_inline11960}%
 $\phi = \tan^{-1}(U/Q) /2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10465}%
+\lthtmlinlinemathA{tex2html_wrap_inline11982}%
 $\quad\quad$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1015,13 +1099,13 @@ $\quad\quad$%
 \renewcommand{\FACNAME}{{NPIX2NSIDE }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11044}%
+\lthtmlinlinemathA{tex2html_wrap_inline12583}%
 $N_{\rm pix} = 12N_{\rm side}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11048}%
+\lthtmlinlinemathA{tex2html_wrap_inline12587}%
 $\{1,\ldots,2^{29}\}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1032,7 +1116,7 @@ $\{1,\ldots,2^{29}\}$%
 \renewcommand{\FACNAME}{{NSIDE2NPIX }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11186}%
+\lthtmlinlinemathA{tex2html_wrap_inline12725}%
 $ \le 2^{29}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1043,13 +1127,13 @@ $ \le 2^{29}$%
 \renewcommand{\FACNAME}{{NSIDE2NTEMPLATES }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11298}%
+\lthtmlinlinemathA{tex2html_wrap_inline12837}%
 $\{1,\ldots,8192\}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath11300}%
+\lthtmldisplayA{displaymath12839}%
 \begin{displaymath}{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.\end{displaymath}%
 \lthtmldisplayZ
 \lthtmlcheckvsize\clearpage}
@@ -1062,30 +1146,31 @@ $\{1,\ldots,8192\}$%
 \renewcommand{\FACNAME}{{PIX2XXX, ANG2XXX,...}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12010}%
+\lthtmlinlinemathA{tex2html_wrap_inline13567}%
 ${N_{\rm pix}}-1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12026}%
+\lthtmlinlinemathA{tex2html_wrap_inline13583}%
 $x_N(0),\ldots,x_N(n-1),\ y_N(0),\ldots,y_N(n-1),\ z_N(0),\ldots,z_N(n-1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12028}%
+\lthtmlinlinemathA{tex2html_wrap_inline13585}%
 $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
                    z_W(0),\ldots,z_W(n-1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12084}%
+\lthtmlinlinemathA{tex2html_wrap_inline13641}%
 ${N_{\rm pix}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
+\stepcounter{section}
 
 \renewcommand{\facname}{{query\_disc }}
 
@@ -1102,13 +1187,13 @@ ${N_{\rm pix}}$%
 \renewcommand{\FACNAME}{{QUERY\_STRIP }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12521}%
+\lthtmlinlinemathA{tex2html_wrap_inline14228}%
 $\pi/5$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12523}%
+\lthtmlinlinemathA{tex2html_wrap_inline14230}%
 $3\pi/4$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1124,7 +1209,7 @@ $3\pi/4$%
 \renewcommand{\FACNAME}{{READ\_FITS\_CUT4 }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12717}%
+\lthtmlinlinemathA{tex2html_wrap_inline14424}%
 $\propto 1/\sqrt{{\rm n\_obs}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1135,7 +1220,7 @@ $\propto 1/\sqrt{{\rm n\_obs}}$%
 \renewcommand{\FACNAME}{{READ\_FITS\_MAP }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline12847}%
+\lthtmlinlinemathA{tex2html_wrap_inline14554}%
 $\ge$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1151,13 +1236,13 @@ $\ge$%
 \renewcommand{\FACNAME}{{READ\_TQU }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13098}%
+\lthtmlinlinemathA{tex2html_wrap_inline14805}%
 $N_{\rm pix}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13102}%
+\lthtmlinlinemathA{tex2html_wrap_inline14809}%
 $\le$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1168,7 +1253,7 @@ $\le$%
 \renewcommand{\FACNAME}{{REMOVE\_DIPOLE}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13363}%
+\lthtmlinlinemathA{tex2html_wrap_inline15070}%
 $\equiv -1.6375\ 10^{30}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1185,65 +1270,65 @@ $\equiv -1.6375\ 10^{30}$%
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23102}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25288}%
 $\displaystyle z=\cos(\theta)\ge 2/3,$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23103}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25289}%
 $\textstyle \ $%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23104}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25290}%
 $\displaystyle 0< \phi \leq \pi/2,$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23105}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25291}%
 $\displaystyle %[Nside*(Nside+2)/4]
      2/3 > z \geq 0,$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23107}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25293}%
 $\displaystyle \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.   %[Nside]
 $%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13751}%
+\lthtmlinlinemathA{tex2html_wrap_inline15521}%
 $\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13755}%
+\lthtmlinlinemathA{tex2html_wrap_inline15525}%
 ${N_{\rm side}}=256$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline13891}%
+\lthtmlinlinemathA{tex2html_wrap_inline15661}%
 $12{N_{\rm side}}^2-1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23123}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25309}%
 $\displaystyle %[Nside*(Nside+2)/4]
      2/3 > z \geq 0,$%
 \lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_indisplay23125}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay25311}%
 $\displaystyle \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.   %[Nside]
 $%
 \lthtmlindisplaymathZ
@@ -1255,7 +1340,7 @@ $%
 \renewcommand{\FACNAME}{{UD\_GRADE }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline23135}%
+\lthtmlinlinemathA{tex2html_wrap_inline25321}%
 $\textstyle \parbox{0.5\hsize}{if set, during {\bf degradation} each big pixel containing one
     bad or missing small pixel is also considered as bad, \\
         if not set, each big pixel containing at least one good pixel
@@ -1275,7 +1360,7 @@ $\textstyle \parbox{0.5\hsize}{if set, during {\bf degradation} each big pixel c
 \renewcommand{\FACNAME}{{WRITE\_FITS\_CUT4 }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline14429}%
+\lthtmlinlinemathA{tex2html_wrap_inline16199}%
 ${N_{\rm side}}=32$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -1290,13 +1375,38 @@ ${N_{\rm side}}=32$%
 
 \renewcommand{\FACNAME}{{WRITE\_FITS\_SB }}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline25388}%
+$\textstyle \parbox{\hsize}{\facname writes out the information contained in {\tt{Prim\_stc}} and {\tt{Exten\_stc}} in the primary unit and extension of the FITS file
+{\tt File} respectively . Coordinate systems can also be specified by {\tt Coordsys}. Specifying the
+ordering scheme is compulsary for \healpix data sets and can be done either in {\tt Header} or by setting {\tt
+Ordering} or {\tt Nested} or {\tt Ring} to the correct value. If {\tt
+Ordering} or {\tt Nested} or {\tt Ring} is set, its value overrides what is
+given in {\tt Header}. \\
+\par
+The data is assumed to represent a full sky data set with 
+the number of data points npix = 12*Nside*Nside
+unless   \hfill\newline
+Partial is set {\em or} the input FITS header contains OBJECT =
+               'PARTIAL' \hfill\newline
+       AND \hfill\newline
+         the Nside qualifier is given a valid value {\em or} the FITS header contains
+                 a NSIDE.\\
+\par
+In the \healpix scheme, invalid or missing pixels should be given the value {\tt
+!healpix.bad\_value}$= -1.63750\, 10^{30}$.\\
+\par
+If {\tt Nothealpix} is set, the restrictions on Nside are void.}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 
 \renewcommand{\facname}{{write\_tqu }}
 
 \renewcommand{\FACNAME}{{WRITE\_TQU }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline14926}%
+\lthtmlinlinemathA{tex2html_wrap_inline16696}%
 ${N_{\rm side}}=64$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}

@@ -37,6 +37,8 @@ module head_fits
   ! EH, 2002-08-09
   ! 2007-09-20 added write_minimal_header
   ! 2009-01-08 corrected typo in FITS header written by write_minimal_header (DY_Y -> DY_T)
+  ! 2013-05-07: G95-compatible
+  ! 2014-05-02: fixed problem with keywords having a long string value
   !-------------------------------------------------------------------------
 
   ! subroutine add_card   [interface]
@@ -115,8 +117,12 @@ module head_fits
   character (LEN=1 ), private :: dtype
   character (LEN=20), private :: stval
   character (LEN=80), private :: card, stcom
-  integer(kind=I4B) , private :: nlh, statusfits, count_in = 0
-  logical(kind=LGT) , private :: match, exact, casesen = .false., verbose = .true.
+! work arond G95 bug that does not accept SAVEd variables with value 0 or .false. (2013-05-07)
+!   integer(kind=I4B) , private :: nlh, statusfits, count_in = 0
+!   logical(kind=LGT) , private :: match, exact, casesen = .false., verbose = .true.
+  integer(kind=I4B), private :: nlh, statusfits, count_in
+  logical(kind=LGT), private :: match, exact
+  logical(kind=LGT), private, parameter :: casesen = .false., verbose = .true.
 
   public :: add_card, merge_headers
 
@@ -231,7 +237,7 @@ contains
     logical(LGT),      intent(IN), OPTIONAL  :: update, long_strn
     integer(kind=I4B) :: iblank, iwrite, hdtype, kmatch, iwlong
 
-    character (LEN=240) :: fullcard
+    character (LEN=480) :: fullcard
     character (LEN=80)  :: oldline
     character (LEN=20)  :: kwd2, this_kwd
     logical(LGT)        :: do_update, do_long_strn
@@ -258,8 +264,16 @@ contains
 
     kwd2 = adjustl(strupcase(kwd))
     fullcard = kwd2
-    if (present(st_value)) fullcard = fullcard(1:max( 8,len_trim(fullcard)))//' '//adjustl(st_value)
-    if (present(comment))  fullcard = fullcard(1:max(32,len_trim(fullcard)))//' '//TRIM(adjustl(comment))
+    if (present(st_value)) fullcard = fullcard(1:max( 8,len_trim(fullcard)))//' '//trim(adjustl(st_value))
+    if (present(comment)) then
+       if (len_trim(adjustl(comment)) > 0) then
+          if (do_long_strn) then ! put a slash between value and comment for easier idenfication later on
+             fullcard = fullcard(1:max(32,len_trim(fullcard)))//' / '//trim(adjustl(comment))
+          else
+             fullcard = fullcard(1:max(32,len_trim(fullcard)))//' '//trim(adjustl(comment))
+          endif
+       endif
+    endif
 
     if (iblank > nlh) then
        print*,'WARNING: Header is too short ('//trim(string(nlh))//' lines); card not written:'
@@ -276,6 +290,7 @@ contains
     hdtype = 0
     statusfits = 0
     CALL ftgthd(fullcard(1:79), oldline, hdtype, statusfits)
+    if (statusfits == 205) statusfits = 0 ! ignore unmatched quotes due to long strings
     ! hdtype: -1: delete, 0: append or replace, 1: append, 2: END
     select case (hdtype)
     case (-1)! delete keyword
@@ -335,33 +350,40 @@ contains
 
 
   !=====================================================================
-  subroutine insert_line_in_header(header, index, card, overwrite, long_strn)
+  subroutine insert_line_in_header(header, idx, card, overwrite, long_strn)
     IMPLICIT none
     character (LEN=80), dimension(1:), intent(INOUT) :: header
     character (LEN=*),                 intent(IN)    :: card
-    integer(kind=I4B),                 intent(IN)    :: index
+    integer(kind=I4B),                 intent(IN)    :: idx
     logical(LGT),                      intent(IN)    :: overwrite
     logical(LGT),     optional,        intent(IN)    :: long_strn
 
-    integer(i4b) :: i2, j_low, j_hi, iw, hdtype, k, step
-    integer(i4b) :: lencard, nlh
+    integer(i4b) :: i2, j_low, j_hi, iw, hdtype, k, step0, step
+    integer(i4b) :: lencard, nlh, lenkv
     character(len=80) :: tmpline
     character (LEN=10)  :: pad10 = '    '
     logical(LGT)        :: do_long_strn
+    logical(LGT), parameter :: WAC = .false. ! wrap-around long comments
     !=====================================================================
     tmpline=''
     do_long_strn = .false.
     if (present(long_strn)) do_long_strn = long_strn
 
     nlh = size(header)
-    lencard = len_trim(card) ! length of input card
-    step = 80
-    if (do_long_strn) step = 70
+    lencard = len_trim(card) ! total length of input card "kwd = value / comment"
+    if (do_long_strn) then
+       lenkv = index(card,"' / ",back=.true.) ! length of "kwd = 'value'"
+       step0 = 75
+    else
+       lenkv = lencard
+       step0 = 80
+    endif
 
+    step = step0
     j_low = 1  ! character along the card
     j_hi  = step
     k = 1
-    iw = index ! line down the header
+    iw = idx ! line down the header
 
 
     do ! deal with long cards
@@ -385,9 +407,26 @@ contains
           if (k == 1) then
              header(iw) = trim(card(j_low:j_hi))
           else
-             header(iw) = "CONTINUE '"//trim(card(j_low:j_hi))
+             if (j_low <= lenkv) then
+                ! (long) keyword substring
+                if (j_hi >= lenkv .and. WAC) then
+                   header(iw) = "CONTINUE  '"//&
+                        & trim(card(j_low:lenkv-1))//&
+                        & "&'"//trim(card(lenkv+1:j_hi))
+                else
+                   header(iw) = "CONTINUE  '"//trim(card(j_low:j_hi))
+                endif
+             else
+                ! (long) comment substring
+                if (WAC) header(iw) = "CONTINUE  '&' /"//trim(card(j_low:j_hi))
+             endif
           endif
-          if (j_hi < lencard) header(iw) = trim(header(iw))//"&'"
+          if (j_hi < lenkv) header(iw) = trim(header(iw))//"&'"
+          if (j_hi < lenkv) then
+             step = step0 - 10
+          else
+             step = step0 - 15
+          endif
        else
           hdtype = 0
           statusfits = 0
@@ -395,14 +434,16 @@ contains
              CALL ftgthd(card(j_low:j_hi), tmpline, hdtype, statusfits)
              header(iw) = tmpline
           else
-             CALL ftgthd(pad10//card(j_low:j_hi), tmpline, hdtype, statusfits)
-             header(iw) = tmpline
+             if (WAC) then ! wrap around long comment
+                CALL ftgthd(pad10//card(j_low:j_hi), tmpline, hdtype, statusfits)
+                header(iw) = tmpline
+             endif
           endif
        endif
 
        ! select next characters from card to put in header
        j_low = j_hi + 1
-       j_hi  = min(j_low + step - 10, lencard)
+       j_hi  = min(j_low + step, lencard)
 
        ! next header line
        k = k + 1
@@ -525,6 +566,44 @@ contains
     return
   end subroutine f_get_card
 
+
+  !===================================================================
+  function trim_quotes(card) result(c2)
+    ! remove first and last quotes
+    implicit none
+    character(len=*), intent(IN) :: card
+    character(len=FILENAMELEN)   :: c2
+    !
+    character(len=FILENAMELEN)   :: c1
+    integer :: ifor, ibac
+
+    c1 = trim(adjustl(card))
+    ifor = index(c1,"'")
+    ibac = index(c1,"'",back=.true.)
+    if (ifor >= 1                        ) c1(ifor:ifor) = " "
+    if (ibac <= len(c1) .and. ibac > ifor) c1(ibac:ibac) = " "
+    c2 = trim(adjustl(c1))
+
+    return
+  end function trim_quotes
+  !===================================================================
+  function trim_taa(card) result(c2)
+    ! remove trailing Ampersand (&)
+    implicit none
+    character(len=*), intent(IN) :: card
+    character(len=FILENAMELEN)   :: c2
+    !
+    character(len=FILENAMELEN)   :: c1
+    integer :: ibac
+
+    c1 = trim(adjustl(card))
+    ibac = index(c1,"&",back=.true.)
+    if (ibac <= len(c1)) c1(ibac:ibac) = " "
+    c2 = trim(adjustl(c1))
+
+    return
+  end function trim_taa
+
   !===================================================================
   subroutine a_get_card(header, kwd, value, comment, count) ! ascii string
     implicit none
@@ -534,25 +613,55 @@ contains
     character (LEN=*),         intent(OUT), OPTIONAL :: comment
     integer(kind=I4B),         intent(OUT), OPTIONAL :: count
 
-    integer :: ifor, ibac, i
+    character(len=80) :: stval1, stcom1, card1
+    integer :: ifor, ibac, i, kaa, kq1, kq2, ip1
+    logical(LGT) :: long_strn
 
     count_in = 0
     value = ' '
+    stcom = ''
     nlh = size(header)
+    statusfits = 0
+    long_strn = .false.
+
+    ! test for possible long string keywords
+    do i=1, nlh 
+       card = header(i)
+       call ftcmps('CONTINUE',card(1:8), casesen, long_strn, exact)
+       if (long_strn) exit
+    enddo
+
+
     do i=1, nlh ! scan header for keyword
        card = header(i)
        call ftcmps(kwd,card(1:8), casesen, match, exact)
        if (match) then
-          !                        extract value as a string
-          call ftpsvc(card, stval, stcom, statusfits)
-          stval = adjustl(stval)
-          ! remove first and last quote
-          ifor = index(stval,"'")
-          ibac = index(stval,"'",back=.true.)
-          if (ifor >= 1         ) stval(ifor:ifor) = " "
-          if (ibac <= len(stval) .and. ibac > ifor) &
-               &                  stval(ibac:ibac) = " "
-          value = trim(adjustl(stval))
+          if (long_strn) then ! test if current keyword is long string
+             long_strn = long_strn .and. (index(card,"&'",back=.true.) > 0)
+             call ftpsvc(card, stval1, stcom1, statusfits)
+             value = trim(trim_taa(trim_quotes(stval1)))
+             stcom = trim(stcom1)
+          endif
+          if (long_strn) then
+             ip1 = i
+             do 
+                ip1 = ip1+1
+                card1 = header(ip1)
+                if (card1(1:10) == 'CONTINUE  ') then
+                   card1(1:10)   = 'JUNK    = ' ! trick to get ftpsvc to work
+                   call ftpsvc(card1, stval1, stcom1, statusfits)
+                   value = trim(value)//trim(trim_taa(trim_quotes(stval1)))
+                   stcom = trim(stcom)//trim(stcom1)
+                else
+                   exit
+                endif
+             enddo
+          else
+             !                        extract value as a string
+             call ftpsvc(card, stval1, stcom1, statusfits)
+             value = trim(trim_quotes(stval1))
+             stcom = trim(stcom1)
+          endif
           count_in = 1
           if (present(comment)) comment = stcom
           if (present(count))   count = count_in
@@ -996,7 +1105,7 @@ contains
        if (present(nlmax)) call add_card(header,"MAX-LPOL",nlmax  ,"Maximum Legendre order L")
        if (present(nmmax)) call add_card(header,"MAX-MPOL",nmmax  ,"Maximum Legendre degree M")
        if (present(randseed))  call add_card(header,"RANDSEED",randseed,"Random generator seed")
-       call add_card(header,"POLCCONV","COSMO"," Coord. convention for polarisation (COSMO/IAU)")
+       call add_card(header,"POLCCONV","COSMO","Coord. convention for polarisation (COSMO/IAU)")
        if (trim(my_beam_leg)/='') then
           call add_card(header,"BEAM_LEG",trim(my_beam_leg),"File containing Legendre transform of symmetric beam")
        else if (present(fwhm_degree)) then

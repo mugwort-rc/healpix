@@ -1,3 +1,10 @@
+IMPORTANT DEPRECATION WARNING
+
+The code "alice2" has been deprecated and will be replaced by another code in
+the next major release, which produces Healpix maps objects instead of images,
+allowing for more flexible post-processing.
+
+
 Changes since v3.0:
 - libpsht replaced by libsharp
 - added boundaries() method to T_Healpix_Base

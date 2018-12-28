@@ -83,12 +83,15 @@ Map data manipulation
 """
 
 import numpy as np
-import exceptions
-import _healpy_pixel_lib as pixlib
+from . import _healpy_pixel_lib as pixlib
 from functools import wraps
 
 #: Special value used for masked pixels
 UNSEEN = pixlib.UNSEEN
+
+# We are using 64-bit integer types.
+# nside > 2**29 requires extended integer types.
+max_nside = 1 << 29
 
 __all__ = ['pix2ang', 'pix2vec', 'ang2pix', 'vec2pix',
            'ang2vec', 'vec2ang',
@@ -166,20 +169,20 @@ def ma_to_array(m):
     >>> import healpy as hp
     >>> m = hp.ma(np.array([2., 2., 3, 4, 5, 0, 0, 0, 0, 0, 0, 0]))
     >>> m.mask = np.array([0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.bool)
-    >>> print m.data[1] # data is not affected by mask
+    >>> print(m.data[1]) # data is not affected by mask
     2.0
-    >>> print m[1] # shows that the value is masked
+    >>> print(m[1]) # shows that the value is masked
     --
-    >>> print ma_to_array(m)[1] # filled array, masked values replace by UNSEEN
+    >>> print(ma_to_array(m)[1]) # filled array, masked values replace by UNSEEN
     -1.6375e+30
     """
 
     try:
         return m.filled()
-    except exceptions.AttributeError:
+    except AttributeError:
         try:
             return tuple([mm.filled() for mm in m])
-        except exceptions.AttributeError:
+        except AttributeError:
             pass
     return m
 
@@ -330,7 +333,7 @@ def ang2pix(nside,theta,phi,nest=False):
     Parameters
     ----------
     nside : int, scalar or array-like
-      The healpix nside parameter, must be a power of 2
+      The healpix nside parameter, must be a power of 2, less than 2**30
     theta, phi : float, scalars or array-like
       Angular coordinates of a point on the sphere
     nest : bool, optional
@@ -362,6 +365,7 @@ def ang2pix(nside,theta,phi,nest=False):
     array([   4,   12,   72,  336, 1440])
     """
     check_theta_valid(theta)
+    check_nside(nside)
     if nest:
         return pixlib._ang2pix_nest(nside,theta,phi)
     else:
@@ -373,9 +377,9 @@ def pix2ang(nside,ipix,nest=False):
     Parameters
     ----------
     nside : int or array-like
-      The healpix nside parameter, must be a power of 2
+      The healpix nside parameter, must be a power of 2, less than 2**30
     ipix : int or array-like
-      Angular coordinates of a point on the sphere
+      Pixel indices
     nest : bool, optional
       if True, assume NESTED pixel ordering, otherwise, RING pixel ordering
 
@@ -401,6 +405,7 @@ def pix2ang(nside,ipix,nest=False):
     >>> hp.pix2ang([1, 2, 4, 8], 11)
     (array([ 2.30052398,  0.84106867,  0.41113786,  0.2044802 ]), array([ 5.49778714,  5.89048623,  5.89048623,  5.89048623]))
     """
+    check_nside(nside)
     if nest:
         return pixlib._pix2ang_nest(nside, ipix)
     else:
@@ -412,7 +417,7 @@ def vec2pix(nside,x,y,z,nest=False):
     Parameters
     ----------
     nside : int or array-like
-      The healpix nside parameter, must be a power of 2
+      The healpix nside parameter, must be a power of 2, less than 2**30
     x,y,z : floats or array-like
       vector coordinates defining point on the sphere
     nest : bool, optional
@@ -451,7 +456,7 @@ def pix2vec(nside,ipix,nest=False):
     Parameters
     ----------
     nside : int, scalar or array-like
-      The healpix nside parameter, must be a power of 2
+      The healpix nside parameter, must be a power of 2, less than 2**30
     ipix : int, scalar or array-like
       Healpix pixel number
     nest : bool, optional
@@ -479,6 +484,7 @@ def pix2vec(nside,ipix,nest=False):
     >>> hp.pix2vec([1, 2], 11)
     (array([ 0.52704628,  0.68861915]), array([-0.52704628, -0.28523539]), array([-0.66666667,  0.66666667]))
     """
+    check_nside(nside)
     if nest:
         return pixlib._pix2vec_nest(nside,ipix)
     else:
@@ -506,7 +512,7 @@ def ang2vec(theta, phi):
     """
     check_theta_valid(theta)
     if np.any(theta < 0) or np.any(theta > np.pi):
-        raise exceptions.ValueError('THETA is out of range [0,pi]')
+        raise ValueError('THETA is out of range [0,pi]')
     sintheta = np.sin(theta)
     return np.array([sintheta*np.cos(phi),
                       sintheta*np.sin(phi),
@@ -561,12 +567,13 @@ def ring2nest(nside, ipix):
     >>> hp.ring2nest(16, 1504)
     1130
 
-    >>> hp.ring2nest(2, range(10))
+    >>> hp.ring2nest(2, np.arange(10))
     array([ 3,  7, 11, 15,  2,  1,  6,  5, 10,  9])
     
     >>> hp.ring2nest([1, 2, 4, 8], 11)
     array([ 11,  13,  61, 253])
     """
+    check_nside(nside)
     return pixlib._ring2nest(nside, ipix)
 
 def nest2ring(nside, ipix):
@@ -594,12 +601,13 @@ def nest2ring(nside, ipix):
     >>> hp.nest2ring(16, 1130)
     1504
 
-    >>> hp.nest2ring(2, range(10))
+    >>> hp.nest2ring(2, np.arange(10))
     array([13,  5,  4,  0, 15,  7,  6,  1, 17,  9])
     
     >>> hp.nest2ring([1, 2, 4, 8], 11)
     array([ 11,   2,  12, 211])
     """
+    check_nside(nside)
     return pixlib._nest2ring(nside, ipix)
 
 @accept_ma
@@ -645,7 +653,7 @@ def reorder(map_in, inp=None, out=None, r2n=None, n2r=None):
                  mask = False,
            fill_value = 999999)
     <BLANKLINE>
-    >>> m = [range(12), range(12), range(12)]
+    >>> m = [np.arange(12.), np.arange(12.), np.arange(12.)]
     >>> m[0][2] = hp.UNSEEN
     >>> m[1][2] = hp.UNSEEN
     >>> m[2][2] = hp.UNSEEN
@@ -692,7 +700,7 @@ def reorder(map_in, inp=None, out=None, r2n=None, n2r=None):
             mapout.append(m_in)
         elif inp == 'RING':
             m_out = np.zeros(npix,dtype=type(m_in[0]))
-            for ibunch in range(npix/bunchsize):
+            for ibunch in range(npix//bunchsize):
                 ipix_n = np.arange(ibunch*bunchsize,
                                     (ibunch+1)*bunchsize)
                 ipix_r = nest2ring(nside, ipix_n)
@@ -700,7 +708,7 @@ def reorder(map_in, inp=None, out=None, r2n=None, n2r=None):
             mapout.append(m_out)
         elif inp == 'NEST':
             m_out = np.zeros(npix,dtype=type(m_in[0]))
-            for ibunch in range(npix/bunchsize):
+            for ibunch in range(npix//bunchsize):
                 ipix_r = np.arange(ibunch*bunchsize,
                                     (ibunch+1)*bunchsize)
                 ipix_n = ring2nest(nside, ipix_r)
@@ -718,7 +726,7 @@ def nside2npix(nside):
     ----------
     nside : int
       healpix nside parameter; an exception is raised if nside is not valid
-      (nside must be a power of 2)
+      (nside must be a power of 2, less than 2**30)
 
     Returns
     -------
@@ -732,6 +740,7 @@ def nside2npix(nside):
     Examples
     --------
     >>> import healpy as hp
+    >>> import numpy as np
     >>> hp.nside2npix(8)
     768
 
@@ -740,12 +749,10 @@ def nside2npix(nside):
 
     >>> hp.nside2npix(7)
     Traceback (most recent call last):
-       ...
-    ValueError: Given number is not a valid nside parameter (must be a power of 2)
+        ...
+    ValueError: 7 is not a valid nside parameter (must be a power of 2, less than 2**30)
     """
-    if not isnsideok(nside):
-        raise ValueError("Given number is not a valid nside parameter "
-                         "(must be a power of 2)")
+    check_nside(nside)
     return 12*nside**2
 
 def nside2resol(nside, arcmin=False):
@@ -757,7 +764,7 @@ def nside2resol(nside, arcmin=False):
     Parameters
     ----------
     nside : int
-      healpix nside parameter, must be a power of 2
+      healpix nside parameter, must be a power of 2, less than 2**30
     arcmin : bool
       if True, return resolution in arcmin, otherwise in radian
 
@@ -782,11 +789,9 @@ def nside2resol(nside, arcmin=False):
     >>> hp.nside2resol(7)
     Traceback (most recent call last):
        ...
-    ValueError: Given number is not a valid nside parameter (must be a power of 2)
+    ValueError: 7 is not a valid nside parameter (must be a power of 2, less than 2**30)
     """
-    if not isnsideok(nside):
-        raise ValueError("Given number is not a valid nside parameter "
-                         "(must be a power of 2)")
+    check_nside(nside)
     
     resol = np.sqrt(nside2pixarea(nside))
 
@@ -802,7 +807,7 @@ def nside2pixarea(nside, degrees=False):
     Parameters
     ----------
     nside : int
-      healpix nside parameter, must be a power of 2
+      healpix nside parameter, must be a power of 2, less than 2**30
     degrees : bool
       if True, returns pixel area in square degrees, in square radians otherwise
 
@@ -827,11 +832,9 @@ def nside2pixarea(nside, degrees=False):
     >>> hp.nside2pixarea(7)
     Traceback (most recent call last):
        ...
-    ValueError: Given number is not a valid nside parameter (must be a power of 2)
+    ValueError: 7 is not a valid nside parameter (must be a power of 2, less than 2**30)
     """
-    if not isnsideok(nside):
-        raise ValueError("Given number is not a valid nside parameter "
-                         "(must be a power of 2)")
+    check_nside(nside)
     
     pixarea = 4*np.pi/nside2npix(nside)
 
@@ -876,8 +879,7 @@ def npix2nside(npix):
     if nside != np.floor(nside):
         raise ValueError("Wrong pixel number (it is not 12*nside**2)")
     nside=int(np.floor(nside))
-    if not isnsideok(nside):
-        raise ValueError("Wrong nside value (it is not 2**N)")
+    check_nside(nside)
     return nside
 
 def isnsideok(nside):
@@ -909,12 +911,17 @@ def isnsideok(nside):
     if hasattr(nside, '__len__'):
         if not isinstance(nside, np.ndarray):
             nside = np.asarray(nside)
-        return ( (nside == nside.astype(np.int)) & (nside != 0) & 
-	            (np.bitwise_and(nside.astype(np.int), nside.astype(np.int) - 1) == 0)
-	           )
+        return ((nside == nside.astype(np.int)) & (0 < nside) &
+                (nside <= max_nside) &
+                ((nside.astype(np.int) & (nside.astype(np.int) - 1)) == 0))
     else:
-        return ( ( nside == int(nside) ) and ( nside != 0 ) and 
-               ( ( int(nside) & (int(nside) - 1) ) == 0) )
+        return (nside == int(nside) and 0 < nside <= max_nside and
+               (int(nside) & (int(nside) - 1)) == 0)
+
+def check_nside(nside):
+    """Raises exception is nside is not valid"""
+    if not np.all(isnsideok(nside)):
+        raise ValueError("%s is not a valid nside parameter (must be a power of 2, less than 2**30)" % str(nside))
 
 def isnpixok(npix):
     """Return :const:`True` if npix is a valid value for healpix map size, :const:`False` otherwise.
@@ -974,6 +981,10 @@ def get_interp_val(m,theta,phi,nest=False):
     >>> import healpy as hp
     >>> hp.get_interp_val(np.arange(12.), np.pi/2, 0)
     4.0
+    >>> hp.get_interp_val(np.arange(12.), np.pi/2, np.pi/2)
+    5.0
+    >>> hp.get_interp_val(np.arange(12.), np.pi/2, np.pi/2 + 2*np.pi)
+    5.0
     >>> hp.get_interp_val(np.arange(12.), np.linspace(0, np.pi, 10), 0)
     array([ 1.5       ,  1.5       ,  1.5       ,  2.20618428,  3.40206143,
             5.31546486,  7.94639458,  9.5       ,  9.5       ,  9.5       ])
@@ -1030,8 +1041,7 @@ def get_neighbours(nside,theta,phi=None,nest=False):
            [ 0.25,  0.  ],
            [ 0.25,  0.  ]]))
     """
-    if not isnsideok(nside):
-        raise ValueError('Wrong nside value. Must be a power of 2.')
+    check_nside(nside)
     if phi == None:
         theta,phi = pix2ang(nside,theta,nest=nest)
     if nest:
@@ -1076,8 +1086,7 @@ def get_all_neighbours(nside, theta, phi=None, nest=False):
     >>> hp.get_all_neighbours(1, np.pi/2, np.pi/2)
     array([ 8,  4,  0, -1,  1,  6,  9, -1])
     """
-    if not isnsideok(nside):
-        raise ValueError('Wrong nside value. Must be a power of 2.')
+    check_nside(nside)
     if phi is not None:
         theta = ang2pix(nside,theta, phi,nest=nest)
     if nest:
@@ -1107,6 +1116,7 @@ def max_pixrad(nside):
     >>> '%.15f' % max_pixrad(16)
     '0.066014761432513'
     """
+    check_nside(nside)
     return pixlib._max_pixrad(nside)
 
 def fit_dipole(m, nest=False, bad=UNSEEN, gal_cut=0):
@@ -1142,7 +1152,7 @@ def fit_dipole(m, nest=False, bad=UNSEEN, gal_cut=0):
         bunchsize = npix
     aa = np.zeros((4,4),dtype=np.float64)
     v = np.zeros(4,dtype=np.float64)
-    for ibunch in range(npix/bunchsize):
+    for ibunch in range(npix//bunchsize):
         ipix = np.arange(ibunch*bunchsize,
                           (ibunch+1)*bunchsize)
         ipix = ipix[(m.flat[ipix]!=bad) & (np.isfinite(m.flat[ipix]))]
@@ -1180,7 +1190,7 @@ def fit_dipole(m, nest=False, bad=UNSEEN, gal_cut=0):
     return mono,dipole
 
 def remove_dipole(m,nest=False,bad=UNSEEN,gal_cut=0,fitval=False,
-                  copy=True,verbose=False):
+                  copy=True,verbose=True):
     """Fit and subtract the dipole and the monopole from the given map m.
 
     Parameters
@@ -1221,7 +1231,7 @@ def remove_dipole(m,nest=False,bad=UNSEEN,gal_cut=0,fitval=False,
     else:
         bunchsize = npix
     mono,dipole = fit_dipole(m,nest=nest,bad=bad,gal_cut=gal_cut)
-    for ibunch in range(npix/bunchsize):
+    for ibunch in range(npix//bunchsize):
         ipix = np.arange(ibunch*bunchsize,
                           (ibunch+1)*bunchsize)
         ipix = ipix[(m.flat[ipix]!=bad) & (np.isfinite(m.flat[ipix]))]
@@ -1234,10 +1244,9 @@ def remove_dipole(m,nest=False,bad=UNSEEN,gal_cut=0,fitval=False,
         import rotator as R
         lon,lat = R.vec2dir(dipole,lonlat=True)
         amp = np.sqrt((dipole**2).sum())
-        print 'monopole: %g  dipole: lon: %g, lat: %g, amp: %g'%(mono,
-                                                                 lon,
-                                                                 lat,
-                                                                 amp)
+        print(
+            'monopole: {0:g}  dipole: lon: {1:g}, lat: {2:g}, amp: {3:g}'
+            .format(mono, lon, lat, amp))
     if is_ma:
         m = ma(m)
     if fitval:
@@ -1277,7 +1286,7 @@ def fit_monopole(m,nest=False,bad=pixlib.UNSEEN,gal_cut=0):
     else:
         bunchsize=npix
     aa = v = 0.0
-    for ibunch in range(npix/bunchsize):
+    for ibunch in range(npix//bunchsize):
         ipix = np.arange(ibunch*bunchsize,
                           (ibunch+1)*bunchsize)
         ipix = ipix[(m.flat[ipix]!=bad) & (np.isfinite(m.flat[ipix]))]
@@ -1295,7 +1304,7 @@ def fit_monopole(m,nest=False,bad=pixlib.UNSEEN,gal_cut=0):
     return mono
 
 def remove_monopole(m,nest=False,bad=pixlib.UNSEEN,gal_cut=0,fitval=False,
-                    copy=True,verbose=False):
+                    copy=True,verbose=True):
     """Fit and subtract the monopole from the given map m.
 
     Parameters
@@ -1335,14 +1344,14 @@ def remove_monopole(m,nest=False,bad=pixlib.UNSEEN,gal_cut=0,fitval=False,
     else:
         bunchsize = npix
     mono = fit_monopole(m,nest=nest,bad=bad,gal_cut=gal_cut)
-    for ibunch in range(npix/bunchsize):
+    for ibunch in range(npix//bunchsize):
         ipix = np.arange(ibunch*bunchsize,
                           (ibunch+1)*bunchsize)
         ipix = ipix[(m.flat[ipix]!=bad) & (np.isfinite(m.flat[ipix]))]
         x,y,z = pix2vec(nside, ipix, nest)
         m.flat[ipix] -= mono
     if verbose:
-        print 'monopole: %g'%mono
+        print('monopole: {0:g}'.format(mono))
     if input_ma:
         m = ma(m)
     if fitval:
@@ -1376,14 +1385,14 @@ def get_map_size(m):
      --------
     >>> import healpy as hp
      >>> m = {0: 1, 1: 1, 2: 1, 'nside': 1}
-     >>> print hp.get_map_size(m)
+     >>> print(hp.get_map_size(m))
      12
 
      >>> m = {0: 1, 767: 1}
-     >>> print hp.get_map_size(m)
+     >>> print(hp.get_map_size(m))
      768
 
-     >>> print hp.get_map_size(np.zeros(12 * 8 ** 2))
+     >>> print(hp.get_map_size(np.zeros(12 * 8 ** 2)))
      768
     """
     if isinstance(m, dict):
@@ -1470,7 +1479,7 @@ def ud_grade(map_in,nside_out,pess=False,order_in='RING',order_out=None,
     order_in, order_out : str
       pixel ordering of input and output ('RING' or 'NESTED')
     power : float
-      if non-zero, multiply the result by (nside_in/nside_out)**power
+      if non-zero, divide the result by (nside_in/nside_out)**power
       Examples:
       power=-2 keeps the sum of the map invariant (useful for hitmaps),
       power=2 divides the mean by another factor of (nside_in/nside_out)**2
@@ -1490,8 +1499,7 @@ def ud_grade(map_in,nside_out,pess=False,order_in='RING',order_out=None,
     array([  5.5 ,   7.25,   9.  ,  10.75,  21.75,  21.75,  23.75,  25.75,
             36.5 ,  38.25,  40.  ,  41.75])
     """
-    if not isnsideok(nside_out):
-        raise ValueError('Invalid nside for output')
+    check_nside(nside_out)
     typ = maptype(map_in)
     if typ<0:
         raise TypeError('Invalid map')
@@ -1522,8 +1530,7 @@ def _ud_grade_core(m,nside_out,pess=False,power=None, dtype=None):
         type_out = dtype
     else:
         type_out = type(m[0])
-    if not isnsideok(nside_out):
-        raise ValueError('invalid nside_out value')
+    check_nside(nside_out)
     npix_in = nside2npix(nside_in)
     npix_out = nside2npix(nside_out)
 

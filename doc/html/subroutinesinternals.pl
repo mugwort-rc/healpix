@@ -230,6 +230,10 @@ $key = q/sub:planck_rng/;
 $ref_files{$key} = "$dir".q|subroutinesnode72.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sub:ex:generate_beam/;
+$ref_files{$key} = "$dir".q|subroutinesnode32.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sub:gaussbeam/;
 $ref_files{$key} = "$dir".q|subroutinesnode31.htm|; 
 $noresave{$key} = "$nosave";
@@ -382,12 +386,12 @@ $key = q/sub:read_par/;
 $ref_files{$key} = "$dir".q|subroutinesnode86.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sub:neighbours_nest/;
-$ref_files{$key} = "$dir".q|subroutinesnode63.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sub:mpi_alm2map_slave/;
 $ref_files{$key} = "$dir".q|subroutinesnode56.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sub:neighbours_nest/;
+$ref_files{$key} = "$dir".q|subroutinesnode63.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:pix_tools/;

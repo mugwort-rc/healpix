@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html613"
+<A NAME="tex2html621"
   HREF="subroutinesnode29.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html619"
+<A NAME="tex2html627"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html631"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html621"
+<A NAME="tex2html629"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html614"
+<B> Previous:</B> <A NAME="tex2html622"
   HREF="subroutinesnode29.htm">fits2alms*</A>
 
-<B>Up:</B> <A NAME="tex2html620"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html624"
+<B> Next:</B> <A NAME="tex2html632"
   HREF="subroutinesnode31.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -60,17 +60,22 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">fits2cl*</FONT></font></b><hr>
-<H3>This routine reads a power spectrum or beam window function from a FITS ASCII or binary table. The routine can read temperature coefficients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> or both temperature and polarisation coefficients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
+<H3>This routine reads a power spectrum or beam window function from a FITS ASCII
+or binary table. 
+The routine can read temperature coefficients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> or both temperature and 
+polarisation coefficients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
  $C_l^{T\times E}$
  -->
-<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>. If the keyword PDMTYPE is found in the header, fits2cl assumes the table to be in the special format used by <EM>Planck</EM>
-and will ignore the first data column. If the input FITS file contains several
+<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>. If the 
+keyword PDMTYPE is found in the header, fits2cl assumes the table to be in the 
+special format used by <EM>Planck</EM> and will ignore the first data column. 
+If the input FITS file contains several
 extensions or HDUs, the one to be read can be specified thanks to the CFITSIO 
-<A NAME="tex2html10"
+<A NAME="tex2html14"
   HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/c/c_user/node81.html">Extended File Name Syntax</A>, using its number (eg, <TT>file.fits[2]</TT> or <TT>file.fits+2</TT>) or its
 <TT>EXTNAME</TT> value (eg. <TT>file.fits[beam_100x100]</TT>). By default, only the first valid
 extension will be read.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">fits2cl*</FONT>(
@@ -167,31 +172,31 @@ Reads a power spectrum from the FITS file `cl.fits' and stores the result in cl(
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html613"
+<A NAME="tex2html621"
   HREF="subroutinesnode29.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html619"
+<A NAME="tex2html627"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html631"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html621"
+<A NAME="tex2html629"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html614"
+<B> Previous:</B> <A NAME="tex2html622"
   HREF="subroutinesnode29.htm">fits2alms*</A>
 
-<B>Up:</B> <A NAME="tex2html620"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html624"
+<B> Next:</B> <A NAME="tex2html632"
   HREF="subroutinesnode31.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

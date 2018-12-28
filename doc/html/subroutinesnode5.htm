@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html313"
+<A NAME="tex2html321"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html327"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html323"
+<A NAME="tex2html331"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html321"
+<A NAME="tex2html329"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html314"
+<B> Previous:</B> <A NAME="tex2html322"
   HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html320"
+<B>Up:</B> <A NAME="tex2html328"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html324"
+<B> Next:</B> <A NAME="tex2html332"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,7 +61,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">add_card</FONT></font></b><hr>
 <H3>This routine writes a keyword of any kind into a FITS header. It is a wrapper to other routines that write keywords of different kinds.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">add_card</FONT>(
@@ -99,14 +99,29 @@ header(LEN=80) DIMENSION(:)</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>any</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the value to give to the keyword.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the value (double, real, integer, logical or
+                   character string) to give to the keyword. Note that long string values
+(more than 68 characters in length) are supported.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">comment(LEN=*)</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>comment to the keyword.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">update</font></i></TD>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+<i><font color="#224422">update</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if set to <TT>.true.</TT>, the first occurence of the keyword <TT>kwd</TT> in <TT>header</TT> will be updated (and all other occurences removed); otherwise, the keyword will be appended at
@@ -177,31 +192,31 @@ write <b>HEALPix</b> compliant baseline FITS header
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html313"
+<A NAME="tex2html321"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html327"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html323"
+<A NAME="tex2html331"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html321"
+<A NAME="tex2html329"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html314"
+<B> Previous:</B> <A NAME="tex2html322"
   HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html320"
+<B>Up:</B> <A NAME="tex2html328"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html324"
+<B> Next:</B> <A NAME="tex2html332"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.11, 2013-04-24
+Version 3.20, 2014-12-05
 </ADDRESS>
 </BODY>
 </HTML>

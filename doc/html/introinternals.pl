@@ -162,6 +162,10 @@ $key = q/def:basis/;
 $ref_files{$key} = "$dir".q|intronode6.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_glesp/;
+$ref_files{$key} = "$dir".q|intronode9.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/eq:hata/;
 $ref_files{$key} = "$dir".q|intronode6.htm|; 
 $noresave{$key} = "$nosave";
