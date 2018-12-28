@@ -32,16 +32,18 @@ pro vec2moll, vec, u, v, flip=flip
 ; 
 ; VEC2MOLL, vec, u, v
 ;
+; 2010-04-01: use double precision variables
+;             make sure output of single precision INTERPOL is within valid range
 ;-
 
 if keyword_set(flip) then flipconv = +1 else flipconv = -1 ; longitude increase leftward by default (astro convention)
-halfpi = !pi / 2.
+halfpi = !dpi / 2.d0
 
 common vec2mollcom, ntab, vtab, ztab
 if undefined(ntab) then begin
     ntab = 180L * 10
-    vtab = 2.*FINDGEN(ntab)/(ntab-1) - 1 ; in [-1,1]
-    ztab = (ASIN(vtab) + vtab*SQRT(1-vtab^2))/halfpi ; in [-1,1]
+    vtab = 2.d0*DINDGEN(ntab)/(ntab-1.d0) - 1.d0 ; in [-1,1]
+    ztab = (ASIN(vtab) + vtab*SQRT(1.d0-vtab^2))/halfpi ; in [-1,1]
 endif
 
 
@@ -51,8 +53,9 @@ vec = reform(vec,np1,3,/Over)
 phi = ATAN(vec(*,1), vec(*,0))/ halfpi ; in [-2, 2]
 
 v = INTERPOL(vtab,ztab,vec(*,2)/SQRT(TOTAL(vec^2,2)))
-u = flipconv* phi * SQRT(1-v^2) ; minus sign : astro convention
-
+v <= 1.d0  ; interpol is single precision -> |v| may exceed 1.
+v >= (-1.d0)
+u = flipconv* phi * SQRT(1.d0-v^2) ; minus sign : astro convention
 
 return
 end

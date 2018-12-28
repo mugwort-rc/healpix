@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2009.7.21)  22 MAR 2010 17:30
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2009.7.21)  16 JUN 2010 17:40
 entering extended mode
 **./facilitiesimages.tex
 (./facilitiesimages.tex
@@ -27,7 +27,7 @@ File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 \bibindent=\dimen102
 ) (/sw2/share/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) (/tmp/Healpix_2.14a/doc/TeX/healpix.sty
+) (/tmp/Healpix_2.15/doc/TeX/healpix.sty
 Package: healpix 
 Package: healpix macros (A.J. Banday, M. Bartelmann)
 Document format
@@ -60,22 +60,22 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \plainfootrulewidth=\dimen108
 \headwidth=\dimen109
 \footruleskip=\dimen110
-) (/tmp/Healpix_2.14a/doc/TeX/hpxversion.tex) (/tmp/Healpix_2.14a/doc/TeX/idlve
-rsion.tex) (/tmp/Healpix_2.14a/doc/TeX/gdlversion.tex)
+) (/tmp/Healpix_2.15/doc/TeX/hpxversion.tex) (/tmp/Healpix_2.15/doc/TeX/idlvers
+ion.tex) (/tmp/Healpix_2.15/doc/TeX/gdlversion.tex)
 \bigicon=\skip43
 \smallicon=\skip44
 \blocksize=\skip45
 \c@creq=\count87
 \c@savecreq=\count88
 ) (/sw2/share/texmf-local/tex/latex/html/html.sty (/sw2/share/texmf-dist/tex/la
-tex/hyperref/hyperref.sty
+tex/hyperref_bk/hyperref.sty
 Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
 \@linkdim=\dimen111
 \Hy@linkcounter=\count89
 \Hy@pagecounter=\count90
-(/sw2/share/texmf-dist/tex/latex/hyperref/pd1enc.def
+(/sw2/share/texmf-dist/tex/latex/hyperref_bk/pd1enc.def
 File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
-) (/sw2/share/texmf-dist/tex/latex/hyperref/hyperref.cfg
+) (/sw2/share/texmf-dist/tex/latex/hyperref_bk/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
 )
 Package hyperref Info: Hyper figures OFF on input line 1880.
@@ -104,9 +104,9 @@ Package hyperref Info: Link coloring OFF on input line 2638.
 \c@Hfootnote=\count93
 )
 *hyperref using default driver hdvips*
-(/sw2/share/texmf-dist/tex/latex/hyperref/hdvips.def
+(/sw2/share/texmf-dist/tex/latex/hyperref_bk/hdvips.def
 File: hdvips.def 2003/11/30 v6.74m Hyperref driver for dvips
-(/sw2/share/texmf-dist/tex/latex/hyperref/pdfmark.def
+(/sw2/share/texmf-dist/tex/latex/hyperref_bk/pdfmark.def
 File: pdfmark.def 2003/11/30 v6.74m Hyperref definitions for pdfmark specials
 \pdf@docset=\toks17
 \pdf@box=\box26
@@ -144,13 +144,13 @@ File: latin1.def 2004/02/05 v1.0d Input encoding file
 ))
 \sizebox=\box27
 \lthtmlwrite=\write5
-(./facilitiesimages.aux (/tmp/Healpix_2.14a/doc/TeX/alteralm.aux) (/tmp/Healpix
-_2.14a/doc/TeX/anafast.aux) (/tmp/Healpix_2.14a/doc/TeX/hotspot.aux) (/tmp/Heal
-pix_2.14a/doc/TeX/map2gif.aux) (/tmp/Healpix_2.14a/doc/TeX/median_filter.aux) (
-/tmp/Healpix_2.14a/doc/TeX/plmgen.aux) (/tmp/Healpix_2.14a/doc/TeX/smoothing.au
-x) (/tmp/Healpix_2.14a/doc/TeX/sky_ng_sim.aux) (/tmp/Healpix_2.14a/doc/TeX/synf
-ast.aux) (/tmp/Healpix_2.14a/doc/TeX/ud_grade.aux) (/tmp/Healpix_2.14a/doc/TeX/
-fac_appendix.aux))
+(./facilitiesimages.aux (/tmp/Healpix_2.15/doc/TeX/alteralm.aux) (/tmp/Healpix_
+2.15/doc/TeX/anafast.aux) (/tmp/Healpix_2.15/doc/TeX/hotspot.aux) (/tmp/Healpix
+_2.15/doc/TeX/map2gif.aux) (/tmp/Healpix_2.15/doc/TeX/median_filter.aux) (/tmp/
+Healpix_2.15/doc/TeX/plmgen.aux) (/tmp/Healpix_2.15/doc/TeX/smoothing.aux) (/tm
+p/Healpix_2.15/doc/TeX/sky_ng_sim.aux) (/tmp/Healpix_2.15/doc/TeX/synfast.aux) 
+(/tmp/Healpix_2.15/doc/TeX/ud_grade.aux) (/tmp/Healpix_2.15/doc/TeX/fac_appendi
+x.aux))
 \openout1 = `facilitiesimages.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
@@ -168,7 +168,7 @@ LaTeX Font Info:    ... okay on input line 132.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 132.
 LaTeX Font Info:    ... okay on input line 132.
 Package hyperref Info: Link coloring OFF on input line 132.
-(/sw2/share/texmf-dist/tex/latex/hyperref/nameref.sty
+(/sw2/share/texmf-dist/tex/latex/hyperref_bk/nameref.sty
 Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
 \c@section@level=\count104
 )
@@ -513,8 +513,8 @@ l2hSize :tex2html_wrap_inline2764:12.50008pt::12.50008pt::155.28226pt.
 ] (./facilitiesimages.aux) ) 
 Here is how much of TeX's memory you used:
  3033 strings out of 94501
- 41687 string characters out of 1175974
- 101681 words of memory out of 1500000
+ 41695 string characters out of 1175974
+ 101680 words of memory out of 1500000
  6156 multiletter control sequences out of 10000+50000
  6881 words of font info for 26 fonts, out of 1200000 for 2000
  580 hyphenation exceptions out of 8191

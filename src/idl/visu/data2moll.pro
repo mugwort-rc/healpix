@@ -30,7 +30,7 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,$
                NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS = units, DATA_PLOT = data_plot, $
                GAL_CUT=gal_cut, POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-               TRUECOLORS=truecolors, DATA_TC=data_tc
+               TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT = map_out, ROT=rot_ang, FITS=fits
 ;+
 ;==============================================================================================
 ;     DATA2MOLL
@@ -42,14 +42,16 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          planmap, Tmax, Tmin, color_bar, planvec, vector_scale,
 ;          pxsize=, log=, hist_equal=, max=, min=, flip=, no_dipole=,
 ;          no_monopole=, units=, data_plot=, gal_cut=, polarization=, silent=,
-;          pixel_list=, asinh=, truecolors=, data_tc=
+;          pixel_list=, asinh=, truecolors=, data_tc=, map_out=, rot= , fits=
 ;
 ; IN :
-;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
+;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in,
+;      coord_out, eul_mat, rot
 ; OUT :
-;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale
+;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale, map_out
 ; KEYWORDS
-;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units, polarization
+;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units,
+;      polarization
 ;
 ;  called by mollview
 ;
@@ -58,6 +60,7 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ; April 2008: added pixel_list
 ; July 2008: added asinh
 ; May 2009: can deal with maps without any valid pixel
+; April 2010: added Map_Out
 ;==============================================================================================
 ;-
 
@@ -70,6 +73,8 @@ if undefined(polarization) then polarization=0
 do_polamplitude = (polarization eq 1)
 do_poldirection = (polarization eq 2)
 do_polvector    = (polarization eq 3)
+do_map_out      = arg_present(map_out)
+do_fits         = keyword_set(fits)
 
 
 !P.BACKGROUND = 1               ; white background
@@ -111,7 +116,7 @@ ysize = xsize/2L
 zsize = (do_true) ? 3 : 1
 n_uv = xsize*ysize
 indlist = (n_elements(pixel_list) eq obs_npix)
-small_file = (n_uv GT obs_npix) 
+small_file = (n_uv GT obs_npix)  && ~do_map_out &&~do_fits
 ;small_file = ((n_uv GT npix)  and not do_poldirection)
 
 if (small_file) then begin
@@ -209,7 +214,7 @@ for ystart = 0, ysize - 1, yband do begin
     ; looks for the corresponding position vector on the sphere
     ; -------------------------------------------------------------
     ellipse  = WHERE( (u^2/4. + v^2) LE 1. , nellipse)
-    if (NOT small_file) then begin
+    if (~small_file) then begin
         off_ellipse = WHERE( (u^2/4. + v^2) GT 1. , noff_ell)
         if (noff_ell NE 0) then plan_off = [plan_off, ystart*xsize+off_ellipse]
     endif
@@ -289,6 +294,25 @@ for ystart = 0, ysize - 1, yband do begin
     endif
     ellipse = 0 & id_pix = 0
 endfor
+
+
+;-----------------------------------
+; export in FITS and as an array the original mollweide map before alteration
+;----------------------------------------------
+
+; planmap -> IDL array
+if (do_map_out) then map_out = proj2map_out(planmap, offmap=plan_off, bad_data=bad_data)
+
+; planmap -> FITS file
+if keyword_set(fits) then begin 
+    reso_arcmin = 60.d0 * 360.d0/(xsize-1) * fudge
+    reso_arcmin *=  sqrt(8.d0) / !dpi ; WCS convention, ellipse surface is 4Pi
+    proj2fits, planmap, fits, $
+               projection = 'MOLL', flip=flip, $
+               rot = rot_ang, coord=coord_out, reso = reso_arcmin, unit = sunits, min=mindata, max = maxdata
+endif
+
+
 
 if (small_file) then begin
     data = 0 & pol_data = 0

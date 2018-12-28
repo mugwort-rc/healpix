@@ -5,7 +5,7 @@
 $key = q/=-1.6375,10^{30};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="127" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg39.png"
+ SRC="|."$dir".q|idlimg36.png"
  ALT="$=-1.6375 10^{30}$">|; 
 
 $key = q/x(0),ldots,x(n-1),y(0),ldots,y(n-1),z(0),ldots,z(n-1);MSF=1.6;LFS=12;AAT/;
@@ -13,6 +13,13 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="466" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|idlimg4.png"
  ALT="$x(0),\ldots,x(n-1), y(0),\ldots,y(n-1), z(0),\ldots,z(n-1)$">|; 
+
+$key = q/displaystyle<comment_mark>8582slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|idlimg58.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$">|; 
 
 $key = q/displaystylez=cos(theta)ge2slash3,;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -38,17 +45,17 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|idlimg48.png"
  ALT="$\pi/5$">|; 
 
-$key = q/{N_{{rm{side}}=256;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg61.png"
- ALT="${N_{\rm side}}=256$">|; 
-
 $key = q/{1,ldots,8192};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|idlimg44.png"
  ALT="$\{1,\ldots,8192\}$">|; 
+
+$key = q/{N_{{rm{side}}=256;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|idlimg61.png"
+ ALT="${N_{\rm side}}=256$">|; 
 
 $key = q/2pi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -101,7 +108,7 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|idlimg43.png"
  ALT="$ \le 2^{29}$">|; 
 
-$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>833;MSF=1.6;LFS=12;AAT/;
+$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>859;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|idlimg59.png"
@@ -113,13 +120,6 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|idlimg9.png"
  ALT="$\ldots$">|; 
-
-$key = q/displaystyle<comment_mark>8322slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg58.png"
- ALT="$\displaystyle %[Nside*(Nside+2)/4]
-2/3 &gt; z \geq 0,$">|; 
 
 $key = q/Deltal(b);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -212,18 +212,18 @@ nside=128, the maximum multipole was 256, and this a full sky map
 (type 2).
 }$">|; 
 
+$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>876;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|idlimg64.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+$">|; 
+
 $key = q/l(l+1)slash2pi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="93" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|idlimg12.png"
  ALT="$l(l+1)/2\pi$">|; 
-
-$key = q/displaystyle<comment_mark>8492slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg63.png"
- ALT="$\displaystyle %[Nside*(Nside+2)/4]
-2/3 &gt; z \geq 0,$">|; 
 
 $key = q/N_{{rm{side};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -283,13 +283,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/P=sqrt{left(U^2+Q^2right)};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="142" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg37.png"
+ SRC="|."$dir".q|idlimg38.png"
  ALT="$P = \sqrt{\left(U^2 + Q^2\right)}$">|; 
 
 $key = q/phi=tan^{-1}(UslashQ)slash2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="157" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg38.png"
+ SRC="|."$dir".q|idlimg39.png"
  ALT="$\phi = \tan^{-1}(U/Q) /2$">|; 
 
 $key = q/ge;MSF=1.6;LFS=12;AAT/;
@@ -317,18 +317,18 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|idlimg57.png"
  ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$">|; 
 
+$key = q/displaystyle<comment_mark>8752slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|idlimg63.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$">|; 
+
 $key = q/x_N(0),ldots,x_N(n-1),y_N(0),ldots,y_N(n-1),z_N(0),ldots,z_N(n-1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="540" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|idlimg46.png"
  ALT="$x_N(0),\ldots,x_N(n-1), y_N(0),\ldots,y_N(n-1), z_N(0),\ldots,z_N(n-1)$">|; 
-
-$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>850;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg64.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
-$">|; 
 
 $key = q/quadquad;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -409,7 +409,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/leq0;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="34" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|idlimg36.png"
+ SRC="|."$dir".q|idlimg37.png"
  ALT="$\leq 0$">|; 
 
 $key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;

@@ -953,7 +953,7 @@
     return
   end subroutine write_asctab_KLOAD
   !=======================================================================
-  !   DUMP_ALM
+  !   DUMP_ALMS
   !
   !     Create/extend a FITS file containing a binary table extension with 
   !     the a_lm coefficients in each extension.
@@ -1055,12 +1055,13 @@
     !     writes required keywords
     nrows    = npix  ! naxis1
     tfields  = 3
-    tform(1)=  '1J'
-    tform(2) = '1'//pform
-    tform(3) = '1'//pform
-    ttype(1) = 'index=l^2+l+m+1'
-    ttype(2) = 'alm (real)'
-    ttype(3) = 'alm (imaginary)' 
+    tform = '' ; ttype = '' ; tunit = ''
+    tform(1)(1:2)=  '1J' ! necessary with ifort 11.1.076
+    tform(2)(1:2) = '1'//pform
+    tform(3)(1:2) = '1'//pform
+    ttype(1)(1:15) = 'index=l^2+l+m+1'
+    ttype(2)(1:15) = 'alm (real)     '
+    ttype(3)(1:15) = 'alm (imaginary)' 
     tunit(1:3) = ''      ! optional, will not appear
     extname  = ''      ! optional, will not appear
     varidat  = 0
@@ -1233,14 +1234,16 @@
     nrows    = nalms  ! naxis1
     tfields  = ncl
     repeat   = 1
-    tform(1)='1J'
-    tform(2:ncl) = '1'//pform
-    ttype(1) = 'index=l^2+l+m+1'
-    ttype(2) = 'alm (real)'
-    ttype(3) = 'alm (imaginary)' 
+    tform(1)(1:2)='1J' ! necessary with ifort 11.1.076
+    do i=2, ncl
+       tform(i)(1:2) = '1'//pform
+    enddo
+    ttype(1)(1:15) = 'index=l^2+l+m+1'
+    ttype(2)(1:15) = 'alm (real)     '
+    ttype(3)(1:15) = 'alm (imaginary)' 
     if (ncl>3) then
-       ttype(4) = 'error (real)'
-       ttype(5) = 'error (imaginary)'
+       ttype(4)(1:17)  = 'error (real)     '
+       ttype(5)(1:17)  = 'error (imaginary)'
     endif
     tunit(1:ncl) = ''      ! optional, will not appear
     extname  = ''      ! optional, will not appear

@@ -31,7 +31,8 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS = units, DATA_PLOT = data_plot, $
                GAL_CUT=gal_cut, POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, $
                ASINH=asinh, $
-               DO_SHADE=shade, SHADEMAP = shademap, TRUECOLORS=truecolors, DATA_TC=data_tc
+               DO_SHADE=shade, SHADEMAP = shademap, TRUECOLORS=truecolors, DATA_TC=data_tc, $
+               MAP_OUT = map_out, ROT=rot_ang, FITS=fits
 ;+
 ;==============================================================================================
 ;     DATA2ORTH
@@ -44,15 +45,16 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          pxsize=, log=, hist_equal=, max=, min=, flip=, no_dipole=,
 ;          no_monopole=, units=, data_plot=, gal_cut=,
 ;          polarization=, half_sky, silent=, pixel_list, asinh=,
-;          do_shade=, shademap=, truecolors=, data_tc=
+;          do_shade=, shademap=, truecolors=, data_tc=, map_out=, rot=, fits=
 ;
 ; IN :
-;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
+;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in,
+;      coord_out, eul_mat, rot
 ; OUT :
-;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale, shademap
+;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale, shademap, map_out
 ; KEYWORDS
 ;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units,
-;      polarization, half_sky, do_shade
+;      polarization, half_sky, do_shade, fits
 ;
 ;  called by mollview
 ;  HISTORY
@@ -61,6 +63,7 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ; July 2008: added asinh
 ; May 2009: added do_shade, shademap
 ;           can deal with map without any valid pixel
+; May 2010: added Map_Out and FITS
 ;==============================================================================================
 ;-
 
@@ -84,6 +87,8 @@ if undefined(polarization) then polarization=0
 do_polamplitude = (polarization eq 1)
 do_poldirection = (polarization eq 2)
 do_polvector    = (polarization eq 3)
+do_map_out      = arg_present(map_out)
+do_fits         = keyword_set(fits)
 ;vec_shine = [1,1,1]/sqrt(3.)
 vec_shine = [0.5,-1*flipconv,1] ; light source position (do_shade option)
 vec_shine = vec_shine / sqrt(total(vec_shine^2))
@@ -126,7 +131,7 @@ ysize = xsize/du_dv
 zsize = (do_true) ? 3 : 1
 n_uv = xsize*ysize
 indlist = (n_elements(pixel_list) eq obs_npix)
-small_file = (n_uv GT obs_npix) 
+small_file = (n_uv GT obs_npix)   && ~do_map_out &&~do_fits
 ;small_file = ((n_uv GT npix)  and not do_poldirection)
 
 if (small_file) then begin
@@ -337,6 +342,23 @@ for ystart = 0, ysize - 1, yband do begin
     endif
     disc = 0 & id_pix = 0 & shade = 0
 endfor
+
+;-----------------------------------
+; export in FITS and as an array the original mollweide map before alteration
+;----------------------------------------------
+
+; planmap -> IDL array
+if (do_map_out) then map_out = proj2map_out(planmap, offmap=off_disc, bad_data=bad_data)
+
+; planmap -> FITS file
+if keyword_set(fits) then begin 
+    reso_arcmin = 60.d0 * 180.d0/xsize * fudge * 2.d0 / !dpi
+    ;;print,reso_arcmin,xsize
+    proj2fits, planmap, fits, $
+               projection = 'ORTH', flip=flip, $
+               rot = rot_ang, coord=coord_out, reso = reso_arcmin, unit = sunits, min=mindata, max = maxdata, $
+               half_sky = half_sky
+endif
 
 if (small_file) then begin
     data = 0 & pol_data = 0 & data_tc = 0

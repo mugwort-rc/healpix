@@ -35,7 +35,7 @@ pro bin_llcl, llcl_in, ubin, l_out, llcl_out, dllcl, uniform=uniform, deltal=del
 ;    with a bin BIN
 ;
 ; CALLING SEQUENCE:
-;   bin_llcl, llcl_in, bin, l_out, llcl_out, [dllcl, Uniform=, deltal=]
+;   bin_llcl, llcl_in, bin, l_out, llcl_out, [dllcl, deltal=, /Flatten, /Help, /Uniform]
 ;
 ;
 ; INPUTS

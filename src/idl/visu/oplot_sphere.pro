@@ -46,8 +46,10 @@ if (do_label) then begin
         step = 3
         dv = v[middle+step]-v[middle-step]
         du = u[middle+step]-u[middle-step]
-        angle = atan(dv/du) * !radeg ; angle in degree
+        ;angle = atan(dv/du) * !radeg ; angle in degree
+        angle = atan(dv,du) * !radeg ; angle in degree
         if (angle lt -89.9) then angle = angle + 180.
+        if (angle gt  89.9) then angle = angle - 180.
         ; offset label position to be level with line
         xlab = u[middle] + 0.3*chsize * cos((angle-90.)*!dtor)
         ylab = v[middle] + 0.3*chsize * sin((angle-90.)*!dtor)

@@ -363,7 +363,7 @@ NOT_COMPLEX:
                                 END ELSE VALUE = FLOAT(VALUE)
                         ENDIF ELSE BEGIN
                             LMAX = 2.0D^31 - 1.0D
-                            LMIN = -2.0D31
+                            LMIN = -2.0D^31       ;Typo fixed Feb 2010
                             VALUE = DOUBLE(VALUE)
                             if (VALUE GE LMIN) and (VALUE LE LMAX) THEN $
                                 VALUE = LONG(VALUE)

@@ -28,11 +28,13 @@
 pro mollview, file_in, select_in, $
               ASINH = asinh, $
               CHARSIZE = charsize, $
+              CHARTHICK = charthick, $
               COLT = colt, $
               COORD = coord, $
               CROP = crop, $
               EXECUTE = execute, $
               FACTOR = factor, $
+              FITS = fits, $
               FLIP = flip, $
               GAL_CUT = gal_cut, $
               GIF = gif, $
@@ -45,6 +47,7 @@ pro mollview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE=igraticule, $
               LOG = log, $
+              MAP_OUT = map_out, $
               MAX = max_set, $
               MIN = min_set, $
               NESTED = nested_online, $
@@ -139,6 +142,11 @@ pro mollview, file_in, select_in, $
 ;               characters appearing on the plot
 ;                default = 1.0
 ;
+;       CHARTHICK : character thickness (in TITLE, SUBTITLE and color bar labeling).  
+;               Other characters thickness (such as graticule labels), can be 
+;               controlled with !P.CHARTHICK.
+;                default = 1
+;
 ; 	COLT : color table number, in [-40,40]
 ;        	if not set, the color table will be 33 (Blue-Red)
 ;              if colt<0, the IDL color table ABS(colt) is used, but the scale is
@@ -166,11 +174,14 @@ pro mollview, file_in, select_in, $
 ;               see also : OFFSET, LOG
 ;
 ;       FITS : string containing the name of an output fits file with
-;       the rectangular map in the primary image
+;       the projected map in the primary image
 ;	      if set to 0 or not set : no .FITS done
-;	      if set to 1            : output the plot in plot_gnomic.fits
+;	      if set to 1            : output the plot in plot_XXX.fits
+;                with XXX = cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             ** gnomview only **
+;         Unobserved pixels, and pixels outside the sphere take 
+;       value !healpix.bad_value=-1.6375e30.
+;         In the case of orthographic projection, HALF_SKY must be set.
 ;
 ;       FLIP : if set the longitude increase to the right, whereas by
 ;               default (astro convention) it increases towards the left
@@ -235,8 +246,9 @@ pro mollview, file_in, select_in, $
 ;         (see OFFSET to offset signal)
 ;
 ;       MAP_OUT : name of the IDL variable that will contain
-;         an un-altered Gnomic projection map
-;             ** gnomview only **
+;         an un-altered projected map.
+;         Unobserved pixels, and pixels outside the sphere take 
+;       value !healpix.bad_value=-1.6375e30
 ;
 ; 	MAX : max value plotted, 
 ;		every data point larger than MAX takes the same color as MAX
@@ -287,9 +299,9 @@ pro mollview, file_in, select_in, $
 ;		process
 ;               **  can not be used with /SAVE  **    *** OBSOLETE ***
 ;
-;       OUTLINE : structure containing the coordinates of one (or several) outline(s) to
-;               be overplot.
-;           the structure should contain, for each outline, the following fields : 
+;       OUTLINE : single structure, or set of structures, 
+;                 each containing the coordinates of one outline to be overplotted.
+;           Each structure should contain the following fields : 
 ;           - 'COORD' coordinate system (either, 'C', 'G', or 'E') of the contour
 ;           - 'RA'  or longitude coordinates (array)
 ;           - 'DEC' or lattitude coordinates (array of same size)
@@ -305,6 +317,8 @@ pro mollview, file_in, select_in, $
 ;                    if >0, only the vertices are shown
 ;                    (default = 0)
 ;           - 'SYM[SIZE]' symbol size (same meaning as SYMSIZE in IDL)
+;          Outline can be either a single structure, or an array of structures,
+;          or a structure of structures
 ;
 ;	PNG : string containing the name of a .PNG output
 ;	      if set to 0 or not set : no .PNG done
@@ -466,6 +480,8 @@ pro mollview, file_in, select_in, $
 ;       May-09:  added /SHADED to orthview, implemented EXECUTE in orthview, fix
 ;              Min-Max for LOG, use Z buffer when window<0, added RETAIN keyword
 ;       Oct-09:  added /TRUECOLORS to all routines and MAP_OUT= to Gnomview
+;       Apr-10:  accept array of structures in Outline; added MAP_OUT= to
+;       Cartview and Mollview
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -551,7 +567,7 @@ data2moll, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
   POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT = map_out, ROT=rot, FITS=fits
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -561,7 +577,7 @@ proj2out, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
-  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent
+  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick
 
 
 w_num = !d.window

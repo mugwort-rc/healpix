@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.14</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.14">
+<TITLE>Changes between release 2.0 and 2.15</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.15">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,32 +28,32 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html164"
+<A NAME="tex2html165"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html170"
+<A NAME="tex2html171"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html174"
+<A NAME="tex2html175"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html172"
+<A NAME="tex2html173"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html165"
+<B> Previous:</B> <A NAME="tex2html166"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html171"
+<B>Up:</B> <A NAME="tex2html172"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html175"
+<B> Next:</B> <A NAME="tex2html176"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 2.0 and 2.14</A>
+Changes between release 2.0 and 2.15</A>
 </H1>
 Several routines have been added or improved since version 2.0, as listed below.
 Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
@@ -72,7 +72,30 @@ pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Recent edition (version 2.14a)
+ Recent edition (version 2.15)
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+        <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ export of projected map into a FITS file (<A HREF="idlnode33.htm#idl:mollview:fits"><TT>FITS</TT></A> keyword), or an
+IDL array (<A HREF="idlnode33.htm#idl:mollview:fits"><TT>MAP_OUT</TT></A> option) now available with all viewing routines,
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ added <A HREF="idlnode33.htm#idl:mollview:charthick"><TT>CHARTHICK</TT></A> support; accept array of <A HREF="idlnode33.htm#idl:mollview:outline"><TT>OUTLINE</TT></A> structures (if they have the same fields);
+	</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode50.htm#idl:remove_dipole"><TT>remove_dipole</TT></A> now outputs the monopole and dipole
+<A HREF="idlnode50.htm#idl:remove_dipole:covariance_matrix">covariance matrix</A>;
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ 
+<A HREF="#idl:write_fits_maps"><TT>write_fits_map</TT></A>, 
+<A HREF="idlnode60.htm#idl:write_tqu"><TT>write_tqu</TT></A>, 
+<A HREF="idlnode59.htm#idl:write_fits_sb"><TT>write_fits_sb</TT></A>: <TT>BAD_DATA</TT> keyword added to FITS header;
+        <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ update of <TT>astron</TT> library routines (24-May-2010) for improved WCS support.
+</DL>
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Previous edition (version 2.14a)
  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
         <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -99,9 +122,9 @@ Precision input maps
  <A HREF="idlnode50.htm#idl:remove_dipole"><TT>remove_dipole</TT></A>: 
 <TT>COORD_IN=</TT> and <TT>COORD_OUT=</TT> now
 accept lower case values; <TT>/SILENT</TT> keyword added.
- </DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Previous edition (version 2.13)
+ </DL></DL>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Old edition (version 2.13)
    <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  new <A HREF="idlnode22.htm#idl:healpix_doc"><TT>healpix_doc</TT></A> routine to
 browse HTML and PDF documentations
@@ -137,8 +160,10 @@ substructure with complete path to <b>HEALPix</b> subdirectories (test, data, bi
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
               <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>: solved problem with <TT>W8DIR=</TT> keyword.
-   </DL></DL>
-<SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+   </DL>
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Older editions (versions 2.11 and 2.12a)
    <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
@@ -272,32 +297,32 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html164"
+<A NAME="tex2html165"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html170"
+<A NAME="tex2html171"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html174"
+<A NAME="tex2html175"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html172"
+<A NAME="tex2html173"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html165"
+<B> Previous:</B> <A NAME="tex2html166"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html171"
+<B>Up:</B> <A NAME="tex2html172"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html175"
+<B> Next:</B> <A NAME="tex2html176"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-03-22
+2010-06-16
 </ADDRESS>
 </BODY>
 </HTML>

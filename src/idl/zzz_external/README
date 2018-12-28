@@ -74,3 +74,13 @@ NB : the routines in the ./astron directory have been updated to
  2009-11-27
  EH
 ----------------
+
+NB : the routines MAKE_ASTR, PUTAST (and WCS_GETPOLE) and SXADDHIST have been added,
+ as well as their subsidiaries, while all routines have been updated to 
+ match the May 24, 2010 version of the astron library.
+ The routines AD2XY, BSORT, EXTAST, GCIRC, MINMAX, 
+ WCS_ROTATE, WCSSPH2XY, WCSXY2SPH, XY2AD required by Ximview have been added.
+
+ 2010-05-26
+ EH
+----------------

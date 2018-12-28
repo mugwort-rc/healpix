@@ -35,7 +35,6 @@ function repstr,obj,in,out
 ; MODIFICATION HISTORY:
 ;	Written by Robert S. Hill, ST Systems Corp., 12 April 1989.
 ;	Accept vector object strings, W. Landsman   HSTX,   April, 1996
-;	Converted to IDL V5.0   W. Landsman   September 1997
 ;       Convert loop to LONG, vectorize STRLEN call W. Landsman June 2002
 ;       Correct bug in optimization, case where STRLEN(OBJ) EQ
 ;         STRLEN(IN), C. Markwardt, Jan 2003
@@ -43,6 +42,7 @@ function repstr,obj,in,out
 ;                 D. Finkbeiner, W. Landsman  April 2003
 ;       Allow third parameter to be optional again W. Landsman  August 2003
 ;       Remove limitation of 9999 characters, C. Markwardt Dec 2003
+;       Test for empty "in" string (causing infinite loop) W. Landsman Jan 2010
 ;-
  On_error,2
  compile_opt idl2
@@ -54,6 +54,7 @@ function repstr,obj,in,out
 
  if N_elements(out) EQ 0 then out = ''
  l1 = strlen(in)
+ if l1 EQ 0 then message,'ERROR - empty input string not allowed'
  l2 = strlen(out)
  diflen = l2- l1
  Nstring = N_elements(obj)

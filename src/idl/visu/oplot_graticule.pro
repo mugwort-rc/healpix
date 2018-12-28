@@ -115,13 +115,13 @@ endif else begin
     endif
 endelse
 
-fsgrat = (defined(reso_rad)) ? !dtor/reso_rad : 1. ; number of pixels / degree
+fsgrat = (defined(reso_rad)) ? !dtor/(reso_rad+1.d-11) : 1. ; number of pixels / degree
 fsgrat = long(fsgrat) > 1 < 5
 ; define variables
 epsilon = 1.d-5
 nmerid = fix(181./dlong)
 nparal = fix(90./dlat)-1
-nv = (projtype eq 2 || projtype eq 3) ? 721*fsgrat : 181 ; more points for partial projections
+nv = (projtype eq 2 || projtype eq 3) ? 721*fsgrat : 361 ; more points for partial projections
 vector = DINDGEN(nv)/(nv-1.d0) * (1.d0-2.d0*epsilon) + epsilon ; from epsilon to 1-epsilon
 bounds = [[-nmerid,nmerid-1],[-nparal,nparal]]
 

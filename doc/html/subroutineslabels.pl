@@ -111,7 +111,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode15.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map_spin/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode13.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:get_card/;
@@ -179,7 +179,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode74.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alms2fits/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode14.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode13.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:read_conbintab/;
@@ -223,11 +223,11 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode30.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:add_dipole/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode9.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode8.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:add_card/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode8.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode7.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:write_dbintab/;
@@ -283,7 +283,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode65.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2cl/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode10.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode9.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:read_asctab/;
@@ -303,7 +303,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode80.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alter_alm/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode7.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode14.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:convert_nest2ring/;
@@ -387,7 +387,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode19.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode11.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode10.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:concatnl/;
@@ -399,7 +399,7 @@ $external_labels{$key} = "$URL/" . q|subroutinesnode67.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map_der/;
-$external_labels{$key} = "$URL/" . q|subroutinesnode12.htm|; 
+$external_labels{$key} = "$URL/" . q|subroutinesnode11.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:rand_init/;

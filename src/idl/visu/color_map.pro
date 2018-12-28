@@ -176,7 +176,8 @@ endif else begin
         color_bar = (3B + BYTSCL( junk2, TOP = N_Color-4 ))
 
     endif else begin
-        if (ABS((maxdata+mindata)/FLOAT(maxdata-mindata)) lt 5.e-2) then begin
+        if (maxdata ne mindata && $
+            ABS((maxdata+mindata)/FLOAT(maxdata-mindata)) lt 5.e-2) then begin
 ;       if Min and Max are symmetric
 ;       put data=0 at the center of the color scale
             Tmax = MAX(ABS([mindata,maxdata]))

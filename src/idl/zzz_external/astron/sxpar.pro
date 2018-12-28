@@ -299,7 +299,7 @@ NOT_COMPLEX:
                                                 else value = float(value)
                        endif else begin                   ;Long integer
                             lmax = 2.0d^31 - 1.0d
-                            lmin = -2.0d31
+                            lmin = -2.0d^31      ;Typo fixed Feb 2010
                             value = double(value)
                             if (value GE lmin) && (value LE lmax) then $
                                 value = long(value)

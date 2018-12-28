@@ -28,6 +28,7 @@
 PRO cartview, file_in, select_in, $
               ASINH = asinh, $
               CHARSIZE = charsize, $
+              CHARTHICK = charthick, $
               COLT = colt, $
               COORD = coord, $
               CROP = crop, $
@@ -45,6 +46,7 @@ PRO cartview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE = igraticule, $
               LOG = log, $
+              MAP_OUT=map_out, $
               MAX = max_set, $
               MIN = min_set, $
               NESTED = nested_online, $
@@ -163,7 +165,7 @@ data2cart, $
   MAX=max_set, MIN=min_set, $
   RESO_ARCMIN = reso_arcmin, FITS = fits, FLIP=flip, DATA_plot = data_plot, $
   POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, dx, title_display, $
@@ -174,7 +176,7 @@ proj2out, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /CART, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, TRANSPARENT = transparent, EXECUTE=execute, $
-  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors
+  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

@@ -12,7 +12,7 @@ $">|;
 $key = q/{_0}S^-=0.;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="82" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg33.png"
+ SRC="|."$dir".q|subroutinesimg29.png"
  ALT="$ {_0}S^- = 0.$">|; 
 
 $key = q/displaystylez=cos(theta)ge2slash3,;MSF=1.6;LFS=12;AAT/;
@@ -30,7 +30,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/l_{{rm{max}=m_{{rm{max}=128;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="157" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg13.png"
+ SRC="|."$dir".q|subroutinesimg33.png"
  ALT="$l_{\rm
 max}=m_{\rm max} = 128$">|; 
 
@@ -100,7 +100,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left({partialT}slash{partialtheta},{partialQ}slash{partialtheta},{partialU}slash{partialtheta};right.;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="203" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg20.png"
+ SRC="|."$dir".q|subroutinesimg16.png"
  ALT="$\left({\partial T}/{\partial
 \theta}, {\partial Q}/{\partial \theta}, {\partial U}/{\partial \theta};\right. $">|; 
 
@@ -133,7 +133,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/P_{lm}(theta);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg18.png"
+ SRC="|."$dir".q|subroutinesimg14.png"
  ALT="$P_{lm}(\theta)$">|; 
 
 $key = q/ldots;MSF=1.6;LFS=12;AAT/;
@@ -199,7 +199,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{_0}S^+=T;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="81" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg32.png"
+ SRC="|."$dir".q|subroutinesimg28.png"
  ALT="$ {_0}S^+ = T$">|; 
 
 $key = q/{displaymath}m'(p)=m(p)-sum_{i=0}^{d^2-1}f_is_i(p).{displaymath};MSF=1.6;LFS=12;AAT/;
@@ -257,7 +257,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{side}}=128;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg15.png"
+ SRC="|."$dir".q|subroutinesimg11.png"
  ALT="${N_{\rm side}}=128$">|; 
 
 $key = q/3pislash4;MSF=1.6;LFS=12;AAT/;
@@ -275,7 +275,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{_s}Y_{lm};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="46" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg25.png"
+ SRC="|."$dir".q|subroutinesimg21.png"
  ALT="$ {_s}Y_{lm}$">|; 
 
 $key = q/sigma^2=sum(x-m)^2slash(n-1);MSF=1.6;LFS=12;AAT/;
@@ -293,13 +293,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/lin{;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="43" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg11.png"
+ SRC="|."$dir".q|subroutinesimg31.png"
  ALT="$l\in \{$">|; 
 
 $key = q/dgeq6;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="49" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg17.png"
+ SRC="|."$dir".q|subroutinesimg13.png"
  ALT="$d\geq 6$">|; 
 
 $key = q/propto1024;MSF=1.6;LFS=12;AAT/;
@@ -335,7 +335,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/backslash;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg14.png"
+ SRC="|."$dir".q|subroutinesimg10.png"
  ALT="$\backslash$">|; 
 
 $key = q/phi=0;MSF=1.6;LFS=12;AAT/;
@@ -353,7 +353,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/C_{12}(l)=sum_{m=-l}^{l}a_{1,lm}a_{2,lm}^*slash(2l+1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="282" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg16.png"
+ SRC="|."$dir".q|subroutinesimg12.png"
  ALT="$C_{12}(l) = \sum_{m=-l}^{l} a_{1,lm}
 a_{2,lm}^* / (2 l+1) $">|; 
 
@@ -372,7 +372,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{displaymath}{_s}S(p)=sum_{lm}{_s}a_{lm}{_s}Y_{lm}(p){displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="198" HEIGHT="49" BORDER="0"
- SRC="|."$dir".q|subroutinesimg26.png"
+ SRC="|."$dir".q|subroutinesimg22.png"
  ALT="\begin{displaymath}
 {_s}S(p) = \sum_{lm} {_s}a_{lm}  {_s}Y_{lm}(p)
 \end{displaymath}">|; 
@@ -417,7 +417,7 @@ $">|;
 $key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg10.png"
+ SRC="|."$dir".q|subroutinesimg9.png"
  ALT="${N_{\rm side}}$">|; 
 
 $key = q/{displaymath}sum_{j=0}^{d^2-1}A_{ij}f_j=b_i{displaymath};MSF=1.6;LFS=12;AAT/;
@@ -431,7 +431,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/lge|m|,lge|s|;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="122" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg27.png"
+ SRC="|."$dir".q|subroutinesimg23.png"
  ALT="$l \ge \vert m\vert, l \ge \vert s\vert$">|; 
 
 $key = q/{{bf{v}_3={{bf{v}_1times{{bf{v}_2;MSF=1.6;LFS=12;AAT/;
@@ -443,7 +443,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/mge0;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="56" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg29.png"
+ SRC="|."$dir".q|subroutinesimg25.png"
  ALT="$m\ge 0$">|; 
 
 $key = q/{displaymath}{N_{{rm{templates}}=frac{1+{N_{{rm{side}}({N_{{rm{side}}+6)}{4}{displaymath};MSF=1.6;LFS=12;AAT/;
@@ -577,7 +577,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left.{partial^2T}slash{partialphi^2}slashsin^2thetaright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="142" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg23.png"
+ SRC="|."$dir".q|subroutinesimg19.png"
  ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $">|; 
 
 $key = q/[0,pi];MSF=1.6;LFS=12;AAT/;
@@ -595,7 +595,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/_{0}a^-_{lm}=0;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="80" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg31.png"
+ SRC="|."$dir".q|subroutinesimg27.png"
  ALT="$ _{0}a^-_{lm} = 0$">|; 
 
 $key = q/mathbf{phi};MSF=1.6;LFS=12;AAT/;
@@ -607,7 +607,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/_{0}a^+_{lm}=-a^T_{lm};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="112" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg30.png"
+ SRC="|."$dir".q|subroutinesimg26.png"
  ALT="$ _{0}a^+_{lm} = -a^T_{lm}$">|; 
 
 $key = q/partialXslashpartialtheta;MSF=1.6;LFS=12;AAT/;
@@ -626,7 +626,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/a_{lm}longrightarrowa_{lm}b(l);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="128" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg9.png"
+ SRC="|."$dir".q|subroutinesimg30.png"
  ALT="$a_{lm}
 \longrightarrow a_{lm} b(l) $">|; 
 
@@ -663,7 +663,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left({partial^2T}slash{partialtheta^2},{partial^2Q}slash{partialtheta^2},{partial^2Q}slash{partialtheta^2},ldotsright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="276" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg24.png"
+ SRC="|."$dir".q|subroutinesimg20.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 Q}/{\partial \theta^2},
 {\partial^2 Q}/{\partial \theta^2}, \ldots \right) $">|; 
 
@@ -710,7 +710,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left.{partialT}slash{partialphi}slashsintheta,ldotsright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="148" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg21.png"
+ SRC="|."$dir".q|subroutinesimg17.png"
  ALT="$\left.{\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
 $">|; 
 
@@ -729,7 +729,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/textstylemyequal;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg28.png"
+ SRC="|."$dir".q|subroutinesimg24.png"
  ALT="$\textstyle \myequal$">|; 
 
 $key = q/simeq1.8010^{308};MSF=1.6;LFS=12;AAT/;
@@ -741,7 +741,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{side}}=64;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg12.png"
+ SRC="|."$dir".q|subroutinesimg32.png"
  ALT="${N_{\rm side}}=64$">|; 
 
 $key = q/{N_{{rm{pix}}-1;MSF=1.6;LFS=12;AAT/;
@@ -753,7 +753,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left({partialT}slash{partialtheta},{partialT}slash{partialphi}slashsinthetaright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="185" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg19.png"
+ SRC="|."$dir".q|subroutinesimg15.png"
  ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
 $">|; 
 
@@ -796,7 +796,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/left({partial^2T}slash{partialtheta^2},{partial^2T}slash{partialthetapartialphi}slashsintheta,right.;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="231" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg22.png"
+ SRC="|."$dir".q|subroutinesimg18.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
 \theta\partial\phi}/\sin\theta,\right. $">|; 
 

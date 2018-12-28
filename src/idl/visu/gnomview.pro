@@ -28,6 +28,7 @@
 PRO gnomview, file_in, select_in, $
               ASINH = asinh, $
               CHARSIZE = charsize, $
+              CHARTHICK = charthick, $
               COLT = colt, $
               COORD = coord, $
               CROP = crop, $
@@ -176,7 +177,7 @@ proj2out, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /GNOM, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
-  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent
+  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

@@ -61,12 +61,12 @@
 ;                 Ignored if PASS_METHOD is 'POINTER'.
 ;
 ; OPTIONAL INPUT KEYWORDS: 
-;       DEFAULT_FLOAT = If set, then scaling with TSCAL/TZERO is done with
-;                   floating point rather than double precision.
 ;       ROW     = Either row number in the binary table to read data from,
 ;                 starting from row one, or a two element array containing a
 ;                 range of row numbers to read.  If not passed, then the entire
 ;                 column is read in.
+;       /DEFAULT_FLOAT = If set, then scaling with TSCAL/TZERO is done with
+;                 floating point rather than double precision.
 ;       /NOIEEE = If set, then then IEEE floating point data will not
 ;                be converted to the host floating point format (and
 ;                this by definition implies NOSCALE).  The user is
@@ -166,7 +166,8 @@
 ;      integers, Oct 2003
 ;   Add DEFAULT_FLOAT keyword to select float values instead of double
 ;      for TSCAL'ed, June 2004
-;  read 64bit integer columns, E. Hivon, Mar 2008
+;   Read 64bit integer columns, E. Hivon, Mar 2008
+;   Add support for columns with TNULLn keywords, C. Markwardt, Apr 2010
 ;
 ;
 ;-
@@ -178,6 +179,7 @@
 PRO FXBREADM_CONV, BB, DD, CTYPE, PERROW, NROWS, $
                    NOIEEE=NOIEEE, NOSCALE=NOSCALE, VARICOL=VARICOL, $
                    NANVALUE=NANVALUE, TZERO=TZERO, TSCAL=TSCAL, $
+                   TNULL_VALUE=TNULL, TNULL_FLAG=TNULLQ, $
                    DEFAULT_FLOAT=DF
 
   COMMON FXBREADM_CONV_COMMON, DTYPENAMES
@@ -203,6 +205,13 @@ PRO FXBREADM_CONV, BB, DD, CTYPE, PERROW, NROWS, $
       (CTYPE EQ 2 OR CTYPE EQ 3 or ctype eq 14): BEGIN
           IF NOT KEYWORD_SET(NOIEEE) OR KEYWORD_SET(VARICOL) THEN $
             IEEE_TO_HOST, DD 
+          ;; Check for TNULL values
+          ;; We will convert to NAN values later (or if the user
+          ;; requested a different value we will use that)
+          IF KEYWORD_SET(TNULLQ) THEN BEGIN
+              W = WHERE(DD EQ TNULL,COUNT)
+              IF N_ELEMENTS(NANVALUE) EQ 0 THEN NANVALUE = !VALUES.D_NAN
+          ENDIF
       END
 
       ;; Floating and complex types
@@ -533,11 +542,14 @@ PRO FXBREADM, UNIT, COL, $
 ;
 ;  Compose information about the output
 ;
+        HEADER = HEAD[*,ILUN]
         COLNDIM = LONARR(NUMCOLS)
         COLDIM  = LONARR(NUMCOLS, 20) ;; Maximum of 20 dimensions in output
         COLTYPE = LONARR(NUMCOLS)
         BOFF1   = LONARR(NUMCOLS)
         BOFF2   = LONARR(NUMCOLS)
+        TNULL_FLG = INTARR(NUMCOLS) ;; 1 if TNULLn column is present
+        TNULL_VAL = DBLARR(NUMCOLS) ;; value of TNULLn column if present
         NROWS = ROW2-ROW1+1
         FOR I = 0L, NUMCOLS-1 DO BEGIN
 
@@ -600,6 +612,17 @@ PRO FXBREADM, UNIT, COL, $
             ELSE $
               BOFF2[I] = BYTOFF[ICOL[I]+1,ILUN]-1
 
+            ;; TNULLn keywords for integer type columns
+            IF (COLTYPE[I] GE 1 AND COLTYPE[I] LE 3) OR $
+              (COLTYPE[I] GE 12 AND COLTYPE[I] LE 15) THEN BEGIN
+                TNULLn = 'TNULL'+STRTRIM(ICOL[I]+1,2)
+                VALUE = FXPAR(HEADER,TNULLn, Count = N_VALUE)
+                IF N_VALUE GT 0 THEN BEGIN
+                    TNULL_FLG[I] = 1
+                    TNULL_VAL[I] = VALUE
+                ENDIF
+            ENDIF
+            
             LOOP_END_DIMS:
 
         ENDFOR
@@ -700,7 +723,9 @@ PRO FXBREADM, UNIT, COL, $
             FXBREADM_CONV, BB[BOFF1[I]:BOFF2[I], *], DD, COLTYPE[I], PERROW, NR,$
               NOIEEE=KEYWORD_SET(NOIEEE), NOSCALE=KEYWORD_SET(NOSCALE), $
               TZERO=TZERO[ICOL[I], ILUN], TSCAL=TSCAL[ICOL[I], ILUN], $
-              VARICOL=VARICOL[I], DEFAULT_FLOAT=DEFAULT_FLOAT, _EXTRA=EXTRA
+              VARICOL=VARICOL[I], DEFAULT_FLOAT=DEFAULT_FLOAT, $
+              TNULL_VALUE=TNULL_VAL[I], TNULL_FLAG=TNULL_FLG[I], $
+              _EXTRA=EXTRA
 
             ;; Initialize the output variable on the first chunk
             IF FIRST THEN BEGIN

@@ -28,11 +28,13 @@
 pro orthview, file_in, select_in, $
               ASINH = asinh, $
               CHARSIZE = charsize, $
+              CHARTHICK = charthick, $
               COLT = colt, $
               COORD = coord, $
               CROP = crop, $
               EXECUTE = execute, $
               FACTOR = factor, $
+              FITS = fits, $
               FLIP = flip, $
               GAL_CUT = gal_cut, $
               GIF = gif, $
@@ -46,6 +48,7 @@ pro orthview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE=igraticule, $
               LOG = log, $
+              MAP_OUT = map_out, $
               MAX = max_set, $
               MIN = min_set, $
               NESTED = nested_online, $
@@ -114,7 +117,8 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HIST_EQUAL=, HXSIZE=,  '
     print,'              IGLSIZE=, IGRATICULE=,'
     print,'              LOG=, '
-    print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
+    print,'              MAP_OUT=, MAX=, MIN=, '
+    print,'              NESTED=, NOBAR=, NOLABELS=, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
@@ -168,7 +172,7 @@ data2orth, $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
   POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
   DO_SHADE=do_shade, SHADEMAP=shademap, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out, ROT=rot, FITS=fits
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -178,7 +182,7 @@ proj2out, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /ORTH, FLIP=flip, HALF_SKY=half_sky, COORD_IN=coord_in, $
   IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
-  SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent
+  SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

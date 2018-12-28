@@ -101,16 +101,13 @@ settings = 'factory' ; that's how it feels
 comments=["-----------------------------------------------------------------------------",$
           "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
           "and the hard copy paper size,",$
-          "by running the config_preview script in the main Healpix directory.",$
+          "by running the configure script in the main Healpix directory.",$
 ;          "           (no need to restart IDL ;-)",$
           "-----------------------------------------------------------------------------"]
 
-; import user's choices, if they exist
-if (float(!version.release) ge 5.39) then begin
-    found = strlen(file_which('idl_default_previewer.pro'))
-    if (found eq 0) then print,comments,form='(a)'
-endif
-@idl_default_previewer
+; 2010-May-27
+test_preview, found_preview
+@idl_default_previewer.pro
 
 ; issue a friendly but annoying reminder if user did not customize settings
 if (settings eq 'factory') then print,comments,form='(a)'

@@ -37,7 +37,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               PROJECTION=projection, MOLLWEIDE=mollweide, GNOMIC=gnomic, CARTESIAN=cartesian, $
               ORTHOGRAPHIC=orthographic, FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, $
               IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
-              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors
+              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick
 
 ;===============================================================================
 ;+
@@ -85,6 +85,8 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;                 Everything works as in IDL except PS outputs and
 ;                 transparent pixels in PNG
 ;   Mar 2010, EH, corrected bug with use_z_buffer
+;   Apr 2010, EH, accepts array of OUTLINE;
+;                  supports CHARTHICK
 ;-
 ;===============================================================================
 
@@ -372,6 +374,7 @@ do_shade = (do_orth && defined(shademap))
 ; set color table and character size
 ct          = defined(colt)     ? colt     : 33
 charsfactor = defined(charsize) ? charsize : 1.0
+mycharthick = defined(charthick)? charthick : 1.0
 
 ; alter the color table
 ; -----------------------
@@ -589,8 +592,10 @@ if (~(keyword_set(nobar) || keyword_set(nolabels) || do_true || do_poldirection)
     if ((Tmax - Tmin) ge 5  and MAX(ABS([Tmax,Tmin])) le 1.e2) then format='(f6.1)'
     strmin = STRING(Tmin,format=format)
     strmax = STRING(Tmax,format=format)
-    XYOUTS, cbar_xll, cbar_yll,'!6'+STRTRIM(strmin,2)+' ',ALIGN=1.,/normal, chars=1.3*charsfactor
-    XYOUTS, cbar_xur, cbar_yll,'!6 '+STRTRIM(strmax,2)+' '+sunits,ALIGN=0.,/normal, chars=1.3*charsfactor
+    XYOUTS, cbar_xll, cbar_yll,'!6'+STRTRIM(strmin,2)+' ',$
+            ALIGN=1.,/normal, chars=1.3*charsfactor, charthick=mycharthick
+    XYOUTS, cbar_xur, cbar_yll,'!6 '+STRTRIM(strmax,2)+' '+sunits,$
+            ALIGN=0.,/normal, chars=1.3*charsfactor, charthick=mycharthick
 endif
 
 ; the polarisation vector scale
@@ -599,16 +604,16 @@ if (~keyword_set(nobar)  && do_polvector) then begin
     format = '(g10.2)'
     if ((5*vector_scale) lt 1.e3 and (5*vector_scale) ge 10) then format = '(f5.1)'
     if ((5*vector_scale) lt 10 and (5*vector_scale) gt 1.e-1) then format = '(f4.2)'
-    xyouts, vscal_x, vscal_y + .5*(5*pol_rescale)*w_dy, '!6  '+strtrim(string(5*vector_scale,form=format),2)+' '+sunits,ALIGN=0.,/normal, chars=1.1*charsfactor
+    xyouts, vscal_x, vscal_y + .5*(5*pol_rescale)*w_dy, '!6  '+strtrim(string(5*vector_scale,form=format),2)+' '+sunits,ALIGN=0.,/normal, chars=1.1*charsfactor, charthick=mycharthick
 endif
 
 ;  the title
 if (~ keyword_set(titleplot)) then title= '!6'+title_display else title='!6'+titleplot
-XYOUTS, x_title, y_title ,title, align=0.5, /normal, chars=1.6*charsfactor
+XYOUTS, x_title, y_title ,title, align=0.5, /normal, chars=1.6*charsfactor, charthick=mycharthick
 
 ;  the subtitle
 if (keyword_set(subtitle)) then begin
-    XYOUTS, x_subtl, y_subtl ,'!6 '+subtitle, align=0.5, /normal, chars=1.6*.75*charsfactor
+    XYOUTS, x_subtl, y_subtl ,'!6 '+subtitle, align=0.5, /normal, chars=1.6*.75*charsfactor, charthick=mycharthick
 endif
 
 ; ---------- projection dependent ------------------
@@ -653,7 +658,9 @@ endif
 
 ; outlines on the map
 if (keyword_set(outline)) then begin
-    outline_coord2uv, outline, coord_out, eul_mat, projection=proj_small, flip = flip, /show, thick = 3.*thick_dev, half_sky=half_sky
+    for iol=0, n_elements(outline)-1 do begin
+        outline_coord2uv, outline[iol], coord_out, eul_mat, projection=proj_small, flip = flip, /show, thick = 3.*thick_dev, half_sky=half_sky
+    endfor
 endif
 
 ; overplot pixel boundaries

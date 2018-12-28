@@ -277,20 +277,13 @@ endelse
 ;-----------------------------------
 
 ; grid -> IDL array
-if arg_present(map_out) then map_out = grid
+if arg_present(map_out) then map_out = proj2map_out(grid, bad_data=bad_data)
 
-; grid -> FTIS file
+; grid -> FITS file
 if keyword_set(fits) then begin 
-    if (rot_ang(2) NE 0.) then begin 
-        print,'can NOT export gnomic FITS file'
-        print,'set Rot = [lon0, lat0, 0.0]'
-        goto,skip_fits
-    endif
-    if (DATATYPE(fits) ne 'STR') then file_fits = 'plot_'+proj_small+'.fits' else file_fits = fits
-    gnom2fits, grid, file_fits, $
+    proj2fits, grid, fits, $
+               projection = 'GNOM', flip=flip, $
                rot = rot_ang, coord=coord_out, reso = resgrid*60., unit = sunits, min=mindata, max = maxdata
-    print,'FITS file is in '+file_fits
-    skip_fits:
 endif
 
 ; -------------------------------------------------------------

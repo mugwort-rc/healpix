@@ -127,6 +127,7 @@ pro write_fits_sb, filename, prim_st, exten_st, Coordsys=coordsys, Nested=nested
 ;  May 2005, EH, replaces FINDFILE by FILE_TEST
 ;  Jan 2009: calls init_astrolib
 ;  Nov 2009: increased buffersize in fxbwritm for slightly faster writing
+;  2010-05-11: adds BAD_DATA = -1.6375e30  in FITS header of *Healpix* data sets
 ;-
 ;
 ; NB : do NOT use 'T' or 'F' as the tag names
@@ -241,6 +242,9 @@ if (do_hpx) then begin
 
 ; add NSIDE information
     add_nside_fits, xhdr, nside=nside, partial = 1-fullsky, obs_npix = npix
+
+; add BAD_DATA information
+    add_bad_data_fits, xhdr
 endif
 
 ; add coordsys information to user supplied extension header

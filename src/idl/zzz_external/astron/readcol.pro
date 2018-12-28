@@ -30,7 +30,8 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 ;       FORMAT - scalar string containing a letter specifying an IDL type
 ;               for each column of data to be read.  Allowed letters are 
 ;               A - string data, B - byte, D - double precision, F- floating 
-;               point, I - integer, L - longword, Z - longword hexadecimal, 
+;               point, I - short integer, L - longword, LL - 64 bit integer, 
+;               U - unsigned short integer, Z - longword hexadecimal, 
 ;               and X - skip a column.
 ;
 ;               Columns without a specified format are assumed to be floating 
@@ -55,6 +56,7 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 ;       DELIMITER - Character(s) specifying delimiter used to separate 
 ;                columns.   Usually a single character but, e.g. delimiter=':,'
 ;                specifies that either a colon or comma as a delimiter. 
+;                Set DELIM = string(9b) to read tab separated data
 ;                The default delimiter is either a comma or a blank.                   
 ;       /NAN - if set, then an empty field will be read into a floating or 
 ;                double numeric variable as NaN; by default an empty field is 
@@ -140,8 +142,12 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 ;       Read up to 40 columns W.L. Aug 2009
 ;       Use pointers instead of SCOPE_VARFETCH. Fixes bug with
 ;       IDL Workbench and runs 20% faster Douglas J. Marshall/W.L. Nov 2009
+;       Recognize  LL, UL, and ULL data types, don't use 'val' output from 
+;           STRNUMBER()   W.L.  Feb 2010
+;       Graceful return even if no valid lines are present D. Sahnow April 2010
+;       Ability to read tab separated data WL April 2010
 ;-
-;  On_error,2                    ;Return to caller
+  On_error,2                    ;Return to caller
   compile_opt idl2
 
   if N_params() lt 2 then begin
@@ -152,11 +158,8 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 
 ; Get number of lines in file
 
+  ngood = 0L                 ;Number of good lines
   nlines = FILE_LINES( name )
-  if nlines LE 0 then begin
-     message,'ERROR - File ' + name+' contains no data',/CON
-     return
-  endif     
   
 
   if keyword_set(DEBUG) then $
@@ -164,6 +167,10 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 
   if not keyword_set( SKIPLINE ) then skipline = 0
   nlines = nlines - skipline
+  if nlines LE 0 then begin
+     message,'ERROR - File ' + name+' contains no data',/CON
+     return
+  endif     
   if keyword_set( NUMLINE) then nlines = numline < nlines
 
   if not keyword_set( SKIPSTART ) then begin
@@ -215,13 +222,16 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
 
      fmt1 = gettok( frmt, ',' )
      if fmt1 EQ '' then fmt1 = 'F' ;Default is F format
-     case strmid(fmt1,0,1) of 
+     case strmid(fmt1,0,3) of 
         'A':  idltype[i] = 7          
         'D':  idltype[i] = 5
         'F':  idltype[i] = 4
         'I':  idltype[i] = 2
         'B':  idltype[i] = 1
         'L':  idltype[i] = 3
+	'LL': idltype[i] = 14
+	'UL': idltype[i] = 13
+	'ULL':idltype[i] = 15
         'Z':  begin 
            idltype[i] = 3       ;Hexadecimal
            hex[i] = 1b
@@ -242,7 +252,6 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
   idltype = idltype[goodcol]
   check_numeric = (idltype NE 7)
   openr, lun, name, /get_lun
-  ngood = 0L
 
   temp = ' '
   skip_lun,lun,skipline, /lines
@@ -274,7 +283,9 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
         goto, BADLINE 
      endif
 
-     var = strsplit(strcompress(temp),delimiter,/extract, preserve=preserve_null) 
+       var = delimiter EQ string(9b) ?  $
+        strsplit(  temp,delimiter,/extract, preserve=preserve_null) $
+       :strsplit(strcompress(temp) ,delimiter,/extract, preserve=preserve_null) 
      if N_elements(var) LT nfmt then begin 
         if not keyword_set(SILENT) then $ 
            message,'Skipping Line ' + strtrim(skipline+j+1,2),/INF 
@@ -288,15 +299,14 @@ pro readcol,name,v1,V2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15, $
         
         if check_numeric[i] then begin                      ;Check for valid numeric data
            tst = strnumber(var[i],val,hex=hex[i],NAN=nan)   ;Valid number?
-           if tst EQ 0 then begin                           ;If not, skip this line
+           if ~tst  then begin                           ;If not, skip this line
               if not keyword_set(SILENT) then $ 
                  message,'Skipping Line ' + strtrim(skipline+j+1,2),/INF 
               ngood = ngood-1
               goto, BADLINE 
            endif
-           (*bigarr[k])[ngood] = val
-        endif else $
-           (*bigarr[k])[ngood] = var[i]
+        endif 
+       (*bigarr[k])[ngood] = var[i]
         k = k+1
 
      endfor

@@ -31,7 +31,8 @@
 ! to be inserted as is in pix_tools.f90
 !
 ! 2008-02-03: added weights; check that ordering is in [1,2]
-!
+! 2010-04-21: removed unnecessary warnings on mask and weight by 
+!    raising threshold from 1 to 11
 !--------------------------------------------------------------
     ! dummy
     integer(kind=i4b),                  intent(in)    :: nside
@@ -68,7 +69,7 @@
        if (size(mask) == size(map)) then
           do_mask = .true.
        else
-          if (size(mask) > 1) print*,'WARNING: '//code//' mask ignored'
+          if (size(mask) > 11) print*,'WARNING: '//code//' mask ignored'
        endif
     endif
 
@@ -77,7 +78,7 @@
        if (size(weights) == size(map)) then
           do_weights = .true.
        else
-          if (size(weights) > 1) print*,'WARNING: '//code//' weights ignored'
+          if (size(weights) > 11) print*,'WARNING: '//code//' weights ignored'
        endif
     endif
 

@@ -105,6 +105,7 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;  Nov 2009: added Error and Help keywords. Slightly faster writting by adapting
 ;  buffer size
 ;  2010-01-28: make sure that error is defined and =0 when everything is OK
+;  2010-05-11: adds BAD_DATA = -1.6375e30  in FITS header
 ;
 ;-
 
@@ -182,6 +183,9 @@ endif
 
 ; add coordsys information to user supplied extension header
 if defined(coordsys) then add_coordsys_fits, info_hdr, coordsys=coordsys
+
+; add BAD_DATA keyword (with !healpix.bad_value value)
+add_bad_data_fits, info_hdr
 
 ; remove reserved keywords that will be added automatically later on
 nine = ['1','2','3','4','5','6','7','8','9']

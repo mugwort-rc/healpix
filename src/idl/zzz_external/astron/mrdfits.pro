@@ -96,11 +96,12 @@
 ;                subset of columns is to be returned.  The columns
 ;                may be specified either as number 1,... n or by
 ;                name or some combination of these two.
-;                If USE_COLNUM is specified names should be C1,...Cn.
+;                If /USE_COLNUM is specified names should be C1,...Cn.
 ;                The use of this keyword will not save time or internal
 ;                memory since the extraction of specified columns
 ;                is done after all columns have been retrieved from the
-;                FITS file.
+;                FITS file.      Structure columns are returned in the order
+;                supplied in this keyword.
 ;       COMPRESS - This keyword allows the user to specify a
 ;                decompression program to use to decompress a file that
 ;                will not be automatically recognized based upon
@@ -160,7 +161,7 @@
 ;               and binary tables, but not GROUPed data.   For images
 ;               the row numbers refer to the last non-unity index in the array.
 ;               Note that the use of the ROWS will not improve the speed of
-;               MRDFITS since the entire table will be read in, and the subset
+;               MRDFITS since the entire table will be read in, and then subset
 ;               to the specified rows.     Cannot be used at the same time as 
 ;               the RANGE keyword
 ;       /SILENT - Suppress informative messages.
@@ -367,6 +368,7 @@
 ;       V2.16  Handle FPACK compressed files    W. L. July 2009
 ;       V2.17  Use compile_opt hidden on all routines except mrdfits.pro W.L. July 2009
 ;       V2.18  Added /EMPTYSTRING keyword W. Landsman August 2009
+;       V2.18a Fix Columns keyword output, A. Kimball/ W. Landsman Feb 2010
 ;-
 PRO mrd_fxpar, hdr, xten, nfld, nrow, rsize, fnames, fforms, scales, offsets
 compile_opt idl2, hidden
@@ -736,7 +738,7 @@ end
 ; Return the currrent version string for MRDFITS
 function mrd_version
 compile_opt idl2, hidden
-    return, '2.18 '
+    return, '2.18a '
 end
 ;=====================================================================
 ; END OF GENERAL UTILITY FUNCTIONS ===================================
@@ -1011,9 +1013,12 @@ compile_opt idl2, hidden
     ; Convert strings to uppercase and compare with column names.
 
     if type eq 7 then begin
-        match, strupcase(columns), strupcase(fnames), tcols,count=nmatch
-	if Nmatch GT 0 then tcols += 1
-    endif
+       match, strupcase(columns), strupcase(fnames), tmp, tcols,count=nmatch 
+       if Nmatch GT 0 then begin 
+              s = sort(tmp)             ;Sort order of supplied column name
+              tcols = tcols[s] + 1
+       endif     
+     endif
 
     ; Subtract one from column indices and check that all indices >= 0.
     if n_elements(tcols) gt 0 then begin
@@ -1079,7 +1084,7 @@ compile_opt idl2, hidden
         for i=0, n_elements(tcols)-1 do $
                 tabx.(i) = table.(tcols[i]);
  
-        table = tabx
+        table = temporary(tabx)
     endelse
     
 end

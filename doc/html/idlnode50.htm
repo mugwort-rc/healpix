@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html728"
+<A NAME="tex2html729"
   HREF="idlnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html734"
+<A NAME="tex2html735"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html738"
+<A NAME="tex2html739"
   HREF="idlnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html736"
+<A NAME="tex2html737"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html729"
+<B> Previous:</B> <A NAME="tex2html730"
   HREF="idlnode49.htm">read_tqu</A>
 
-<B>Up:</B> <A NAME="tex2html735"
+<B>Up:</B> <A NAME="tex2html736"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html739"
+<B> Next:</B> <A NAME="tex2html740"
   HREF="idlnode51.htm">reorder</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -65,15 +65,31 @@ src/idl/misc/remove_dipole.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-REMOVE_DIPOLE, Map [,Weight, BAD_DATA=, GAL_CUT=, COORD_IN=, COORD_OUT=, Dipole=, Monopole=,
-      /NOREMOVE, NSIDE=, /ONLYMONOPOLE, ORDERING=, PIXEL=, /SILENT, UNITS=, /HELP]
+REMOVE_DIPOLE,
+<A HREF="#idl:remove_dipole:map"> Map</A> [,
+<A HREF="#idl:remove_dipole:weight"> Weight</A>,
+<A HREF="#idl:remove_dipole:bad_data">BAD_DATA=</A>,
+<A HREF="#idl:remove_dipole:gal_cut">GAL_CUT=</A>,
+<A HREF="#idl:remove_dipole:coord_in">COORD_IN=</A>,
+<A HREF="#idl:remove_dipole:coord_out">COORD_OUT=</A>,
+<A HREF="#idl:remove_dipole:covariance_matrix">Covariance_Matrix=</A>,
+<A HREF="#idl:remove_dipole:dipole">Dipole=</A>,
+<A HREF="#idl:remove_dipole:monopole">Monopole=</A>,
+<A HREF="#idl:remove_dipole:noremove">/NOREMOVE</A>,
+<A HREF="#idl:remove_dipole:nside">NSIDE=</A>,
+<A HREF="#idl:remove_dipole:onlymonopole">/ONLYMONOPOLE</A>,
+<A HREF="#idl:remove_dipole:ordering">ORDERING=</A>,
+<A HREF="#idl:remove_dipole:pixel">PIXEL=</A>,
+<A HREF="#idl:remove_dipole:silent">/SILENT</A>,
+<A HREF="#idl:remove_dipole:units">UNITS=</A>,
+<A HREF="#idl:remove_dipole:help">/HELP</A>]
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>Map</B>
-<DD>input and output, vector
+<DD><A NAME="idl:remove_dipole:map"></A> input and output, vector
 <BR>
 map from which monopole and dipole are to be removed
       (also used for output).
@@ -81,15 +97,15 @@ map from which monopole and dipole are to be removed
       size as map
     <DT>
 <B>Weight</B>
-<DD>input, vector, optional
+<DD><A NAME="idl:remove_dipole:weight"></A> input, vector, optional
 <BR>
 same size as map,
      describe weighting scheme to apply to each pixel for the fit 
 <BR>	<b>default:</b>uniform weight
     <DT>
 <B>BAD_DATA =</B>
-<DD>scalar float, value given on input to bad
-    pixels 
+<DD><A NAME="idl:remove_dipole:bad_data"></A> 
+    scalar float, value given on input to bad pixels 
 <BR>          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
  $\equiv -1.6375\ 10^{30}$
  -->
@@ -99,7 +115,8 @@ same size as map,
  ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
     <DT>
 <B>GAL_CUT=</B>
-<DD>if set to a value larger than 0, the pixels with galactic
+<DD><A NAME="idl:remove_dipole:gal_cut"></A> 
+    if set to a value larger than 0, the pixels with galactic
     latitude <SPAN CLASS="MATH">|b|&lt;</SPAN>gal_cut degrees are not considered in the
       fit. 
 <BR><B>NB:</B>
@@ -108,41 +125,56 @@ same size as map,
       before applying the cut.
     <DT>
 <B>COORD_IN =</B>
-<DD>string, map coordinate system (either 'Q' or 'C': equatorial,
+<DD><A NAME="idl:remove_dipole:coord_in"></A> 
+     string, map coordinate system (either 'Q' or 'C': equatorial,
     'G': galactic or 'E': ecliptic; upper/lower case accepted)
 <BR>         <b>default:</b>'G' (galactic)
     <DT>
 <B>COORD_OUT =</B>
-<DD>string, coordinate system (see above) in which
+<DD><A NAME="idl:remove_dipole:coord_out"></A> 
+    string, coordinate system (see above) in which
     to output dipole vector in variable Dipole 
 <BR>         <b>default:</b>same as coord_in
     <DT>
+<B>Covariance_Matrix =</B>
+<DD><A NAME="idl:remove_dipole:covariance_matrix"></A> 
+    OUTPUT, scalar (or symmetric 4x4 matrix), 
+<BR>
+covariance
+     of the statistical errors made on monopole (and dipole) determination
+    <DT>
 <B>Dipole=</B>
-<DD>OUTPUT, 3d vector, 
+<DD><A NAME="idl:remove_dipole:dipole"></A> 
+	OUTPUT, 3d vector, 
 <BR>
 coordinates of best fit dipole (done simultaneously with monopole), same
         units as input map
     <DT>
 <B>Monopole=</B>
-<DD>OUTPUT, scalar float, 
+<DD><A NAME="idl:remove_dipole:monopole"></A> 
+        OUTPUT, scalar float, 
 <BR>
 value found for the best fit monopole (done simultaneously with dipole),
         same units as input map
     <DT>
 <B>NSIDE=</B>
-<DD>scalar integer, healpix resolution parameter
+<DD><A NAME="idl:remove_dipole:nside"></A> 
+    scalar integer, healpix resolution parameter
     <DT>
 <B>ORDERING=</B>
-<DD>string, ordering scheme (either 'RING' or 'NESTED')
+<DD><A NAME="idl:remove_dipole:ordering"></A> 
+    string, ordering scheme (either 'RING' or 'NESTED')
     <DT>
 <B>PIXEL=</B>
-<DD>input, vector, gives the Healpix index of the pixels
+<DD><A NAME="idl:remove_dipole:pixel"></A> 
+    input, vector, gives the Healpix index of the pixels
         whose temperature is actually given in map (for cut sky
     maps). If present, must match Map in size. If absent, it is
     assumed that the map covers the whole sky.
     <DT>
 <B>UNITS=</B>
-<DD>string, units of the input map
+<DD><A NAME="idl:remove_dipole:units"></A> 
+   string, units of the input map
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
@@ -150,17 +182,21 @@ value found for the best fit monopole (done simultaneously with dipole),
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>/NOREMOVE</B>
-<DD>if set, the best fit dipole and monopole are computed but not
+<DD><A NAME="idl:remove_dipole:noremove"></A> 
+   if set, the best fit dipole and monopole are computed but not
     removed (ie, Map is unchanged)
     <DT>
 <B>/ONLYMONOPOLE</B>
-<DD>if set, fit (and remove) only the monopole
+<DD><A NAME="idl:remove_dipole:onlymonopole"></A> 
+   if set, fit (and remove) only the monopole
     <DT>
 <B>/HELP</B>
-<DD>if set, only display documentation header
+<DD><A NAME="idl:remove_dipole:help"></A> 
+    if set, only display documentation header
     <DT>
 <B>/SILENT</B>
-<DD>if set, the routine works silently
+<DD><A NAME="idl:remove_dipole:silent"></A> 
+    if set, the routine works silently
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
@@ -190,32 +226,32 @@ If Map does not cover the full sky, the actual indices of the concerned pixels s
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html728"
+<A NAME="tex2html729"
   HREF="idlnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html734"
+<A NAME="tex2html735"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html738"
+<A NAME="tex2html739"
   HREF="idlnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html736"
+<A NAME="tex2html737"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html729"
+<B> Previous:</B> <A NAME="tex2html730"
   HREF="idlnode49.htm">read_tqu</A>
 
-<B>Up:</B> <A NAME="tex2html735"
+<B>Up:</B> <A NAME="tex2html736"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html739"
+<B> Next:</B> <A NAME="tex2html740"
   HREF="idlnode51.htm">reorder</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-03-22
+2010-06-16
 </ADDRESS>
 </BODY>
 </HTML>

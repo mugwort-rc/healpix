@@ -63,8 +63,8 @@ endelse
 comments=["-----------------------------------------------------------------------------",$
           "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
           "and the hard copy paper size,",$
-          "by running the configure script in the main Healpix directory.",$
-;          "           (no need to restart IDL ;-)",$
+          "by running the configure script in Healpix main directory (submenu: IDL).",$
+          "           (no need to restart IDL ;-)",$
           "-----------------------------------------------------------------------------"]
 
 print,comments,form='(a)'
@@ -89,8 +89,9 @@ find_in_path, prevdef,finalpath,count,crash_on_error=crash
 
 
 if (count eq 0) then begin
-    message,/info,prevdef+' not found,'
-    message,/info,'can not preview file.'
+;     message,/info,prevdef+' not found,'
+;     message,/info,'can not preview file.'
+    message,/info,"PS/PNG/GIF file can not be previewed, because user's settings are missing."
     message,/info,'Run ./configure in Healpix main directory'
 endif
 

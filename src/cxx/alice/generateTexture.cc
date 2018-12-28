@@ -6,6 +6,7 @@
 #include "healpix_map.h"
 #include "planck_rng.h"
 #include <iostream>
+#include <cstdio>
 #include <string.h>
 
 using namespace std;

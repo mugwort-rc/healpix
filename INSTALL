@@ -1,7 +1,7 @@
-Healpix 2.14a Installation
+Healpix 2.15 Installation
 =========================
 
-Healpix 2.14a contains 5 independent packages (Fortran90, IDL, C, C++ and java) 
+Healpix 2.15 contains 5 independent packages (Fortran90, IDL, C, C++ and java) 
 whose installation procedure is summarized below.
 
 Every effort has been made to make the installation and usage of Healpix easy and straightforward.

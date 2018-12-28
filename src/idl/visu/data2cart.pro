@@ -32,7 +32,7 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                RESO_ARCMIN=reso_arcmin, FITS = fits, $
                FLIP=flip, DATA_plot = data_plot, $
                POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-               TRUECOLORS=truecolors, DATA_TC=data_tc
+               TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out
 
 ;+
 ;==============================================================================================
@@ -45,7 +45,7 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          color, Tmax, Tmin, color_bar, dx, planvec, vector_scale,
 ;          pxsize=, pysize=, rot=, log=, hist_equal=, max=, min=,
 ;          reso_arcmin=, fits=, flip=, data_plot=, POLARIZATION=, SILENT=,
-;          PIXEL_LIST=, ASINH=, TRUECOLORS=, DATA_TC=
+;          PIXEL_LIST=, ASINH=, TRUECOLORS=, DATA_TC=, MAP_OUT=
 ;
 ; IN :
 ;      data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -63,6 +63,7 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ; Sep 2007: added /silent
 ; April 2008: added pixel_list
 ; July 2008: added asinh
+; April 2010: added Map_Out
 ;==============================================================================================
 ;-
 
@@ -200,22 +201,18 @@ pol_data = 0
 find_min_max_valid, grid, mindata, maxdata, valid=Obs, bad_data=0.9*bad_data
 
 ;-----------------------------------
-; export in fits the original cartesian map before alteration
+; export in FITS and as an array the original cartesian map before alteration
 ;----------------------------------------------
-; ***** cart2fits is not implented yet *****
-;-----------------------------------------------
-;
-;if keyword_set(fits) then begin 
-;    if (rot_ang(2) NE 0.) then begin 
-;        print,'can NOT export cart FITS file'
-;        print,'set Rot = [lon0, lat0, 0.0]'
-;        goto,skip_fits
-;    endif
-;    if (DATATYPE(fits) ne 'STR') then file_fits = 'plot_'+proj_small+'.fits' else file_fits = fits
-;    cart2fits, grid, file_fits, rot = rot_ang, coord=coord_out, reso = resgrid*60., unit = sunits, min=mindata, max = maxdata
-;    print,'FITS file is in '+file_fits
-;    skip_fits:
-;endif
+
+; grid -> IDL array
+if arg_present(map_out) then map_out = proj2map_out(grid, offmap=plan_off, bad_data=bad_data)
+
+; grid -> FITS file
+if keyword_set(fits) then begin 
+    proj2fits, grid, fits, $
+               projection = 'CART', flip=flip, $
+               rot = rot_ang, coord=coord_out, reso = reso_arcmin, unit = sunits, min=mindata, max = maxdata
+endif
 
 ; -------------------------------------------------------------
 ; set min and max and computes the color scaling

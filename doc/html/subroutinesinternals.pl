@@ -111,7 +111,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode15.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map_spin/;
-$ref_files{$key} = "$dir".q|subroutinesnode13.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:get_card/;
@@ -179,7 +179,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode74.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alms2fits/;
-$ref_files{$key} = "$dir".q|subroutinesnode14.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode13.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:read_conbintab/;
@@ -223,11 +223,11 @@ $ref_files{$key} = "$dir".q|subroutinesnode30.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:add_dipole/;
-$ref_files{$key} = "$dir".q|subroutinesnode9.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode8.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:add_card/;
-$ref_files{$key} = "$dir".q|subroutinesnode8.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode7.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:write_dbintab/;
@@ -283,7 +283,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode65.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2cl/;
-$ref_files{$key} = "$dir".q|subroutinesnode10.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode9.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:read_asctab/;
@@ -303,7 +303,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode80.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alter_alm/;
-$ref_files{$key} = "$dir".q|subroutinesnode7.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode14.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:convert_nest2ring/;
@@ -387,7 +387,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode19.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map/;
-$ref_files{$key} = "$dir".q|subroutinesnode11.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode10.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:concatnl/;
@@ -399,7 +399,7 @@ $ref_files{$key} = "$dir".q|subroutinesnode67.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/sub:alm2map_der/;
-$ref_files{$key} = "$dir".q|subroutinesnode12.htm|; 
+$ref_files{$key} = "$dir".q|subroutinesnode11.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sub:rand_init/;

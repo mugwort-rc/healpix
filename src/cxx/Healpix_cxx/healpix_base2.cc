@@ -392,6 +392,7 @@ int64 Healpix_Base2::ang2pix_z_phi (double z, double phi) const
     else // polar region, za > 2/3
       {
       int ntt = int(tt);
+      if (ntt>=4) ntt=3;
       double tp = tt-ntt;
       double tmp = nside_*sqrt(3*(1-za));
 

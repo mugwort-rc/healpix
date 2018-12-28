@@ -10,11 +10,13 @@
 # created 2007-May 23
 # 2009-10-08: deal with 2009Aug20 version
 #             smarter search of name occurence
+# 2010-05-26: deal with 2010May24 version
 #
 
 #set dir = /home/soft/rsi/external_contributions/astron_2008Mar07/pro/
 #set dir = /Applications/itt/external_contributions/astron_2009Aug20/pro/
-set dir = /Applications/itt/external_contributions/astron_2009Nov25/pro/
+#set dir = /Applications/itt/external_contributions/astron_2009Nov25/pro/
+set dir = /Applications/itt/external_contributions/astron_2010May24/pro/
 
 # full list of routine name (no path, no trailing .pro)
 set fulllist = `ls $dir/*/*pro | awk -F/ '{print $NF}' | awk -F. '{print $1}' | sort`
@@ -43,6 +45,9 @@ end
 # ./astro/month_cnv.pro ./fits/fits_test_checksum.pro ./fits_table/ftaddcol.pro
 # ./misc/blkshift.pro ./misc/xdispstr.pro ./misc/n_bytes.pro ./misc/wherenan.pro
 #
+# 2010-05-26:
+# astro/get_coords astrom/putast astrom/make_astr astrom/get_equinox astrom/wcs_getpole
+# fits/sxaddhist.pro misc/getopt
 
 exit
 

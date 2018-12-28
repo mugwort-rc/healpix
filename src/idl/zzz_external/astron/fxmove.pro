@@ -92,7 +92,7 @@ FUNCTION FXMOVE, UNIT, EXTEN, SILENT = Silent, EXT_NO = ext_no, ERRMSG=errmsg
                 ; Get parameters that determine size of data
                 ; region.
                 IF DO_NAME THEN IF I GT 1 THEN BEGIN
-		       EXTNAME = STRTRIM(SXPAR(HEADER,'EXTNAME',COUNT=N_name),2)
+		       EXTNAME = STRTRIM(FXPAR(HEADER,'EXTNAME',COUNT=N_name),2)
 			 if N_NAME GT 0 THEN $
 			  IF ENAME EQ STRUPCASE(EXTNAME) THEN BEGIN
 			        EXT_NO= I-1
