@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -117,7 +117,7 @@ if (pix_type eq 'N') then pix_num = '  Nest'+pix_num0
 if (pix_type eq 'Q') then pix_num = '  Q.C.'+pix_num0
 
 
-string_instruct = 'Left: display position, Middle: record position, Right: Quit'
+string_instruct = '  Left: display position,   Middle: record position,   Right: Quit  '
 if (do_file eq 1) then string_recfile  = '  Record in file : '+file_out
 string_head     = '   # '+long_name+' (Deg)  '+lat_name+' (Deg)'+svalue+pix_num
 string_coord    = coordinate + ' coordinates'
@@ -144,9 +144,11 @@ if (strmid(projection,0,4) eq 'ORTH') then begin
     do_orth = 1
 endif
 
+; set map window up-front
 wset, w_num
 wshow, w_num, 1, iconic=0 ; put the current window above all other
 
+; create widget window
 top = widget_base(/column,title=title)
 id = widget_label(top,val=string_instruct)
 if (do_file) then id = widget_label(top,val=string_recfile)
@@ -167,9 +169,10 @@ new_point:
 ;--------
 
 cursor, xpos, ypos, /wait, /data
-if (!err eq 4) then goto, closing
-if (!err gt 3) then goto, new_point
-button = !err
+; button = !err ; until idl 3.6
+button = !mouse.button
+if (button eq 4) then goto, closing
+if (button gt 3) then goto, new_point
 
 if (do_moll) then moll2pix, xpos, ypos, id_pix, lon_deg, lat_deg, value
 if (do_gnom) then gnom2pix, xpos, ypos, id_pix, lon_deg, lat_deg, value

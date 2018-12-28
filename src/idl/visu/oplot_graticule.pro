@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro oplot_graticule, graticule, eul_mat, projection=projection, mollweide=mollweide, gnomic=gnomic, cartesian=cartesian, orthographic=orthographic, flip = flip, _extra = oplot_kw, half_sky=half_sky, coordsys=coordsys
+pro oplot_graticule, graticule, eul_mat, projection=projection, mollweide=mollweide, gnomic=gnomic, cartesian=cartesian, orthographic=orthographic, flip = flip, _extra = oplot_kw, half_sky=half_sky, coordsys=coordsys, charsize=charsize, reso_rad=reso_rad
 ;+
 ; NAME:
 ;       OPLOT_GRATICULE
@@ -40,7 +40,7 @@ pro oplot_graticule, graticule, eul_mat, projection=projection, mollweide=mollwe
 ; CALLING SEQUENCE:
 ;       oplot_graticule, graticule, eul_mat, $
 ;          [projection=,mollweide=,gnomic=,cartesian=, $
-;           orthographic=,flip=,half_sky=,coordsys=, + all oplot keywords]
+;           orthographic=,flip=,half_sky=,coordsys=, reso_rad=, + all oplot keywords]
 ;
 ; INPUTS:
 ;
@@ -115,22 +115,36 @@ endif else begin
     endif
 endelse
 
+fsgrat = (defined(reso_rad)) ? !dtor/reso_rad : 1. ; number of pixels / degree
+fsgrat = long(fsgrat) > 1 < 5
 ; define variables
-epsilon = 1.e-4
+epsilon = 1.d-5
 nmerid = fix(181./dlong)
 nparal = fix(90./dlat)-1
-vector = FINDGEN(181)/180. * (1.-2.*epsilon) + epsilon ; from epsilon to 1-epsilon
-nv = n_elements(vector) 
+nv = (projtype eq 2 || projtype eq 3) ? 721*fsgrat : 181 ; more points for partial projections
+vector = DINDGEN(nv)/(nv-1.d0) * (1.d0-2.d0*epsilon) + epsilon ; from epsilon to 1-epsilon
 bounds = [[-nmerid,nmerid-1],[-nparal,nparal]]
 
 do_rot = (n_elements(eul_mat) eq 9)
+form = '(i4)'
+if (abs(round(dlong)-dlong) gt 1.e-2 || abs(round(dlat)-dlat) gt 1.e-2) then form = '(f6.1)'
 
 case projtype of
 2: begin  ; gnomic : straightforward
     for jg=0,1 do begin
         for i = bounds[0,jg],bounds[1,jg] do begin
-            if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
-            if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*(2.*!pi), vv ; parallels
+;             if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
+;             if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*(2.*!pi), vv ; parallels
+            if (jg eq 0) then begin
+                mylong = i*dlong ; longitude in Deg
+                linelabel = strtrim(string(mylong,form=form),2)
+                ang2vec, vector*!pi,        replicate(mylong*!DtoR,nv), vv ; meridians
+            endif
+            if (jg eq 1) then begin
+                mylat = i*dlat ; latitude in Deg
+                linelabel = strtrim(string(mylat,form=form),2)
+                ang2vec, replicate((90.-mylat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            endif
             if (do_ig ) then vv = rotate_coord(vv,in=coordsys[0],out=coordsys[1])
             if (do_rot) then vv = vv # transpose(eul_mat)
 
@@ -138,7 +152,12 @@ case projtype of
             if (nk gt 0) then begin
                 u = vv(k,1)/vv(k,0)
                 v = vv(k,2)/vv(k,0)
-                oplot, flipconv * u, v, _extra = oplot_kw
+                good = where(abs(u) lt !x.crange[1]*1.1 and abs(v) lt !y.crange[1]*1.1 ,ng)
+                ; reorder points to have one continuous segment across the plot
+                bad = where(good-shift(good,1) ne 1, nbad)
+                if (nbad gt 1) then good = shift(good, bad[1])
+;                oplot, flipconv * u, v, _extra = oplot_kw
+               if (ng gt 1) then oplot_sphere, flipconv *u[good], v[good], _extra = oplot_kw, linelabel=linelabel,/flush, charsize=charsize
             endif
         endfor
     endfor
@@ -146,13 +165,21 @@ end
 1: begin  ; mollweide : deal with boundaries
     for jg=0,1 do begin
         for i = bounds[0,jg],bounds[1,jg] do begin
-            if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
-            if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            if (jg eq 0) then begin
+                mylong = i*dlong ; longitude in Deg
+                linelabel = strtrim(string(mylong,form=form),2)
+                ang2vec, vector*!pi,        replicate(mylong*!DtoR,nv), vv ; meridians
+            endif
+            if (jg eq 1) then begin
+                mylat = i*dlat ; latitude in Deg
+                linelabel = strtrim(string(mylat,form=form),2)
+                ang2vec, replicate((90.-mylat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            endif
             if (do_ig ) then vv = rotate_coord(vv,in=coordsys[0],out=coordsys[1])
             if (do_rot) then vv = vv # transpose(eul_mat)
 
             vec2moll, vv, u, v
-            oplot_sphere, -flipconv * u, v, _extra = oplot_kw
+            oplot_sphere, -flipconv * u, v, _extra = oplot_kw, linelabel=linelabel, charsize=charsize
 ;;            oplot_sphere, flipconv * u, v, _extra = oplot_kw
         endfor
     endfor
@@ -167,8 +194,16 @@ end
     endelse
     for jg=0,1 do begin
         for i = bounds[0,jg],bounds[1,jg] do begin
-            if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
-            if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            if (jg eq 0) then begin
+                mylong = i*dlong ; longitude in Deg
+                linelabel = strtrim(string(mylong,form=form),2)
+                ang2vec, vector*!pi,        replicate(mylong*!DtoR,nv), vv ; meridians
+            endif
+            if (jg eq 1) then begin
+                mylat = i*dlat ; latitude in Deg
+                linelabel = strtrim(string(mylat,form=form),2)
+                ang2vec, replicate((90.-mylat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            endif
             if (do_ig ) then vv = rotate_coord(vv,in=coordsys[0],out=coordsys[1])
             if (do_rot) then vv = vv # transpose(eul_mat)
 
@@ -177,7 +212,8 @@ end
                 if (nk gt 0) then begin
                     u = vv[k,1]
                     v = vv[k,2]
-                    oplot_sphere, flipconv*(u+c0)*sign, v, _extra = oplot_kw
+                    ;oplot_sphere, flipconv*(u+c0)*sign, v, _extra = oplot_kw
+                    oplot_sphere,  flipconv*(u+c0)*sign, v, _extra = oplot_kw, linelabel=linelabel, charsize=charsize
                 endif ; nk>0
             endfor ; loop on sign
         endfor
@@ -186,15 +222,32 @@ end
 3: begin  ; cartesian : straightforward
     for jg=0,1 do begin
         for i = bounds[0,jg],bounds[1,jg] do begin
-            if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
-            if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+;             if (jg eq 0) then ang2vec, vector*!pi,        replicate(i*dlong*!DtoR,nv), vv ; meridians
+;             if (jg eq 1) then ang2vec, replicate((90.-i*dlat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            if (jg eq 0) then begin
+                mylong = i*dlong ; longitude in Deg
+                linelabel = strtrim(string(mylong,form=form),2)
+                ang2vec, vector*!pi,        replicate(mylong*!DtoR,nv), vv ; meridians
+            endif
+            if (jg eq 1) then begin
+                mylat = i*dlat ; latitude in Deg
+                linelabel = strtrim(string(mylat,form=form),2)
+                ang2vec, replicate((90.-mylat)*!DtoR,nv), vector*2*!pi, vv ; parallels
+            endif
             if (do_ig ) then vv = rotate_coord(vv,in=coordsys[0],out=coordsys[1])
             if (do_rot) then vv = vv # transpose(eul_mat)
 
             phi = atan(vv[*,1],vv[*,0]) ; in [0,2pi]
 	    theta = asin(vv[*,2])       ; in [0,pi]
             ; OPLOT,-flipconv*phi,theta, _extra = oplot_kw
-            oplot_sphere, flipconv * phi, theta, _extra = oplot_kw
+;            oplot_sphere, flipconv * phi, theta, _extra = oplot_kw
+;            oplot_sphere, flipconv* phi, theta, _extra = oplot_kw,
+;            linelabel=linelabel, charsize=charsize
+            good = where(abs(phi) lt !x.crange[1]*1.1 and abs(theta) lt !y.crange[1]*1.1 ,ng)
+                                ; reorder points to have one continuous segment across the plot
+            bad = where(good-shift(good,1) ne 1, nbad)
+            if (nbad gt 1) then good = shift(good, bad[1])
+            if (ng gt 1) then oplot_sphere, flipconv *phi[good], theta[good], _extra = oplot_kw, linelabel=linelabel,charsize=charsize
         endfor
     endfor
 end

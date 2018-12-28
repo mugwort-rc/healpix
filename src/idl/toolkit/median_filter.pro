@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -89,9 +89,12 @@
 ;
 ; MODIFICATION HISTORY:
 ;      EH, IPAC, 2005-April
+;      March 2006: M.A. Miville-Deschenes (IAS) and EH (IAP): bugs correction
+;      July 2006: EH corrected definition of do_nest (pointed out by Kwangil Seon)
 ;-
 
-pro medfilt_sub, in_map, radius, med_map, ring=ring, nested=nested, ordering=ordering, bad_data = bad_data, fill_holes=fill_holes
+pro medfilt_sub, in_map, radius_radian, med_map, ring=ring, nested=nested, ordering=ordering, $
+                 bad_data = bad_data, fill_holes=fill_holes
 
 
 NaN    = !values.f_nan
@@ -102,8 +105,8 @@ nside  = npix2nside(npix, error=error)
 if (nside lt 0) then begin
     message,'Unvalid number of pixels in Healpix median filter: '+strtrim(npix,2)
 endif
-opix = 4*!pi / npix
-odisc = !pi * radius_radian^2
+opix  = 4.d0*!dpi / npix
+odisc = 4.d0*!dpi * sin(radius_radian/2.d0)^2
 print,odisc / opix,' pixels per disc in average'
 ; count = lonarr(npix)
 
@@ -113,7 +116,7 @@ bad = where(in_map eq bad_data, nbad)
 if (nbad gt 0) then in_map[bad] = NaN
 
 ord = keyword_set(ordering) ? strupcase(strmid(ordering,0,4)) : ''
-do_nest = (keyword_set(nest) or ord eq 'NEST')
+do_nest = (keyword_set(nested) or ord eq 'NEST')
 do_ring = (keyword_set(ring) or ord eq 'RING')
 
 if (do_ring eq do_nest) then begin
@@ -162,7 +165,7 @@ end
 
 ;--------------------------------------------------------------------------------------------------
 
-pro median_filter, datain, radius, medmap, ring=ring, nested=nested, ordering=ordering, fill_holes=fill_holes, degrees=degrees, arcmin=arcmin
+pro median_filter, datain, radius, medmap, ring=ring, nested=nested, ordering=ordering, fill_holes=fill_holes, degrees=degrees, arcmin=arcmin, bad_data=bad_data
 code = 'MEDIAN_FILTER'
 
 syntax = code+', InputMap, Radius, MedianMap [, ORDERING=, /RING, /NESTED, /FILL_HOLES, /DEGREES, /ARCMIN]'
@@ -189,7 +192,8 @@ radius_deg = radius_radian * !Radeg
 
 if datatype(datain) ne 'STR' then begin
     ; data are memory array
-    medfilt_sub, datain, radius, medmap, ring=ring, nested=nested, ordering=ordering, fill_holes=fill_holes
+    medfilt_sub, datain, radius_radian, medmap, ring=ring, nested=nested, ordering=ordering, $
+      fill_holes=fill_holes, bad_data=bad_data
 endif else begin
     ; data is read from FITS file and output is written on another FITS file
     file_in = datain
@@ -208,14 +212,14 @@ endif else begin
         end
     endcase
     ; do actual filtering
-    medfilt_sub, data_in, radius, data_out, ordering=ordering, fill_holes=fill_holes
+    medfilt_sub, data_in, radius_radian, data_out, ordering=ordering, fill_holes=fill_holes, bad_data=bad_data
     ; write output data
     file_out = medmap
-    sxaddpar(xh,'COMMENT','----------------------------------')
-    sxaddpar(xh,'HISTORY','median filtered map')
-    sxaddpar(xh,'HISTORY','input file'+strtrim(file_in))
-    sxaddpar(xh,'MFRADIUS',radius_deg,'[Deg] median filter radius')
-    sxaddpar(xh,'COMMENT','----------------------------------')
+    sxaddpar, xh,'COMMENT','----------------------------------'
+    sxaddpar, xh,'HISTORY','median filtered map'
+    sxaddpar, xh,'HISTORY','input file'+strtrim(file_in)
+    sxaddpar, xh,'MFRADIUS',radius_deg,'[Deg] median filter radius'
+    sxaddpar, xh,'COMMENT','----------------------------------'
     case type of
         2: begin
             case nmaps of

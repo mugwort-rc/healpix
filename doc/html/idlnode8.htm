@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>change_polcconv </TITLE>
-<META NAME="description" CONTENT="change_polcconv ">
+<TITLE>bl2fits</TITLE>
+<META NAME="description" CONTENT="bl2fits">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,158 +28,137 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html189"
+<A NAME="tex2html219"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html195"
+<A NAME="tex2html225"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html199"
+<A NAME="tex2html229"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html197"
+<A NAME="tex2html227"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html190"
-  HREF="idlnode7.htm">cartview</A>
+<B> Previous:</B> <A NAME="tex2html220"
+  HREF="idlnode7.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html196"
+<B>Up:</B> <A NAME="tex2html226"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html200"
-  HREF="idlnode9.htm">cl2fits</A>
+<B> Next:</B> <A NAME="tex2html230"
+  HREF="idlnode9.htm">cartcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00080000000000000000"></A>
-<A NAME="idl:change_polcconv"></A>
+<A NAME="idl:bl2fits"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr><H2>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
-The main effect is to change the sign of the U Stokes parameter,
-and add/update the POLCCONV FITS header with either
-COSMO or IAU value.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/change_polcconv.pro
+<b><font size=+6><FONT COLOR="#CC0000">bl2fits</FONT></font></b><hr><H2>This IDL facility provides a means to
+write into a FITS file as an ascii table extension a (beam) window function
+<SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN>. Adds additional
+headers if required. The facility is primarily intended to allow the
+user to write an arbitrary window function into a FITS file in 
+the correct format to be ingested by the <b>HEALPix</b> simulation facility 
+<SPAN  CLASS="textbf">synfast</SPAN>.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/fits/bl2fits.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-CHANGE_POLCCONV , File_In, File_Out [, /I2C, /C2I, /C2C, /I2I]
-
+BL2FITS, bl_array, fitsfile, [HDR = , /HELP, XHDR =]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>File_In</B>
-<DD>name of a FITS file to be read
-
-<P>
-<DT>
-<B>File_Out</B>
-<DD>name of a FITS file to be written, after modification of the
-          polarisation coordinate convention, if applicable
-
-<P>
-</DL>
+<B>bl_array</B>
+<DD>real or double array of Bl coefficients to be written to
+      file. This has dimension (lmax+1,<SPAN CLASS="MATH"><I>n</I></SPAN>) with <SPAN CLASS="MATH"><IMG
+ WIDTH="85" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg15.png"
+ ALT="$1\le n \le 3$"></SPAN>, given in the sequence T E B.
+    <DT>
+<B>fitsfile</B>
+<DD>String containing the name of the file to be written.
+  </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>/I2C</B>
-<DD>changes from IAU to COSMO coordinate convention 
-<BR>            -if POLCCONV is not found or found with value 'IAU', it is
-             added/replaced with value 'COSMO', and the sign of the U stokes
-             parameter map is changed 
-<BR>            -if POLCCONV already has value 'COSMO', File_In is copied
-            unchanged into File_Out
+<B>HDR =</B>
+<DD>String array containing the (non-trivial) primary header
+      for the FITS file. 
+    <DT>
+<B>/HELP</B>
+<DD>If set, a help message is printed out, no file is written
 
 <P>
 <DT>
-<B>/C2I</B>
-<DD>changes from COSMO to IAU coordinate convention 
-<BR>            -if POLCCONV is not found or found with value 'COSMO', it is
-             added/replaced with value 'IAU', and the sign of the U stokes
-             parameter map is changed 
-<BR>            -if POLCCONV already has value 'IAU',  File_In is copied
-            unchanged into File_Out
+<B>XHDR =</B>
+<DD>String array containing the (non-trivial) extension header
+      for the FITS file. 
 
 <P>
-<DT>
-<B>/C2C</B>
-<DD>does NOT change coordinate system 
-<BR>            -if POLCCONV is found with value 'IAU', program will issue error
-            message and no file is written 
-<BR>            -in all other case POLCCONV is set/added with value 'COSMO', but
-             data is NOT changed
-
-<P>
-<DT>
-<B>/I2I</B>
-<DD>does NOT change coordinate system 
-<BR>            -if POLCCONV is found with value 'COSMO', program will issue error
-            message and no file is written 
-<BR>            -in all other case POLCCONV is set/added with value 'IAU', but
-             data is NOT changed
-   </DL>
+</DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-This routine will change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameters (and related
-quantities, such as the <SPAN CLASS="MATH"><I>TU</I></SPAN> and <SPAN CLASS="MATH"><I>QU</I></SPAN> cross-correlations) and update the
-'POLCCONV' FITS keyword where applicable.
-The recognised format are: 
-<BR>- standard Healpix  full sky polarised format 
-<BR>- cut sky Healpix polarised format 
-<BR>- WMAP 2nd year polarised format
+<FONT COLOR="#CC0000">bl2fits</FONT> writes the input <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> coefficients into a FITS
+file containing an ascii table extension. Optional headers conforming
+to the FITS convention can also be written to the output file. All
+required FITS header keywords (like SIMPLE, BITPIX, ...) are automatically generated by the
+routine and should NOT be duplicated in the optional header inputs
+(they would be ignored anyway).
+The one/two/three column(s) are automatically named 
+<TT>TEMPERATURE</TT>, <TT>GRAD</TT>, <TT>CURL</TT>
+respectively.
+If the window function is provided in a double precision array, the output format
+will automatically feature more decimal places.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">change_polcconv </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">bl2fits</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run change_polcconv <DT>
-<B><A HREF="idlnode46.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
-<DD>This <b>HEALPix</b> IDL
-  facility can be used to write a (polarised or unpolarised) cut sky map into a
-  FITS file.
-  <DT>
-<B><A HREF="idlnode35.htm#idl:read_fits_cut4">read_fits_cut4</A></B>
-<DD>This <b>HEALPix</b> IDL
-  facility can be used to read a (polarised or unpolarised) cut sky map from a
-  FITS file.
-  <DT>
-<B><A HREF="idlnode49.htm#idl:write_tqu">write_tqu</A></B>
-<DD>This <b>HEALPix</b> IDL
-  facility can be used to write a polarised full sky map (with either the
-  standard Healpix format or the WMAP 2nd year format) into a
-  FITS file
-  <DT>
-<B><A HREF="idlnode38.htm#idl:read_tqu">read_tqu</A></B>
-<DD>This <b>HEALPix</b> IDL
-  facility can be used to read a polarised cut sky map from a
-  FITS file
+<DD>version 6.0 or more is necessary to run <FONT COLOR="#CC0000">bl2fits</FONT>.
+    <DT>
+<B><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A></B>
+<DD>provides the complimentary routine to read in a
+      window function or power spectrum from a FITS file.
+    <DT>
+<B>synfast</B>
+<DD>utilises the output file generated by <FONT COLOR="#CC0000">bl2fits</FONT>(option <TT>beam_file</TT>).
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+beam1 =  gaussbeam(10., 2000, 1)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">beam2 =  gaussbeam(15., 2000, 1)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">beam  =  (beam1 + beam2) / 2.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">bl2fits</FONT>,  beam, 'beam.fits'</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote> Modify the file 'map_cosmo.fits', which was using the 'COSMO' convention for
-  polarisation coordinate convention into 'map_iau.fits' which uses the 'IAU' convention
+<BR><blockquote>
+<FONT COLOR="#CC0000">bl2fits</FONT> writes the beam window function stored in the variable <TT>beam</TT>
+(=Legendre transform of a circular beam)
+into the output FITS file <TT>beam.fits</TT>.
 </blockquote>
 
 <P>
@@ -190,32 +169,32 @@ change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html189"
+<A NAME="tex2html219"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html195"
+<A NAME="tex2html225"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html199"
+<A NAME="tex2html229"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html197"
+<A NAME="tex2html227"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html190"
-  HREF="idlnode7.htm">cartview</A>
+<B> Previous:</B> <A NAME="tex2html220"
+  HREF="idlnode7.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html196"
+<B>Up:</B> <A NAME="tex2html226"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html200"
-  HREF="idlnode9.htm">cl2fits</A>
+<B> Next:</B> <A NAME="tex2html230"
+  HREF="idlnode9.htm">cartcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

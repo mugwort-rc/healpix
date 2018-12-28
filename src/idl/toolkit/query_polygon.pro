@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,11 +25,11 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro query_polygon, nside, vlist, listpix, nlist, nested=nested, inclusive=inclusive
+pro query_polygon, nside, vlist, listpix, nlist, help=help, nested=nested, inclusive=inclusive
 
 ;+
 ;=======================================================================
-; query_polygon, nside, vlist, listpix, nlist, nested=, inclusive=
+; query_polygon, nside, vlist, listpix, [nlist, HELP=, NESTED=, INCLUSIVE=]
 ;
 ; finds pixels that lie within a CONVEX polygon defined by its vertex on the sphere
 ;
@@ -39,16 +39,29 @@ pro query_polygon, nside, vlist, listpix, nlist, nested=nested, inclusive=inclus
 ; nlist             : OUT
 ; nested              : IN, OPTIONAL
 ; inclusive         : IN, OPTIONAL
+; help              : IN, OPTIONAL  prints this documentation header and exits
 ; 
 ; algorithm:
 ;   the polygon is divided into triangles
 ;   vertex 0 belongs to all the triangles
 ;
 ; v1.0, EH, Caltech, Dec-2001
+; 2008-03-27, check # of params, added /HELP
 ;=======================================================================
 ;-
 
-syntax = 'QUERY_POLYGON, Nside, Vlist, Listpix, Nlist, NESTED=, INCLUSIVE='
+routine = 'query_polygon'
+syntax = 'QUERY_POLYGON, Nside, Vlist, Listpix, [Nlist, HELP=, NESTED=, INCLUSIVE=]'
+
+if keyword_set(help) then begin
+    doc_library,routine
+    return
+endif
+
+if (n_params() lt 3 or n_params() gt 4) then begin
+    print,syntax
+    return
+endif
 
 npix = nside2npix(nside, error=error)
 if (error ne 0) then begin

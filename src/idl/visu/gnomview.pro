@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -26,12 +26,13 @@
 ;
 ; -----------------------------------------------------------------------------
 PRO gnomview, file_in, select_in, $
-CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+EXECUTE=execute, $
 FACTOR = factor, FITS = fits, FLIP=flip, $
-GIF = gif, GRATICULE=graticule, $
+GIF = gif, GLSIZE = glsize, GRATICULE=graticule, $
 HBOUND = hbound, HELP = help, $
 HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGRATICULE=igraticule, $
+IGLSIZE = iglsize, IGRATICULE=igraticule, $
 LOG = log, $
 MAX = max_set, MIN = min_set, $
 NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NOPOSITION = noposition, $
@@ -40,9 +41,9 @@ PNG=png, POLARIZATION=polarization, $
 PREVIEW = preview, PS = ps, PXSIZE = pxsize, PYSIZE = pysize, $
 QUADCUBE = quadcube, $
 RESO_ARCMIN = reso_arcmin, ROT = rot, $
-SAVE = save, SUBTITLE = subtitle, $
+SAVE = save, SILENT=silent, SUBTITLE = subtitle, $
 TITLEPLOT = titleplot, $
-UNITS = units, XPOS = xpos, YPOS = ypos, vector_scale = vector_scale
+UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos, vector_scale = vector_scale
 
 ;+
 ; for extended description see mollview or the paper documentation
@@ -53,6 +54,8 @@ if (exists ne 1) then init_healpix
 
 @viewcom ; define common
 data_plot = 0 ; empty common array
+; record original color table and PLOTS settings
+record_original_settings, original_settings
 
 loadsky                         ; cgis package routine, define rotation matrices
 projection = 'GNOMIC'
@@ -73,20 +76,20 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     PRINT, 'Wrong number of arguments in '+uroutine
     print,'Syntax : '
     print, uroutine+', File, [Select, ]'
-    print,'              [CHARSIZE=, COLT=, COORD=, CROP=, '
-    print,'              FITS=, FLIP=, GIF=, GRATICULE=, '
+    print,'              [ASINH=, CHARSIZE=, COLT=, COORD=, CROP=, '
+    print,'              EXECUTE=, FACTOR=, FITS=, FLIP=, GIF=, GLSIZE=, GRATICULE=, '
     print,'              HBOUND=, HELP=, '
     print,'              HIST_EQUAL=, HXSIZE=, '
-    print,'              IGRATICULE=,'
+    print,'              IGLSIZE=, IGRATICULE=,'
     print,'              LOG=, '
     print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, NOPOSITION = '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              RESO_ARCMIN= , ROT=, SAVE=, '
+    print,'              RESO_ARCMIN= , ROT=, SAVE=, SILENT=, '
     print,'              SUBTITLE=, TITLEPLOT=, '
-    print,'              UNITS=, XPOS=, YPOS=]'
+    print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
     print,'   for an extended help'
@@ -116,7 +119,7 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save,ONLINE=online,NESTED=nested_online,UNITS=units,COORD=coord,FLIP=flip, $
   ROT=rot,QUADCUBE=quadcube,LOG=log,ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
 if error NE 0 then return
 
 
@@ -126,7 +129,7 @@ data2gnom, $
   PXSIZE=pxsize, PYSIZE=pysize, ROT=rot, LOG=log, HIST_EQUAL=hist_equal, $
   MAX=max_set, MIN=min_set, $
   RESO_ARCMIN = reso_arcmin, FITS = fits, FLIP=flip, DATA_plot = data_plot, $
-  POLARIZATION=polarization
+  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 
 
 proj2out, $
@@ -137,9 +140,11 @@ proj2out, $
   PXSIZE=pxsize, PYSIZE=pysize, ROT = rot, SUBTITLE = subtitle, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /GNOM, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
-  HBOUND = hbound
+  HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
 
 w_num = !d.window
+; restore original color table and PLOTS settings
+record_original_settings, original_settings, /restore
 
 RETURN
 END

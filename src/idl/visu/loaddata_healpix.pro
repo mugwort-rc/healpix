@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -67,7 +67,7 @@ return
 end
 
 
-function extract_map_from_stc, stc, select_in, select=select, value=select_name, error=error, tonan=tonan
+function extract_map_from_stc, stc, select_in, select=select, value=select_name, error=error, tonan=tonan, compress=compress, pixel_list=pixel_list, nside=nside_head
 ; -----------------------------------------------------------
 ;  stc :      IN,     structure
 ;  select_in, IN,     integer or string: column identifier
@@ -75,45 +75,60 @@ function extract_map_from_stc, stc, select_in, select=select, value=select_name,
 ;  value      OUT kwd string             actual column name
 ;  error      OUT kwd integer            error code
 ;  tonan      IN kwd  integer            if set, map bad pixels to NaN
+;  compress   IN kwd  integer            if set, and the number of good pixels
+;                     small enough, only returns valid pixels and pixel_list
+;  pixel_list  OUT kwd integer            list of valid pixels
 ; -----------------------------------------------------------
 
 routine = 'extract_map_from_stc'
 header = stc.(0)
 if (error ne 0) then return,0
-bad_value = -1.6375e30
+init_healpix
+bad_value = !healpix.bad_value ;  -1.63750e+30
 
+help,header
 junk = getsize_fits(header,/header,type = fits_type, nside = nside_head, tags=tag_names(stc))
 ; coverage = strtrim(strupcase(sxpar(header,'OBJECT',Count=flag_cov)),2)
 ; nside_head = long(sxpar(header,'NSIDE',Count=flag_nside))
 if (fits_type eq 3) then begin
-    ; partial sky coverage
-    select_pix = index_word(tag_names(stc),'PIXEL',value=select_name,err=error2)
-    if undefined(select_in) then begin
-        select_map = index_word(tag_names(stc),'SIGNAL',value=select_name,err=error1)
-    endif else begin
-        select_map = index_word(tag_names(stc),select_in,value=select_name,err=error1)
-    endelse
+    ; partial sky coverage: create a full sky map, setting missing pixels to BAD
+    select_def = defined(select_in) ? select_in : 'SIGNAL'
+    select_pix = index_word(tag_names(stc), 'PIXEL',   value=select_name2, err=error2)
+    select_map = index_word(tag_names(stc), select_def,value=select_name,  err=error1)
     if (error1 ne 0 or error2 ne 0 or select_map le 0 or select_pix le 0) then begin
         print,'wrong select in '+routine
-        print,select_in,tag_names(stc)
+        print,'PIXEL',select_def,tag_names(stc)
         error = 1
         return,0
     endif
-    npix_head = nside2npix(nside_head)
     if keyword_set(tonan) then bad_val = !values.f_nan else bad_val = bad_value
-    map = make_array(npix_head,/float,value=bad_val)
-    map[stc.(select_pix)] = stc.(select_map)
+    npix_head = nside2npix(nside_head) ; number of pixels on full sky
+    npix_data = n_elements(stc.(select_map)) ; number of pixels in input data
+    if (npix_data gt 0.4*npix_head || npix_head lt 1.e6 || ~keyword_set(compress)) then begin ; fake full sky
+        map = make_array(npix_head,/float,value=bad_val)
+        map[stc.(select_pix)] = stc.(select_map)
+    endif else begin
+;         lowpix = min(stc.(select_pix),max=hipix)
+;         extra_pix = -1
+;         if (lowpix gt 0) then extra_pix = lowpix-1
+;         if (extra_pix lt 0 && hipix lt npix_head-1) then extra_pix = hipix+1
+;         if (extra_pix lt 0) then begin
+;             jump = (where(shift(stc.(select_pix),-1) - stc.(select_pix)))[0]
+;             extra_pix = (stc.(select_pix))[jump] + 1
+;         endif
+;         map = [stc.(select_map), bad_value]
+;         pixel_list = [stc.(select_pix), extra_pix]
+        map = stc.(select_map)
+        pixel_list = stc.(select_pix)
+    endelse
     select = select_map
 endif else if (fits_type eq 0 or fits_type eq 2) then begin
     ; full sky coverage (in image or binary table)
-    if undefined(select_in) then begin
-        select = index_word(tag_names(stc),1        ,value=select_name,err=error)
-    endif else begin
-        select = index_word(tag_names(stc),select_in,value=select_name,err=error)
-    endelse
+    select_def = defined(select_in) ? select_in : 1
+    select = index_word(tag_names(stc), select_def, value=select_name, err=error)
     if (error ne 0 or select eq -1) then begin
         print,'wrong select in '+routine
-        print,select_in,tag_names(stc)
+        print,select_def,tag_names(stc)
         error = 1
 ;        return,0
         message,'Abort'
@@ -139,7 +154,7 @@ end
 pro loaddata_healpix, file_in, select_in,$
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save,ONLINE=online,NESTED=nested_online,UNITS=units,COORD=coord,ROT=rot_ang,QUADCUBE=quadcube,LOG=log, $
-  ERROR=error, FLIP=flip, POLARIZATION=polarization, FACTOR=factor_u, OFFSET = offset_u
+  ERROR=error, FLIP=flip, POLARIZATION=polarization, FACTOR=factor_u, OFFSET = offset_u, SILENT=silent, COMPRESS=compress,PIXEL_LIST=pixel_list
 ;+
 ; LOADDATA_HEALPIX
 ;
@@ -150,11 +165,19 @@ pro loaddata_healpix, file_in, select_in,$
 ;   title_display, sunits 
 ; KEYWORDS
 ;   save, online, nested, units, coord, rot, quadcube, log, polarization,
-;   flip, factor
+;   flip, factor, compress, pixel_list
 ; OPTIONAL OUPUT
 ;   error
 ;
 ;  Aug 2003 : accepts ONLINE polarized data
+;  Feb 2006: edited to deal with multi-extension polarized cut sky files
+;  Apr 2006: edited to deal with arrays (online option) with more than 3 rows
+;  Jun 2007: plot 'SIGNAL' rather than "PIXEL" by default when dealing with cut
+;  sky temperature
+;  Jul 2007: makes /Online redundant
+;  Sep 2007: added /Silent
+;  Apr 2008: added /compress, pixel_list=
+;  Oct 2008: allows offsetting of polarization norm when POLARIZATION=1
 ;-
 
 factor = defined(factor_u) ? factor_u : 1.
@@ -171,23 +194,27 @@ if ((kw_save) and (kw_online)) then begin
     return
 endif
 
+; added 2007-07-12
+if (kw_online) then print,routine+':   Online keyword is now redundant !'
+kw_online = (datatype(file_in) ne 'STR')
+
 if (datatype(file_in) NE 'STR' AND kw_save) then begin
     print,routine+' : an external file is expected with /SAVE'
     error=1
     return
 endif
 
-if (datatype(file_in) NE 'STR' AND NOT kw_online) then begin
-    print,routine+' : a file name is expected or /ONLINE is missing'
-    error=1
-    return
-endif
+; if (datatype(file_in) NE 'STR' AND NOT kw_online) then begin
+;     print,routine+' : a file name is expected or /ONLINE is missing'
+;     error=1
+;     return
+; endif
 
-if (datatype(file_in) EQ 'STR' AND kw_online) then begin
-    print,routine+' : /ONLINE can not be used with an external file'
-    error=1
-    return
-endif
+; if (datatype(file_in) EQ 'STR' AND kw_online) then begin
+;     print,routine+' : /ONLINE can not be used with an external file'
+;     error=1
+;     return
+; endif
 
 if (datatype(file_in) EQ 'STR') then begin ; looking for a file
     junk = FINDFILE(file_in, count=countfile) ; check its existence
@@ -206,7 +233,7 @@ from_file    = (not kw_online and datatype(file_in) EQ 'STR')
 ; ----------------------------------------------
 ; reads in the FITS file or the SAVESET file
 ; ----------------------------------------------
-print,'reading the file ...'
+if (~keyword_set(silent)) then print,'reading the file ...'
 ; in file_in, kw_save, kw_online, select_in, routine
 ; out data, title_display, header
 select_name = ''
@@ -250,12 +277,18 @@ if (online_array) then begin
     dim1 = n_elements(file_in[*,0])
     dim2 = n_elements(file_in[0,*])
     if (do_polarization) then begin
-        if (dim2 ne 3) then begin
+        if (dim2 lt 3) then begin ; 3 rows or less -> crash
             print,'No plotting of polarisation available with this kind of data set'
             print,' expected array of shape [Npix,3],     got : ',dim1,dim2
             error = 1
             return
         endif else begin
+            if (dim2 gt 3) then begin ; more than 3 rows -> complain
+                formdim2 = '(a,i12," x",i2)'
+                print,'Input array has shape ',dim1,dim2,form=formdim2
+                print,'Expected              ',dim1,3,   form=formdim2
+                print,'WARNING: Will assume that first 3 rows are I,Q,U'
+            endif
             if (do_rescale) then begin
                 ; flag bad pixels with NaN
                 bad_pixels = where(file_in le (!healpix.bad_value*0.9), nbad)
@@ -265,6 +298,7 @@ if (online_array) then begin
                 1: begin
                     select_name = 'Polarisation Amplitude'
                     data = SQRT(file_in[*,1]^2 + file_in[*,2]^2)*factor ; amplitude = sqrt(U^2+Q^2)
+                    if (offset ne 0.) then data += factor*offset ; offset amplitude
                 end
                 2: begin
                     select_name = 'Polarisation Direction'
@@ -278,7 +312,7 @@ if (online_array) then begin
                                 [.5*ATAN(file_in[*,2]*flipconv, file_in[*,1])]]
                                 ; temperature
                     data   = file_in[*,0]*factor
-                    if (offset ne 0.) then data = temporary(data) + factor*offset
+                    if (offset ne 0.) then data += factor*offset
                 end
             endcase
         endelse
@@ -317,7 +351,23 @@ if (from_file) then begin ; fits file
     junk = getsize_fits(file_in, type = fits_type)
     if (fits_type eq 3) then begin ; cut sky -> do structure
         file_keep = file_in
-        read_fits_s, file_keep, file_in, /merge, ext = ext2read
+        if (polarization ge 1 and polarization le 3) then begin ; polarised data
+            read_fits_s, file_keep, st_t, /merge, ext = 0
+            read_fits_s, file_keep, st_q, /merge, ext = 1
+            read_fits_s, file_keep, st_u, /merge, ext = 2
+            iw_signal = (index_word(all_ttype_tags, 'SIGNAL', err= error))[0]
+            iw_pixel  = (index_word(all_ttype_tags, 'PIXEL', err= error))[0]
+            file_in = {JUNK:st_t.(0), PIXEL:st_t.(iw_pixel), TEMPERATURE:st_t.(iw_signal), $
+                                      Q_POLARISATION:st_q.(iw_signal), $
+                                      U_POLARISATION:st_u.(iw_signal)}
+            if (n_elements(file_in.(2)) ne n_elements(file_in.(3)) or $
+                n_elements(file_in.(2)) ne n_elements(file_in.(4))) then begin
+                message,'Unconsistent I, Q & U fields in cut-sky FITS file:'+file_keep
+            endif
+        endif else begin ; temperature only
+            read_fits_s, file_keep, file_in, /merge, ext = ext2read
+            ; select_in = select
+        endelse
         online_structure = 1
         goto, do_online_stc
     endif
@@ -348,6 +398,7 @@ if (online_structure) then begin ; structure
             if (error ne 0) then message,pol_err_mess
             select_name = 'Polarisation Amplitude'
             data = temporary(SQRT(temporary(data)^2 + data_q^2))*factor ; amplitude = sqrt(U^2+Q^2)
+            if (offset ne 0.) then data +=  factor*offset ; offset amplitude
             data_q = 0.
         end
         2: begin
@@ -366,20 +417,21 @@ if (online_structure) then begin ; structure
             if (flipconv lt 0) then data_u = temporary(data_u) * flipconv ; change sign of U if astro convention
                                 ; amplitude = sqrt(U^2+Q^2) & angle phi = 1/2 atan(U/Q) in radians
             pol_data = [[SQRT(data_u^2 + data_q^2)*factor],[.5*(ATAN(data_u, data_q))]] 
-            if (offset ne 0.) then pol_data[*,0] = pol_data[*,0] + factor*offset
+            ;;;;;;;;;;;;;;if (offset ne 0.) then pol_data[*,0] += factor*offset 
             data_q = 0. & data_u = 0.
             data   = extract_map_from_stc(file_in, t_keys, select=select, value=select_name, error=error, /tonan)
-            data = temporary(data)*factor
-            if (offset ne 0.) then data = temporary(data) + factor*offset
+            if (factor ne 1.) then data *=  factor
+            if (offset ne 0.) then data +=  factor*offset
             select_name = 'Temperature + Polarisation'
         end
         else: begin             ; temperature alone
-            data = extract_map_from_stc(file_in, select_in, select=select, value=select_name, error=error, tonan=do_rescale)
+            data = extract_map_from_stc(file_in, select_in, select=select, value=select_name, error=error, tonan=do_rescale, compress=compress, pixel_list=pixel_list, nside=nside)
+;;;            data = extract_map_from_stc(file_in, select, select=select, value=select_name, error=error, tonan=do_rescale)
             if (datatype(data) eq 'STR') then message,'Abort: Wrong format'
             if (do_rescale) then begin
                 bad_pixels = where(finite(data,/nan), nbad)
-                data = temporary(data)*factor
-                if (offset ne 0.) then data = temporary(data) + factor*offset
+                if (factor ne 1.) then data *= factor
+                if (offset ne 0.) then data += factor*offset
                 if (nbad gt 0) then data[bad_pixels] = !values.f_nan
             endif
         end
@@ -422,7 +474,7 @@ endif else begin ; otherwise find it in the file
         if (flag_units NE 0) then sunits = STRTRIM(sunits_read, 2)
     endif
 endelse
-if keyword_set(log) then sunits = 'Log ('+sunits+')'
+if keyword_set(log)   then sunits = 'Log ('+sunits+')'
 
 
 ;----------------------------------------------------
@@ -440,8 +492,8 @@ if N_elements(coord) EQ 2 then begin
 endif
 if coord_in  EQ 'C' then coord_in =  'Q'  ; cgis skyconv coding convention for celestial/equatorial
 if coord_out EQ 'C' then coord_out = 'Q'
-print,'input file : ',decode_coord(coord_in)+' coordinates'
-print,'plot coord : ',decode_coord(coord_out)+' coordinates'
+if (~keyword_set(silent)) then print,'input file : ',decode_coord(coord_in)+' coordinates'
+if (~keyword_set(silent)) then print,'plot coord : ',decode_coord(coord_out)+' coordinates'
 do_conv = (coord_in NE coord_out)
 
 ; ---- extra rotation ----
@@ -455,8 +507,12 @@ npix = (size(data))[1]
 if (keyword_set(quadcube)) then begin
     pix_param = ROUND(ALOG(npix/6.)/ALOG(4.)) + 1 ; resolution parameter
 endif else begin
-    nside = npix2nside(npix)
-    pix_param = nside
+    if (undefined(nside)) then begin
+        nside = npix2nside(npix)
+        pix_param = nside
+    endif else begin
+        pix_param = nside
+    endelse
 endelse
 
 return

@@ -468,7 +468,7 @@ template<typename T> void rotate_alm (Alm<xcomplex<T> > &alm,
     for (int m=0; m<=l; ++m)
       alm(l,m) = almtmp[m]*expphi[m];
     }
-  cout << endl;
+  end_announce_progress();
   }
 
 template void rotate_alm (Alm<xcomplex<float> > &alm,
@@ -541,7 +541,7 @@ template<typename T> void rotate_alm (Alm<xcomplex<T> > &almT,
       almC(l,m) = almtmpC[m]*expphi[m];
       }
     }
-  cout << endl;
+  end_announce_progress();
   }
 
 template void rotate_alm (Alm<xcomplex<float> > &almT,

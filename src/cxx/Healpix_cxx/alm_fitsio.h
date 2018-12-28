@@ -70,7 +70,7 @@ template<typename T> void read_Alm_from_fits
    int lmax, int mmax, int hdunum=2);
 
 /*! Inserts a new binary table into \a out, which contains three columns
-    of FITS type TINT, \a datatype and \a datatype, respectively.
+    of FITS type TINT32BIT, \a datatype and \a datatype, respectively.
     The data in \a alms is written into this table; values outside
     the requested (\a lmax, \a mmax) range are omitted. */
 template<typename T> void write_Alm_to_fits
@@ -78,7 +78,7 @@ template<typename T> void write_Alm_to_fits
    int lmax, int mmax, int datatype);
 
 /*! Inserts a new binary table into \a out, which contains three columns
-    of FITS type TINT, \a datatype and \a datatype, respectively.
+    of FITS type TINT32BIT, \a datatype and \a datatype, respectively.
     The data in \a alms is written into this table; values outside
     the requested (\a lmax, \a mmax) range are omitted. Values with an absolute
     magnitude of zero are not written. */

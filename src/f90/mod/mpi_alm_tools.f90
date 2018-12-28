@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -2075,12 +2075,38 @@ contains
                       lambda_w =                b_w * lam_lm1m - a_w * lam_lm 
                       lambda_x = fm_on_s2 * (         lam_lm1m - a_x * lam_lm)
 
-                      b_ns(par_lm:  par_lm+1) = b_ns(par_lm:  par_lm+1) + lam_lm   * dalm(0:1,l) ! T even or odd
-                      b_ns(par_lm+2:par_lm+5) = b_ns(par_lm+2:par_lm+5) - lambda_w * dalm(2:5,l) ! Q, U  even or odd
-                      b_ns(2-par_lm) = b_ns(2-par_lm) + lambda_x * dalm(5,l) ! Q odd (or even)
-                      b_ns(3-par_lm) = b_ns(3-par_lm) - lambda_x * dalm(4,l)
-                      b_ns(4-par_lm) = b_ns(4-par_lm) - lambda_x * dalm(3,l) ! U odd (or even)
-                      b_ns(5-par_lm) = b_ns(5-par_lm) + lambda_x * dalm(2,l)
+!                      b_ns(par_lm:  par_lm+1) = b_ns(par_lm:  par_lm+1) + lam_lm   * dalm(0:1,l) ! T even or odd
+!                      b_ns(par_lm+2:par_lm+5) = b_ns(par_lm+2:par_lm+5) - lambda_w * dalm(2:5,l) ! Q, U  even or odd
+!                      b_ns(2-par_lm) = b_ns(2-par_lm) + lambda_x * dalm(5,l) ! Q odd (or even)
+!                      b_ns(3-par_lm) = b_ns(3-par_lm) - lambda_x * dalm(4,l)
+!                      b_ns(4-par_lm) = b_ns(4-par_lm) - lambda_x * dalm(3,l) ! U odd (or even)
+!                      b_ns(5-par_lm) = b_ns(5-par_lm) + lambda_x * dalm(2,l)
+
+                      ! Speed up change by Gregory Bauer
+                      if (par_lm==-3) then
+                         b_ns(-3) = b_ns(-3) + lam_lm   * dalm(0,l) ! T even or odd
+                         b_ns(-2) = b_ns(-2) + lam_lm   * dalm(1,l) ! T even or odd
+                         b_ns(-1) = b_ns(-1) - lambda_w * dalm(2,l) ! Q, U  even or odd
+                         b_ns(8) = b_ns(8) + lambda_x * dalm(2,l)
+                         b_ns(0) = b_ns(0) - lambda_w * dalm(3,l) ! Q, U  even or odd
+                         b_ns(7) = b_ns(7) - lambda_x * dalm(3,l) ! U odd (or even)
+                         b_ns(1) = b_ns(1) - lambda_w * dalm(4,l) ! Q, U  even or odd
+                         b_ns(6) = b_ns(6) - lambda_x * dalm(4,l)
+                         b_ns(2) = b_ns(2) - lambda_w * dalm(5,l) ! Q, U  even or odd
+                         b_ns(5) = b_ns(5) + lambda_x * dalm(5,l) ! Q odd (or even)
+                      else
+                         b_ns(3) = b_ns(3) + lam_lm   * dalm(0,l) ! T even or odd
+                         b_ns(4) = b_ns(4) + lam_lm   * dalm(1,l) ! T even or odd
+                         b_ns(2) = b_ns(2) + lambda_x * dalm(2,l)
+                         b_ns(5) = b_ns(5) - lambda_w * dalm(2,l) ! Q, U  even or odd
+                         b_ns(1) = b_ns(1) - lambda_x * dalm(3,l) ! U odd (or even)
+                         b_ns(6) = b_ns(6) - lambda_w * dalm(3,l) ! Q, U  even or odd
+                         b_ns(0) = b_ns(0) - lambda_x * dalm(4,l)
+                         b_ns(7) = b_ns(7) - lambda_w * dalm(4,l) ! Q, U  even or odd
+                         b_ns(-1) = b_ns(-1) + lambda_x * dalm(5,l) ! Q odd (or even)
+                         b_ns(8) = b_ns(8) - lambda_w * dalm(5,l) ! Q, U  even or odd
+                      endif
+                      
                    endif
 
                    lam_0 = lam_1 * recfac(1,l-1)

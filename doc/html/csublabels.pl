@@ -2,14 +2,6 @@
 # Associate labels original text with physical files.
 
 
-$key = q/csub:read_healpix_map/;
-$external_labels{$key} = "$URL/" . q|csubnode10.htm|; 
-$noresave{$key} = "$nosave";
-
-$key = q/csub:write_healpix_map/;
-$external_labels{$key} = "$URL/" . q|csubnode12.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/csub:nside2npix/;
 $external_labels{$key} = "$URL/" . q|csubnode8.htm|; 
 $noresave{$key} = "$nosave";
@@ -26,8 +18,16 @@ $key = q/csub:vec2ang/;
 $external_labels{$key} = "$URL/" . q|csubnode11.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/csub:read_healpix_map/;
+$external_labels{$key} = "$URL/" . q|csubnode10.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/csub:pix_tools/;
 $external_labels{$key} = "$URL/" . q|csubnode9.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/csub:write_healpix_map/;
+$external_labels{$key} = "$URL/" . q|csubnode12.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/csub:ang2vec/;

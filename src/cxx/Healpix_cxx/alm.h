@@ -27,7 +27,7 @@
 /*! \file alm.h
  *  Class for storing spherical harmonic coefficients.
  *
- *  Copyright (C) 2003, 2004, 2005 Max-Planck-Society
+ *  Copyright (C) 2003, 2004, 2005, 2006, 2007 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -44,11 +44,19 @@ template<typename T> class Alm
     arr<T> alm;
 
   public:
+    /*! Returns the number of coefficients in an Alm object with maximum
+        quantum numbers \a l and \a m. */
+    static long Num_Alms (int l, int m)
+      {
+      planck_assert(m<=l,"mmax must not be larger than lmax");
+      return ((m+1)*(m+2))/2 + (m+1)*(l-m);
+      }
+
     /*! Constructs an Alm object with given \a lmax and \a mmax. */
     Alm (int lmax_=0, int mmax_=0)
       : lmax(lmax_), mmax(mmax_), tval(2*lmax+1),
-        alm (((mmax+1)*(mmax+2))/2 + (mmax+1)*(lmax-mmax))
-      { planck_assert(mmax<=lmax,"mmax must not be larger than mmax"); }
+        alm (Num_Alms(lmax,mmax))
+      {}
 
     /*! Deletes the old coefficients and allocates storage according to
         \a lmax and \a mmax. */
@@ -57,9 +65,18 @@ template<typename T> class Alm
       lmax=lmax_;
       mmax=mmax_;
       tval=2*lmax+1;
-      planck_assert(mmax<=lmax,"mmax must not be larger than mmax");
-      int num_alms = ((mmax+1)*(mmax+2))/2 + (mmax+1)*(lmax-mmax);
-      alm.alloc(num_alms);
+      alm.alloc(Num_Alms(lmax,mmax));
+      }
+
+    /*! Deallocates the old coefficients and uses the content of \a data
+        for storage. \a data is deallocated during the call. */
+    void Set (arr<T> &data, int lmax_, int mmax_)
+      {
+      planck_assert (Num_Alms(lmax_,mmax_)==data.size(),"wrong array size");
+      lmax=lmax_;
+      mmax=mmax_;
+      tval=2*lmax+1;
+      alm.transfer(data);
       }
 
     /*! Sets all coefficients to zero. */
@@ -118,6 +135,14 @@ template<typename T> class Alm
         else  \a false. */
     bool conformable (const Alm &other) const
       { return ((lmax==other.lmax) && (mmax==other.mmax)); }
+
+    /*! Adds all coefficients from \a other to the own coefficients. */
+    void Add (const Alm &other)
+      {
+      planck_assert (conformable(other), "A_lm are not conformable");
+      for (int m=0; m<alm.size(); ++m)
+        alm[m] += other.alm[m];
+      }
   };
 
 #endif

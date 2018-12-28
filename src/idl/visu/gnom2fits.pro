@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -32,6 +32,7 @@ pro gnom2fits, map, file_out, rot = rot_ang, coord = coord, reso = reso, units =
 ;
 ;  March 1999, EH caltech, 1.0
 ;  Feb 2000, EH, replaced today() by today_fits()
+;  Jan 2007, EH: header variable (head_out) must be undefined for better results
 ;-
 
 sz = size(map)
@@ -66,7 +67,7 @@ crpix2 = (n2+1.)/2.
 
 fdate = today_fits()
 
-head_out =strarr(60)
+;head_out =strarr(60)
 SXADDPAR,head_out,'SIMPLE','T'
 SXADDPAR,head_out,'BITPIX',-32,' IEEE single precision floating point'
 SXADDPAR,head_out,'NAXIS',nn

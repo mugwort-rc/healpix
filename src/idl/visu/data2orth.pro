@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -29,7 +29,7 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
                PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,$
                NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS = units, DATA_PLOT = data_plot, $
-               GAL_CUT=gal_cut, POLARIZATION=polarization, HALF_SKY=half_sky
+               GAL_CUT=gal_cut, POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 ;+
 ;==============================================================================================
 ;     DATA2ORTH
@@ -41,7 +41,7 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          planmap, Tmax, Tmin, color_bar, planvec, vector_scale,
 ;          pxsize=, log=, hist_equal=, max=, min=, flip=, no_dipole=,
 ;          no_monopole=, units=, data_plot=, gal_cut=,
-;          polarization=, half_sky
+;          polarization=, half_sky, silent=, pixel_list, asinh=
 ;
 ; IN :
 ;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -51,6 +51,10 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units, polarization, half_sky
 ;
 ;  called by mollview
+;  HISTORY
+; Sep 2007: added /silent
+; April 2008: added pixel_list
+; July 2008: added asinh
 ;==============================================================================================
 ;-
 
@@ -78,12 +82,11 @@ do_polvector    = (polarization eq 3)
 !P.COLOR = 0                    ; black foreground
 
 mode_col = keyword_set(hist_equal)
-mode_col = mode_col + 2*keyword_set(log)
+mode_col = mode_col + 2*keyword_set(log) + 4*keyword_set(asinh)
 
 sz = size(data)
-npix = sz[1]
-
-bad_data= -1.63750000e+30
+obs_npix = sz[1]
+bad_data= !healpix.bad_value
 
 if (do_poldirection or do_polvector) then begin
     ; compute new position of pixelisation North Pole in the plot coordinates
@@ -110,7 +113,8 @@ endif
 if DEFINED(pxsize) then xsize= LONG(pxsize>xsize_min) else xsize = xsize_default
 ysize = xsize/du_dv
 n_uv = xsize*ysize
-small_file = (n_uv GT npix) 
+indlist = (n_elements(pixel_list) eq obs_npix)
+small_file = (n_uv GT obs_npix) 
 ;small_file = ((n_uv GT npix)  and not do_poldirection)
 
 if (small_file) then begin
@@ -120,7 +124,7 @@ if (small_file) then begin
         phi = 0.
         if (do_rot or do_conv) then begin
             ; position of each map pixel after rotation and coordinate changes
-            id_pix = lindgen(npix)
+            id_pix = lindgen(obs_npix)
             case pix_type of
                 'R' : PIX2VEC_RING, pix_param, id_pix, vector ; Healpix ring
                 'N' : PIX2VEC_NEST, pix_param, id_pix, vector; Healpix nest
@@ -160,7 +164,7 @@ if (small_file) then begin
         endif
     ENDELSE
     data = COLOR_MAP(data, mindata, maxdata, Obs, $
-        color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set )
+        color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent )
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         pol_data[0,0] = vector_map(pol_data[*,0], Obs, vector_scale = vector_scale)
     endif
@@ -177,7 +181,7 @@ if do_polvector then planvec = MAKE_ARRAY(/FLOAT,xsize,ysize, 2, Value = bad_dat
 ; make the projection
 ;  we split the projection to avoid dealing with to big an array
 ; -------------------------------------------------
-print,'... making the projection ...'
+if (~keyword_set(silent)) then print,'... making the projection ...'
 ; -------------------------------------------------
 ; generate the (u,v) position on the orthographic map
 ; -------------------------------------------------
@@ -264,7 +268,11 @@ for ystart = 0, ysize - 1, yband do begin
             else : print,'error on pix_type'
         endcase
         if (small_file) then begin ; (data and data_pol are already rescaled and color coded)
-            planmap[ystart*xsize+disc] = data[id_pix]
+            if (~ (do_polvector || do_polamplitude || do_poldirection) ) then begin
+                planmap[ystart*xsize+disc] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=2B) ; temperature
+            endif else begin
+                planmap[ystart*xsize+disc] = data[id_pix]
+            endelse
             if (do_polvector) then begin
                 planvec[ystart*xsize+disc]         = pol_data[id_pix,0] ; amplitude
                 planvec[(ystart*xsize+n_uv)+disc]  = pol_data[id_pix,1] ; direction
@@ -277,7 +285,8 @@ for ystart = 0, ysize - 1, yband do begin
                 planvec[ystart*xsize+disc]         = pol_data[id_pix,0] ; amplitude
                 planvec[(ystart*xsize+n_uv)+disc]  = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI); angle
             endif else begin ; temperature only or amplitude only
-                planmap[ystart*xsize+disc]         = data[id_pix] ; temperature
+                ;planmap[ystart*xsize+disc]         = data[id_pix] ; temperature
+                planmap[ystart*xsize+disc]      = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value) ; temperature
             endelse
         endelse
     endif
@@ -306,7 +315,7 @@ endif else begin
         max_set = 2*!pi
     endif
     planmap = COLOR_MAP(planmap, mindata, maxdata, Obs, $
-            color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set)
+            color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent)
     planmap(plan_off) = !P.BACKGROUND ; white
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)

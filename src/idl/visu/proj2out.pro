@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -36,7 +36,9 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               PNG = png, OUTLINE = outline, $
               PROJECTION=projection, MOLLWEIDE=mollweide, GNOMIC=gnomic, CARTESIAN=cartesian, $
               ORTHOGRAPHIC=orthographic, FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, $
-              IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds
+              IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
+              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
+
 ;===============================================================================
 ;+
 ;  PROJ2OUT
@@ -59,7 +61,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;              GNOMIC=gnomic, CARTESIAN=cartesian,
 ;              ORTHOGRAPHIC=orthographic, $
 ;              FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, IGRATICULE=,
-;              HBOUND=, DIAMONDS =
+;              HBOUND=, DIAMONDS =, WINDOW =, TRANSPARENT=, EXECUTE=, SILENT=
 ;
 ;   for more information, see Gnomview.pro Mollview.pro
 ;
@@ -70,6 +72,9 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;       G. Giardino's pol2out)
 ;   Aug 2002, EH, added the orthographic projection facility
 ;   Jul 2002, EH, changed vector field loop index to LONG
+;   Jan 2007, EH, added window keyword
+;   Sep 2007, EH, the /CROP-ped image now include graticules, ...,
+;   added /TRANSPARENT, EXECUTE=, /SILENT
 ;-
 ;===============================================================================
 
@@ -79,9 +84,15 @@ do_moll = 0
 do_cart = 0
 do_orth = 0
 do_fullsky = 0 ; dummy, only matters for orthview
+do_gif = keyword_set(gif)
+do_png = keyword_set(png)
+do_ps  = keyword_set(ps)
+do_image = do_gif or do_png
 ;-------------------------------------------------
 
+if (do_ps) then test_preview
 @idl_default_previewer ; defines the paper size
+if (do_ps and undefined(papersize)) then papersize = 'a4'
 
 xsize = (size(planmap))(1)
 ysize = (size(planmap))(2)
@@ -123,18 +134,20 @@ if (projtype eq 2) then begin
 ; location of astro. coordinate
     x_aspos = 0.5
     y_aspos = 0.04
-; pol vector scale
+; location of pol vector scale
     vscal_x = 0.05
     vscal_y = 0.01
 ; location of title and subtitle
     x_title = 0.5 & y_title = 0.95
     x_subtl = 0.5 & y_subtl = 0.915
+    if (do_ps) then begin
 ; default X dimension of hardcopy (cm)
-    hxsize_def = 15.
+        hxsize_def = 15.
 ; offset along the long axis of the page
-    yoffset = (papersize eq 'a4') ? 2 : 1
-    ;yoffset = 2  ; Europe (A4)
-    ;yoffset = 1                 ; US (letter)
+        yoffset = (papersize eq 'a4') ? 2 : 1
+;yoffset = 2  ; Europe (A4)
+;yoffset = 1                 ; US (letter)
+    endif
 endif
 
 if (projtype eq 1) then begin
@@ -170,18 +183,20 @@ if (projtype eq 1) then begin
 ; cring_yur = w_yll
 ; cring_yll = cring_yur - cring_dy
     cring_yll = .025
-; pol vector scale
+; location of pol vector scale
     vscal_x = 0.05
     vscal_y = 0.02
 ; location of title and subtitle
     x_title = 0.5 & y_title = 0.95
     x_subtl = 0.5 & y_subtl = 0.905
+    if (do_ps) then begin
 ; default X dimension of hardcopy (cm)
-    hxsize_def = 26.
+        hxsize_def = 26.
 ; offset along the long axis of the page
-    yoffset = (papersize eq 'a4') ? 2 : 1
+        yoffset = (papersize eq 'a4') ? 2 : 1
     ;yoffset = 2  ; Europe (A4)
     ;yoffset = 1                 ; US (letter)
+    endif
 endif
 
 if (projtype eq 5) then begin
@@ -217,18 +232,20 @@ if (projtype eq 5) then begin
 ; cring_yur = w_yll
 ; cring_yll = cring_yur - cring_dy
     cring_yll = .025
-; pol vector scale
+; location of pol vector scale
     vscal_x = 0.05
     vscal_y = 0.02
 ; location of title and subtitle
     x_title = 0.5 & y_title = 0.95
     x_subtl = 0.5 & y_subtl = 0.905
+    if (do_ps) then begin
 ; default X dimension of hardcopy (cm)
-    hxsize_def = 26.
+        hxsize_def = 26.
 ; offset along the long axis of the page
-    yoffset = (papersize eq 'a4') ? 2 : 1
+        yoffset = (papersize eq 'a4') ? 2 : 1
     ;yoffset = 2  ; Europe (A4)
     ;yoffset = 1                 ; US (letter)
+    endif
 endif
 
 if (projtype eq 4) then begin
@@ -266,18 +283,20 @@ if (projtype eq 4) then begin
 ; cring_yur = w_yll
 ; cring_yll = cring_yur - cring_dy
     cring_yll = .025
-; pol vector scale
+; location of pol vector scale
     vscal_x = 0.05
     vscal_y = 0.02
 ; location of title and subtitle
     x_title = 0.5 & y_title = 0.95
     x_subtl = 0.5 & y_subtl = 0.905
+    if (do_ps) then begin
 ; default X dimension of hardcopy (cm)
-    hxsize_def = 26.
+        hxsize_def = 26.
 ; offset along the long axis of the page
-    yoffset = (papersize eq 'a4') ? 2 : 1
+        yoffset = (papersize eq 'a4') ? 2 : 1
     ;yoffset = 2  ; Europe (A4)
     ;yoffset = 1                 ; US (letter)
+    endif
 endif
 
 if (projtype eq 3) then begin
@@ -320,12 +339,14 @@ if (projtype eq 3) then begin
 ; location of title and subtitle
     x_title = 0.5 & y_title = 0.95
     x_subtl = 0.5 & y_subtl = 0.915
+    if (do_ps) then begin
 ; default X dimension of hardcopy (cm)
-    hxsize_def = 15.
+        hxsize_def = 15.
 ; offset along the long axis of the page
-    yoffset = (papersize eq 'a4') ? 2 : 1
+        yoffset = (papersize eq 'a4') ? 2 : 1
     ;yoffset = 2  ; Europe (A4)
     ;yoffset = 1                 ; US (letter)
+    endif
 endif
 ;====================================================
 
@@ -339,7 +360,7 @@ if defined(charsize) then charsfactor = charsize else charsfactor = 1.0
 
 ; alter the color table
 ; -----------------------
-print,'... computing the color table ...'
+if (~keyword_set(silent)) then print,'... computing the color table ...'
 if (do_poldirection) then begin
     LOADCT, 0 , /SILENT
     ncol = 256
@@ -353,9 +374,10 @@ if (ct lt 0) then begin
     red = reverse(red) & green = reverse(green) & blue = reverse(blue)
 endif
 ; set up some specific definitions
-red(0) = 0   & green(0) = 0   & blue(0) = 0 ; reserve for black
-red(1) = 255 & green(1) = 255 & blue(1) = 255 ; reserve for white
-red(2) = 175 & green(2) = 175 & blue(2) = 175 ; reserve for neutral grey
+idx_black = 0 & idx_white = 1 & idx_grey = 2
+red[idx_black] = 0   & green[idx_black] = 0   & blue[idx_black] = 0 ; reserve for black
+red[idx_white] = 255 & green[idx_white] = 255 & blue[idx_white] = 255 ; reserve for white
+red[idx_grey ] = 175 & green[idx_grey ] = 175 & blue[idx_grey ] = 175 ; reserve for neutral grey
 TVLCT,red,green,blue
 
 ; ---------------------
@@ -363,13 +385,10 @@ TVLCT,red,green,blue
 ; ---------------------
 my_background = !p.background
 my_color = !p.color
-print,'... here it is.'
+if (~keyword_set(silent)) then print,'... here it is.'
 titlewindow = proj_big+' projection : ' + title_display
 back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
-do_gif = keyword_set(gif)
-do_png = keyword_set(png)
-do_image = do_gif or do_png
-if (keyword_set(ps)) then begin
+if (do_ps) then begin
     if DEFINED(hxsize) then hxsize = (hxsize > 3) < 200 else hxsize = hxsize_def
     if ((size(ps))(1) ne 7) then file_ps = 'plot_'+proj_small+'.ps' else file_ps = ps
     old_device = !d.name
@@ -394,12 +413,30 @@ if (keyword_set(ps)) then begin
     thick_dev = 2. ; device dependent thickness factor
 endif else begin
     if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility
-    to_patch = ((!d.n_colors GT 256) and do_image and not keyword_set(crop))
+    to_patch = ((!d.n_colors GT 256) && do_image  && not keyword_set(crop))
     if (to_patch) then device, decomp = 1 else device, decomp = 0
-    if (UNDEFINED(xpos) or UNDEFINED(ypos)) then begin
-        WINDOW, /FREE, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow
+    idl_window = defined(window_user) ? window_user : 32 ; idl_window = 32 or window_user
+    free_window    =  (idl_window gt 31) ; random  window if idl_window > 31
+    virtual_window =  (idl_window lt 0)  ; virtual window if idl_window < 0
+    reuse_window   =  (~free_window && ~virtual_window && !d.window eq idl_window && !d.x_size eq long(xsize) && !d.y_size eq long(ysize*w_dx_dy))
+    if (reuse_window) then begin
+        wset, idl_window
     endif else begin
-        WINDOW, /FREE, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XP=xpos, YP=ypos
+        WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XPOS=xpos, YPOS=ypos
+;         if (UNDEFINED(xpos) or UNDEFINED(ypos)) then begin
+;             WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow
+;         endif else begin
+;             WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XP=xpos, YP=ypos
+;         endelse
+        if (~virtual_window && (!d.x_size lt long(xsize) || !d.y_size lt long(ysize*w_dx_dy))) then begin
+            message,level=-1,/info,'==========================================================='
+            message,level=-1,/info,'WARNING: Because of screen and window manager limitations,'
+            message,level=-1,/info,'         the actual window is not as large as expected !'
+            message,level=-1,/info,strtrim(!d.x_size,2)+'*'+  strtrim(!d.y_size,2)+'    <    '+  strtrim(long(xsize),2)+'*'+strtrim(long(ysize*w_dx_dy),2)
+            message,level=-1,/info,'         The result is unpredictable.'            
+            message,level=-1,/info,' If you are only interested in GIF/PNG output, you can use a virtual window (WINDOW<0) instead'            
+            message,level=-1,/info,'==========================================================='
+        endif
     endelse
     TVLCT,red,green,blue
     thick_dev = 1. ; device dependent thickness factor
@@ -410,8 +447,8 @@ endelse
 ; -------------------------------------------------------------
 ; make the plot
 ; -------------------------------------------------------------
-
-plot,/nodata,[umin,umax],[vmin,vmax],pos=[w_xll,w_yll,w_xur,w_yur],XSTYLE=5,YSTYLE=5
+myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur],xstyle:5,ystyle:5}
+plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
 ; ---------- projection independent ------------------
 ; map itself
 TV, planmap,w_xll,w_yll,/normal,xsize=1.
@@ -523,13 +560,15 @@ grattwice=0
 ;  the graticule in output astrophysical coordinates
 if (KEYWORD_SET(graticule)) then begin
     grattwice =1
-    oplot_graticule, graticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0
+    glabelsize = charsfactor * (keyword_set(glsize) ? glsize : 0 )
+    oplot_graticule, graticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0, charsize=glabelsize, reso_rad=dx
 endif 
 
 ;  the graticule in input coordinates
 if (KEYWORD_SET(igraticule)) then begin
     lines_ig = 2*grattwice ; either 0 or 2
-    oplot_graticule, igraticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lines_ig, coordsys=[coord_in,coord_out]
+    iglabelsize = charsfactor * (keyword_set(iglsize) ? iglsize : 0 )
+    oplot_graticule, igraticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lines_ig, coordsys=[coord_in,coord_out], charsize=iglabelsize, reso_rad=dx
 endif 
 
 ; outlines on the map
@@ -541,6 +580,14 @@ endif
 if keyword_set(hbound) then begin
     if (hbound gt 0) then oplot_healpix_bounds, hbound, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0, coordsys=[coord_in,coord_out]
 endif
+
+; overplot user defined commands
+if keyword_set(execute) then begin
+    junk=execute(execute)
+    ; reset the plotting area for cursor to work properly
+    plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle,/noerase
+endif
+
 ; -----------------------------------------------
 ;       output the PS/GIF/PNG
 ; -----------------------------------------------
@@ -553,8 +600,21 @@ if do_image then begin
         if (DATATYPE(png) ne 'STR') then file_image = 'plot_'+proj_small+'.png' else file_image = png
     endelse        
     if keyword_set(crop) then begin
-        if do_gif then write_gif,file_image,planmap,red,green,blue
-        if do_png then write_png,file_image,planmap,red,green,blue
+;        if do_gif then write_gif,file_image,planmap,red,green,blue
+;        if do_png then write_png,file_image,planmap,red,green,blue
+        y_crop_low = round(w_yll * n_elements((tvrd())[0,*])) & y_crop_hi  = y_crop_low + ysize - 1
+        cropped = (tvrd())[*,y_crop_low:y_crop_hi]
+        if do_gif then write_gif,file_image,cropped,red,green,blue
+        if do_png then begin
+            if (keyword_set(transparent)) then begin
+                transp_colors = replicate(255B, 256) ; all colors are opaque
+                transp_colors[idx_grey] = 0B         ; turn grey into transparent
+                write_png,file_image,cropped,red,green,blue, transparent=transp_colors
+            endif else begin
+                write_png,file_image,cropped,red,green,blue
+            endelse
+            
+        endif
     endif else begin
         if do_gif then write_gif,file_image,tvrd(),red,green,blue
         if do_png then write_png,file_image,tvrd(),red,green,blue
@@ -563,21 +623,27 @@ if do_image then begin
             tv,tvrd()
         endif
     endelse
-    print,'IMAGE file is in '+file_image
+    if (~keyword_set(silent)) then print,'IMAGE file is in '+file_image
     if (keyword_set(preview)) then begin
-        test_preview, /crash
-        if do_gif then preview_file, file_image, /gif
-        if do_png then preview_file, file_image, /png
+        test_preview, found_preview ;, /crash
+        if (found_preview gt 0) then begin
+            resolve_routine,'preview_file',/compile_full_file,/either
+            if do_gif then preview_file, file_image, /gif
+            if do_png then preview_file, file_image, /png
+        endif
     endif
 endif
 
-if (keyword_set(ps)) then begin
+if (do_ps) then begin
     device,/close
     set_plot,old_device
-    print,'PS file is in '+file_ps
+    if (~keyword_set(silent)) then print,'PS file is in '+file_ps
     if (keyword_set(preview)) then begin
-        test_preview, /crash
-        preview_file, file_ps, /ps, landscape=do_landscape
+        test_preview, found_preview ;, /crash
+        if (found_preview gt 0) then begin
+            resolve_routine,'preview_file',/compile_full_file,/either
+            preview_file, file_ps, /ps, landscape=do_landscape
+        endif
     endif
 endif
 

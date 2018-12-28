@@ -27,7 +27,7 @@
 /*! \file vec3.h
  *  Class representing 3D cartesian vectors
  *
- *  Copyright (C) 2003 Max-Planck-Society
+ *  Copyright (C) 2003, 2006 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -53,6 +53,16 @@ class vec3
     /*! Creates a vector with the coordinates \a xc, \a yc, and \a zc. */
     vec3 (double xc, double yc, double zc)
       : x(xc), y(yc), z(zc) {}
+
+    /*! Creates a unit vector from a z coordinate and an azimuthal angle. */
+    void set_z_phi (double z_, double phi)
+      {
+      using namespace std;
+      double sintheta = sqrt((1.-z_)*(1.+z_));
+      x = sintheta*cos(phi);
+      y = sintheta*sin(phi);
+      z = z_;
+      }
 
     /*! Normalizes the vector to length 1. */
     void Normalize ()

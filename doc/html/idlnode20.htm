@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>index2lm</TITLE>
-<META NAME="description" CONTENT="index2lm">
+<TITLE>gnomcursor</TITLE>
+<META NAME="description" CONTENT="gnomcursor">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,121 +28,80 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html333"
+<A NAME="tex2html363"
   HREF="idlnode19.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html339"
+<A NAME="tex2html369"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html343"
+<A NAME="tex2html373"
   HREF="idlnode21.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html341"
+<A NAME="tex2html371"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html334"
-  HREF="idlnode19.htm">healpixwindow</A>
+<B> Previous:</B> <A NAME="tex2html364"
+  HREF="idlnode19.htm">getsize_fits</A>
 
-<B>Up:</B> <A NAME="tex2html340"
+<B>Up:</B> <A NAME="tex2html370"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html344"
-  HREF="idlnode21.htm">init_healpix and !healpix system</A>
+<B> Next:</B> <A NAME="tex2html374"
+  HREF="idlnode21.htm">gnomview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000200000000000000000"></A>
-<A NAME="idl:index2lm"></A>
+<A NAME="idl:gnomcursor"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">index2lm</FONT></font></b><hr><H2>This IDL routine provides a means to convert the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> index <!-- MATH
- $i=l^2 +
-l+ m + 1$
- -->
-<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> +
-<I>l</I>+ <I>m</I> + 1</SPAN> (as returned by eg the fits2alm routine) into <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/index2lm.pro
-
-<P>
+<b><font size=+6><FONT COLOR="#CC0000">gnomcursor</FONT></font></b><hr><H2>This IDL facility provides a point-and-click interface for finding
+the astronomical location, value and pixel index of the pixels nearest 
+to the pointed position on a gnomonic projection of a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/gnomcursor.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-INDEX2LM, index, l, m
+GNOMCURSOR, [cursor_type=, file_out=]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
-<BR> 
-  <DL COMPACT><DT>
-<B>index</B>
-<DD>Long array containing on INPUT the index <BR>
-                 <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1.
-    <DT>
-<B>l</B>
-<DD>Long array containing on OUTPUT the order <SPAN CLASS="MATH"><I>l</I></SPAN>. It has the same
-    size as <TT>index</TT>.
-    <DT>
-<B>m</B>
-<DD>Long array containing on OUTPUT the degree <SPAN CLASS="MATH"><I>m</I></SPAN>. It has the same
-    size as <TT>index</TT>.
-  </DL>
+<BR>
+see <A HREF="idlnode31.htm#idl:mollcursor">mollcursor</A>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-index2lm converts <!-- MATH
- $i=l^2 + l+ m + 1$
- -->
-<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN> into <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN>. Note that the index <SPAN CLASS="MATH"><I>i</I></SPAN> is only
-defined for <!-- MATH
- $0 \le |m|\le l$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="92" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg23.png"
- ALT="$0 \le \vert m\vert\le l$"></SPAN>.
-
+gnomcursor should be called immediately after gnomview. It gives the longitude,
+latitude, map value and pixel number
+corresponding to the cursor position in the window containing the map generated
+by gnomview. For more details, or in case
+of problems under <B>Mac OS X</B>, see <A HREF="idlnode31.htm#idl:mollcursor">mollcursor</A>.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">index2lm</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B>idl</B>
-<DD>version 5.0 or more is necessary to run <A HREF="idlnode9.htm#idl:cl2fits">cl2fits</A>.
-    <DT>
-<B><A HREF="idlnode12.htm#idl:fits2alm">fits2alm</A></B>
-<DD>reads a FITS file containing
-    <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values.
-    <DT>
-<B><A HREF="idlnode22.htm#idl:lm2index">lm2index</A></B>
-<DD>routine complementary to <FONT COLOR="#CC0000">index2lm</FONT>:
-    converts <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN> into <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> +
-    <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1.
-  </DL>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">gnomcursor</FONT></b></h3>
+<BR>
+see <A HREF="idlnode31.htm#idl:mollcursor">mollcursor</A>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-index2lm,</TD>
-<TD ALIGN="LEFT">index, l, m</TD>
+gnomcursor</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote>
-will return in <TT>l</TT> and <TT>m</TT> the order <SPAN CLASS="MATH"><I>l</I></SPAN> and degree <SPAN CLASS="MATH"><I>m</I></SPAN> such that <TT>index</TT> <!-- MATH
- $=l^2 +
-ell + m + 1$
- -->
-<SPAN CLASS="MATH">=<I>l</I><SUP>2</SUP> +
-<I>ell</I> + <I>m</I> + 1</SPAN>
-</blockquote>
+<BR><blockquote>After gnomview has read in a map and generated
+its gnomonic projection, gnomcursor is run to determine the
+position and flux of bright synchrotron sources, for example.</blockquote>
 
 <P>
 
@@ -152,32 +111,32 @@ ell + m + 1$
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html333"
+<A NAME="tex2html363"
   HREF="idlnode19.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html339"
+<A NAME="tex2html369"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html343"
+<A NAME="tex2html373"
   HREF="idlnode21.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html341"
+<A NAME="tex2html371"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html334"
-  HREF="idlnode19.htm">healpixwindow</A>
+<B> Previous:</B> <A NAME="tex2html364"
+  HREF="idlnode19.htm">getsize_fits</A>
 
-<B>Up:</B> <A NAME="tex2html340"
+<B>Up:</B> <A NAME="tex2html370"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html344"
-  HREF="idlnode21.htm">init_healpix and !healpix system</A>
+<B> Next:</B> <A NAME="tex2html374"
+  HREF="idlnode21.htm">gnomview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

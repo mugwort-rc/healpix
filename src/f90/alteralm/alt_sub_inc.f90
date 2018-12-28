@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -50,7 +50,7 @@
   !     for any questions : efh@ipac.caltech.edu
   !
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.1.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file smoothing.f90 by the command  include
@@ -76,7 +76,7 @@
   character(len=FILENAMELEN)          :: beam_file_in,   beam_file_out, beam_file_def
   character(len=80), dimension(:,:), allocatable :: header
 !  character(len=*),         parameter :: CODE = 'ALTERALM'
-  character(len=*),         parameter :: VERSION = '2.0.0'
+  character(len=*),         parameter :: VERSION = '2.1.1'
   character(len=10)                   :: sstr
   real     (SP) :: clock_time, time0, time1
   real     (SP) :: ptime, ptime0, ptime1
@@ -261,7 +261,11 @@
   outfile_alms = parse_string(handle, 'outfile_alms', descr=description,filestatus='new')
 
   print *," "
-  call parse_summarize(handle)
+!  call parse_summarize(handle)
+  call parse_check_unused(handle, code=lcode)
+  call parse_summarize(handle,code=lcode,prec=KMAP)
+  call parse_finish(handle)
+  call brag_openmp()
 
   !------------------------------------
   ! allocate arrays
@@ -330,10 +334,10 @@
   where(window_out == 0.0) window_out = 1.e-15
   window_out = (pixel_out * beam_out) / window_out
 
-  call alter_alm(0, nlmax_out, nmmax_out, 0.0_KALM, alm_sig, &
+  call alter_alm(0_i4b, nlmax_out, nmmax_out, 0.0_KALM, alm_sig, &
        &            window=real(window_out,kind=KALM))
   if (do_alm_err) then
-     call alter_alm(0, nlmax_out, nmmax_out, 0.0_KALM, alm_err, &
+     call alter_alm(0_i4b, nlmax_out, nmmax_out, 0.0_KALM, alm_err, &
           &            window=real(window_out,kind=KALM))
   endif
 
@@ -406,7 +410,7 @@
   else
      do k = 1, npol
         palms => alm_sig(k,0:nlmax_out,0:nmmax_out)
-        call dump_alms (outfile_alms, palms, nlmax_out, header(:,k), nlheader, k-1)
+        call dump_alms (outfile_alms, palms, nlmax_out, header(:,k), nlheader, k-1_i4b)
      enddo
   endif
   call wall_clock_time(time1)

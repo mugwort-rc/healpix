@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -69,7 +69,8 @@ contains
 
   subroutine fft_gpd (data,nn,backward,onlyreal)
     real(dp), intent(inout) :: data(*)
-    integer(i4b), intent(in) :: nn(:)
+!    integer(i4b), intent(in) :: nn(:)
+    integer, intent(in) :: nn(:)
     logical, intent(in) :: backward, onlyreal
 
 !  real(dp) :: work(2*maxval(nn)) ! not valid with Absoft

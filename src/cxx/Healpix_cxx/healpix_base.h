@@ -25,7 +25,7 @@
  */
 
 /*! \file healpix_base.h
- *  Copyright (C) 2003, 2004 Max-Planck-Society
+ *  Copyright (C) 2003, 2004, 2005, 2006 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -33,7 +33,8 @@
 #define HEALPIX_BASE_H
 
 #include <vector>
-#include "constants.h"
+#include "cxxutils.h"
+#include "lsconstants.h"
 #include "pointing.h"
 template<typename T, unsigned int sz> class fix_arr;
 
@@ -73,11 +74,6 @@ class Healpix_Base
     /*! The map's ordering scheme. */
     Healpix_Ordering_Scheme scheme_;
 
-    static inline int xy2pix (int x, int y);
-    static inline int x2pix (int x);
-    static inline int y2pix (int y);
-    static inline void pix2xy (int pix, int &x, int &y);
-
     inline int ring_above (double z) const;
     void in_ring (int iz, double phi0, double dphi,
       std::vector<int> &listir) const;
@@ -96,10 +92,15 @@ class Healpix_Base
     /*! Calculates the map order from its \a N_side parameter.
         Returns -1 if \a nside is not a power of 2.
         \param nside the \a N_side parameter */
-    static int nside2order (int nside);
-    /*! Calculates the map order from its \a N_side parameter.
-        \param nside the \a N_side parameter */
-    static int npix2nside (int nside);
+    static int nside2order (int nside)
+      {
+      planck_assert (nside>0, "invalid value for Nside");
+      if ((nside)&(nside-1)) return -1;
+      return ilog2(nside);
+      }
+    /*! Calculates the \a N_side parameter from the number of pixels.
+        \param npix the number of pixels */
+    static int npix2nside (int npix);
     /*! Constructs an unallocated object. */
     Healpix_Base ()
       : order_(-1), nside_(0), npface_(0), ncap_(0), npix_(0),
@@ -120,32 +121,42 @@ class Healpix_Base
       planck_assert ((order>=0)&&(order<=order_max), "bad order");
       order_  = order;
       nside_  = 1<<order;
-      npface_ = nside_*nside_;
-      ncap_   = 2*(npface_-nside_);
+      npface_ = nside_<<order_;
+      ncap_   = (npface_-nside_)<<1;
       npix_   = 12*npface_;
       fact2_  = 4./npix_;
-      fact1_  = 2*nside_*fact2_;
+      fact1_  = (nside_<<1)*fact2_;
       scheme_ = scheme;
       }
     /* Adjusts the object to \a nside and \a scheme. */
     void SetNside (int nside, Healpix_Ordering_Scheme scheme)
       {
       order_  = nside2order(nside);
-      planck_assert ((scheme!=NEST) || (order_>0),
+      planck_assert ((scheme!=NEST) || (order_>=0),
         "SetNside: nside must be power of 2 for nested maps");
       nside_  = nside;
       npface_ = nside_*nside_;
-      ncap_   = 2*(npface_-nside_);
+      ncap_   = (npface_-nside_)<<1;
       npix_   = 12*npface_;
       fact2_  = 4./npix_;
-      fact1_  = 2*nside_*fact2_;
+      fact1_  = (nside_<<1)*fact2_;
       scheme_ = scheme;
       }
+
+    /*! Returns the z-coordinate of the ring \a ring. This also works
+        for the (not really existing) rings 0 and 4*nside. */
+    double ring2z (int ring) const;
+    /*! Returns the number of the ring in which \a pix lies. */
+    int pix2ring (int pix) const;
 
     /*! Translates a pixel number from NEST to RING. */
     int nest2ring (int pix) const;
     /*! Translates a pixel number from RING to NEST. */
     int ring2nest (int pix) const;
+    /*! Translates a pixel number from NEST to its Peano index. */
+    int nest2peano (int pix) const;
+    /*! Translates a pixel number from its Peano index to NEST. */
+    int peano2nest (int pix) const;
 
     int ang2pix_z_phi (double z, double phi) const;
 
@@ -157,9 +168,26 @@ class Healpix_Base
         (\a vec is normalized if necessary). */
     int vec2pix (const vec3 &vec) const
       { return ang2pix_z_phi (vec.z/vec.Length(), safe_atan2(vec.y,vec.x)); }
+
+    void pix2ang_z_phi (int pix, double &z, double &phi) const;
+
     /*! Returns the angular coordinates of the center of the pixel with
         number \a pix. */
-    pointing pix2ang (int pix) const;
+    pointing pix2ang (int pix) const
+      {
+      double z, phi;
+      pix2ang_z_phi (pix,z,phi);
+      return pointing(acos(z),phi);
+      }
+    /*! Returns the vector to the center of the pixel with number \a pix. */
+    vec3 pix2vec (int pix) const
+      {
+      double z, phi;
+      pix2ang_z_phi (pix,z,phi);
+      vec3 res;
+      res.set_z_phi (z, phi);
+      return res;
+      }
 
     /*! Returns the numbers of all pixels whose centers lie within \a radius
         of \a dir in \a listpix.
@@ -181,10 +209,7 @@ class Healpix_Base
           considerably faster in the RING scheme. */
     void query_disc_inclusive (const pointing &dir, double radius,
       std::vector<int> &listpix) const
-// FIXME: verify the factor 1.35
-        { query_disc (dir,radius+1.35*pi/(4*nside_),listpix); }
-    void query_strip (const pointing &dir, double theta1, double theta2,
-      std::vector<int> &listpix) const;
+        { query_disc (dir,radius+1.362*pi/(4*nside_),listpix); }
 
     /*! Returns useful information about a given ring of the map.
         \param ring the ring number (the number of the first ring is 1)
@@ -219,16 +244,9 @@ class Healpix_Base
         The surrounding pixels are returned in \a pix, their corresponding
         weights in \a wgt.
         \note This method works in both RING and NEST schemes, but is
-          considerably faster in the NEST scheme. */
+          considerably faster in the RING scheme. */
     void get_interpol (const pointing &ptg, fix_arr<int,4> &pix,
                        fix_arr<double,4> &wgt) const;
-    /*! Returns interpolation information for the direction \a ptg.
-        The surrounding pixels are returned in \a pix, their corresponding
-        weights in \a wgt.
-        \note This method works in both RING and NEST schemes, but is
-          considerably faster in the RING scheme. */
-    void get_interpol2 (const pointing &ptg, fix_arr<int,4> &pix,
-                        fix_arr<double,4> &wgt) const;
 
     /*! Returns the order parameter of the object. */
     int Order() const { return order_; }
@@ -256,6 +274,10 @@ class Healpix_Base
       std::swap(fact2_,other.fact2_);
       std::swap(scheme_,other.scheme_);
       }
+
+    /*! Returns the maximum angular distance (in radian) between any pixel
+        center and its corners. */
+    double max_pixrad() const;
   };
 
 #endif

@@ -40,7 +40,7 @@
 #include "healpix_map_fitsio.h"
 #include "powspec.h"
 #include "powspec_fitsio.h"
-#include "alm_map_tools.h"
+#include "alm_healpix_tools.h"
 #include "alm_powspec_tools.h"
 #include "fitshandle.h"
 
@@ -62,14 +62,14 @@ template<typename T> void anafast_cxx (paramfile &params, simparams &par)
     {
     Healpix_Map<T> map;
     read_Healpix_map_from_fits(infile,map,1,2);
-    arr<double> weight_T;
-    get_ring_weights (params,par,map.Nside(),weight_T);
+    arr<double> weight;
+    get_ring_weights (params,par,map.Nside(),weight);
 
     Alm<xcomplex<T> > alm(nlmax,nmmax);
     double avg=map.average();
     map.add(-avg);
     if (map.Scheme()==NEST) map.swap_scheme();
-    map2alm_iter(map,alm,num_iter,weight_T);
+    map2alm_iter(map,alm,num_iter,weight);
 
     alm(0,0) += avg*sqrt(fourpi);
 
@@ -94,8 +94,8 @@ template<typename T> void anafast_cxx (paramfile &params, simparams &par)
     read_Healpix_map_from_fits(infile,mapT,1,2);
     read_Healpix_map_from_fits(infile,mapQ,2,2);
     read_Healpix_map_from_fits(infile,mapU,3,2);
-    arr<double> weight_T, weight_Q, weight_U;
-    get_ring_weights (params,par,mapT.Nside(),weight_T,weight_Q,weight_U);
+    arr<double> weight;
+    get_ring_weights (params,par,mapT.Nside(),weight);
 
     Alm<xcomplex<T> > almT(nlmax,nmmax), almG(nlmax,nmmax), almC(nlmax,nmmax);
     double avg=mapT.average();
@@ -104,7 +104,7 @@ template<typename T> void anafast_cxx (paramfile &params, simparams &par)
     if (mapQ.Scheme()==NEST) mapQ.swap_scheme();
     if (mapU.Scheme()==NEST) mapU.swap_scheme();
     map2alm_pol_iter
-      (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight_T,weight_Q,weight_U);
+      (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight);
 
     almT(0,0) += avg*sqrt(fourpi);
 

@@ -4,7 +4,7 @@
                       D20, D21, D22, D23, D24, D25, D26, D27, D28, D29, $
                       D30, D31, D32, D33, D34, D35, D36, D37, D38, D39, $
                       D40, D41, D42, D43, D44, D45, D46, D47, D48, D49, $
-                      NOIEEE=NOIEEE, $
+                      NOIEEE=NOIEEE, NOSCALE=NOSCALE, $
                       POINTERS=POINTERS, PASS_METHOD=PASS_METHOD, $
                       ROW=ROW, NANVALUE=NANVALUE, BUFFERSIZE=BUFFERSIZE, $
                       ERRMSG=ERRMSG, WARNMSG=WARNMSG, STATUS=OUTSTATUS
@@ -52,6 +52,8 @@
 ;	NANVALUE= Value signalling data dropout.  All points corresponding to
 ;		  this value are set to be IEEE NaN (not-a-number).  Ignored
 ;		  unless DATA is of type float, double-precision or complex.
+;       NOSCALE = If set, then TSCAL/TZERO values are ignored, and data is 
+;                 written exactly as supplied. 
 ;       PASS_METHOD = A scalar string indicating method of passing
 ;                 data to FXBWRITM.  One of 'ARGUMENT' (indicating
 ;                 pass by positional argument),  or'POINTER' (indicating
@@ -83,7 +85,7 @@
 ;                 read, 1 meaning success and 0 meaning failure.
 ;
 ; PROCEDURE CALLS: 
-;	HOST_TO_IEEE, PRODUCT()
+;	HOST_TO_IEEE
 ; EXAMPLE:
 ;      Write a binary table 'sample.fits' giving 43 X,Y positions and a 
 ;      21 x 21 PSF at each position:
@@ -121,6 +123,9 @@
 ;	The row number must be consistent with the number of rows stored in the
 ;	binary table header.
 ;
+;       A PASS_METHOD of POINTER does not use the EXECUTE() statement and can be
+;       used with the IDL Virtual Machine.   However, the EXECUTE() statement is
+;       used when the PASS_METHOD is by arguments.      
 ; CATEGORY: 
 ;	Data Handling, I/O, FITS, Generic.
 ; PREVIOUS HISTORY: 
@@ -134,8 +139,15 @@
 ;               Some bug fixes, 20 July 2001  
 ;       W. Landsman/B.Schulz  Allow more than 50 arguments when using pointers
 ;       W. Landsman  Remove pre-V5.0 HANDLE options      July 2004
+;       W. Landsman Remove EXECUTE() call with POINTERS   May 2005
+;       C. Markwardt Allow the output table to have TSCAL/TZERO
+;          keyword values; if that is the case, then the passed values
+;          will be quantized to match those scale factors before being
+;          written.  Sep 2007
+;       E. Hivon: write 64bit integer and double precison columns, Mar 2008
 ;-
 ;
+        compile_opt idl2
 @fxbintable
 	ON_ERROR, 2
 ;
@@ -396,7 +408,8 @@
         MESSAGE = ''
         DTYPENAMES = [ 'BAD TYPE', 'BYTE', 'FIX', 'LONG', $
                        'FLOAT', 'DOUBLE', 'COMPLEX', 'STRING', $
-                       'BAD TYPE', 'DCOMPLEX' ]
+                       'BAD TYPE', 'DCOMPLEX', $
+                       'BAD TYPE', 'BAD TYPE', 'BAD TYPE', 'BAD TYPE', 'LONG64' ]
         FOR I = 0L, NUMCOLS-1 DO BEGIN
 
             IF NOT FOUND[I] THEN GOTO, LOOP_END_DIMS
@@ -404,19 +417,29 @@
             COLTYPE[I] = IDLTYPE[ICOL[I],ILUN]
 
             SZ = 0
-            IF PASS EQ 'ARGUMENT' THEN $
-              RESULT = EXECUTE('SZ = SIZE('+COLNAMES[I]+')') $
-            ELSE IF PASS EQ 'POINTER' THEN $
-              RESULT = EXECUTE('SZ = SIZE(*(POINTERS[I]))') 
-
-            IF RESULT EQ 0 THEN BEGIN
+            IF PASS EQ 'ARGUMENT' THEN BEGIN
+              RESULT = EXECUTE('SZ = SIZE('+COLNAMES[I]+')') 
+              IF RESULT EQ 0 THEN BEGIN
                 MESSAGE = MESSAGE + '; Could not extract type info (column '+$
                   STRTRIM(MYCOL[I],2)+')'
                 FOUND[I] = 0
-            ENDIF
+              ENDIF
+            ENDIF ELSE SZ = SIZE(*(POINTERS[I])) 
+
+            TSCAL1 = TSCAL[ICOL[I],ILUN]
+            TZERO1 = TZERO[ICOL[I],ILUN]
 
             TYPE = SZ[SZ[0]+1]
-            IF TYPE NE COLTYPE[I] THEN BEGIN
+            TYPE_BAD = TYPE NE COLTYPE[I]
+            ;; Handle case of scaled data being stored in an
+            ;; integer column
+            IF NOT KEYWORD_SET(NOSCALE) AND $
+              (TSCAL1 NE 0) AND (TSCAL1 NE 1) AND $
+              (TYPE EQ 4 OR TYPE EQ 5) AND $
+              (COLTYPE[I] EQ 2 OR COLTYPE[I] EQ 3 OR COLTYPE[I] EQ 14) THEN $
+              TYPE_BAD = 0
+            
+            IF TYPE_BAD THEN BEGIN
                 CASE COLTYPE[I] OF
                     1: STYPE = 'byte'
                     2: STYPE = 'short integer'
@@ -425,6 +448,8 @@
                     5: STYPE = 'double precision'
                     6: STYPE = 'complex'
                     7: STYPE = 'string'
+                    9: STYPE = 'double complex'
+                   14: STYPE = 'long64 integer'
                 ENDCASE
                 FOUND[I] = 0
                 MESSAGE = '; Data type (column '+STRTRIM(MYCOL[I],2)+$
@@ -547,19 +572,12 @@
             IF NOT FOUND[I] THEN GOTO, LOOP_END_WRITE
 
             ;; Copy data into DD
-            IF PASS EQ 'ARGUMENT' THEN $
-              RESULT = EXECUTE('DD = '+COLNAMES[I]) $
-            ELSE RESULT = EXECUTE('DD = *(POINTERS[I])') 
+            IF PASS EQ 'ARGUMENT' THEN BEGIN
+              RESULT = EXECUTE('DD = '+COLNAMES[I]) 
+              IF RESULT EQ 0 THEN GOTO, LOOP_END_WRITE
+            ENDIF ELSE DD = *(POINTERS[I])
 
-            IF RESULT EQ 0 THEN BEGIN
-                GOTO, LOOP_END_WRITE
-;                MESSAGE = 'ERROR: Could not get data (column '+$
-;                  STRTRIM(MYCOL(I),2)+')'
-;                IF N_ELEMENTS(ERRMSG) NE 0 THEN BEGIN
-;                    ERRMSG = MESSAGE
-;                    RETURN
-;                ENDIF ELSE MESSAGE, MESSAGE
-            ENDIF
+;             ENDIF
             IF N_ELEMENTS(DD) EQ 1 THEN DD = [DD]
             DD = REFORM(DD, NOUTPUT[I]/NROWS0, NROWS0, /OVERWRITE)
             IF POS GT 0 OR NR LT NROWS0 THEN $
@@ -568,15 +586,42 @@
             ;; Now any conversions to FITS format must be done
             COUNT = 0L
             CT = COLTYPE[I]
+
+            ;; Perform data scaling, if scaling values are available
+            IF NOT KEYWORD_SET(NOSCALE) THEN BEGIN
+                TSCAL1 = TSCAL[ICOL[I],ILUN]
+                TZERO1 = TZERO[ICOL[I],ILUN]
+                IF TSCAL1 EQ 0 THEN TSCAL1 = 1
+                IF TZERO1 NE 0 THEN DD = DD - TZERO1
+                IF TSCAL1 NE 1 THEN DD = DD / TSCAL1
+            ENDIF
+            SZ = SIZE(DD)
+            TP = SZ[SZ[0]+1]
+
             CASE 1 OF
                 ;; Integer types
-                (CT EQ 1): CT = CT
-                (CT EQ 2 OR CT EQ 3): BEGIN
+                (CT EQ 1): BEGIN
+                    ;; Type-cast may be needed if we used TSCAL/TZERO
+                    IF TP NE 1 THEN DD = BYTE(DD)
+                END
+                (CT EQ 2): BEGIN
+                    ;; Type-cast may be needed if we used TSCAL/TZERO
+                    IF TP NE 2 THEN DD = FIX(DD)
                     IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD 
                 END
+                (CT EQ 3): BEGIN
+                    ;; Type-cast may be needed if we used TSCAL/TZERO
+                    IF TP NE 3 THEN DD = LONG(DD)
+                    IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD 
+                END
+                (ct eq 14): begin
+                    ;; Type-cast may be needed if we used TSCAL/TZERO
+                    IF TP NE 14 THEN DD = LONG(DD)
+                    IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD                    
+                end
 
                 ;; Floating and complex types
-                (CT GE 4 AND CT LE 6 OR CT EQ 9): BEGIN
+                (CT GE 4 AND CT LE 6 OR CT EQ 9 or ct eq 5): BEGIN
                     IF NOT KEYWORD_SET(NOIEEE) THEN BEGIN
                         IF N_ELEMENTS(NANVALUE) EQ 1 THEN BEGIN
                             W=WHERE(DD EQ NANVALUE,COUNT)

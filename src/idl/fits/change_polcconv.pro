@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro change_polcconv, file_in, file_out, i2c=i2c, c2i=c2i, c2c=c2c, i2i=i2i
+pro change_polcconv, file_in, file_out, i2c=i2c, c2i=c2i, c2c=c2c, i2i=i2i, force=force
 ;+
 ; NAME:
 ;          change_polcconv
@@ -39,7 +39,7 @@ pro change_polcconv, file_in, file_out, i2c=i2c, c2i=c2i, c2c=c2c, i2i=i2i
 ; CATEGORY:
 ;
 ; CALLING SEQUENCE:
-;          CHANGE_POLCCONV, File_In , File_Out, [/I2C, /C2I, /C2C, /I2I]
+;          CHANGE_POLCCONV, File_In , File_Out, [/I2C, /C2I, /C2C, /I2I, /FORCE]
 ;
 ; INPUTS:
 ;           File_In: Input FITS file
@@ -75,6 +75,13 @@ pro change_polcconv, file_in, file_out, i2c=i2c, c2i=c2i, c2c=c2c, i2i=i2i
 ;              -in all other case POLCCONV is set/reset to 'IAU', but
 ;               data is NOT changed
 ;
+;          FORCE: if set, the value of POLCCONV read from the FITS header is
+;          ignored.
+;              The sign of U is swapped (if used with C2I or I2C), and the
+;              keyword is updated accordingly
+;
+;
+;
 ; OUTPUTS:
 ;          none
 ;
@@ -97,10 +104,11 @@ pro change_polcconv, file_in, file_out, i2c=i2c, c2i=c2i, c2c=c2c, i2i=i2i
 ;
 ; MODIFICATION HISTORY:
 ;          v1.0, May 2005, Eric Hivon
+;          v1.1, Oct 2006, Eric Hivon: added /force
 ;-
 
 
-syntax = 'CHANGE_POLCCONV, File_In , File_Out [, /I2C, /C2I, /C2C, /I2I]'
+syntax = 'CHANGE_POLCCONV, File_In , File_Out [, /I2C, /C2I, /C2C, /I2I, /FORCE]'
 
 if (n_params() ne 2) then begin
     print,syntax
@@ -111,6 +119,7 @@ do_i2c = keyword_set(i2c)
 do_c2i = keyword_set(c2i)
 do_c2c = keyword_set(c2c)
 do_i2i = keyword_set(i2i)
+do_force = keyword_set(force)
 sum = do_i2c + do_c2i + do_c2c + do_i2i
 if (sum ne 1) then begin
     print,syntax
@@ -132,6 +141,7 @@ if (n_ext ne 3 and type eq 3) then begin
     return
 endif
 
+print,file_in, file_out
 for i=0,n_ext-1 do begin
     ; read data
     if (type eq 3) then begin
@@ -156,12 +166,14 @@ for i=0,n_ext-1 do begin
             message,'several '+KW_POL+' keyword in header of extension'+string(i)
         end
     endcase
-    if ((in_cos and do_i2i) or (in_iau and do_c2c)) then begin
-        print,'FITS file: ',strtrim(File_In)
-        print,KW_POL+': ',polcconv
-        message,'can not perform requested edition'
+    if (1 - do_force) then begin
+        if ((in_cos and do_i2i) or (in_iau and do_c2c)) then begin
+            print,'FITS file: ',strtrim(File_In)
+            print,KW_POL+': ',polcconv
+            message,'can not perform requested edition'
+        endif
+        if (in_cos *(do_i2c+do_c2c) or in_iau *(do_c2i+do_i2i)) then goto, skip
     endif
-    if (in_cos *(do_i2c+do_c2c) or in_iau *(do_c2i+do_i2i)) then goto, skip
 
     if (modify_map) then begin
         ; change sign of U and related quantities

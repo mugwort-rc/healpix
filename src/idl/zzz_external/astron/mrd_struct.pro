@@ -62,7 +62,6 @@
 ;          Added capability to create substructures so that structure
 ;          may contain up to 4096 distinct elements.  [This can be
 ;          increased by futher iteration of the process used if needed.]
-;       Converted to IDL V5.0   W. Landsman   September 1997
 ;       Removed V4.0 reference to common block  October 1997
 ;       Allowed unlimited number of structure elements if the version
 ;       is greater than 5.0.  Put back in code to handle prior versions.
@@ -75,6 +74,7 @@
 ;       Removed limit on EXECUTE statement.  W. Landsman  October 2003
 ;       Restore EXECUTE limit (sigh...), added NO_EXECUTE keyword
 ;                         W. Landsman July 2004
+;       Fix use of STRUCTYP with /NO_EXECUTE  W. Landsman June 2005
 ;-
 
 ; Check that the number of names is the same as the number of values.
@@ -138,7 +138,7 @@ if noexecute then begin
 		endcase
 	    end
 	endcase     	
-	if i eq 0 then struct = create_struct(name=structyp,names[i],v) $
+	if i eq 0 then struct = create_struct(names[i],v) $
 		  else struct = create_struct(temporary(struct),names[i],v)
     end; for i    
 
@@ -191,14 +191,11 @@ if strlen(strng) gt 3 then begin
     endelse
   
 endif
-
-
-
+ 
+endelse
 if keyword_set(structyp) then $
      struct = create_struct(temporary(struct), name=structyp)
 
- 
-endelse
 
 if nrow le 1 then return, struct $
              else return, replicate(struct, nrow)

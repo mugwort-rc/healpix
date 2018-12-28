@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -35,6 +35,7 @@ pro orth2pix, xpos, ypos, id_pix, lon_deg, lat_deg, value
 
 @viewcom ; define common
 do_poldirection = (polar_type eq 2)
+indlist = (n_elements(pixel_list) eq n_elements(data_plot))
 
 if (do_flip) then flipconv = +1 else flipconv = -1 ; longitude increase leftward by default (astro convention)
 
@@ -116,7 +117,11 @@ if (valid) then begin
         endif
         value = (data_plot[id_pix] - phi + 4*!PI) MOD (2*!PI) ; in 0,2pi
     endif else begin
-        value = data_plot[id_pix]
+        if (indlist) then begin
+            value = sample_sparse_array(data_plot, id_pix, in=pixel_list, default=!healpix.bad_value)
+        endif else begin
+            value = data_plot[id_pix]
+        endelse
     endelse
     if (n_elements(xpos) eq 1) then begin
         id_pix = id_pix[0]

@@ -7,14 +7,14 @@
 ;+
 ; NAME: 
 ;	FXBADDCOL
-; Purpose     : 
+; PURPOSE     : 
 ;	Adds a column to a binary table extension.
-; Explanation : 
+; EXPLANATION : 
 ;	Modify a basic FITS binary table extension (BINTABLE) header array to
 ;	define a column.
-; Use         : 
+; USE         : 
 ;	FXBADDCOL, INDEX, HEADER, ARRAY  [, TTYPE [, COMMENT ]]
-; Inputs      : 
+; INPUTS      : 
 ;	HEADER	= String array containing FITS extension header.
 ;	ARRAY	= IDL variable used to determine the data size and type
 ;		  associated with the column.  If the column is defined as
@@ -114,9 +114,10 @@
 ;		Added keyword TCUNI.
 ;	Version 5, Wayne Landsman, GSFC, 12 Aug 1997
 ;		Recognize double complex IDL datatype
+;       Version 6, Wayne Landsman, GSFC. C. Yamauchi (ISAS) 23 Feb 2006
+;               Support 64bit integers
 ; Version     :
-;       Version 5, 12 Aug 1997
-;	Converted to IDL V5.0   W. Landsman   September 1997
+;       Version 6, 23 Feb 2006
 ;-
 ;
 	ON_ERROR,2
@@ -253,6 +254,14 @@
 			TF_COMMENT = 'Complex*16 (double-' +	$
 					'precision complex)'
 			END
+			
+		14: BEGIN
+			N_BYTES = 8*N_ELEM
+			TFORM = "K"
+			TF_COMMENT = 'Integer*8 (long long ' +	$
+					'integer)'
+			END
+	               		
 
 	ENDCASE
 ;

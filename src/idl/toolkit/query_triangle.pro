@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -95,11 +95,11 @@ end
 
 ;===========================================================================
 
-pro query_triangle, nside, v1, v2, v3, listpix, nlist, nested=nested, inclusive=inclusive
+pro query_triangle, nside, v1, v2, v3, listpix, nlist, help=help, nested=nested, inclusive=inclusive
 ;+
 ;=======================================================================
 ;
-;    query_triangle, Nside, V1, V2, V3, Listpix, Nlist, NESTED=, INCLUSIVE=
+;    query_triangle, Nside, V1, V2, V3, Listpix, Nlist, HELP=, NESTED=, INCLUSIVE=
 ;    --------------
 ;     nside       = resolution parameter (a power of 2)
 ;     v1, v2, v3  = 3D vector location of the 3 triangle vertices
@@ -110,12 +110,27 @@ pro query_triangle, nside, v1, v2, v3, listpix, nlist, nested=nested, inclusive=
 ;     inclusive (OPT) , :0 by default, only the pixels whose center 
 ;                       lie in the triangle are listed on output
 ;                  if set to 1, all pixels overlapping the triangle are output
+;     help (OPT):   prints this documentation header and exits
 ;
 ;
 ;
 ; v1.0, EH, Caltech, Aug-Sep-2002 : adapted from F90 code
 ;=======================================================================
 ;-
+
+routine = 'query_triangle'
+syntax = routine+', Nside, V1, V2, V3, Listpix [, Nlist, HELP=, NESTED=, INCLUSIVE=]'
+
+if keyword_set(help) then begin
+    doc_library,routine
+    return
+endif
+
+if (n_params() lt 5 or n_params() gt 6) then begin
+    print,syntax
+    return
+endif
+
 
 npix = nside2npix(nside)
 if (npix lt 0) then begin 
@@ -259,13 +274,7 @@ dom12  = dblarr(4) & dom123a = dom12 & dom123b = dom12
 alldom = dblarr(6)
 
 for iz = irmin, irmax do begin
-    if (iz le lnside-1) then begin ; north polar cap
-        z = 1.0d0  - double(iz)^2 * dth1
-    endif else if (iz le 3*lnside) then begin ; tropical band + equat.
-        z = double(2*nside-iz) * dth2
-    endif else begin
-        z = - 1.0d0 + double(4*nside-iz)^2 * dth1
-    endelse
+    z = ring2z(lnside, iz)
     ; computes the 3 intervals described by the 3 great circles
     st = SQRT(1.0d0 - z*z)
     tgth = z / st               ; cotan(theta_ring)

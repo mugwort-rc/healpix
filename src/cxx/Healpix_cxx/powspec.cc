@@ -48,8 +48,13 @@ void PowSpec::Set(arr<double> &tt_new)
   dealloc();
   num_specs = 1;
   tt_.transfer(tt_new);
+//FIXME: temporarily relaxed to allow cross-spectra
   for (int l=0; l<tt_.size(); ++l)
-    planck_assert (tt_[l]>=0, "negative TT spectrum at l="+dataToString(l));
+    if (tt_[l]<0)
+      {
+      cerr << "Warning: negative values in TT spectrum" << endl;
+      break;
+      }
   }
 
 void PowSpec::Set(arr<double> &tt_new, arr<double> &gg_new,

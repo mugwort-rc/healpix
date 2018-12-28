@@ -25,7 +25,7 @@
  */
 
 /*! \file healpix_map.h
- *  Copyright (C) 2003, 2004, 2005 Max-Planck-Society
+ *  Copyright (C) 2003, 2004, 2005, 2006 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -238,14 +238,6 @@ template<typename T> class Healpix_Map: public Healpix_Base
       get_interpol (ptg, pix, wgt);
       return interpolation (pix, wgt);
       }
-    /*! Returns the interpolated map value at \a ptg */
-    T interpolated_value2 (const pointing &ptg) const
-      {
-      fix_arr<int,4> pix;
-      fix_arr<double,4> wgt;
-      get_interpol2 (ptg, pix, wgt);
-      return interpolation (pix, wgt);
-      }
 
     /*! Returns a constant reference to the map data. */
     const arr<T> &Map() const { return map; }
@@ -269,7 +261,7 @@ template<typename T> class Healpix_Map: public Healpix_Base
       double avg=0;
       int pix=0;
       for (int m=0; m<npix_; ++m)
-        if (!approx(map[m],Healpix_undef))
+        if (!approx<double>(map[m],Healpix_undef))
           { ++pix; avg+=map[m]; }
       return avg/pix;
       }
@@ -278,8 +270,34 @@ template<typename T> class Healpix_Map: public Healpix_Base
     void add (T val)
       {
       for (int m=0; m<npix_; ++m)
-        if (!approx(map[m],Healpix_undef))
+        if (!approx<double>(map[m],Healpix_undef))
           { map[m]+=val; }
+      }
+
+    /*! Returns the root mean square of the map, not counting undefined
+        pixels. */
+    double rms() const
+      {
+      using namespace std;
+
+      double result=0;
+      int pix=0;
+      for (int m=0; m<npix_; ++m)
+        if (!approx<double>(map[m],Healpix_undef))
+          { ++pix; result+=map[m]*map[m]; }
+      return sqrt(result/pix);
+      }
+    /*! Returns the maximum absolute value in the map, ignoring undefined
+        pixels. */
+    T absmax() const
+      {
+      using namespace std;
+
+      T result=0;
+      for (int m=0; m<npix_; ++m)
+        if (!approx<double>(map[m],Healpix_undef))
+          { result = max(result,abs(map[m])); }
+      return result;
       }
   };
 

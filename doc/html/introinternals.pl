@@ -22,10 +22,6 @@ $key = q/cite_iau74/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/Numbering/;
-$ref_files{$key} = "$dir".q|intronode4.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/QU:12/;
 $ref_files{$key} = "$dir".q|intronode11.htm|; 
 $noresave{$key} = "$nosave";
@@ -62,6 +58,10 @@ $key = q/eq:alms/;
 $ref_files{$key} = "$dir".q|intronode6.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/eq:rotateQU/;
+$ref_files{$key} = "$dir".q|intronode10.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/eq:ylm_def/;
 $ref_files{$key} = "$dir".q|intronode13.htm|; 
 $noresave{$key} = "$nosave";
@@ -82,20 +82,20 @@ $key = q/cite_hambreg/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/cite_spinlong/;
-$ref_files{$key} = "$dir".q|intronode16.htm|; 
-$noresave{$key} = "$nosave";
-
-$key = q/eq:legendreass/;
-$ref_files{$key} = "$dir".q|intronode13.htm|; 
+$key = q/Pexpansion/;
+$ref_files{$key} = "$dir".q|intronode10.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eq:lam_def/;
 $ref_files{$key} = "$dir".q|intronode13.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/Pexpansion/;
-$ref_files{$key} = "$dir".q|intronode10.htm|; 
+$key = q/eq:legendreass/;
+$ref_files{$key} = "$dir".q|intronode13.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_spinlong/;
+$ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/cite_kks/;
@@ -118,16 +118,20 @@ $key = q/QU:11/;
 $ref_files{$key} = "$dir".q|intronode11.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/fig:Numbering/;
+$ref_files{$key} = "$dir".q|intronode4.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/cite_mathint/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/subsec:cmbfast/;
-$ref_files{$key} = "$dir".q|intronode8.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/subsec:pol/;
 $ref_files{$key} = "$dir".q|intronode9.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/subsec:cmbfast/;
+$ref_files{$key} = "$dir".q|intronode8.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/addtheo/;
@@ -140,10 +144,6 @@ $noresave{$key} = "$nosave";
 
 $key = q/cite_crtu/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
-$noresave{$key} = "$nosave";
-
-$key = q/HEALPIX/;
-$ref_files{$key} = "$dir".q|intronode3.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/cite_hamakerleahy/;
@@ -178,12 +178,12 @@ $key = q/cite_crco/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/cite_ansari/;
-$ref_files{$key} = "$dir".q|intronode16.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/QU:KKS/;
 $ref_files{$key} = "$dir".q|intronode11.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_ansari/;
+$ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/Pexpansion2/;
@@ -192,6 +192,14 @@ $noresave{$key} = "$nosave";
 
 $key = q/QUtrans/;
 $ref_files{$key} = "$dir".q|intronode10.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:orthpol/;
+$ref_files{$key} = "$dir".q|intronode9.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:HEALPIX/;
+$ref_files{$key} = "$dir".q|intronode3.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/cite_zalda/;
@@ -206,12 +214,16 @@ $key = q/cite_whg/;
 $ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/cite_baum/;
-$ref_files{$key} = "$dir".q|intronode16.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/subsub:relatoldversion/;
 $ref_files{$key} = "$dir".q|intronode11.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/eq:rotateEB/;
+$ref_files{$key} = "$dir".q|intronode10.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_baum/;
+$ref_files{$key} = "$dir".q|intronode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eq:pixel_lmp/;

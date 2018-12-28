@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>convert_ring2nest*</TITLE>
-<META NAME="description" CONTENT="convert_ring2nest*">
+<TITLE>concatnl</TITLE>
+<META NAME="description" CONTENT="concatnl">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,149 +28,139 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html429"
+<A NAME="tex2html445"
   HREF="subroutinesnode19.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html435"
+<A NAME="tex2html451"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html439"
+<A NAME="tex2html455"
   HREF="subroutinesnode21.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html437"
+<A NAME="tex2html453"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html430"
-  HREF="subroutinesnode19.htm">convert_nest2ring*</A>
+<B> Previous:</B> <A NAME="tex2html446"
+  HREF="subroutinesnode19.htm">compute_statistics*</A>
 
-<B>Up:</B> <A NAME="tex2html436"
+<B>Up:</B> <A NAME="tex2html452"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html440"
-  HREF="subroutinesnode21.htm">coordsys2euler_zyz</A>
+<B> Next:</B> <A NAME="tex2html456"
+  HREF="subroutinesnode21.htm">convert_inplace*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000200000000000000000"></A>
-<A NAME="sub:convert_ring2nest"></A>
+<A NAME="sub:concatnl"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">convert_ring2nest*</FONT></font></b><hr><H2>Routine to convert a <b>HEALPix</b> map from RING to NESTED scheme. <BR>
-The routine is a
-  wrapper for 6 different routines and can threfore process
-  integer, single precision and double precision maps as well as mono or bi
-  dimensional arrays. <BR>
-This routine is fast, and is parallelized for shared memory
-architecture, but requires extra memory to store a temporary map in. </H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/pix_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">concatnl</FONT></font></b><hr><H2>Function to concatenate up to 10 subtrings interspaced with LineFeed
+character. Upon printing each subtring will be on a different line.
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/paramfile_io.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">convert_ring2nest*</FONT>(
-nside, map
-)</h2></blockquote>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">concatnl</FONT>(
+string1[, string2, string3, ...]
+)</h2>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nside</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+string1</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> parameter of the map to be converted.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the first substring to be concatenated.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map(0:12*nside**2-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mono-dimensional full sky map to be converted to RING scheme.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>string2</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN optional</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the second substring (if any) to be concatenated.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map(0:12*nside**2-1,1:nd)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>bi-dimensional full sky map to
-                   be converted to RING scheme. The routine finds the second
-                   dimension (nd) by itself. Processing a bidimensional map with nd<SPAN CLASS="MATH">&gt;1</SPAN> should be
-                   faster than each of the nd 1D-maps consecutively.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>string3</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN optional</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>... up to 10 substrings can be concatenated.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>concatenation of the substrings interspaced with LineFeed character.</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call convert_ring2nest(256,map)  
-<BR></font></tt>
-<BR><blockquote>
-Converts an <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=256</SPAN> map given in array <SPAN CLASS="MATH"><I>map</I></SPAN> from RING to NESTED scheme.
-</blockquote>
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">convert_ring2nest*</FONT>.</h2>
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode60.htm#sub:pix_tools">ring2nest</A></B>
-<DD>routine to convert a RING pixel index to NESTED pixel number.		
-  </DL>
-
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">convert_ring2nest*</FONT></b></h3>
+use paramfile_io 
+<BR>
+print*,concatnl('a','bbbbbbbb','C 10 3') 
+</font></tt>
+<BR><blockquote><IMG
+ WIDTH="104" HEIGHT="102" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg45.png"
+ ALT="$\textstyle \parbox{2.2cm}{
+Will~return:
+\parbox[t]{2cm}{\tt{a\\ bbbbbbbb\\ C 10 3}}}$"></blockquote>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">concatnl</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="#sub:convert_ring2nest">convert_nest2ring</A></B>
-<DD>convert between
-  NESTED and RING schemes.
-  <DT>
-<B><A HREF="subroutinesnode18.htm#sub:convert_inplace">convert_inplace</A></B>
-<DD>convert between 
-    RING and NESTED schemes inplace. This routine is slower than <FONT COLOR="#CC0000">convert_ring2nest*</FONT>, but doesn't require as much memory.
+<B><A HREF="subroutinesnode65.htm#sub:parse_xxx">parse_xxx</A></B>
+<DD>parse an ASCII file for parameters definition
   </DL>
 
 <P>
 
-<P>
 
+<P>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html429"
+<A NAME="tex2html445"
   HREF="subroutinesnode19.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html435"
+<A NAME="tex2html451"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html439"
+<A NAME="tex2html455"
   HREF="subroutinesnode21.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html437"
+<A NAME="tex2html453"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html430"
-  HREF="subroutinesnode19.htm">convert_nest2ring*</A>
+<B> Previous:</B> <A NAME="tex2html446"
+  HREF="subroutinesnode19.htm">compute_statistics*</A>
 
-<B>Up:</B> <A NAME="tex2html436"
+<B>Up:</B> <A NAME="tex2html452"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html440"
-  HREF="subroutinesnode21.htm">coordsys2euler_zyz</A>
+<B> Next:</B> <A NAME="tex2html456"
+  HREF="subroutinesnode21.htm">convert_inplace*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

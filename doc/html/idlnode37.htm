@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>read_fits_s </TITLE>
-<META NAME="description" CONTENT="read_fits_s ">
+<TITLE>nside2ntemplates</TITLE>
+<META NAME="description" CONTENT="nside2ntemplates">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,132 +28,137 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html537"
+<A NAME="tex2html567"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html543"
+<A NAME="tex2html573"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html547"
+<A NAME="tex2html577"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html545"
+<A NAME="tex2html575"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html538"
-  HREF="idlnode36.htm">read_fits_map</A>
+<B> Previous:</B> <A NAME="tex2html568"
+  HREF="idlnode36.htm">nside2npix</A>
 
-<B>Up:</B> <A NAME="tex2html544"
+<B>Up:</B> <A NAME="tex2html574"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html548"
-  HREF="idlnode38.htm">read_tqu</A>
+<B> Next:</B> <A NAME="tex2html578"
+  HREF="idlnode38.htm">orthcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000370000000000000000"></A>
-<A NAME="idl:read_fits_s"></A>
+<A NAME="idl:nside2ntemplates"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">read_fits_s </FONT></font></b><hr><H2>This IDL facility reads a FITS file into an IDL structure.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/read_fits_s.pro
+<b><font size=+6><FONT COLOR="#CC0000">nside2ntemplates</FONT></font></b><hr><H2>This IDL facility provides the number of template pixels Ntemplates corresponding
+to resolution parameter Nside. Each template pixel has a different shape that
+<EM>can not</EM> be matched (by rotation or reflexion) to that of any of the other templates.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/toolkit/nside2ntemplates.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-READ_FITS_S , File, Prim_stc, [Xten_stc, MERGE=, EXTENSION=]
-
+Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file containing 
-               the healpix map(s) in an extension or in the image field 
-
-<P>
-<DT>
-<B>Prim_stc</B>
-<DD>variable containing on output an IDL structure with the following fields: 
-<BR>		- primary header (tag : 0, tag name : HDR) 
-<BR>		- primary image (if any, tag : 1, tag name : IMG)
-
-<P>
-<DT>
-<B>Xten_stc</B>
-<DD>(optional), 
-<BR>
-variable containing on output an IDL structure with the following fields: 
-<BR>		- extension header (tag : 0, tag name : HDR) 
-<BR>		- data column 1 (if any, tag : 1, tag name given by TTYPE1 (with all
-                    spaces removed and only letters, digits and underscore) 
-<BR>		- data column 2 (if any, tag : 2, tag name given by TTYPE2)  
-<BR>		...
-
-<P>
-<DT>
-<B>EXTENSION=</B>
-<DD>(optional), 
-<BR>
-scalar integer containing on input the extension to be read (0 based)
-<BR>	<b>default:</b>0
+<B>Nside</B>
+<DD><b>HEALPix</b> resolution parameter (scalar integer),
+         should be a valid Nside (power of 2 in <!-- MATH
+ $\{1,\ldots,8192\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg43.png"
+ ALT="$\{1,\ldots,8192\}$"></SPAN>)
+    <DT>
+<B>Ntemplates</B>
+<DD>number of templates
   </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>MERGE=</B>
-<DD>if set <TT>Prim_stc</TT> contains : 
-<BR>		- the concatenated primary and extension header (tag name : HDR) 
-<BR>		- primary image (if any, tag name : IMG) 
-<BR>		- data column 1 ... 
-<BR>
-and <TT>Exten_stc</TT> is set to 0 
-<BR>	<b>default:</b>: not set (or set to 0)
-   </DL>
+<B>ERROR =</B>
+<DD>error flag, set to 1 on output if Nside is NOT valid, or
+    stays to 0 otherwise.
+  </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-read_fits_s reads in any type of FITS file (Image, Binary table or Ascii table) 
-and outputs the data in IDL structures
+nside2ntemplates outputs the number of template pixels
+  <BR><P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<!-- MATH
+ \begin{displaymath}
+{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="256" HEIGHT="47" BORDER="0"
+ SRC="idlimg44.png"
+ ALT="\begin{displaymath}{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+If the argument <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg23.png"
+ ALT="${N_{\rm side}}$"></SPAN> is not
+  valid, a  warning is issued and the error flag is raised.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_s </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2ntemplates</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run read_fits_s <DT>
-<B>synfast</B>
-<DD>This <b>HEALPix</b> facility will generate the FITS format 
-            sky map that can be read by read_fits_s .
+<DD>version 6.0 or more is necessary to run nside2ntemplates .	
   <DT>
-<B><A HREF="idlnode48.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to generate FITS format 
-            sky maps readable by read_fits_s .
+<B><A HREF="idlnode53.htm#idl:template_pixel_xxx">template_pixel_ring</A></B>
+<DD><DT>
+<B><A HREF="idlnode53.htm#idl:template_pixel_xxx">template_pixel_nest</A></B>
+<DD>return the
+  template pixel associated with any <b>HEALPix</b> pixel
+  <DT>
+<B><A HREF="idlnode52.htm#idl:same_shape_pixels_xxx">same_shape_pixels_ring</A></B>
+<DD><DT>
+<B><A HREF="idlnode52.htm#idl:same_shape_pixels_xxx">same_shape_pixels_nest</A></B>
+<DD>return
+  the ordered list of pixels having the same shape as a given pixel template
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-read_fits_s,</TD>
-<TD ALIGN="LEFT">'dmr_skymap_90a_4yr.fits', pdata, xdata</TD>
+Ntemplates = nside2ntemplates(256, ERROR=error)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote>read_fits_s reads in the file 'dmr_skymap_90a_4yr.fits'. On output, pdata
-contains the primary header and xdata is a structure whose first field is the
-extension header, and the other fields are vectors with respective tag names 
-PIXEL, SIGNAL, N_OBS, SERROR, ... (see <TT>help,/struc,xdata</TT>)</blockquote>
+<BR><blockquote>
+Ntemplates will be 16768 the number of template pixels for the <b>HEALPix</b> 
+resolution parameter 256 and error will be 0</blockquote>
 
 <P>
 
@@ -161,32 +166,32 @@ PIXEL, SIGNAL, N_OBS, SERROR, ... (see <TT>help,/struc,xdata</TT>)</blockquote>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html537"
+<A NAME="tex2html567"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html543"
+<A NAME="tex2html573"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html547"
+<A NAME="tex2html577"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html545"
+<A NAME="tex2html575"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html538"
-  HREF="idlnode36.htm">read_fits_map</A>
+<B> Previous:</B> <A NAME="tex2html568"
+  HREF="idlnode36.htm">nside2npix</A>
 
-<B>Up:</B> <A NAME="tex2html544"
+<B>Up:</B> <A NAME="tex2html574"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html548"
-  HREF="idlnode38.htm">read_tqu</A>
+<B> Next:</B> <A NAME="tex2html578"
+  HREF="idlnode38.htm">orthcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

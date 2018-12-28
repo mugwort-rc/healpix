@@ -7,20 +7,26 @@ BINARIES= syn_alm_cxx alm2map_cxx anafast_cxx map2tga udgrade_cxx \
 	  hotspots_cxx calc_powspec median_filter hpxtest smoothing_cxx \
 	  rotalm_cxx mult_alm
 
-HEADERS= $(TEMP1)/healpix_base.h $(TEMP1)/healpix_map.h \
-	$(TEMP1)/healpix_map_fitsio.h $(TEMP1)/alm.h \
-	$(TEMP1)/alm_fitsio.h $(TEMP1)/alm_map_tools.h \
+SPHERE_HEADERS= $(TEMP1)/alm.h $(TEMP1)/alm_fitsio.h \
 	$(TEMP1)/alm_powspec_tools.h $(TEMP1)/powspec.h \
-	$(TEMP1)/powspec_fitsio.h $(TEMP1)/ylmgen.h \
-	$(TEMP1)/healpix_data_io.h
+	$(TEMP1)/powspec_fitsio.h \
+	$(TEMP1)/ylmgen.h $(TEMP1)/alm_map_tools.h
+
+HEADERS= $(TEMP1)/healpix_base.h $(TEMP1)/healpix_map.h \
+	$(TEMP1)/healpix_map_fitsio.h $(TEMP1)/alm_healpix_tools.h \
+	$(TEMP1)/healpix_data_io.h $(TEMP1)/healpix_base2.h \
+	$(SPHERE_HEADERS)
 
 include $(PARAMFILE)
 
+SPHERE_OBJ= alm_fitsio.o powspec_fitsio.o alm_powspec_tools.o powspec.o \
+	alm_map_tools.o
+
 HEALPIX_OBJ= healpix_base.o healpix_map.o healpix_map_fitsio.o \
-	alm_fitsio.o powspec_fitsio.o alm_map_tools.o alm_powspec_tools.o \
-	powspec.o healpix_data_io.o
+	alm_healpix_tools.o healpix_data_io.o healpix_base2.o $(SPHERE_OBJ)
 
 healpix_base.o: healpix_base.h libcxxsupport.a
+healpix_base2.o: healpix_base.h healpix_base2.h libcxxsupport.a
 healpix_map.o: healpix_base.h healpix_map.h libcxxsupport.a
 healpix_map_fitsio.o: healpix_map_fitsio.h healpix_map.h healpix_base.h \
 	libcxxsupport.a
@@ -29,8 +35,10 @@ alm_fitsio.o: alm_fitsio.h alm.h \
 healpix_data_io.o: healpix_data_io.h libcxxsupport.a
 powspec_fitsio.o: powspec.h libcxxsupport.a
 powspec.o: powspec.h libcxxsupport.a
-alm_map_tools.o: healpix_base.h healpix_map.h alm.h \
-	ylmgen.h alm_map_tools.h libfftpack.a libcxxsupport.a
+alm_healpix_tools.o: healpix_base.h healpix_map.h alm.h \
+	ylmgen.h alm_healpix_tools.h alm_map_tools.h \
+	libfftpack.a libcxxsupport.a
+alm_map_tools.o: alm.h ylmgen.h alm_map_tools.h libfftpack.a libcxxsupport.a
 alm_powspec_tools.o: powspec.h alm.h alm_powspec_tools.h libcxxsupport.a
 
 libhealpix_cxx.a: $(HEALPIX_OBJ) $(HEADERS)

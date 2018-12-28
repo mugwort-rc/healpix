@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -30,6 +30,10 @@ pro coadd_raw_obs
 ; coadd_raw_obs : coadd raw observation into a signal and n_obs per
 ; pixel maps, put them in a FITS file, see them in Mollweide
 ; projection
+;
+; Nov 2006: replaced GIF output by PNG, 
+;           use ang2vec
+;           use more functionalities of write_fits_cut4
 ;-
 
 ; reads the table of pointings in Equat. 2000 coord.
@@ -45,15 +49,7 @@ measure = tmp(2,*)
 
 
 ; array of unit vector in Equat. 2000 coordinate
-theta = ( 90. - dectab ) * !DtoR
-phi   = ( ratab ) * !DtoR
-vec_eq = FLTARR(npoints,3)
-sin_th = SIN(theta)
-vec_eq(*,0) = sin_th * COS(phi)
-vec_eq(*,1) = sin_th * SIN(phi)
-vec_eq(*,2) = COS(theta)
-sin_th = 0. 
-theta = 0. & phi = 0.
+ang2vec, dectab, ratab, vec_eq, /astro
 
 ; conversion  eQuatorial (=celestial) 2000 --> Galactic
 loadsky                         ; cgis package routine, define rotation matrices
@@ -86,33 +82,24 @@ file_fits = 'coadded.fits'
 ;-------------------------------------
 ; extension unit
 info_xhdr = STRARR(1)
-
-; pixelisation scheme
-SXADDPAR,info_xhdr,'COMMENT',' ------------------------------------------------'
-SXADDPAR,info_xhdr,'COMMENT','          Sky Map Pixelisation Specific Keywords'
-SXADDPAR,info_xhdr,'COMMENT',' ------------------------------------------------'
-SXADDPAR,info_xhdr,'COORDSYS',outcoord,' pixelisation coordinate system'
-SXADDPAR,info_xhdr,'COMMENT','             G = Galactic, E = ecliptic, C = celestial = equatorial'
-SXADDPAR,info_xhdr,'PIXTYPE','HEALPIX',' HEALPIX pixelisation'
-SXADDPAR,info_xhdr,'NSIDE',nside,' resolution parameter for HEALPIX'
-SXADDPAR,info_xhdr,'FIRSTPIX',0,' first pixel (0 based)'
-SXADDPAR,info_xhdr,'LASTPIX',npix-1,' last pixel (0 based)'
-SXADDPAR,info_xhdr,'ORDERING','NESTED',' either RING or NESTED' ; <<<<<< nested scheme (see above)
-units='mV'
-
+SXADDPAR,info_xhdr,'HISTORY','-----------------------------------------------------'
+SXADDPAR,info_xhdr,'HISTORY','file created by COADD_RAW_OBS from '+file_in
+SXADDPAR,info_xhdr,'HISTORY','-----------------------------------------------------'
 SXADDPAR,info_xhdr,'BAD_DATA',-1.6375E30,' value for missing data',form='(e15.8)'
+units='mV'
+ordering = 'NESTED'  ; <<<<<< nested scheme (see above)
 
 ; creates the structure containing the binary extension header and
 ; data columns
 
-write_fits_cut4, file_fits, pixel, signal, n_obs, xh=info_xhdr, units=units
+write_fits_cut4, file_fits, pixel, signal, n_obs, xh=info_xhdr, units=units, nside=nside, coord=outcoord, ordering=ordering, ext=0
 
-; look at the map in Mollweide projection and makes a gif file of it
+; look at the map in Mollweide projection and makes a png file of it
 select='signal'
-mollview,file_fits,GIF=select+'.gif'
+mollview,file_fits,PNG=select+'.png'
 
 select='n_obs'
-mollview,file_fits,GIF=select+'.gif',select
+mollview,file_fits,PNG=select+'.png',select
 
 return
 end

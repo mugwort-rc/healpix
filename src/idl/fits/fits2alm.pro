@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -83,6 +83,7 @@ PRO FITS2ALM, index, alm_array, fitsfile, signal, HDR = hdr, XHDR = xhdr
 ;       Feb 2005, EH: replaced MRDFITS by faster FITS_READ+TBINFO+TBGET
 ;       May 2005, EH, replaces FINDFILE by FILE_TEST
 ;       Aug 2005, EH: make output alm_array of same precision as FITS file data
+;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -178,6 +179,7 @@ endfor
 
 alm_array = reform(alm_array)
 xhdr = savehdr
+tbfree, tab_xhdr
 
 ; Exit routine
 Exit:

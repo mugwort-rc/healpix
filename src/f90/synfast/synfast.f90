@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -31,12 +31,12 @@ module synmod
   USE alm_tools, only: create_alm, alm2map, alm2map_der, pixel_window, generate_beam
   USE pix_tools, only: nside2npix
   USE fitstools, only: write_bintab, number_of_alms, read_par, read_conbintab, read_bintab, dump_alms, getsize_fits
-  USE head_fits, only: add_card, merge_headers, del_card
+  USE head_fits, only: add_card, merge_headers, del_card, write_minimal_header
   use rngmod,    only: rand_init, rand_gauss, planck_rng
   USE misc_utils,only: assert_alloc, fatal_error, wall_clock_time, brag_openmp, string
   USE extension, only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_lgt, parse_summarize, concatnl, scan_directories
+         parse_string, parse_double, parse_lgt, parse_summarize, parse_check_unused, parse_finish, concatnl, scan_directories
   implicit none
 
   character(len=*), parameter :: CODE = "SYNFAST"

@@ -29,8 +29,7 @@
 ;              is more efficient than repeatedly starting at the beginning of 
 ;              the file.
 ;          (2) For reading a FITS file across a Web http: address after opening
-;              the unit with the SOCKET procedure (IDL V5.4 or later,
-;              Unix and Windows only) 
+;              the unit with the SOCKET procedure 
 ;
 ; OUTPUTS:
 ;       Result = FITS data array constructed from designated record.
@@ -177,9 +176,7 @@
 ;        informative message only, and should not affect the output of READFITS.   
 ; PROCEDURES USED:
 ;       Functions:   SXPAR()
-;       Procedures:  SXADDPAR, SXDELPAR
-; MINIMUM IDL VERSION:
-;       V5.3 (Uses STRJOIN, /COMPRESS keyword to OPENR)
+;       Procedures:  MRD_SKIP, SXADDPAR, SXDELPAR
 ;
 ; MODIFICATION HISTORY:
 ;       Original Version written in 1988, W.B. Landsman   Raytheon STX
@@ -202,6 +199,13 @@
 ;       Restored NaNVALUE keyword for backwards compatibility,
 ;               William Thompson, 16-Aug-2004, GSFC
 ;       Recognize .ftz extension as compressed  W. Landsman   September 2004
+;       Fix unsigned integer problem introduced Sep 2004 W. Landsman Feb 2005
+;       Don't modify header for unsigned integers, preserve double precision
+;           BSCALE value  W. Landsman March 2006
+;       Use gzip instead of compress for Unix compress files W.Landsman Sep 2006
+;       Call MRD_SKIP to skip bytes on different file types W. Landsman Oct 2006
+;       Make ndata 64bit for very large files E. Hivon/W. Landsman May 2007
+;       Fixed bug introduced March 2006 in applying Bzero C. Magri/W.L. Aug 2007
 ;-
 function READFITS, filename, header, heap, CHECKSUM=checksum, $ 
                    COMPRESS = compress, HBUFFER=hbuf, EXTEN_NO = exten_no, $
@@ -245,26 +249,26 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
 
 ;  Go to the start of the file.
 
-   openr, unit, filename, ERROR=error,/get_lun,/BLOCK,/binary, $
+   openr, unit, filename, ERROR=error,/get_lun, $
                 COMPRESS = compress, /swap_if_little_endian
    if error NE 0 then begin
         message,/con,' ERROR - Unable to locate file ' + filename
         return, -1
    endif
 
-;  Handle Unix compressed files.   On some Unix machines, users might wish to 
+;  Handle Unix compressed files.    We use gzip -d which seems to have wider 
+; availability than uncompress.  On some Unix machines, users might wish to 
 ;  force use of /bin/sh in the line spawn, ucmprs+filename, unit=unit,/sh
 
         if unixZ then begin
                 free_lun, unit
-                spawn, 'uncompress -c '+filename, unit=unit                 
+                spawn, 'gzip -cd '+filename, unit=unit                 
                 gzip = 1b
+
         endif 
   endelse
-  if keyword_set(POINTLUN) then begin
-       if gzip then  readu,unit,bytarr(pointlun,/nozero) $
-               else point_lun, unit, pointlun
-  endif
+  if keyword_set(POINTLUN) then mrd_skip, unit, pointlun
+
   doheader = arg_present(header) or do_checksum
   if doheader  then begin
           if N_elements(hbuf) EQ 0 then hbuf = 180 else begin
@@ -332,28 +336,20 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
                 
        if naxis GT 0 then begin 
             dims = sxpar( header,'NAXIS*')           ;Read dimensions
-            ndata = dims[0]
+            ndata = long64(dims[0])
             if naxis GT 1 then for i = 2, naxis do ndata = ndata*dims[i-1]
                         
                 endif else ndata = 0
                 
                 nbytes = (abs(bitpix) / 8) * gcount * (pcount + ndata)
 
-;  Move to the next extension header in the file.   Although we could use
-;  POINT_LUN with compressed files, a faster way is to simply read into the 
-;  file
+;  Move to the next extension header in the file.   Use MRD_SKIP to skip with
+;  fastest available method (POINT_LUN or readu) for different file
+;  types (regular, compressed, Unix pipe, socket) 
 
       if ext LT exten_no then begin
                 nrec = long((nbytes + 2879) / 2880)
-                if nrec GT 0 then begin     
-                if gzip then begin 
-                        buf = bytarr(nrec*2880L,/nozero)
-                        readu,unit,buf 
-                        endif else  begin 
-                        point_lun, -unit,curr_pos
-                        point_lun, unit,curr_pos + nrec*2880L
-                endelse
-                endif
+                if nrec GT 0 then mrd_skip, unit, nrec*2880L    
        endif
        endfor
 
@@ -435,16 +431,10 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
         nax[1] = nax[1] - startrow    
         nax[1] = nax[1] < numrow
         sxaddpar, header, 'NAXIS2', nax[1]
-        if gzip then begin
-                if startrow GT 0 then begin
-                        tmp=bytarr(startrow*nax[0],/nozero)
-                        readu,unit,tmp
-                endif 
-        endif else begin 
-              point_lun, -unit, pointlun          ;Current position
-              point_lun, unit, pointlun + startrow*nax[0]
-    endelse
+	if startrow GT 0 then mrd_skip, unit, startrow*nax[0]
+
     endif else if (N_elements(NSLICE) EQ 1) then begin
+
         lastdim = nax[naxis-1]
         if nslice GE lastdim then message,/CON, $
         'ERROR - Value of NSLICE must be less than ' + strtrim(lastdim,2)
@@ -453,16 +443,8 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
         naxis = naxis-1
         sxaddpar,header,'NAXIS',naxis
         ndata = ndata/lastdim
-        nskip = nslice*ndata*abs(bitpix/8) 
-        if gzip then  begin 
-              if Ndata GT 0 then begin
-                  buf = bytarr(nskip,/nozero)
-                  readu,unit,buf
-               endif   
-        endif else begin 
-                   point_lun, -unit, currpoint          ;Current position
-                   point_lun, unit, currpoint + nskip
-        endelse
+        nskip = nslice*ndata*abs(bitpix/8)
+	if Ndata GT 0 then mrd_skip, unit, nskip  
   endif
 
 
@@ -480,7 +462,7 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
 
     data = make_array( DIM = nax, TYPE = IDL_type, /NOZERO)
     readu, unit, data
-    if unixZ then if not is_ieee_big() then ieee_to_host,data
+    if unixZ  then swap_endian_inplace,data,/swap_if_little
     if (exten_no GT 0) and (pcount GT 0) then begin
         theap = sxpar(header,'THEAP')
         skip = theap - N_elements(data)
@@ -517,8 +499,8 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
                         blankval = where( data EQ blank, Nblank)
           endif
 
-          Bscale = float( sxpar( header, 'BSCALE' , Count = N_bscale))
-          Bzero = float( sxpar(header, 'BZERO', Count = N_Bzero ))
+          Bscale = sxpar( header, 'BSCALE' , Count = N_bscale)
+          Bzero = sxpar(header, 'BZERO', Count = N_Bzero )
  
 ; Check for unsigned integer (BZERO = 2^15) or unsigned long (BZERO = 2^31)
 
@@ -530,25 +512,26 @@ function READFITS, filename, header, heap, CHECKSUM=checksum, $
            endif else unsgn = 0
 
           if unsgn then begin
-                 sxaddpar, header, 'BZERO', 0
-                 sxaddpar, header, 'O_BZERO', bzero, $
-                          'Original Data is unsigned Integer'
-                   if unsgn_int then $ 
-                        data =  uint(data) - 32768U else $
+                    if unsgn_int then $ 
+                        data =  uint(data) - 32768US else $
                    if unsgn_lng then  data = ulong(data) - 2147483648UL 
                 
           endif else begin
  
           if N_Bscale GT 0  then $ 
                if ( Bscale NE 1. ) then begin
-                   data = temporary(data) * Bscale 
+	           if size(Bscale,/TNAME) NE 'DOUBLE' then $
+                      data = temporary(data) * float(Bscale) else $ 
+		      data = temporary(data) * Bscale 
                    sxaddpar, header, 'BSCALE', 1.
                    sxaddpar, header, 'O_BSCALE', Bscale,' Original BSCALE Value'
                endif
 
          if N_Bzero GT 0  then $
                if (Bzero NE 0) then begin
-                     data = temporary( data ) + Bzero
+	             if size(Bzero,/TNAME) NE 'DOUBLE' then $
+                      data = temporary( data ) + float(Bzero) else $    ;Fixed Aug 07
+                      data = temporary( data ) + Bzero
                      sxaddpar, header, 'BZERO', 0.
                      sxaddpar, header, 'O_BZERO', Bzero,' Original BZERO Value'
                endif

@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -43,7 +43,9 @@ int main(void) {
   long   nside;
   long  ipix, npix, dpix, ip2, ip1;
 
-  nside = 1024*8;
+  printf("Starting C Healpix pixel routines test\n");
+
+  nside = 1024;
   dpix = 23;
 
   /* Find the number of pixels in the full map */
@@ -84,6 +86,7 @@ int main(void) {
   }
 
   printf("%ld\n", nside);
+  printf("test completed\n\n");
 
   /* Later */
   return 0;

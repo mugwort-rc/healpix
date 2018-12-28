@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -37,7 +37,7 @@ program HotSpots
   use maxima_tools, ONLY : find_maxima
   use fitstools,  ONLY : getsize_fits, input_map, write_bintab
   use pix_tools,  ONLY : convert_inplace, ring2nest, nest2ring, npix2nside
-  USE head_fits,  ONLY : add_card
+  USE head_fits,  ONLY : add_card, write_minimal_header
   use misc_utils, ONLY : assert_alloc, fatal_error
   USE extension,  ONLY : getArgument, nArguments
   use paramfile_io, ONLY : paramfile_handle, parse_init, parse_string
@@ -58,13 +58,13 @@ program HotSpots
   character(len=80), dimension(1:120) :: header
   character(len=filenamelen) :: parafile,infile,outfile_extrema, &
                                 outfile_max,outfile_min
+  character(len=20) :: coordsys
   integer(i4b) :: status
 
   type(paramfile_handle) :: handle
 
   CHARACTER(LEN=*), PARAMETER :: code    = 'HOTSPOTS'
-  CHARACTER(LEN=*), PARAMETER :: version = '0.8.5'
-  character(len=6), dimension(1:2) :: sorder = (/'RING  ','NESTED'/)
+  CHARACTER(LEN=*), PARAMETER :: version = '0.8.6'
   !--------------------------------------------------------------------------
 100 FORMAT(A)
 
@@ -100,7 +100,7 @@ program HotSpots
   PRINT *,''
 
   !     --- finds out the pixel number of the map and its ordering ---
-  npix = getsize_fits(infile ,ordering=ordering, nside=nside)
+  npix = getsize_fits(infile ,ordering=ordering, nside=nside, coordsys = coordsys)
 
   if (nside.eq.0) then
      print*,'Keyword NSIDE not found in FITS header!'
@@ -189,48 +189,23 @@ program HotSpots
   endif
 
   write (*,*) code//' Writing '//trim(outfile_extrema)//' FITS file...'
-  header = ''
-  nlheader = SIZE(header)
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Sky Map Pixelisation Specific Keywords    ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'PIXTYPE','HEALPIX','HEALPIX Pixelisation')
-  call add_card(header,'ORDERING',sorder(ordering),  'Pixel ordering scheme, either RING or NESTED')
-  call add_card(header,'NSIDE'   ,nside,   'Resolution parameter for HEALPIX')
-  call add_card(header,'FIRSTPIX',0,'First pixel # (0 based)')
-  call add_card(header,'LASTPIX',npix-1,'Last pixel # (0 based)')
-  call add_card(header) ! blank line
+  call write_minimal_header(header, 'map', &
+       nside = nside, order = ordering, coordsys = coordsys, &
+       polar = .false., creator = code, version = version)
 
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Planck Analysis Specific Keywords      ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'EXTNAME','ANALYSIS')
-  call add_card(header,'CREATOR',code,        'Software creating the FITS file')
-  call add_card(header,'VERSION',version,     'Version of the simulation software')
-  call add_card(header) ! blank line
+  call add_card(header,'EXTNAME','PEAK MAP', update = .true.)
   call add_card(header,'COMMENT', 'Input Map ='//TRIM(infile))
   call add_card(header,'COMMENT', 'Local Min and Max keep their original value, the rest is set to 0')
-  call add_card(header) ! blank line
+  call add_card(header,'TTYPE1', 'PEAKS','Maxima and Minima', update = .true.)
 
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Data Description Specific Keywords       ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"INDXSCHM","IMPLICIT"," Indexing : IMPLICIT or EXPLICIT")
-  call add_card(header,"GRAIN", 0, " Grain of pixel indexing")
-  call add_card(header,"COMMENT","GRAIN=0 : no indexing of pixel data                         (IMPLICIT)")
-  call add_card(header,"COMMENT","GRAIN=1 : 1 pixel index -> 1 pixel data                     (EXPLICIT)")
-  call add_card(header,"COMMENT","GRAIN>1 : 1 pixel index -> data of GRAIN consecutive pixels (EXPLICIT)")
-  call add_card(header) ! blank line
-  call add_card(header,"POLAR",.false.," Polarisation included (True/False)")
-  call add_card(header,'TTYPE1', 'PEAKS','Maxima and Minima')
-  call add_card(header) ! blank line
   ! ------
   ! outputs a FITS map set to 0 but for extrema that keep their original value
   allocate(realpeak(0:npix-1,1))
   realpeak=0
   where(peak/=0) realpeak(:,1)=map
 
-  call write_bintab(realpeak, npix, 1, header, nlheader, outfile_extrema)
+  nlheader = SIZE(header)
+  call write_bintab(realpeak, npix, 1_i4b, header, nlheader, outfile_extrema)
 
   deallocate(realpeak)
 

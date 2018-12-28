@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -32,7 +32,7 @@
  *
  *    signal   : signal in each pixel
  *    nside    : parameter to define Planck simulation resolution 
- *    filename : name of the HealPïx file writted
+ *    filename : name of the HealPix file written
  *    nest     : structure type of the HealPix file (RING/NESTED)
  *    coordsys : code of the corrdinates system
  *

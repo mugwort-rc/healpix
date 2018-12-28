@@ -10,7 +10,7 @@ srcf90	= \
 	num_rec.f90 \
 	indmed.f90 \
 	statistics.90 \
-	head_fits.f90 \
+	head_fits.F90 \
 	bit_manipulation.f90\
 	pix_tools.f90 \
 	fitstools.f90 \
@@ -20,7 +20,8 @@ srcf90	= \
 	paramfile_io.f90 \
 	obsolete.f90 \
 	coord_v_convert.f90 \
-	ran_tools_dist.f90
+	ran_tools_dist.f90 \
+	healpix_modules.f90
 
 incalm  = alm_map_ss_inc.f90 alm_map_dd_inc.f90
 
@@ -42,7 +43,7 @@ obj	= healpix_types.o extension.o misc_utils.o utilities.o healpix_fft.o \
 	head_fits.o \
 	bit_manipulation.o pix_tools.o cgetEnvironment.o \
 	fitstools.o rngmod.o alm_tools.o \
-	udgrade_nr.o paramfile_io.o obsolete.o coord_v_convert.o ran_tools_dist.o
+	udgrade_nr.o paramfile_io.o obsolete.o coord_v_convert.o ran_tools_dist.o healpix_modules.o
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -60,7 +61,7 @@ obj	= healpix_types.o extension.o misc_utils.o utilities.o healpix_fft.o \
 	ln -s -f $< $*.f90; \
 	$(FC) $(FFLAGS) $(ADDUS) -cpp -c $(basename $<).f90 -o $@;; \
 	* ) \
-	$(FC) $(FFLAGS) $(ADDUS) -c $< -o $@;; \
+	$(FC) $(FFLAGS) $(ADDUS) $(PPFLAGS) -c $< -o $@;; \
 	esac
 
 

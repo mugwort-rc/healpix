@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -31,7 +31,7 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                MAX=max_set, MIN=min_set, $
                RESO_ARCMIN=reso_arcmin, FITS = fits, $
                FLIP=flip, DATA_plot = data_plot, $
-               POLARIZATION=polarization
+               POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 
 ;+
 ;==============================================================================================
@@ -43,7 +43,7 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;     DATA2CART, data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat,
 ;          color, Tmax, Tmin, color_bar, dx, planvec, vector_scale,
 ;          pxsize=, pysize=, rot=, log=, hist_equal=, max=, min=,
-;          reso_arcmin=, fits=, flip=, data_plot=, POLARIZATION=
+;          reso_arcmin=, fits=, flip=, data_plot=, POLARIZATION=, SILENT=, PIXEL_LIST=
 ;
 ; IN :
 ;      data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -51,15 +51,20 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;      color, Tmax, Tmin, color_bar, dx, planvec, vector_scale
 ; KEYWORDS
 ;      Pxsize, Pysize, Rot, Log, Hist_equal, Max, Min, Reso_arcmin,
-;      Fits, flip, data_plot, polarization
+;      Fits, flip, data_plot, polarization, silent, pixel_list, asinh
 ;
 ;  called by cartview
 ;
+;  HISTORY
 ;  2002-06:
 ;    Hacked by E.H from G. Giardino's data2pol
+; Sep 2007: added /silent
+; April 2008: added pixel_list
+; July 2008: added asinh
 ;==============================================================================================
 ;-
 
+;help,data
 proj_small = 'cartesian'
 du_dv = 1.    ; aspect ratio
 fudge = 1.00  ; 
@@ -73,11 +78,12 @@ do_polvector    = (polarization eq 3)
 !P.COLOR = 0                    ; black foreground
 
 mode_col = keyword_set(hist_equal)
-mode_col = mode_col + 2*keyword_set(log)
+mode_col = mode_col + 2*keyword_set(log) + 4*keyword_set(asinh)
 
-npix = N_ELEMENTS(data)
+obs_npix = N_ELEMENTS(data)
+npix_full = (pix_type eq 'Q') ? 6*(4L)^(pix_param-1) : nside2npix(pix_param)
 
-bad_data= -1.63750000e+30
+bad_data= !healpix.bad_value
 
 if (do_poldirection or do_polvector) then begin
     ; compute new position of pixelisation North Pole in the plot coordinates
@@ -93,9 +99,12 @@ if defined(pysize) then ysize = pysize*1L else ysize = xsize
 if defined(reso_arcmin) then resgrid = reso_arcmin/60. else resgrid = 1.5/60.
 dx      = resgrid * !DtoR
 N_uv = xsize*ysize
+indlist = (n_elements(pixel_list) eq n_elements(data[*,0]))
 
-print,'Input map  :  ',3600.*6./sqrt(!pi*npix),' arcmin / pixel ',form='(a,f8.3,a)'
-print,'Cartesian map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
+if (~keyword_set(silent)) then begin
+    print,'Input map  :  ',3600.*6./sqrt(!dpi*npix_full),' arcmin / pixel ',form='(a,f8.3,a)'
+    print,'Cartesian map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
+endif
 
 grid = FLTARR(xsize,ysize)
 ;; grid = MAKE_ARRAY(/FLOAT,xsize,ysize, Value = bad_data) 
@@ -168,7 +177,8 @@ for ystart = 0, ysize - 1, yband do begin
         planvec[ystart*xsize]      = pol_data[id_pix,0]
         planvec[ystart*xsize+n_uv] = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI); angle
     endif else begin
-        grid[ystart*xsize] = data[id_pix]
+        ;grid[ystart*xsize] = data[id_pix]
+        grid[ystart*xsize] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value)
     endelse
 endfor
 u = 0 & v = 0 & x = 0 & vector = 0
@@ -215,7 +225,7 @@ if (do_poldirection) then begin
     max_set = 2*!pi
 endif
 color = COLOR_MAP(grid, mindata, maxdata, Obs, $
-         color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set )
+         color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent)
 if (defined(plan_off)) then color[plan_off]  = !P.BACKGROUND ; white
 if (do_polvector) then begin    ; rescale polarisation vector in each valid pixel
     planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)

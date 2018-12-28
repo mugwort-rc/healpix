@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -27,7 +27,7 @@
 !-----------------------------------------------------------------------------
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 ! Fast Smoothing of a full sky map in HEALPIX pixelisation.
-! Written and developed by E. Hivon (efh@ipac.caltech.edu) and K. Gorski
+! Written and developed by E. Hivon (hivon@iap.fr) and K. Gorski
 ! (krzysztof.m.gorski@jpl.nasa.gov) based on HEALPIX pixelisation developed
 ! by K. Gorski
 !
@@ -53,12 +53,13 @@
   !                 extension to polarised maps
   !               Sep 2002 : implement new parser
   !               Feb 2003 : output correct ORDERING keyword
+  !               May 2007 : calls map2alm_iterative
   !
   !  FEEDBACK:
   !     for any questions : efh@ipac.caltech.edu
   !
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.1.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file smoothing.f90 by the command  include
@@ -115,7 +116,7 @@
   character(LEN=5)                    :: sstr
   LOGICAL(kind=LGT) :: bad, ok, polarisation
 !   character(LEN=*), PARAMETER :: code = 'SMOOTHING'
-  character(LEN=*), PARAMETER :: version = '2.0.0'
+  character(LEN=*), PARAMETER :: version = '2.1.1'
   integer(kind=i4b), parameter :: nm_max = 5
   character(len=80), dimension(1:nm_max)   :: units_map
   character(len=20)                        :: coordsys
@@ -276,7 +277,7 @@
      if ((plm_pol /= 1).and.(.not.polarisation)) plm_pol=1
 
      if (plm_nside /= nsmax .or. plm_lmax /= nlmax .or. plm_mmax /= nmmax) then
-        print *," "//code//"> Plm file does not match map to simulate in Nside, Lmax or Mmax ! "
+        print *," "//code//"> Plm file does not match map to smooth in Nside, Lmax or Mmax ! "
         print*,'nside (plm file, map) = ',plm_nside,nsmax
         print*,'lmax                  = ',plm_lmax, nlmax
         print*,'mmax                  = ',plm_mmax, nmmax
@@ -371,7 +372,11 @@
   endif
 
   print *," "
-  call parse_summarize(handle)
+  call parse_check_unused(handle, code=lcode)
+  call parse_summarize(handle,code=lcode,prec=KMAP)
+  call parse_finish(handle)
+!  call parse_summarize(handle)
+  call brag_openmp()
 
   !-----------------------------------------------------------------------
   !              allocate space for arrays
@@ -454,7 +459,8 @@
         print *,"wrong ring weight file:"//trim(infile_w8)
         call fatal_error(code)
      endif
-     nmw8 = min(nmw8, nmaps)
+!!!     nmw8 = min(nmw8, nmaps)
+     nmw8 = min(nmw8, n_pols)
 
      PRINT *,"      "//code//"> Inputting Quadrature ring weights "
      call input_map(infile_w8, dw8, n_rings, nmw8, fmissval=0.0_dp)
@@ -462,15 +468,11 @@
   w8ring_TQU = 1.d0 + dw8
 
   !-----------------------------------------------------------------------
-  !                 convert to RING if necessary
+  !                 reorder maps to RING if necessary
   !-----------------------------------------------------------------------
   if (order_type == 2) then
      print *,"      "//code//"> Convert Nest -> Ring "
-     call convert_nest2ring (nsmax, map_TQU(:,1))
-     if (polarisation) then
-        call convert_nest2ring (nsmax, map_TQU(:,2))
-        call convert_nest2ring (nsmax, map_TQU(:,3))
-     endif
+     call convert_nest2ring (nsmax, map_TQU)
   endif
 
   !-----------------------------------------------------------------------
@@ -487,73 +489,17 @@
      if (bad) call fatal_error ("Missing points in P_lm-file!")
   endif
 
+  !-----------------------------------------------------------------------
+  !                        map to alm
+  !-----------------------------------------------------------------------
+
   ALLOCATE(alm_TGC(1:n_pols, 0:nlmax, 0:nmmax),stat = status)
   call assert_alloc(status,code,"alm_TGC")
-  if (iter_order > 0) then
-     ALLOCATE(alm_TGC2(1:n_pols, 0:nlmax, 0:nmmax),stat = status)
-     call assert_alloc(status,code,"alm_TGC2")
-
-     ALLOCATE(map_TQU2(0:npixtot-1,1:n_pols),stat = status)
-     call assert_alloc(status,code,"map_TQU2")
-
-     alm_TGC2 = 0.0_KALMC      ! final alm
-     map_TQU2 = map_TQU        ! input map
-     alm_TGC  = 0.0_KALMC      ! intermediate alm
-  endif
 
   PRINT *,"      "//code//"> Analyse map "
 
-  do iter = 0, iter_order
-     ! perform a Jacobi iterative scheme
-     ! map -> alm
-     select case (plm_pol+polar*10)
-     case(0) ! Temperature only
-        call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds, w8ring_TQU)
-     case(1) ! T with precomputed Ylm
-        call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds, w8ring_TQU,plm(:,1))
-     case(10) ! T+P
-        call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds, w8ring_TQU)
-     case(11) ! T+P with precomputed Ylm_T
-        call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds, w8ring_TQU,plm(:,1))
-     case(13) ! T+P with precomputed Ylm
-        call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds, w8ring_TQU,plm)
-     end select
-
-     if (iter_order == 0) exit
-     if (iter == 0 .and. iter_order > 0) then
-        PRINT *,"      "//code//"> Iterated map analysis "
-     endif
-
-     map_TQU = 0.0_KMAP
-     ! alm_2 = alm_2 + alm : increment alms
-     alm_TGC2 = alm_TGC2 + alm_TGC
-
-     if (iter == iter_order) exit
-
-     ! alm_2 -> map : reconstructed map
-     select case (plm_pol+polar*10)
-     case(0)
-        call alm2map(nsmax, nlmax, nmmax, alm_TGC2, map_TQU(:,1))
-     case(1)
-        call alm2map(nsmax, nlmax, nmmax, alm_TGC2, map_TQU(:,1), plm(:,1))
-     case(10)
-        call alm2map(nsmax, nlmax, nmmax, alm_TGC2, map_TQU)
-     case(11)
-        call alm2map(nsmax, nlmax, nmmax, alm_TGC2, map_TQU, plm(:,1))
-     case(13)
-        call alm2map(nsmax, nlmax, nmmax, alm_TGC2, map_TQU, plm)
-     end select
-
-     ! map = map_2 - map : residual map
-     map_TQU = map_TQU2 - map_TQU
-
-  enddo
-
-  if (iter_order > 0) then
-     alm_TGC = alm_TGC2 ! final alms
-     map_TQU = map_TQU2 ! input map
-     deallocate(alm_TGC2, map_TQU2)
-  endif
+  call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+       &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm)
 
   !-----------------------------------------------------------------------
   !                    smoothing of the alm
@@ -585,91 +531,33 @@
   !-----------------------------------------------------------------------
   if (order_type == 2) then
      print *,"      "//code//"> Convert Ring -> Nest "
-     call convert_ring2nest (nsmax, map_TQU(:,1))
-     if (polarisation) then
-        call convert_ring2nest (nsmax, map_TQU(:,2))
-        call convert_ring2nest (nsmax, map_TQU(:,3))
-     endif
+     call convert_ring2nest (nsmax, map_TQU)
   endif
 
   !-----------------------------------------------------------------------
   !                        generates header
   !-----------------------------------------------------------------------
   nlheader = SIZE(header)
-  header = ' '
   fwhm_deg = fwhm_arcmin/60.
   print *,'      '//code//'> Writing smoothed map to FITS file '
 
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Sky Map Pixelisation Specific Keywords    ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'PIXTYPE','HEALPIX','HEALPIX Pixelisation')
-  if (order_type == 1) then
-     call add_card(header,'ORDERING','RING',  'Pixel ordering scheme, either RING or NESTED')
-  else
-     call add_card(header,'ORDERING','NESTED',  'Pixel ordering scheme, either RING or NESTED')
-  endif
-  call add_card(header,'NSIDE'   ,nsmax,   'Resolution parameter for HEALPIX')
-  call add_card(header,'FIRSTPIX',0,'First pixel # (0 based)')
-  call add_card(header,'LASTPIX',npixtot-1,'Last pixel # (0 based)')
-  if (trim(coordsys) == '') coordsys = 'unknown'
-  call add_card(header,'COORDSYS',coordsys,' Pixelization coordinate system')
-  call add_card(header,'COMMENT','G = Galactic, E = ecliptic, C = celestial = equatorial')
-  call add_card(header) ! blank line
+  call write_minimal_header(header, 'map', &
+       order = order_type, nside = nsmax, coordsys = coordsys, &
+       creator = CODE, version = VERSION, nlmax = nlmax, &
+       beam_leg = trim(beam_file), fwhm_degree = fwhm_deg * 1.d0, &
+       polar = polarisation, units = units_map(1) )
 
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Planck Simulation Specific Keywords      ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'EXTNAME','SMOOTHED DATA')
-  call add_card(header,'CREATOR',code,        'Software creating the FITS file')
-  call add_card(header,'VERSION',version,     'Version of the simulation software')
-  call add_card(header,'MAX-LPOL',nlmax      ,'Maximum multipole l used in map smoothing')
-  if (trim(beam_file) == '') then
-     call add_card(header,"FWHM"    ,fwhm_deg   ," [deg] FWHM of gaussian symmetric beam")
-  else
-     call add_card(header,"BEAM_LEG",trim(beam_file),"     File containing Legendre transform of symmetric beam")
-  endif
+  call add_card(header,'EXTNAME','SMOOTHED DATA', update = .true.)
   call add_card(header)
   call add_card(header,'COMMENT','************************* Input data ************************* ')
   call add_card(header,'COMMENT','Input Map in '//TRIM(infile))
   call add_card(header,'COMMENT','*************************************************************** ')
   call add_card(header) ! blank line
-
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Data Description Specific Keywords       ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'INDXSCHM','IMPLICIT',' Indexing : IMPLICIT or EXPLICIT')
-  call add_card(header,'GRAIN', 0, ' Grain of pixel indexing')
-  call add_card(header,'COMMENT','GRAIN=0 : no indexing of pixel data                         (IMPLICIT)')
-  call add_card(header,'COMMENT','GRAIN=1 : 1 pixel index -> 1 pixel data                     (EXPLICIT)')
-  call add_card(header,'COMMENT','GRAIN>1 : 1 pixel index -> data of GRAIN consecutive pixels (EXPLICIT)')
-  call add_card(header) ! blank line
-  call add_card(header,"POLAR",polarisation," Polarisation included (True/False)")
-
-  call add_card(header,'TTYPE1', 'TEMPERATURE','Temperature map')
-  call add_card(header,'TUNIT1', units_map(1))
-  call add_card(header)
-
-  if (polarisation) then
-     call add_card(header,'TTYPE2', 'Q-POLARISATION','Q Polarisation map')
-     call add_card(header,'TUNIT2', units_map(2))
-     call add_card(header)
-
-     call add_card(header,'TTYPE3', 'U-POLARISATION','U Polarisation map')
-     call add_card(header,'TUNIT3', units_map(3))
-     call add_card(header)
-  endif
-
   !-----------------------------------------------------------------------
   !                      write the map to FITS file
   !-----------------------------------------------------------------------
-  if (polarisation) then
-     !call output_map(map_TQU(0:npixtot-1,1:3), header, outfile) !not on Sun
-     call write_bintab(map_TQU, npixtot, 3, header, nlheader, outfile)
-  else
-     !call output_map(map_TQU(0:npixtot-1,1:1), header, outfile) !not on Sun
-     call write_bintab(map_TQU, npixtot, 1, header, nlheader, outfile)
-  endif
+  !call output_map(map_TQU(0:npixtot-1,1:n_pols), header, outfile) !not on Sun
+  call write_bintab(map_TQU, npixtot, n_pols, header, nlheader, outfile)
 
   !-----------------------------------------------------------------------
   !                      deallocate memory for arrays
@@ -701,7 +589,11 @@
   write(*,9010) " Number of pixels     : ", npixtot
   write(*,9020) " Pixel size in arcmin : ", pix_size_arcmin
   write(*,9005) " Multipole range      : 0 < l <= ", nlmax
-  write(*,9020) " Gauss. FWHM [arcmin] : ", fwhm_arcmin
+  if (trim(beam_file) == '') then
+     write(*,9020) " Gauss. FWHM in arcmin: ", fwhm_arcmin
+  else
+     write(*,9000) " Beam file: "//trim(beam_file)
+  endif
   write(*,9000) " Output map           : "//TRIM(outfile)
   write(*,9030) " Clock and CPU time [s] : ", clock_time, ptime
 

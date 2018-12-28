@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>init_healpix and !healpix system variable</TITLE>
-<META NAME="description" CONTENT="init_healpix and !healpix system variable">
+<TITLE>gnomview</TITLE>
+<META NAME="description" CONTENT="gnomview">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,86 +28,150 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html345"
+<A NAME="tex2html375"
   HREF="idlnode20.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html351"
+<A NAME="tex2html381"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html385"
   HREF="idlnode22.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html353"
+<A NAME="tex2html383"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html346"
-  HREF="idlnode20.htm">index2lm</A>
+<B> Previous:</B> <A NAME="tex2html376"
+  HREF="idlnode20.htm">gnomcursor</A>
 
-<B>Up:</B> <A NAME="tex2html352"
+<B>Up:</B> <A NAME="tex2html382"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html356"
-  HREF="idlnode22.htm">lm2index</A>
+<B> Next:</B> <A NAME="tex2html386"
+  HREF="idlnode22.htm">healpixwindow</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000210000000000000000"></A>
-<A NAME="idl:init_healpix"></A>
+<A NAME="idl:gnomview"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">init_healpix</FONT></font></b><hr><H2>This IDL facility creates an IDL system variable (!HEALPIX) containing various
-<b>HEALPix</b> related quantities</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/init_healpix.pro
+<b><font size=+6><FONT COLOR="#CC0000">gnomview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a Gnomonic projection 
+(radial projection onto a tangent plane) of
+<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
+generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/gnomview.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-INIT_HEALPIX [,VERBOSE=]
+GNOMVIEW, File, [Select, ] [CHARSIZE=, ... 
+            ... WINDOW=, XPOS=, YPOS= ]
+
 </h2>
+
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<DD>For a full list of qualifiers see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
+  </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>VERBOSE =</B>
-<DD>if set, turn on the verbose mode, giving a short
-    description of the variables just created.
+<DD>For a full list of keywords see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
   </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-init_healpix defines the IDL system variable and structure !HEALPIX
-containing several quantities and character string necessary to <b>HEALPix</b> , eg : allowed
-resolution parameters Nside, full path to package directory, package version...
+gnomview reads in a <b>HEALPix</b> sky map in FITS format and generates a
+Gnomonic projection of it, that can be visualized on the screen or
+exported in a GIF, PNG, Postscript or FITS file. gnomview allows the selection of
+the coordinate system, point of projection, map size, color table, color bar inclusion,
+linear or log scaling, histogram equalised
+color scaling, maximum and 
+minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
+polarization field. 
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">init_healpix</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">gnomview</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>idl</B>
-<DD>version 5.0 or more is necessary to run init_healpix .	
-    <DT>
-<B>!HEALPIX</B>
-<DD>IDL system variable defined by init_healpix </DL>
+<DD>see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
+  </DL>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-init_healpix ,/verbose</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+gnomview,  'planck100GHZ-LFI.fits', rot=[160,-30], reso_arcmin=2., $</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN> pxsize = 500., $</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN> title='Simulated Planck LFI Sky Map at 100GHz',  $</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN> min=-100,max=100</TD>
 </TR>
 </TABLE>
-</font></tt>
-<BR><blockquote>init_healpix will create the system variable !Healpix, and give a short
-description of the tags available.
-</blockquote>
+</font></tt><br><blockquote>gnomview reads in the map 'planck100GHZ-LFI.fits' and generates
+an output image of the size of 500<SPAN CLASS="MATH"> x </SPAN>500 screen pixels, 
+with a resolution of 2 arcmin/screen pixel at the center.
+The temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg27.png"
+ ALT="$\pm$"></SPAN> 100, and the units will
+show as <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$\mu$"></SPAN>K.
+The title 'Simulated Planck
+LFI Sky Map at 100GHz' has been appended to the image. 
+The map is centered at (<SPAN CLASS="MATH"><I>l</I>=</SPAN>160, <SPAN CLASS="MATH"><I>b</I>=</SPAN>-30) </blockquote>
+
+<P>
+<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+
+<P>
+map  = findgen(48)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+</TR>
+<TR><TD ALIGN="LEFT">gnomview,map,/online,res=25,graticule=[45,30],rot=[10,20,30],$</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN>	   title='Gnomic projection',subtitle='gnomview', $</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN> outline=triangle</TD>
+</TR>
+</TABLE>
+</font></tt><br><blockquote>makes a gnomic projection of map (see Figure&nbsp;<A HREF="idlnode32.htm#fig:plot_visu">1</A>b on
+page&nbsp;<A HREF="idlnode32.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
+(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
+
+<P>
 
 <P>
 
@@ -115,32 +179,32 @@ description of the tags available.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html345"
+<A NAME="tex2html375"
   HREF="idlnode20.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html351"
+<A NAME="tex2html381"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html385"
   HREF="idlnode22.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html353"
+<A NAME="tex2html383"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html346"
-  HREF="idlnode20.htm">index2lm</A>
+<B> Previous:</B> <A NAME="tex2html376"
+  HREF="idlnode20.htm">gnomcursor</A>
 
-<B>Up:</B> <A NAME="tex2html352"
+<B>Up:</B> <A NAME="tex2html382"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html356"
-  HREF="idlnode22.htm">lm2index</A>
+<B> Next:</B> <A NAME="tex2html386"
+  HREF="idlnode22.htm">healpixwindow</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

@@ -37,7 +37,7 @@ class fitshandle;
 
 class PowSpec;
 
-/*! \defgroup healpix_ps_fitsio_group FITS-based I/O of power spectra */
+/*! \defgroup powspec_fitsio_group FITS-based I/O of power spectra */
 /*! \{ */
 
 /*! Opens the FITS file \a filename, jumpd to HDU 2, and reads \a nspecs

@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -42,6 +42,15 @@
 ! K M A P   : map kind                 either SP or DP
 !
 ! K L O A D : suffixe of routine name, to be replaced by either s (SP) or d (DP)
+!
+! edited Jan 11, 2006 to deal correctly with polarised alms in write_alms and alms2fits
+! edited Apr 04, 2006 to avoid concatenation problem in TFORMs  (write_plm and write_bintabh with Ifort 9)
+! edited Dec 20, 2006 to accept alm file with less elements than expected (in particular if vanishing ones are not included)
+! 2007-05-10 : increased maxdim (max number of columns per extension) from 20 to 40
+! 2008-08-27 : in dump_alms and write_alms and write_*tab*: 
+!  do not write TTYPE# and TFORM# in excess of # of fields in the file
+! 2008-10-14: corrected bug introduced in write_asctab
+!
   !=======================================================================
   subroutine input_map_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
     !=======================================================================
@@ -69,15 +78,15 @@
 
     INTEGER(I4B) :: i,imap
     REAL(KMAP)     :: fmissing, fmiss_effct
-    INTEGER(I4B) :: imissing
-    integer(I4B) :: obs_npix, nlheader
+    INTEGER(I8B) :: imissing, obs_npix, maxpix, minpix
+    integer(I4B) :: nlheader
 
     LOGICAL(LGT) :: anynull
     integer(I4B), dimension(:), allocatable :: pixel
 !     real(KMAP),     dimension(:), allocatable :: signal
     real(SP),     dimension(:), allocatable :: signal
     integer(I4B) :: status
-    integer(I4B) :: type_fits, nmaps_fits, maxpix, minpix
+    integer(I4B) :: type_fits, nmaps_fits
     CHARACTER(LEN=80)  :: units1
     CHARACTER(LEN=80),dimension(1:10)  :: unitsm
 !    CHARACTER(LEN=80),dimension(:), allocatable  :: unitsm
@@ -135,7 +144,8 @@
           ! one partial map (in binary table with explicit pixel indexing)
           allocate(pixel(0:obs_npix-1), stat = status)
           allocate(signal(0:obs_npix-1), stat = status)
-          call read_fits_cut4(filename, obs_npix, pixel, signal, header=header, units=units1, extno=imap-1)
+          call read_fits_cut4(filename, int(obs_npix,kind=i4b), &
+               &              pixel, signal, header=header, units=units1, extno=imap-1)
           if (present(units)) units(imap) = trim(units1)
           maxpix = maxval(pixel)
           minpix = maxval(pixel)
@@ -173,7 +183,7 @@
     !     Read a FITS file
     !     This routine is used for reading MAPS by anafast.
     !     modified Feb 03 for units argument to run with Sun compiler
-    !     Jan 2005, EH, improved for faster writting
+    !     Jan 2005, EH, improved for faster writing
     !=======================================================================
     character(len=*),                          intent(IN)  :: filename
     integer(I4B),                              intent(IN)  :: npixtot, nmaps
@@ -196,7 +206,7 @@
     integer(I4B) :: datacode, width
     LOGICAL(LGT) ::  anynull_i
 
-    integer(I4B),     parameter            :: maxdim=20 !number of columns in the extension
+    integer(I4B),     parameter            :: maxdim = 40 !number of columns in the extension
     integer(i4b), dimension(1:maxdim) :: npix, repeat
     integer(i8b), dimension(1:maxdim) :: i0, i1
     integer(i4b)                      :: nrow2read, nelem
@@ -207,7 +217,7 @@
     !-----------------------------------------------------------------------
     status=0
 
-    unit = 150
+    unit = 146
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
@@ -245,7 +255,7 @@
 
     if (naxis > 0) then ! there is an image
        !        determine the size of the image (look naxis1 and naxis2)
-       call ftgknj(unit,'NAXIS',1,2,naxes,nfound,status)
+       call ftgknj(unit,'NAXIS',1_i4b,2_i4b,naxes,nfound,status)
 
        !        check that it found only NAXIS1
        if (nfound == 2 .and. naxes(2) > 1) then
@@ -441,7 +451,7 @@
     integer(i4b) :: nrow2read, nelem
     integer(i8b) :: i0, i1
 
-    INTEGER(I4B), PARAMETER :: maxdim=20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
     CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
     CHARACTER(LEN=20) :: extname
@@ -450,7 +460,7 @@
     !-----------------------------------------------------------------------
     status=0
 
-    unit = 150
+    unit = 145
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
@@ -544,12 +554,12 @@
        i1 = min(i0 + nrow2read * repeat, int(npix,i8b)) - 1_i8b
        nelem = i1 - i0 + 1
        ! first column -> index
-       call ftgcvj(unit, 1, frow, 1, nelem, i_bad_value, &
+       call ftgcvj(unit, 1_i4b, frow, 1_i4b, nelem, i_bad_value, &
          &        lm(0), anynull, status)
        call assert(.not. anynull, 'There are undefined values in the table!')
        ! other columns -> a(l,m)
        do imap = 2, tfields
-          call f90ftgcv_(unit, imap, frow, 1, nelem, nullval, &
+          call f90ftgcv_(unit, imap, frow, 1_i4b, nelem, nullval, &
                &        alms(i0:i1,imap+1), anynull, status)
           call assert (.not. anynull, 'There are undefined values in the table!')
        enddo
@@ -649,7 +659,7 @@
     !     before calling the routine
     !
     !     July 21, 2004: SP version
-    !     Jan 2005, EH, improved for faster writting
+    !     Jan 2005, EH, improved for faster writing
     !=======================================================================
     INTEGER(I4B),     INTENT(IN) :: npix, nmap, nlheader
 !     REAL(KMAP),       INTENT(IN), DIMENSION(0:npix-1,1:nmap), target :: map
@@ -663,7 +673,7 @@
     LOGICAL(LGT) ::  simple,extend
     CHARACTER(LEN=80) :: comment
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
     integer(i4b) :: repeat, nrow2write, nelem
     integer(i8b) :: i0, i1
@@ -674,12 +684,13 @@
     INTEGER(I4B) :: itn, extno_i
     character(len=filenamelen) sfilename
     character(len=1)          :: pform 
+!    character(len=80)         :: junk_k, junk_v, junk_c
     !-----------------------------------------------------------------------
 
     if (KMAP == SP) pform = 'E'
     if (KMAP == DP) pform = 'D'
     status=0
-    unit = 100
+    unit = 144
     blocksize=1
 
     extno_i = 0
@@ -703,7 +714,7 @@
        !     primary header
        !     ----------------------
        !     write the required header keywords
-       call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+       call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
        !     writes supplementary keywords : none
 
@@ -725,8 +736,8 @@
        ! remove the leading '!' (if any) when reopening the same file
        sfilename = adjustl(filename)
        if (sfilename(1:1) == '!') sfilename = sfilename(2:filenamelen)
-       call ftopen(unit,sfilename,1,blocksize,status)
-       call ftmahd(unit,1+extno_i,hdutype,status)
+       call ftopen(unit,sfilename,1_i4b,blocksize,status)
+       call ftmahd(unit,1_i4b+extno_i,hdutype,status)
 
     endif
 
@@ -749,27 +760,27 @@
     call ftphbn(unit, nrows, tfields, ttype, tform, tunit, &
          &     extname, varidat, status)
 
-    !     write the header literally, putting TFORM1 at the desired place
+    !     write the header literally, putting TFORM1 and TUNIT1 at the desired place
     if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
     if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
     do i=1,nlheader
        card = header(i)
-       if (card(1:5) == 'TTYPE') then ! if TTYPE1 is explicitely given
+       if (card(1:5) == 'TTYPE') then ! if TTYPEi is explicitely given
           stn = card(6:7)
           read(stn,'(i2)') itn
-          if (itn > tfields) goto 10
           ! discard at their original location:
           call ftdkey(unit,'TTYPE'//stn,status)  ! old TTYPEi and
           status = 0
           call ftdkey(unit,'TFORM'//stn,status)  !     TFORMi
           status = 0
-          call putrec(unit,header(i), status)    ! write new TTYPE1
-          status = 0
-          call ftpkys(unit,'TFORM'//stn,tform(1),comment,status) ! and write new TFORM1 right after
+          if (itn <= tfields) then ! only put relevant information 2008-08-27
+             call putrec(unit,header(i), status)    ! write new TTYPE1
+             status = 0
+             call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
+          endif
        elseif (header(i)/=' ') then
           call putrec(unit,header(i), status)
        endif
-10     continue
        status = 0
     enddo
 
@@ -788,7 +799,7 @@
     enddo
     ! sanity check
     if (i0 /= npix) then
-       call fatal_error("something wrong during piece wise writting")
+       call fatal_error("something wrong during piece wise writing")
     endif
 
     !     ----------------------
@@ -828,10 +839,10 @@
     LOGICAL(LGT) :: simple,extend
     CHARACTER(LEN=10) ::  card
 
-    INTEGER(I4B), PARAMETER :: nclmax = 20
+    INTEGER(I4B), PARAMETER :: maxdim = 40
     INTEGER(I4B) ::  status,unit,blocksize,tfields,nrows,rowlen
-    INTEGER(I4B) ::  nspace,tbcol(nclmax),colnum,frow,felem
-    CHARACTER(LEN=16) :: ttype(nclmax),tform(nclmax),tunit(nclmax),extname
+    INTEGER(I4B) ::  nspace,tbcol(maxdim),colnum,frow,felem
+    CHARACTER(LEN=16) :: ttype(maxdim),tform(maxdim),tunit(maxdim),extname
     CHARACTER(LEN=80) :: comment, card_tbcol
     CHARACTER(LEN=2) :: stn
     INTEGER(I4B) :: itn, i
@@ -842,7 +853,7 @@
 
     status=0
 
-    unit = 87
+    unit = 109
 
     !     open the FITS file, with write access
     !      readwrite=1
@@ -863,7 +874,7 @@
     !     primary header
     !     ----------------------
     !     write the required header keywords
-    call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+    call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
     !     writes supplementary keywords : none
 
@@ -884,7 +895,7 @@
     !     define parameters for the ASCII table
     nrows   = lmax+1
     tfields = ncl
-    tform(1:ncl) = trim(adjustl(form))
+    tform(1:ncl) = form
     ttype(1:ncl) = 'power spectrum' ! is updated by the value given in the header
     tunit(1:ncl) = '' ! optional, will not appear
     extname      = '' ! optional, will not appear
@@ -912,17 +923,18 @@
           call ftgcrd(unit,'TBCOL'//stn,card_tbcol,status)
           status = 0
           call ftdkey(unit,'TBCOL'//stn,status) !           TBCOLi
+          status = 0
           ! and rewrite
-          status = 0
-          call putrec(unit,card_tbcol,status) !             TBCOLi
-          status = 0
-          call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! TFORMi right after
-          status = 0
-          call putrec(unit,header(i), status)   !           TTYPEi
+          if (itn <= tfields) then
+             call putrec(unit,card_tbcol,status) !             TBCOLi
+             status = 0
+             call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! TFORMi right after
+             status = 0
+             call putrec(unit,header(i), status)   !           TTYPEi
+          endif
        elseif (header(i)/=' ') then
           call putrec(unit,header(i), status)
        endif
-10     continue
        status = 0
     enddo
 
@@ -972,7 +984,7 @@
     LOGICAL(LGT) ::  simple,extend, found_lmax, found_mmax
     CHARACTER(LEN=80) :: comment
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, npix, tfields, varidat
     INTEGER(I4B) :: frow,  felem
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
@@ -992,7 +1004,7 @@
     npix = ((nmmax+1)*(2*nlmax-nmmax+2))/2
 
     status=0
-    unit = 100
+    unit = 141
     blocksize=1
 
     if (extno==0) then
@@ -1013,7 +1025,7 @@
        !     primary header
        !     ----------------------
        !     write the required header keywords
-       call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+       call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
        !     writes supplementary keywords : none
 
@@ -1032,8 +1044,8 @@
        ! remove the leading '!' (if any) when reopening the same file
        sfilename = adjustl(filename)
        if (sfilename(1:1) == '!') sfilename = sfilename(2:filenamelen)
-       call ftopen(unit,sfilename,1,blocksize,status)
-       call ftmahd(unit,1+extno,hdutype,status)
+       call ftopen(unit,sfilename,1_i4b,blocksize,status)
+       call ftmahd(unit,1_i4b+extno,hdutype,status)
 
     endif
 
@@ -1043,8 +1055,9 @@
     !     writes required keywords
     nrows    = npix  ! naxis1
     tfields  = 3
-    tform(1)='1J'
-    tform(2:3) = '1'//pform
+    tform(1)=  '1J'
+    tform(2) = '1'//pform
+    tform(3) = '1'//pform
     ttype(1) = 'index=l^2+l+m+1'
     ttype(2) = 'alm (real)'
     ttype(3) = 'alm (imaginary)' 
@@ -1057,7 +1070,7 @@
     !     write the header literally, putting TFORM1 at the desired place
     do i=1,nlheader
        card = header(i)
-       if (card(1:5) == 'TTYPE') then ! if TTYPE1 is explicitely given
+       if (card(1:5) == 'TTYPE') then ! if TTYPEi is explicitely given
           stn = card(6:7)
           read(stn,'(i2)') itn
           ! discard at their original location:
@@ -1065,22 +1078,24 @@
           status = 0
           call ftdkey(unit,'TFORM'//stn,status)  !     TFORMi
           status = 0
-          call putrec(unit,header(i), status)           ! write new TTYPE1
-          if (itn==1) then
-             comment = 'data format of field: 4-byte INTEGER'
-          else
-             if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
-             if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
+          if (itn <= tfields) then ! only put relevant information 2008-08-27
+             call putrec(unit,header(i), status)           ! write new TTYPEi
+             status = 0
+             if (itn==1) then
+                comment = 'data format of field: 4-byte INTEGER'
+             else
+                if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
+                if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
+             endif
+             call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
           endif
-          status = 0
-          call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
        elseif (header(i)/=' ') then
           call putrec(unit,header(i), status)
        endif
        status = 0
     enddo
 
-    call ftukyj(unit, 'MIN-LPOL', 0,     'Minimum L multipole order',  status)
+    call ftukyj(unit, 'MIN-LPOL', 0_i4b, 'Minimum L multipole order',  status)
     call ftukyj(unit, 'MAX-LPOL', nlmax, 'Maximum L multipole order',  status)
     call ftukyj(unit, 'MAX-MPOL', nmmax, 'Maximum M multipole degree', status)
 
@@ -1097,9 +1112,9 @@
           alms_out(cnt,2)=AIMAG(alms(l,m))
           cnt = cnt + 1
        enddo
-       call ftpclj(unit, 1, frow, felem, cnt, lm(0),         status)
-       call f90ftpcl_(unit, 2, frow, felem, cnt, alms_out(0:cnt-1,1), status)
-       call f90ftpcl_(unit, 3, frow, felem, cnt, alms_out(0:cnt-1,2), status)
+       call ftpclj(unit, 1_i4b, frow, felem, cnt, lm(0),         status)
+       call f90ftpcl_(unit, 2_i4b, frow, felem, cnt, alms_out(0:cnt-1,1), status)
+       call f90ftpcl_(unit, 3_i4b, frow, felem, cnt, alms_out(0:cnt-1,2), status)
        frow = frow + cnt
     enddo
     deallocate(lm)
@@ -1146,7 +1161,7 @@
     LOGICAL(LGT) ::  simple,extend
     CHARACTER(LEN=80) :: comment
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, npix, tfields, varidat, repeat
     INTEGER(I4B) :: frow,  felem, colnum, stride, istart, iend, k
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
@@ -1154,6 +1169,7 @@
     CHARACTER(LEN=2) :: stn
     INTEGER(I4B) :: itn
     integer(I4B) :: l, m
+    character(len=filenamelen) sfilename
     character(len=1) :: pform
     !-----------------------------------------------------------------------
 
@@ -1161,7 +1177,7 @@
     if (KMAP == DP) pform = 'D'
 
     status=0
-    unit = 100
+    unit = 140
 
     !     create the new empty FITS file
     blocksize=1
@@ -1182,7 +1198,7 @@
        !     primary header
        !     ----------------------
        !     write the required header keywords
-       call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+       call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
        !     writes supplementary keywords : none
 
@@ -1199,7 +1215,13 @@
 
     else
 
-       call ftopen(unit,filename,1,blocksize,status)
+       !*********************************************
+       !     reopen an existing file and go to the end
+       !*********************************************
+       ! remove the leading '!' (if any) when reopening the same file
+       sfilename = adjustl(filename)
+       if (sfilename(1:1) == '!') sfilename = sfilename(2:filenamelen)
+       call ftopen(unit,sfilename,1_i4b,blocksize,status)
        call ftmahd(unit,extno,hdutype,status)
 
     endif
@@ -1226,10 +1248,10 @@
     call ftphbn(unit, nrows, tfields, ttype, tform, tunit, &
          &     extname, varidat, status)
 
-    !     write the header literally, putting TFORM1 at the desired place
+    !     write the header literally, putting TFORMi at the desired place
     do i=1,nlheader
        card = header(i)
-       if (card(1:5) == 'TTYPE') then ! if TTYPE1 is explicitely given
+       if (card(1:5) == 'TTYPE') then ! if TTYPEi is explicitely given
           stn = card(6:7)
           read(stn,'(i2)') itn
           ! discard at their original location:
@@ -1237,15 +1259,17 @@
           status = 0
           call ftdkey(unit,'TFORM'//stn,status)  !     TFORMi
           status = 0
-          call putrec(unit,header(i), status)           ! write new TTYPE1
-          if (itn==1) then
-             comment = 'data format of field: 4-byte INTEGER'
-          else
-             if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
-             if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
+          if (itn <= tfields) then ! only put relevant information 2008-08-27
+             call putrec(unit,header(i), status)           ! write new TTYPE1
+             status = 0
+             if (itn==1) then
+                comment = 'data format of field: 4-byte INTEGER'
+             else
+                if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
+                if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
+             endif
+             call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
           endif
-          status = 0
-          call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
        elseif (header(i)/=' ') then
           call putrec(unit,header(i), status)
        endif
@@ -1276,7 +1300,7 @@
 
        frow = istart/repeat + 1
        npix = iend - istart + 1
-       call ftpclj(unit, 1, frow, felem, npix, lm(0), status)
+       call ftpclj(unit, 1_i4b, frow, felem, npix, lm(0), status)
        do colnum = 2, ncl
           call f90ftpcl_(unit, colnum, frow, felem, npix, alms(istart:iend,colnum+1), status)
        enddo
@@ -1328,14 +1352,14 @@
     integer(i4b) :: nrow2read, nelem
     integer(i8b) :: i0, i1
 
-    INTEGER(I4B), PARAMETER :: maxdim=20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
 
     !-----------------------------------------------------------------------
     status=0
     header=''
-    unit = 150
+    unit = 139
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
@@ -1343,7 +1367,10 @@
     alms=0.
     readwrite=0
     call ftopen(unit,filename,readwrite,blocksize,status)
-    if (status > 0) call printerror(status)
+    if (status > 0) then 
+       call printerror(status)
+       call fatal_error("Aborting.")
+    endif
     !     -----------------------------------------
 
     !     determines the presence of image
@@ -1364,7 +1391,6 @@
 
     header = ""
     call get_clean_header( unit, header, filename, status)
-
 
     !        reads all the keywords
     call ftghbn(unit, maxdim, &
@@ -1388,9 +1414,11 @@
     !parse TFORM keyword to find out the length of the column vector
     call ftbnfm(tform(1), datacode, repeat, width, status)
     npix = nrows * repeat
-    if (npix /= nalms) then
+!    if (npix /= nalms) then
+    if (npix > nalms) then
        print *,'found ',npix,' alms'
-       print *,'expected ',nalms
+!       print *,'expected ',nalms
+       print *,'expected ',nalms,' or less'
        call fatal_error
     endif
 
@@ -1403,12 +1431,12 @@
        i1 = min(i0 + nrow2read * repeat, int(npix,i8b)) - 1_i8b
        nelem = i1 - i0 + 1
        ! first column -> index
-       call ftgcvj(unit, 1, frow, 1, nelem, i_bad_value, &
+       call ftgcvj(unit, 1_i4b, frow, 1_i4b, nelem, i_bad_value, &
          &        lm(0), anynull, status)
        call assert(.not. anynull, 'There are undefined values in the table!')
        ! other columns -> a(l,m)
        do imap = 2, ncl
-          call f90ftgcv_(unit, imap, frow, 1, nelem, nullval, &
+          call f90ftgcv_(unit, imap, frow, 1_i4b, nelem, nullval, &
                &        alms(i0:i1,imap+1), anynull, status)
           call assert (.not. anynull, 'There are undefined values in the table!')
        enddo
@@ -1445,7 +1473,7 @@
   end subroutine read_alms_KLOAD
   !**************************************************************************
   SUBROUTINE read_bintod_KLOAD(filename, tod, npixtot, ntods, firstpix, nullval, anynull, &
-                          header, extno)
+                          header, extno, units)
   !**************************************************************************
     !=======================================================================
     !     Read a FITS file
@@ -1457,6 +1485,7 @@
     !     Modified to start at a given pix numb OD & RT 02/02
     !     Modified to handle huge array (npix_tot > 2^32) OD & EH 07/02
     !      2002-07-08 : bugs correction by E.H. 
+    !      2007-01-31 : added units optional output
     !=======================================================================
     
     IMPLICIT NONE
@@ -1464,12 +1493,15 @@
     CHARACTER(LEN=*),               INTENT(IN)  :: filename
     INTEGER(I8B)   ,                INTENT(IN)  :: npixtot,firstpix
     INTEGER(I4B),                   INTENT(IN)  :: ntods
-    REAL(KMAP), DIMENSION(0:,1:),     INTENT(OUT) :: tod
-    REAL(KMAP),                       INTENT(OUT) :: nullval
+    REAL(KMAP), DIMENSION(0:,1:),   INTENT(OUT) :: tod
+    REAL(KMAP),                     INTENT(OUT) :: nullval
     LOGICAL(LGT),                   INTENT(OUT) :: anynull
     character(len=*), dimension(1:),intent(out), optional :: header
     INTEGER(I4B),                   INTENT(IN),  OPTIONAL :: extno
+    character(LEN=*), dimension(1:),intent(OUT), optional :: units
+
     
+    integer(I4B) :: i, nl_header, len_header, nl_units, len_units
     INTEGER(I4B) :: status,unit,readwrite,blocksize,naxes(2),nfound, naxis
     INTEGER(I4B) :: npix_32 !,firstpix_32
     CHARACTER(LEN=80) :: comment
@@ -1478,21 +1510,34 @@
     INTEGER(I4B) :: column, frow, itod
     INTEGER(I4B) :: datacode, repeat, width
     
-    INTEGER(I4B), PARAMETER :: maxdim=20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat,felem
-    CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim),tunit(maxdim), extname
+    CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform,tunit
+    CHARACTER(LEN=20) :: extname
  
     INTEGER(I8B) :: q,iq,npix_tmp,firstpix_tmp, i0, i1
     
     !-----------------------------------------------------------------------
     status=0
     
-    unit = 150
+    unit = 138
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
     anynull = .FALSE.
     
+    nl_header = 0
+    if (present(header)) then
+       nl_header = size(header)
+       len_header = 80
+    endif
+
+    nl_units = 0
+    if (present(units)) then
+       nl_units = size(units)
+       len_units = min(80,len(units(1))) ! due to SUN compiler bug
+    endif
+
     readwrite=0
     CALL ftopen(unit,filename,readwrite,blocksize,status)
     IF (status .GT. 0) CALL printerror(status)
@@ -1530,10 +1575,19 @@
           call fatal_error
        ENDIF
 
-       if (present(header)) then
+       if (nl_header > 0) then
           header = ""
           status = 0
           call get_clean_header(unit, header, filename, status)
+       endif
+
+       if (nl_units > 0) then
+          do i=1,nl_units
+             units(i)(1:len_units) = 'unknown' ! default
+          enddo
+          do itod = 1, min(ntods, nl_units)
+             units(itod)(1:len_units) = adjustl(tunit(itod))
+          enddo
        endif
 
        ! finds the bad data value
@@ -1655,7 +1709,7 @@
     LOGICAL(LGT) :: simple,extend
     CHARACTER(LEN=80) :: comment, ch
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B)      :: nrows,tfields,varidat
     INTEGER(I4B)      :: frow,felem,colnum,readwrite,width,datacode,hdutype
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
@@ -1692,7 +1746,7 @@
     if (present(extno)) extno_i = extno
 
     status=0
-    unit = 100
+    unit = 137
     blocksize=1
 
     ! remove the leading '!' (if any) when reopening the same file
@@ -1718,7 +1772,7 @@
           !     primary header
           !     ----------------------
           !     write the required header keywords
-          CALL ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+          CALL ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
           !     writes supplementary keywords : none
 
@@ -1737,8 +1791,8 @@
           !*********************************************
           !     reopen an existing file and go to the end
           !*********************************************
-          call ftopen(unit,sfilename,1,blocksize,status)
-          call ftmahd(unit,1+extno_i,hdutype,status)
+          call ftopen(unit,sfilename,1_i4b,blocksize,status)
+          call ftmahd(unit,1_i4b+extno_i,hdutype,status)
 
        endif
 
@@ -1749,14 +1803,18 @@
        nrows    = npix / repeat_tmp ! naxis1
        tfields  = ntod
        WRITE(ch,'(i8)') repeat_tmp
-       tform(1:ntod) = TRIM(ADJUSTL(ch))//pform
+!       tform(1:ntod)  = TRIM(ADJUSTL(ch))//pform ! does not work with Ifort, EH, 2006-04-04
+       ch = TRIM(ADJUSTL(ch))//pform
+       tform(1:ntod)  = ch
 
        IF (npix .LT. repeat_tmp) THEN
           nrows = npix
-          tform(1:ntod) = '1'//pform
+          ch = '1'//pform
+          tform(1:ntod) = ch
        ENDIF
        ttype(1:ntod) = 'simulation'   ! will be updated
        tunit(1:ntod) = ''      ! optional, will not appear
+
        extname  = ''      ! optional, will not appear
        varidat  = 0
 
@@ -1764,29 +1822,39 @@
             &     extname, varidat, status)
 
        !     write the header literally, putting TFORM1 at the desired place
+       if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
+       if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
        DO i=1,nlheader
           card = header(i)
           IF (card(1:5) == 'TTYPE') THEN ! if TTYPE1 is explicitely given
              stn = card(6:7)
              READ(stn,'(i2)') itn
              ! discard at their original location:
-             CALL ftmcrd(unit,'TTYPE'//stn,'COMMENT',status)  ! old TTYPEi and 
-             CALL ftmcrd(unit,'TFORM'//stn,'COMMENT',status)  !     TFORMi
-             CALL ftprec(unit,header(i), status)           ! write new TTYPE1
-             if (KMAP == SP) comment = 'data format of field: 4-byte REAL'
-             if (KMAP == DP) comment = 'data format of field: 8-byte REAL'
-             CALL ftpkys(unit,'TFORM'//stn,tform(1),comment,status) ! and write new TFORM1 right after
+             call ftdkey(unit,'TTYPE'//stn,status)  ! old TTYPEi and
+             status = 0
+             call ftdkey(unit,'TFORM'//stn,status)  !     TFORMi
+             status = 0
+             if (itn <= tfields) then ! only put relevant information 2008-08-27
+                call putrec(unit,header(i), status)    ! write new TTYPE1
+                status = 0
+                call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
+                !CALL ftmcrd(unit,'TTYPE'//stn,'COMMENT',status)  ! old TTYPEi and 
+                !CALL ftmcrd(unit,'TFORM'//stn,'COMMENT',status)  !     TFORMi
+                !CALL ftprec(unit,header(i), status)           ! write new TTYPE1
+                !CALL ftpkys(unit,'TFORM'//stn,tform(1),comment,status) ! and write new TFORM1 right after
+             endif
           ELSEIF (header(i).NE.' ') THEN
-             CALL ftprec(unit,header(i), status)
+             call putrec(unit,header(i), status)
+!              CALL ftprec(unit,header(i), status)
           ENDIF
-10        CONTINUE
+          status = 0
        ENDDO
 
     ELSE
        ! The file already exists
        readwrite=1
        CALL ftopen(unit,sfilename,readwrite,blocksize,status)
-       CALL ftmahd(unit,2+extno_i,hdutype,status) 
+       CALL ftmahd(unit,2_i4b+extno_i,hdutype,status) 
 
        CALL ftgkys(unit,'TFORM1',tform(1),comment,status)
        CALL ftbnfm(tform(1),datacode,repeat_fits,width,status)

@@ -25,18 +25,18 @@
  */
 
 /*
- *  Code for efficient calculation of Y_lm(phi=0,theta)
+ *  Code for efficient calculation of Y_lm(theta,phi=0)
  *
- *  Copyright (C) 2005 Max-Planck-Society
+ *  Copyright (C) 2005, 2006 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
-#ifndef HEALPIX_YLMGEN_H
-#define HEALPIX_YLMGEN_H
+#ifndef PLANCK_YLMGEN_H
+#define PLANCK_YLMGEN_H
 
 #include <cmath>
 #include "arr.h"
-#include "constants.h"
+#include "lsconstants.h"
 
 /*! Class for efficient calculation of Y_lm(theta,phi=0) */
 class Ylmgen
@@ -47,6 +47,7 @@ class Ylmgen
     arr<double> cf;
     arr<double[2]> recfac;
     arr<double> mfac;
+    arr<double> t1fac, t2fac;
 
     enum { large_exponent2 = 90, minscale=-4 };
 
@@ -56,12 +57,10 @@ class Ylmgen
 
       if (m_last==m) return;
 
-      int m2 = m*m;
       double f_old=1;
       for (int l=m; l<recfac.size(); ++l)
         {
-        int l2 = (l+1)*(l+1);
-        recfac[l][0] = sqrt(double(4*l2 - 1) / (l2-m2));
+        recfac[l][0] = t1fac[l]*t2fac[l+m]*t2fac[l-m];
         recfac[l][1] = recfac[l][0]/f_old;
         f_old = recfac[l][0];
         }
@@ -75,7 +74,8 @@ class Ylmgen
         magnitude is smaller than \a epsilon as zero. */
     Ylmgen (int l_max, int m_max, double epsilon=1e-30)
       : eps(epsilon), cth_crit(2.), lmax(l_max), mmax(m_max), m_last(-1),
-        m_crit(mmax+1), cf(-minscale+11), recfac(lmax+1), mfac(mmax+1)
+        m_crit(mmax+1), cf(-minscale+11), recfac(lmax+1), mfac(mmax+1),
+        t1fac(lmax+1), t2fac(lmax+mmax+1)
       {
       using namespace std;
 
@@ -89,6 +89,10 @@ class Ylmgen
         mfac[m] = mfac[m-1]*sqrt((2*m+1.)/(2*m));
       for (int m=0; m<mfac.size(); ++m)
         mfac[m] = inv_ln2*log(inv_sqrt4pi*mfac[m]);
+      for (int l=0; l<t1fac.size(); ++l)
+        t1fac[l] = sqrt(4.*(l+1)*(l+1)-1.);
+      for (int i=0; i<t2fac.size(); ++i)
+        t2fac[i] = 1./sqrt(i+1.);
       }
 
     /*! For a colatitude given by \a cth and \a sth (representing cos(theta)

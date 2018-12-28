@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>ud_grade</TITLE>
-<META NAME="description" CONTENT="ud_grade">
+<TITLE>query_triangle </TITLE>
+<META NAME="description" CONTENT="query_triangle ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,174 +28,131 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html651"
   HREF="idlnode43.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html657"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html661"
   HREF="idlnode45.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html659"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
-  HREF="idlnode43.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Previous:</B> <A NAME="tex2html652"
+  HREF="idlnode43.htm">query_strip</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html658"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
-  HREF="idlnode45.htm">vec2ang</A>
+<B> Next:</B> <A NAME="tex2html662"
+  HREF="idlnode45.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000440000000000000000"></A>
-<A NAME="idl:ud_grade"></A>
+<A NAME="idl:query_triangle"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ud_grade</FONT></font></b><hr><H2>This IDL facility provides a means to upgrade/degrade or <A HREF="idlnode40.htm#idl:reorder">reorder</A> a Healpix full
-sky map contained in a FITS file or loaded in memory.
+<b><font size=+6><FONT COLOR="#CC0000">query_triangle </FONT></font></b><hr><H2>This IDL facility provides a means to find the index of all pixels belonging to
+a sperical triangle defined by its vertices
 </H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/ud_grade.pro
+src/idl/toolkit/query_triangle.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-UD_GRADE , Map_in, Map_out [, NSIDE_OUT=, ORDER_IN=, ORDER_OUT=, BAD_DATA=]
+query_triangle , Nside, Vector1, Vector2, Vector3, Listpix, [Nlist, NESTED=, INCLUSIVE=]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>Map_in</B>
-<DD>input map: either a character string with the name of a fits file 
-      or a memory vector (real, integer, ...) containing a full sky Healpix data
-      set.
+<B>Nside</B>
+<DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
     <DT>
-<B>Map_out</B>
-<DD><A HREF="idlnode40.htm#idl:reorder">reorder</A>ed map: if map_in was a filename, map_out should be
-    a filename, otherwise map_out should point to a memory array
+<B>Vector1</B>
+<DD>3D cartesian position vector of the triangle first  vertex
+    <DT>
+<B>Vector2</B>
+<DD>3D cartesian position vector of the triangle second vertex
+    <DT>
+<B>Vector3</B>
+<DD>3D cartesian position vector of the triangle third  vertex
+          NB : the norm of Vector* does not have to be one, what is
+          considered is the intersection of the sphere with the line of
+          direction Vector*.
+    <DT>
+<B>Listpix</B>
+<DD>on output: list of ordered index for the pixels found 
+    in the triangle. The RING numbering scheme is used unless the keyword <TT>NESTED</TT> is set.
+     (=-1 if the triangle is too small and no pixel is found)
+    <DT>
+<B>Nlist</B>
+<DD>on output: number of pixels in Listpix (=0 if no pixel is found).
   </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>NSIDE_OUT =</B>
-<DD>output resolution parameter, can be
-    larger or smaller than the input one (scalar integer).
-	 <b>default:</b>same as input: map unchanged or simply <A HREF="idlnode40.htm#idl:reorder">reorder</A>ed
+<B>NESTED =</B>
+<DD>if set, the output list uses the NESTED numbering scheme
+    instead of the default RING
     <DT>
-<B>ORDER_IN =</B>
-<DD>input map ordering (either 'RING' or 'NESTED')
-	<b>default:</b>same as the input FITS keyword ORDERING if applicable.
-    <DT>
-<B>ORDER_IN =</B>
-<DD>output map ordering (either 'RING' or 'NESTED')
-	<b>default:</b>same as ORDER_IN.
-    <DT>
-<B>BAD_DATA =</B>
-<DD>flag value of missing pixels.
-          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
- $\equiv -1.6375\ 10^{30}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="131" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg39.png"
- ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
-    <DT>
-<B>PESSIMISTIC =</B>
-<DD><IMG
- WIDTH="282" HEIGHT="173" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg45.png"
- ALT="$\textstyle \parbox{0.5\hsize}{if set, during {\bf degradation} each big pixel c...
-...ast one good pixel
-is considered as good (optimistic)
-default = 0 (:not set)}$"></DL>
+<B>INCLUSIVE = </B>
+<DD>if set, all the pixels overlapping (even partially)
+                   with the triangle are listed, otherwise only those whose
+                   center lies within the triangle are listed
+  </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-ud_grade can upgrade/degrade a full sky <b>HEALPix</b> map using the hierarchical
-properties of <b>HEALPix</b> . It can also <A HREF="idlnode40.htm#idl:reorder">reorder</A> a full sky map (from NEST to RING and
-vice-versa). It operates on FITS files as well as on memory variables.
-The degradation/upgradation is done assuming an
-intensive quantity (like temperature) that does not scale with surface area. 
-In case of degradation a big pixel that contains at least one bad small pixel is
-considered as bad itself. When operating on FITS files, the header information
-from the input file that is not directly related the ordering/resolution is
-copied unchanged into the output file.
+query_triangle finds the pixels within the given triangle in a selective way WITHOUT
+scanning all the sky pixels. The numbering scheme of the output list and the
+inclusiveness of the triangle can be changed
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ud_grade</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_triangle </FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run ud_grade .
+<DD>version 6.0 or more is necessary to run query_triangle .
     <DT>
-<B><A HREF="idlnode40.htm#idl:reorder">reorder</A></B>
-<DD>reorder a full sky Healpix map.
+<B>ang2pix, pix2ang</B>
+<DD>conversion between angles and pixel index
+    <DT>
+<B>vec2pix, pix2vec</B>
+<DD>conversion between vector and pixel index
+    <DT>
+<B><A HREF="idlnode41.htm#idl:query_disc">query_disc</A>, <A HREF="idlnode42.htm#idl:query_polygon">query_polygon</A>,</B>
+<DD><DT>
+<B><A HREF="idlnode43.htm#idl:query_strip">query_strip</A>, <A HREF="#idl:query_triangle">query_triangle</A></B>
+<DD>render the list of pixels enclosed
+  respectively in a given disc, polygon, latitude strip and triangle
   </DL>
 
 <P>
-<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-ud_grade ,</TD>
-<TD ALIGN="LEFT">'map_512.fits', 'map_256.fits', nside_out = 256</TD>
+query_triangle , 256L, [1,0,0],[0,1,0],[0,0,1], listpix, nlist</TD>
 </TR>
 </TABLE>
-</font></tt><br><blockquote>
-ud_grade reads the FITS file map_512.fits (that allegedly contains a map with
-NSIDE=512), and write in the FITS file map_256.fits a map degraded to resolution 256, with
-the same ordering.
+</font></tt>
+<BR><blockquote>
+On return listpix contains the index of the (98560) pixels lying in the octant
+<SPAN CLASS="MATH">(<I>x</I>&gt;0,<I>y</I>&gt;0,<I>y</I>&gt;0)</SPAN>.
+The pixel indices correspond to the RING scheme with resolution 256.
 </blockquote>
-<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-ud_grade ,</TD>
-<TD ALIGN="LEFT">'map_512.fits', 'map_Nest256.fits', nside_out = 256, $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">order_out = 'NESTED'</TD>
-</TR>
-</TABLE>
-</font></tt><br><blockquote>
-ud_grade reads the FITS file map_512.fits (that allegedly contains a map with
-NSIDE=512), 
-and writes in the FITS file map_Nest256.fits a map degraded to resolution 256,
-with NESTED ordering.
-</blockquote>
-<hr><H1>EXAMPLE # 3:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<A HREF="idlnode36.htm#idl:read_fits_map">read_fits_map</A>,</TD>
-<TD ALIGN="LEFT">'map_Nest256.fits', mymap</TD>
-</TR>
-<TR><TD ALIGN="LEFT">ud_grade ,</TD>
-<TD ALIGN="LEFT">mymap, mymap2, nside_out = 1024, order_in='NESTED', $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">order_out='RING'</TD>
-</TR>
-</TABLE>
-</font></tt><br><blockquote>
-mymap is IDL variable containing a <b>HEALPix</b> NESTED-ordered map with resolution nside=256.
-ud_grade upgrades this map to a resolution of 1024, reorder it to RING and write
-it in the IDL vector mymap2.
-</blockquote>
-
-<P>
-
-<P>
 
 <P>
 
@@ -203,32 +160,32 @@ it in the IDL vector mymap2.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html651"
   HREF="idlnode43.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html657"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html661"
   HREF="idlnode45.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html659"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
-  HREF="idlnode43.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Previous:</B> <A NAME="tex2html652"
+  HREF="idlnode43.htm">query_strip</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html658"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
-  HREF="idlnode45.htm">vec2ang</A>
+<B> Next:</B> <A NAME="tex2html662"
+  HREF="idlnode45.htm">read_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -36,9 +36,13 @@ int main (void) {
   long nside, npix, np, ns;
   int i;
   char file[180] = "test_output.fits" ;
+  char fileforce[180] ;
   char order1[10] ;
   char order2[10] ;
   char coord[10] ;
+
+
+  printf("Starting C Healpix IO test\n");
 
   nside = 1;
   npix = nside2npix(nside);
@@ -49,7 +53,8 @@ int main (void) {
     map[i] = 2.*i;
   }
 
-  write_healpix_map( map, nside, file, 1, "X");
+  sprintf(fileforce, "!%s",file); // leading ! to allow overwrite
+  write_healpix_map( map, nside, fileforce, 1, "C");
   fprintf(stdout,"file written\n");
 
   np = get_fits_size(file, &ns, order1);
@@ -61,6 +66,8 @@ int main (void) {
   fprintf(stdout,"%g %g %g %g\n",map[0],map[1],map[10],map[11]);
 
   free(map);
+
+  printf("test completed\n\n");
 
   return 0;
 }

@@ -7,7 +7,7 @@ nmmax (integer):
   maximum order of m (must not be larger than nlmax, default=nlmax)
 
 infile (string):
-  input file containing the a_lms
+  input file containing the a_lm
 
 outfile (string):
   output file name for the Healpix map(s)
@@ -21,10 +21,10 @@ polarisation (bool):
 
 fwhm_arcmin (double, default=0):
   FWHM in arc minutes of a Gaussian beam, which is used to smooth
-  the a_lms
+  the a_lm
 
 pixel_window (bool, default=false):
-  if true, the a_lms are multiplied by the appropriate pixel window function
+  if true, the a_lm are multiplied by the appropriate pixel window function
 
 if (pixel_window)
   healpix_data (string):

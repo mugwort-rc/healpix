@@ -16,15 +16,21 @@
  o  ./cgis/ : required routines from the COBE cgis library
     (http://space.gsfc.nasa.gov/astro/cobe/cgis.html)
 
+ o ./obsolete_astron/ : routines from the Astron library which are now considered
+   obsolete, but may still be needed by Healpix (or by user-developped applications).
+
 
  2000-03-03
+ updated 2007-05-15
  AJB, KMG, EH
+
 ----------------
  NB : the routines in the ./astron directory have been updated to 
  match the May 2002 version of the astron library.
 
  2002-08-19
  EH, AJB, KMG
+
 ----------------
 
 NB : the routines in the ./astron directory have been updated to 
@@ -32,5 +38,27 @@ NB : the routines in the ./astron directory have been updated to
  except for MRDFITS, which was updated Feb 7, 2005
 
  2005-02-10
+ EH
+----------------
+
+NB : the routines in the ./astron directory have been updated to 
+ match the April 14, 2007 (*) version of the astron library,
+ except for FITS_READ, READFITS, WRITEFITS and FXADDPAR which have been updated
+ on May 16, 2007, and CHECK_FITS which was updated on May 25.
+ It now should be possible to read/write FITS files larger than 2GB on 64bit architectures.
+
+ (*) This version of astron requires IDL v5.5 or newer.
+
+ 2005-05-15
+ EH
+----------------
+
+NB : the routines in the ./astron directory have been updated to 
+ match the March 7, 2008 (*) version of the astron library.
+ It now should be possible to read/write FITS files larger than 2GB on 64bit architectures.
+
+ (*) This version of astron requires IDL v5.6 or newer.
+
+ 2008-03-18
  EH
 ----------------

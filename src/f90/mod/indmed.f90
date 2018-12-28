@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -31,9 +31,11 @@
 !
 !
 Module m_indmed
-  Integer, Parameter :: kdp = selected_real_kind(15)
+  Integer, Parameter :: kdp = selected_real_kind(12,200)
+  Integer, Parameter :: ksp = selected_real_kind(5, 30)
+  Integer, Parameter :: i4b = selected_int_kind(9)
   public :: indmed
-  private :: kdp
+  private :: kdp, ksp, i4b
   private :: R_indmed, I_indmed, D_indmed
   private :: r_med, i_med, d_med
   Integer, Allocatable, Dimension(:), Private, Save :: IDONT
@@ -46,16 +48,17 @@ contains
 !  Returns index of median value of XDONT.
 ! __________________________________________________________
     Real (kind=kdp), Dimension (:), Intent (In) :: XDONT
-    Integer, Intent (Out) :: INDM
+    Integer (kind=i4b),             Intent (Out):: INDM
 ! __________________________________________________________
-    Integer :: IDON
+    Integer :: tmpout, IDON ! can be 4 or 8 bytes depending on default
 !
     Allocate (IDONT (SIZE(XDONT)))
     Do IDON = 1, SIZE(XDONT)
        IDONT (IDON) = IDON
     End Do
 !
-    Call d_med (XDONT, IDONT, INDM)
+    Call d_med (XDONT, IDONT, tmpout)
+    indm = tmpout
 !
     Deallocate (IDONT)
   End Subroutine D_indmed
@@ -442,17 +445,19 @@ contains
 Subroutine R_indmed (XDONT, INDM)
 !  Returns index of median value of XDONT.
 ! __________________________________________________________
-      Real, Dimension (:), Intent (In) :: XDONT
-      Integer, Intent (Out) :: INDM
+    Real (kind=ksp), Dimension (:), Intent (In) :: XDONT
+    Integer (kind=i4b),             Intent (Out):: INDM
 ! __________________________________________________________
-      Integer :: IDON
+    Integer :: tmpout, IDON ! can be 4 or 8 bytes depending on default
 !
-      Allocate (IDONT (SIZE(XDONT)))
-      Do IDON = 1, SIZE(XDONT)
-         IDONT (IDON) = IDON
-      End Do
-!
-      Call r_med (XDONT, IDONT, INDM)
+    Allocate (IDONT (SIZE(XDONT)))
+    Do IDON = 1, SIZE(XDONT)
+       IDONT (IDON) = IDON
+    End Do
+    !
+    Call r_med (XDONT, IDONT, tmpout)
+    indm = tmpout
+
 !
       Deallocate (IDONT)
 End Subroutine R_indmed

@@ -2,20 +2,36 @@
 # Associate labels original text with physical files.
 
 
-$key = q/section:newfeatures/;
-$external_labels{$key} = "$URL/" . q|installnode19.htm|; 
+$key = q/sec:requirements/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/section:requirements/;
-$external_labels{$key} = "$URL/" . q|installnode3.htm|; 
+$key = q/sec:windows/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/dirtree/;
-$external_labels{$key} = "$URL/" . q|installnode2.htm|; 
+$key = q/sec:freef90compilers/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/page:dirtree/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:dirtree/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/subsub:conf/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:troubleshoot/;
-$external_labels{$key} = "$URL/" . q|installnode11.htm|; 
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:newfeatures/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
 1;
@@ -25,20 +41,44 @@ $noresave{$key} = "$nosave";
 # labels from external_latex_labels array.
 
 
-$key = q/section:newfeatures/;
-$external_latex_labels{$key} = q|7|; 
-$noresave{$key} = "$nosave";
-
-$key = q/section:requirements/;
+$key = q/sec:requirements/;
 $external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
-$key = q/dirtree/;
+$key = q/tab:allpackages/;
 $external_latex_labels{$key} = q|1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:windows/;
+$external_latex_labels{$key} = q|6.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/page:dirtree/;
+$external_latex_labels{$key} = q|1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:dirtree/;
+$external_latex_labels{$key} = q|1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/tab:f90_tests/;
+$external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:troubleshoot/;
 $external_latex_labels{$key} = q|6|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:newfeatures/;
+$external_latex_labels{$key} = q|7|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:freef90compilers/;
+$external_latex_labels{$key} = q|7.2.4|; 
+$noresave{$key} = "$nosave";
+
+$key = q/subsub:conf/;
+$external_latex_labels{$key} = q|3.1.1|; 
 $noresave{$key} = "$nosave";
 
 1;

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>rand_uni</TITLE>
-<META NAME="description" CONTENT="rand_uni">
+<TITLE>plm_gen</TITLE>
+<META NAME="description" CONTENT="plm_gen">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,74 +28,160 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1005"
+<A NAME="tex2html1021"
   HREF="subroutinesnode67.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1011"
+<A NAME="tex2html1027"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1015"
+<A NAME="tex2html1031"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1013"
+<A NAME="tex2html1029"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1006"
-  HREF="subroutinesnode67.htm">rand_init</A>
+<B> Previous:</B> <A NAME="tex2html1022"
+  HREF="subroutinesnode67.htm">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</A>
 
-<B>Up:</B> <A NAME="tex2html1012"
+<B>Up:</B> <A NAME="tex2html1028"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1016"
-  HREF="subroutinesnode69.htm">read_asctab*</A>
+<B> Next:</B> <A NAME="tex2html1032"
+  HREF="subroutinesnode69.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000680000000000000000"></A>
-<A NAME="sub:rand_uni"></A>
+<A NAME="sub:plm_gen"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">rand_uni</FONT></font></b><hr><H2>This routine returns a number out of a pseudo-random uniform deviate (ie, its
-  probability distribution is uniform in the range ]0,1[).
-</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/rngmod.f90
+<b><font size=+6><FONT COLOR="#CC0000">plm_gen</FONT></font></b><hr><H2>This routine computes the latitude dependent part <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> of the
+  spherical harmonics (<!-- MATH
+ $Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="186" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg91.png"
+ ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
+  (see <b>HEALPix</b> primer)
+  used to synthetize or analyze <b>HEALPix</b> maps of temperature and polarisation.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/alm_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">rand_uni</FONT>(
-rng_handle
-)</h2>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">plm_gen</FONT>(
+nsmax, nlmax, nmmax, plm
+)</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-rng_handle</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>planck_rng</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>structure of type <TT>planck_rng</TT>
-                   containing on all information necessary to continue same
-                   random sequence.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+nsmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg7.png"
+ ALT="${N_{\rm side}}$"></SPAN> value for which to compute the <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><I>l</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1, 1:p)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number belonging to a pseudo-random uniform deviate.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> values, either for temperature only
+                   (<SPAN CLASS="MATH"><I>p</I>=1</SPAN>) or temperature and polarisation (<SPAN CLASS="MATH"><I>p</I>=3</SPAN>). The number
+                    of <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> is n_plm =
+                    nsmax*(nmmax+1)*(2*nlmax-nmmax+2). They are stored in the
+                    order of increasing order <SPAN CLASS="MATH"><I>l</I></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
+                    all the <b>HEALPix</b> ring colatitudes <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg50.png"
+ ALT="$\theta$"></SPAN> from North Pole to Equator, ie
+ 		   <!-- MATH
+ $\lambda_{00}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg92.png"
+ ALT="$\lambda_{00}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{10}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg93.png"
+ ALT="$\lambda_{10}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{20}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg94.png"
+ ALT="$\lambda_{20}(\theta_1)$"></SPAN>,
+                    ..., <!-- MATH
+ $\lambda_{11}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg95.png"
+ ALT="$\lambda_{11}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{21}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg96.png"
+ ALT="$\lambda_{21}(\theta_1)$"></SPAN>;
+                    ...,  <!-- MATH
+ $\lambda_{00}(\theta_2)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg97.png"
+ ALT="$\lambda_{00}(\theta_2)$"></SPAN> ...</TD>
 </TR>
 </TABLE>
 
@@ -103,32 +189,83 @@ rng_handle</TD>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 use healpix_types 
 <BR>
-use rngmod 
+use alm_tools, only : plm_gen 
 <BR>
-type(planck_rng) :: rng_handle 
+integer(I4B) :: nside, lmax, mmax, n_plm
 <BR>
-real(dp) :: uni 
+real(DP), dimension(:,:), allocatable :: plm 
+<BR>...
 <BR>
+nside=256 ; lmax=512 ; mmax=lmax
 <BR>
-call rand_init(rng_handle, 12345, 6789012)  
+npix=nside2npix(nside)
 <BR>
-uni = rand_uni(rng_handle)
-</font></tt>
+n_plm=nside*(mmax+1)*(2*lmax-mmax+2)
+<BR>
+allocate(plm(0:n_plm-1,1:3))
+<BR>...
+<BR>
+call <FONT COLOR="#CC0000">plm_gen</FONT>(nside, lmax, mmax, plm)  
+<BR></font></tt>
 <BR><blockquote>
-initiates a random sequence with the pair of seeds (12345, 6789012), and
-generates one number out of the uniform deviate.
+Computes the spherical harmonics for temperature and polarisation for <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>= 256</SPAN>, up to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">rand_uni</FONT></b></h3>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">plm_gen</FONT>.</h2>
+  <DL COMPACT><DT>
+<B>compute_lam_mm, get_pixel_layout, </B>
+<DD><DT>
+<B>gen_lamfac,gen_mfac, gen_normpol, </B>
+<DD><DT>
+<B>gen_recfac, init_rescale, l_min_ylm</B>
+<DD>Ancillary routines used
+  for <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> recursion
+  <DT>
+<B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
+<DD>module, containing:
+  <DT>
+<B>assert_alloc</B>
+<DD>routine to print error message, when an array can not be
+  allocated properly
+  </DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">plm_gen</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>rand_gauss</B>
-<DD>function which returns a  random normal deviate.
-<DT>
-<B>rand_init</B>
-<DD>subroutine to initiate a random number sequence. 
-  </DL>
+<B><A HREF="subroutinesnode10.htm#sub:alm2map">alm2map</A></B>
+<DD>routine generating maps of temperature
+   and polarisation from their <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> that can use precomputed <!-- MATH
+ $\lambda_{l
+   m}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
+   <DT>
+<B><A HREF="subroutinesnode43.htm#sub:map2alm">map2alm</A></B>
+<DD>routine analysing maps of temperature
+   and polarisation that can use precomputed <!-- MATH
+ $\lambda_{l
+   m}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
+  <DT>
+<B>plmgen</B>
+<DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg90.png"
+ ALT="$\lambda_{lm}$"></SPAN> and
+  writting them on disc 
+</DL>
 
 <P>
 
@@ -141,32 +278,32 @@ generates one number out of the uniform deviate.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1005"
+<A NAME="tex2html1021"
   HREF="subroutinesnode67.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1011"
+<A NAME="tex2html1027"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1015"
+<A NAME="tex2html1031"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1013"
+<A NAME="tex2html1029"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1006"
-  HREF="subroutinesnode67.htm">rand_init</A>
+<B> Previous:</B> <A NAME="tex2html1022"
+  HREF="subroutinesnode67.htm">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</A>
 
-<B>Up:</B> <A NAME="tex2html1012"
+<B>Up:</B> <A NAME="tex2html1028"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1016"
-  HREF="subroutinesnode69.htm">read_asctab*</A>
+<B> Next:</B> <A NAME="tex2html1032"
+  HREF="subroutinesnode69.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

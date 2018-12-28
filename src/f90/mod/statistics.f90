@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -33,6 +33,7 @@ module statistics
   ! type       tstats
   !
   ! EH, IPAC, 2005-04-25
+  ! EH, IAP, 2008-11-05: initialize eps and absdev to 0 in comp_stats_*
   !---------------------------------
   use healpix_types
   use misc_utils, only: assert
@@ -100,6 +101,8 @@ contains
     rms     = 0.0_dp
     skew    = 0.0_dp
     kurt    = 0.0_dp
+    absdev  = 0.0_dp
+    eps     = 0.0_dp
 
     do i=0, n-1
        x = data(i)
@@ -204,6 +207,8 @@ contains
     rms     = 0.0_dp
     skew    = 0.0_dp
     kurt    = 0.0_dp
+    absdev  = 0.0_dp
+    eps     = 0.0_dp
 
     do i=0, n-1
        x = data(i)
@@ -317,7 +322,7 @@ contains
     real(KMAP), dimension(:), pointer :: gdata
     real(KMAP)                        :: precis
     logical(LGT)                      :: do_even, do_bad
-    integer(I4B)                      :: ndata, ngood, j, k
+    integer(I4B)                      :: ndata, ngood, j, k, i, count
     !---------------------------------------------------------------------------
     precis = 10*epsilon(ONE)
 
@@ -329,9 +334,21 @@ contains
     ! select valid data
     ndata = size(data)
     if (do_bad) then
-       ngood = count(abs(data/badval-ONE) > precis)
+    ! MR 2006-02-08: use explicit loops to work around a pgf90 problem
+!       ngood = count(abs(data/badval-ONE) > precis)
+       ngood=0
+       do i=1,ndata
+          if(abs(data(i)/badval-ONE) > precis) ngood=ngood+1
+       enddo
        allocate(gdata(1:ngood))
-       gdata = pack(data, mask= (abs(data/badval-ONE) > precis))
+!       gdata = pack(data, mask= (abs(data/badval-ONE) > precis))
+       count=0
+       do i=1,ndata
+          if(abs(data(i)/badval-ONE) > precis) then
+             count=count+1
+             gdata(count)=data(i)             
+          endif
+       enddo       
     else
        ngood = ndata
        gdata => data
@@ -346,6 +363,9 @@ contains
        call indmed(gdata, j)
        med = gdata(j)
     endif
+
+    ! MR 2006-02-08: avoid memory leak
+    if (do_bad) deallocate(gdata)
 
     return
   end function median_s
@@ -363,7 +383,7 @@ contains
     real(KMAP), dimension(:), pointer :: gdata
     real(KMAP)                        :: precis
     logical(LGT)                      :: do_even, do_bad
-    integer(I4B)                      :: ndata, ngood, j, k
+    integer(I4B)                      :: ndata, ngood, j, k, i, count
     !---------------------------------------------------------------------------
     precis = 10*epsilon(ONE)
 
@@ -375,9 +395,21 @@ contains
     ! select valid data
     ndata = size(data)
     if (do_bad) then
-       ngood = count(abs(data/badval-ONE) > precis)
+    ! MR 2006-02-08: use explicit loops to work around a pgf90 problem
+!       ngood = count(abs(data/badval-ONE) > precis)
+       ngood=0
+       do i=1,ndata
+          if(abs(data(i)/badval-ONE) > precis) ngood=ngood+1
+       enddo
        allocate(gdata(1:ngood))
-       gdata = pack(data, mask= (abs(data/badval-ONE) > precis))
+!       gdata = pack(data, mask= (abs(data/badval-ONE) > precis))
+       count=0
+       do i=1,ndata
+          if(abs(data(i)/badval-ONE) > precis) then
+             count=count+1
+             gdata(count)=data(i)             
+          endif
+       enddo       
     else
        ngood = ndata
        gdata => data
@@ -392,6 +424,9 @@ contains
        call indmed(gdata, j)
        med = gdata(j)
     endif
+
+    ! MR 2006-02-08: avoid memory leak
+    if (do_bad) deallocate(gdata)
 
     return
   end function median_d

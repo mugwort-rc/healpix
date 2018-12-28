@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -39,7 +39,7 @@
 !     about HEALPIX   : see Gorski et al, 2005, ApJ, 622, 759
 !-----------------------------------------------------------------------
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.1.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file ud_grade.f90 by the command  include
@@ -68,9 +68,10 @@
   CHARACTER(len=80), dimension(1:nm_max) :: ttype, com_ttype, tunit, com_tunit
   INTEGER(I4B), dimension(1:nm_max) :: ct_ttype, ct_tunit
   character(len=1), dimension(1:nm_max) :: sn = (/ '1', '2', '3', '4', '5' /)
+  character(len=20) :: coordsys
 
 !   CHARACTER(LEN=*), PARAMETER :: code = 'UD_GRADE'
-  CHARACTER(LEN=*), PARAMETER :: version = '2.0.0'
+  CHARACTER(LEN=*), PARAMETER :: version = '2.1.1'
 
   type(paramfile_handle) :: handle
 
@@ -101,7 +102,8 @@
 
   !     --- finds out the pixel number of the map and its ordering ---
 
-  npix_in = getsize_fits(infile, nmaps=nmaps, ordering=ordering, nside=nside_in, type=type, polarisation = polar_fits)
+  npix_in = getsize_fits(infile, nmaps=nmaps, ordering=ordering, nside=nside_in, &
+       type=type, polarisation = polar_fits, coordsys = coordsys)
   if (nside_in.eq.0) then
      print*,'Keyword NSIDE not found in FITS header!'
      stop 1
@@ -141,7 +143,9 @@
     descr='Output map file name (eg. map_up.fits):', &
     filestatus='new')
   PRINT *," "
+  call parse_check_unused(handle, code=lcode)
   call parse_summarize(handle,code=lcode,prec=KMAP)
+  call parse_finish(handle)
   call brag_openmp()
 
   !-----------------------------------------------------------------------
@@ -190,62 +194,29 @@
   !                        generates header
   !-----------------------------------------------------------------------
   PRINT *,'      '//code//'> Writing up/de-graded map to FITS file '
-  header = ' '
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Sky Map Pixelisation Specific Keywords    ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'PIXTYPE','HEALPIX','HEALPIX Pixelisation')
-  if (order_type .eq. 1) then
-     call add_card(header,'ORDERING','RING',  'Pixel ordering scheme, either RING or NESTED')
-  else
-     call add_card(header,'ORDERING','NESTED',  'Pixel ordering scheme, either RING or NESTED')
-  endif
-  call add_card(header,'NSIDE'   ,nside_out,   'Resolution parameter for HEALPIX')
-  call add_card(header,'FIRSTPIX',0,'First pixel # (0 based)')
-  call add_card(header,'LASTPIX',npix_out-1,'Last pixel # (0 based)')
-  call add_card(header) ! blank line
-
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Planck Simulation Specific Keywords      ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
+  call write_minimal_header(header, 'map', &
+       order = order_type, nside = nside_out, coordsys = coordsys, &
+       creator = code, version = version, polar = (polar_fits == 1))
   if (nside_out .gt. nside_in) then
-     call add_card(header,'EXTNAME','''UPGRADED DATA''')
+     call add_card(header,'EXTNAME','''UPGRADED DATA''', update = .true.)
   else
-     call add_card(header,'EXTNAME','''DEGRADED DATA''')
+     call add_card(header,'EXTNAME','''DEGRADED DATA''', update = .true.)
   endif
-  call add_card(header,'CREATOR',code,        'Software creating the FITS file')
-  call add_card(header,'VERSION',version,     'Version of the simulation software')
-  call add_card(header) ! blank line
   call add_card(header,'HISTORY','Input Map in '//TRIM(infile))
   write(char,'(i6)') nside_in
   call add_card(header,'HISTORY','Input Map resolution NSIDE =  '//TRIM(char))
 
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'COMMENT','     Data Description Specific Keywords       ')
-  call add_card(header,'COMMENT','-----------------------------------------------')
-  call add_card(header,'INDXSCHM','IMPLICIT',' Indexing : IMPLICIT or EXPLICIT')
-  call add_card(header,'GRAIN', 0, ' Grain of pixel indexing') ! full sky
-  call add_card(header,'COMMENT','GRAIN=0 : no indexing of pixel data                         (IMPLICIT)')
-  call add_card(header,'COMMENT','GRAIN=1 : 1 pixel index -> 1 pixel data                     (EXPLICIT)')
-  call add_card(header,'COMMENT','GRAIN>1 : 1 pixel index -> data of GRAIN consecutive pixels (EXPLICIT)')
-  call add_card(header) ! blank line
-  if (polar_fits == 0) then
-     call add_card(header,'POLAR',.false.," Polarisation included (True/False)")
-  elseif (polar_fits == 1) then
-     call add_card(header,'POLAR',.true.," Polarisation included (True/False)")
-  endif
-
   ! copy input type and units
   do j=1,nmaps
      if (ct_ttype(j) > 0) then
-        call add_card(header,'TTYPE'//sn(j), ttype(j), com_ttype(j))
+        call add_card(header,'TTYPE'//sn(j), ttype(j), com_ttype(j), update = .true.)
      else
-        call add_card(header,'TTYPE'//sn(j), 'unknown','unidentified type')
+        call add_card(header,'TTYPE'//sn(j), 'unknown','unidentified type', update = .true.)
      endif
      if (ct_tunit(j) > 0) then
-        call add_card(header,'TUNIT'//sn(j), tunit(j), com_tunit(j))
+        call add_card(header,'TUNIT'//sn(j), tunit(j), com_tunit(j), update = .true.)
      else
-        call add_card(header,'TTYPE'//sn(j), 'unknown','unidentified units')
+        call add_card(header,'TUNIT'//sn(j), 'unknown','unknown units', update = .true.)
      endif
   enddo
   call add_card(header) ! blank line

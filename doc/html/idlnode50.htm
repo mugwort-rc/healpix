@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>About this document ...</TITLE>
-<META NAME="description" CONTENT="About this document ...">
+<TITLE>reorder </TITLE>
+<META NAME="description" CONTENT="reorder ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -18,77 +18,159 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="STYLESHEET" HREF="idl.css">
 
+<LINK REL="next" HREF="idlnode51.htm">
 <LINK REL="previous" HREF="idlnode49.htm">
 <LINK REL="up" HREF="idl.htm">
+<LINK REL="next" HREF="idlnode51.htm">
 </HEAD>
 
 <BODY >
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html693"
+<A NAME="tex2html723"
   HREF="idlnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html697"
+<A NAME="tex2html729"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_g.png"> 
-<A NAME="tex2html699"
+<A NAME="tex2html733"
+  HREF="idlnode51.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html731"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html694"
-  HREF="idlnode49.htm">write_tqu</A>
+<B> Previous:</B> <A NAME="tex2html724"
+  HREF="idlnode49.htm">remove_dipole</A>
 
-<B>Up:</B> <A NAME="tex2html698"
+<B>Up:</B> <A NAME="tex2html730"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
+<B> Next:</B> <A NAME="tex2html734"
+  HREF="idlnode51.htm">rotate_coord</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000500000000000000000">
-About this document ...</A>
-</H1>
- <STRONG><b>HEALPix</b> IDL Facility User Guidelines</STRONG><P>
-This document was generated using the
-<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2002-2-1 (1.71)
-<P>
-Copyright &#169; 1993, 1994, 1995, 1996,
-<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
-Computer Based Learning Unit, University of Leeds.
+<H1><A NAME="SECTION000500000000000000000"></A>
+<A NAME="idl:reorder"></A>
 <BR>
-Copyright &#169; 1997, 1998, 1999,
-<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
-Mathematics Department, Macquarie University, Sydney.
+ 
+</H1>
+
 <P>
-The command line arguments were: <BR>
- <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html/ -up_url main.htm -up_title 'Main Page' -math -html_version 4.0 -bottom_navigation -short_extn -white -local_icons -noexternal_images -prefix idl -t 'Healpix/IDL subroutines' idl</TT>
+<b><font size=+6><FONT COLOR="#CC0000">reorder </FONT></font></b><hr><H2>This IDL facility allows the reordering of a full sky map from NESTED to RING
+scheme and vice-versa.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/toolkit/reorder.pro
+</b>
+
 <P>
-The translation was initiated by Eric Hivon on 2005-08-31
+<hr><h1>FORMAT </h1><h2>IDL>
+Result = REORDER (Input_map [, In=, Out=, N2R=, R2N=])
+</h2>
+
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>Result</B>
+<DD>variable containing on output the reordered map
+
+<P>
+<DT>
+<B>Input_map</B>
+<DD>variable containing the input map
+
+<P>
+<DT>
+<B>In=</B>
+<DD>specifies the input ordering, can be either 'RING' or 'NESTED'
+
+<P>
+<DT>
+<B>Out=</B>
+<DD>specifies the output ordering, can be either 'RING' or 'NESTED'
+
+<P>
+</DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>N2R=</B>
+<DD>If set, does the NESTED to RING conversion, equivalent to In='NESTED'
+	  and Out='RING' 
+
+<P>
+<DT>
+<B>R2N=</B>
+<DD>If set, does the RING to NESTED conversion, equivalent to 
+In='RING' and Out='NESTED'
+   </DL>
+
+<P>
+<hr><H1>DESCRIPTION</H1>
+<BR> <blockquote>
+reorder allows the reordering of a full sky map from NESTED to RING
+scheme and vice-versa
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">reorder </FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.0 or more is necessary to run reorder </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+map_nest = reorder(map_ring, in='ring', out='nest')</TD>
+</TR>
+</TABLE>
+</font></tt>
+<BR><blockquote>The RING ordered map <TT>map_ring</TT> is converted to the 
+NESTED map <TT>map_nest</TT>.
+</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html693"
+<A NAME="tex2html723"
   HREF="idlnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html697"
+<A NAME="tex2html729"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_g.png"> 
-<A NAME="tex2html699"
+<A NAME="tex2html733"
+  HREF="idlnode51.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html731"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html694"
-  HREF="idlnode49.htm">write_tqu</A>
+<B> Previous:</B> <A NAME="tex2html724"
+  HREF="idlnode49.htm">remove_dipole</A>
 
-<B>Up:</B> <A NAME="tex2html698"
+<B>Up:</B> <A NAME="tex2html730"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
+<B> Next:</B> <A NAME="tex2html734"
+  HREF="idlnode51.htm">rotate_coord</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

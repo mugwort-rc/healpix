@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -31,7 +31,7 @@ module udgmod
   USE fitstools, ONLY : getsize_fits, write_bintab, input_map
   USE pix_tools, ONLY : nside2npix, npix2nside
   USE misc_utils
-  USE head_fits, ONLY : add_card, get_card
+  USE head_fits, ONLY : add_card, get_card, write_minimal_header
   USE udgrade_nr, ONLY : udgrade_ring, udgrade_nest
   USE extension, ONLY : getArgument, nArguments
   USE paramfile_io

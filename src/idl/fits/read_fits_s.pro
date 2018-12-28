@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -96,6 +96,9 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;  Feb 17, 2003, upgraded to deal faster with WMAP map format
 ;  Oct 2004, cosmetic changes
 ;       May 2005, EH, replaces FINDFILE by FILE_TEST
+;  Jan 2007: will exit gracefully if file contains image, but not requested extension
+;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
+;  June 2008, EH: can deal with file with large TFORM
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -125,18 +128,27 @@ if (not file_test(filename)) then begin
 endif
 
 merge = keyword_set(merge)
+expect_extension = n_params() ge 3 || merge
 
 ; ------ primary unit : header and extension ------
 
-image = MRDFITS(filename,0,hdr,/silent)
+image = MRDFITS(filename,0,hdr,/silent, status=status)
+image_found = (status eq 0)
 prim_stc = CREATE_STRUCT('HDR',hdr)
-if ((size(image))(0) NE 0) then prim_stc = CREATE_STRUCT(prim_stc,'IMG',image)
+if (image_found) then prim_stc = CREATE_STRUCT(prim_stc,'IMG',image)
 
 xten_stc = 0
 fits_info,filename, /silent, n_ext=n_ext
 xtn = (keyword_set(extension_id)) ? (extension_id+1) : 1
-if (n_ext lt xtn) then message,' Can not access required extension in '+filename
-
+if (n_ext lt xtn) then begin ; no extension available
+    if (image_found) then begin
+        if (expect_extension) then print,'WARNING: Found 1 image but not the requested extension in '+filename
+        return
+    endif else begin
+        ; no image, no extension: return in Error
+        message,' Can not access requested extension in '+filename
+    endelse
+endif
 
 ; ----- if there is the required extension ------
 table = MRDFITS(filename,xtn,xthdr,range=1,/silent, columns=columns)  ; first row
@@ -146,7 +158,7 @@ bitpix  = ABS(ROUND(SXPAR(xthdr,'BITPIX'))) ; bits per 'word'
 n_wpr   =     ROUND(SXPAR(xthdr,'NAXIS1')) ; 'word' per row
 n_rows  =     ROUND(SXPAR(xthdr,'NAXIS2')) ; number of rows
 byt_row = bitpix * n_wpr / 8 ; bytes per row
-stride = (1024L^2 * 20L) / byt_row ; strides of 20MB
+stride = ((1024L^2 * 20L) / byt_row) > 1 ; strides of 20MB or 1 row
 ishift = 0
 n_entry = intarr(n_tag)
 
@@ -185,6 +197,7 @@ if (size le 100.) then begin ; smaller than 100MB, read in one sitting
                 1:prim_stc = create_struct(prim_stc, tags[i], (tbget(tb_str,data,i+1))[*])
             endcase
         endfor
+        tbfree, tb_str
     endelse
 endif else begin
     print,'File size (MB) ',size

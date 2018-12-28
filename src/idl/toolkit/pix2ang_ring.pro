@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -58,105 +58,102 @@ PRO pix2ang_ring, nside, ipix, theta, phi
 ;    Sept 2000,          EH
 ;           free memory by discarding unused variables
 ;    June 2003,  EH, replaced STOPs by MESSAGEs
+;    Dec 2007, EH,  IAP, enabled nside > 8192
+;    Aug 2008, EH, IAP: issues warning if ipix is not of integer type
 ;
 ;-
 ;****************************************************************************************
-routine = 'PIX2ANG_RING'
-if N_params() lt 3 then begin
-    message,' syntax: '+routine+', nside, ipix, theta, phi'
-endif
+  routine = 'PIX2ANG_RING'
+  if N_params() lt 3 then begin
+      message,' syntax: '+routine+', nside, ipix, theta, phi'
+  endif
 
-if (N_ELEMENTS(nside) GT 1) then message,'Nside should be a scalar in '+routine
-npix = nside2npix(nside, error = error)
-if (error ne 0) then message,'Invalid Nside '+string(nside)
+  if (N_ELEMENTS(nside) GT 1) then message,'Nside should be a scalar in '+routine
+  npix = nside2npix(nside, error = error)
+  if (error ne 0) then message,'Invalid Nside '+string(nside)
 
-nside = LONG(nside)
-nl2 = 2*nside
-nl3 = 3*nside
-nl4 = 4*nside
-ncap = nl2*(nside-1L)
-nsup = nl2*(5L*nside+1L)
-fact1 = 1.5d0*nside
-fact2 = (3.d0*nside)*nside
-np = N_ELEMENTS(ipix)
-theta = DBLARR(np)
-phi   = DBLARR(np)
+  assert_pixindex_type, ipix[0], /warning ; warning if ipix is not integer
+  min_pix = MIN(ipix, MAX = max_pix)
+  IF (min_pix LT 0) THEN BEGIN
+      PRINT,'pixel index : ',min_pix,FORMAT='(A,I18)'
+      PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
+      message,'Abort'
+  ENDIF
+  IF (max_pix GT npix-1) THEN BEGIN
+      PRINT,'pixel index : ',max_pix,FORMAT='(A,I18)'
+      PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
+      message,'Abort'
+  ENDIF
 
-min_pix = MIN(ipix)
-max_pix = MAX(ipix)
-IF (min_pix LT 0) THEN BEGIN
-    PRINT,'pixel index : ',min_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
-    message,'Abort'
-ENDIF
-IF (max_pix GT npix-1) THEN BEGIN
-    PRINT,'pixel index : ',max_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
-    message,'Abort'
-ENDIF
-
-pix_np = WHERE(ipix LT ncap,   n_np)   ; north polar cap
-IF (n_np GT 0) THEN BEGIN ; north polar cap ; ---------------------------------
-
-   ip = long(ipix(pix_np)) + 1
-   iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1L ; counted from NORTH pole, starting at 1
-   iphi  = ip - 2L*iring*(iring-1L)
-
-   theta(pix_np) = ACOS( 1.d0 - iring^2 / fact2 )
-   phi(pix_np)   = (iphi - 0.5d0) * !DPI/(2.d0*iring)
-   ip = 0 & iring =0 & iphi = 0    ; free memory
-   pix_np = 0                      ; free memory
-
-ENDIF ; ------------------------------------------------------------------------
-
-pix_eq = WHERE(ipix GE ncap AND ipix LT nsup,  n_eq) ; equatorial strip
-IF (n_eq GT 0) THEN BEGIN ; equatorial strip ; ---------------------------------
-
-   ip    = long(ipix(pix_eq)) - ncap
-   iring = LONG( ip / nl4) + nside                        ; counted from NORTH pole
-   iphi  = ( ip MOD nl4 )  + 1
-
-   fodd  = 0.5d0 * (1 + ((iring+nside) MOD 2)) ; 1 if iring is odd, 1/2 otherwise
-
-   theta(pix_eq) = ACOS( (nl2 - iring) / fact1 )
-   phi(pix_eq)   = (iphi - fodd) * !DPI/(2.d0*nside)
-   ip = 0 & iring =0 & iphi = 0    ; free memory
-   pix_eq = 0                      ; free memory
-
-ENDIF ; ------------------------------------------------------------------------
-
-pix_sp = WHERE(ipix GE nsup,   n_sp)   ; south polar cap
-IF (n_np + n_sp + n_eq) NE np THEN message,'error in '+routine
-IF (n_sp GT 0) THEN BEGIN ; south polar cap ; ---------------------------------
-
-   ip =  npix - long(ipix(pix_sp))
-   iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1      ; counted from SOUTH pole, starting at 1
-   iphi  = 4*iring + 1 - (ip - 2L*iring*(iring-1L))
-   
-   theta(pix_sp) = ACOS( - 1.d0 + iring^2 / fact2 )
-   phi(pix_sp)   = (iphi - 0.5d0) * !DPI/(2.d0*iring)
-   ip = 0 & iring =0 & iphi = 0    ; free memory
-   pix_sp = 0                      ; free memory
-
-ENDIF ; ------------------------------------------------------------------------
+  nl1 = LONG(nside)
+  nl2 = 2L*nl1
+  if (nl1 gt 8192) then begin
+      nl4 = 4LL*nl1
+      ncap = nl2*(nl1-1LL)
+      nsup = nl2*(5LL*nl1+1LL)
+      one = 1LL
+      four = 4LL
+      l64 = 1
+  endif else begin
+      nl4 = 4L*nl1
+      ncap = nl2*(nl1-1L)
+      nsup = nl2*(5L*nl1+1L)
+      one = 1L
+      four = 4L
+      l64 = 0
+  endelse
+  fact1 = 1.5d0*nl1
+  fact2 = (3.d0*nl1)*nl1
+  np = N_ELEMENTS(ipix)
+  theta = DBLARR(np, /NoZero)
+  phi   = DBLARR(np, /NoZero)
 
 
-RETURN
+  pix_np = WHERE(ipix LT ncap,   n_np) ; north polar cap
+  IF (n_np GT 0) THEN BEGIN     ; north polar cap ; ---------------------------------
+
+      ip = ROUND(ipix[pix_np], L64=l64) + one
+      iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1L ; counted from NORTH pole, starting at 1
+      iphi  = ip - 2L*iring*(iring-one)
+
+      theta[pix_np] = ACOS( 1.d0 - double(iring)^2 / fact2 )
+      phi[pix_np]   = (iphi - 0.5d0) * !DPI/(2.d0*iring)
+      ip = 0 & iring =0 & iphi = 0 ; free memory
+      pix_np = 0                ; free memory
+
+  ENDIF                         ; ------------------------------------------------------------------------
+
+  pix_eq = WHERE(ipix GE ncap AND ipix LT nsup,  n_eq) ; equatorial strip
+  IF (n_eq GT 0) THEN BEGIN     ; equatorial strip ; ---------------------------------
+
+      ip    = ROUND(ipix[pix_eq], L64=l64) - ncap
+      iring = LONG( ip / nl4) + nl1 ; counted from NORTH pole in {Nside, 3*Nside}
+      iphi  = ( ip MOD nl4 )  + one
+
+      fodd  = 0.5d0 * (1 + ((iring+nl1) MOD 2)) ; 1 if iring is odd, 1/2 otherwise
+
+      theta[pix_eq] = ACOS( (nl2 - iring) / fact1 )
+      phi[pix_eq]   = (iphi - fodd) * !DPI/(2.d0*nl1)
+      ip = 0 & iring =0 & iphi = 0 & fodd = 0; free memory
+      pix_eq = 0                ; free memory
+
+  ENDIF                         ; ------------------------------------------------------------------------
+
+  pix_sp = WHERE(ipix GE nsup,   n_sp) ; south polar cap
+  IF (n_np + n_sp + n_eq) NE np THEN message,'error in '+routine
+  IF (n_sp GT 0) THEN BEGIN     ; south polar cap ; ---------------------------------
+
+      ip =  npix - ROUND(ipix[pix_sp], L64=l64)
+      iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1L ; counted from SOUTH pole, starting at 1
+      iphi  = one + four*iring - (ip - 2L*iring*(iring-one))
+      
+      theta[pix_sp] = ACOS( - 1.d0 + double(iring)^2 / fact2 )
+      phi[pix_sp]   = (iphi - 0.5d0) * !DPI/(2.d0*iring)
+      ip = 0 & iring =0 & iphi = 0 ; free memory
+      pix_sp = 0                ; free memory
+
+  ENDIF                         ; ------------------------------------------------------------------------
+
+
+  RETURN
 END
-
-;=======================================================================
-; The permission to use and copy this software and its documentation, 
-; without fee or royalty is limited to non-commercial purposes related to 
-; Microwave Anisotropy Probe (MAP) and
-; PLANCK Surveyor projects and provided that you agree to comply with
-; the following copyright notice and statements,
-; and that the same appear on ALL copies of the software and documentation.
-;
-; An appropriate acknowledgement has to be included in any
-; publications based on work where the package has been used
-; and a reference to the homepage http://www.tac.dk/~healpix
-; should be included
-;
-; Copyright 1997 by Eric Hivon and Kris Gorski.
-;  All rights reserved.
-;=======================================================================

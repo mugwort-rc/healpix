@@ -25,9 +25,9 @@
  */
 
 /*! \file geom_utils.h
- *  Function for determinig orientations on the sphere.
+ *  Geometric utility functions.
  *
- *  Copyright (C) 2003 Max-Planck-Society
+ *  Copyright (C) 2003, 2006 Max-Planck-Society
  *  \author Martin Reinecke
  *  \author Reinhard Hell
  */
@@ -35,7 +35,7 @@
 #include "cxxutils.h"
 #include "vec3.h"
 
-/*! outputs the orientation when looking from point \a loc on the unit
+/*! Returns the orientation when looking from point \a loc on the unit
     sphere in the direction \a dir. \a loc must be normalized. The result
     ranges from -pi to pi, is 0 for North and pi/2 for West, i.e. the angle
     is given in mathematically positive sense.
@@ -55,4 +55,10 @@ inline double orientation (const vec3 &loc, const vec3 &dir)
   double y = dotprod(dir,east);
   double x = dotprod(dir,north);
   return safe_atan2(-y,x);
+  }
+
+/*! Returns the angle between \a v1 and \a v2 in radians. */
+inline double v_angle (const vec3 &v1, const vec3 &v2)
+  {
+  return atan2 (crossprod(v1,v2).Length(), dotprod(v1,v2));
   }

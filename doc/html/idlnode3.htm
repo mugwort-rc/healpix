@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 1.2 and 2.0</TITLE>
-<META NAME="description" CONTENT="Changes between release 1.2 and 2.0">
+<TITLE>Changes between release 2.0 and 2.1</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.1">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,124 +28,159 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html129"
+<A NAME="tex2html159"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html135"
+<A NAME="tex2html165"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html139"
+<A NAME="tex2html169"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html137"
+<A NAME="tex2html167"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html130"
+<B> Previous:</B> <A NAME="tex2html160"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html136"
+<B>Up:</B> <A NAME="tex2html166"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html140"
-  HREF="idlnode4.htm">alm2fits</A>
+<B> Next:</B> <A NAME="tex2html170"
+  HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 1.2 and 2.0</A>
+Changes between release 2.0 and 2.1</A>
 </H1>
-Some new routines have been introduced since version 1.2, as listed below.
-Most of the routines that already existed now have extended
-capabilities.
-Those of them with improved or extended user interface are listed
-below. They all remain backward compatible (ie, they can be used with codes written
-around version 1.1 and 1.2 without any edition).
+Several routines have been added or improved since version 2.0, as listed below.
+Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
+in IDL-Healpix routines can now deal with <B>FITS files larger than 2GB</B> (on architectures supporting 64bit
+addressing).
+<BR>
+Using 64 bit integers available since version 5.2 of IDL the maximum resolution parameter Nside supported has increased
+from <SPAN CLASS="MATH">2<SUP>13</SUP>=8192</SPAN> to <!-- MATH
+ $2^{29}=536870912$
+ -->
+<SPAN CLASS="MATH">2<SUP>29</SUP>=536870912</SPAN>, corresponding to <SPAN CLASS="MATH"><IMG
+ WIDTH="77" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg1.png"
+ ALT="$3.46\ 10^{18}$"></SPAN>
+pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.0 include
+ New routines in version 2.1 include
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode23.htm#idl:median_filter"><TT>median_filter</TT></A>
+ <TT>ximview</TT>: visualisation routine developed by J. P. Leahy intended for quick-look inspection of HEALPix images 
+(as well as ordinary 2-D images) at the level of individual pixels. Features
+include panning, zooming, blinking, image statistics and peak finding.
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode28.htm#idl:nside2ntemplates"><TT>nside2templates</TT></A>,
-  <A HREF="idlnode42.htm#idl:same_shape_pixels_xxx"><TT>same_shape_pixels_ring</TT></A>, 
-  <A HREF="idlnode42.htm#idl:same_shape_pixels_xxx"><TT>same_shape_pixels_nest</TT></A>,
-  <A HREF="idlnode43.htm#idl:template_pixel_xxx"><TT>template_pixel_ring</TT></A>, 
-  <A HREF="idlnode43.htm#idl:template_pixel_xxx"><TT>template_pixel_nest</TT></A>
+ <A HREF="idlnode23.htm#idl:hpx2gs"><TT>hpx2gs</TT></A>: turns a healpix data set into a
+<A NAME="tex2html1"
+  HREF="http://earth.google.com/">Google Earth</A>/<A NAME="tex2html2"
+  HREF="http://earth.google.com/sky/skyedu.html">Google Sky</A>-compatible image
+
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode24.htm#idl:ianafast"><TT>ianafast</TT></A>: interface to (F90) <TT>anafast</TT>
+and (C++) <TT>anafast_cxx</TT> facilities 
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <TT>loaddata_healpix</TT>: replaces loaddata to avoid conflict with other
-  libraries
+ <A HREF="idlnode26.htm#idl:isynfast"><TT>isynfast</TT></A>: interface to F90 <TT>synfast</TT> facility
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- ...
+ <A HREF="idlnode25.htm#idl:ismoothing"><TT>ismoothing</TT></A>: interface to F90 <TT>smoothing</TT> facility
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode7.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>: <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> binning
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode8.htm#idl:bl2fits"><TT>bl2fits</TT></A>: writes <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> window into
+FITS file
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode33.htm#idl:neighbours_nest"><TT>neighbours_nest</TT></A>, <A HREF="idlnode34.htm#idl:neighbours_ring"><TT>neighbours_ring</TT></A>: find immediate neighbours of a given pixel
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode43.htm#idl:query_strip"><TT>query_strip</TT></A>: find pixels lying within a colatitude strip
+</DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Routines with extended/improved user interface or new functionalities include
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode32.htm#idl:mollview"><TT>mollview, gnomview, cartview, orthview</TT></A>: 
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>ONLINE</TT> keyword is now redundant, 
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ introduction of <TT>GLSIZE</TT> and <TT>IGLSIZE</TT> to
+  	control automatic labeling of graticules,
+	see Fig.&nbsp;<A HREF="idlnode32.htm#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode32.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <TT>SILENT</TT> and <TT>EXECUTE</TT> keywords,
+	see Fig.&nbsp;<A HREF="idlnode32.htm#fig:plot_example_execute">2</A> on
+	page&nbsp;<A HREF="idlnode32.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <TT>ASINH</TT> keyword to allow better visualisation of highly
+contrasted maps; see Figure&nbsp;<A HREF="idlnode32.htm#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode32.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ under certain circumstances, can process high resolution cut sky data sets
+	without creating full sky dummy maps,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ accept gzip compressed FITS files,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ accept polarized cut sky maps,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ accept multi-dimensional online arrays,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ more robust <TT>OUTLINE</TT> option.
 </DL>
 
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Routines with extended/improved user interface or new functionalities include
+ <A HREF="idlnode30.htm#idl:median_filter"><TT>median_filter</TT></A>: bugs correction
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode54.htm#idl:ud_grade"><TT>ud_grade</TT></A>: more robust user interface
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode11.htm#idl:change_polcconv"><TT>change_polcconv</TT></A>: new <TT>/FORCE</TT> keyword
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode49.htm#idl:remove_dipole"><TT>remove_dipole</TT></A>: more accurate
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode41.htm#idl:query_disc"><TT>query_disc</TT></A>: when the disc center is
+located at one of
+the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
+</DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Miscellaneous
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode13.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of /RSHOW, /SHOW keywords to plot
-  power spectra while they are read; possibility to read power spectra from a
-file containing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode25.htm#idl:mollview"><TT>gnomview</TT></A>, <A HREF="idlnode25.htm#idl:mollview"><TT>mollview</TT></A>,
-  <A HREF="idlnode25.htm#idl:mollview"><TT>orthview</TT></A>, <A HREF="idlnode25.htm#idl:mollview"><TT>cartview</TT></A>
-  faster FITS file reading (by up to a factor 6);
-  can deal with WMAP polarized maps FITS format; extension
-  of the OUTLINE keyword to plot set of points; addition of the HBOUND keyword
-  to overplot pixel boundaries; ...
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode38.htm#idl:read_tqu"><TT>read_tqu</TT></A>,
-  <A HREF="idlnode35.htm#idl:read_fits_cut4"><TT>read_fits_cut4</TT></A>,
-  <A HREF="idlnode36.htm#idl:read_fits_map"><TT>read_fits_map</TT></A>: 
-   addition of output keywords   NSIDE, ORDERING, COORDSYS
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode40.htm#idl:reorder"><TT>reorder</TT></A>: simpler interface to ordering
-  conversion with addition of /N2R and /R2N keywords
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode49.htm#idl:write_tqu">write_tqu</A>,
-<A HREF="idlnode46.htm#idl:write_fits_cut4">write_fits_cut4</A>,
-	<A HREF="idlnode48.htm#idl:write_fits_sb">write_fits_sb</A>: faster FITS file writing
-(by a factor 10 or more);
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- ...
+ <A HREF="idlnode31.htm#idl:mollcursor"><TT>mollcursor, gnomcursor...</TT></A>: an X11 patch is
+given so that these routines work under Mac OS X 10.4 and 10.5.
 </DL></DL>
-
-<P>
-
-
-<P>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html129"
+<A NAME="tex2html159"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html135"
+<A NAME="tex2html165"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html139"
+<A NAME="tex2html169"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html137"
+<A NAME="tex2html167"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html130"
+<B> Previous:</B> <A NAME="tex2html160"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html136"
+<B>Up:</B> <A NAME="tex2html166"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html140"
-  HREF="idlnode4.htm">alm2fits</A>
+<B> Next:</B> <A NAME="tex2html170"
+  HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -50,7 +50,7 @@ function npix2nside, npix, error=error
 ;   error : is set to 0 only if the number of pixels does correpond to a Healpix
 ;     tesselation of the full sphere
 ;     ie, npix = 12*nside^2 with nside 
-;     in [1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192]
+;     a power of 2 <= 2^29
 ;   in any other cases, error = 1
 ;
 ; PROCEDURE:
@@ -65,6 +65,7 @@ function npix2nside, npix, error=error
 ;
 ;     v1.0, EH, Caltech, 2000-02-11
 ;     v1.1, EH, Caltech, 2002-08-16 : uses !Healpix structure
+;     v2.1, EH, IAP, 2008-03-17; enabled nside > 8192
 ;
 ;-
 
@@ -78,11 +79,10 @@ fnside = sqrt(npix/12.)
 nside = long(round(fnside))
 
 ; is npix = 12*nside^2 ?
-nnpix = 12L*nside*nside
+nnpix = (12LL*nside)*nside
 if abs(nnpix-npix) gt .1 then return,-1  ;fnside
 
 ; is nside a power of 2 ?
-;  junk = where(nside eq [1L,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192], count)
 junk = where(nside eq !healpix.nside, count)
 if count ne 1 then return,-1  ;nside
 

@@ -25,12 +25,13 @@
  */
 
 /*
- *  Copyright (C) 2003, 2004 Max-Planck-Society
+ *  Copyright (C) 2003, 2004, 2005, 2006 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
 #include "healpix_map.h"
 #include "healpix_map_fitsio.h"
 #include "rotmatrix.h"
@@ -52,7 +53,7 @@ void histo_eq (arr2<float> &img, float &minv, float &maxv, arr<double> &newpos)
     for (int j=0; j<img.size2(); ++j)
       if (img[i][j]>-1e30)
         {
-        img[i][j] = (img[i][j]-minv)*fact; 
+        img[i][j] = (img[i][j]-minv)*fact;
         int idx = int(img[i][j]*nbins);
         idx=max(0,min(idx,nbins-1));
         ++bincnt[idx];
@@ -81,7 +82,7 @@ void histo_eq (arr2<float> &img, float &minv, float &maxv, arr<double> &newpos)
   }
 
 void pro_mollw (const Healpix_Map<float> &map, double lon0, double lat0,
-  int xsize, arr2<float> &img, float &minv, float &maxv, int smooth)
+  int xsize, arr2<float> &img, float &minv, float &maxv, bool smooth)
   {
   int ysize=xsize/2;
   img.alloc(xsize,ysize);
@@ -106,13 +107,11 @@ void pro_mollw (const Healpix_Map<float> &map, double lon0, double lat0,
         pointing ptg (halfpi-(asin(2/pi*(asin(v) + v*sqrt((1-v)*(1+v))))),
                       -halfpi*u/max(sqrt((1-v)*(1+v)),1e-6));
         vec3 pnt = rot.Transform(ptg.to_vec3());
-        if (smooth==1)
+        if (smooth)
           img[i][j] = map.interpolated_value(pnt);
-        else if (smooth==2)
-          img[i][j] = map.interpolated_value2(pnt);
         else
           img[i][j]=map[map.ang2pix(pnt)];
-        if (!approx(img[i][j],Healpix_undef))
+        if (!approx<double>(img[i][j],Healpix_undef))
           {
           if (img[i][j]<minv) minv=img[i][j];
           if (img[i][j]>maxv) maxv=img[i][j];
@@ -123,7 +122,7 @@ void pro_mollw (const Healpix_Map<float> &map, double lon0, double lat0,
 
 void pro_gno (const Healpix_Map<float> &map, double lon0, double lat0,
   int xsize, double resgrid, arr2<float> &img, float &minv, float &maxv,
-  int smooth)
+  bool smooth)
   {
   double lon0rad = lon0*degr2rad;
   double lat0rad = lat0*degr2rad;
@@ -141,13 +140,11 @@ void pro_gno (const Healpix_Map<float> &map, double lon0, double lat0,
       {
       vec3 pnt (1,-(start+i*delta), start+j*delta);
       pnt = rot.Transform(pnt);
-        if (smooth==1)
+        if (smooth)
           img[i][j] = map.interpolated_value(pnt);
-        else if (smooth==2)
-          img[i][j] = map.interpolated_value2(pnt);
         else
           img[i][j]=map[map.ang2pix(pnt)];
-      if (!approx(img[i][j],Healpix_undef))
+      if (!approx<double>(img[i][j],Healpix_undef))
         {
         if (img[i][j]<minv) minv=img[i][j];
         if (img[i][j]>maxv) maxv=img[i][j];
@@ -168,7 +165,7 @@ void colorbar (TGA_Image &img, const Palette &pal, int xmin, int xmax,
       idx=max(0,min(idx,nbins-1));
       double frac = nbins*val - idx;
       val = (1-frac)*newpos[idx] + frac*newpos[idx+1];
-      }  
+      }
     if (flippal) val=1-val;
     Colour c = pal.Get_Colour(val);
     for (int j=ymin; j<=ymax; ++j)
@@ -198,8 +195,8 @@ void usage()
     "    [-xsz <int>] [-bar] [-log] [-asinh] [-lon <float>] [-lat <float>]\n"
     "    [-mul <float>] [-add <float>] [-min <float>] [-max <float>]\n"
     "    [-res <float>] [-title <string>] [-flippal] [-gnomonic]\n"
-    "    [-interpol <0|1|2>] [-equalize] \n\n";
-  exit(1);
+    "    [-interpol] [-equalize] [-viewer <viewer>]\n\n";
+  throw Message_error();
   }
 
 int main (int argc, const char **argv)
@@ -220,7 +217,8 @@ PLANCK_DIAGNOSIS_BEGIN
   int palnr = 4;
   int colnum=1;
   bool flippal = false;
-  int interpol=0;
+  bool interpol = false;
+  string viewer = "";
 
   if (argc>2)
     {
@@ -256,9 +254,10 @@ PLANCK_DIAGNOSIS_BEGIN
         }
       if (arg == "-res") { stringToData(argv[m+1],res); m+=2; }
       if (arg == "-title") { title = argv[m+1]; m+=2; }
+      if (arg == "-viewer") { viewer = argv[m+1]; m+=2; }
       if (arg == "-flippal") { flippal=true; ++m; }
       if (arg == "-gnomonic") { mollpro=false; ++m; }
-      if (arg == "-interpol") { stringToData(argv[m+1],interpol); m+=2; }
+      if (arg == "-interpol") { interpol=true; ++m; }
 
       if (mstart==m)
         {
@@ -274,6 +273,7 @@ PLANCK_DIAGNOSIS_BEGIN
     outfile = params.find<string>("outfile");
     colnum = params.find<int>("sig",colnum);
     palnr = params.find<int>("pal",palnr);
+    flippal = params.find<bool>("flippal",flippal);
     xres = params.find<int>("xsz",xres);
     bar = params.find<bool>("bar",bar);
     logflag = params.find<bool>("log",logflag);
@@ -289,17 +289,17 @@ PLANCK_DIAGNOSIS_BEGIN
     if (usermax<1e29) max_supplied = true;
     res = params.find<double>("res",res);
     title = params.find<string>("title","");
-    flippal = params.find<bool>("flippal",flippal);
-    interpol = params.find<int>("interpol",interpol);
+    viewer = params.find<string>("viewer","");
     string tmp = params.find<string>("pro","");
     if (tmp == "gno") mollpro=false;
+    interpol = params.find<bool>("interpol");
     }
 
   Healpix_Map<float> map(0,RING);
   read_Healpix_map_from_fits(infile,map,colnum,2);
   for (int m=0; m<map.Npix(); ++m)
     {
-    if (!approx(map[m],Healpix_undef))
+    if (!approx<double>(map[m],Healpix_undef))
       {
       map[m] = (map[m]+offset)*factor;
       if (logflag)
@@ -354,7 +354,7 @@ PLANCK_DIAGNOSIS_BEGIN
       if (imgarr[i][j]>-1e32)
         {
         Colour c(0.5,0.5,0.5);
-        if (!approx (imgarr[i][j],Healpix_undef))
+        if (!approx<double>(imgarr[i][j],Healpix_undef))
           {
           int col = int((imgarr[i][j]-minv)/(maxv-minv)*256);
           col = min(255,max(col,0));
@@ -376,5 +376,8 @@ PLANCK_DIAGNOSIS_BEGIN
       scale);
     }
   img.write(outfile);
+
+  if (viewer!="")
+    system ((viewer+" "+outfile).c_str());
 PLANCK_DIAGNOSIS_END
   }

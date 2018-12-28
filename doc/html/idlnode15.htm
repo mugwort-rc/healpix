@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>getdisc_ring </TITLE>
-<META NAME="description" CONTENT="getdisc_ring ">
+<TITLE>fits2alm</TITLE>
+<META NAME="description" CONTENT="fits2alm">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,43 +28,153 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html273"
+<A NAME="tex2html303"
   HREF="idlnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html309"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html283"
+<A NAME="tex2html313"
   HREF="idlnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html281"
+<A NAME="tex2html311"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html274"
-  HREF="idlnode14.htm">gaussbeam</A>
+<B> Previous:</B> <A NAME="tex2html304"
+  HREF="idlnode14.htm">euler_matrix_new</A>
 
-<B>Up:</B> <A NAME="tex2html280"
+<B>Up:</B> <A NAME="tex2html310"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html284"
-  HREF="idlnode16.htm">getsize_fits</A>
+<B> Next:</B> <A NAME="tex2html314"
+  HREF="idlnode16.htm">fits2cl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000150000000000000000"></A>
-<A NAME="idl:getdisc_ring"></A>
+<A NAME="idl:fits2alm"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">getdisc_ring </FONT></font></b><hr><H2>This routine is obsolete. Use <A HREF="idlnode32.htm#idl:query_disc">query_disc</A> instead.
+<b><font size=+6><FONT COLOR="#CC0000">fits2alm</FONT></font></b><hr><H2>This IDL routine provides a means to 
+read from a FITS file binary table extension(s) containing spherical
+harmonic coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (and optional errors) and their index. Reads
+header information if required. The facility is intended to enable 
+the user to read the output from the <b>HEALPix</b> facilities <SPAN  CLASS="textbf">anafast</SPAN> and <SPAN  CLASS="textbf">synfast</SPAN>.
 </H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/getdisc_ring.pro
+src/idl/fits/fits2alm.pro
+
+<P>
 </b>
 
 <P>
+<hr><h1>FORMAT </h1><h2>IDL>
+FITS2ALM, index, alm_array, fitsfile, [signal, HDR = , XHDR = ]
+</h2>
+
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>index</B>
+<DD>Long array containing the index for the corresponding
+                 array of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients (and errors if required). The
+                 index <SPAN CLASS="MATH"><I>i</I></SPAN> is related to <SPAN CLASS="MATH">(<I>l</I>,<I>m</I>)</SPAN> by the relation <BR>
+                 <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1. <BR>
+This has dimension
+    nl (see below).
+    <DT>
+<B>alm_array</B>
+<DD>Real or double array of alm coefficients read from the
+      file. This has dimension (nl,nalm,nsig) - corresponding to
+<BR>
+nl   = number of <SPAN CLASS="MATH">(<I>l</I>,<I>m</I>)</SPAN> indices <BR>
+nalm = 2 for real and imaginary parts of alm coefficients or
+             4 for above plus corresponding error values <BR>
+nsig = number of signals to be written (1 for any of T E B
+             or 3 if ALL to be written). Each signal is stored
+             in a separate extension.
+    <DT>
+<B>fitsfile</B>
+<DD>String containing the name of the file to be
+      read.
+    <DT>
+<B>signal</B>
+<DD>String defining the signal coefficients to read
+                  Valid options: 'T', 'E', 'B' or 'ALL' <BR>
+	<b>default:</b>'T'.  
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>HDR =</B>
+<DD>String array containing the primary header for the FITS
+      file. 
+    <DT>
+<B>XHDR =</B>
+<DD>String array containing the extension header(s). If
+                  ALL signals are required, then the three extension 
+                  headers are returned appended into one string array.
+  </DL>
+
+<P>
+<hr><H1>DESCRIPTION</H1>
+<BR> <blockquote>
+<FONT COLOR="#CC0000">fits2alm</FONT> reads binary table extension(s) 
+which contain the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients (and associated errors if present)
+from a FITS file. FITS headers can also optionally be read from the 
+input file. 
+
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2alm</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.0 or more is necessary to run <FONT COLOR="#CC0000">fits2alm</FONT>.
+    <DT>
+<B><A HREF="idlnode5.htm#idl:alm2fits">alm2fits</A></B>
+<DD>provides the complimentary routine to write
+      alm coefficients into a FITS file.
+    <DT>
+<B><A HREF="idlnode27.htm#idl:index2lm">index2lm</A></B>
+<DD>converts the index <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> +
+    <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 returned by <FONT COLOR="#CC0000">fits2alm</FONT>into <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>
+    <DT>
+<B><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A></B>
+<DD>routine to read/compute <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra from a file containing <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
+    <DT>
+<B>alteralm</B>
+<DD>provides <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
+    <DT>
+<B>anafast</B>
+<DD>provides <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
+    <DT>
+<B>synfast</B>
+<DD>provides <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+<FONT COLOR="#CC0000">fits2alm</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr</TD>
+</TR>
+</TABLE>
+</font></tt>
+<BR><blockquote>
+<FONT COLOR="#CC0000">fits2alm</FONT> reads from the input FITS file <TT>alm.fits</TT> 
+the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients into the variable <TT>alm</TT>  with optional headers
+passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>. Upon return <TT>index</TT>
+will contain the value of <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 for each <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+found in the file.
+</blockquote>
 
 <P>
 
@@ -72,32 +182,32 @@ src/idl/toolkit/getdisc_ring.pro
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html273"
+<A NAME="tex2html303"
   HREF="idlnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html309"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html283"
+<A NAME="tex2html313"
   HREF="idlnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html281"
+<A NAME="tex2html311"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html274"
-  HREF="idlnode14.htm">gaussbeam</A>
+<B> Previous:</B> <A NAME="tex2html304"
+  HREF="idlnode14.htm">euler_matrix_new</A>
 
-<B>Up:</B> <A NAME="tex2html280"
+<B>Up:</B> <A NAME="tex2html310"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html284"
-  HREF="idlnode16.htm">getsize_fits</A>
+<B> Next:</B> <A NAME="tex2html314"
+  HREF="idlnode16.htm">fits2cl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

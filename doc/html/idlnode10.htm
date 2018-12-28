@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>convert_oldhpx2cmbfast</TITLE>
-<META NAME="description" CONTENT="convert_oldhpx2cmbfast">
+<TITLE>cartview</TITLE>
+<META NAME="description" CONTENT="cartview">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,123 +28,115 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html213"
+<A NAME="tex2html243"
   HREF="idlnode9.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html219"
+<A NAME="tex2html249"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html223"
+<A NAME="tex2html253"
   HREF="idlnode11.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html221"
+<A NAME="tex2html251"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html214"
-  HREF="idlnode9.htm">cl2fits</A>
+<B> Previous:</B> <A NAME="tex2html244"
+  HREF="idlnode9.htm">cartcursor</A>
 
-<B>Up:</B> <A NAME="tex2html220"
+<B>Up:</B> <A NAME="tex2html250"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html224"
-  HREF="idlnode11.htm">euler_matrix_new</A>
+<B> Next:</B> <A NAME="tex2html254"
+  HREF="idlnode11.htm">change_polcconv</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000100000000000000000"></A>
-<A NAME="idl:convert_oldhpx2cmbfast"></A>
+<A NAME="idl:cartview"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">convert_oldhpx2cmbfast</FONT></font></b><hr><H2>This IDL facility provides a means to
-change the normalization of polarization power spectra in a FITS file
-from Healpix 1.1 convention to Healpix 1.2 (which is the same as CMBFAST).
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/convert_oldhpx2cmbfast.pro
+<b><font size=+6><FONT COLOR="#CC0000">cartview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a cartesian projection 
+(where the longitude and latitude are treated as the cartesian abscissa and
+ordinate) of
+<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
+generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/cartview.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-CONVERT_OLDHPX2CMBFAST, file_in, [file_out, NO_RENORM= ]
+CARTVIEW, File, [Select, ] [CHARSIZE=, ... 
+            ... WINDOW=, XPOS=, YPOS= ]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>file_in</B>
-<DD>String containing the name of the FITS file with the power
-    spectra to be read.
-    <DT>
-<B>file_out</B>
-<DD>(OPTIONAL) String containing the name of the file to be
-    written after renormalization. If absent, <TT>file_in</TT> will be used for output
+<DD>For a full list of qualifiers see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
   </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>NO_RENORM =</B>
-<DD>if set, the renormalization is not done.
-      but the keyword POLNORM = CMBFAST is added to the FITS header
-   (useful if the FITS file is already in CMBFAST format).
+<DD>For a full list of keywords see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
   </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-convert_oldhpx2cmbfast does the conversion from the polarization normalisation
-used in <b>HEALPix</b> 1.1 to the one used in <b>HEALPix</b> 1.2 
-(see the <A NAME="tex2html1"
-  HREF="intro.htm">Healpix primer document</A>).
-A keyword POLNORM = CMBFAST is added to the header to keep track of which
-files have been renormalized.  If this keyword is not present in the input FITS
-file, <SPAN  CLASS="textbf">synfast</SPAN> will issue a
-warning when simulating a polarization map from that power spectrum, but no
-attempt to renormalize the power spectra will be made. 
-
+cartview reads in a <b>HEALPix</b> sky map in FITS format and generates a
+cartesian projection of it, that can be visualized on the screen or
+exported in a GIF, PNG or Postscript file. cartview allows the selection of
+the coordinate system, point of projection, map size, color table, color bar inclusion,
+linear or log scaling, histogram equalised
+color scaling, maximum and 
+minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
+polarization field. 
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">convert_oldhpx2cmbfast</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">cartview</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>idl</B>
-<DD>version 5.0 or more is necessary to run convert_oldhpx2cmbfast.
-    <DT>
-<B><A HREF="idlnode9.htm#idl:cl2fits">cl2fits</A></B>
-<DD>provides the a routine to write a
-      power spectrum to a FITS file.
-    <DT>
-<B><A HREF="idlnode13.htm#idl:fits2cl">fits2cl</A></B>
-<DD>provides the complimentary routine to read in a
-      power spectrum from a FITS file.
-    <DT>
-<B>synfast</B>
-<DD>utilises the output file generated by convert_oldhpx2cmbfast.
+<DD>see <A HREF="idlnode32.htm#idl:mollview">mollview</A>
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-convert_oldhpx2cmbfast, 'cl_flat.fits'</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+
+<P>
+map  = findgen(48)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+</TR>
+<TR><TD ALIGN="LEFT">cartview,map,/online,res=45,graticule=[45,30],rot=[10,20,30],pysize=250,$</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN>	   title='Cartesian cylindrical (full sky)',subtitle='cartview', $</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg16.png"
+ ALT="$\quad$"></SPAN> outline=triangle</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote>
-convert_oldhpx2cmbfast will renormalize the polarization power spectra read
-from 'cl_flat.fits', and write them in the same file.
-</blockquote>
+<BR><blockquote>makes a cartesian cylindrical projection of map (see Figure&nbsp;<A HREF="idlnode32.htm#fig:plot_visu">1</A>a on
+page&nbsp;<A HREF="idlnode32.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
+(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
 
 <P>
 
-<P>
 
 <P>
 
@@ -152,32 +144,32 @@ from 'cl_flat.fits', and write them in the same file.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html213"
+<A NAME="tex2html243"
   HREF="idlnode9.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html219"
+<A NAME="tex2html249"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html223"
+<A NAME="tex2html253"
   HREF="idlnode11.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html221"
+<A NAME="tex2html251"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html214"
-  HREF="idlnode9.htm">cl2fits</A>
+<B> Previous:</B> <A NAME="tex2html244"
+  HREF="idlnode9.htm">cartcursor</A>
 
-<B>Up:</B> <A NAME="tex2html220"
+<B>Up:</B> <A NAME="tex2html250"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html224"
-  HREF="idlnode11.htm">euler_matrix_new</A>
+<B> Next:</B> <A NAME="tex2html254"
+  HREF="idlnode11.htm">change_polcconv</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

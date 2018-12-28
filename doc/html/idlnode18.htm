@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>gnomview</TITLE>
-<META NAME="description" CONTENT="gnomview">
+<TITLE>getdisc_ring </TITLE>
+<META NAME="description" CONTENT="getdisc_ring ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,148 +28,41 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html309"
+<A NAME="tex2html339"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html315"
+<A NAME="tex2html345"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html349"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html317"
+<A NAME="tex2html347"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html310"
-  HREF="idlnode17.htm">gnomcursor</A>
+<B> Previous:</B> <A NAME="tex2html340"
+  HREF="idlnode17.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html316"
+<B>Up:</B> <A NAME="tex2html346"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html320"
-  HREF="idlnode19.htm">healpixwindow</A>
+<B> Next:</B> <A NAME="tex2html350"
+  HREF="idlnode19.htm">getsize_fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000180000000000000000"></A>
-<A NAME="idl:gnomview"></A>
+<A NAME="idl:getdisc_ring"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">gnomview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a Gnomonic projection 
-(radial projection onto a tangent plane) of
-<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
-generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/gnomview.pro
+<b><font size=+6><FONT COLOR="#CC0000">getdisc_ring </FONT></font></b><hr><H2>This routine is obsolete. Use <A HREF="idlnode41.htm#idl:query_disc">query_disc</A> instead.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/toolkit/getdisc_ring.pro
 </b>
-
-<P>
-<hr><h1>FORMAT </h1><h2>IDL>
-GNOMVIEW, File, [Select, ] [COLT=, ... 
-            ... UNITS=, XPOS=, YPOS= ]
-
-</h2>
-
-<P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
-  <DL COMPACT><DT>
-<DD>For a full list of qualifiers see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
-  </DL>
-
-<P>
-<hr><H1>KEYWORDS</H1>
-<BR> 
-  <DL COMPACT><DT>
-<DD>For a full list of keywords see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
-  </DL>
-
-<P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
-gnomview reads in a <b>HEALPix</b> sky map in FITS format and generates a
-Gnomonic projection of it, that can be visualized on the screen or
-exported in a GIF, PNG, Postscript or FITS file. gnomview allows the selection of
-the coordinate system, point of projection, map size, color table, color bar inclusion,
-linear or log scaling, histogram equalised
-color scaling, maximum and 
-minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
-polarization field. 
-</blockquote>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">gnomview</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<DD>see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
-  </DL>
-
-<P>
-<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-gnomview,</TD>
-<TD ALIGN="LEFT">`planck100GHZ-LFI.fits', rot=[160,-30], reso_arcmin=2., $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">pxsize = 500., $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">title='Simulated Planck LFI Sky Map at 100GHz',  $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">min=-100,max=100</TD>
-</TR>
-</TABLE>
-</font></tt><br><blockquote>gnomview reads in the map <SPAN CLASS="MATH"><IMG
- WIDTH="11" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg18.png"
- ALT="$\lq$"></SPAN> planck100GHZ-LFI.fits' and generates
-an output image of the size of 500<SPAN CLASS="MATH"> x </SPAN>500 screen pixels, 
-with a resolution of 2 arcmin/screen pixel at the center.
-The temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
- WIDTH="20" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg19.png"
- ALT="$\pm$"></SPAN> 100, and the units will
-show as <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg20.png"
- ALT="$\mu$"></SPAN>K.
-The title <SPAN CLASS="MATH"><IMG
- WIDTH="11" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg18.png"
- ALT="$\lq$"></SPAN> Simulated Planck
-LFI Sky Map at 100GHz' has been appended to the image. 
-The map is centered at (<SPAN CLASS="MATH"><I>l</I>=</SPAN>160, <SPAN CLASS="MATH"><I>b</I>=</SPAN>-30) </blockquote>
-
-<P>
-<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
-<P>
-map</TD>
-<TD ALIGN="LEFT">= findgen(48)</TD>
-</TR>
-<TR><TD ALIGN="LEFT">triangle</TD>
-<TD ALIGN="LEFT">= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
-</TR>
-<TR><TD ALIGN="LEFT">gnomview,</TD>
-<TD ALIGN="LEFT">map,/online,res=25,graticule=[45,30],rot=[10,20,30],$</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">title='Gnomic projection',subtitle='gnomview', $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">outline=triangle</TD>
-</TR>
-</TABLE>
-</font></tt><br><blockquote>makes a gnomic projection of map (see Figure 1b on
-page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
-(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
 
 <P>
 
@@ -179,32 +72,32 @@ page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html309"
+<A NAME="tex2html339"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html315"
+<A NAME="tex2html345"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html349"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html317"
+<A NAME="tex2html347"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html310"
-  HREF="idlnode17.htm">gnomcursor</A>
+<B> Previous:</B> <A NAME="tex2html340"
+  HREF="idlnode17.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html316"
+<B>Up:</B> <A NAME="tex2html346"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html320"
-  HREF="idlnode19.htm">healpixwindow</A>
+<B> Next:</B> <A NAME="tex2html350"
+  HREF="idlnode19.htm">getsize_fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

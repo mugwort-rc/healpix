@@ -25,171 +25,89 @@
  */
 
 /*! \file alm_map_tools.h
- *  Copyright (C) 2003, 2004, 2005 Max-Planck-Society
+ *  Copyright (C) 2005 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
-#ifndef HEALPIX_ALM_MAP_TOOLS_H
-#define HEALPIX_ALM_MAP_TOOLS_H
+#ifndef PLANCK_ALM_MAP_TOOLS_H
+#define PLANCK_ALM_MAP_TOOLS_H
 
+#include <vector>
+#include "cxxutils.h"
+#include "alm.h"
 #include "xcomplex.h"
-#include "arr.h"
 
-template<typename T> class Alm;
-template<typename T> class Healpix_Map;
-
-/*! \defgroup alm_map_group Conversions between a_lm and maps */
-/*! \{ */
-
-/*! Converts a Healpix map to a set of a_lms.
-    \param map the input map, which must have RING ordering
-    \param alm the output a_lms. l_max and m_max of the conversion are
-           determined from this object.
-    \param weight array containing the weights for the individual rings of
-           the map. It must have at least 2*\a map.Nside() entries.
-    \param add_alm If this is \a true, then the computed a_lm are added
-           to the values already residing in \a alm. */
-template<typename T> void map2alm (const Healpix_Map<T> &map,
-  Alm<xcomplex<T> > &alm, const arr<double> &weight,
-    bool add_alm=false);
-
-/*! Converts a Healpix map to a set of a_lms, using an iterative scheme
-    which is more accurate than plain map2alm().
-    \param map the input map, which must have RING ordering.
-    \param alm the output a_lms. l_max and m_max of the conversion are
-           determined from this object.
-    \param num_iter the number of iterations (0 is identical to map2alm()).
-    \param weight array containing the weights for the individual rings of
-           the map. It must have at least 2*\a map.Nside() entries. */
-template<typename T> void map2alm_iter (const Healpix_Map<T> &map,
-  Alm<xcomplex<T> > &alm, int num_iter, const arr<double> &weight);
-
-template<typename T> void map2alm_iter (const Healpix_Map<T> &map,
-  Alm<xcomplex<T> > &alm, int num_iter)
+/*! A class holding information about a ring of pixels in a spherical map. */
+class ringinfo
   {
-  arr<double> wgt(2*map.Nside());
-  wgt.fill(1);
-  map2alm_iter(map,alm,num_iter,wgt);
-  }
+  public:
+    double theta, phi0, weight, cth, sth;
+    int nph, ofs;
 
-template<typename T> void map2alm_iter2 (const Healpix_Map<T> &map,
-  Alm<xcomplex<T> > &alm, double err_abs, double err_rel);
+    ringinfo()
+      : nph(0) {}
+    /*! Constructs a \a ringinfo object.
+        \param theta_ colatitude of the ring (in radian)
+        \param phi0_ longitude of the first pixel in the ring (in radian)
+        \param weight_ weighting factor for all pixels in the ring. This
+               is typically the surface of a pixel in sterad.
+        \note \a weight_ is only needed for map analysis, not synthesis.
+        \param nph_ number of pixels in the ring
+        \param ofs_ index of the first ring pixel in the total map array
+               (counting from zero) */
+    ringinfo (double theta_, double phi0_, double weight_, int nph_, int ofs_)
+      : theta(theta_), phi0(phi0_), weight(weight_),
+        cth(cos(theta)), sth(sin(theta)), nph(nph_), ofs(ofs_)
+      {}
+  };
 
-/*! Converts Healpix maps containing the I, Q and U Stokes parameters
-    to sets of a_lms.
-    \param mapT the I-Stokes parameter input map
-    \param mapQ the Q-Stokes parameter input map
-    \param mapU the U-Stokes parameter input map
-    \note All maps must have the same nside, and must be in RING scheme.
-    \param almT the output temperature a_lms
-    \param almG the output gradient a_lms
-    \param almC the output curl a_lms
-    \note all a_lm sets must have the the same lmax and mmax.
-    \param weightT ring weights for \a mapT.
-    \param weightQ ring weights for \a mapQ.
-    \param weightU ring weights for \a mapU.
-    \param add_alm If this is \a true, then the computed a_lm are added
-           to the values already residing in \a alm.
-    \note The weight arrays must have at least 2*\a mapT.Nside() entries. */
+/*! A class holding information about a ring pair in a spherical map. */
+class ringpair
+  {
+  public:
+    ringinfo r1, r2;
+
+    /*! Initialize the object with the ring described by \a info.
+        The second ring is left empty. */
+    ringpair (const ringinfo &info)
+      : r1(info) {}
+    /*! Initialize the object with the rings described by \a info1
+        and \a info2.
+        \note The colatitude of \a info2 must be \f$\pi\f$ minus the colatitude
+        of \a info1. */
+    ringpair (const ringinfo &info1,const ringinfo &info2)
+      : r1(info1), r2(info2)
+      {
+      planck_assert(approx(r1.theta,pi-r2.theta,1e-10), "invalid ringpair");
+      }
+  };
+
+void info2pair(const std::vector<ringinfo> &info, std::vector<ringpair> &pair);
+
+template<typename T> void map2alm (const std::vector<ringpair> &pair,
+  const T *map, Alm<xcomplex<T> > &alm, bool add_alm);
+
 template<typename T> void map2alm_pol
-  (const Healpix_Map<T> &mapT,
-   const Healpix_Map<T> &mapQ,
-   const Healpix_Map<T> &mapU,
-   Alm<xcomplex<T> > &almT,
-   Alm<xcomplex<T> > &almG,
-   Alm<xcomplex<T> > &almC,
-   const arr<double> &weightT,
-   const arr<double> &weightQ,
-   const arr<double> &weightU,
-   bool add_alm=false);
-/*! Converts Healpix maps containing the I, Q and U Stokes parameters
-    to sets of a_lms, using an iterative scheme which is more accurate than
-    plain map2alm_pol().
-    \param mapT the I-Stokes parameter input map
-    \param mapQ the Q-Stokes parameter input map
-    \param mapU the U-Stokes parameter input map
-    \note All maps must have the same nside, and must be in RING scheme.
-    \param almT the output temperature a_lms
-    \param almG the output gradient a_lms
-    \param almC the output curl a_lms
-    \note all a_lm sets must have the the same lmax and mmax.
-    \param num_iter the number of iterations (0 is identical to map2alm_pol()).
-    \param weightT ring weights for \a mapT.
-    \param weightQ ring weights for \a mapQ.
-    \param weightU ring weights for \a mapU.
-    \note The weight arrays must have at least 2*\a mapT.Nside() entries. */
-template<typename T> void map2alm_pol_iter
-  (const Healpix_Map<T> &mapT,
-   const Healpix_Map<T> &mapQ,
-   const Healpix_Map<T> &mapU,
-   Alm<xcomplex<T> > &almT,
-   Alm<xcomplex<T> > &almG,
-   Alm<xcomplex<T> > &almC,
-   int num_iter,
-   const arr<double> &weightT,
-   const arr<double> &weightQ,
-   const arr<double> &weightU);
+  (const std::vector<ringpair> &pair, const T *mapT, const T *mapQ,
+   const T *mapU, Alm<xcomplex<T> > &almT, Alm<xcomplex<T> > &almG,
+   Alm<xcomplex<T> > &almC, bool add_alm);
 
-template<typename T> void map2alm_pol_iter
-  (const Healpix_Map<T> &mapT,
-   const Healpix_Map<T> &mapQ,
-   const Healpix_Map<T> &mapU,
-   Alm<xcomplex<T> > &almT,
-   Alm<xcomplex<T> > &almG,
-   Alm<xcomplex<T> > &almC,
-   int num_iter)
-  {
-  arr<double> wgt(2*mapT.Nside());
-  wgt.fill(1);
-  map2alm_pol_iter(mapT,mapQ,mapU,almT,almG,almC,num_iter,wgt,wgt,wgt);
-  }
+template<typename T> void map2alm_pol
+  (const std::vector<ringpair> &pairT, const T *mapT,
+   const std::vector<ringpair> &pairQ, const T *mapQ,
+   const std::vector<ringpair> &pairU, const T *mapU,
+   Alm<xcomplex<T> > &almT, Alm<xcomplex<T> > &almG,
+   Alm<xcomplex<T> > &almC, bool add_alm);
 
-template<typename T> void map2alm_pol_iter2
-  (const Healpix_Map<T> &mapT,
-   const Healpix_Map<T> &mapQ,
-   const Healpix_Map<T> &mapU,
-   Alm<xcomplex<T> > &almT,
-   Alm<xcomplex<T> > &almG,
-   Alm<xcomplex<T> > &almC,
-   double err_abs, double err_rel);
-
-/*! Converts a a set of a_lm to a HEALPix map.
-    \param alm the input a_lms. l_max and m_max of the conversion are
-           determined from this object.
-    \param map the output map, which must have RING ordering. */
 template<typename T> void alm2map (const Alm<xcomplex<T> > &alm,
-  Healpix_Map<T> &map);
+  const std::vector<ringpair> &pair, T *map);
 
-/*! Converts a a set of polarised a_lm to a HEALPix map.
-    \param almT the input temperature a_lms
-    \param almG the input gradient a_lms
-    \param almC the input curl a_lms
-    \param mapT the I-Stokes parameter output map
-    \param mapQ the Q-Stokes parameter output map
-    \param mapU the U-Stokes parameter output map */
 template<typename T> void alm2map_pol
-  (const Alm<xcomplex<T> > &almT,
-   const Alm<xcomplex<T> > &almG,
-   const Alm<xcomplex<T> > &almC,
-   Healpix_Map<T> &mapT,
-   Healpix_Map<T> &mapQ,
-   Healpix_Map<T> &mapU);
+  (const Alm<xcomplex<T> > &almT, const Alm<xcomplex<T> > &almG,
+   const Alm<xcomplex<T> > &almC, const std::vector<ringpair> &pair,
+   T *mapT, T *mapQ, T *mapU);
 
-/*! Converts a a set of a_lm to a HEALPix map and its first derivatives.
-    \param alm the input a_lms. l_max and m_max of the conversion are
-           determined from this object.
-    \param map the output map, which must have RING ordering.
-    \param mapdth an output map containing \f$d (\mbox{map})/d\vartheta\f$,
-           which must have RING ordering.
-    \param mapdph an output map containing
-           \f$(\sin\vartheta)^{-1}d(\mbox{map})/d\varphi\f$,
-           which must have RING ordering. */
-template<typename T> void alm2map_der1
-  (const Alm<xcomplex<T> > &alm,
-   Healpix_Map<T> &map,
-   Healpix_Map<T> &mapdth,
-   Healpix_Map<T> &mapdph);
-
-/*! \} */
+template<typename T> void alm2map_der1 (const Alm<xcomplex<T> > &alm,
+   const std::vector<ringpair> &pair, T *map, T *dth, T *dph);
 
 #endif

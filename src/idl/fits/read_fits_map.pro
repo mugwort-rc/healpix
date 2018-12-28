@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -157,6 +157,7 @@ PRO READ_FITS_MAP, filename, T_sky, hdr, exthdr, SILENT=silent, PIXEL=pixel, NSI
 ;  *addition of PIXEL                                   Aug-02
 ;        Jan 2005: added NISDE and ORDERING as outputs
 ;  May 2005, EH, replaces FINDFILE by FILE_TEST
+;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -281,6 +282,7 @@ for i=0,nmaps-1 do begin
     T_sky[*,i] = (x)[fp:lp]
 endfor
 data = 0
+tbfree, tab_xhdr
 
 ; if (nentry EQ 1 AND nmaps EQ 1) then begin
 ;     fast_read_fits_ext,filename,T_sky, silent=silent, pixel=pixel_f

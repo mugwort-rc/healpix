@@ -37,7 +37,7 @@
 #include "alm.h"
 #include "healpix_map.h"
 #include "healpix_map_fitsio.h"
-#include "alm_map_tools.h"
+#include "alm_healpix_tools.h"
 #include "alm_powspec_tools.h"
 #include "fitshandle.h"
 
@@ -80,8 +80,8 @@ template<typename T> void smoothing_cxx (paramfile &params, simparams &par)
     read_Healpix_map_from_fits(infile,mapT,1,2);
     read_Healpix_map_from_fits(infile,mapQ,2,2);
     read_Healpix_map_from_fits(infile,mapU,3,2);
-    arr<double> weight_T, weight_Q, weight_U;
-    get_ring_weights (params,par,mapT.Nside(),weight_T,weight_Q,weight_U);
+    arr<double> weight;
+    get_ring_weights (params,par,mapT.Nside(),weight);
 
     Alm<xcomplex<T> > almT(nlmax,nlmax), almG(nlmax,nlmax), almC(nlmax,nlmax);
     double avg=mapT.average();
@@ -91,7 +91,7 @@ template<typename T> void smoothing_cxx (paramfile &params, simparams &par)
     if (mapU.Scheme()==NEST) mapU.swap_scheme();
 
     map2alm_pol_iter
-      (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight_T,weight_Q,weight_U);
+      (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight);
     if (fwhm_arcmin>0) smooth_with_Gauss (almT, almG, almC, fwhm_arcmin);
     alm2map_pol(almT,almG,almC,mapT,mapQ,mapU);
 

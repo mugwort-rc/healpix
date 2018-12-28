@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -54,12 +54,13 @@
   !               Nov 2000 : v 1.2, EH
   !               Sep 2002 : implement new parser
   !               2004-2005: v 2.0
+  !               2006-2007: v 2.1
   !
   !  FEEDBACK:
   !     for any questions : efh@ipac.caltech.edu
   !
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.1.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file synfast.f90 by the command  include
@@ -110,7 +111,7 @@
 !  character(len=4)                    :: sstr
   LOGICAL(LGT) :: ok, bad, polarisation, input_cl, input_alms, do_map, output_alms, apply_windows
 !   character(len=*), PARAMETER :: code = "SYNFAST"
-  character(len=*), PARAMETER :: version = "2.0.0"
+  character(len=*), PARAMETER :: version = "2.1.1"
   character(len=80), allocatable, dimension(:) :: units_alm, units_map
 
   type(paramfile_handle) :: handle
@@ -352,7 +353,9 @@
   output_alms = (trim(outfile_alms) /= '')
 
   PRINT *," "
+  call parse_check_unused(handle, code=lcode)
   call parse_summarize(handle,code=lcode,prec=KMAP)
+  call parse_finish(handle)
   call brag_openmp()
 
   !     --- If necessary use current system time to set seed  ---
@@ -360,7 +363,7 @@
      CALL SYSTEM_CLOCK(COUNT = iseed)
      !-- Seed should initially be set to a large, odd integer --
      IF (MOD(iseed,2) .EQ. 0) iseed = iseed + 1
-     PRINT *,"      "//code//"> Generating random number seed "
+     PRINT *,"      "//code//"> Generating random number seed ", iseed
   END IF
   ioriginseed = iseed
 
@@ -432,7 +435,7 @@
      PRINT *,"      "//code//"> Reading alms for constrained realisations "
      if (apply_windows) PRINT *,"      "//code//"> and applying same beam and pixel size on them"
      do j = 1, MIN(n_pols,extnum_alms)
-        call read_conbintab(infile_alms, alms_in(0:nalms-1,1:6), nalms,extno=j-1)
+        call read_conbintab(infile_alms, alms_in(0:nalms-1,1:6), nalms,extno=j-1_i4b)
         do i=0,nalms-1
            l = nint(alms_in(i,1))
            m = nint(alms_in(i,2))
@@ -464,28 +467,39 @@
      ! write each component (T,G,C) in a different extension of the same file
      do i = 1, n_pols
         header = ""
-        call add_card(header,"EXTNAME","SIMULATION")
-        call add_card(header,"COMMENT","-----------------------------------------------")
-        call add_card(header,"COMMENT","     Map Simulation Specific Keywords      ")
-        call add_card(header,"COMMENT","-----------------------------------------------")
+        ! put inherited information immediatly, so that keyword values can be updated later on
+        ! by current code values
+        call add_card(header,"COMMENT","****************************************************************")
+        call merge_headers(header_PS, header) ! insert header_PS in header at this point
+        call add_card(header,"COMMENT","****************************************************************")
+
+        ! start putting information relative to this code and run
+        call write_minimal_header(header, 'alm', append=.true., &
+             creator = CODE, version = VERSION, &
+             nlmax = nlmax, nmmax = nmmax, randseed = ioriginseed, &
+             units = units_alm(i), polar = polarisation)
         if (i == 1) then
-           call add_card(header,"EXTNAME","'SIMULATED a_lms (TEMPERATURE)'")
+           call add_card(header,"EXTNAME","'SIMULATED a_lms (TEMPERATURE)'", update = .true.)
         elseif (i == 2) then
-           call add_card(header,"EXTNAME","'SIMULATED a_lms (GRAD / ELECTRIC component)'")
+           call add_card(header,"EXTNAME","'SIMULATED a_lms (GRAD / ELECTRIC component)'", update = .true.)
         elseif (i == 3) then
-           call add_card(header,"EXTNAME","'SIMULATED a_lms (CURL / MAGNETIC component)'")
+           call add_card(header,"EXTNAME","'SIMULATED a_lms (CURL / MAGNETIC component)'", update = .true.)
         endif
-        call add_card(header)
-        call add_card(header,"CREATOR",code,        "Software creating the FITS file")
-        call add_card(header,"VERSION",version,     "Version of the simulation software")
-        call add_card(header)
-        call add_card(header,"MAX-LPOL",nlmax      ,"Maximum multipole l simulated")
-        call add_card(header,"MAX-MPOL",nmmax      ,"Maximum m simulated")
-        call add_card(header,"RANDSEED",ioriginseed,"Random generator seed")
+        if (input_alms) then
+           call add_card(header,"HISTORY","File constraining alms:")
+           call add_card(header,"HISTORY",trim(infile_alms))
+           if (apply_windows) then
+              call add_card(header,"HISTORY","These alms are multiplied by pixel and beam window functions")
+           else
+              call add_card(header,"HISTORY","These alms are used as they are.")
+           endif
+        endif
         if (input_cl) then
            call add_card(header,"HISTORY","File with input C(l):")
            call add_card(header,"HISTORY",trim(infile))
-           call add_card(header,"HISTORY","The alms are multiplied by pixel and beam window function")
+           call add_card(header,"HISTORY","These alms are multiplied by pixel and beam window functions")
+        endif
+        if (input_cl .or. (input_alms.and.apply_windows)) then
            call add_card(header,"NSIDE"   ,nsmax,   "Resolution parameter for HEALPIX")
            if (trim(beam_file) == '') then
               call add_card(header,"FWHM"    ,fwhm_deg   ," [deg] FWHM of gaussian symmetric beam")
@@ -494,38 +508,9 @@
                    & "File containing Legendre transform of symmetric beam")
            endif
         endif
-        if (input_alms) then
-           call add_card(header,"HISTORY","File constraining alms:")
-           call add_card(header,"HISTORY",trim(infile_alms))
-        endif
         call add_card(header,"HISTORY")
-        call add_card(header,"COMMENT","-----------------------------------------------")
-        if (i == 1) then
-           call add_card(header,"COMMENT","Temperature a_lms")
-        else
-           call add_card(header,"COMMENT","Polarisation a_lms")
-        endif
-        call add_card(header,"COMMENT"," The real and imaginary part of the a_lm with m>=0")
-        call add_card(header)
-        call add_card(header,"COMMENT","Input Map = "//TRIM(infile))
-        call add_card(header)
-        call add_card(header,"TTYPE1", "INDEX"," i = l^2 + l + m + 1")
-        call add_card(header,"TUNIT1", "   "," index")
-        call add_card(header)
-        call add_card(header,"TTYPE2", "REAL"," REAL a_lm")
-        call add_card(header,"TUNIT2", units_alm(i)," alm units")
-        call add_card(header)
-        !
-        call add_card(header,"TTYPE3", "IMAG"," IMAGINARY a_lm")
-        call add_card(header,"TUNIT3", units_alm(i)," alm units")
-        call add_card(header)
-        !
-        call add_card(header)
-        call add_card(header)
-        call add_card(header)
-        !
         nlheader = SIZE(header)
-        call dump_alms (outfile_alms,alm_TGC(i,0:nlmax,0:nmmax),nlmax,header,nlheader,i-1)
+        call dump_alms (outfile_alms,alm_TGC(i,0:nlmax,0:nmmax),nlmax,header,nlheader,i-1_i4b)
      enddo
   endif
 
@@ -593,9 +578,7 @@
   !-----------------------------------------------------------------------
 
   nlheader = SIZE(header)
-  do i=1,nlheader
-     header(i) = ""
-  enddo
+  header = ""
   PRINT *,"      "//code//"> Writing sky map to FITS file "
   ! put inherited information immediatly, so that keyword values can be updated later on
   ! by current code values
@@ -603,142 +586,29 @@
   call merge_headers(header_PS, header) ! insert header_PS in header at this point
   call add_card(header,"COMMENT","****************************************************************")
   ! start putting information relative to this code and run
-  call add_card(header)
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Sky Map Pixelisation Specific Keywords    ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"PIXTYPE","HEALPIX","HEALPIX Pixelisation")
-  call add_card(header,"ORDERING","RING",  "Pixel ordering scheme, either RING or NESTED")
-  call add_card(header,"NSIDE"   ,nsmax,   "Resolution parameter for HEALPIX")
-  call add_card(header,"FIRSTPIX",0,"First pixel # (0 based)")
-  call add_card(header,"LASTPIX",npixtot-1,"Last pixel # (0 based)")
-  call add_card(header,"BAD_DATA",  HPX_DBADVAL ,"Sentinel value given to bad pixels")
-  call add_card(header) ! blank line
-
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Planck Simulation Specific Keywords      ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"EXTNAME","SIMULATION")
-  call add_card(header,"CREATOR",code,        "Software creating the FITS file")
-  call add_card(header,"VERSION",version,     "Version of the simulation software")
-  call add_card(header,"MAX-LPOL",nlmax      ,"Maximum multipole l used in map synthesis")
-  call add_card(header,"RANDSEED",ioriginseed,"Random generator seed")
-  call add_card(header,"POLCCONV","COSMO"," Coord. convention for polarisation (COSMO/IAU)")
-  if (trim(coordsys) /= '') then
-     call add_card(header,"COORDSYS",coordsys,"Coordinate system")
-  endif
-  if (trim(beam_file) == '') then
-     call add_card(header,"FWHM"    ,fwhm_deg   ," [deg] FWHM of gaussian symmetric beam")
-  else
-     call add_card(header,"BEAM_LEG",trim(beam_file),"File containing Legendre transform of symmetric beam")
-  endif
-
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Data Description Specific Keywords       ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"INDXSCHM","IMPLICIT"," Indexing : IMPLICIT or EXPLICIT")
-  call add_card(header,"GRAIN", 0, " Grain of pixel indexing")
-  call add_card(header,"COMMENT","GRAIN=0 : no indexing of pixel data                         (IMPLICIT)")
-  call add_card(header,"COMMENT","GRAIN=1 : 1 pixel index -> 1 pixel data                     (EXPLICIT)")
-  call add_card(header,"COMMENT","GRAIN>1 : 1 pixel index -> data of GRAIN consecutive pixels (EXPLICIT)")
-  call add_card(header) ! blank line
-  call add_card(header,"POLAR",polarisation," Polarisation included (True/False)")
-  call add_card(header,"DERIV",deriv," Derivative included (0, 1 or 2)")
-
-  call add_card(header) ! blank line
-  call add_card(header,"TTYPE1", "TEMPERATURE","Temperature map")
-  call add_card(header,"TUNIT1", units_map(1),"map unit")
-  call add_card(header)
-
-  if (polarisation) then
-     call add_card(header,"TTYPE2", "Q-POLARISATION","Q Polarisation map")
-     call add_card(header,"TUNIT2", units_map(2),"map unit")
-     call add_card(header)
-
-     call add_card(header,"TTYPE3", "U-POLARISATION","U Polarisation map")
-     call add_card(header,"TUNIT3", units_map(3),"map unit")
-     call add_card(header)
-
-     if (deriv>=1) then
-        call add_card(header,"TTYPE4", "DX_T","1st derivative of T wrt theta")
-        call add_card(header,"TUNIT4", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE5", "DX_Q","1st derivative of Q wrt theta")
-        call add_card(header,"TUNIT5", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE6", "DX_U","1st derivative of U wrt theta")
-        call add_card(header,"TUNIT6", units_map(1),"map unit")
-        call add_card(header)
-
-        call add_card(header,"TTYPE7", "DY_T","(1st derivative of T wrt phi)/sin(theta)")
-        call add_card(header,"TUNIT7", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE8", "DY_Q","(1st derivative of Q wrt phi)/sin(theta)")
-        call add_card(header,"TUNIT8", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE9", "DY_U","(1st derivative of U wrt phi)/sin(theta)")
-        call add_card(header,"TUNIT9", units_map(1),"map unit")
-        call add_card(header)
-     endif
-
-     if (deriv>=2) then
-        call add_card(header,"TTYPE10", "DXX_T","2nd derivative of T wrt theta, theta")
-        call add_card(header,"TUNIT10", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE11", "DXX_Q","2nd derivative of Q wrt theta, theta")
-        call add_card(header,"TUNIT11", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE12", "DXX_U","2nd derivative of U wrt theta, theta")
-        call add_card(header,"TUNIT12", units_map(1),"map unit")
-        call add_card(header)
-        
-        call add_card(header,"TTYPE13", "DXY_T","(2nd deriv of T wrt theta, phi)/sin(theta)")
-        call add_card(header,"TUNIT13", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE14", "DXY_Q","(2nd deriv of Q wrt theta, phi)/sin(theta)")
-        call add_card(header,"TUNIT14", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE15", "DXY_U","(2nd deriv of U wrt theta, phi)/sin(theta)")
-        call add_card(header,"TUNIT15", units_map(1),"map unit")
-        call add_card(header)
-        
-        call add_card(header,"TTYPE16", "DYY_T","(2nd deriv of T wrt phi, phi)/sin(theta)^2")
-        call add_card(header,"TUNIT16", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE17", "DYY_Q","(2nd deriv of Q wrt phi, phi)/sin(theta)^2")
-        call add_card(header,"TUNIT17", units_map(1),"map unit")
-        call add_card(header)
-        call add_card(header,"TTYPE18", "DYY_U","(2nd deriv of U wrt phi, phi)/sin(theta)^2")
-        call add_card(header,"TUNIT18", units_map(1),"map unit")
-        call add_card(header)
-     endif
-  else
-
-     if (deriv>=1) then
-        call add_card(header,"TTYPE2", "DX_T","1st derivative of T wrt theta")
-        call add_card(header,"TUNIT2", units_map(1),"map unit")
-        call add_card(header)
-
-        call add_card(header,"TTYPE3", "DY_Y","(1st derivative of T wrt phi)/sin(theta)")
-        call add_card(header,"TUNIT3", units_map(1),"map unit")
-        call add_card(header)
-     endif
-
-     if (deriv>=2) then
-        call add_card(header,"TTYPE4", "DXX_T","2nd derivative of T wrt theta, theta")
-        call add_card(header,"TUNIT4", units_map(1),"map unit")
-        call add_card(header)
-        
-        call add_card(header,"TTYPE5", "DXY_T","(2nd deriv wrt of T theta, phi)/sin(theta)")
-        call add_card(header,"TUNIT5", units_map(1),"map unit")
-        call add_card(header)
-        
-        call add_card(header,"TTYPE6", "DYY_T","(2nd deriv wrt of T phi, phi)/sin(theta)^2")
-        call add_card(header,"TUNIT6", units_map(1),"map unit")
-        call add_card(header)
-     endif
-  endif
+  call write_minimal_header(header, 'map', append=.true., &
+       nside = nsmax, ordering = 'RING', coordsys = coordsys, &
+       fwhm_degree = fwhm_arcmin / 60.d0, &
+       beam_leg = trim(beam_file), &
+       polar = polarisation, &
+       deriv = deriv, &
+       creator = CODE, version = VERSION, &
+       nlmax = nlmax, &
+       randseed = ioriginseed, &
+       units = units_map(1) )
+  ! update 'EXTNAME' in place
+  call add_card(header,"EXTNAME","'SIMULATED MAP'", update=.true.)
   call add_card(header,"COMMENT","*************************************")
+  if (input_alms) then
+     call add_card(header,"HISTORY","File constraining alms:")
+     call add_card(header,"HISTORY",trim(infile_alms))
+     if (apply_windows) then
+        call add_card(header,"HISTORY","These alms are multiplied by pixel and beam window functions")
+     else
+        call add_card(header,"HISTORY","These alms are used as they are.")
+     endif
+  endif
+
 
   ! call output_map(map_TQU(0:npixtot-1,1:n_maps), header, outfile) !not on Sun
   call write_bintab(map_TQU, npixtot, n_maps, header, nlheader, outfile)

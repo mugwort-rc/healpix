@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -73,6 +73,8 @@ pro template_pixel_nest, nside, ipix, itplt, reflexion
 ;
 ; MODIFICATION HISTORY:
 ;         2004-10, EH, v1.0
+;         v1.1, EH, IAP,     2000-03-18 : enabled nside > 8192
+;    Aug 2008, EH, IAP: issues warning if ipix is not of integer type
 ;
 ;
 ;-
@@ -91,22 +93,21 @@ npix = nside2npix(nside, error = error)
 if (error ne 0) then message,'Invalid Nside '+string(nside)
 
 lnside = long(nside)
-
-min_pix = MIN(ipix)
-max_pix = MAX(ipix)
+assert_pixindex_type, ipix[0], /warning ; warning if ipix is not integer
+min_pix = MIN(ipix, MAX = max_pix)
 IF (min_pix LT 0) THEN BEGIN
-    PRINT,'pixel index : ',min_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
+    PRINT,'pixel index : ',min_pix,FORMAT='(A,I18)'
+    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
     message,'Abort'
 ENDIF
 IF (max_pix GT npix-1) THEN BEGIN
-    PRINT,'pixel index : ',max_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
+    PRINT,'pixel index : ',max_pix,FORMAT='(A,I18)'
+    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
     message,'Abort'
 ENDIF
 
-nest2ring, nside, ipix, ip_ring
-template_pixel_ring, nside, ip_ring, itplt, reflexion
+nest2ring, lnside, ipix, ip_ring
+template_pixel_ring, lnside, ip_ring, itplt, reflexion
 
 return
 end

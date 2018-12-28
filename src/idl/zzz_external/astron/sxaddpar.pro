@@ -112,6 +112,8 @@ Pro sxaddpar, Header, Name, Value, Comment, Location, before=before, $
 ;       Jan 2002, Allow BEFORE, AFTER to apply to COMMENT keywords W. Landsman
 ;       June 2003, Added SAVECOMMENT keyword    W. Landsman
 ;       Jan 2004, If END is missing, then add it at the end W. Landsman
+;       May 2005 Fix SAVECOMMENT error with non-string values W. Landsman
+;       Oct 2005 Jan 2004 change made SXADDPAR fail for empty strings W.L. 
 ;       
 ;-
  if N_params() LT 3 then begin             ;Need at least 3 parameters
@@ -164,7 +166,7 @@ Pro sxaddpar, Header, Name, Value, Comment, Location, before=before, $
         if nfound EQ 0 then begin
                 ii = where(strtrim(header) ne '',nfound)
                 ii = max(ii) + 1
-                if (nfound eq 0) or (ii eq n_elements(header)) then begin
+                if ii eq n_elements(header) then begin
                         header = [header,endline]
                         n = n+1 
                 endif else header[ii] = endline
@@ -258,7 +260,7 @@ Pro sxaddpar, Header, Name, Value, Comment, Location, before=before, $
          i = ipos[nfound-1]
          if comment eq '' or keyword_set(savecom) then begin  ;save comment?
          if strmid(header[i],10,1) NE "'" then $
-                 comment=strmid(header[i],32,48) else begin
+                 ncomment=strmid(header[i],32,48) else begin
                  slash = strpos(header[i],'/', 20)  
                  if slash NE -1 then $
                         ncomment =  strmid(header[i], slash+1, 80) else $

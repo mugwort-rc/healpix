@@ -5,9 +5,10 @@ PRO ASTROLIB
 ; PURPOSE:
 ;       Add the non-standard system variables used by the IDL Astronomy Library
 ; EXPLANATION: 
-;       Also defines the environment variable or VMS 
-;       logical ASTRO_DATA pointing to the directory containing data files 
-;       associated with the IDL Astronomy library (system dependent).
+;       Also defines the environment variable ASTRO_DATA pointing to the 
+;       directory containing data files  associated with the IDL Astronomy 
+;       library (system dependent -- user must edit the first line in the
+;       program below).
 ;
 ; CALLING SEQUENCE:
 ;       ASTROLIB
@@ -25,10 +26,11 @@ PRO ASTROLIB
 ; REVISION HISTORY:
 ;       Written, Wayne Landsman, July 1986.
 ;       Use DEFSYSV instead of ADDSYSVAR           December 1990
-;       Converted to IDL V5.0   W. Landsman   September 1997
 ;       Test for system variable existence before definition    July 2001
+;       Assume since V55, remove VMS support  W. Landsman   Sep 2006
 ;-
   On_error,2   
+  setenv,'ASTRO_DATA=/export/home/ftp/pub/data/'
 
   defsysv, '!DEBUG', exist = exist
      if not exist then defsysv, '!DEBUG', 0
@@ -41,12 +43,7 @@ PRO ASTROLIB
 
 ; The following code needs to modified for each particular installation
 
-  CASE !VERSION.OS OF
-   'MacOS': ;
-    'vms' : setlog,'ASTRO_DATA','$1$DUA5:[IDLUSER.DATA]'
-    ELSE  : setenv,'ASTRO_DATA=/export/home/ftp/pub/data/'
-  ENDCASE
-
+ 
   message,'Astronomy Library system variables have been added',/INF
 
   return

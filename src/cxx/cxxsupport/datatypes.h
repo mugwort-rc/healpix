@@ -69,6 +69,14 @@ template <int sz, typename T1, typename T2=char, typename T3=char>
      typename sizeChooserHelper<T3,sizeof(T3)==sz>::TYPE >::TYPE TYPE;
   };
 
+typedef signed char int8;
+typedef unsigned char uint8;
+
+typedef sizeChooser<2, short, int>::TYPE
+  int16;
+typedef sizeChooser<2, unsigned short, unsigned int>::TYPE
+  uint16;
+
 typedef sizeChooser<4, int, long, short>::TYPE
   int32;
 typedef sizeChooser<4, unsigned int, unsigned long, unsigned short>::TYPE
@@ -85,17 +93,29 @@ typedef sizeChooser<8, double, long double>::TYPE
   float64;
 
 // mapping of types to integer constants
-enum { PLANCK_INT32   = 0,
-       PLANCK_UINT32  = 1,
-       PLANCK_INT64   = 2,
-       PLANCK_UINT64  = 3,
-       PLANCK_FLOAT32 = 4,
-       PLANCK_FLOAT64 = 5,
-       PLANCK_BOOL    = 6,
-       PLANCK_STRING  = 7 };
+enum { PLANCK_INT8    =  0,
+       PLANCK_UINT8   =  1,
+       PLANCK_INT16   =  2,
+       PLANCK_UINT16  =  3,
+       PLANCK_INT32   =  4,
+       PLANCK_UINT32  =  5,
+       PLANCK_INT64   =  6,
+       PLANCK_UINT64  =  7,
+       PLANCK_FLOAT32 =  8,
+       PLANCK_FLOAT64 =  9,
+       PLANCK_BOOL    = 10,
+       PLANCK_STRING  = 11 };
 
 template<typename T> struct typehelper {};
 
+template<> struct typehelper<int8>
+  { enum { id=PLANCK_INT8 }; };
+template<> struct typehelper<uint8>
+  { enum { id=PLANCK_UINT8 }; };
+template<> struct typehelper<int16>
+  { enum { id=PLANCK_INT16 }; };
+template<> struct typehelper<uint16>
+  { enum { id=PLANCK_UINT16 }; };
 template<> struct typehelper<int32>
   { enum { id=PLANCK_INT32 }; };
 template<> struct typehelper<uint32>
@@ -117,6 +137,10 @@ inline int type2size (int type)
   {
   switch (type)
     {
+    case PLANCK_INT8   : return 1;
+    case PLANCK_UINT8  : return 1;
+    case PLANCK_INT16  : return 2;
+    case PLANCK_UINT16 : return 2;
     case PLANCK_INT32  : return 4;
     case PLANCK_UINT32 : return 4;
     case PLANCK_INT64  : return 8;
@@ -133,6 +157,10 @@ inline int string2type(const std::string &type)
   {
   if (type=="FLOAT64") return PLANCK_FLOAT64;
   if (type=="FLOAT32") return PLANCK_FLOAT32;
+  if (type=="INT8")    return PLANCK_INT8;
+  if (type=="UINT8")   return PLANCK_UINT8;
+  if (type=="INT16")   return PLANCK_INT16;
+  if (type=="UINT16")  return PLANCK_UINT16;
   if (type=="INT32")   return PLANCK_INT32;
   if (type=="UINT32")  return PLANCK_UINT32;
   if (type=="INT64")   return PLANCK_INT64;
@@ -141,5 +169,56 @@ inline int string2type(const std::string &type)
   if (type=="STRING")  return PLANCK_STRING;
   throw Message_error ("unknown data type "+type);
   }
+
+inline const char *type2string (int type)
+  {
+  switch (type)
+    {
+    case PLANCK_INT8   : return "INT8";
+    case PLANCK_UINT8  : return "UINT8";
+    case PLANCK_INT16  : return "INT16";
+    case PLANCK_UINT16 : return "UINT16";
+    case PLANCK_INT32  : return "INT32";
+    case PLANCK_UINT32 : return "UINT32";
+    case PLANCK_INT64  : return "INT64";
+    case PLANCK_UINT64 : return "UINT64";
+    case PLANCK_FLOAT32: return "FLOAT32";
+    case PLANCK_FLOAT64: return "FLOAT64";
+    case PLANCK_BOOL   : return "BOOL";
+    case PLANCK_STRING : return "STRING";
+    default: throw Message_error ("unsupported data type");
+    }
+  }
+
+template<typename T> inline const char *type2typename ()
+  { return "unknown type"; }
+template<> inline const char *type2typename<signed char> ()
+  { return "signed char"; }
+template<> inline const char *type2typename<unsigned char> ()
+  { return "unsigned char"; }
+template<> inline const char *type2typename<short> ()
+  { return "short"; }
+template<> inline const char *type2typename<unsigned short> ()
+  { return "unsigned short"; }
+template<> inline const char *type2typename<int> ()
+  { return "int"; }
+template<> inline const char *type2typename<unsigned int> ()
+  { return "unsigned int"; }
+template<> inline const char *type2typename<long> ()
+  { return "long"; }
+template<> inline const char *type2typename<unsigned long> ()
+  { return "unsigned long"; }
+template<> inline const char *type2typename<long long> ()
+  { return "long long"; }
+template<> inline const char *type2typename<unsigned long long> ()
+  { return "unsigned long long"; }
+template<> inline const char *type2typename<float> ()
+  { return "float"; }
+template<> inline const char *type2typename<double> ()
+  { return "double"; }
+template<> inline const char *type2typename<bool> ()
+  { return "bool"; }
+template<> inline const char *type2typename<std::string> ()
+  { return "std::string"; }
 
 #endif

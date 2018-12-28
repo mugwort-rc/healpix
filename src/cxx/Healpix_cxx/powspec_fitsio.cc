@@ -51,11 +51,11 @@ void read_powspec_from_fits (const string &infile, PowSpec &powspec,
       inp.read_entire_column(1,itmp);
     else
       {
-      cout << "Warning: column containing l values is not of integer type!"
+      cerr << "Warning: column containing l values is not of integer type!"
            << endl;
       inp.read_entire_column(1,tmp);
       itmp.alloc(tmp.size());
-      for (int m=0; m<tmp.size(); ++m) itmp[m] = planck_nint(tmp[m]);
+      for (int m=0; m<tmp.size(); ++m) itmp[m] = nearest<int>(tmp[m]);
       }
 
     if (nspecs==1)
@@ -90,7 +90,7 @@ void read_powspec_from_fits (const string &infile, PowSpec &powspec,
     {
     int lmax_file = inp.nelems(1)-1;
     if (lmax_file<lmax)
-      cout << "warning: lmax in file smaller than expected; padding with 0."
+      cerr << "warning: lmax in file smaller than expected; padding with 0."
            << endl;
     int lmax_read = min (lmax,lmax_file);
     if (nspecs==1)
@@ -120,7 +120,7 @@ void write_powspec_to_fits (fitshandle &out,
   {
   planck_assert ((nspecs==1)||(nspecs==4), "wrong number of spectra");
   vector<fitscolumn> cols;
-  cols.push_back(fitscolumn("l","multipole order",1,TINT));
+  cols.push_back(fitscolumn("l","multipole order",1,TINT32BIT));
   cols.push_back(fitscolumn("Temperature C_l","Kelvin-squared",1,TDOUBLE));
   if (nspecs>1)
     {

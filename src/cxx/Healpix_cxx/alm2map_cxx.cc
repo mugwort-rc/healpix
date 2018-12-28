@@ -38,7 +38,7 @@
 #include "alm_fitsio.h"
 #include "healpix_map.h"
 #include "healpix_map_fitsio.h"
-#include "alm_map_tools.h"
+#include "alm_healpix_tools.h"
 #include "alm_powspec_tools.h"
 #include "fitshandle.h"
 

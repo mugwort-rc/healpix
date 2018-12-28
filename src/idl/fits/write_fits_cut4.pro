@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -49,19 +49,19 @@ Units = units, Extension = extension_id, polarisation=polar_in
 ;       Filename : STRING scalar,      
 ;                  output filename
 ;
-;       Pixel    : INT or LONG vector, 
+;       Pixel    : INT, LONG or LONG64 vector, 
 ;                  index of Healpix pixel
 ;
-;       Signal   : FLOAT vector (same length as Pixel)
+;       Signal   : FLOAT or DOUBLE vector (same length as Pixel)
 ;                  signal in each pixel (eg, average of many measurements)
 ;
 ; OPTIONAL INPUTS:
-;       N_obs    : INT or LONG vector (same length as Pixel)
+;       N_obs    : INT, LONG or LONG64 vector (same length as Pixel)
 ;                  number of measurements in each pixel
 ;         if absent, N_OBS will be set uniformly to 1 in the output file
 ;         if set to a scalar constant, N_OBS will be set uniformly to this constant
 ;      
-;       Serror  : FLOAT vector (same length as Pixel)
+;       Serror  : FLOAT or DOUBLE vector (same length as Pixel)
 ;                 statistical error on Signal in each Pixel
 ;                 = rms of individual measurement / sqrt(N_obs)
 ;         if absent, SERROR will be set uniformly to 0.0 in the output file
@@ -91,6 +91,7 @@ Units = units, Extension = extension_id, polarisation=polar_in
 ;        Units : STRING scalar, units of both Signal and Serror
 ;
 ;        Extension: (0 based) extension number in which to write data
+;            default = 0
 ;
 ;        Polarisation: specify that file will contain the I, Q and U polarisation
 ;           Stokes parameter in extensions 0, 1 and 2 respectively
@@ -108,6 +109,8 @@ Units = units, Extension = extension_id, polarisation=polar_in
 ; MODIFICATION HISTORY:
 ;        Sept 2000, EH, Caltech
 ;        Aug  2002 : uses Xhdr keyword to match other routines
+;        Nov  2006: set default for Extension
+;        Mar  2008: can deal with large nside, and double precision signal
 ;
 ;-
 
@@ -124,13 +127,21 @@ endif
 
 ; check variable type
 if undefined(info_header) then info_header = [' ']
-if (datatype(filename) ne 'STR' or $
-    datatype(pixel) eq 'STR' or $
-    datatype(n_obs) eq 'STR' or $
-    datatype(signal) eq 'STR' or $
-    datatype(serror) eq 'STR' or $
-    datatype(info_header) ne 'STR') then begin
+if (size(/tname,filename) ne 'STRING' or $
+    size(/tname,pixel) eq 'STRING' or $
+    size(/tname,n_obs) eq 'STRING' or $
+    size(/tname,signal) eq 'STRING' or $
+    size(/tname,serror) eq 'STRING' or $
+    size(/tname,info_header) ne 'STRING') then begin
     print,' wrong argument ordering:'
+    print,syntax1,syntax2,syntax3,format='(a)'
+    print,' ********* file not written ! ***********'
+    return
+endif
+
+sigtype = size(/type,signal)
+if (sigtype ge 6 && sigtype le 9) then begin
+    print,' signal can not be complex or a string or a structure'
     print,syntax1,syntax2,syntax3,format='(a)'
     print,' ********* file not written ! ***********'
     return
@@ -169,14 +180,15 @@ if defined(units) then begin
     add_units_fits, local_header, units=units[0], col=2, err=err
     add_units_fits, local_header, units='      ', col=3, err=err
     add_units_fits, local_header, units=units[0], col=4, err=err
-    if (err ne 0) then message,'Error while writting header'
+    if (err ne 0) then message,'Error while writing header'
 endif
 
 add_ordering_fits, local_header, nested=nested, ring=ring, ordering=ordering,error=error
-if (error ne 0) then message,'Error while writting header'
+if (error ne 0) then message,'Error while writing header'
 
 ; insert polarisation related information if more than one extension
 extname = ['TEMPERATURE', 'Q_POLARISATION', 'U_POLARISATION']
+if undefined(extension_id) then extension_id = 0
 if ((extension_id gt 0 and extension_id lt 3) or keyword_set(polar_in)) then begin
     sxaddpar,local_header, 'POLAR','T'
     sxaddpar,local_header, 'EXTNAME',extname[extension_id],after='TFIELDS'
@@ -199,7 +211,8 @@ endif
 
 ; create structures
 prim_st = defined(prim_header) ? {HDR:prim_header} : 0
-exten_st = create_struct('HDR',local_header,'PIXEL',round(pixel),'SIGNAL',float(signal),'N_OBS',round(n_obs),'SERROR',float(serror))
+; exten_st = create_struct('HDR',local_header,'PIXEL',round(pixel),'SIGNAL',float(signal),'N_OBS',round(n_obs),'SERROR',float(serror))
+exten_st = create_struct('HDR',local_header,'PIXEL',round(pixel),'SIGNAL',signal*1.0,'N_OBS',round(n_obs),'SERROR',serror*1.0)
 
 
 ; write file

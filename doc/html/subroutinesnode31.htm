@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>getEnvironment</TITLE>
-<META NAME="description" CONTENT="getEnvironment">
+<TITLE>generate_beam</TITLE>
+<META NAME="description" CONTENT="generate_beam">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,97 +28,124 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html561"
+<A NAME="tex2html577"
   HREF="subroutinesnode30.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html567"
+<A NAME="tex2html583"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html587"
   HREF="subroutinesnode32.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html585"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html562"
-  HREF="subroutinesnode30.htm">getArgument</A>
+<B> Previous:</B> <A NAME="tex2html578"
+  HREF="subroutinesnode30.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html568"
+<B>Up:</B> <A NAME="tex2html584"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html572"
-  HREF="subroutinesnode32.htm">getdisc_ring</A>
+<B> Next:</B> <A NAME="tex2html588"
+  HREF="subroutinesnode32.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000310000000000000000"></A>
-<A NAME="sub:getenvironment"></A>
+<A NAME="sub:generate_beam"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">getEnvironment</FONT></font></b><hr><H2>This subroutine emulates the C routine <TT>getenv</TT>, which returns the value of
-an environment variable.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/extension.F90
+<b><font size=+6><FONT COLOR="#CC0000">generate_beam</FONT></font></b><hr><H2>This routine generates the beam window function in multipole space. It is
+  either a gaussian parametrized by its FWHM in arcmin in real space, or it is
+  read from an external file.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/alm_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">getEnvironment</FONT>(
-name, value
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">generate_beam</FONT>(
+fwhm_arcmin, lmax, beam [, beam_file]
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-name</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+fwhm_arcmin</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>fwhm size of the gaussian beam in arcminutes.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value of the window function.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam(0:lmax,1:p)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>beam window function generated. The second index runs form 1:1 for temperature only, and 1:3 for polarisation. In the latter case, 1=T, 2=E, 3=B.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam_file(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>name of the environment variable</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>value</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>value of the environment variable</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>name of the file containing
+the (non necessarily gaussian) window function <SPAN CLASS="MATH"><I>B</I><SUB><I>l</I></SUB></SPAN> of a circular beam. If present, it will override
+the argument <TT>fwhm_arcmin</TT>.</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use extension 
-<BR>
-character(len=128) :: healpixdir 
-<BR>
-call <FONT COLOR="#CC0000">getEnvironment</FONT>('HEALPIX', healpixdir) 
-<BR>
-print*,healpixdir
-</font></tt>
+call generate_beam(5.0_dp, 1024, beam)  
+<BR></font></tt>
 <BR><blockquote>
-Will return the value of the <TT>$HEALPIX</TT> system variable (if it is defined)
+Generates the window function of a gaussian beam of FWHM = 5 arcmin, for <SPAN CLASS="MATH"><IMG
+ WIDTH="73" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg52.png"
+ ALT="$l
+\leq 1024$"></SPAN>.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">getEnvironment</FONT></b></h3>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">generate_beam</FONT>.</h2>
+  <DL COMPACT><DT>
+<B><SPAN  CLASS="textbf">alm_tools</SPAN></B>
+<DD>module, containing:
+	<DT>
+<B><A HREF="subroutinesnode30.htm#sub:gaussbeam">gaussbeam</A></B>
+<DD>routine to generate a gaussian beam
+  </DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">generate_beam</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode30.htm#sub:getargument">getArgument</A></B>
-<DD>returns list of command line arguments
+<B><A HREF="subroutinesnode25.htm#sub:create_alm">create_alm</A></B>
+<DD>Routine to create <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients using <FONT COLOR="#CC0000">generate_beam</FONT>.
   <DT>
-<B><A HREF="subroutinesnode51.htm#sub:narguments">nArguments</A></B>
-<DD>returns number of command line arguments
+<B><A HREF="subroutinesnode6.htm#sub:alter_alm">alter_alm</A></B>
+<DD>Routine to alter <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients  using <FONT COLOR="#CC0000">generate_beam</FONT>.
+  <DT>
+<B><A HREF="subroutinesnode66.htm#sub:pixel_window">pixel_window</A></B>
+<DD>Routine returning a pixel
+  window function.
   </DL>
 
 <P>
@@ -132,32 +159,32 @@ Will return the value of the <TT>$HEALPIX</TT> system variable (if it is defined
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html561"
+<A NAME="tex2html577"
   HREF="subroutinesnode30.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html567"
+<A NAME="tex2html583"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html587"
   HREF="subroutinesnode32.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html585"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html562"
-  HREF="subroutinesnode30.htm">getArgument</A>
+<B> Previous:</B> <A NAME="tex2html578"
+  HREF="subroutinesnode30.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html568"
+<B>Up:</B> <A NAME="tex2html584"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html572"
-  HREF="subroutinesnode32.htm">getdisc_ring</A>
+<B> Next:</B> <A NAME="tex2html588"
+  HREF="subroutinesnode32.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

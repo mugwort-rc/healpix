@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html133"
+<A NAME="tex2html137"
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html139"
+<A NAME="tex2html143"
   HREF="intronode6.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html143"
+<A NAME="tex2html147"
   HREF="intronode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html141"
+<A NAME="tex2html145"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html134"
+<B> Previous:</B> <A NAME="tex2html138"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B>Up:</B> <A NAME="tex2html140"
+<B>Up:</B> <A NAME="tex2html144"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B> Next:</B> <A NAME="tex2html144"
+<B> Next:</B> <A NAME="tex2html148"
   HREF="intronode8.htm">HEALPix and CMBFAST</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -55,38 +55,45 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H2><A NAME="SECTION00061000000000000000">
 Angular power spectrum conventions</A>
 </H2>
-<b><font size=+3><FONT COLOR="#CC0000">This page contains many equations that may not show up correctly in HTML.
-We recommend that the Postscript document be used instead.
-</FONT></font></b><br>
 These <SPAN CLASS="MATH"><IMG
- WIDTH="30" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg24.png"
+ WIDTH="31" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg21.png"
  ALT="$\hat{a}_{lm}$"></SPAN> can be used to compute estimates of the angular power spectrum
  <SPAN CLASS="MATH"><IMG
- WIDTH="22" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg25.png"
+ WIDTH="23" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg22.png"
  ALT="$\hat{C}_l$"></SPAN> as 
-<P></P>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:hatC"></A>
 <!-- MATH
  \begin{eqnarray}
-\hat{C}_l&=&\frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.\htmlimage{}
+\hat{C}_l&\myequal &\frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.
 \end{eqnarray}
  -->
-<A NAME="eq:hatC"></A><IMG
- WIDTH="557" HEIGHT="53" ALIGN="LEFT"
- SRC="introimg26.png"
- ALT="\begin{eqnarray}
-\hat{C}_l&amp;=&amp;\frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.\end{eqnarray}"></DIV>
-<BR CLEAR="ALL"><P></P>
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="23" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg23.png"
+ ALT="$\displaystyle \hat{C}_l$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="136" HEIGHT="59" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg24.png"
+ ALT="$\displaystyle \frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
+</TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 
 <P>
 The <b>HEALPix</b> package contains the Fortran90 facility <TT>synfast</TT>
 which takes as input a power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> and generates a realisation of
 <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg27.png"
+ WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg25.png"
  ALT="$f(\gamma_p)$"></SPAN>
 on the <b>HEALPix</b> grid.  The convention for power spectrum input into
 <TT>synfast</TT> is straightforward: each <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> is just the expected
@@ -99,26 +106,26 @@ integral of the <!-- MATH
  $f(\gamma)/\sqrt{4 \pi}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="84" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg28.png"
+ WIDTH="87" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg26.png"
  ALT="$f(\gamma)/\sqrt{4 \pi}$"></SPAN> over the sphere. To 
 obtain realisations of functions which have <SPAN CLASS="MATH"><I>a</I><SUB>00</SUB></SPAN> distributed as a Gaussian
 with zero mean and variance 1, set <SPAN CLASS="MATH"><I>C</I><SUB>0</SUB></SPAN> to 1.  The value of the
 synthesised function at each pixel will
 be Gaussian distributed with mean zero and variance <SPAN CLASS="MATH"><IMG
- WIDTH="59" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg29.png"
+ WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg27.png"
  ALT="$1/(4\pi)$"></SPAN>. 
 As required,  the integral of <SPAN CLASS="MATH"><IMG
- WIDTH="38" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg30.png"
+ WIDTH="41" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg28.png"
  ALT="$f(\gamma)$"></SPAN> over the full <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg31.png"
+ WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="introimg29.png"
  ALT="$4\pi$"></SPAN>
 solid angle of the sphere has zero mean and variance <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg31.png"
+ WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="introimg29.png"
  ALT="$4\pi$"></SPAN>. 
 
 </BLOCKQUOTE>
@@ -133,17 +140,17 @@ microwave background research,
 popular choices for simulated maps are 
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <SPAN CLASS="MATH"><IMG
- WIDTH="52" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg32.png"
+ WIDTH="56" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg30.png"
  ALT="$\Delta T/T $"></SPAN>, a dimensionless quantity measuring relative
 fluctuations about the average CMB temperature.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  The absolute quantity <SPAN CLASS="MATH"><IMG
- WIDTH="29" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="introimg33.png"
+ WIDTH="34" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="introimg31.png"
  ALT="$\Delta T$"></SPAN> in <SPAN CLASS="MATH"><IMG
- WIDTH="28" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg34.png"
+ WIDTH="33" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg32.png"
  ALT="$\mu K$"></SPAN> or <SPAN CLASS="MATH"><I>K</I></SPAN>.
 </DL>
 
@@ -151,32 +158,32 @@ fluctuations about the average CMB temperature.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html133"
+<A NAME="tex2html137"
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html139"
+<A NAME="tex2html143"
   HREF="intronode6.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html143"
+<A NAME="tex2html147"
   HREF="intronode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html141"
+<A NAME="tex2html145"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html134"
+<B> Previous:</B> <A NAME="tex2html138"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B>Up:</B> <A NAME="tex2html140"
+<B>Up:</B> <A NAME="tex2html144"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B> Next:</B> <A NAME="tex2html144"
+<B> Next:</B> <A NAME="tex2html148"
   HREF="intronode8.htm">HEALPix and CMBFAST</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

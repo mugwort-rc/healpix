@@ -1,5 +1,5 @@
 
-test data for Healpix 2.0
+test data for Healpix 2.1
 
 used by 'make test'
 
@@ -24,4 +24,14 @@ test*.gif: output figures of runs
 
 see Installation Document for details
 
+
+Note: 
+     The file wmap_lcdm_sz_lens_wmap5_cl_v3.fits 
+ has been added in this directory for convenience, even though
+ it is currently *NOT* used in any of the simulations included here.
+
+ It is adapted from WMAP 5yr best fit model for l-CDM + SZ + lensing with B mode = 0
+ input file = wmap_lcdm_sz_lens_wmap5_cl_v3.dat;
+ For the list of parameters, see 
+ http://lambda.gsfc.nasa.gov/product/map/dr3/params/lcdm_sz_lens_wmap5.cfm
 

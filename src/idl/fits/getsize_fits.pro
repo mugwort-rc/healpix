@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -40,10 +40,12 @@ function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, or
 ;         (obs_npix)
 ;     
 ;  INPUT
-;     filename = (IN) name of the FITS file containing the map
+;     filename = (IN) name of the (compressed) FITS file containing the map
 ;
 ;  OPTIONAL INPUT
 ;     extension = (IN) number of extension (0 based) to read data from
+;     /header   = (IN) if set, filename is indeed as FITS header instead of a
+;          FITS file
 ;
 ;  OPTIONAL OUTPUT
 ;     nmaps = (OPTIONAL, OUT) number of maps in the file
@@ -69,11 +71,12 @@ function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, or
 ;
 ;      adapted from F90 getsize_fits
 ;      EH, 2000-11
+;      2008-04-01: accepts compressed files
 ;-
 
 routine = 'getsize_fits'
 if n_params() eq 0 then begin
-    print,'Syntax : size='+routine+'(filename, nmaps= , nside= , mlpol= , ordering= , obs_npix=, type= , header=)'
+    print,'Syntax : size='+routine+'(filename, nmaps= , nside= , mlpol= , ordering= , obs_npix=, type= , header=, tags=, extension=)'
     message,'Abort'
     return,-1
 endif
@@ -172,7 +175,13 @@ endif else begin
             message,' Abort'
         endif 
                                 ; open extension 1 and get header
-        fxbopen, lun, filename, extension_id+1, xhdr
+        errmsg=''
+        use_fxb = 1
+        fxbopen, lun, filename, extension_id+1, xhdr, errmsg=errmsg
+        if (errmsg ne '') then begin ; maybe is it compressed ?
+            xhdr = headfits(filename, exten=extension_id+1, /silent)
+            use_fxb = 0
+        endif
     endif else begin
         xhdr = fits_header
     endelse
@@ -221,7 +230,7 @@ endif else begin
         junk = LONG(sxpar(xhdr,'GRAIN',count = countfits,/silent))
         if (countfits ne 0) then begin
             type = 3
-            if (grain eq 0) then type = 2
+            if (junk eq 0) then type = 2
             goto, found
         endif
                                 ; 3rd most stringent test
@@ -254,7 +263,7 @@ found:
 
 endelse
 
-if (from_file) then begin
+if (from_file && use_fxb) then begin
 ; close the file
     fxbclose, lun
 endif

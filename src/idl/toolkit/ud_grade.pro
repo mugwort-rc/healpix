@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -235,7 +235,7 @@ pro ud_grade, map_in, map_out, nside_out=nside_out, order_in=order_in, order_out
 ; MODIFICATION HISTORY:
 ;    2000-01-08, Eric Hivon, Caltech
 ;    2000-11   : deal with cut sky format files, added pessimistic
-;
+;    2006-11-20: check for validity of order_in and order_out
 ;-
 
 routine = 'UD_GRADE'
@@ -282,9 +282,9 @@ if dtype_in eq 'STR' then begin
     junk = getsize_fits(map_in, ordering = order_in, nside = nside_in, type = ftype_in)
     fits_info, map_in, /silent, n_ext = n_ext
 
-    if undefined(order_out) then order_out = order_in
-    ord_in  = strupcase(strmid(order_in,0,4))
-    ord_out = strupcase(strmid(order_out,0,4))
+    if not (keyword_set(order_out) or arg_present(order_out)) then order_out = order_in
+    ord_in  = decode_ordering(order_in, full=ford_in) ; strupcase(strmid(order_in,0,4))
+    ord_out = decode_ordering(order_out, full=ford_out) ; strupcase(strmid(order_out,0,4))
 
     npix_in = nside2npix(nside_in, err = error)
     if (error ne 0) then begin
@@ -301,12 +301,12 @@ if dtype_in eq 'STR' then begin
             read_fits_cut4, map_in, pixel, signal, n_obs, serror, xh = xhdr, ext= i_ext
                                 ; update header
             sxaddpar,          xhdr,'NSIDE',nside_out
-            add_ordering_fits, xhdr, ordering=order_out
+            add_ordering_fits, xhdr, ordering=ord_out
             sxaddpar,          xhdr,'HISTORY','    PROCESSED BY '+routine
             if (nside_out ne nside_in) then sxaddpar,          xhdr,'HISTORY', $
               string('       NSIDE: ',nside_in,' -> ',nside_out,form='(a,i5,a,i5)')
-            if (order_in ne order_out) then sxaddpar,          xhdr,'HISTORY', $
-              '    ORDERING: '+strtrim(order_in,2)+' -> '+strtrim(order_out,2)
+            if (ord_in ne ord_out) then sxaddpar,          xhdr,'HISTORY', $
+              '    ORDERING: '+ford_in+' -> '+ford_out
             
             ud_grade_cut4, pixel, signal, n_obs, serror, nside_in = nside_in, $
               nside_out = nside_out, order_in = ord_in, order_out = ord_out
@@ -344,12 +344,12 @@ if dtype_in eq 'STR' then begin
         endelse
                                 ; update header
         sxaddpar,          xhdr,'NSIDE',nside_out
-        add_ordering_fits, xhdr, ordering=order_out
+        add_ordering_fits, xhdr, ordering=ord_out
         sxaddpar,          xhdr,'HISTORY','    PROCESSED BY '+routine
         if (nside_out ne nside_in) then sxaddpar,          xhdr,'HISTORY', $
           string('       NSIDE: ',nside_in,' -> ',nside_out,form='(a,i5,a,i5)')
-        if (order_in ne order_out) then sxaddpar,          xhdr,'HISTORY', $
-          '    ORDERING: '+strtrim(order_in,2)+' -> '+strtrim(order_out,2)
+        if (ord_in ne ord_out) then sxaddpar,          xhdr,'HISTORY', $
+          '    ORDERING: '+ford_in+' -> '+ford_out
         xtenout=create_struct(xnames[0],xhdr)
 
         if ((ncol eq 1) or (wmap_format eq 1)) then begin ; Temperature
@@ -378,7 +378,7 @@ if dtype_in eq 'STR' then begin
             xtenout=create_struct(xtenout,xnames[2],map)
 
             add_nside_fits,    hdr, nside=nside_out
-            add_ordering_fits, hdr, ordering=order_out
+            add_ordering_fits, hdr, ordering=ord_out
             sxaddpar,hdr,'RESOLUTN',nint(alog(nside_out)/alog(2.))
             prim1 = create_struct('HDR',hdr)
             if (n_tags(prim) ge 1) then begin
@@ -415,11 +415,11 @@ endif else begin
         print,'******** ABORT *********'
         return
     endif
-    if undefined(order_out) then order_out = order_in
+    if not (keyword_set(order_out) or arg_present(order_out)) then order_out = order_in
     if undefined(nside_out) then nside_out = nside_in
 
-    ord_in  = strupcase(strmid(order_in,0,4))
-    ord_out = strupcase(strmid(order_out,0,4))
+    ord_in  = decode_ordering(order_in)
+    ord_out = decode_ordering(order_out)
 
     ; same resolution and order : do nothing
     if (nside_in eq nside_out and ord_in eq ord_out) then begin

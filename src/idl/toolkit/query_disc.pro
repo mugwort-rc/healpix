@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -37,7 +37,8 @@
 ;  Healpix pixel toolkit
 ;
 ; CALLING SEQUENCE:
-;     QUERY_DISC, Nside, Vector0, Radius_In, Listpix, Nlist, Deg=, Nest=, Inclusive=
+;     QUERY_DISC, Nside, Vector0, Radius_In, Listpix, Nlist, Deg=, Nest=, Help=,
+;     Inclusive=
 ;
 ; INPUTS:
 ;     Nside : scalar integer : Healpix resolution (power of 2)
@@ -50,6 +51,7 @@
 ;
 ; KEYWORD PARAMETERS:
 ;     Deg : if set, the disc radius is in degrees instead of radians.
+;     /Help: if set, prints this documentation header and exits
 ;
 ; OUTPUTS:
 ;     Listpix : list of pixels found within a radius Radius_in from
@@ -83,15 +85,45 @@
 ;     1998??     EH, TAC, 1st f90 version
 ;     1999-??    EH, Caltech, traduction in IDL
 ;     1999-12-07 : correction of a bug in the build in subroutine in_ring
-;     2002-09    : added inclusive keyword, added nest keyword, renamed query_disc
+;     2002-09    : added inclusive keyword, added nest keyword, renamed
+;     query_disc
+;     2008-03-30: fixed bug appearing when disc centered on either pole
+;                 use 'work' array instead of expanding output array piece by piece
 ;-
 
-pro query_disc, nside, vector0, radius_in, listpix, nlist, deg = deg, inclusive=inclusive, nested=nested
+function phi_range_at_z, z, x0, y0, z0, cosang, a, cosphi0
 
-code = ('query_disc')
+b = cosang - z*z0
+c = 1.d0 - z*z
+if ((x0 eq 0.d0) and (y0 eq 0.d0)) then begin
+    dphi=!PI
+    if (b gt 0) then dphi = -1000.d0
+endif  else begin
+    cosdphi = b/sqrt(a*c)
+    if (ABS(cosdphi) le 1.d0) then begin
+        dphi = ACOS (cosdphi)   ; in [0,Pi]
+    endif else begin
+        dphi = !DPI             ; all the pixels at this elevation are in the disc
+        if (cosphi0 lt cosdphi) then dphi = -1000.d0 ; out of the disc
+    endelse
+endelse
 
-if n_params() lt 4 then begin
-    print,'SYNTAX = '+code+' Nside, Vector0, Radius_In, Listpix, [Nlist, DEG=, INCLUSIVE=, NESTED=]'
+return, dphi
+end
+
+; =====================================================================
+
+pro query_disc, nside, vector0, radius_in, listpix, nlist, deg = deg, inclusive=inclusive, help=help, nested=nested
+
+code = 'query_disc'
+
+if keyword_set(help) then begin
+    doc_library,code
+    return
+endif
+
+if (n_params() lt 4 or n_params() gt 5) then begin
+    print,'SYNTAX = '+code+', Nside, Vector0, Radius_In, Listpix, [Nlist, DEG=, HELP=, INCLUSIVE=, NESTED=]'
     return
 endif
 
@@ -131,9 +163,6 @@ halfpi = !DPI*.5d0
 lnside = long(nside)
 fnside = double(nside)
 
-dth1 = 1.d0/(3.d0*fnside*fnside)
-dth2 = 2.d0/(3.d0*fnside)
-
 radius_eff = radius
 if (do_inclusive) then begin
 ;  fudge = !DPI / (4.0d0*nside) ; increase radius by half pixel size
@@ -141,6 +170,17 @@ if (do_inclusive) then begin
     radius_eff = radius + fudge
 endif
 cosang = cos(radius_eff)
+
+; create work array used to store valid pixels
+; (faster than expanding final array)
+worksize = long64( (1.d0 - cosang)/2.d0 * 1.2 * npix  + 4*lnside + 50)
+worksize = worksize < npix
+
+if (lnside gt 8192) then begin
+    work = lon64arr(worksize)
+endif else begin
+    work = lonarr(worksize)
+endelse
 
 ; circle center
 norm_vect0 = sqrt(total(vector0^2))
@@ -168,48 +208,31 @@ if (rlat2 le - halfpi) then zmin = -1.d0 $
 irmax = ( ring_num(lnside,zmin) + 1L) < (4*lnside-1) ;go down to a lower point
 
 ; ------ loop on ring number ---------
-nlist = 0
+nlist = 0LL
 
 for iz = irmin, irmax do begin
 
-    if (iz le lnside-1) then begin   ; north polar cap
-        z = 1.d0 - double(iz)^2 * dth1
-    endif else begin
-        if (iz le 3*lnside) then begin
-            z = double(2*lnside-iz) * dth2
-        endif else begin             ; south polar cap
-            z = -1.d0 + double(4*lnside-iz)^2 * dth1
-        endelse
-    endelse
+    z = ring2z(lnside, iz) ; z of current ring
 
     ; phi range in the disc for each z
-    b = cosang - z*z0
-    c = 1.d0 - z*z
-    if ((x0 eq 0.d0) and (y0 eq 0.d0)) then begin
-        cosdphi=-1.d0
-        dphi=!PI
-    endif  else begin
-        cosdphi = b/sqrt(a*c)
-        if (ABS(cosdphi) le 1.d0) then begin
-            dphi = ACOS (cosdphi) ; in [0,Pi]
-        endif else begin
-            if (cosphi0 lt cosdphi) then goto, outofdisc ; out of the disc
-            dphi = !DPI         ; all the pixels at this elevation are in the disc
-        endelse
-    endelse
+    dphi = phi_range_at_z(z, x0, y0, z0, cosang, a, cosphi0); phi range in the disc for each z
     ; concatenate lists of pixels
     listir = in_ring(lnside, iz, phi0, dphi, nir, nested=nested)
     if nir gt 0 then begin
-        if nlist le 0 then begin
-            listpix = listir 
-            nlist = n_elements(listir)
+        nnew = nlist + n_elements(listir)
+        if (nnew gt worksize) then begin
+            ; panic mode: resize work array if not large enough
+            message,/info,'Expanding work array'
+            work = [work, listir]
         endif else begin
-            listpix = [listpix,listir]
-            nlist = nlist + n_elements(listir)
+            ; normal mode: fill in work array
+            work[nlist] = listir
         endelse
+        nlist = nnew
     endif
-outofdisc:
 endfor
+
+listpix = work[0:nlist-1]
 
 return
 end

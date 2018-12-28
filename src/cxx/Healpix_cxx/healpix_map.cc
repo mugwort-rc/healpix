@@ -60,12 +60,12 @@ template<typename T> void Healpix_Map<T>::Import_degrade
       for (int i=fact*x; i<fact*(x+1); ++i)
         {
         int opix = (orig.*from_xyf)(i,j,f);
-        if (!approx(orig.map[opix],Healpix_undef))
+        if (!approx<double>(orig.map[opix],Healpix_undef))
           {
           ++hits;
           sum += orig.map[opix];
           }
-      }
+        }
     map[m] = (hits<minhits) ? Healpix_undef : sum/hits;
     }
 }
@@ -82,7 +82,7 @@ template<typename T> void Healpix_Map<T>::minmax (T &Min, T &Max) const
   for (int m=0; m<npix_; ++m)
     {
     T val = map[m];
-    if (!approx(val,Healpix_undef))
+    if (!approx<double>(val,Healpix_undef))
       {
       if (val>Max) Max=val;
       if (val<Min) Min=val;

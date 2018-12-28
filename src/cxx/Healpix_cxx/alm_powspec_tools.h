@@ -29,8 +29,8 @@
  *  \author Martin Reinecke
  */
 
-#ifndef HEALPIX_ALM_POWSPEC_TOOLS_H
-#define HEALPIX_ALM_POWSPEC_TOOLS_H
+#ifndef PLANCK_ALM_POWSPEC_TOOLS_H
+#define PLANCK_ALM_POWSPEC_TOOLS_H
 
 #include "xcomplex.h"
 

@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -28,14 +28,14 @@
 module anamod
 
   USE healpix_types
-  USE alm_tools,  only: map2alm, alm2map, alm2cl
+  USE alm_tools,  only: map2alm_iterative, alm2cl
   USE fitstools,  only: getsize_fits, input_map, read_par, read_dbintab, write_asctab, dump_alms
-  USE head_fits,  only: add_card
+  USE head_fits,  only: add_card, write_minimal_header
   use misc_utils, only: assert_alloc, fatal_error, wall_clock_time, brag_openmp, string
   USE pix_tools,  only: convert_nest2ring, convert_ring2nest, nside2npix, npix2nside, remove_dipole, vec2ang
   USE extension,  only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_summarize, concatnl, scan_directories
+         parse_string, parse_double, parse_summarize, parse_check_unused, parse_finish, concatnl, scan_directories
   use udgrade_nr, only: udgrade_nest, udgrade_ring
   implicit none
 
@@ -43,7 +43,7 @@ module anamod
   character(len=FILENAMELEN)  :: lcode
 
   private
-  public :: ana_sub_s, ana_sub_d, CODE, lcode
+  public :: ana_sub_s, ana_sub_d, CODE, lcode, check_input_map
 
   contains
 
@@ -62,6 +62,70 @@ module anamod
       character(len=FILENAMELEN), intent(in) :: parafile
       include 'ana_sub_inc.f90'
     end subroutine ana_sub_d
+    !------------------------------------
+
+
+    subroutine check_input_map(mapfile, polarisation)
+      ! check out that file contains a valid HEALPIX map
+      ! on input polarisation is set to T if one wants to get polarisation data from map,
+      ! and on output it will be set to F if that is not possible
+      !
+      character(len=*)                      :: mapfile
+      logical(LGT), intent(inout)           :: polarisation
+      !
+      integer(I4B) :: nmaps, order_map, nsmax, mlpol, type, polar_fits, polcconv
+      integer(I4B) :: npixtot
+      character(len=1) :: coordsys
+
+      npixtot = getsize_fits(mapfile, nmaps = nmaps, ordering=order_map, nside=nsmax,&    
+           &              mlpol=mlpol, type = type, polarisation = polar_fits, &
+           &             coordsys=coordsys, polcconv=polcconv)
+      if (nsmax<=0) then
+         print*,"Keyword NSIDE not found in FITS header!"
+         call fatal_error(code)
+      endif
+      if (type == 3) npixtot = nside2npix(nsmax) ! cut sky input data set
+      if (nsmax/=npix2nside(npixtot)) then
+         print 9000,"FITS header keyword NSIDE does not correspond"
+         print 9000,"to the size of the map!"
+         call fatal_error(code)
+      endif
+
+      if (polarisation .and. (nmaps >=3) .and. polar_fits == -1) then
+         print 9000,"The input fits file MAY NOT contain polarisation data."
+         print 9000,"Proceed at your own risk"
+      endif
+
+      if (polarisation .and. (nmaps<3 .or. polar_fits ==0)) then
+         print 9000,"The file does NOT contain polarisation maps"
+         print 9000,"only the temperature field will be analyzed"
+         polarisation = .false.
+      endif
+
+      if (polarisation .and. (polcconv == 2)) then
+         print 9000,"The input map contains polarized data in the IAU coordinate convention (POLCCONV)"
+         print 9000,code//" can not proceed with these data"
+         print 9000,"See Healpix primer for details."
+         call fatal_error(code)
+      endif
+
+      if (polarisation .and. (polcconv == 0)) then
+         print 9000,"WARNING: the polarisation coordinate convention (POLCCONV) can not be determined"
+         print 9000,"         COSMO will be assumed. See Healpix primer for details."
+      endif
+
+      !     --- check ordering scheme ---
+      if ((order_map/=1).and.(order_map/=2)) then
+         print 9000,"The ordering scheme of the map must be RING or NESTED."
+         print 9000,"No ordering specification is given in the FITS-header!"
+         call fatal_error(code)
+      endif
+  
+9000  format(a)
+
+      return
+    end subroutine check_input_map
+      
 
 end module anamod
 !====================================================================================
@@ -70,7 +134,7 @@ program anafast
 
   use healpix_types
   use extension, only: getArgument, nArguments
-  use anamod,    only: ana_sub_s, ana_sub_d, CODE, lcode
+  use anamod,    only: ana_sub_s, ana_sub_d, CODE, lcode, check_input_map
   use misc_utils,only: assert, fatal_error, strlowcase
 
   integer(i4b)                :: n_args, i

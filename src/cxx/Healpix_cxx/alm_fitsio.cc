@@ -155,7 +155,7 @@ template<typename T> void write_Alm_to_fits
   int datatype)
   {
   vector<fitscolumn> cols;
-  cols.push_back (fitscolumn("index","l*l+l+m+1",1,TINT));
+  cols.push_back (fitscolumn("index","l*l+l+m+1",1,TINT32BIT));
   cols.push_back (fitscolumn("real","unknown",1,datatype));
   cols.push_back (fitscolumn("imag","unknown",1,datatype));
   out.insert_bintab(cols);
@@ -206,7 +206,7 @@ template<typename T> void write_compressed_Alm_to_fits
   int datatype)
   {
   vector<fitscolumn> cols;
-  cols.push_back (fitscolumn("index","l*l+l+m+1",1,TINT));
+  cols.push_back (fitscolumn("index","l*l+l+m+1",1,TINT32BIT));
   cols.push_back (fitscolumn("real","unknown",1,datatype));
   cols.push_back (fitscolumn("imag","unknown",1,datatype));
   out.insert_bintab(cols);

@@ -37,57 +37,29 @@
 
 using namespace std;
 
-void read_weight_ring (const string &dir, int nside, arr<double> &weight_T)
+void read_weight_ring (const string &dir, int nside, arr<double> &weight)
   {
   fitshandle inp;
   inp.open(dir+"/weight_ring_n"+intToString(nside,5)+".fits");
   inp.goto_hdu(2);
-  weight_T.alloc (2*nside);
-  inp.read_column(1,weight_T);
-  }
-void read_weight_ring (const string &dir, int nside, arr<double> &weight_T,
-  arr<double> &weight_Q, arr<double> &weight_U)
-  {
-  fitshandle inp;
-  inp.open(dir+"/weight_ring_n"+intToString(nside,5)+".fits");
-  inp.goto_hdu(2);
-  weight_T.alloc (2*nside); weight_Q.alloc (2*nside); weight_U.alloc (2*nside);
-  inp.read_column(1,weight_T);
-  weight_Q.fill(0);
-  weight_U.fill(0);
+  weight.alloc (2*nside);
+  inp.read_column(1,weight);
   }
 
 void get_ring_weights (paramfile &params, simparams &par, int nside,
-  arr<double> &weight_T)
+  arr<double> &weight)
   {
   bool weighted = params.find<bool>("weighted",false);
   par.add ("weighted","WEIGHTED",weighted,"ring weights used?");
-  weight_T.alloc (2*nside);
+  weight.alloc (2*nside);
   if (weighted)
     {
     string datadir = params.find<string>("healpix_data");
-    read_weight_ring (datadir, nside, weight_T);
-    for (int m=0; m<weight_T.size(); ++m) weight_T[m]+=1;
+    read_weight_ring (datadir, nside, weight);
+    for (int m=0; m<weight.size(); ++m) weight[m]+=1;
     }
   else
-    weight_T.fill(1);
-  }
-void get_ring_weights (paramfile &params, simparams &par, int nside,
-  arr<double> &weight_T, arr<double> &weight_Q, arr<double> &weight_U)
-  {
-  bool weighted = params.find<bool>("weighted",false);
-  par.add ("weighted","WEIGHTED",weighted,"ring weights used?");
-  weight_T.alloc (2*nside); weight_Q.alloc (2*nside); weight_U.alloc (2*nside);
-  if (weighted)
-    {
-    string datadir = params.find<string>("healpix_data");
-    read_weight_ring (datadir, nside, weight_T, weight_Q, weight_U);
-    for (int m=0; m<weight_T.size(); ++m) weight_T[m]+=1;
-    for (int m=0; m<weight_Q.size(); ++m) weight_Q[m]+=1;
-    for (int m=0; m<weight_U.size(); ++m) weight_U[m]+=1;
-    }
-  else
-    { weight_T.fill(1); weight_Q.fill(1); weight_U.fill(1); }
+    weight.fill(1);
   }
 
 void read_pixwin (const string &dir, int nside, arr<double> &temp)

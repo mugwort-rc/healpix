@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -28,7 +28,7 @@
 module fitstools
   !
   ! module fitstools
-  !  toward version 1.3 
+  !  toward version 2.1
   !
   ! addition of read_fits_cut4 and write_fits_cut4
   ! improvement of input_map (addition of header output)
@@ -57,6 +57,13 @@ module fitstools
   !              added extno keyword to function getsize_fits
   ! 2004-12-22 : overload (SP/DP) read_asctab, dump_alms
   ! 2005-03-03 : added COORDSYS optional output to getsize_fits
+  ! 2006-04-04 : edited to avoid concatenation problem in TFORMs (write_plm and write_bintabh with Ifort 9)
+  ! 2007-02-16 : added EXTNO and POLARISATION keywords to Write_fits_cut4
+  ! 2007-04-04 : close file on exit of getnumext_fits
+  ! 2007-05-10 : increased maxdim (max number of columns per extension) from 20 to 40
+  ! 2007-10-01 : getsize_fits returns -1 in case of error
+  ! 2008-08-27 : in dump_alms and write_alms and write_*tab*: 
+  !  do not write TTYPE# and TFORM# in excess of # of fields in the file
   ! -------------------------------------------------------------
   !
   ! --------------------------- from include file (see fits_template.f90)
@@ -307,7 +314,8 @@ contains
     !
     ! routine to read FITS file with 4 columns : PIXEL, SIGNAL, N_OBS, SERROR
     !
-    ! read_fits_cut4(filename, npixtot, pixel, [signal, n_obs, serror, header, units])
+    ! read_fits_cut4(filename, npixtot, pixel, 
+    !      [signal, n_obs, serror, header, units, extno])
     !=======================================================================
     integer(I4b), parameter :: KMAP = SP
 
@@ -323,7 +331,7 @@ contains
 
     integer(I4B) :: obs_npix
 
-    integer(I4B), parameter :: MAXDIM = 20 !number of columns in the extension
+    integer(I4B), parameter :: MAXDIM = 40 !number of columns in the extension
     integer(I4B) :: blocksize, datacode
     integer(I4B) :: firstpix, frow, hdutype
     integer(I4B) :: naxis, nfound, nmove, npix, nrows
@@ -417,14 +425,14 @@ contains
     endif
 
     npix = min(npixtot, obs_npix)
-    call ftgcvj(unit, 1, frow, firstpix, npix, i_bad_value, pixel(0), anynull, status)
+    call ftgcvj(unit, 1_i4b, frow, firstpix, npix, i_bad_value, pixel(0), anynull, status)
     if (present(signal)) then
-       call f90ftgcv_(unit, 2, frow, firstpix, npix, nullval, signal(0:npix-1), anynull, status)
+       call f90ftgcv_(unit, 2_i4b, frow, firstpix, npix, nullval, signal(0:npix-1), anynull, status)
     endif
     if (tfields >= 3 .and. present(n_obs)) &
-         & call ftgcvj(unit, 3, frow, firstpix, npix, i_bad_value, n_obs(0), anynull, status)
+         & call ftgcvj(unit, 3_i4b, frow, firstpix, npix, i_bad_value, n_obs(0), anynull, status)
     if (tfields >= 4 .and. present(serror)) then
-       call f90ftgcv_(unit, 4, frow, firstpix, npix, nullval, serror(0:npix-1), anynull, status)
+       call f90ftgcv_(unit, 4_i4b, frow, firstpix, npix, nullval, serror(0:npix-1), anynull, status)
     endif
 
     !     close the file
@@ -438,13 +446,13 @@ contains
 
   !=======================================================================
   subroutine write_fits_cut4(filename, obs_npix, pixel, signal, n_obs, serror, &
-       &                     header, coord, nside, order, units)
+       &                     header, coord, nside, order, units, extno, polarisation)
     !=======================================================================
     ! writes a fits file for cut sky data set with 4 columns:
     !  PIXEL, SIGNAL, N_OBS, SERROR
     ! 
     ! write_fits_cut4(filename, obs_npix, pixel, signal, n_obs, serror
-    !         [, header, coord, nside, order, units])
+    !         [, header, coord, nside, order, units, extno, polarisation])
     !=======================================================================
     use pix_tools, only: nside2npix
     integer(I4b), parameter :: KMAP = SP
@@ -458,6 +466,7 @@ contains
     character(len=*), dimension(1:),       intent(in), optional :: header
     integer(I4B),                          intent(in), optional :: nside, order
     character(len=*),                      intent(in), optional :: coord, units
+    integer(I4B),                          intent(in), optional :: extno, polarisation
 
     character(len=*), parameter :: routine = 'write_fits_cut4'
     ! --- healpix/fits related variables ----
@@ -467,80 +476,95 @@ contains
     character(len=1) :: char1, coord_usr
 !    character(len=8) :: char8
     character(len=20) :: units_usr
-    logical(LGT)     :: done_nside, done_order, done_coord
-    integer(I4B)     :: nlheader
+    logical(LGT)     :: done_nside, done_order, done_coord, done_polar, polar_flag
+    integer(I4B)     :: nlheader, extno_i
 
     ! --- cfitsio related variables ----
     integer(I4B) ::  status, unit, blocksize, bitpix, naxis, naxes(1)
     logical(LGT) ::  simple, extend
     character(LEN=80) :: svalue, comment
 
-    integer(I4B), parameter :: MAXDIM = 20 !number of columns in the extension
+    integer(I4B), parameter :: MAXDIM = 40 !number of columns in the extension
     integer(I4B) :: nrows, tfields, varidat
-    integer(I4B) :: frow,  felem, repeat, repeatg
+    integer(I4B) :: frow,  felem, repeat, repeatg, hdutype
     character(len=20) :: ttype(MAXDIM), tform(MAXDIM), tunit(MAXDIM), extname
+    character(len=20), dimension(1:3) :: extnames
     character(len=80) ::  card
     character(len=4) :: srepeat, srepeatg
     character(len=1) :: pform
+    character(len=filenamelen) sfilename
+
+    integer(I4B), save :: nside_old
     !=======================================================================
     if (KMAP == SP) pform='E'
     if (KMAP == DP) pform='D'
 
-!     ncol = 2
-!     if (present(n_obs)) then
-!        ncol = 3
-!        if (present(serror)) ncol = 4
-!     endif
-!     if (present(serror) .and. .not. present(n_obs)) then
-!        print*,routine,' Serror can not be present without N_Obs'
-!        call fatal_error
-!     endif
-    ncol = 4
+    extnames = (/ 'TEMPERATURE   ' , & ! default in case of polarisation
+         &        'Q_POLARISATION' , &
+         &        'U_POLARISATION' /)
 
+    ncol = 4
     grain = 1
+    status=0
+    unit = 149
+    blocksize=1
+
     nlheader = 0
     if (present(header)) nlheader = size(header)
     units_usr = ' '
     if (present(units)) units_usr = units
+    extno_i = 0
+    if (present(extno)) extno_i = extno
+    polar_flag = .false.
+    if (present(polarisation)) then
+       polar_flag = (polarisation /= 0)
+       done_polar = .true. ! will ignore the header provided value of POLAR
+    endif
 
-    status=0
+    if (extno_i == 0) then
+       !*************************************
+       !     create the new empty FITS file
+       !*************************************
+       call ftinit(unit,filename,blocksize,status)
 
-    unit = 100
+       !     -----------------------------------------------------
+       !     initialize parameters about the FITS image
+       simple=.true.
+       bitpix=32     ! integer*4
+       naxis=0       ! no image
+       naxes(1)=0
+       extend=.true. ! there is an extension
 
-    !     create the new empty FITS file
-    blocksize=1
-    call ftinit(unit,filename,blocksize,status)
+       !     ----------------------
+       !     primary header
+       !     ----------------------
+       !     write the required header keywords
+       call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
-    !     -----------------------------------------------------
-    !     initialize parameters about the FITS image
-    simple=.true.
-    bitpix=32     ! integer*4
-    naxis=0       ! no image
-    naxes(1)=0
-    extend=.true. ! there is an extension
+       !     write the current date
+       call ftpdat(unit,status) ! format ccyy-mm-dd
 
+    else
+       !*********************************************
+       !     reopen an existing file and go to the end
+       !*********************************************
+       ! remove the leading '!' (if any) when reopening the same file
+       sfilename = adjustl(filename)
+       if (sfilename(1:1) == '!') sfilename = sfilename(2:filenamelen)
+       call ftopen(unit,sfilename,1_i4b,blocksize,status)
+       ! move to last extension written
+       call ftmahd(unit, 1_i4b+ extno_i, hdutype, status)
+
+    endif
+
+       
     !     ----------------------
-    !     primary header
+    !     new extension
     !     ----------------------
-    !     write the required header keywords
-    call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
-
-    !     write the current date
-    call ftpdat(unit,status) ! format ccyy-mm-dd
-
-    !     ----------------------
-    !     image : none
-    !     ----------------------
-
-    !     ----------------------
-    !     extension
-    !     ----------------------
-
-    !     creates an extension
     call ftcrhd(unit, status)
 
-    !     writes required keywords
-    !     repeat = 1024
+       !     writes required keywords
+       !     repeat = 1024
     repeat = 1
     nrows    = (obs_npix + repeat - 1)/ repeat ! naxis1
     if (obs_npix < repeat) repeat = 1
@@ -562,6 +586,7 @@ contains
     tunit(2) = units_usr
     tunit(4) = units_usr
     extname  = 'SKY_OBSERVATION'      ! default, will be overide by user provided one if any
+    if (polar_flag) extname = extnames(1+extno_i)
     varidat  = 0
     call ftphbn(unit, nrows, tfields, ttype, tform, tunit, &
          &     extname, varidat, status)
@@ -574,6 +599,7 @@ contains
     call ftpkyu(unit,'ORDERING',' ',status)
     call ftpkys(unit,'COORDSYS',' ',' ',status)
     call ftpcom(unit,'  G = Galactic, E = ecliptic, C = celestial = equatorial', status)   
+    call ftpkyl(unit,'POLAR',polar_flag,'Polarisation included in file (T/F)',status)
     call ftpcom(unit,'------------------------------------------',status)
     call ftpcom(unit,'          Data Specific Keywords    ',status)
     call ftpcom(unit,'------------------------------------------',status)
@@ -643,7 +669,7 @@ contains
 
 
     !    write the user provided header literally, except for  PIXTYPE, TFORM*, TTYPE*, TUNIT* and INDXSCHM
-    !    copy NSIDE, ORDERING and COORDSYS if they are valid and not already given
+    !    copy NSIDE, ORDERING and COORDSYS and POLAR if they are valid and not already given
     do i=1,nlheader
        card = header(i)
        if (card(1:5) == 'TTYPE' .or. card(1:5) == 'TFORM' .or. card(1:7) == 'PIXTYPE') then
@@ -674,6 +700,11 @@ contains
        else if (card(1:8) == 'COORDSYS') then
           if (.not. done_coord) call putrec(unit,header(i), status)
           done_coord = .true.
+       else if (card(1:5) == 'POLAR') then
+          if (.not. done_polar) then
+             call ftucrd(unit,'POLAR', header(i), status) ! update POLAR
+             done_polar = .true.
+          endif
        else if (card(1:7) == 'EXTNAME') then
           call ftucrd(unit, 'EXTNAME', header(i), status)
        else if (card(1:1) /= ' ') then ! if none of the above, copy to FITS file
@@ -695,6 +726,19 @@ contains
        print*,routine//'>  it was NOT provided either as routine argument or in the input header'
        print*,routine//'>  abort execution, file not written'
        call fatal_error
+    endif
+    if ((.not. done_polar) .and. extno_i >=2) then
+       print*,routine//'> Warning: POLAR keyword not set while 3 extensions have been written'
+    endif
+
+    ! check that NSIDE is the same for all extensions
+    if (extno_i == 0) then
+       nside_old = nside_final
+    else
+       if (nside_final /= nside_old) then
+          print*,routine//'> Unconsistent NSIDE: ',nside_final, nside_old
+          print*,routine//'> Should use same NSIDE for all extensions'
+       endif
     endif
 
     ! check validity of PIXEL
@@ -718,12 +762,12 @@ contains
     !     write the extension one column by one column
     frow   = 1  ! starting position (row)
     felem  = 1  ! starting position (element)
-    call ftpclj(unit, 1, frow, felem, obs_npix, pixel , status)
-    call f90ftpcl_(unit, 2, frow, felem, obs_npix, signal, status)
+    call ftpclj(unit, 1_i4b, frow, felem, obs_npix, pixel , status)
+    call f90ftpcl_(unit, 2_i4b, frow, felem, obs_npix, signal, status)
 
-    if (tfields >= 3) call ftpclj(unit, 3, frow, felem, obs_npix, n_obs , status)
+    if (tfields >= 3) call ftpclj(unit, 3_i4b, frow, felem, obs_npix, n_obs , status)
     if (tfields >= 4) then
-       call f90ftpcl_(unit, 4, frow, felem, obs_npix, serror, status)
+       call f90ftpcl_(unit, 4_i4b, frow, felem, obs_npix, serror, status)
     endif
 
     !     ----------------------
@@ -791,7 +835,7 @@ contains
     INTEGER(I4B) :: column, frow
     REAL(KCL), DIMENSION(:), ALLOCATABLE :: clin_file
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: rowlen, nrows, varidat
     INTEGER(I4B),      dimension(1:maxdim) :: tbcol
     CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
@@ -805,7 +849,7 @@ contains
     status=0
     anynull = .false. 
 
-    unit = 150
+    unit = 110
     naxes(1) = 1
     naxes(2) = 1
 
@@ -870,7 +914,7 @@ contains
        if (planck_format) then
          do column = 1, MIN(ncl, ncl_file-1) ! modification by EH
             clin_file(:) = 0.0_KCL
-            call ftgcvd(unit, column+1, frow, firstpix, nelems, nullval, &
+            call ftgcvd(unit, column+1_i4b, frow, firstpix, nelems, nullval, &
                  &        clin_file(0), anynull, status)
             clin(0:lmax_min, column) = clin_file(0:lmax_min)
          enddo
@@ -1092,7 +1136,7 @@ contains
     LOGICAL(LGT) ::  simple,extend
     CHARACTER(LEN=80) :: comment
 
-    INTEGER(I4B), PARAMETER :: maxdim = 20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat, nf, nmmax, nlm
     INTEGER(I4B) :: frow,  felem, colnum
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
@@ -1104,7 +1148,7 @@ contains
 
     status=0
 
-    unit = 100
+    unit = 148
 
     !     create the new empty FITS file
     blocksize=1
@@ -1122,7 +1166,7 @@ contains
     !     primary header
     !     ----------------------
     !     write the required header keywords
-    call ftphpr(unit,simple,bitpix,naxis,naxes,0,1,extend,status)
+    call ftphpr(unit,simple,bitpix,naxis,naxes,0_i4b,1_i4b,extend,status)
 
     !     writes supplementary keywords : none
 
@@ -1156,7 +1200,9 @@ contains
        stop
     endif
     write (num,'(I10)') nf
-    tform(1:nhar) = trim(adjustl(num))//'D'     
+!     tform(1:nhar) = trim(adjustl(num))//'D'     ! does not work with Ifort, EH, 2006-04-04
+    num = trim(adjustl(num))//'D'
+    tform(1:nhar) = num
     ttype(1:nhar) = 'harmonics'   ! will be updated
     tunit(1:nhar) = ''      ! optional, will not appear
     extname  = ''      ! optional, will not appear
@@ -1171,19 +1217,19 @@ contains
        if (card(1:5) == 'TTYPE') then ! if TTYPE1 is explicitely given
           stn = card(6:6)
           read(stn,'(i1)') itn
-          if (itn > tfields) goto 10
           ! discard at their original location:
           call ftdkey(unit,'TTYPE'//stn,status)  ! old TTYPEi and
           status = 0
           call ftdkey(unit,'TFORM'//stn,status)  !     TFORMi
           status = 0
-          call putrec(unit,header(i), status)           ! write new TTYPE1
-          status = 0
-          call ftpkys(unit,'TFORM'//stn,tform(1),comment,status) ! and write new TFORM1 right after
+          if (itn <= tfields) then ! only put relevant information 2008-08-27
+             call putrec(unit,header(i), status)           ! write new TTYPE1
+             status = 0
+             call ftpkys(unit,'TFORM'//stn,tform(itn),comment,status) ! and write new TFORM1 right after
+          endif
        elseif (header(i)/=' ') then
           call putrec(unit,header(i), status)
        endif
-10     continue
        status = 0
     enddo
 
@@ -1475,14 +1521,14 @@ contains
     INTEGER(I4B) :: column, frow, imap
     INTEGER(I4B) :: datacode, repeat, width
 
-    INTEGER(I4B), PARAMETER :: maxdim=20 !number of columns in the extension
+    INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
     CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
     CHARACTER(LEN=20)                      :: extname
     !-----------------------------------------------------------------------
     status=0
 
-    unit = 150
+    unit = 147
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
@@ -1508,7 +1554,7 @@ contains
 
     if (naxis > 0) then ! there is an image
        !        determine the size of the image (look naxis1 and naxis2)
-       call ftgknj(unit,'NAXIS',1,2,naxes,nfound,status)
+       call ftgknj(unit,'NAXIS',1_i4b,2_i4b,naxes,nfound,status)
 
        !        check that it found only NAXIS1
        if (nfound == 2 .and. naxes(2) > 1) then
@@ -1682,7 +1728,7 @@ contains
 
     !-----------------------------------------------------------------------
     status=0
-    unit = 150
+    unit = 120
 
     readwrite=0
     call ftopen(unit,filename,readwrite,blocksize,status)
@@ -1723,7 +1769,7 @@ contains
           ttype1 = trim(strupcase(adjustl(ttype1)))
           if (trim(ttype1(1:5)) == 'INDEX') then
              call ftgkyj(unit, 'NAXIS2', nrows, comment, status) ! find number of rows
-             call ftgcvj(unit, 1, nrows, 1, 1, 0, idmax, anyf, status) ! read element on last row of first column
+             call ftgcvj(unit, 1_i4b, nrows, 1_i4b, 1_i4b, 0_i4b, idmax, anyf, status) ! read element on last row of first column
              if (status == 0) then
                 lmax = int(sqrt(   real(idmax-1, kind = DP)  ) )
                 if (lmax > 0) goto 1000
@@ -1755,6 +1801,7 @@ contains
     !    returns the number of extensions present in FITS file 'filename'
     !
     ! EH, Nov 2004
+    ! April 2007: close file on exit
     !=======================================================================
     character(LEN=*), intent(IN)             :: filename
     integer(i4b)                             :: getnumext_fits
@@ -1768,12 +1815,14 @@ contains
     call ftopen(unit, filename, readwrite, blocksize, status)
     if (status > 0) then
        call printerror(status)
+       call ftclos(unit, status)
        return
     endif
 
     call ftthdu(unit, nhdu, status)
     getnumext_fits = nhdu - 1
 
+    call ftclos(unit, status)
     return
   end function getnumext_fits
   !=======================================================================
@@ -1887,7 +1936,7 @@ contains
     INTEGER(I4B)      ::  nmove, hdutype
     INTEGER(I4B)      :: datacode, repeat1, repeat2, width
 
-    INTEGER(I4B),           PARAMETER :: maxdim=20 !number of columns in the extension
+    INTEGER(I4B),           PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B)                      :: nrows, tfields, varidat, rowlen
     CHARACTER(LEN=20), dimension(1:maxdim) :: ttype, tform, tunit
     INTEGER(I4B),      dimension(1:maxdim) :: tbcol
@@ -1901,7 +1950,7 @@ contains
     nside_in = -1
     ftype_in = 999 !   
     obs_npix_in = -1
-    unit = 150
+    unit = 119
     naxes(1) = 1
     naxes(2) = 1
     nfound = -1
@@ -1913,7 +1962,9 @@ contains
     call ftopen(unit,filename,readwrite,blocksize,status)
     if (status > 0) then
        ftype_in = -1
+       getsize_fits = -1
        call printerror(status)
+       call ftclos(unit, status)
        return
     endif
     !     -----------------------------------------
@@ -1934,7 +1985,7 @@ contains
        ! there is an image
        !---------------------------------
        !        determine the size of the image (look naxis1 and naxis2)
-       call ftgknj(unit,'NAXIS',1,2,naxes,nfound,status)
+       call ftgknj(unit,'NAXIS',1_i4b,2_i4b,naxes,nfound,status)
 
        !        check that it found only NAXIS1
        if (nfound == 2 .and. naxes(2) > 1) then
@@ -2130,9 +2181,9 @@ contains
              polarisation = -1
              if (hdutype <= 0) goto 2000
              if (hdutype == 1) then ! ascii table -> power spectra
-                ndp = 3
-                defpol(1:ndp,1) = (/ "GRA","E-M","POW" /)
-                defpol(1:ndp,2) = (/ "CUR","B-M","POW" /)    
+                ndp = 4
+                defpol(1:ndp,1) = (/ "GRA","E-M","POW","EE " /)
+                defpol(1:ndp,2) = (/ "CUR","B-M","POW","BB " /)    
              endif
              if (hdutype == 2) then ! binary table -> maps
                 ndp = 4
@@ -2220,7 +2271,7 @@ contains
 
     !-----------------------------------------------------------------------
     status=0
-    unit = 150
+    unit = 118
 
     readwrite=0
     call ftopen(unit, filename, readwrite, blocksize, status)
@@ -2237,7 +2288,7 @@ contains
 
     call assert (hdutype==2, 'This is not a FITS binary-table')
 
-    call ftgknj(unit,'NAXIS',1,2,naxes,nfound,status)
+    call ftgknj(unit,'NAXIS', 1_i4b, 2_i4b, naxes, nfound, status)
     call assert (nfound>=2, 'NAXIS2-keyword not found!')
 
     call ftgkys(unit,'TFORM1', tform, comment, status)
@@ -2278,21 +2329,26 @@ contains
 
     select case (hdtype)
     case (-1) ! delete keyword (starting from the top)
-       call ftgrec(unit,0,record,status)
+       call ftgrec(unit,0_i4b,record,status)
        !             call ftdkey(unit, kwd, status)
        ! patch around cfitsio bug 
        ! (ftdkey does not recognize wild cards while ftgnxk does)
        do
-          call ftgnxk(unit,kwd,1,nullarr,0,record,status)
+          call ftgnxk(unit, kwd, 1_i4b, nullarr, 0_i4b, record, status)
           if (status /= 0) exit
           call ftdkey(unit, record(1:8), status)
        enddo
     case (0) ! append or update
-       ! delete keyword in its current location (if any)
-       call ftdkey(unit, kwd, status)
-       status = 0
-       ! append
-       call ftprec(unit, cardfits, status)
+       if (kwd == 'CONTINUE') then
+          call ftprec(unit, trim(card), status)
+          call ftplsw(unit, status)
+       else
+          ! delete keyword in its current location (if any)
+          call ftdkey(unit, kwd, status)
+          status = 0
+          ! append
+          call ftprec(unit, cardfits, status)
+       endif
     case (1) ! append (for HISTORY and COMMENT)
        call ftprec(unit, cardfits, status)
     case default
@@ -2372,10 +2428,10 @@ contains
     enddo
     ! go to top of fits file header
     status=0
-    call ftgrec(unit,0,record,status)
+    call ftgrec(unit,0_i4b,record,status)
     ! read in all header lines except those excluded
     do
-       call ftgnxk(unit,'*',1,to_excl,n_excl,record,status)
+       call ftgnxk(unit,'*',1_i4b,to_excl,n_excl,record,status)
        if (status > 0) exit ! end of header
        if (i > nlheader) then
           write(unit=*,fmt="(a,i5,a)") &

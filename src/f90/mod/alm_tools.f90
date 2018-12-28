@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -33,11 +33,14 @@ module alm_tools
   !   subroutine get_pixel_layout
   !   subroutine select_rings
   !   subroutine gen_recfac
+  !   subroutine gen_recfac_spin
   !   subroutine gen_lamfac
   !   subroutine gen_lamfac_der
   !   subroutine gen_mfac
+  !   subroutine gen_mfac_spin
   !   subroutine compute_lam_mm
   !   subroutine do_lam_lm
+  !   subroutine do_lam_lm_spin
   !   subroutine do_lam_lm_pol
   !   subroutine gen_normpol
   !   function l_min_ylm
@@ -48,6 +51,7 @@ module alm_tools
   !
   !   -------------------- in include files (see alm_map_template.f90) ---------
   !   subroutine alm2map_sc
+  !   subroutine alm2map_spin
   !   subroutine alm2map_sc_pre
   !   subroutine alm2map_pol
   !   subroutine alm2map_pol_pre1
@@ -56,10 +60,13 @@ module alm_tools
   !   subroutine alm2map_pol_der
   !
   !   subroutine map2alm_sc
+  !   subroutine map2alm_spin
   !   subroutine map2alm_sc_pre
   !   subroutine map2alm_pol
   !   subroutine map2alm_pol_pre1
   !   subroutine map2alm_pol_pre2
+  !
+  !   subroutine map2alm_iterative
   !
   !   subroutine alter_alm
   !   subroutine create_alm
@@ -100,7 +107,8 @@ module alm_tools
   !--------------------------------------------------------------------------
 
   ! make (front end) routines public
-  public :: alm2map, map2alm, alm2map_der
+  public :: alm2map, map2alm, alm2map_der, alm2map_spin, map2alm_spin
+  public :: map2alm_iterative
   public :: alter_alm, create_alm, alm2cl, rotate_alm
   public :: plm_gen
   public :: ring_synthesis, ring_analysis
@@ -124,6 +132,14 @@ module alm_tools
  
   interface alm2map_der
      module procedure alm2map_sc_der_s, alm2map_sc_der_d, alm2map_pol_der_s, alm2map_pol_der_d
+  end interface
+
+  interface alm2map_spin
+     module procedure alm2map_spin_s, alm2map_spin_d
+  end interface
+
+  interface map2alm_spin
+     module procedure map2alm_spin_s, map2alm_spin_d
   end interface
 
   interface alm2map
@@ -150,6 +166,9 @@ module alm_tools
           &           map2alm_pol_d, map2alm_pol_pre1_d, map2alm_pol_pre2_d
   end interface
 
+  interface map2alm_iterative
+     module procedure map2alm_iterative_s, map2alm_iterative_d
+  end interface
   ! make routines public as most of them are called by mpi_alm* routines
   public :: do_openmp
   public :: init_rescale
@@ -158,6 +177,10 @@ module alm_tools
   public :: l_min_ylm
   public :: get_pixel_layout
   public :: gen_recfac, gen_lamfac, gen_lamfac_der, gen_mfac, compute_lam_mm, gen_normpol
+  public :: select_rings ! added Feb 2006
+  !
+  public :: gen_recfac_spin, gen_mfac_spin, do_lam_lm_spin ! July 2007
+
   !=========================================================
 
   !
@@ -202,11 +225,16 @@ module alm_tools
   ! ------post 2.00
   ! Sep-Oct 2005: made internal subroutines public so they can be called by mpi_alm, 
   !              corrected OpenMP+SGI bug in alm2map_pol_der
+  ! Feb 2006: added select_rings to public routines (for MPI use)
+  ! Sep 2006: corrected resetting of lam_fact in gen_lamfac
+  ! July, Sep-Oct 2007: added alm2map_spin, map2alm_spin
+  ! Oct 2007: zbounds and w8rings optional in map2alm (without plm)
+  ! Nov 2008: correction of a crash bug in map2alm_iterative
   ! =====================================================
   ! about the F90 compilers 'features'
   ! - Intel compiler (ifc) (and maybe the other compilers as well)
   !  is apparently very slow at allocating arrays
-  ! therefore as much as possible the 'allocate' shoud be done outside the loops.
+  ! therefore as much as possible the 'allocate' should be done outside the loops.
   ! This what is done below, expect when OpenMP require thread safe arrays that much
   ! be created each time we enter the loop.
   !
@@ -378,6 +406,39 @@ contains
   end subroutine gen_recfac
 
   !=======================================================================
+  subroutine gen_recfac_spin( l_max, m, spin, recfac_spin)
+  !=======================================================================
+    ! generates recursion factors used to computes the Ylms of degree m and spin s
+    ! for all l in max(m,s)<=l<=l_max
+    !=======================================================================
+    integer(I4B), intent(IN)                            :: l_max, m, spin
+    real(DP),     intent(OUT), dimension(0:2, 0:l_max)  :: recfac_spin
+    !
+    real(DP) :: fm2, fl2, fs2
+    integer(I4B) :: l, l_low, aspin
+
+
+    aspin = abs(spin)
+    l_low = max(m, aspin)
+
+    recfac_spin(0:2, 0:l_max) = 0.0_dp
+    fm2 = DBLE(m) **2
+    fs2 = DBLE(spin) **2
+    do l = l_low, l_max
+       fl2 = DBLE(l+1) **2
+       recfac_spin(0,l) = DSQRT( (4.0_dp * fl2 - 1.0_dp) / (fl2-fm2) /(1.0_dp-fs2/fl2) )
+    enddo
+    do l = max(l_low, 1), l_max
+       recfac_spin(2,l) = aspin * m / dble( l * (l+1) )
+    enddo
+    ! put outside the loop because of problem on some compilers
+    recfac_spin(1,l_low:l_max) = 1.0_dp / recfac_spin(0,l_low:l_max)
+
+
+    return
+  end subroutine gen_recfac_spin
+
+  !=======================================================================
   subroutine gen_lamfac( l_max, m, lam_fact)
   !=======================================================================
     ! generates factor relating scalar Ylm to polar Ylm
@@ -389,7 +450,8 @@ contains
     real(DP) :: fm2, fl, fl2
     integer(I4B) :: l
 
-    lam_fact(0:m) = 0.
+!    lam_fact(0:m) = 0.
+    lam_fact(0:max(1,m)) = 0.0_dp
     fm2 = real(m * m, kind=DP)
     do l = max(2,m+1), l_max
        fl  = real(l, kind=dp)
@@ -449,6 +511,41 @@ contains
     return
   end subroutine gen_mfac
   !=======================================================================
+  subroutine gen_mfac_spin( m_max, spin, m_fact)
+  !=======================================================================
+    ! generates factor used in lam_mm,s calculation
+    ! for all m in 0<=m<=m_max
+    !=======================================================================
+    integer(I4B), intent(IN)                       :: m_max, spin
+    real(DP),     intent(OUT), dimension(0:m_max)  :: m_fact
+    !
+    integer(I4B) :: m, aspin
+    real(DP) :: tmp
+
+    aspin = abs(spin)
+    m_fact(:) = -1.e30
+    if (aspin <= m_max) m_fact(aspin) = 1.0_dp
+    ! fact(m) = fact(m+1) * sqrt((s+m+1)/(s-m) )
+    if (aspin > 0) then
+       tmp = 1.d0
+       do m = aspin-1, 0, -1
+          tmp = tmp * sqrt( dble(aspin+m+1)/dble(aspin-m) )
+          if (m <= m_max) m_fact(m) = tmp
+       enddo
+    endif
+    ! fact(m) = fact(m-1) * sqrt(m*(2m+1)/(m-s)/(m+s)/2 )
+    do m = aspin+1, m_max
+      m_fact(m) = m_fact(m-1)*sqrt( m*dble(2*m+1)/dble(2*(m-aspin)*(m+aspin)) )
+    end do
+
+    ! Log_2 ( fact(m)  / sqrt(4 Pi))
+    do m=0,m_max
+       m_fact(m) = log(SQ4PI_INV * m_fact(m)) * ALN2_INV 
+    enddo
+
+    return
+  end subroutine gen_mfac_spin
+  !=======================================================================
   subroutine compute_lam_mm(mfac, m, sth, lam_mm, corfac, scalem)
     !=======================================================================
     ! computes lam_mm
@@ -507,7 +604,7 @@ contains
     lam_mm = 2.0_dp **(log2val - scalel * dlog2lg) ! rescaled lam_mm
     if (IAND(m,1)>0) lam_mm = -lam_mm ! negative for odd m
     
-    lam_lm(m:lmax) = 0.0_dp
+    lam_lm(0:lmax) = 0.0_dp
     ! --- l = m ---
     lam_lm(m) = lam_mm * corfac
 
@@ -530,7 +627,7 @@ contains
           lam_2 = lam_2*unflow
           scalel= scalel + 1
           corfac = rescale_tab(max(scalel,RSMIN))
-       elseif (abs(lam_2) < unflow) then
+       elseif (abs(lam_2) < unflow .and. abs(lam_2) /= 0.0_dp) then
           lam_1 = lam_1*ovflow
           lam_2 = lam_2*ovflow
           scalel= scalel - 1
@@ -539,6 +636,120 @@ contains
                    
     enddo ! loop on l
   end subroutine do_lam_lm
+  !=======================================================================
+  subroutine do_lam_lm_spin(lmax, m, spin, cth, sth, mfac, mfac_spin, recfac_spin, lam_lm_spin)
+    !=======================================================================
+    ! computes spin lambda_lm(theta) for all l in [m,lmax] for a given m, spin, and theta
+    ! input: lmax, m, spin, cos(theta), sin(theta)
+    !        mfac: precomputed (by gen_mfac) quantity useful for lambda_mm calculation
+    !        mfac_spin: precomputed (by gen_mfac_spin) quantity useful for lambda_mm calculation
+    !        recfac_spin: precomputed (by gen_recfac_spin) quantities useful for 
+    !            lambda_lm recursion for a given m
+    ! output: lam_lm
+    ! the routine also needs the array rescale_tab initialized by init_rescale
+    !=======================================================================
+    integer(I4B),                    intent(in)  :: lmax,  m, spin
+    real(DP),                        intent(in)  :: cth, sth, mfac, mfac_spin
+    real(DP), dimension(0:2,0:lmax), intent(in)  :: recfac_spin
+    real(DP), dimension(1:2,0:lmax), intent(out) :: lam_lm_spin
+    !
+    real(DP) :: dlog2lg
+    real(DP) :: ovflow, unflow
+    real(DP) :: lam_0, lam_1, lam_2
+    real(DP) :: thetao2, ttho2, stho2, ctho2, kss, tmp1, tmp2
+    real(DP), dimension(1:2) :: log10sss, corfac, log2val, lam_mm
+    integer(I4B) :: l, l_min, l_low, aspin, iss
+    integer(I4B), dimension(1:2) :: scalel
+    !---------------------------------------------------------------
+
+    lam_lm_spin(1:2,0:lmax) = 0.0_dp
+    aspin = abs(spin)
+    l_low = max(m, aspin)
+    if (l_low > lmax) return
+
+    ! define constants
+    ovflow = rescale_tab(1)
+    unflow = rescale_tab(-1)
+    l_min = l_min_ylm(m, sth)
+    dlog2lg = real(LOG2LG, kind=DP)
+    
+    thetao2 = atan2(sth, cth)/2.d0
+    ttho2 = tan(thetao2)
+    stho2 = sin(thetao2) ! sqrt(1-cth)/sqrt(2)
+    ctho2 = cos(thetao2) ! sqrt(1+cth)/sqrt(2)
+    ! lambda(s,s, s) = (-)^s * sqrt(2s+1/4Pi) sin(theta/2)^(2s)
+    ! lambda(s,s,-s) = (-)^s * sqrt(2s+1/4Pi) cos(theta/2)^(2s)
+    log10sss(1) = (2*aspin *log(stho2) + 0.5d0*log(2*aspin+1.0_dp)) ! log_10(abs(lam_sss)*sqrt(4Pi))
+    log10sss(2) = (2*aspin *log(ctho2) + 0.5d0*log(2*aspin+1.0_dp)) ! log_10(abs(lam_ss-s)*sqrt(4Pi))
+    !
+    if (m >= aspin) then
+       ! computes directly lambda(m,m,s)
+       ! lambda(m,m,s) = - lambda(m-1,m-1,s) * sin(theta) * sqrt(m(2m+1)/2/(m^2-s^2))
+       log2val(1:2) = mfac_spin + ((m-aspin)*log(sth) + log10sss(1:2)) * ALN2_INV ! log_2(lam_mms)
+       scalel(1:2) = int (log2val(1:2) / dlog2lg)
+       corfac(1) = rescale_tab(max(scalel(1),RSMIN))
+       corfac(2) = rescale_tab(max(scalel(2),RSMIN))
+       lam_mm(1:2) = 2.0_dp **(log2val(1:2) - scalel(1:2) * dlog2lg) ! rescaled lam_mm
+       if (IAND(m,1)>0) lam_mm(1:2) = -lam_mm(1:2) ! negative for odd m
+    else
+       ! computes lambda(s,m,s)
+       ! lambda(s,m,s)  = - lambda(s,m+1, s) / tan(theta/2) * sqrt((s+m+1)/(s-m))
+       ! lambda(s,m,-s) = + lambda(s,m+1,-s) * tan(theta/2) * sqrt((s+m+1)/(s-m))
+       log2val(1) = mfac_spin + ( (m-aspin)*log(ttho2) + log10sss(1)) * ALN2_INV ! log_2(lam_mms)
+       log2val(2) = mfac_spin + (-(m-aspin)*log(ttho2) + log10sss(2)) * ALN2_INV ! log_2(lam_mms)
+       scalel(1:2) = int (log2val(1:2) / dlog2lg)
+       corfac(1) = rescale_tab(max(scalel(1),RSMIN))
+       corfac(2) = rescale_tab(max(scalel(2),RSMIN))
+       lam_mm(1:2) = 2.0_dp **(log2val(1:2) - scalel(1:2) * dlog2lg) ! rescaled lam_mm
+       if (IAND(m,1)>0)     lam_mm(1) = -lam_mm(1) ! negative for odd m, and s>0
+       if (IAND(aspin,1)>0) lam_mm(2) = -lam_mm(2) ! negative for odd s, and s<0
+    endif
+
+    ! --- l = m ---
+    lam_lm_spin(1:2,l_low) = lam_mm(1:2) * corfac(1:2)
+
+    do iss=1,2 ! +spin and then -spin
+       kss = 1.0_dp
+       if (iss == 2) kss = -1.0_dp
+       ! --- l > m ---
+       lam_0 = 0.0_dp
+       lam_1 = 1.0_dp
+       lam_2 = (cth + kss*recfac_spin(2,l_low)) * lam_1 * recfac_spin(0,l_low)
+       do l = l_low+1, lmax
+          ! do recursion
+          if (l >= l_min) then
+             lam_lm_spin(iss,l) = lam_2 * corfac(iss) * lam_mm(iss)
+          endif
+          lam_0 = lam_1 * recfac_spin(1,l-1)
+          lam_1 = lam_2
+          lam_2 = ((cth + kss*recfac_spin(2,l)) * lam_1 - lam_0) * recfac_spin(0,l)
+
+          ! do dynamic rescaling
+          if (abs(lam_2) > ovflow) then
+             lam_1 = lam_1*unflow
+             lam_2 = lam_2*unflow
+             scalel(iss)= scalel(iss) + 1
+             corfac(iss) = rescale_tab(max(scalel(iss),RSMIN))
+          elseif (abs(lam_2) < unflow .and. abs(lam_2) /= 0.0_dp) then
+             lam_1 = lam_1*ovflow
+             lam_2 = lam_2*ovflow
+             scalel(iss)= scalel(iss) - 1
+             corfac(iss) = rescale_tab(max(scalel(iss),RSMIN))
+          endif
+       enddo ! loop on l
+    enddo ! loop on spin sign (iss)
+
+    ! compute functions with fixed parity
+    ! beware: the first one is always the half sum
+    !         the second one is always the half difference, independently of spin 
+    do l=0, lmax
+       tmp1 = lam_lm_spin(1,l) * 0.5_dp
+       tmp2 = lam_lm_spin(2,l) * 0.5_dp
+       lam_lm_spin(1,l) = tmp1 + tmp2
+       lam_lm_spin(2,l) = tmp1 - tmp2
+    enddo
+
+  end subroutine do_lam_lm_spin
   !=======================================================================
   subroutine do_lam_lm_pol(lmax, m, cth, sth, mfac, recfac, lam_fact, lam_lm)
     !=======================================================================
@@ -625,7 +836,7 @@ contains
           lam_2 = lam_2*unflow
           scalel= scalel + 1
           corfac = rescale_tab(max(scalel,RSMIN))
-       elseif (abs(lam_2) < unflow) then
+       elseif (abs(lam_2) < unflow .and. abs(lam_2) /= 0.0_dp) then
           lam_1 = lam_1*ovflow
           lam_2 = lam_2*ovflow
           scalel= scalel - 1
@@ -696,7 +907,7 @@ contains
     print*,'WARNING: obsolete interface to MAP2ALM: '
     print*,'    cos_theta_cut (6th argument) currently a DP scalar with value'
     write(*,9000) '    ',cos_theta_cut
-    print*,'    shoud now be replaced with a 2-element vector with values:'
+    print*,'    should now be replaced with a 2-element vector with values:'
     write(*,9001) '    ',zbounds(1),zbounds(2)
     print*,'    See documentation for details.'
     print*,' -------------------------------------'
@@ -1192,14 +1403,14 @@ contains
     gb = 0.0_dp
 
     if (nl <= lmax) then
-       print*,'Generate_beam: beam array only available up to ',nl
+       print 9000,' Generate_beam: beam array only available up to ',nl
     endif
     nl = min(nl, lmax+1)
 
     if (extfile) then
        call assert_present(beam_file)
        new_beam_file = beam_file
-       print*,'Reading beam information from '//trim(new_beam_file)
+       print 9000,' Reading beam information from '//trim(new_beam_file)
 
        ! find out file nature
        type = 1
@@ -1226,15 +1437,15 @@ contains
 100       continue
           close(lunit)
           if (il < (nl-1)) then
-             print*,'WARNING: Beam transfer function only available up to l= ',il !
-             print*,'         The larger multipoles will be set to 0'
+             print 9001,' WARNING: Beam transfer function only available up to l= ',il !
+             print 9000,'          The larger multipoles will be set to 0'
           endif
 
        else if (type == 1) then
           ! FITS file with ascii table
-          call fits2cl(new_beam_file, gb, nl-1, nd, header)
+          call fits2cl(new_beam_file, gb, nl-1_i4b, nd, header)
        else
-          print*,'the file '//trim(new_beam_file) &
+          print 9000,' the file '//trim(new_beam_file) &
                &            //' is of unknown type.'
           call fatal_error
        endif
@@ -1242,7 +1453,7 @@ contains
        ! if Grad absent, replicate Temperature; if Curl absent, replicate Grad
        do i=2,nd
           if ( sum(abs(gb(:,i))) < 1.e-7 ) then
-             print*,'column #',i,' empty, fill in with column #',i-1
+             print 9002,' column #',i,' empty, fill in with column #',i-1
              gb(:,i) = gb(:,i-1)
           endif
        enddo
@@ -1252,6 +1463,10 @@ contains
        print*,'Generating gaussian beam of FHWM [arcmin] = ',fwhm_arcmin
        call gaussbeam(fwhm_arcmin, nl-1, gb)
     endif
+
+9000 format(a)
+9001 format(a,i6)
+9002 format(a,i3,a,i3)
 
     return
   end subroutine generate_beam

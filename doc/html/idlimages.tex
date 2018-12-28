@@ -5,14 +5,19 @@
 \RequirePackage{ifthen}
 
 
-\usepackage{healpix,psfig,html,makeidx}
+\usepackage{healpix,graphicx,html,makeidx}
 %
 \renewcommand{\ell}{l}
 %
-\renewcommand{\lq}{`}%
+\renewcommand{\lq}{'}%
+\providecommand{\hpxversion}{2.11}%
+\providecommand{\idlversion}{6.0 }%
 \providecommand{\nside}{{N_{\rm side}}}%
 \providecommand{\npix}{{N_{\rm pix}}}%
-\providecommand{\ntemplate}{{N_{\rm template}}} 
+\providecommand{\ntemplate}{{N_{\rm template}}}%
+\providecommand{\myhtmlimage}[1]{ } 
+%
+\renewcommand{\contentsname}{{TABLE OF CONTENTS}}
 
 
 \sloppy
@@ -155,6 +160,13 @@
 \setcounter{tocdepth}{10}
 \stepcounter{section}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline209}%
+$3.46\ 10^{18}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
 \stepcounter{section}
 
 \renewcommand{\facname}{{ang2vec }}
@@ -162,49 +174,103 @@
 \renewcommand{\FACNAME}{{ANG2VEC }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline334}%
+\lthtmlinlinemathA{tex2html_wrap_inline531}%
 $\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline336}%
+\lthtmlinlinemathA{tex2html_wrap_inline533}%
 $2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline342}%
+\lthtmlinlinemathA{tex2html_wrap_inline539}%
 $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline344}%
+\lthtmlinlinemathA{tex2html_wrap_inline541}%
 $(\theta,\phi)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline348}%
+\lthtmlinlinemathA{tex2html_wrap_inline545}%
 $x = \sin\theta\cos\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline350}%
+\lthtmlinlinemathA{tex2html_wrap_inline547}%
 $y=\sin\theta\sin\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline352}%
+\lthtmlinlinemathA{tex2html_wrap_inline549}%
 $z=\cos\theta$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+
+\renewcommand{\facname}{{bin\_llcl}}
+
+\renewcommand{\FACNAME}{{BIN\_LLCL}}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline663}%
+$\ldots$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline673}%
+$C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline675}%
+$\Delta l(b)$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline679}%
+$l(l+1)/2\pi$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline683}%
+$\propto 2l+1$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline685}%
+$\l (\l +1)/2\pi$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline811}%
+$1\le n \le 3$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline967}%
+$\quad$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 
 \renewcommand{\facname}{{change\_polcconv }}
 
@@ -218,7 +284,7 @@ $z=\cos\theta$%
 \renewcommand{\FACNAME}{{EULER\_MATRIX\_NEW}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10399}%
+\lthtmlinlinemathA{tex2html_wrap_inline13195}%
 $\textstyle \parbox{\hsize}{\facname \ ~\ allows the generation of a rotation Euler matrix. The user
 can choose the three Euler angles, and the three axes of rotation.
 \par
@@ -241,13 +307,13 @@ euler\_matrix\_new(a,b,c,/Z)  =  euler\_matrix($-$a, b,$-$c,/Z)
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1149}%
+\lthtmlinlinemathA{tex2html_wrap_inline1630}%
 $C(l) = \sum_m a_{lm}a^*_{lm} / (2l+1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1163}%
+\lthtmlinlinemathA{tex2html_wrap_inline1644}%
 $l(l+1)C(l)/2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -260,19 +326,19 @@ $l(l+1)C(l)/2\pi$%
 \renewcommand{\l}{{$l$\  }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1253}%
+\lthtmlinlinemathA{tex2html_wrap_inline1738}%
 $2 \le$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1255}%
+\lthtmlinlinemathA{tex2html_wrap_inline1740}%
 $\le 4$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1261}%
+\lthtmlinlinemathA{tex2html_wrap_inline1746}%
 $C(l)_{\rm meas} = C(l)
 B(l)^2$%
 \lthtmlinlinemathZ
@@ -289,25 +355,25 @@ B(l)^2$%
 \renewcommand{\FACNAME}{{GETSIZE\_FITS }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1419}%
+\lthtmlinlinemathA{tex2html_wrap_inline1904}%
 ${N_{\rm side}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1423}%
+\lthtmlinlinemathA{tex2html_wrap_inline1908}%
 $=12{N_{\rm side}}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1427}%
+\lthtmlinlinemathA{tex2html_wrap_inline1912}%
 $\le 12{N_{\rm side}}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline10493}%
+\lthtmlinlinemathA{tex2html_wrap_inline13285}%
 $\textstyle \parbox{\hsize}{ should produce something like \\
    {\em 196608 \ \        128 \ \         256  \ \      2} \\
 meaning that the map contained in that file has 196608 pixels, the resolution parameter is
@@ -320,19 +386,13 @@ nside=128, the maximum multipole was 256, and this a full sky map
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1612}%
-$\lq$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1616}%
+\lthtmlinlinemathA{tex2html_wrap_inline2111}%
 $\pm$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1618}%
+\lthtmlinlinemathA{tex2html_wrap_inline2113}%
 $\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -345,21 +405,51 @@ $\mu$%
 \renewcommand{\l}{{$l$\  }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1718}%
-$\htmlimage{}\sqrt(3/\pi) 3600/N_{\rm side}$%
+\lthtmlinlinemathA{tex2html_wrap_inline2216}%
+$ \sqrt{3/\pi}\ 3600/N_{\rm side}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1722}%
+\lthtmlinlinemathA{tex2html_wrap_inline2220}%
 $C(l)_{\rm pix} = C(l)
 W(l)^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
+
+
+\newedenvironment{qualifiers_hpx2gs}{\rule{\hsize}{0.7mm}
+     \textsc{\Large{\textbf{QUALIFIERS}}}\hfill\newline \renewcommand {\arraystretch}{1.5}%
+	}%
+
+
+%
+\providecommand{\sizeoneg}{0.12\hsize}%
+
+
+%
+\providecommand{\sizethrg}{0.85\hsize}%
+
+\stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1849}%
+\lthtmlinlinemathA{tex2html_wrap_inline2502}%
+$\backslash$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline2793}%
+$N_{\rm side}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline2933}%
 $0 \le |m|\le l$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -379,16 +469,14 @@ $0 \le |m|\le l$%
 \stepcounter{section}
 
 
-\newedenvironment{qualifiers_mollview}% customized for mollview IDL routines
-    {\rule{\hsize}{0.7mm}
-     \textsc{\Large{\textbf{QUALIFIERS}}}\hfill\newline \renewedcommand{arraystretch}{1.5}%
+\newedenvironment{qualifiers_mollview}{\rule{\hsize}{0.7mm}
+     \textsc{\Large{\textbf{QUALIFIERS}}}\hfill\newline \renewcommand {\arraystretch}{1.5}%
 	}%
 
 
 
-\newedenvironment{keywords_mollview}% customized for mollview IDL routines
-    {\rule{\hsize}{0.7mm}
-     \textsc{\Large{\textbf{KEYWORDS}}}\hfill\newline \renewedcommand{arraystretch}{1.5}%
+\newedenvironment{keywords_mollview}{\rule{\hsize}{0.7mm}
+     \textsc{\Large{\textbf{KEYWORDS}}}\hfill\newline \renewcommand {\arraystretch}{1.5}%
 	}%
 
 
@@ -404,58 +492,61 @@ $0 \le |m|\le l$%
 \providecommand{\sizethr}{0.70\hsize}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2681}%
+\lthtmlinlinemathA{tex2html_wrap_inline3909}%
+$\sinh^{-1}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline3927}%
 $\simeq$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2695}%
+\lthtmlinlinemathA{tex2html_wrap_inline3941}%
 $\leq 0$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2699}%
-$P = \sqrt( U^2 + Q^2 )$%
+\lthtmlinlinemathA{tex2html_wrap_inline3945}%
+$P = \sqrt{\left(U^2 + Q^2\right)}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2701}%
+\lthtmlinlinemathA{tex2html_wrap_inline3947}%
 $\phi = \tan^{-1}(U/Q) /2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlfigureA{figure2582}%
-\begin{figure}\centerline{\includegraphics[bb=1pt 1pt 600pt 800pt, width=5in]{fig/merge_visu.ps}\htmlimage{}}
-\par
-
-\end{figure}%
-\lthtmlfigureZ
+\lthtmlinlinemathA{tex2html_wrap_inline3961}%
+$\quad\quad$%
+\lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
+
+\renewcommand{\facname}{{neighbours\_nest }}
+\stepcounter{section}
+
+\renewcommand{\facname}{{neighbours\_ring }}
+\stepcounter{section}
 
 \renewcommand{\facname}{{npix2nside }}
 
 \renewcommand{\FACNAME}{{NPIX2NSIDE }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3020}%
+\lthtmlinlinemathA{tex2html_wrap_inline4524}%
 $N_{\rm pix} = 12N_{\rm side}^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3022}%
-$N_{\rm side}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3024}%
-$\{1,\ldots,8192\}$%
+\lthtmlinlinemathA{tex2html_wrap_inline4528}%
+$\{1,\ldots,2^{29}\}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
@@ -464,13 +555,25 @@ $\{1,\ldots,8192\}$%
 
 \renewcommand{\FACNAME}{{NSIDE2NPIX }}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline4666}%
+$ \le 2^{29}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 
 \renewcommand{\facname}{{nside2ntemplates }}
 
 \renewcommand{\FACNAME}{{NSIDE2NTEMPLATES }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmldisplayA{displaymath3274}%
+\lthtmlinlinemathA{tex2html_wrap_inline4778}%
+$\{1,\ldots,8192\}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmldisplayA{displaymath4780}%
 \begin{displaymath}{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.\end{displaymath}%
 \lthtmldisplayZ
 \lthtmlcheckvsize\clearpage}
@@ -483,13 +586,13 @@ $\{1,\ldots,8192\}$%
 \renewcommand{\FACNAME}{{PIX2XXX, ANG2XXX,...}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3642}%
+\lthtmlinlinemathA{tex2html_wrap_inline5156}%
 $x_N(0),\ldots,x_N(n-1),\ y_N(0),\ldots,y_N(n-1),\ z_N(0),\ldots,z_N(n-1)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline3644}%
+\lthtmlinlinemathA{tex2html_wrap_inline5158}%
 $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
                    z_W(0),\ldots,z_W(n-1)$%
 \lthtmlinlinemathZ
@@ -506,6 +609,23 @@ $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
 \renewcommand{\FACNAME}{{QUERY\_POLYGON }}
 \stepcounter{section}
 
+\renewcommand{\facname}{{query\_strip }}
+
+\renewcommand{\FACNAME}{{QUERY\_STRIP }}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline5537}%
+$\pi/5$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline5539}%
+$3\pi/4$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+
 \renewcommand{\facname}{{query\_triangle }}
 
 \renewcommand{\FACNAME}{{QUERY\_TRIANGLE }}
@@ -516,7 +636,7 @@ $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
 \renewcommand{\FACNAME}{{READ\_FITS\_CUT4 }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4099}%
+\lthtmlinlinemathA{tex2html_wrap_inline5733}%
 $\propto 1/\sqrt{{\rm n\_obs}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -527,8 +647,8 @@ $\propto 1/\sqrt{{\rm n\_obs}}$%
 \renewcommand{\FACNAME}{{READ\_FITS\_MAP }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4227}%
-$\ge 0$%
+\lthtmlinlinemathA{tex2html_wrap_inline5860}%
+$\ge$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
@@ -543,13 +663,13 @@ $\ge 0$%
 \renewcommand{\FACNAME}{{READ\_TQU }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4471}%
+\lthtmlinlinemathA{tex2html_wrap_inline6099}%
 $N_{\rm pix}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4475}%
+\lthtmlinlinemathA{tex2html_wrap_inline6103}%
 $\le$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -560,7 +680,7 @@ $\le$%
 \renewcommand{\FACNAME}{{REMOVE\_DIPOLE}}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4577}%
+\lthtmlinlinemathA{tex2html_wrap_inline6226}%
 $\equiv -1.6375\ 10^{30}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -577,42 +697,68 @@ $\equiv -1.6375\ 10^{30}$%
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmldisplayA{eqnarray4813}%
-\begin{eqnarray}
-     z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
-     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
-\htmlimage{}
-\end{eqnarray}%
-\lthtmldisplayZ
+\lthtmlinlinemathA{tex2html_wrap_indisplay14010}%
+$\displaystyle z=\cos(\theta)\ge 2/3,$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4891}%
+\lthtmlinlinemathA{tex2html_wrap_indisplay14011}%
+$\textstyle \ $%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay14012}%
+$\displaystyle 0< \phi \leq \pi/2,$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay14013}%
+$\displaystyle %[Nside*(Nside+2)/4]
+     2/3 > z \geq 0,$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay14015}%
+$\displaystyle \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.   %[Nside]
+$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline6553}%
 $\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline4901}%
+\lthtmlinlinemathA{tex2html_wrap_inline6557}%
 ${N_{\rm side}}=256$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmldisplayA{eqnarray4968}%
-\begin{eqnarray}
-     z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
-     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
-\htmlimage{}
-\end{eqnarray}%
-\lthtmldisplayZ
+\lthtmlinlinemathA{tex2html_wrap_inline6693}%
+$12{N_{\rm side}}^2-1$%
+\lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5034}%
-$12{N_{\rm side}}^2-1$%
-\lthtmlinlinemathZ
+\lthtmlinlinemathA{tex2html_wrap_indisplay14031}%
+$\displaystyle %[Nside*(Nside+2)/4]
+     2/3 > z \geq 0,$%
+\lthtmlindisplaymathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_indisplay14033}%
+$\displaystyle \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.   %[Nside]
+$%
+\lthtmlindisplaymathZ
 \lthtmlcheckvsize\clearpage}
 
 
@@ -621,7 +767,7 @@ $12{N_{\rm side}}^2-1$%
 \renewcommand{\FACNAME}{{UD\_GRADE }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11137}%
+\lthtmlinlinemathA{tex2html_wrap_inline14043}%
 $\textstyle \parbox{0.5\hsize}{if set, during {\bf degradation} each big pixel containing one
     bad or missing small pixel is also considered as bad, \\
         if not set, each big pixel containing at least one good pixel
@@ -641,7 +787,7 @@ $\textstyle \parbox{0.5\hsize}{if set, during {\bf degradation} each big pixel c
 \renewcommand{\FACNAME}{{WRITE\_FITS\_CUT4 }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5409}%
+\lthtmlinlinemathA{tex2html_wrap_inline7164}%
 ${N_{\rm side}}=32$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -657,7 +803,7 @@ ${N_{\rm side}}=32$%
 \renewcommand{\FACNAME}{{WRITE\_FITS\_SB }}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline11211}%
+\lthtmlinlinemathA{tex2html_wrap_inline14110}%
 $\textstyle \parbox{\hsize}{\facname writes out the information contained in {\tt{Prim\_stc}} and {\tt{Exten\_stc}} in the primary unit and extension of the FITS file
 {\tt File} respectively . Coordinate systems can also be specified by {\tt Coordsys}. Specifying the
 ordering scheme is compulsary for \healpix data sets and can be done either in {\tt Header} or by setting {\tt
@@ -681,11 +827,5 @@ Partial is set OR the input fits header contains OBJECT =
 
 \renewcommand{\FACNAME}{{WRITE\_TQU }}
 \stepcounter{section}
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline5893}%
-$\ge$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
 
 \end{document}

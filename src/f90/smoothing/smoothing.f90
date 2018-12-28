@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -28,15 +28,16 @@
 module smomod
 
   USE healpix_types
-  USE alm_tools,  only: map2alm, alm2map, alter_alm
+  USE alm_tools,  only: map2alm_iterative, alm2map, alter_alm
   USE fitstools,  only: getsize_fits, input_map, write_bintab, read_par, read_dbintab
-  USE head_fits,  only: add_card
-  USE misc_utils, ONLY: assert_alloc, fatal_error, wall_clock_time
+  USE head_fits,  only: add_card, write_minimal_header
+  USE misc_utils, ONLY: assert_alloc, fatal_error, wall_clock_time, brag_openmp
   USE pix_tools,  only: convert_ring2nest, convert_nest2ring, nside2npix, npix2nside, &
        &                remove_dipole, vec2ang
   USE extension,  only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_summarize, concatnl, scan_directories
+         parse_string, parse_double, parse_summarize, parse_check_unused,parse_finish, &
+         concatnl, scan_directories
   implicit none
 
   character(len=*), parameter :: CODE = "SMOOTHING"

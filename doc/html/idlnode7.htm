@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>cartview</TITLE>
-<META NAME="description" CONTENT="cartview">
+<TITLE>bin_llcl</TITLE>
+<META NAME="description" CONTENT="bin_llcl">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,49 +28,46 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html177"
+<A NAME="tex2html207"
   HREF="idlnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html183"
+<A NAME="tex2html213"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html187"
+<A NAME="tex2html217"
   HREF="idlnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html185"
+<A NAME="tex2html215"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html178"
-  HREF="idlnode6.htm">cartcursor</A>
+<B> Previous:</B> <A NAME="tex2html208"
+  HREF="idlnode6.htm">ang2vec</A>
 
-<B>Up:</B> <A NAME="tex2html184"
+<B>Up:</B> <A NAME="tex2html214"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html188"
-  HREF="idlnode8.htm">change_polcconv</A>
+<B> Next:</B> <A NAME="tex2html218"
+  HREF="idlnode8.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00070000000000000000"></A>
-<A NAME="idl:cartview"></A>
+<A NAME="idl:bin_llcl"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">cartview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a cartesian projection 
-(where the longitude and latitude are treated as the cartesian abscissa and
-ordinate) of
-<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
-generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/cartview.pro
+<b><font size=+6><FONT COLOR="#CC0000">bin_llcl</FONT></font></b><hr><H2>This IDL facility provides a means to bin an angular power spectrum into
+arbitrary bins.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/misc/bin_llcl.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-CARTVIEW, File, [Select, ] [COLT=, ... 
-            ... UNITS=, XPOS=, YPOS= ]
+BIN_LLCL, Llcl_in, Bin, L_out, Llcl_out, [Dllcl, DELTAL=, /FLATTEN, /HELP, /UNIFORM]
 
 </h2>
 
@@ -78,65 +75,120 @@ CARTVIEW, File, [Select, ] [COLT=, ...
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<DD>For a full list of qualifiers see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
-  </DL>
+<B>Llcl_in</B>
+<DD>1D vector: <B>input</B> power spectrum (given for each <SPAN CLASS="MATH"><I>l</I></SPAN> starting at 0).
+    <DT>
+<B>Bin</B>
+<DD><B>input</B>: binning in <SPAN CLASS="MATH"><I>l</I></SPAN> to be applied, 
+<BR>-either a scalar interpreted as the step size of a regular binning, the first
+bins are then {0, <TT>bin</TT> - 1},{<TT>bin</TT>, 2<TT>bin</TT>-1}, <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg9.png"
+ ALT="$\ldots$"></SPAN>
+
+<BR>-or a 1D vector, interpreted as the lower bound of 
+each bin, ie the first bins are {bin[0],bin[1]-1}, {bin[1], bin[2]-1}, <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg9.png"
+ ALT="$\ldots$"></SPAN>
+<BR>	<DT>
+<B>L_out</B>
+<DD>contains on <B>output</B> the center of each bin <SPAN CLASS="MATH"><I>l</I><SUB><I>b</I></SUB></SPAN>.
+	<DT>
+<B>Llcl_out</B>
+<DD>contains on <B>output</B> the binned power spectrum
+<SPAN CLASS="MATH"><I>C</I>(<I>b</I>)</SPAN>, ie the (weighted) average of the input <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> over each bin.
+	<DT>
+<B>Dllcl</B>
+<DD><B>optional</B>, contains on <B>output</B> a rough estimate of the rms of the binned C(l) for a full
+sky observation <!-- MATH
+ $C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="187" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg10.png"
+ ALT="$C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$"></SPAN>
+	<DT>
+<B>DELTAL=</B>
+<DD><B>optional</B>, contains on <B>output</B> the size of each bin <SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg11.png"
+ ALT="$\Delta l(b)$"></SPAN></DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<DD>For a full list of keywords see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
+<B>/FLATTEN</B>
+<DD>if set, the <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> is internally multiplied by
+<SPAN CLASS="MATH"><IMG
+ WIDTH="93" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg12.png"
+ ALT="$l(l+1)/2\pi$"></SPAN> before being binned. 
+<BR>
+By default, the input <TT>Llcl_in</TT> is binned as is.
+	<DT>
+<B>/HELP</B>
+<DD>if set, an extended help is printed and the code exits.
+    <DT>
+<B>/UNIFORM</B>
+<DD>if set, the <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> in each bin is given the same weight.
+<BR>
+By default a weight <SPAN CLASS="MATH"><IMG
+ WIDTH="72" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg13.png"
+ ALT="$\propto 2l+1$"></SPAN> is used (inverse cosmic variance
+weighting). Note that this weighting affects <TT>Llcl_out</TT> but not <TT>L_out</TT>.
   </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-cartview reads in a <b>HEALPix</b> sky map in FITS format and generates a
-cartesian projection of it, that can be visualized on the screen or
-exported in a GIF, PNG or Postscript file. cartview allows the selection of
-the coordinate system, point of projection, map size, color table, color bar inclusion,
-linear or log scaling, histogram equalised
-color scaling, maximum and 
-minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
-polarization field. 
+bin_llcl bins the input power spectrum (as is, or after flattening by a
+<!-- MATH
+ $\l (\l +1)/2\pi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="93" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg14.png"
+ ALT="$\l (\l +1)/2\pi$"></SPAN> factor) according to an arbitrary binning scheme defined by the
+user. Different weighting scheme (uniform or inverse variance) can be applied inside the bins.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">cartview</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">bin_llcl</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<DD>see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
+<B>idl</B>
+<DD>version 6.0 or more is necessary to run <FONT COLOR="#CC0000">bin_llcl</FONT>.
+    <DT>
+<B><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A></B>
+<DD>facility to read a power spectrum from
+a FITS file.
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
+ <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-
-<P>
-map</TD>
-<TD ALIGN="LEFT">= findgen(48)</TD>
+<A HREF="idlnode28.htm#idl:init_healpix">init_healpix</A></TD>
 </TR>
-<TR><TD ALIGN="LEFT">triangle</TD>
-<TD ALIGN="LEFT">= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+<TR><TD ALIGN="LEFT"><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A>, cl, <A HREF="idlnode28.htm#idl:init_healpix">!healpix.directory</A>+'/test/cl.fits', multipoles=l</TD>
 </TR>
-<TR><TD ALIGN="LEFT">cartview,</TD>
-<TD ALIGN="LEFT">map,/online,res=45,graticule=[45,30],rot=[10,20,30],pysize=250,$</TD>
+<TR><TD ALIGN="LEFT">fl =  l*(l+1) / (2. * !pi)</TD>
 </TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">title='Cartesian cylindrical (full sky)',subtitle='cartview', $</TD>
+<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">bin_llcl</FONT>, fl*cl[*,0], 10, lb, bbcb, /uniform</TD>
 </TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">outline=triangle</TD>
+<TR><TD ALIGN="LEFT">plot, l, fl*cl[*,0]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">oplot, lb, bbcb, psym = 4</TD>
 </TR>
 </TABLE>
-</font></tt>
-<BR><blockquote>makes a cartesian cylindrical projection of map (see Figure 1a on
-page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
-(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
-
-<P>
-
+ </font></tt>
+<BR><blockquote>
+Read a power spectrum, bin it with a binsize of 10 and a uniform weighting, and overplot the input
+spectrum and its binned version.
+ </blockquote>
 
 <P>
 
@@ -144,32 +196,32 @@ page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html177"
+<A NAME="tex2html207"
   HREF="idlnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html183"
+<A NAME="tex2html213"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html187"
+<A NAME="tex2html217"
   HREF="idlnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html185"
+<A NAME="tex2html215"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html178"
-  HREF="idlnode6.htm">cartcursor</A>
+<B> Previous:</B> <A NAME="tex2html208"
+  HREF="idlnode6.htm">ang2vec</A>
 
-<B>Up:</B> <A NAME="tex2html184"
+<B>Up:</B> <A NAME="tex2html214"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html188"
-  HREF="idlnode8.htm">change_polcconv</A>
+<B> Next:</B> <A NAME="tex2html218"
+  HREF="idlnode8.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

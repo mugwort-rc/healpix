@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>ang2vec </TITLE>
-<META NAME="description" CONTENT="ang2vec ">
+<TITLE>alm2fits</TITLE>
+<META NAME="description" CONTENT="alm2fits">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,156 +28,153 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html153"
+<A NAME="tex2html183"
   HREF="idlnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html159"
+<A NAME="tex2html189"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html163"
+<A NAME="tex2html193"
   HREF="idlnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html161"
+<A NAME="tex2html191"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html154"
-  HREF="idlnode4.htm">alm2fits</A>
+<B> Previous:</B> <A NAME="tex2html184"
+  HREF="idlnode4.htm">Changes between release 1.2</A>
 
-<B>Up:</B> <A NAME="tex2html160"
+<B>Up:</B> <A NAME="tex2html190"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html164"
-  HREF="idlnode6.htm">cartcursor</A>
+<B> Next:</B> <A NAME="tex2html194"
+  HREF="idlnode6.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00050000000000000000"></A>
-<A NAME="idl:ang2vec"></A>
+<A NAME="idl:alm2fits"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ang2vec </FONT></font></b><hr><H2>This IDL facility convert the position angles of points on the sphere 
-into their 3D position vectors.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/ang2vec.pro
+<b><font size=+6><FONT COLOR="#CC0000">alm2fits</FONT></font></b><hr><H2>This IDL routine provides a means to write 
+spherical harmonic coefficients (and optional errors) and their index label
+to a FITS file. Each signal is written to a separate binary table
+extension. The routine also writes header information if required.
+The facility is primarily designed to allow the user to write 
+a FITS files containing constraints for a constrained realisation
+performed by the <b>HEALPix</b> facility <SPAN  CLASS="textbf">synfast</SPAN>.
+</H2><br>Location in HEALPix directory tree: <b>src/idl/fits/alm2fits.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-ANG2VEC , Theta, Phi, Vector [, ASTRO=]
+ALM2FITS, index, alm_array, fitsfile, [HDR = , XHDR = ]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>Theta</B>
-<DD>input: scalar or vector, 
-<BR>
-colatitude in radians measured southward from north pole (in
-    [0,<SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg1.png"
- ALT="$\pi$"></SPAN>]).
-<BR>
-If ASTRO is set, Theta is the latitude in degrees measured 
-       northward from the equator (in [-90, 90]).
+<B>index</B>
+<DD>Long array containing the index for the corresponding
+                 array of alm coefficients (and erralm if required). The
+                 index <SPAN CLASS="MATH"><I>i</I></SPAN> is related to <SPAN CLASS="MATH"><I>l</I>,<I>m</I></SPAN> by the relation <BR>
+                 <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1
     <DT>
-<B>Phi</B>
-<DD>input: scalar or vector of same size as Theta, 
+<B>alm_array</B>
+<DD>Real array of alm coefficients written to the
+      file. This has dimension (nl,nalm,nsig) - corresponding to
 <BR>
-longitude in radians measured eastward (in [0, <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg2.png"
- ALT="$2\pi$"></SPAN>]).
-<BR>
-If ASTRO is set, it is the longitude in degree measured eastward (in
-    [0,360]).
+nl   = number of l,m indices <BR>
+nalm = 2 for real and imaginary parts of alm coefficients or
+             4 for above plus corresponding error values <BR>
+nsig = number of signals to be written (1 for any of T E B
+             or 3 if ALL to be written). Each signal is stored
+             in a separate extension.
     <DT>
-<B>Vector</B>
-<DD>output : array, 
-<BR>
-three dimensional cartesian position vector
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> normalised to unity. The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN>. 
-	The coordinates are ordered as follows
-                   <!-- MATH
- $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="424" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="$x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$"></SPAN></DL>
+<B>fitsfile</B>
+<DD>String containing the name of the file to be
+      written.
+  </DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>ASTRO =</B>
-<DD>if set Theta and Phi are the latitude and longitude in
-    degrees instead of the colatitude and longitude in radians.
+<B>HDR =</B>
+<DD>String array containing the primary header for the FITS
+      file. 
+    <DT>
+<B>XHDR =</B>
+<DD>String array containing the extension header. If
+                  ALL signals are required, then each extension table
+                  is given this header.
+    <DT>
+<DD>NOTE: optional header strings should NOT include the
+             header keywords explicitly written by this routine.
   </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-ang2vec performs the geometrical transform from the position angles of points 
-<SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg4.png"
- ALT="$(\theta,\phi)$"></SPAN>
-into their position vectors <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN>:
-<!-- MATH
- $x = \sin\theta\cos\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="111" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg5.png"
- ALT="$x = \sin\theta\cos\phi$"></SPAN>, <!-- MATH
- $y=\sin\theta\sin\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="107" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg6.png"
- ALT="$y=\sin\theta\sin\phi$"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="73" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg7.png"
- ALT="$z=\cos\theta$"></SPAN>
+<FONT COLOR="#CC0000">alm2fits</FONT> writes the input alm coefficients (and associated errors if 
+required) into a FITS file. Each signal type is written as a separate
+binary table extension. Optional headers conforming
+to the FITS convention can also be written to the output file. All
+required FITS header keywords are automatically generated by the
+routine and should NOT be duplicated in the optional header inputs.
+The keywords EXTNAME and TTYPE* are now also automatically generated.
+
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ang2vec </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2fits</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run ang2vec .	
+<DD>version 6.0 or more is necessary to run <FONT COLOR="#CC0000">alm2fits</FONT>.
     <DT>
-<B><A HREF="idlnode31.htm#idl:pix_tools">pix2xxx</A>, ... </B>
-<DD>conversion between vector or angles and pixel index
+<B><A HREF="idlnode15.htm#idl:fits2alm">fits2alm</A></B>
+<DD>provides the complimentary routine to read in 
+      alm coefficients from a FITS file.
     <DT>
-<B><A HREF="idlnode45.htm#idl:vec2ang">vec2ang</A></B>
-<DD>conversion from position vectors to angles
+<B><A HREF="idlnode29.htm#idl:lm2index">lm2index</A></B>
+<DD>converts the alm order and degree
+    <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN> into the index <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 required by
+<FONT COLOR="#CC0000">alm2fits</FONT>.
+    <DT>
+<B><A HREF="idlnode12.htm#idl:cl2fits">cl2fits</A></B>
+<DD>routine to write a power spectrum into
+a FITS file.
+    <DT>
+<B><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A></B>
+<DD>routine to read/compute <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra from a file containing <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
+    <DT>
+<B>alteralm</B>
+<DD>utilises the output file generated by <FONT COLOR="#CC0000">alm2fits</FONT>.
+    <DT>
+<B>synfast</B>
+<DD>utilises the output file generated by <FONT COLOR="#CC0000">alm2fits</FONT>.
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-lat = -45 ; latitude in degrees</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT">long = 120 ; longitude in degrees</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT">ang2vec, lat, lon, /astro, vec</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+<FONT COLOR="#CC0000">alm2fits</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote>will return in <TT>vec</TT> the 3D cartesian position vector of the point of latitude -45 deg and longitude 120 deg
+<BR><blockquote>
+<FONT COLOR="#CC0000">alm2fits</FONT> writes the coefficients stored in the variable <TT>alm</TT>
+to the output FITS file <TT>alm.fits</TT> with optional headers
+passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>.
 </blockquote>
+
+<P>
 
 <P>
 
@@ -185,32 +182,32 @@ lat = -45 ; latitude in degrees</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html153"
+<A NAME="tex2html183"
   HREF="idlnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html159"
+<A NAME="tex2html189"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html163"
+<A NAME="tex2html193"
   HREF="idlnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html161"
+<A NAME="tex2html191"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html154"
-  HREF="idlnode4.htm">alm2fits</A>
+<B> Previous:</B> <A NAME="tex2html184"
+  HREF="idlnode4.htm">Changes between release 1.2</A>
 
-<B>Up:</B> <A NAME="tex2html160"
+<B>Up:</B> <A NAME="tex2html190"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html164"
-  HREF="idlnode6.htm">cartcursor</A>
+<B> Next:</B> <A NAME="tex2html194"
+  HREF="idlnode6.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

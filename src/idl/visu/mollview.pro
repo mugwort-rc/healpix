@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -26,12 +26,13 @@
 ;
 ; -----------------------------------------------------------------------------
 pro mollview, file_in, select_in, $
-CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+EXECUTE=execute, $
 FACTOR=factor, FLIP=flip, $
-GAL_CUT=gal_cut, GIF = gif, GRATICULE = graticule, $
+GAL_CUT=gal_cut, GIF = gif, GLSIZE = glsize, GRATICULE = graticule, $
 HELP = help, $
 HBOUND = hbound, HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGRATICULE=igraticule, $
+IGLSIZE = iglsize, IGRATICULE=igraticule, $
 LOG = log, $
 MAX = max_set, MIN = min_set, $
 NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, $
@@ -39,9 +40,9 @@ OFFSET = offset, ONLINE = online, OUTLINE=outline, $
 PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
 QUADCUBE = quadcube, $
 ROT = rot, $
-SAVE = save, SUBTITLE = subtitle, $
+SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
 TITLEPLOT = titleplot, $
-UNITS = units, XPOS = xpos, YPOS = ypos
+UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 
 ;+
 ; NAME:
@@ -53,11 +54,12 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;
 ; CALLING SEQUENCE:
 ; 	xxxxVIEW, File, [Select, ] $
-;                       [CHARSIZE=, COLT=, COORD=, CROP=, $
+;                       [ASINH=, CHARSIZE=, COLT=, COORD=, CROP=, $
+;                       EXECUTE=execute, $
 ;                       FACTOR=, FITS=, FLIP=, $
-;                       GAL_CUT=, GIF=, GRATICULE=, $
+;                       GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, $
 ;                       HALF_SKY =, HBOUND =, HELP =, HIST_EQUAL=, HXSIZE=, $
-;                       IGRATICULE=igraticule, $
+;                       IGLSIZE=, IGRATICULE=igraticule, $
 ; 	                LOG=, $
 ;                       MAX=, MIN=, $ 
 ; 	                NESTED=, NOBAR=, NOLABELS=, NOPOSITION =, $
@@ -67,9 +69,9 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;                       QUADCUBE= , $
 ;                       NO_DIPOLE=, NO_MONOPOLE=, $
 ;                       RESO_ARCMIN= , ROT=, $
-;                       SAVE=, SUBTITLE=, $
+;                       SAVE=, SILENT=, SUBTITLE=, $
 ;                       TITLEPLOT=, $
-; 	                UNITS=, XPOS=, YPOS=]
+; 	                UNITS=, WINDOW=, XPOS=, YPOS=]
 ;                        
 ;  all the arguments and parameters are identical for all the
 ;  routines, excepted stated otherwise.
@@ -86,17 +88,23 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;
 ; OPTIONAL INPUTS:
 ;       Select =  if the file read is a multi column BIN table, Select indicates
-;                 which column is to be plotted (the default is to plot the first one)
+;                 which column is to be plotted (the default is to plot the
+;                 first column containing some signal, as opposed to pixel index)
 ;               can be either a name : value given in TTYPEi of the FITS file
 ;                        NOT case sensitive and
 ;                        can be truncated, 
 ;                        (only letters, digits and underscore are valid)
 ;               or an integer        : number i of the column
 ;                            containing the data, starting with 1
-;                   the default value is 1
 ;               (see the Examples below)
 ;
 ; OPTIONAL INPUT KEYWORDS:
+;
+;       ASINH: if set, the color table is altered in to emulate the effect of replacing
+;            the data by sinh^{-1}(data) in order to enhance the low contrast regions.
+;            Can be used in conjonction with FACTOR and OFFSET, but can not be
+;            used with /LOG nor /HIST_EQUAL
+;
 ;       CHARSIZE : overall multiplicative factor applied to the size of all
 ;               characters appearing on the plot
 ;                default = 1.0
@@ -119,6 +127,9 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;       CROP : if set the image file (gif, png) only contains the mollweide map and
 ;               not the title, color bar, ...
 ;               (see also : GIF, PNG)
+;
+;       EXECUTE: character string containing an IDL command to be executed in
+;                the plotting window
 ;
 ;       FACTOR : multiplicative factor to be applied to the data (default = 1.0)
 ;               the data plotted is of the form FACTOR*(data + OFFSET)
@@ -144,6 +155,10 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;	      if set to 1            : output the plot in plot_mollweide.gif
 ;	      if set to a file name  : output the plot in that file 
 ;             (see also : CROP, PNG, PS and PREVIEW)
+;
+;       GLSIZE : character size of the graticule labels in units of CHARSIZE
+;             default: 0 (ie, no labeling of graticules)
+;             (see also: CHARSIZE, GRATICULE)
 ;
 ; 	GRATICULE : if set, puts a graticule with delta_long = delta_lat = default
 ;         if graticule is set to a scalar > gmin delta_long = delta_lat = graticule
@@ -176,6 +191,10 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;               ** mollview : default = 15 cm         **
 ;    		(useful for large color printer)
 ;               (see also : PXSIZE)
+;
+;       IGLSIZE : character size of the input coordinates graticule labels in units of CHARSIZE
+;             default: 0 (ie, no labeling of graticules)
+;             (see also: CHARSIZE, IGRATICULE)
 ;
 ;       IGRATICULE: if set, puts a graticule in the input coordinates
 ;          if both graticule and igraticule are set, these ones will
@@ -224,6 +243,7 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;               can be used together with LOG
 ;               see also : FACTOR, LOG
 ;               Note : does NOT apply to polarization direction or amplitude
+;               when POLARIZATION=3. Will apply to polarization amplitude when POLARIZATION=1.
 ;
 ; 	ONLINE: if set, you can put directly A HEALPIX VECTOR on File (and
 ;    		without header): useful when the vector is already
@@ -315,6 +335,8 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;    		the variable saved should be DATA 
 ;                 ** can not be used with /ONLINE **
 ;
+;       SILENT: if set, the code runs silently
+;
 ; 	SUBTITLE : String containing the subtitle to the plot (see TITLEPLOT)
 ;
 ; 	TITLEPLOT : String containing the title of the plot, 
@@ -323,6 +345,13 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;	UNITS : character string containing the units, to be put on the right
 ;		side of the color bar (see : NOBAR)
 ;
+;       WINDOW: IDL window index (integer)
+;               if WINDOW < 0: virtual window: no visible window opened. Can be used with PNG or GIF
+;               if WINDOW in [0,31]: the specified IDL window with index WINDOW is used
+;               (or reused)
+;               if WINDOW > 31: a free (=unused) window with a random index > 31 will be
+;               created and used : default
+
 ;	XPOS : The X position on the screen of the lower left corner
 ;	        of the window, in device coordinate
 ;
@@ -375,6 +404,12 @@ UNITS = units, XPOS = xpos, YPOS = ypos
 ;       Sept-00    added polarisation plotting (Polarization)
 ;       June-02  : EH, Caltech. Hacked G. Giardino's polview into cartview
 ;       June-02    partial consolidation of gnomview/mollview/cartview
+;       Jan-07    added WINDOW keyword
+;       Jun-07:  edited doc header about default data to plot from cut sky file
+;       Sep-07:  added /SILENT
+;       Mar-08:  added GLSIZE and IGLSIZE
+;       Apr-08:  can deal with cut sky data set without creating full sky map
+;       Nov-08:  restore original color table and plot settings when exiting
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -382,6 +417,8 @@ if (exists ne 1) then init_healpix
 
 @viewcom ; define common
 data_plot = 0 ; empty common array
+; record original color table and PLOTS settings
+record_original_settings, original_settings
 
 loadsky                         ; cgis package routine, define rotation matrices
 projection = 'MOLLWEIDE'
@@ -402,11 +439,11 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     PRINT, 'Wrong number of arguments in '+uroutine
     print,'Syntax : '
     print, uroutine+', File, [Select, ]'
-    print,'              [CHARSIZE=, COLT=, COORD=, CROP=, '
-    print,'              FACTOR=, FLIP=, GAL_CUT=, GIF=, GRATICULE=, '
-    print,'              HELP=, '
+    print,'              [ASINH=, CHARSIZE=, COLT=, COORD=, CROP=, '
+    print,'              EXECUTE=, FACTOR=, FLIP=, GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, '
+    print,'              HBOUND=, HELP=, '
     print,'              HIST_EQUAL=, HXSIZE=,'
-    print,'              IGRATICULE=,'
+    print,'              IGLSIZE=, IGRATICULE=,'
     print,'              LOG=, '
     print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
     print,'              NO_DIPOLE, NO_MONOPLE, '
@@ -414,9 +451,9 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              ROT=, SAVE=, '
+    print,'              ROT=, SAVE=, SILENT=, '
     print,'              SUBTITLE=, TITLEPLOT=, '
-    print,'              UNITS=, XPOS=, YPOS=]'
+    print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
     print,'   for an extended help'
@@ -448,7 +485,7 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save, ONLINE=online, NESTED=nested_online, UNITS=units, COORD=coord, FLIP=flip, $
   ROT=rot, QUADCUBE=quadcube, LOG=log, ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
 if error NE 0 then return
 
 data2moll, $
@@ -456,7 +493,7 @@ data2moll, $
   planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
-  POLARIZATION=polarization
+  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -465,9 +502,13 @@ proj2out, $
   HXSIZE=hxsize, NOBAR = nobar, NOLABELS = nolabels, PNG = png, PREVIEW = preview, PS=ps, PXSIZE=pxsize, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
-  HBOUND = hbound
+  HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
+
 
 w_num = !d.window
+; restore original color table and PLOTS settings
+record_original_settings, original_settings, /restore
+
 
 return
 end

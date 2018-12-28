@@ -1,25 +1,23 @@
 /*
- *  This file is part of Healpix_cxx.
+ *  This file is part of libfftpack.
  *
- *  Healpix_cxx is free software; you can redistribute it and/or modify
+ *  libfftpack is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  Healpix_cxx is distributed in the hope that it will be useful,
+ *  libfftpack is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Healpix_cxx; if not, write to the Free Software
+ *  along with libfftpack; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
  */
 
 /*
- *  Healpix_cxx is being developed at the Max-Planck-Institut fuer Astrophysik
+ *  libfftpack is being developed at the Max-Planck-Institut fuer Astrophysik
  *  and financially supported by the Deutsches Zentrum fuer Luft- und Raumfahrt
  *  (DLR).
  */
@@ -37,13 +35,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct
-  {
-  double *work;
-  int length;
-  int bluestein;
-  } complex_plan_i;
 
 /*!\defgroup fftgroup FFT interface
 This package is intended to calculate one-dimensional real or complex FFTs
@@ -82,6 +73,13 @@ multiple threads simultaneously is not supported and will lead to data
 corruption.
 */
 /*! \{ */
+
+typedef struct
+  {
+  double *work;
+  int length;
+  int bluestein;
+  } complex_plan_i;
 
 /*! The opaque handle type for complex-FFT plans. */
 typedef complex_plan_i * complex_plan;

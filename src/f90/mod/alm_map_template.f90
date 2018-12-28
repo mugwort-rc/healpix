@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -32,6 +32,29 @@
 ! K A L M   : alm related and cl kind  either SP or DP
 !
 ! K L O A D : suffixe of routine name, to be replaced by either s (SP) or d (DP)
+  !   subroutine alm2map_sc
+  !   subroutine alm2map_spin
+  !   subroutine alm2map_sc_pre
+  !   subroutine alm2map_pol
+  !   subroutine alm2map_pol_pre1
+  !   subroutine alm2map_pol_pre2
+  !   subroutine alm2map_sc_der
+  !   subroutine alm2map_pol_der
+  !
+  !   subroutine map2alm_sc
+  !   subroutine map2alm_spin
+  !   subroutine map2alm_sc_pre
+  !   subroutine map2alm_pol
+  !   subroutine map2alm_pol_pre1
+  !   subroutine map2alm_pol_pre2
+  !
+  !   subroutine map2alm_iterative
+  !
+  !   subroutine alter_alm
+  !   subroutine create_alm
+  !   subroutine alm2cl
+  !
+  !   subroutine rotate_alm
   !**************************************************************************
   !
   !             ALM2MAP
@@ -53,7 +76,7 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), intent(IN),  dimension(1:1,0:nlmax,0:nmmax) :: alm
-    real(KMAP),   intent(OUT), dimension(    0:12*nsmax**2-1) :: map
+    real(KMAP),   intent(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1) :: map
 
     integer(I4B) :: l, m, ith                          ! alm related
     integer(I8B) :: istart_south, istart_north, npix   ! map related
@@ -237,6 +260,242 @@
     deallocate(b_north, b_south)
     return
   end subroutine alm2map_sc_KLOAD
+
+  !=======================================================================
+  subroutine alm2map_spin_KLOAD(nsmax, nlmax, nmmax, spin, alm, map)
+    !=======================================================================
+    !     computes a map form its alm for the HEALPIX pixelisation
+    !      for the Temperature field
+    !=======================================================================
+    integer(I4B),   intent(IN)                   :: nsmax, nlmax, nmmax, spin
+    complex(KALMC), intent(IN),  dimension(1:,0:,0:) :: alm
+    real(KMAP),     intent(OUT), dimension(0:,1:) :: map
+
+    integer(I4B) :: l, m, ith                          ! alm related
+    integer(I8B) :: istart_south, istart_north, npix   ! map related
+    integer(I4B) :: nrings, nphmx
+
+    real(DP),     dimension(1:4)              :: b_even, b_odd
+    real(DP),     dimension(:,:), allocatable :: dalm
+    real(DP),     dimension(:,:), allocatable :: lam_lm_spin
+    real(DP),     dimension(:),   allocatable :: mfac, mfac_spin
+    real(DP),     dimension(:,:), allocatable :: recfac_spin
+
+    integer(i4b)                                :: ll, l_min, l_start
+    complex(DPC), dimension(:,:), allocatable :: b_north1, b_south1
+    complex(DPC), dimension(:,:), allocatable :: b_north2, b_south2
+    real(DP),     dimension(:),   allocatable :: ring
+    integer(i4b)  :: nchunks, chunksize, ichunk, lchk, uchk, ithl, nphl
+    integer(I8B), dimension(0:SMAXCHK-1) :: startpix
+    integer(I4B), dimension(0:SMAXCHK-1) :: nph, kphi0
+    real(DP),     dimension(0:SMAXCHK-1) :: cth, sth
+    complex(DPC) :: junk_sum, junk_dif
+
+    character(LEN=*), parameter :: code = 'ALM2MAP_SPIN'
+    integer(I4B) :: status
+    logical(LGT) :: even_spin
+    !=======================================================================
+
+    ! Healpix definitions
+    nrings = 2*nsmax           ! number of isolatitude rings on N. hemisphere + equat
+    npix   = (12_I8B*nsmax)*nsmax    ! total number of pixels on the sphere
+    nphmx  = 4*nsmax           ! maximum number of pixels/ring
+
+    !     --- allocates space for arrays ---
+    nchunks   = nrings/SMAXCHK + 1  ! number of chunks
+    chunksize = (nrings+nchunks-1)/nchunks ! <= SMAXCHK
+
+    allocate(mfac(0:nmmax),stat = status)
+    call assert_alloc(status,code,'mfac')
+
+    allocate(mfac_spin(0:nmmax),stat = status)
+    call assert_alloc(status,code,'mfac_spin')
+
+    allocate(b_north1(0:nmmax, 0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'b_north1')
+
+    allocate(b_south1(0:nmmax, 0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'b_south1')
+
+    allocate(b_north2(0:nmmax, 0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'b_north2')
+
+    allocate(b_south2(0:nmmax, 0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'b_south2')
+
+    even_spin = (iand(abs(spin), 1) == 0)
+
+    if (.not.do_openmp()) then
+       allocate(ring(0:nphmx-1),stat = status)
+       call assert_alloc(status,code,'ring')
+       allocate(dalm(0:3,0:nlmax), stat = status)
+       call assert_alloc(status,code,'dalm')
+       allocate(recfac_spin(0:2,0:nlmax),stat = status)
+       call assert_alloc(status,code,'recfac_spin')
+       allocate(lam_lm_spin(1:2,0:nlmax), stat = status)
+       call assert_alloc(status,code,'lam_lm_spin')
+    endif
+    !     ------------ initiate variables and arrays ----------------
+
+    call gen_mfac(nmmax,mfac)
+    call gen_mfac_spin(nmmax, spin, mfac_spin)
+
+    call init_rescale()
+    map = 0.0_KMAP ! set the whole map to zero
+
+    ! loop on chunks
+    do ichunk = 0, nchunks-1
+       lchk = ichunk * chunksize + 1
+       uchk = min(lchk+chunksize - 1, nrings)
+
+       do ith = lchk, uchk
+          ithl = ith - lchk !local index
+          ! get pixel location information
+          call get_pixel_layout(nsmax, ith, cth(ithl), sth(ithl), nph(ithl), startpix(ithl), kphi0(ithl))
+       enddo
+
+       b_north1(:,:) = 0_dpc ! pad with zeros
+       b_south1(:,:) = 0_dpc
+       b_north2(:,:) = 0_dpc ! pad with zeros
+       b_south2(:,:) = 0_dpc
+
+!$OMP parallel default(none) &
+!$OMP shared(nlmax, nmmax, spin, lchk, uchk, rescale_tab, even_spin, &
+!$OMP    cth, sth, mfac, mfac_spin, alm, b_north1, b_south1, b_north2, b_south2) &
+!$OMP private(recfac_spin, dalm, junk_sum, junk_dif, lam_lm_spin, b_even, b_odd, status, ll, l, m, ithl, l_min, l_start)
+
+       if (do_openmp()) then
+          allocate(dalm(0:3,0:nlmax), stat = status)
+          call assert_alloc(status,code,'dalm')
+          allocate(recfac_spin(0:2,0:nlmax),stat = status)
+          call assert_alloc(status,code,'recfac_spin')
+          allocate(lam_lm_spin(1:2,0:nlmax), stat = status)
+          call assert_alloc(status,code,'lam_lm_spin')
+       endif
+
+!$OMP do schedule(dynamic,1)
+       do m = 0, nmmax
+          ! generate recursion factors (recfac_spin) for Ylm,s of degree m and spin s
+          call gen_recfac_spin(nlmax, m, spin, recfac_spin)
+          ! extract needed alm under memory and CPU efficient form
+          ! input alms are   -(a[s]+ (-1)^s a[-s])/2    and -(a[s]- (-1)^s a[-s])/(2i)
+          ! turn them into    (a[s]+ a[-s])/2           and  (a[s]- a[-s])/2
+          ! these new definitions remove the need for (-1)^s factors from now on
+          if (even_spin) then
+             do ll = m, nlmax
+                dalm(0,ll) =   -real(alm(1,ll,m),kind=dp) ; dalm(1,ll) = -aimag(alm(1,ll,m))
+                dalm(2,ll) =  +aimag(alm(2,ll,m)) ;         dalm(3,ll) =  -real(alm(2,ll,m),kind=dp)
+             enddo
+          else
+             do ll = m, nlmax
+                dalm(0,ll) =  +aimag(alm(2,ll,m)) ;         dalm(1,ll) =  -real(alm(2,ll,m),kind=dp)
+                dalm(2,ll) =   -real(alm(1,ll,m),kind=dp) ; dalm(3,ll) = -aimag(alm(1,ll,m))
+             enddo
+          endif
+          ! map1 +/- i map2 = a[+/-s] Y [+/-s]
+          ! Y_even = (Y[s] + Y[-s] ) / 2  ; Y_odd  = (Y[s] - Y[-s] ) / 2
+          ! hsum = (a[s]+a[-s])/2, hdiff = (a[s]-a[-s])/2
+          ! map1 = Y_even * hsum    + Y_odd * hdiff
+          ! map2 = Y_even * hdiff/i + Y_odd * hsum /i
+          do ithl = 0, uchk - lchk
+             l_min = l_min_ylm(m, sth(ithl))
+             if (nlmax >= l_min) then ! skip calculations when Ylm too small
+                ! compute lam_lm(theta) for all l>=m
+                call do_lam_lm_spin(nlmax, m, spin, cth(ithl), sth(ithl), mfac(m), mfac_spin(m), recfac_spin, lam_lm_spin)
+                b_even(1:4) = 0.0_dp
+                b_odd(1:4)  = 0.0_dp
+                ! do the product a_lm * Y_lm for all l>=m
+                l_start = max(m, l_min) ! even values of (l+m)
+                if (mod(m+l_start,2) == 1) l_start = l_start + 1
+                do l = l_start, nlmax, 2
+                   b_even(1:2) = b_even(1:2) + lam_lm_spin(1,l) * dalm(0:1,l)
+                   b_even(3)   = b_even(3)   + lam_lm_spin(1,l) * dalm(3,l)
+                   b_even(4)   = b_even(4)   - lam_lm_spin(1,l) * dalm(2,l)
+                   b_odd(1:2)  = b_odd(1:2)  + lam_lm_spin(2,l) * dalm(2:3,l)
+                   b_odd(3)    = b_odd(3)    + lam_lm_spin(2,l) * dalm(1,l)
+                   b_odd(4)    = b_odd(4)    - lam_lm_spin(2,l) * dalm(0,l)
+                enddo
+
+                l_start = max(m+1, l_min) ! odd values of (l+m)
+                if (mod(m+l_start,2) == 0) l_start = l_start + 1
+                do l = l_start, nlmax, 2
+                   b_odd(1:2)  = b_odd(1:2)  + lam_lm_spin(1,l) * dalm(0:1,l)
+                   b_odd(3)    = b_odd(3)    + lam_lm_spin(1,l) * dalm(3,l)
+                   b_odd(4)    = b_odd(4)    - lam_lm_spin(1,l) * dalm(2,l)
+                   b_even(1:2) = b_even(1:2) + lam_lm_spin(2,l) * dalm(2:3,l)
+                   b_even(3)   = b_even(3)   + lam_lm_spin(2,l) * dalm(1,l)
+                   b_even(4)   = b_even(4)   - lam_lm_spin(2,l) * dalm(0,l)
+                enddo
+
+                b_north1(m,ithl) = cmplx(b_even(1) + b_odd(1),  b_even(2) + b_odd(2), kind=DP) ! north: Even + Odd
+                b_south1(m,ithl) = cmplx(b_even(1) - b_odd(1),  b_even(2) - b_odd(2), kind=DP) ! south: Even - Odd
+                b_north2(m,ithl) = cmplx(b_even(3) + b_odd(3),  b_even(4) + b_odd(4), kind=DP) ! north: Even + Odd
+                b_south2(m,ithl) = cmplx(b_even(3) - b_odd(3),  b_even(4) - b_odd(4), kind=DP) ! south: Even - Odd
+             endif ! test on nlmax
+          enddo ! loop on rings (ithl)    allocate(mfac(0:nmmax),stat = status)
+    call assert_alloc(status,code,'mfac')
+
+
+       enddo ! loop on m
+!$OMP end do
+       if (do_openmp()) then
+          deallocate (recfac_spin,dalm,lam_lm_spin)
+       endif
+!$OMP end parallel
+
+!$OMP parallel default(none) &
+!$OMP  shared(nsmax, nlmax, nmmax, npix, nrings, nphmx, &
+!$OMP      lchk, uchk, b_north1, b_south1, b_north2, b_south2, nph, startpix, kphi0, map) &
+!$OMP  private(ithl, nphl, istart_north, istart_south, &
+!$OMP      ith, ring, status)
+       if (do_openmp()) then
+          allocate(ring(0:nphmx-1),stat = status)
+          call assert_alloc(status,code,'ring')
+       endif
+!$OMP do schedule(dynamic,1)
+          !        ---------------------------------------------------------------
+          !        sum_m  b(m,theta)*exp(i*m*phi)   -> f(phi,theta) by FFT
+          !        ---------------------------------------------------------------
+       do ithl = 0, uchk - lchk
+          nphl = nph(ithl)
+          istart_north = startpix(ithl)
+          call ring_synthesis(nsmax,nlmax,nmmax,b_north1(0,ithl),nphl,ring,kphi0(ithl))   ! north hemisph. + equator
+          map(istart_north:istart_north+nphl-1,1) = ring(0:nphl-1)
+          !!print*,ithl,maxval(abs(ring(0:nphl-1)))
+          call ring_synthesis(nsmax,nlmax,nmmax,b_north2(0,ithl),nphl,ring,kphi0(ithl))   ! north hemisph. + equator
+          map(istart_north:istart_north+nphl-1,2) = ring(0:nphl-1)
+       enddo ! loop on ithl
+!$OMP end do
+!$OMP do schedule(dynamic,1)
+       do ithl = 0, uchk - lchk
+          nphl = nph(ithl)
+          istart_south = npix-startpix(ithl)-nphl
+          ith  = ithl + lchk
+          if (ith < nrings) then
+             call ring_synthesis(nsmax,nlmax,nmmax,b_south1(0,ithl),nphl,ring,kphi0(ithl)) ! south hemisph. w/o equat
+             map(istart_south:istart_south+nphl-1,1) = ring(0:nphl-1)
+             call ring_synthesis(nsmax,nlmax,nmmax,b_south2(0,ithl),nphl,ring,kphi0(ithl)) ! south hemisph. w/o equat
+             map(istart_south:istart_south+nphl-1,2) = ring(0:nphl-1)
+          endif
+       enddo ! loop on ithl
+!$OMP end do
+       if (do_openmp()) then
+          deallocate(ring)
+       endif
+!$OMP end parallel
+    enddo    ! loop on chunks
+
+    !     --------------------
+    !     free memory and exit
+    !     --------------------
+    if (.not.do_openmp()) then
+       deallocate (ring,recfac_spin,lam_lm_spin,dalm)
+    endif
+    deallocate(mfac, mfac_spin)
+    deallocate(b_north1, b_south1)
+    deallocate(b_north2, b_south2)
+    return
+  end subroutine alm2map_spin_KLOAD
 
 !   !=======================================================================
 !   subroutine alm2map_sc_KLOAD(nsmax, nlmax, nmmax, alm, map)
@@ -464,7 +723,7 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), intent(IN),  dimension(1:1,0:nlmax,0:nmmax) :: alm
-    real(KMAP),   intent(OUT), dimension(    0:12*nsmax**2-1) :: map
+    real(KMAP),   intent(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1) :: map
     real(DP),     intent(IN),  dimension(0:)                  :: plm
 
     integer(I4B) :: l, m, ith
@@ -641,11 +900,11 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), intent(IN),  dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
-    real(KMAP),   intent(OUT), dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
 
     integer(I4B) :: l, m, ith                    ! alm related
-    integer(I4B) :: istart_south, istart_north   ! map related
-    integer(I4B) :: nrings, npix, nphmx
+    integer(I8B) :: istart_south, istart_north, npix   ! map related
+    integer(I4B) :: nrings, nphmx
 
     real(DP),     dimension(-3:8)             :: b_ns
     real(DP),     dimension(:,:), allocatable :: recfac, dalm, lam_lm
@@ -1150,7 +1409,7 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), intent(IN),  dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
-    real(KMAP),   intent(OUT), dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     real(DP),     intent(IN),  dimension(0:) :: plm
 
     integer(I4B) :: l, m, ith
@@ -1391,7 +1650,7 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), intent(IN),  dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
-    real(KMAP),   intent(OUT), dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     real(DP),     intent(IN),  dimension(0:,1:) :: plm
 
     integer(I4B) :: l, m, ith
@@ -1620,13 +1879,13 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), INTENT(IN),  dimension(1:1,0:nlmax,0:nmmax) :: alm
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1)     :: map
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1,1:2) :: der1
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1,1:3), optional :: der2
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1)     :: map
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:2) :: der1
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:3), optional :: der2
 
     integer(I4B) :: l, m, ith, scalel, scalem ! alm related
-    integer(I4B) :: istart_south, istart_north   ! map related
-    integer(I4B) :: nrings, npix, nphmx
+    integer(I8B) :: istart_south, istart_north, npix   ! map related
+    integer(I4B) :: nrings, nphmx
 
     integer(I4B)                              :: par_lm
     real(DP)             :: lam_mm, lam_lm, lam_0, lam_1, lam_2, corfac, cth_ring
@@ -1984,13 +2243,13 @@
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), INTENT(IN),  dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1,1:3)     :: map_TQU
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1,1:6) :: der1
-    real(KMAP),   INTENT(OUT), dimension(0:12*nsmax**2-1,1:9), optional :: der2
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:3)     :: map_TQU
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:6) :: der1
+    real(KMAP),   INTENT(OUT), dimension(0:(12_i8b*nsmax)*nsmax-1,1:9), optional :: der2
 
     integer(I4B) :: l, m, ith ! alm related
-    integer(I4B) :: istart_south, istart_north   ! map related
-    integer(I4B) :: nrings, npix, nphmx
+    integer(I8B) :: istart_south, istart_north, npix   ! map related
+    integer(I4B) :: nrings, nphmx
 
     integer(I4B)                              :: par_lm, k, k0, k1, di
     real(DP)             :: lam_mm, cth_ring
@@ -2412,7 +2671,7 @@
   subroutine map2alm_old_sc_KLOAD(nsmax, nlmax, nmmax, map, alm, cos_theta_cut, w8ring, plm)
     !=======================================================================
     integer(I4B), intent(IN)                    :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(    0:12*nsmax**2-1) :: map
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1) :: map
     complex(KALMC), intent(OUT), dimension(1:1,0:nlmax,0:nmmax) :: alm
     real(DP),     intent(IN)                          :: cos_theta_cut
     real(DP),     intent(IN),  dimension(1:2*nsmax,1) :: w8ring
@@ -2433,7 +2692,7 @@
   subroutine map2alm_old_pol_KLOAD(nsmax, nlmax, nmmax, map_TQU, alm_TGC, cos_theta_cut, w8ring, plm)
     !=======================================================================
     integer(I4B), intent(IN)                    :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(    0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     complex(KALMC), intent(OUT), dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
     real(DP),     intent(IN)                          :: cos_theta_cut
     real(DP),     intent(IN),  dimension(1:2*nsmax,1:3) :: w8ring
@@ -2454,7 +2713,7 @@
   subroutine map2alm_old_pol2_KLOAD(nsmax, nlmax, nmmax, map_TQU, alm_TGC, cos_theta_cut, w8ring, plm)
     !=======================================================================
     integer(I4B), intent(IN)                    :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(    0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     complex(KALMC), intent(OUT), dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
     real(DP),     intent(IN)                          :: cos_theta_cut
     real(DP),     intent(IN),  dimension(1:2*nsmax,1:3) :: w8ring
@@ -2679,7 +2938,7 @@
     !        all from scratch
     !=======================================================================
     integer(I4B), intent(IN)                    :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(    0:12*nsmax**2-1) :: map
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1) :: map
     complex(KALMC), intent(OUT), dimension(1:1,0:nlmax,0:nmmax) :: alm
     real(DP),     intent(IN),  dimension(1:2),         optional :: zbounds
     real(DP),     intent(IN),  dimension(1:2*nsmax,1), optional :: w8ring
@@ -2687,8 +2946,8 @@
     real(DP), dimension(1:2)         :: zbounds_in
     real(DP), dimension(1:2*nsmax,1) :: w8ring_in
     integer(I4B) :: l, m, ith, scalem, scalel   ! alm related
-    integer(I4B) :: istart_south, istart_north  ! map related
-    integer(I4B) :: nrings, npix, nphmx
+    integer(I8B) :: istart_south, istart_north, npix  ! map related
+    integer(I4B) :: nrings, nphmx
     real(DP)     :: omega_pix
 
     integer(I4B)                              :: par_lm
@@ -2907,6 +3166,257 @@
     endif
     RETURN
   END subroutine map2alm_sc_KLOAD
+  !=======================================================================
+  subroutine map2alm_spin_KLOAD(nsmax, nlmax, nmmax, spin, map, alm, zbounds, w8ring)
+    !=======================================================================
+    !     computes the a(l,m) from a Temperature map for the HEALPIX pixelisation
+    !        all from scratch
+    !=======================================================================
+    integer(I4B),   intent(IN)                    :: nsmax, nlmax, nmmax, spin
+    real(KMAP),     intent(IN),  dimension(0:, 1:) :: map
+    complex(KALMC), intent(OUT), dimension(1:,0:,0:) :: alm
+    real(DP),       intent(IN),  dimension(1:2),         optional :: zbounds
+    real(DP),       intent(IN),  dimension(1:2*nsmax,1:2), optional :: w8ring
+
+    real(DP), dimension(1:2)         :: zbounds_in
+    real(DP), dimension(1:2*nsmax,1:2) :: w8ring_in
+    integer(I4B) :: l, m, ith, scalem, scalel   ! alm related
+    integer(I8B) :: istart_south, istart_north, npix  ! map related
+    integer(I4B) :: nrings, nphmx
+    real(DP)     :: omega_pix
+
+    real(DP)              :: corfac
+    real(DP),     dimension(-1:2)             :: phas_sd1, phas_sd2
+    real(DP),     dimension(:,:), allocatable :: dalm
+    real(DP),     dimension(:,:), allocatable :: lam_lm_spin
+    real(DP),     dimension(:),   allocatable :: mfac, mfac_spin
+    real(DP),     dimension(:,:), allocatable :: recfac_spin
+
+    integer(I4B)                              :: l_min, l_start
+    complex(DPC)                              :: php1, phm1, php2, phm2
+    complex(DPC), dimension(:,:), allocatable :: phas_n1, phas_s1,phas_n2, phas_s2
+    real(DP),     dimension(:),   allocatable :: ring
+    integer(I4B)                   :: nchunks, chunksize, ichunk, lchk, uchk, ithl, nphl
+    integer(I8B), dimension(0:SMAXCHK-1) :: startpix
+    integer(I4B), dimension(0:SMAXCHK-1) :: nph, kphi0
+    real(DP),     dimension(0:SMAXCHK-1) :: cth, sth
+    logical(LGT), dimension(0:SMAXCHK-1) :: keep_north, keep_south, keep_it
+
+    character(LEN=*), PARAMETER :: code = 'MAP2ALM_SPIN'
+    integer(I4B) :: status
+    logical(LGT) :: even_spin
+    !=======================================================================
+
+    zbounds_in = (/-1.d0 , 1.d0/)
+    if (present(zbounds)) zbounds_in = zbounds
+    w8ring_in  = 1.d0
+    if (present(w8ring))  w8ring_in  = w8ring
+
+    ! Healpix definitions
+    nrings = 2*nsmax           ! number of isolatitude rings on N. hemisphere + equat
+    npix   = (12_I8B*nsmax)*nsmax    ! total number of pixels on the sphere
+    nphmx  = 4*nsmax           ! maximum number of pixels/ring
+    omega_pix = FOURPI / real(npix, kind=DP)  ! pixel area (identical for all pixels)
+
+    !     --- allocates space for arrays ---
+    nchunks   = nrings/SMAXCHK + 1  ! number of chunks
+    chunksize = (nrings+nchunks-1)/nchunks ! <= SMAXCHK
+
+    allocate(mfac(0:nmmax),stat = status)
+    call assert_alloc(status,code,'mfac')
+
+    allocate(mfac_spin(0:nmmax),stat = status)
+    call assert_alloc(status,code,'mfac_spin')
+
+    allocate(phas_n1(0:nmmax,0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'phas_n1')
+
+    allocate(phas_s1(0:nmmax,0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'phas_s1')
+
+    allocate(phas_n2(0:nmmax,0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'phas_n2')
+
+    allocate(phas_s2(0:nmmax,0:chunksize-1),stat = status)
+    call assert_alloc(status,code,'phas_s2')
+
+    even_spin = (iand(abs(spin), 1) == 0)
+
+    if (.not.do_openmp()) then
+       allocate(ring(0:nphmx-1),stat = status)
+       call assert_alloc(status,code,'ring')
+       allocate(dalm(1:4,0:nlmax),stat = status)
+       call assert_alloc(status,code,'dalm')
+       allocate(recfac_spin(0:2,0:nlmax),stat = status)
+       call assert_alloc(status,code,'recfac_spin')
+       allocate(lam_lm_spin(1:2,0:nlmax), stat = status)
+       call assert_alloc(status,code,'lam_lm_spin')
+    endif
+
+    !     ------------ initiate variables and arrays ----------------
+
+    call gen_mfac(nmmax,mfac)
+    call gen_mfac_spin(nmmax, spin, mfac_spin)
+
+    call init_rescale()
+    alm = 0.0 ! set the whole alm array to zero
+
+    ! loop on chunks
+    do ichunk = 0, nchunks-1
+       lchk = ichunk * chunksize + 1
+       uchk = min(lchk+chunksize - 1, nrings)
+
+       do ith = lchk, uchk
+          ithl = ith - lchk !local index
+          ! get pixel location information
+          call get_pixel_layout(nsmax, ith, cth(ithl), sth(ithl), nph(ithl), startpix(ithl), kphi0(ithl))
+          ! find out which rings are to be analysed
+          call select_rings(cth(ithl), zbounds_in, keep_north(ithl), keep_south(ithl), keep_it(ithl))
+       enddo
+
+       !-----------------------------------------------------------------------
+       !  computes the integral in phi : phas_m(theta)
+       !  for each parallele from Pole to Equator (use symmetry for S. Hemisphere)
+       !-----------------------------------------------------------------------
+       phas_n1 = 0_dpc
+       phas_s1 = 0_dpc
+       phas_n2 = 0_dpc
+       phas_s2 = 0_dpc
+
+!$OMP parallel default(none) &
+!$OMP  shared(nsmax, nlmax, nmmax, npix, nrings, nphmx, &
+!$OMP      lchk, uchk, nph, startpix, kphi0, w8ring_in, phas_n1, phas_s1,  phas_n2, phas_s2, &
+!$OMP      keep_north, keep_south, map) &
+!$OMP  private(ithl, nphl, istart_north, istart_south, ith, ring, status)
+
+       if (do_openmp()) then
+          allocate(ring(0:nphmx-1),stat = status)
+          call assert_alloc(status,code,'ring')
+       endif
+!$OMP do schedule(dynamic,1)
+       do ith = lchk, uchk
+          ithl = ith - lchk !local index
+          nphl = nph(ithl)
+          istart_north = startpix(ithl)
+          istart_south = npix-istart_north-nphl
+          ! do Fourier Transform on rings
+          if (keep_north(ithl)) then
+             ring(0:nphl-1) = map(istart_north:istart_north+nphl-1, 1) * w8ring_in(ith,1)
+             call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_n1(0,ithl), kphi0(ithl))
+             ring(0:nphl-1) = map(istart_north:istart_north+nphl-1, 2) * w8ring_in(ith,2)
+             call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_n2(0,ithl), kphi0(ithl))
+          endif
+
+          if (ith < nrings .and. keep_south(ithl)) then
+             ring(0:nphl-1) = map(istart_south:istart_south+nphl-1, 1) * w8ring_in(ith,1)
+             call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_s1(0,ithl), kphi0(ithl))
+             ring(0:nphl-1) = map(istart_south:istart_south+nphl-1, 2) * w8ring_in(ith,2)
+             call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_s2(0,ithl), kphi0(ithl))
+          endif
+       enddo ! loop on ring
+!$OMP end do
+       if (do_openmp()) then
+          deallocate(ring)
+       endif
+!$OMP end parallel
+       !-----------------------------------------------------------------------
+       !              computes the a_lm by integrating over theta
+       !                  lambda_lm(theta) * phas_m(theta)
+       !                         for each m and l
+       !-----------------------------------------------------------------------
+
+!$OMP parallel default(none) &
+!$OMP shared(nlmax, nmmax, spin, lchk, uchk, rescale_tab, even_spin, &
+!$OMP    cth, sth, mfac, mfac_spin, alm, phas_n1, phas_s1, phas_n2, phas_s2, keep_it, omega_pix) &
+!$OMP private(recfac_spin, dalm, phas_sd1, phas_sd2, status, m, ithl, l_min, &
+!$OMP   lam_lm_spin, l, l_start, php1, phm1, php2, phm2)
+
+       if (do_openmp()) then
+          allocate(dalm(1:4,0:nlmax),stat = status)
+          call assert_alloc(status,code,'dalm')
+          allocate(recfac_spin(0:2,0:nlmax),stat = status)
+          call assert_alloc(status,code,'recfac_spin')
+          allocate(lam_lm_spin(1:2,0:nlmax), stat = status)
+          call assert_alloc(status,code,'lam_lm_spin')
+       endif
+
+!$OMP do schedule(dynamic,1)
+       do m = 0, nmmax
+          ! generate recursion factors (recfac_spin) for Ylm of degree m
+          call gen_recfac_spin(nlmax, m, spin, recfac_spin)
+
+          ! a[+/-s]  = (map1 +/- i map2) Y [+/-s]^*
+          ! Y_even = (Y[s] + Y[-s] ) / 2  ; Y_odd  = (Y[s] - Y[-s] ) / 2
+          ! hsum = (a[s]+a[-s])/2, hdiff = (a[s]-a[-s])/2
+          ! hsum  = Y_even^*     * map1 + Y_odd^* * i * map2
+          ! hdiff = Y_even^* * i * map2 + Y_odd^*     * map1
+          ! introduce double precision vector to perform summation over ith for each l
+          dalm(1:4, m:nlmax ) = 0.0_dp
+
+          do ithl = 0, uchk - lchk
+             l_min = l_min_ylm(m, sth(ithl))
+             if (keep_it(ithl) .and. nlmax >= l_min) then ! avoid un-necessary calculations (EH, 09-2001)
+                ! compute lam_lm(theta) for all l>=m
+                call do_lam_lm_spin(nlmax, m, spin, cth(ithl), sth(ithl), mfac(m), mfac_spin(m), recfac_spin, lam_lm_spin)
+
+                php1 = phas_n1(m,ithl) + phas_s1(m,ithl) ! sum  (if (l+m) even)
+                phm1 = phas_n1(m,ithl) - phas_s1(m,ithl) ! diff (if (l+m) odd)
+                php2 = phas_n2(m,ithl) + phas_s2(m,ithl) ! sum  (if (l+m) even)
+                phm2 = phas_n2(m,ithl) - phas_s2(m,ithl) ! diff (if (l+m) odd)
+
+                phas_sd1(-1:2) =  (/ real(phm1, kind=dp), aimag(phm1), real(php1, kind=dp), aimag(php1) /)
+                phas_sd2(-1:2) =  (/ real(phm2, kind=dp), aimag(phm2), real(php2, kind=dp), aimag(php2) /)
+                
+                l_start = max(m, l_min) ! even values of (l+m)
+                if (mod(m+l_start,2) == 1) l_start = l_start + 1
+                do l = l_start, nlmax, 2
+                   dalm(1, l) = dalm(1, l) + lam_lm_spin(1,l) * phas_sd1(1) - lam_lm_spin(2,l) * phas_sd2(0)
+                   dalm(2, l) = dalm(2, l) + lam_lm_spin(1,l) * phas_sd1(2) + lam_lm_spin(2,l) * phas_sd2(-1)
+                   dalm(3, l) = dalm(3, l) - lam_lm_spin(1,l) * phas_sd2(2) + lam_lm_spin(2,l) * phas_sd1(-1)
+                   dalm(4, l) = dalm(4, l) + lam_lm_spin(1,l) * phas_sd2(1) + lam_lm_spin(2,l) * phas_sd1(0)
+                enddo
+                l_start = max(m+1, l_min) ! odd values of (l+m)
+                if (mod(m+l_start,2) == 0) l_start = l_start + 1
+                do l = l_start, nlmax, 2
+                   dalm(1, l) = dalm(1, l) + lam_lm_spin(1,l) * phas_sd1(-1) - lam_lm_spin(2,l) * phas_sd2(2)
+                   dalm(2, l) = dalm(2, l) + lam_lm_spin(1,l) * phas_sd1(0)  + lam_lm_spin(2,l) * phas_sd2(1)
+                   dalm(3, l) = dalm(3, l) - lam_lm_spin(1,l) * phas_sd2(0)  + lam_lm_spin(2,l) * phas_sd1(1)
+                   dalm(4, l) = dalm(4, l) + lam_lm_spin(1,l) * phas_sd2(-1) + lam_lm_spin(2,l) * phas_sd1(2)
+                enddo
+
+             endif ! test on cut sky and nlmax
+          enddo ! loop on ithl
+          ! internal alms are    (a[s]+ a[-s])/2           and  (a[s]- a[-s])/2
+          ! turn them into      -(a[s]+ (-1)^s a[-s])/2    and -(a[s]- (-1)^s a[-s])/(2i)
+          if (even_spin) then
+             do l = m, nlmax
+                alm(1, l, m) = alm(1, l, m) - cmplx(dalm(1, l),  dalm(2, l), kind=DP) * omega_pix
+                alm(2, l, m) = alm(2, l, m) - cmplx(dalm(4, l), -dalm(3, l), kind=DP) * omega_pix
+             enddo
+          else
+             do l = m, nlmax
+                alm(1, l, m) = alm(1, l, m) - cmplx(dalm(3, l),  dalm(4, l), kind=DP) * omega_pix
+                alm(2, l, m) = alm(2, l, m) - cmplx(dalm(2, l), -dalm(1, l), kind=DP) * omega_pix
+             enddo
+          endif
+       enddo ! loop on m
+!$OMP end do
+       if (do_openmp()) then
+          deallocate (recfac_spin,dalm,lam_lm_spin)
+       endif
+!$OMP end parallel
+    enddo ! loop on chunks
+
+    !     --------------------
+    !     free memory and exit
+    !     --------------------
+    deallocate(phas_n1,phas_s1,phas_n2,phas_s2)
+    deallocate(mfac,mfac_spin)
+    if (.not.do_openmp()) then
+       deallocate (ring,recfac_spin,dalm,lam_lm_spin)
+    endif
+    RETURN
+  END subroutine map2alm_spin_KLOAD
 
   !=======================================================================
   subroutine map2alm_sc_pre_KLOAD(nsmax, nlmax, nmmax, map, alm, zbounds, w8ring, plm)
@@ -2915,7 +3425,7 @@
     !       with precomputed Ylm(theta)
     !=======================================================================
     integer(I4B), intent(IN)                    :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(    0:12*nsmax**2-1) :: map
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1) :: map
     complex(KALMC), intent(OUT), dimension(1:1,0:nlmax,0:nmmax) :: alm
     real(DP),     intent(IN),  dimension(1:2)                 :: zbounds
     real(DP),     intent(IN),  dimension(1:2*nsmax,1) :: w8ring
@@ -3342,11 +3852,13 @@
     !       all from scratch
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     complex(KALMC), intent(OUT), dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
-    real(DP),     intent(IN),  dimension(1:2)                 :: zbounds
-    real(DP),     intent(IN), dimension(1:2*nsmax,1:3) :: w8ring_TQU
+    real(DP),     intent(IN),  dimension(1:2),          optional :: zbounds
+    real(DP),     intent(IN), dimension(1:2*nsmax,1:3), optional :: w8ring_TQU
 
+    real(DP), dimension(1:2)         :: zbounds_in
+    real(DP), dimension(1:2*nsmax,3) :: w8ring_in
     integer(I4B) :: l, m, ith, scalel, scalem, nrings, nphmx
     integer(I8B) :: istart_south, istart_north, npix
     real(DP)     :: omega_pix
@@ -3378,6 +3890,11 @@
     character(LEN=*), parameter :: code = 'MAP2ALM'
     integer(I4B) :: status
     !=======================================================================
+
+    zbounds_in = (/-1.d0 , 1.d0/)
+    if (present(zbounds)) zbounds_in = zbounds
+    w8ring_in  = 1.d0
+    if (present(w8ring_TQU))  w8ring_in  = w8ring_TQU
 
     ! Healpix definitions
     nrings = 2*nsmax           ! number of isolatitude rings on N. hemisphere + equat
@@ -3434,7 +3951,7 @@
           one_on_s2(ithl) =    1.0_dp / sth(ithl)**2
             c_on_s2(ithl) = cth(ithl) / sth(ithl)**2
           ! find out which rings are to be analysed
-          call select_rings(cth(ithl), zbounds, keep_north(ithl), keep_south(ithl), keep_it(ithl))
+          call select_rings(cth(ithl), zbounds_in, keep_north(ithl), keep_south(ithl), keep_it(ithl))
        enddo
 
        !-----------------------------------------------------------------------
@@ -3445,7 +3962,7 @@
 
 !$OMP parallel default(none) &
 !$OMP  shared(nsmax, nlmax, nmmax, npix, nrings, nphmx, &
-!$OMP      lchk, uchk,nph, startpix, kphi0, w8ring_TQU, phas_ns, &
+!$OMP      lchk, uchk,nph, startpix, kphi0, w8ring_in, phas_ns, &
 !$OMP      keep_north, keep_south, map_TQU) &
 !$OMP  private(ithl, nphl, istart_north, istart_south, &
 !$OMP      ith, ring, i, ii, status)
@@ -3463,7 +3980,7 @@
           if (keep_north(ithl)) then
              do i=1,3
                 ii = 2*(i-1) ! 0,2,4
-                ring(0:nphl-1) = map_TQU(istart_north:istart_north+nphl-1,i) * w8ring_TQU(ith,i)
+                ring(0:nphl-1) = map_TQU(istart_north:istart_north+nphl-1,i) * w8ring_in(ith,i)
                 call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_ns(0,ii,ithl), kphi0(ithl))
              enddo
           endif
@@ -3471,7 +3988,7 @@
           if (ith < nrings .and. keep_south(ithl)) then
              do i=1,3
                 ii = 2*i - 1 ! 1,3,5
-                ring(0:nphl-1) = map_TQU(istart_south:istart_south+nphl-1,i) * w8ring_TQU(ith,i)
+                ring(0:nphl-1) = map_TQU(istart_south:istart_south+nphl-1,i) * w8ring_in(ith,i)
                 call ring_analysis(nsmax, nlmax, nmmax, ring, nphl, phas_ns(0,ii,ithl), kphi0(ithl))
              enddo
           endif
@@ -3631,7 +4148,7 @@
     !       with precomputed Ylm_T(theta)
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     complex(KALMC), intent(OUT), dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
     real(DP),     intent(IN),  dimension(1:2)                 :: zbounds
     real(DP),     intent(IN), dimension(1:2*nsmax,1:3) :: w8ring_TQU
@@ -3884,7 +4401,7 @@
     !       with precomputed Ylm_T(theta) an dYlm_P(theta)
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
-    real(KMAP),   intent(IN),  dimension(0:12*nsmax**2-1,1:3) :: map_TQU
+    real(KMAP),   intent(IN),  dimension(0:(12_i8b*nsmax)*nsmax-1,1:3) :: map_TQU
     complex(KALMC), intent(OUT), dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
     real(DP),     intent(IN),  dimension(1:2)                 :: zbounds
     real(DP),     intent(IN), dimension(1:2*nsmax,1:3) :: w8ring_TQU
@@ -4089,6 +4606,229 @@
     endif
     return
   end subroutine map2alm_pol_pre2_KLOAD
+
+
+  !=======================================================================
+  subroutine map2alm_iterative_KLOAD(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+       &   zbounds, w8ring, plm, mask)
+    ! 2008-07-10: bug correction on map2alm for T only map: only pass temperature weights
+  !=======================================================================
+
+    use statistics, only: tstats, compute_statistics
+    use pix_tools,  only: nside2npix
+    implicit none
+    integer(I4B),   intent(IN)                       :: nsmax, nlmax, nmmax, iter_order
+    real(KMAP),     intent(INOUT),  dimension(0:,1:)    :: map_TQU
+    complex(KALMC), intent(INOUT), dimension(1:,0:,0:) :: alm_TGC
+    real(DP),       intent(IN),  dimension(1:2),    optional :: zbounds
+    real(DP),       intent(IN),  dimension(1:,1:), optional :: w8ring
+    real(DP),       intent(IN),  dimension(0:,1:), optional :: plm
+    real(KMAP),     intent(IN),  dimension(0:,1:),   optional :: mask
+    ! local variables
+    real(DP), dimension(1:2)         :: zbounds_in
+    real(DP), dimension(1:2*nsmax,3) :: w8ring_in
+    integer(I4B) :: n_maps, n_alms, n_pols, n_masks, n_plms, n_w8_2
+    integer(I4B) :: iter, status, polar, i, lbm
+    integer(I4B) :: npixtot
+    integer(I8B) :: n1_plm
+    real(kind=DP), dimension(1:3) :: rms
+    logical(LGT) :: do_mask
+    type(tstats) :: map_stat
+    real(KMAP),     allocatable, dimension(:,:)   :: map_TQU_in
+    complex(KALMC),allocatable,  dimension(:,:,:) :: alm_TGC_out
+
+    character(len=*), parameter :: code = 'map2alm_iterative'
+    !=======================================================================
+
+    n_maps = size(map_TQU,2)
+    if (n_maps /=1 .and. n_maps /=3) then
+       print*,'invalid 2nd dim for map: ',n_maps
+       print*,'(should be 1 or 3) '
+       call fatal_error(code)
+    endif
+    npixtot = nside2npix(nsmax)
+    if (size(map_TQU,1) /= npixtot) then
+       print*,'map 1st dim does not match nside ',size(map_TQU,1),npixtot,nsmax
+       call fatal_error(code)       
+    endif
+
+    n_alms = size(alm_TGC,1)
+    if (n_alms /=1 .and. n_alms /=3) then
+       print*,'invalid 1st dim for alm: ',n_alms
+       print*,'(should be 1 or 3) '
+       call fatal_error(code)
+    endif
+    if (size(alm_TGC, 2) /= (nlmax+1) .or. size(alm_TGC, 3) /= (nmmax+1)) then
+       print*,'alm dimensions do not match l_max, m_max'
+       print*,size(alm_TGC, 2),  (nlmax+1)
+       print*,size(alm_TGC, 3), (nmmax+1)
+       call fatal_error(code)
+    endif
+    polar = 0
+    n_pols = min(n_maps, n_alms)
+    if (n_pols == 3) polar=1
+
+    n_plms = 0
+    if (present(plm)) then
+       n1_plm =  (nmmax+1_I8B) * (2*nlmax-nmmax+2_I8B) * nsmax
+       if (size(plm,1) >= n1_plm) n_plms = size(plm,2) ! 1 or 3
+       if (n_plms /= 0 .and. n_plms /= 1 .and. n_plms /= 3) then
+          print*,'invalid 2nd dim for plm: ',n_plms
+          print*,'(should be 1 or 3) '
+          call fatal_error(code)
+       endif
+    endif
+    if (polar == 0) n_plms = min(n_plms,1)
+
+    zbounds_in = (/-1.d0 , 1.d0/)
+    if (present(zbounds)) zbounds_in = zbounds
+
+    n_w8_2 = 0
+    w8ring_in  = 1.d0
+    if (present(w8ring)) then
+       if (size(w8ring,1) >= 2*nsmax) n_w8_2 = size(w8ring, 2)
+       if (n_w8_2 /= 0 .and. n_w8_2 /= 1 .and. n_w8_2 /= 3) then
+          print*,'invalid 2nd dim for w8ring: ',n_w8_2
+          print*,'(should be 1 or 3) '
+          call fatal_error(code)
+       endif
+       if (n_w8_2 /= 0) then
+          w8ring_in(1:2*nsmax,1:n_w8_2)  = w8ring(1:2*nsmax,1:n_w8_2) ! edited 2008-11-06
+       endif
+    endif
+
+    do_mask = .false.
+    n_masks = 0
+    if (present(mask)) then
+       do_mask = (size(mask,1) == npixtot)
+       n_masks = size(mask,2)
+       lbm = lbound(mask, dim=1)
+       if (n_masks > 3) then
+          print*,'Invalid 2nd dimension for mask:',n_masks
+          print*,'Should be 1, 2 or 3'
+          call fatal_error(code)
+       endif
+    endif
+
+
+    ! -------------------------------------
+    ! multiply map by mask
+    ! -------------------------------------
+    if (do_mask) then
+       do i=1,n_pols
+          map_TQU(0:,i) = map_TQU(0:,i) * mask(lbm:, min(i, n_masks))
+       enddo
+    endif
+
+    ! -------------------------------------
+    ! allocate arrays required for iterations
+    ! -------------------------------------
+    if (iter_order > 0) then
+       ALLOCATE(alm_TGC_out(1:n_pols, 0:nlmax, 0:nmmax),stat = status)
+       call assert_alloc(status,code,"alm_TGC_out")
+
+       ALLOCATE(map_TQU_in(0:npixtot-1,1:n_pols),stat = status)
+       call assert_alloc(status,code,"map_TQU_in")
+
+       alm_TGC_out = 0.0_KALMC      ! final alm
+       map_TQU_in  = map_TQU        ! input map (masked)
+       alm_TGC     = 0.0_KALMC      ! intermediate alm
+    endif
+
+    if ( iter_order < 0) then
+       print*,'Iteration order must be non-negative'
+       call fatal_error(code)
+    endif
+
+    ! -------------------------------------
+    ! start iterative (Jacobi) analysis
+    ! -------------------------------------
+    do iter = 0, iter_order
+       ! map -> alm
+       select case (n_plms+polar*10)
+       case(0) ! Temperature only
+          call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds_in, w8ring_in(:,1:1))
+       case(1) ! T with precomputed Ylm
+          call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds_in, w8ring_in(:,1:1),plm(:,1))
+       case(10) ! T+P
+          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in)
+       case(11) ! T+P with precomputed Ylm_T
+          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in,plm(:,1))
+       case(13) ! T+P with precomputed Ylm
+          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in,plm)
+       case default 
+          print*,'Invalid configuration'
+          call fatal_error(code)
+       end select
+
+       ! if no iteration: exit
+       if (iter_order == 0) exit
+
+       ! if iterate, show residual amplitude
+       if (iter == 0 .and. iter_order > 0) then
+          PRINT *,"       Iterated map analysis "
+          PRINT *,"       input map StDev"
+          do i=1,n_pols
+             call compute_statistics(map_TQU(:,i), map_stat)
+             rms (i) = map_stat%rms
+          enddo
+          write(*,9111) iter,rms(1:n_pols)
+          PRINT *,"       residual map StDev"
+       endif
+9111   format(i3,3(g20.5))
+
+       ! alm_2 = alm_2 + alm : increment alms
+       map_TQU = 0.0_KMAP
+       alm_TGC_out = alm_TGC_out + alm_TGC
+
+       ! if final iteration: exit
+       if (iter == iter_order) exit
+
+       ! alm_2 -> map : reconstructed map
+       select case (n_plms+polar*10)
+       case(0)
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU(:,1))
+       case(1)
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU(:,1), plm(:,1))
+       case(10)
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU)
+       case(11)
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU, plm(:,1))
+       case(13)
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU, plm)
+       case default 
+          print*,'Invalid configuration'
+          call fatal_error(code)
+       end select
+
+       ! map = map_2 - map : residual map
+       ! multiply newly synthetized MAP by MASK in order to allow comparison with input MAP.
+       if (do_mask) then
+          do i=1,n_pols
+             map_TQU(0:,i) = map_TQU(0:,i) * mask(lbm:, min(i, n_masks))
+          enddo
+       endif
+       map_TQU = map_TQU_in - map_TQU
+
+       do i=1,n_pols
+          call compute_statistics(map_TQU(:,i), map_stat)
+          rms (i) = map_stat%rms
+       enddo
+       write(*,9111) iter,rms(1:n_pols)
+    enddo
+
+    ! -------------------------------------
+    ! clean up and exit
+    ! -------------------------------------
+    if (iter_order > 0) then
+       alm_TGC = alm_TGC_out ! final alms
+       map_TQU = map_TQU_in ! input map
+       deallocate(alm_TGC_out, map_TQU_in)
+    endif
+
+    return
+  end subroutine map2alm_iterative_KLOAD
+
 
   !**************************************************************************
   !

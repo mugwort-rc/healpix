@@ -27,7 +27,7 @@
 /*! \file cxxutils.h
  *  Various convenience functions used by the Planck LevelS package.
  *
- *  Copyright (C) 2002, 2003, 2004 Max-Planck-Society
+ *  Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Max-Planck-Society
  *  \author Martin Reinecke \author Reinhard Hell
  */
 
@@ -39,43 +39,36 @@
 #include <map>
 #include <cmath>
 #include "message_error.h"
-#include "constants.h"
+#include "lsconstants.h"
 
 /*! \defgroup mathutilsgroup Mathematical helper functions */
 /*! \{ */
 
 //! Returns \e true if | \a a-b | < \a epsilon * | \a b |, else \e false.
-inline bool approx (double a, double b, double epsilon=1e-5)
+template<typename F> inline bool approx (F a, F b, F epsilon=1e-5)
   {
   using namespace std;
   return abs(a-b) < (epsilon*abs(b));
   }
 
 //! Returns \e true if | \a a-b | < \a epsilon, else \e false.
-inline bool abs_approx (double a, double b, double epsilon=1e-5)
+template<typename F> inline bool abs_approx (F a, F b, F epsilon=1e-5)
   {
   using namespace std;
   return abs(a-b) < epsilon;
   }
 
 //! Returns the largest integer which is smaller than (or equal to) \a arg.
-inline int intfloor (double arg)
+template<typename I, typename F> inline I ifloor (F arg)
   {
-  return (arg>=0) ? int(arg) : int(arg)-1;
+  return (arg>=0) ? I(arg) : I(arg)-1;
   }
 
 //! Returns the integer which is nearest to \a arg.
-inline int planck_nint (double arg)
+template<typename I, typename F> inline I nearest (F arg)
   {
   arg += 0.5;
-  return (arg>=0) ? int(arg) : int(arg)-1;
-  }
-
-//! Returns the long integer which is nearest to \a arg.
-inline long nlong (double arg)
-  {
-  arg += 0.5;
-  return (arg>=0) ? long(arg) : long(arg)-1;
+  return (arg>=0) ? I(arg) : I(arg)-1;
   }
 
 //! Returns \a v1+v2 if \a v1<0, \a v1-v2 if \a v1>=v2, else \a v1.
@@ -86,7 +79,7 @@ template<typename T> inline T weak_modulo (T v1, T v2)
 //! Returns the remainder of the division \a v1/v2.
 /*! The result is non-negative.
     \a v1 can be positive or negative; \a v2 must be positive. */
-inline double modulo (double v1, double v2)
+inline double fmodulo (double v1, double v2)
   {
   using namespace std;
   return (v1>=0) ? ((v1<v2) ? v1 : fmod(v1,v2)) : (fmod(v1,v2)+v2);
@@ -95,25 +88,33 @@ inline double modulo (double v1, double v2)
 //! Returns the remainder of the division \a v1/v2.
 /*! The result is non-negative.
     \a v1 can be positive or negative; \a v2 must be positive. */
-inline int modulo (int v1, int v2)
+template<typename I> inline I imodulo (I v1, I v2)
   { return (v1>=0) ? ((v1<v2) ? v1 : (v1%v2)) : ((v1%v2)+v2); }
-
-//! Returns the remainder of the division \a v1/v2.
-/*! The result is non-negative.
-    \a v1 can be positive or negative; \a v2 must be positive. */
-inline long modulo (long v1, long v2)
-  { return (v1>=0) ? ((v1<v2) ? v1 : (v1%v2)) : ((v1%v2)+v2); }
-
 
 //! Returns -1 if \a signvalue is negative, else +1.
 template<typename T> inline T sign (const T& signvalue)
   { return (signvalue>=0) ? 1 : -1; }
 
 //! Returns the integer \a n, which fulfills \a n*n<=arg<(n+1)*(n+1).
-inline unsigned int isqrt (unsigned int arg)
+template<typename I> inline unsigned int isqrt (I arg)
   {
   using namespace std;
-  return unsigned (sqrt(arg+0.5));
+  if (sizeof(I)<=4)
+    return unsigned (sqrt(arg+0.5));
+  long double arg2 = arg;
+  return unsigned (sqrt(arg2+0.5));
+  }
+
+//! Returns the largest integer \a n that fulfills \a 2^n<=arg.
+template<typename I> inline unsigned int ilog2 (I arg)
+  {
+  unsigned int res=0;
+  while (arg > 0x0000FFFF) { res+=16; arg>>=16; }
+  if (arg > 0x000000FF) { res|=8; arg>>=8; }
+  if (arg > 0x0000000F) { res|=4; arg>>=4; }
+  if (arg > 0x00000003) { res|=2; arg>>=2; }
+  if (arg > 0x00000001) { res|=1; }
+  return res;
   }
 
 //! Returns \a atan2(y,x) if \a x!=0 or \a y!=0; else returns 0.
@@ -227,6 +228,14 @@ template<typename T> inline T stringToData (const std::string &x)
 void parse_file (const std::string &filename,
   std::map<std::string,std::string> &dict);
 
+//! Case-insensitive string comparison
+/*! Returns \a true, if \a a and \a b differ only in capitalisation,
+    else \a false. */
+bool equal_nocase (const std::string &a, const std::string &b);
+
+//! Returns lowercase version of \a input.
+std::string tolower(const std::string &input);
+
 /*! \} */
 
 //! Indicates progress by printing the percentage of \a now/total.
@@ -237,6 +246,9 @@ void announce_progress (int now, int total);
 /*! A message is only printed if it has changed since \a last/total.
     The output is followed by a carriage return, not a newline. */
 void announce_progress (double now, double last, double total);
+/*! This function should be called after a sequence of announce_progress()
+    calls has finished. */
+void end_announce_progress ();
 
 //! Prints a banner containing \a name. Useful for displaying program names.
 void announce (const std::string &name);
@@ -247,7 +259,7 @@ void module_startup (const std::string &name, int argc, const char **argv,
   int argc_expected, const std::string &argv_expected);
 
 //! Returns an appropriate FITS repetition count for a map with \a npix pixels.
-inline int healpix_repcount (int npix)
+inline unsigned int healpix_repcount (int npix)
   {
   if (npix<1024) return 1;
   if ((npix%1024)==0) return 1024;

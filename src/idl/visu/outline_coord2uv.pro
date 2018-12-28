@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,6 +25,19 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
+pro ocuv_assert_scalar, variable, name, error=error
+
+if (undefined(error)) then error = 0
+nv = n_elements(variable) 
+if (nv gt 1) then begin
+    print,'Error: Argument '+name+' in OUTLINE structure has '+string(nv)+' elements.'
+    print,'It should be a scalar'
+    error = 1
+endif
+
+return
+end
+
 pro outline_coord2uv, outline, coord_out, eul_mat, outline_uv, projection=projection, mollweide=mollweide, gnomic=gnomic, cartesian=cartesian, orthographic=orthographic, flip = flip, show=show, half_sky=half_sky, _extra = oplot_kw
 ;+
 ; NAME:
@@ -103,6 +116,9 @@ pro outline_coord2uv, outline, coord_out, eul_mat, outline_uv, projection=projec
 ;       2004-11-09, E. Hivon, IPAC : cleaning, bug correction (for orthview), 
 ;                                    addition of point plotting (ie, not
 ;                                    connected by curves)
+;       2007-03-19: can now deal with single point, exits gracefully if
+;       PSYM,LINES,SYMSIZE are not scalar
+;       2007-05-14: test for ambiguous tag name in outline structure
 ;-
 
 ; outline : from astro coordinate to uv plan
@@ -130,32 +146,82 @@ for i=0,n_outlines-1 do begin
 ;     cont_coord = strmid(strupcase(c1.(0)),0,1)
 ;     cont_ra = c1.(1)
 ;     cont_dec = c1.(2)
+    invalid_tags = replicate(1, nc1)
+    expected_tags = ['Required:       COORD RA DEC','Optional:       LINESTYLE PSYM SYMSIZE']
+
     iw = index_word(names,'COO',err=errword)
-    if (errword eq 0) then cont_coord = strupcase(strmid(c1.(iw),0,1))
+    if (errword eq 0) then begin
+        cont_coord = strupcase(strmid(c1.(iw),0,1))
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
+    ocuv_assert_scalar,cont_coord,'COORD', error=err_assert
 
     iw = index_word(names,'RA',err=errword)
-    if (errword eq 0) then cont_ra = c1.(iw)
+    if (errword eq 0) then begin
+        cont_ra = c1.(iw)
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
 
     iw = index_word(names,'DEC',err=errword)
-    if (errword eq 0) then cont_dec = c1.(iw)
+    if (errword eq 0) then begin
+        cont_dec = c1.(iw)
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
 
     if (undefined(cont_coord) or undefined(cont_ra) or undefined(cont_dec)) then begin
         print,'Invalid tag names in structure provided for outline :',names
-        print,'Expected:       COORD RA DEC [LINESTYLE ]'
+        print,expected_tags,form='(a)'
         message,/info,'No outline is plotted'
         return
     endif
+
     cont_type = 0
     iw = index_word(names,'LINE',err=errword)
-    if (errword eq 0) then cont_type = c1.(iw)
+    if (errword eq 0) then begin
+        cont_type = c1.(iw)
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
+    ocuv_assert_scalar,cont_type,'LINESTYLE', error=err_assert
 
     sym_type = 0
     iw = index_word(names,'PSY',err=errword)
-    if (errword eq 0) then sym_type = c1.(iw)
+    if (errword eq 0) then begin
+        sym_type = c1.(iw)
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
+    ocuv_assert_scalar,sym_type,'PSYM', error=err_assert
     
     ssize = 1
     iw = index_word(names,'SYM',err=errword)
-    if (errword eq 0) then ssize = c1.(iw)
+    if (errword eq 0) then begin
+        ssize = c1.(iw)
+        nc1 = nc1 - 1
+        invalid_tags[iw] = 0
+    endif
+    ocuv_assert_scalar,ssize,'SYMSIZE', error=err_assert
+
+    if (err_assert ne 0) then begin
+        message,/info,'No outline is plotted'
+        return
+    endif
+
+    if (nc1 lt 0) then begin
+        print,'Duplicated/ambiguous tag names in structure provided for outline :',names
+        print,expected_tags,form='(a)'
+        message,/info,'No outline is plotted'
+        return
+    endif
+    bad_tags = where(invalid_tags, nc1)
+    if (nc1 gt 0) then begin
+        print,'WARNING: Unknown/Duplicated tag name(s) found in structure provided for outline :',names[bad_tags]
+        print,'         will be ignored.'
+        print,expected_tags,form='(a)'
+    endif
 
     ; angles -> vector
     if (n_elements(cont_ra) ne n_elements(cont_dec)) then begin
@@ -182,9 +248,16 @@ for i=0,n_outlines-1 do begin
             psym_type = abs(sym_type)
             rf = 1.             ; no interpolation when plotting vertices
         endelse
-        cont_x = interpol(cont_vec1[*,0], rf*np_in) ; linear interpolation in X
-        cont_y = interpol(cont_vec1[*,1], rf*np_in) ; .. Y
-        cont_z = interpol(cont_vec1[*,2], rf*np_in) ; .. Z
+        if (n_elements(cont_vec1[*,0]) gt 1) then begin
+            cont_x = interpol(cont_vec1[*,0], rf*np_in) ; linear interpolation in X
+            cont_y = interpol(cont_vec1[*,1], rf*np_in) ; .. Y
+            cont_z = interpol(cont_vec1[*,2], rf*np_in) ; .. Z
+        endif else begin
+            one_tmp = replicate(1, rf*np_in)
+            cont_x = cont_vec1[0,0] * one_tmp
+            cont_y = cont_vec1[0,1] * one_tmp
+            cont_z = cont_vec1[0,2] * one_tmp
+        endelse
         cont_norm = sqrt( cont_x*cont_x + cont_y*cont_y + cont_z*cont_z ) ; norm of vectors 
         cont_vec = [[cont_x/cont_norm],[cont_y/cont_norm],[cont_z/cont_norm]]
                                 ; go from contour coordinates to plot coordinates

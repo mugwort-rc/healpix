@@ -82,13 +82,13 @@ class pointing
     /*! Changes the angles so that \a 0<=theta<=pi and \a 0<=phi<2*pi. */
     void normalize()
       {
-      theta=modulo(theta,twopi);
+      theta=fmodulo(theta,twopi);
       if (theta>pi)
         {
         phi+=pi;
         theta=twopi-theta;
         }
-      phi=modulo(phi,twopi);
+      phi=fmodulo(phi,twopi);
       }
   };
 

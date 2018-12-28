@@ -33,7 +33,7 @@
 
 #include "rotmatrix.h"
 #include "vec3.h"
-#include "constants.h"
+#include "lsconstants.h"
 #include <algorithm>
 
 using namespace std;
@@ -132,8 +132,8 @@ void rotmatrix::Extract_CPAC_Euler_Angles
   (double &alpha, double &beta, double &gamma) const
   {
   double cb = entry[2][2];
-  beta=acos(cb);
-  double sb=sin(beta);
+  double sb = sqrt(entry[0][2]*entry[0][2] + entry[1][2]*entry[1][2]);
+  beta=atan2(sb,cb);
   if (abs(sb)<=1e-6)
     {
     alpha=0;

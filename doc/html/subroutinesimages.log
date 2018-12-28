@@ -1,14 +1,18 @@
-This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2005.5.17)  31 AUG 2005 16:46
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2008.4.9)  13 NOV 2008 18:51
+entering extended mode
 **./subroutinesimages.tex
 (./subroutinesimages.tex
-LaTeX2e <2001/06/01>
-Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, i
-talian, nohyphenation, loaded.
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
 
-(/usr/share/texmf/tex/latex/base/article.cls
-Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
-(/usr/share/texmf/tex/latex/base/size12.clo
-File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+(/sw/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(/sw/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -21,200 +25,234 @@ File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) (/usr/share/texmf/tex/latex/base/ifthen.sty
+) (/sw/share/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) (/tmp/H2/Healpix_2.00/doc/TeX/healpix.sty
+) (/private/tmp/Healpix_2.11/doc/TeX/healpix.sty
 Package: healpix 
 Package: healpix macros (A.J. Banday, M. Bartelmann)
 Document format
-(/usr/share/texmf/tex/latex/misc/a4wide.sty
+(/sw/share/texmf-dist/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
-(/usr/share/texmf/tex/latex/ntgclass/a4.sty
-Package: a4 1999/03/03 v1.2f A4 based page layout
-)) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+(/sw/share/texmf-dist/tex/latex/ntgclass/a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+)) (/sw/share/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-(/usr/share/texmf/tex/latex/graphics/keyval.sty
+(/sw/share/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
-) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+) (/sw/share/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
-(/usr/share/texmf/tex/latex/graphics/trig.sty
+(/sw/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+) (/sw/share/texmf-dist/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
 Package graphics Info: Driver file: dvips.def on input line 80.
-(/usr/share/texmf/tex/latex/graphics/dvips.def
+(/sw/share/texmf-dist/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
-) (/usr/share/texmf/tex/latex/psnfss/mathptm.sty
-Package: mathptm 2001/06/04 PSNFSS-v8.2 Times w/ Math (SPQR, WaS) 
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 28.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 28.
-LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 29.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 29.
-LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 30.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 30.
-LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
-\symbold=\mathgroup4
-\symitalic=\mathgroup5
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
-) (/usr/share/texmf/tex/latex/fancyheadings/fancyheadings.sty
+) (/sw/share/texmf-dist/tex/latex/fancyheadings/fancyheadings.sty
 \headrulewidth=\dimen105
 \footrulewidth=\dimen106
 \plainheadrulewidth=\dimen107
 \plainfootrulewidth=\dimen108
 \headwidth=\dimen109
 \footruleskip=\dimen110
-)
+) (/private/tmp/Healpix_2.11/doc/TeX/hpxversion.tex) (/private/tmp/Healpix_2.11
+/doc/TeX/idlversion.tex)
 \bigicon=\skip43
 \smallicon=\skip44
 \blocksize=\skip45
 \c@creq=\count87
 \c@savecreq=\count88
-) (/usr/share/texmf/tex/latex/html/html.sty
+) (/sw/share/texmf-local/tex/latex/html/html.sty (/sw/share/texmf-dist/tex/late
+x/hyperref/hyperref.sty
+Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
+\@linkdim=\dimen111
+\Hy@linkcounter=\count89
+\Hy@pagecounter=\count90
+(/sw/share/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+) (/sw/share/texmf-dist/tex/latex/hyperref/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+Package hyperref Info: Hyper figures OFF on input line 1880.
+Package hyperref Info: Link nesting OFF on input line 1885.
+Package hyperref Info: Hyper index ON on input line 1888.
+Package hyperref Info: Plain pages ON on input line 1893.
+Package hyperref Info: Backreferencing OFF on input line 1900.
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 2004.
+(/sw/share/texmf-local/tex/latex/html/url.sty
+Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
+ names
+)
+LaTeX Info: Redefining \url on input line 2143.
+\Fld@menulength=\count91
+\Field@Width=\dimen112
+\Fld@charsize=\dimen113
+\Choice@toks=\toks15
+\Field@toks=\toks16
+Package hyperref Info: Hyper figures OFF on input line 2618.
+Package hyperref Info: Link nesting OFF on input line 2623.
+Package hyperref Info: Hyper index ON on input line 2626.
+Package hyperref Info: backreferencing OFF on input line 2633.
+Package hyperref Info: Link coloring OFF on input line 2638.
+\c@Item=\count92
+\c@Hfootnote=\count93
+)
+*hyperref using default driver hdvips*
+(/sw/share/texmf-dist/tex/latex/hyperref/hdvips.def
+File: hdvips.def 2003/11/30 v6.74m Hyperref driver for dvips
+(/sw/share/texmf-dist/tex/latex/hyperref/pdfmark.def
+File: pdfmark.def 2003/11/30 v6.74m Hyperref definitions for pdfmark specials
+\pdf@docset=\toks17
+\pdf@box=\box26
+\pdf@toks=\toks18
+\pdf@defaulttoks=\toks19
+\Fld@listcount=\count94
+\@outlinefile=\write3
+))
 Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
 
-\c@lpart=\count89
-\c@lchapter=\count90
-\c@chapter=\count91
-\c@lsection=\count92
-\c@lsubsection=\count93
-\c@lsubsubsection=\count94
-\c@lparagraph=\count95
-\c@lsubparagraph=\count96
-\c@lsubsubparagraph=\count97
-\ptrfile=\write3
-) (/usr/share/texmf/tex/latex/base/makeidx.sty
+\c@lpart=\count95
+\c@lchapter=\count96
+\c@chapter=\count97
+\c@lsection=\count98
+\c@lsubsection=\count99
+\c@lsubsubsection=\count100
+\c@lparagraph=\count101
+\c@lsubparagraph=\count102
+\c@lsubsubparagraph=\count103
+\ptrfile=\write4
+) (/sw/share/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
-) (/usr/share/texmf/tex/latex/tools/tabularx.sty
+) (/sw/share/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
-(/usr/share/texmf/tex/latex/tools/array.sty
-Package: array 1998/05/13 v2.3m Tabular extension package (FMi)
-\col@sep=\dimen111
-\extrarowheight=\dimen112
-\NC@list=\toks15
+(/sw/share/texmf-dist/tex/latex/tools/array.sty
+Package: array 2003/12/17 v2.4a Tabular extension package (FMi)
+\col@sep=\dimen114
+\extrarowheight=\dimen115
+\NC@list=\toks20
 \extratabsurround=\skip46
 \backup@length=\skip47
 )
-\TX@col@width=\dimen113
-\TX@old@table=\dimen114
-\TX@old@col=\dimen115
-\TX@target=\dimen116
-\TX@delta=\dimen117
-\TX@cols=\count98
-\TX@ftn=\toks16
-) (/usr/share/texmf/tex/latex/graphics/color.sty
+\TX@col@width=\dimen116
+\TX@old@table=\dimen117
+\TX@old@col=\dimen118
+\TX@target=\dimen119
+\TX@delta=\dimen120
+\TX@cols=\count104
+\TX@ftn=\toks21
+) (/sw/share/texmf-dist/tex/latex/graphics/color.sty
 Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
-(/usr/share/texmf/tex/latex/config/color.cfg)
+(/sw/share/texmf-dist/tex/latex/graphics/color.cfg
+File: color.cfg 2005/02/03 v1.3 color configuration of teTeX/TeXLive
+)
 Package color Info: Driver file: dvips.def on input line 125.
-(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
+(/sw/share/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
-)) (/usr/share/texmf/tex/latex/base/inputenc.sty
-Package: inputenc 2001/07/10 v0.99a Input encoding file 
-(/usr/share/texmf/tex/latex/base/latin1.def
-File: latin1.def 2001/07/10 v0.99a Input encoding file 
+)) (/sw/share/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2004/02/05 v1.0d Input encoding file
+(/sw/share/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2004/02/05 v1.0d Input encoding file
 ))
-\sizebox=\box26
-\lthtmlwrite=\write4
-(subroutinesimages.aux (/tmp/H2/Healpix_2.00/doc/TeX/alter_alm.aux) (/tmp/H2/He
-alpix_2.00/doc/TeX/add_card.aux) (/tmp/H2/Healpix_2.00/doc/TeX/add_dipole.aux) 
-(/tmp/H2/Healpix_2.00/doc/TeX/alm2cl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/alm2map
-.aux) (/tmp/H2/Healpix_2.00/doc/TeX/alm2map_der.aux) (/tmp/H2/Healpix_2.00/doc/
-TeX/alms2fits.aux) (/tmp/H2/Healpix_2.00/doc/TeX/ang2vec.aux) (/tmp/H2/Healpix_
-2.00/doc/TeX/angdist.aux) (/tmp/H2/Healpix_2.00/doc/TeX/assert.aux) (/tmp/H2/He
-alpix_2.00/doc/TeX/complex_fft.aux) (/tmp/H2/Healpix_2.00/doc/TeX/compute_stati
-stics.aux) (/tmp/H2/Healpix_2.00/doc/TeX/concatnl.aux) (/tmp/H2/Healpix_2.00/do
-c/TeX/convert_inplace.aux) (/tmp/H2/Healpix_2.00/doc/TeX/convert_nest2ring.aux)
-(/tmp/H2/Healpix_2.00/doc/TeX/convert_ring2nest.aux) (/tmp/H2/Healpix_2.00/doc/
-TeX/coordsys2euler_zyz.aux) (/tmp/H2/Healpix_2.00/doc/TeX/create_alm.aux) (/tmp
-/H2/Healpix_2.00/doc/TeX/del_card.aux) (/tmp/H2/Healpix_2.00/doc/TeX/dump_alms.
-aux) (/tmp/H2/Healpix_2.00/doc/TeX/fits2alms.aux) (/tmp/H2/Healpix_2.00/doc/TeX
-/fits2cl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/gaussbeam.aux) (/tmp/H2/Healpix_2.0
-0/doc/TeX/generate_beam.aux) (/tmp/H2/Healpix_2.00/doc/TeX/get_card.aux) (/tmp/
-H2/Healpix_2.00/doc/TeX/getargument.aux) (/tmp/H2/Healpix_2.00/doc/TeX/getenvir
-onment.aux) (/tmp/H2/Healpix_2.00/doc/TeX/getdisc_ring.aux) (/tmp/H2/Healpix_2.
-00/doc/TeX/getnumext_fits.aux) (/tmp/H2/Healpix_2.00/doc/TeX/getsize_fits.aux) 
-(/tmp/H2/Healpix_2.00/doc/TeX/healpix_types.aux) (/tmp/H2/Healpix_2.00/doc/TeX/
-in_ring.aux) (/tmp/H2/Healpix_2.00/doc/TeX/input_map.aux) (/tmp/H2/Healpix_2.00
-/doc/TeX/input_tod.aux) (/tmp/H2/Healpix_2.00/doc/TeX/map2alm.aux) (/tmp/H2/Hea
-lpix_2.00/doc/TeX/medfiltmap.aux) (/tmp/H2/Healpix_2.00/doc/TeX/median.aux) (/t
-mp/H2/Healpix_2.00/doc/TeX/merge_headers.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mpi
-_alm2map.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mpi_alm2map_simple.aux) (/tmp/H2/He
-alpix_2.00/doc/TeX/mpi_alm2map_slave.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mpi_cle
-anup_alm_tools.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mpi_initialize_alm_tools.aux)
-(/tmp/H2/Healpix_2.00/doc/TeX/mpi_map2alm.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mp
-i_map2alm_simple.aux) (/tmp/H2/Healpix_2.00/doc/TeX/mpi_map2alm_slave.aux) (/tm
-p/H2/Healpix_2.00/doc/TeX/narguments.aux) (/tmp/H2/Healpix_2.00/doc/TeX/neighbo
-urs_nest.aux) (/tmp/H2/Healpix_2.00/doc/TeX/npix2nside.aux) (/tmp/H2/Healpix_2.
-00/doc/TeX/nside2npix.aux) (/tmp/H2/Healpix_2.00/doc/TeX/nside2ntemplates.aux) 
-(/tmp/H2/Healpix_2.00/doc/TeX/number_of_alms.aux) (/tmp/H2/Healpix_2.00/doc/TeX
-/output_map.aux) (/tmp/H2/Healpix_2.00/doc/TeX/parse_xxx.aux) (/tmp/H2/Healpix_
-2.00/doc/TeX/pixel_window.aux) (/tmp/H2/Healpix_2.00/doc/TeX/pix_tools.aux) (/t
-mp/H2/Healpix_2.00/doc/TeX/plm_gen.aux) (/tmp/H2/Healpix_2.00/doc/TeX/query_dis
-c.aux) (/tmp/H2/Healpix_2.00/doc/TeX/query_polygon.aux) (/tmp/H2/Healpix_2.00/d
-oc/TeX/query_strip.aux) (/tmp/H2/Healpix_2.00/doc/TeX/query_triangle.aux) (/tmp
-/H2/Healpix_2.00/doc/TeX/rand_gauss.aux) (/tmp/H2/Healpix_2.00/doc/TeX/rand_ini
-t.aux) (/tmp/H2/Healpix_2.00/doc/TeX/rand_uni.aux) (/tmp/H2/Healpix_2.00/doc/Te
-X/read_asctab.aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_bintab.aux) (/tmp/H2/Heal
-pix_2.00/doc/TeX/read_conbintab.aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_dbintab
-.aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_fits_cut4.aux) (/tmp/H2/Healpix_2.00/d
-oc/TeX/read_par.aux) (/tmp/H2/Healpix_2.00/doc/TeX/real_fft.aux) (/tmp/H2/Healp
-ix_2.00/doc/TeX/remove_dipole.aux) (/tmp/H2/Healpix_2.00/doc/TeX/ring_analysis.
-aux) (/tmp/H2/Healpix_2.00/doc/TeX/ring_num.aux) (/tmp/H2/Healpix_2.00/doc/TeX/
-ring_synthesis.aux) (/tmp/H2/Healpix_2.00/doc/TeX/rotate_alm.aux) (/tmp/H2/Heal
-pix_2.00/doc/TeX/same_shape_pixels_xxx.aux) (/tmp/H2/Healpix_2.00/doc/TeX/scan_
-directories.aux) (/tmp/H2/Healpix_2.00/doc/TeX/string.aux) (/tmp/H2/Healpix_2.0
-0/doc/TeX/surface_triangle.aux) (/tmp/H2/Healpix_2.00/doc/TeX/template_pixel_xx
-x.aux) (/tmp/H2/Healpix_2.00/doc/TeX/udgrade_nest.aux) (/tmp/H2/Healpix_2.00/do
-c/TeX/udgrade_ring.aux) (/tmp/H2/Healpix_2.00/doc/TeX/vec2ang.aux) (/tmp/H2/Hea
-lpix_2.00/doc/TeX/vect_prod.aux) (/tmp/H2/Healpix_2.00/doc/TeX/write_asctab.aux
-) (/tmp/H2/Healpix_2.00/doc/TeX/write_bintab.aux) (/tmp/H2/Healpix_2.00/doc/TeX
-/write_bintabh.aux) (/tmp/H2/Healpix_2.00/doc/TeX/write_dbintab.aux) (/tmp/H2/H
-ealpix_2.00/doc/TeX/write_fits_cut4.aux) (/tmp/H2/Healpix_2.00/doc/TeX/write_pl
-m.aux) (/tmp/H2/Healpix_2.00/doc/TeX/xcc_v_convert.aux))
+\sizebox=\box27
+\lthtmlwrite=\write5
+(./subroutinesimages.aux (/private/tmp/Healpix_2.11/doc/TeX/alter_alm.aux) (/pr
+ivate/tmp/Healpix_2.11/doc/TeX/add_card.aux) (/private/tmp/Healpix_2.11/doc/TeX
+/add_dipole.aux) (/private/tmp/Healpix_2.11/doc/TeX/alm2cl.aux) (/private/tmp/H
+ealpix_2.11/doc/TeX/alm2map.aux) (/private/tmp/Healpix_2.11/doc/TeX/alm2map_der
+.aux) (/private/tmp/Healpix_2.11/doc/TeX/alm2map_spin.aux) (/private/tmp/Healpi
+x_2.11/doc/TeX/alms2fits.aux) (/private/tmp/Healpix_2.11/doc/TeX/ang2vec.aux) (
+/private/tmp/Healpix_2.11/doc/TeX/angdist.aux) (/private/tmp/Healpix_2.11/doc/T
+eX/assert.aux) (/private/tmp/Healpix_2.11/doc/TeX/brag_openmp.aux) (/private/tm
+p/Healpix_2.11/doc/TeX/complex_fft.aux) (/private/tmp/Healpix_2.11/doc/TeX/comp
+ute_statistics.aux) (/private/tmp/Healpix_2.11/doc/TeX/concatnl.aux) (/private/
+tmp/Healpix_2.11/doc/TeX/convert_inplace.aux) (/private/tmp/Healpix_2.11/doc/Te
+X/convert_nest2ring.aux) (/private/tmp/Healpix_2.11/doc/TeX/convert_ring2nest.a
+ux) (/private/tmp/Healpix_2.11/doc/TeX/coordsys2euler_zyz.aux) (/private/tmp/He
+alpix_2.11/doc/TeX/create_alm.aux) (/private/tmp/Healpix_2.11/doc/TeX/del_card.
+aux) (/private/tmp/Healpix_2.11/doc/TeX/dump_alms.aux) (/private/tmp/Healpix_2.
+11/doc/TeX/fits2alms.aux) (/private/tmp/Healpix_2.11/doc/TeX/fits2cl.aux) (/pri
+vate/tmp/Healpix_2.11/doc/TeX/gaussbeam.aux) (/private/tmp/Healpix_2.11/doc/TeX
+/generate_beam.aux) (/private/tmp/Healpix_2.11/doc/TeX/get_card.aux) (/private/
+tmp/Healpix_2.11/doc/TeX/getargument.aux) (/private/tmp/Healpix_2.11/doc/TeX/ge
+tenvironment.aux) (/private/tmp/Healpix_2.11/doc/TeX/getdisc_ring.aux) (/privat
+e/tmp/Healpix_2.11/doc/TeX/getnumext_fits.aux) (/private/tmp/Healpix_2.11/doc/T
+eX/getsize_fits.aux) (/private/tmp/Healpix_2.11/doc/TeX/healpix_modules.aux) (/
+private/tmp/Healpix_2.11/doc/TeX/healpix_types.aux) (/private/tmp/Healpix_2.11/
+doc/TeX/in_ring.aux) (/private/tmp/Healpix_2.11/doc/TeX/input_map.aux) (/privat
+e/tmp/Healpix_2.11/doc/TeX/input_tod.aux) (/private/tmp/Healpix_2.11/doc/TeX/ma
+p2alm.aux) (/private/tmp/Healpix_2.11/doc/TeX/map2alm_iterative.aux) (/private/
+tmp/Healpix_2.11/doc/TeX/map2alm_spin.aux) (/private/tmp/Healpix_2.11/doc/TeX/m
+edfiltmap.aux) (/private/tmp/Healpix_2.11/doc/TeX/median.aux) (/private/tmp/Hea
+lpix_2.11/doc/TeX/merge_headers.aux) (/private/tmp/Healpix_2.11/doc/TeX/mpi_alm
+_tools.aux) (/private/tmp/Healpix_2.11/doc/TeX/mpi_alm2map.aux) (/private/tmp/H
+ealpix_2.11/doc/TeX/mpi_alm2map_simple.aux) (/private/tmp/Healpix_2.11/doc/TeX/
+mpi_alm2map_slave.aux) (/private/tmp/Healpix_2.11/doc/TeX/mpi_cleanup_alm_tools
+.aux) (/private/tmp/Healpix_2.11/doc/TeX/mpi_initialize_alm_tools.aux) (/privat
+e/tmp/Healpix_2.11/doc/TeX/mpi_map2alm.aux) (/private/tmp/Healpix_2.11/doc/TeX/
+mpi_map2alm_simple.aux) (/private/tmp/Healpix_2.11/doc/TeX/mpi_map2alm_slave.au
+x) (/private/tmp/Healpix_2.11/doc/TeX/narguments.aux) (/private/tmp/Healpix_2.1
+1/doc/TeX/neighbours_nest.aux) (/private/tmp/Healpix_2.11/doc/TeX/npix2nside.au
+x) (/private/tmp/Healpix_2.11/doc/TeX/nside2npix.aux) (/private/tmp/Healpix_2.1
+1/doc/TeX/nside2ntemplates.aux) (/private/tmp/Healpix_2.11/doc/TeX/number_of_al
+ms.aux) (/private/tmp/Healpix_2.11/doc/TeX/output_map.aux) (/private/tmp/Healpi
+x_2.11/doc/TeX/parse_xxx.aux) (/private/tmp/Healpix_2.11/doc/TeX/pixel_window.a
+ux) (/private/tmp/Healpix_2.11/doc/TeX/pix_tools.aux) (/private/tmp/Healpix_2.1
+1/doc/TeX/plm_gen.aux) (/private/tmp/Healpix_2.11/doc/TeX/query_disc.aux) (/pri
+vate/tmp/Healpix_2.11/doc/TeX/query_polygon.aux) (/private/tmp/Healpix_2.11/doc
+/TeX/query_strip.aux) (/private/tmp/Healpix_2.11/doc/TeX/query_triangle.aux) (/
+private/tmp/Healpix_2.11/doc/TeX/rand_gauss.aux) (/private/tmp/Healpix_2.11/doc
+/TeX/rand_init.aux) (/private/tmp/Healpix_2.11/doc/TeX/rand_uni.aux) (/private/
+tmp/Healpix_2.11/doc/TeX/read_asctab.aux) (/private/tmp/Healpix_2.11/doc/TeX/re
+ad_bintab.aux) (/private/tmp/Healpix_2.11/doc/TeX/read_conbintab.aux) (/private
+/tmp/Healpix_2.11/doc/TeX/read_dbintab.aux) (/private/tmp/Healpix_2.11/doc/TeX/
+read_fits_cut4.aux) (/private/tmp/Healpix_2.11/doc/TeX/read_par.aux) (/private/
+tmp/Healpix_2.11/doc/TeX/real_fft.aux) (/private/tmp/Healpix_2.11/doc/TeX/remov
+e_dipole.aux) (/private/tmp/Healpix_2.11/doc/TeX/ring_analysis.aux) (/private/t
+mp/Healpix_2.11/doc/TeX/ring_num.aux) (/private/tmp/Healpix_2.11/doc/TeX/ring_s
+ynthesis.aux) (/private/tmp/Healpix_2.11/doc/TeX/rotate_alm.aux) (/private/tmp/
+Healpix_2.11/doc/TeX/same_shape_pixels_xxx.aux) (/private/tmp/Healpix_2.11/doc/
+TeX/scan_directories.aux) (/private/tmp/Healpix_2.11/doc/TeX/string.aux) (/priv
+ate/tmp/Healpix_2.11/doc/TeX/surface_triangle.aux) (/private/tmp/Healpix_2.11/d
+oc/TeX/template_pixel_xxx.aux) (/private/tmp/Healpix_2.11/doc/TeX/udgrade_nest.
+aux) (/private/tmp/Healpix_2.11/doc/TeX/udgrade_ring.aux) (/private/tmp/Healpix
+_2.11/doc/TeX/vec2ang.aux) (/private/tmp/Healpix_2.11/doc/TeX/vect_prod.aux) (/
+private/tmp/Healpix_2.11/doc/TeX/write_asctab.aux) (/private/tmp/Healpix_2.11/d
+oc/TeX/write_bintab.aux) (/private/tmp/Healpix_2.11/doc/TeX/write_bintabh.aux) 
+(/private/tmp/Healpix_2.11/doc/TeX/write_dbintab.aux) (/private/tmp/Healpix_2.1
+1/doc/TeX/write_fits_cut4.aux) (/private/tmp/Healpix_2.11/doc/TeX/write_minimal
+_header.aux) (/private/tmp/Healpix_2.11/doc/TeX/write_plm.aux) (/private/tmp/He
+alpix_2.11/doc/TeX/xcc_v_convert.aux))
 \openout1 = `subroutinesimages.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 127.
-
-(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+Package hyperref Info: Link coloring OFF on input line 132.
+(/sw/share/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
+\c@section@level=\count105
 )
-\big@size=\dimen118
+LaTeX Info: Redefining \ref on input line 132.
+LaTeX Info: Redefining \pageref on input line 132.
+\openout3 = `subroutinesimages.out'.
+
 
 latex2htmlLength hsize=349.0pt
 
@@ -238,560 +276,669 @@ latex2htmlLength oddsidemargin=0.0pt
 
 latex2htmlLength evensidemargin=0.0pt
 
-LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 15
-3.
-(/usr/share/texmf/tex/latex/psnfss/ot1ptmcm.fd
-File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
-)
-LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 15
-3.
-(/usr/share/texmf/tex/latex/psnfss/omlptmcm.fd
-File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
-)
-LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 15
-3.
-(/usr/share/texmf/tex/latex/psnfss/omspzccm.fd
-File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
-)
-LaTeX Font Info:    Try loading font information for OMX+psycm on input line 15
-3.
-(/usr/share/texmf/tex/latex/psnfss/omxpsycm.fd
-File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 153.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 153.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 153.
-l2hSize :tex2html_wrap_inline173:8.76193pt::8.76193pt::6.85199pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 159.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 159.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 159.
+l2hSize :tex2html_wrap_inline235:8.33331pt::0.0pt::6.38954pt.
 [1
 
 
 
 ]
-l2hSize :tex2html_wrap_inline175:8.59999pt::8.59999pt::7.18802pt.
+l2hSize :tex2html_wrap_inline237:7.75pt::0.0pt::7.6833pt.
 [2
 
 
 ]
-l2hSize :tex2html_wrap_inline177:8.59999pt::8.59999pt::6.85199pt.
+l2hSize :tex2html_wrap_inline239:8.83331pt::8.83331pt::7.5416pt.
 [3
 
 
 ]
-l2hSize :tex2html_wrap_inline179:9.5pt::9.5pt::50.07002pt.
+l2hSize :tex2html_wrap_inline241:9.5pt::9.5pt::52.84537pt.
 [4
 
 
 ]
-l2hSize :tex2html_wrap_inline349:9.5pt::9.5pt::76.43417pt.
+l2hSize :tex2html_wrap_inline243:7.75pt::0.0pt::-1.41245pt.
 [5
 
 
 ]
-l2hSize :tex2html_wrap_inline355:8.59999pt::8.59999pt::23.30267pt.
+l2hSize :tex2html_wrap_inline431:9.5pt::9.5pt::78.12305pt.
 [6
 
 
 ]
-l2hSize :tex2html_wrap_inline377:9.43994pt::9.43994pt::23.87291pt.
+l2hSize :tex2html_wrap_inline437:8.7pt::8.7pt::24.71059pt.
 [7
 
 
 ]
-l2hSize :tex2html_wrap_inline385:8.69586pt::8.69586pt::49.9598pt.
+l2hSize :tex2html_wrap_inline459:9.5pt::9.5pt::25.01799pt.
 [8
 
 
 ]
-l2hSize :tex2html_wrap_inline387:8.76193pt::8.76193pt::91.9098pt.
+l2hSize :tex2html_wrap_inline467:8.7pt::8.7pt::52.26582pt.
 [9
 
 
 ]
-l2hSize :tex2html_wrap_inline570:9.43994pt::9.43994pt::6.60004pt.
+l2hSize :tex2html_wrap_inline469:8.83331pt::8.83331pt::96.24004pt.
 [10
 
 
 ]
-l2hSize :tex2html_wrap_inline574:8.59999pt::8.59999pt::55.9598pt.
+l2hSize :tex2html_wrap_inline673:9.5pt::9.5pt::6.58754pt.
 [11
 
 
 ]
-l2hSize :tex2html_wrap_inline683:11.36134pt::11.36134pt::168.77419pt.
+l2hSize :tex2html_wrap_inline677:8.7pt::8.7pt::58.14076pt.
 [12
 
 
 ]
-l2hSize :tex2html_wrap_inline715:8.76193pt::8.76193pt::27.88104pt.
+l2hSize :tex2html_wrap_inline786:10.88895pt::10.88895pt::174.98972pt.
 [13
 
 
 ]
-l2hSize :tex2html_wrap_inline870:9.5pt::9.5pt::32.25444pt.
+l2hSize :tex2html_wrap_inline818:8.83331pt::8.83331pt::28.56789pt.
 [14
 
 
 ]
-l2hSize :tex2html_wrap_inline1029:9.5pt::9.5pt::108.09843pt.
+l2hSize :tex2html_wrap_inline985:9.5pt::9.5pt::33.75247pt.
 [15
 
 
 ]
-l2hSize :tex2html_wrap_inline1031:9.5pt::9.5pt::118.80243pt.
+l2hSize :tex2html_wrap_inline1157:9.5pt::9.5pt::114.05844pt.
 [16
 
 
 ]
-l2hSize :tex2html_wrap_inline1033:9.5pt::9.5pt::84.97722pt.
+l2hSize :tex2html_wrap_inline1159:9.5pt::9.5pt::125.37029pt.
 [17
 
 
 ]
-l2hSize :tex2html_wrap_inline1035:10.8768pt::10.8768pt::137.31973pt.
+l2hSize :tex2html_wrap_inline1161:9.5pt::9.5pt::90.57399pt.
 [18
 
 
 ]
-l2hSize :tex2html_wrap_inline1037:11.24283pt::11.24283pt::83.52191pt.
+l2hSize :tex2html_wrap_inline1163:10.01027pt::10.01027pt::142.86053pt.
 [19
 
 
 ]
-l2hSize :tex2html_wrap_inline1039:10.8768pt::10.8768pt::166.0488pt.
+l2hSize :tex2html_wrap_inline1165:12.50008pt::12.50008pt::87.17168pt.
 [20
 
 
 ]
-l2hSize :tex2html_wrap_inline1287:9.5pt::9.5pt::27.07283pt.
+l2hSize :tex2html_wrap_inline1167:10.01027pt::10.01027pt::171.10403pt.
 [21
 
 
 ]
-l2hSize :tex2html_wrap_inline1291:8.76193pt::8.76193pt::67.12436pt.
+l2hSize :tex2html_wrap_inline1181:8.7pt::8.7pt::26.40262pt.
 [22
 
 
 ]
-l2hSize :tex2html_wrap_inline1293:8.76193pt::8.76193pt::65.09644pt.
+l2hSize :displaymath1220:27.72227pt::0.0pt::349.0pt.
 [23
 
 
 ]
-l2hSize :tex2html_wrap_inline1295:8.76193pt::8.76193pt::43.5061pt.
+l2hSize :tex2html_wrap_inline1375:9.5pt::9.5pt::74.52466pt.
 [24
 
 
 ]
-l2hSize :tex2html_wrap_inline1297:9.5pt::9.5pt::27.49294pt.
+l2hSize :tex2html_wrap_indisplay20644:8.25pt::8.25pt::9.72632pt.
 [25
 
 
 ]
-l2hSize :tex2html_wrap_inline1299:9.5pt::9.5pt::33.49294pt.
+l2hSize :tex2html_wrap_inline1379:8.25pt::8.25pt::32.74005pt.
 [26
 
 
 ]
-l2hSize :tex2html_wrap_inline1363:10.8768pt::10.8768pt::28.58875pt.
+l2hSize :tex2html_wrap_inline1397:10.32137pt::10.32137pt::68.03004pt.
 [27
 
 
 ]
-l2hSize :tex2html_wrap_inline1672:9.43394pt::9.43394pt::51.17407pt.
+l2hSize :tex2html_wrap_inline1399:10.30006pt::10.30006pt::47.75307pt.
 [28
 
 
 ]
-l2hSize :tex2html_wrap_inline1674:9.43994pt::9.43994pt::76.47896pt.
+l2hSize :tex2html_wrap_inline1401:9.68808pt::9.68808pt::48.61436pt.
 [29
 
 
 ]
-l2hSize :tex2html_wrap_inline1676:10.8768pt::10.8768pt::117.01434pt.
+l2hSize :tex2html_wrap_inline1403:9.68808pt::9.68808pt::49.2345pt.
 [30
 
 
 ]
-l2hSize :tex2html_wrap_inline1678:8.59999pt::8.59999pt::7.8359pt.
+l2hSize :tex2html_wrap_inline1669:9.5pt::9.5pt::27.74623pt.
 [31
 
 
 ]
-l2hSize :tex2html_wrap_inline1680:10.8768pt::10.8768pt::103.02507pt.
+l2hSize :tex2html_wrap_inline1673:8.83331pt::8.83331pt::71.98393pt.
 [32
 
 
 ]
-l2hSize :tex2html_wrap_inline1682:10.8768pt::10.8768pt::122.54616pt.
+l2hSize :tex2html_wrap_inline1675:8.83331pt::8.83331pt::70.16101pt.
 [33
 
 
 ]
-l2hSize :tex2html_wrap_inline18582:29.34193pt::29.34193pt::57.50554pt.
+l2hSize :tex2html_wrap_inline1677:8.33331pt::0.0pt::45.91965pt.
 [34
 
 
 ]
-l2hSize :tex2html_wrap_inline1842:8.59999pt::8.59999pt::87.3469pt.
+l2hSize :tex2html_wrap_inline1679:9.5pt::9.5pt::29.2664pt.
 [35
 
 
 ]
-l2hSize :tex2html_wrap_inline1844:8.59999pt::8.59999pt::87.3469pt.
+l2hSize :tex2html_wrap_inline1681:9.5pt::9.5pt::35.14134pt.
 [36
 
 
 ]
-l2hSize :tex2html_wrap_inline2076:8.76193pt::8.76193pt::31.6342pt.
+l2hSize :tex2html_wrap_inline1745:9.51027pt::0.0pt::27.68057pt.
 [37
 
 
 ]
-l2hSize :tex2html_wrap_inline2078:8.59999pt::8.59999pt::8.83202pt.
+Overfull \hbox (7.02808pt too wide) in paragraph at lines 413--413
+[]\OT1/cmtt/m/n/12 -------------------------------------- 
+ []
+
+
+Overfull \hbox (7.02808pt too wide) in paragraph at lines 413--413
+\OT1/cmtt/m/n/12 -------------------------------------- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 413--413
+[]
+ []
+
+l2hSize :tex2html_wrap_inline20904:43.16666pt::43.16666pt::233.90002pt.
 [38
 
 
 ]
-l2hSize :tex2html_wrap_inline2080:8.76193pt::8.76193pt::6.85199pt.
+l2hSize :tex2html_wrap_inline2098:9.5pt::9.5pt::58.79189pt.
 [39
 
 
 ]
-l2hSize :tex2html_wrap_inline2082:8.59999pt::8.59999pt::7.8359pt.
+l2hSize :tex2html_wrap_inline2100:9.5pt::9.5pt::86.29317pt.
 [40
 
 
 ]
-l2hSize :tex2html_wrap_inline2794:8.76193pt::8.76193pt::43.2049pt.
+l2hSize :tex2html_wrap_inline2102:10.01027pt::10.01027pt::126.88675pt.
 [41
 
 
 ]
-l2hSize :tex2html_wrap_inline3281:8.59999pt::8.59999pt::9.9239pt.
+l2hSize :tex2html_wrap_inline2104:7.75pt::0.0pt::7.69649pt.
 [42
 
 
 ]
-l2hSize :tex2html_wrap19179:0.0pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline2106:10.01027pt::10.01027pt::111.87988pt.
 [43
 
 
 ]
-l2hSize :tex2html_wrap19226:0.0pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline2108:10.01027pt::10.01027pt::133.40059pt.
 [44
 
 
 ]
-l2hSize :tex2html_wrap_inline3483:10.8768pt::10.8768pt::84.73817pt.
+l2hSize :tex2html_wrap_inline21018:29.41666pt::29.41666pt::63.18349pt.
 [45
 
 
 ]
-l2hSize :tex2html_wrap_inline3485:11.00275pt::11.00275pt::89.23817pt.
+l2hSize :tex2html_wrap_inline2268:8.46431pt::8.46431pt::89.4166pt.
 [46
 
 
 ]
-l2hSize :tex2html_wrap_inline3487:10.8768pt::10.8768pt::58.4144pt.
+l2hSize :tex2html_wrap_inline2270:8.46431pt::8.46431pt::89.4166pt.
 [47
 
 
 ]
-l2hSize :tex2html_wrap_inline3489:10.8768pt::10.8768pt::62.9144pt.
+l2hSize :tex2html_wrap_inline2504:8.83331pt::8.83331pt::32.68365pt.
 [48
 
 
 ]
-l2hSize :tex2html_wrap19261:0.0pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline2506:8.83331pt::8.83331pt::8.65688pt.
 [49
 
 
 ]
-l2hSize :tex2html_wrap_inline3491:9.43394pt::9.43394pt::19.18802pt.
+l2hSize :tex2html_wrap_inline2508:8.33331pt::0.0pt::6.38954pt.
 [50
 
 
 ]
-l2hSize :tex2html_wrap_inline3493:9.43394pt::9.43394pt::19.18802pt.
+l2hSize :tex2html_wrap_inline2510:8.25pt::8.25pt::8.28464pt.
 [51
 
 
 ]
-l2hSize :tex2html_wrap_inline3497:8.59999pt::8.59999pt::13.18802pt.
+l2hSize :tex2html_wrap_inline3238:8.83331pt::8.83331pt::43.85107pt.
 [52
 
 
 ]
-l2hSize :tex2html_wrap_inline3499:8.59999pt::8.59999pt::13.18802pt.
+l2hSize :tex2html_wrap_inline3725:8.25pt::8.25pt::9.92088pt.
 [53
 
 
 ]
-l2hSize :tex2html_wrap_inline3501:11.50964pt::11.50964pt::16.596pt.
+l2hSize :tex2html_wrap21618:0.0pt::0.0pt::349.0pt.
 [54
 
 
 ]
-l2hSize :tex2html_wrap_inline3503:8.69586pt::8.69586pt::61.48456pt.
+l2hSize :tex2html_wrap21665:0.0pt::0.0pt::349.0pt.
 [55
 
 
 ]
-l2hSize :tex2html_wrap_inline3505:11.4077pt::11.4077pt::35.18398pt.
+l2hSize :tex2html_wrap_inline4052:10.01027pt::10.01027pt::87.43436pt.
 [56
 
 
 ]
-l2hSize :tex2html_wrap_inline3509:9.43394pt::9.43394pt::31.18802pt.
+l2hSize :tex2html_wrap_inline4054:10.01027pt::10.01027pt::91.68442pt.
 [57
 
 
 ]
-l2hSize :tex2html_wrap_inline3511:9.43394pt::9.43394pt::31.18802pt.
+l2hSize :tex2html_wrap_inline4056:9.51027pt::0.0pt::58.80946pt.
 [58
 
 
 ]
-l2hSize :tex2html_wrap19321:0.0pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline4058:9.51027pt::0.0pt::63.05952pt.
 [59
 
 
 ]
-l2hSize :tex2html_wrap_inline3513:10.8768pt::10.8768pt::67.74777pt.
+l2hSize :tex2html_wrap21700:0.0pt::0.0pt::349.0pt.
 [60
 
 
 ]
-l2hSize :tex2html_wrap_inline3641:8.59999pt::8.59999pt::6.85199pt.
+l2hSize :tex2html_wrap_inline4060:9.5pt::9.5pt::19.43318pt.
 [61
 
 
 ]
-l2hSize :tex2html_wrap_inline3647:8.59999pt::8.59999pt::27.50911pt.
+l2hSize :tex2html_wrap_inline4062:9.5pt::9.5pt::19.43318pt.
 [62
 
 
 ]
-l2hSize :tex2html_wrap_inline3931:9.5pt::9.5pt::125.45644pt.
+l2hSize :tex2html_wrap_inline4066:7.75pt::0.0pt::13.55824pt.
 [63
 
 
 ]
-l2hSize :tex2html_wrap_inline3953:8.78879pt::8.78879pt::17.60004pt.
+l2hSize :tex2html_wrap_inline4068:7.75pt::0.0pt::13.55824pt.
 [64
 
 
 ]
-l2hSize :tex2html_wrap_inline4042:10.8768pt::10.8768pt::79.73827pt.
+l2hSize :tex2html_wrap_inline4070:11.33661pt::11.33661pt::16.4625pt.
 [65
 
 
 ]
-l2hSize :tex2html_wrap_inline5181:8.59999pt::8.59999pt::20.30583pt.
+l2hSize :tex2html_wrap_inline4072:8.25pt::8.25pt::65.88997pt.
 [66
 
 
 ]
-l2hSize :tex2html_wrap_inline5189:9.43994pt::9.43994pt::65.88594pt.
+l2hSize :tex2html_wrap_inline4074:11.33661pt::11.33661pt::35.30815pt.
 [67
 
 
 ]
-l2hSize :tex2html_wrap_inline5191:11.21732pt::11.21732pt::87.66559pt.
+l2hSize :tex2html_wrap_inline4078:9.5pt::9.5pt::31.18306pt.
 [68
 
 
 ]
-l2hSize :tex2html_wrap_inline5302:10.8768pt::10.8768pt::74.66559pt.
+l2hSize :tex2html_wrap_inline4080:9.5pt::9.5pt::31.18306pt.
 [69
 
 
 ]
-l2hSize :displaymath5397:26.35587pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap21760:0.0pt::0.0pt::349.0pt.
 [70
 
 
 ]
-l2hSize :tex2html_wrap_inline5403:8.59999pt::8.59999pt::43.30028pt.
+l2hSize :tex2html_wrap_inline4082:10.01027pt::10.01027pt::67.22606pt.
 [71
 
 
 ]
-l2hSize :tex2html_wrap_inline5761:8.76193pt::8.76193pt::63.29352pt.
+l2hSize :tex2html_wrap_inline4210:8.83331pt::8.83331pt::7.5416pt.
 [72
 
 
 ]
-l2hSize :tex2html_wrap_inline5993:9.5pt::9.5pt::27.07283pt.
+l2hSize :tex2html_wrap_inline4216:8.83331pt::8.83331pt::29.2219pt.
 [73
 
 
 ]
-l2hSize :tex2html_wrap_inline5999:8.59999pt::8.59999pt::38.96298pt.
+l2hSize :tex2html_wrap_inline4519:9.5pt::9.5pt::135.51175pt.
 [74
 
 
 ]
-l2hSize :tex2html_wrap_inline6005:9.5pt::9.5pt::30.49294pt.
+l2hSize :tex2html_wrap_inline4541:8.0075pt::0.0pt::17.08746pt.
 [75
 
 
 ]
-l2hSize :tex2html_wrap_inline6216:9.43394pt::9.43394pt::17.14679pt.
+l2hSize :tex2html_wrap_inline4674:8.7pt::8.7pt::77.81584pt.
 [76
 
 
 ]
-l2hSize :tex2html_wrap_inline6218:10.90376pt::10.90376pt::108.78783pt.
+l2hSize :tex2html_wrap_inline5081:10.01027pt::10.01027pt::79.69814pt.
 [77
 
 
 ]
-l2hSize :tex2html_wrap_inline6246:9.5pt::9.5pt::37.25168pt.
+l2hSize :tex2html_wrap_inline5741:9.5pt::9.5pt::132.2479pt.
 [78
 
 
 ]
-l2hSize :tex2html_wrap_inline6248:9.5pt::9.5pt::37.25168pt.
+l2hSize :tex2html_wrap_inline6265:8.7pt::8.7pt::22.0661pt.
 [79
 
 
 ]
-l2hSize :tex2html_wrap_inline6250:9.5pt::9.5pt::37.25168pt.
+l2hSize :tex2html_wrap_inline6273:9.5pt::9.5pt::68.28137pt.
 [80
 
 
 ]
-l2hSize :tex2html_wrap_inline6252:9.5pt::9.5pt::37.25168pt.
+l2hSize :tex2html_wrap_inline6275:13.17227pt::13.17227pt::89.61935pt.
 [81
 
 
 ]
-l2hSize :tex2html_wrap_inline6254:9.5pt::9.5pt::37.25168pt.
+l2hSize :tex2html_wrap_inline6386:10.68889pt::10.68889pt::78.49446pt.
 [82
 
 
 ]
-l2hSize :tex2html_wrap_inline6256:9.5pt::9.5pt::37.25168pt.
+l2hSize :displaymath6481:26.3495pt::0.0pt::349.0pt.
 [83
 
 
 ]
-l2hSize :tex2html_wrap_inline6565:9.43394pt::9.43394pt::19.18802pt.
+l2hSize :tex2html_wrap_inline6487:8.7pt::8.7pt::46.43312pt.
 [84
 
 
 ]
-l2hSize :tex2html_wrap_inline6567:9.43394pt::9.43394pt::25.18802pt.
+l2hSize :tex2html_wrap_inline6944:9.5pt::9.5pt::33.95901pt.
 [85
 
 
 ]
-l2hSize :tex2html_wrap_inline6799:10.8768pt::10.8768pt::90.73817pt.
+l2hSize :tex2html_wrap_inline6948:12.63332pt::12.63332pt::25.43633pt.
 [86
 
 
 ]
-l2hSize :tex2html_wrap_inline6974:8.59999pt::8.59999pt::49.9598pt.
+l2hSize :tex2html_wrap_inline6952:12.63332pt::12.63332pt::91.43173pt.
 [87
 
 
 ]
-l2hSize :tex2html_wrap_inline7183:8.59999pt::8.59999pt::14.02415pt.
+l2hSize :tex2html_wrap_inline6958:8.83331pt::8.83331pt::66.40509pt.
 [88
 
 
 ]
-l2hSize :tex2html_wrap_inline7273:11.52464pt::11.52464pt::60.80635pt.
+l2hSize :tex2html_wrap_inline7232:8.7pt::8.7pt::42.60765pt.
 [89
 
 
 ]
-l2hSize :tex2html_wrap_inline7637:8.59999pt::8.59999pt::20.57158pt.
+l2hSize :tex2html_wrap_inline7449:8.83331pt::8.83331pt::18.0922pt.
 [90
 
 
 ]
-l2hSize :tex2html_wrap_inline7921:8.76193pt::8.76193pt::38.53862pt.
+l2hSize :tex2html_wrap_inline7451:10.41026pt::10.41026pt::114.87614pt.
 [91
 
 
 ]
-l2hSize :tex2html_wrap_inline7923:10.8768pt::10.8768pt::19.93376pt.
+l2hSize :tex2html_wrap_inline7479:9.5pt::9.5pt::35.80623pt.
 [92
 
 
 ]
-l2hSize :tex2html_wrap_inline7937:8.76193pt::8.76193pt::31.6342pt.
+l2hSize :tex2html_wrap_inline7481:9.5pt::9.5pt::35.80623pt.
 [93
 
 
 ]
-l2hSize :tex2html_wrap_inline7945:8.76193pt::8.76193pt::85.9098pt.
+l2hSize :tex2html_wrap_inline7483:9.5pt::9.5pt::35.80623pt.
 [94
 
 
 ]
-l2hSize :tex2html_wrap_inline7947:9.43394pt::9.43394pt::115.51741pt.
+l2hSize :tex2html_wrap_inline7485:9.5pt::9.5pt::35.80623pt.
 [95
 
 
 ]
-l2hSize :eqnarray8001:45.8235pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline7487:9.5pt::9.5pt::35.80623pt.
 [96
 
 
 ]
-l2hSize :tex2html_wrap_inline8086:10.8768pt::10.8768pt::58.95982pt.
+l2hSize :tex2html_wrap_inline7489:9.5pt::9.5pt::35.80623pt.
 [97
 
 
 ]
-l2hSize :tex2html_wrap_inline8092:8.69586pt::8.69586pt::55.9598pt.
+l2hSize :tex2html_wrap_inline7798:9.5pt::9.5pt::19.43318pt.
 [98
 
 
 ]
-l2hSize :eqnarray8459:45.8235pt::0.0pt::349.0pt.
+l2hSize :tex2html_wrap_inline7800:9.5pt::9.5pt::25.30812pt.
 [99
 
 
 ]
-l2hSize :tex2html_wrap_inline8880:8.59999pt::8.59999pt::11.60004pt.
+l2hSize :tex2html_wrap_inline8040:10.01027pt::10.01027pt::92.01785pt.
 [100
 
 
 ]
-l2hSize :tex2html_wrap_inline8882:8.59999pt::8.59999pt::11.60004pt.
+l2hSize :tex2html_wrap_inline8219:8.7pt::8.7pt::52.26582pt.
 [101
 
 
 ]
-l2hSize :tex2html_wrap_inline8884:8.59999pt::8.59999pt::60.9143pt.
+l2hSize :tex2html_wrap_inline8435:8.7pt::8.7pt::14.81172pt.
 [102
 
 
 ]
-l2hSize :tex2html_wrap_inline9152:8.59999pt::8.59999pt::35.82251pt.
+l2hSize :tex2html_wrap_inline8525:11.63661pt::11.63661pt::62.79906pt.
 [103
 
 
 ]
-l2hSize :tex2html_wrap_inline9285:11.52464pt::11.52464pt::60.80635pt.
+l2hSize :displaymath8716:36.201pt::0.0pt::349.0pt.
 [104
 
 
-] (subroutinesimages.aux) ) 
-Here is how much of TeX's memory you used:
- 1848 strings out of 20880
- 25818 string characters out of 197306
- 110682 words of memory out of 350001
- 4623 multiletter control sequences out of 10000+15000
- 12636 words of font info for 35 fonts, out of 400000 for 1000
- 14 hyphenation exceptions out of 10000
- 32i,9n,25p,253b,242s stack positions out of 3000i,100n,1500p,50000b,4000s
+]
+l2hSize :displaymath8721:29.18893pt::0.0pt::349.0pt.
+[105
 
-Output written on subroutinesimages.dvi (104 pages, 23700 bytes).
+
+]
+l2hSize :displaymath8724:29.18893pt::0.0pt::349.0pt.
+[106
+
+
+]
+l2hSize :tex2html_wrap_inline8797:8.19998pt::0.0pt::9.9209pt.
+[107
+
+
+]
+l2hSize :tex2html_wrap_inline8805:9.5pt::9.5pt::161.15631pt.
+[108
+
+
+]
+l2hSize :displaymath8728:34.64545pt::0.0pt::349.0pt.
+[109
+
+
+]
+l2hSize :tex2html_wrap_inline8946:7.75pt::0.0pt::22.25394pt.
+[110
+
+
+]
+l2hSize :tex2html_wrap_inline9232:8.83331pt::8.83331pt::40.17096pt.
+[111
+
+
+]
+l2hSize :tex2html_wrap_inline9234:10.01027pt::10.01027pt::20.40717pt.
+[112
+
+
+]
+l2hSize :tex2html_wrap_inline9256:8.83331pt::8.83331pt::90.3651pt.
+[113
+
+
+]
+l2hSize :tex2html_wrap_inline9258:9.5pt::9.5pt::119.83406pt.
+[114
+
+
+]
+l2hSize :tex2html_wrap_indisplay23516:9.5pt::9.5pt::89.94707pt.
+[115
+
+
+]
+l2hSize :tex2html_wrap_indisplay23517:8.25pt::8.25pt::4.50415pt.
+[116
+
+
+]
+l2hSize :tex2html_wrap_indisplay23518:9.5pt::9.5pt::67.33133pt.
+[117
+
+
+]
+l2hSize :tex2html_wrap_indisplay23519:9.5pt::9.5pt::65.14941pt.
+[118
+
+
+]
+l2hSize :tex2html_wrap_indisplay23521:13.78476pt::13.78476pt::126.85109pt.
+[119
+
+
+]
+l2hSize :tex2html_wrap_inline9397:10.68889pt::10.68889pt::61.75208pt.
+[120
+
+
+]
+l2hSize :tex2html_wrap_inline9403:8.7pt::8.7pt::58.14076pt.
+[121
+
+
+]
+l2hSize :tex2html_wrap_indisplay23664:9.5pt::9.5pt::65.14941pt.
+[122
+
+
+]
+l2hSize :tex2html_wrap_indisplay23666:13.78476pt::13.78476pt::126.85109pt.
+[123
+
+
+]
+l2hSize :tex2html_wrap_inline10191:8.25pt::8.25pt::12.46259pt.
+[124
+
+
+]
+l2hSize :tex2html_wrap_inline10193:8.25pt::8.25pt::12.46259pt.
+[125
+
+
+]
+l2hSize :tex2html_wrap_inline10195:8.25pt::8.25pt::66.68468pt.
+[126
+
+
+]
+l2hSize :tex2html_wrap_inline10479:7.75pt::0.0pt::36.75392pt.
+[127
+
+
+] (./subroutinesimages.aux) ) 
+Here is how much of TeX's memory you used:
+ 3566 strings out of 94501
+ 55624 string characters out of 1176138
+ 148337 words of memory out of 1500000
+ 6421 multiletter control sequences out of 10000+50000
+ 7473 words of font info for 27 fonts, out of 1200000 for 2000
+ 580 hyphenation exceptions out of 8191
+ 32i,6n,25p,253b,235s stack positions out of 5000i,500n,6000p,200000b,5000s
+
+Output written on subroutinesimages.dvi (127 pages, 83840 bytes).

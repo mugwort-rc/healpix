@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -58,18 +58,20 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;        0: do nothing: output selected column(s) as read (after application of
 ;               OFFSET and FACTOR to each columns)
 ;        1: read the Q and U columns of the FITS file and outputs in Array the
-;               norm = sqrt(U^2+Q^2) * factor
+;               norm = sqrt(U^2+Q^2) * factor + offset * factor
 ;        2: read the Q and U columns of the FITS file and output in Array the
 ;              angle psi = 1/2 atan(U/Q)
 ;        3: read the T,Q and U columns and outputs 
 ;              in Array (T + offset) * factor
-;              polvec will contain norm and psi as described above
+;              polvec will contain 
+;                 norm=sqrt(U^2+Q^2) * factor    and 
+;                 psi=1/2 atan(U/Q)
 ;
 ;     TONAN= set flagged pixel to NaN. Is set whn FACTOR and/or OFFSET are set
 ;
-;     OFFSET= multiplicative factor applied to data, default = 1.
+;     FACTOR= multiplicative factor applied to data, default = 1.
 ;
-;     FACTOR= additive factor applied to data 
+;     OFFSET= additive factor applied to data 
 ;      (ie, data_out = (data_fits + offset) * factor
 ;
 ;     FLIP= flip orientation of polarisation vector 
@@ -108,6 +110,10 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ; MODIFICATION HISTORY:
 ;         v1.0, EH, 2005-02-07
 ;                   2005-08-29: added no pdu
+;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
+;  June 2008: EH, modified to deal with files with very large TFORM
+;                 corrected documentation header wrt offset/factor
+;  Oct 2008, EH: allows offsetting of polarization norm when poltype=1
 ;
 ;-
 
@@ -120,7 +126,7 @@ endif
 defsysv, '!healpix', exists = exists
 if (exists ne 1) then init_healpix
 
-do_rescale = (keyword_set(tonan) or keyword_set(offset) or keyword_set(factor))
+do_rescale = (keyword_set(tonan) || keyword_set(offset) || keyword_set(factor))
 xtn   = (keyword_set(extension_id)) ? (extension_id+1) : 1
 polar = (keyword_set(poltype))      ? poltype          : 0
 flipconv = (keyword_set(flip))      ? 1                : -1
@@ -144,11 +150,11 @@ bad_data =       float(sxpar(exthdr,'BAD_DATA', count=nbd))
 if (nbd eq 0) then bad_data = !healpix.bad_value
 
 ; read image if file is in deprecated format
-if (xtn eq 0 and fcb.nextend eq 0) then begin
+if (xtn eq 0 && fcb.nextend eq 0) then begin
     if polar gt 0 then message,'no polarisation information found in '+file
     fits_read, fcb, array, exten_no = xtn
     if (do_rescale) then begin
-        bad_pixels = where(array le (bad_data*0.9) or finite(array,/nan), nbad)
+        bad_pixels = where(array le (bad_data*0.9) || finite(array,/nan), nbad)
         if (nbad gt 0)    then array[bad_pixels] = !values.f_nan
         if (factor ne 1.) then array = temporary(array) * factor 
         if (offset ne 0.) then array = temporary(array) + (factor*offset)
@@ -157,7 +163,7 @@ if (xtn eq 0 and fcb.nextend eq 0) then begin
 endif
 
 ; check out file for polarisation
-if (tfields lt 3 and polar gt 0) then begin
+if (tfields lt 3 && polar gt 0) then begin
     message,'no polarisation information found in '+file
 endif
 
@@ -168,13 +174,13 @@ npix = nentry * n_rows
 ; columns to be output in array
 cols = indgen(tfields) + 1
 if defined(columns) then cols = columns
-if (max(cols) gt tfields or min(cols) le 0) then begin
+if (max(cols) gt tfields || min(cols) le 0) then begin
     print,'columns = ',cols
     message,'invalid choice of columns for '+file
 endif
 
 nmaps = n_elements(cols)
-if (polar eq 1 or polar eq 2) then begin
+if (polar eq 1 || polar eq 2) then begin
     cols = [2,3] ; read Q and U
     nmaps = 1
 endif
@@ -182,7 +188,7 @@ if (polar eq 3) then begin
     cols = [1,2,3]
     nmaps = 1
 endif
-if (polar gt 3 or polar lt 0) then begin
+if (polar gt 3 || polar lt 0) then begin
     print,'Poltype = ',polar
     message,'invalid poltype for '+file
 endif
@@ -199,7 +205,7 @@ array = make_array(type=type, npix, nmaps, /nozero)
 if (polar eq 3) then polvec = make_array(type=type, npix, 2, /nozero)
 
 ; read data piece by piece and process each piece individually
-stride = 5.e6 ; 5 MB per piece
+stride = 5.e6 > n_wpr ; 5 MB or 1 row per piece (June-2008)
 stride = FLOOR(stride / n_wpr) * n_wpr
 w_start = long64(0)
 pstart = long64(0)
@@ -215,7 +221,7 @@ while (w_start LE (n_words-1) ) do begin
         for i=0,nmaps-1 do begin
             x = (tbget(tab_xhdr, data, cols[i]))[*]
             if (do_rescale) then begin
-                bad_pixels = where(x le (bad_data*0.9) or finite(x,/nan), nbad)
+                bad_pixels = where(x le (bad_data*0.9) || finite(x,/nan), nbad)
                 if (nbad gt 0)    then x[bad_pixels] = !values.f_nan
                 if (factor ne 1.) then x = x * factor 
                 if (offset ne 0.) then x = x + (factor*offset)
@@ -230,16 +236,17 @@ while (w_start LE (n_words-1) ) do begin
         for i=0,2 do begin
             tmp[0,i] = (tbget(tab_xhdr, data, i+1))[*]
             if (do_rescale) then begin
-                bad_pixels = where(tmp[*,i] le (bad_data*0.9) or finite(tmp[*,i],/nan), nbad)
+                bad_pixels = where(tmp[*,i] le (bad_data*0.9) || finite(tmp[*,i],/nan), nbad)
                 if (nbad gt 0)    then tmp[bad_pixels,i] = !values.f_nan
-                if (factor ne 1.) then tmp[*,i] = tmp[*,i] * factor 
-                if (offset ne 0. and i eq 0) then tmp[*,i] = tmp[*,i] + (factor*offset) ; only offset temperature
+                if (factor ne 1.) then tmp[*,i] *= factor  ; rescale all fields
+                if (offset ne 0. && i eq 0) then tmp[*,i] +=  (factor*offset) ; only offset temperature
             endif
         endfor
-        if (polar eq 1 or polar eq 3) then begin
+        if (polar eq 1 || polar eq 3) then begin
             norm[0:np-1] = sqrt(tmp[0:np-1,1]^2+tmp[0:np-1,2]^2)  ; (Q,U) --> P
+            if (polar eq 1 && offset ne 0.) then norm[0:np-1] += (factor*offset) ; offset P, only when plotting P alone
         endif
-        if (polar eq 2 or polar eq 3) then begin
+        if (polar eq 2 || polar eq 3) then begin
             psi[0:np-1] = 0.5 * atan(tmp[0:np-1,2]*flipconv, tmp[0:np-1,1]) ; (Q,U) --> psi
         endif
         if (polar eq 1) then array[pstart] = norm[0:np-1]
@@ -256,6 +263,7 @@ while (w_start LE (n_words-1) ) do begin
 endwhile
 data = 0
 tmp = 0 & norm = 0 & psi = 0
+tbfree, tab_xhdr
 
 ; close file
 all_done:

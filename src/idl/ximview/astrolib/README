@@ -1,0 +1,15 @@
+This directory contains routines from the IDL Astrolib
+(idlastro.gsfc.nasa.gov) which are used by Ximview, except for ones
+included in the HEALPix 2.11 distribution.
+
+These are: AD2XY, BSORT, EXTAST, MINMAX, SXADDHIST,
+WCS_GETPOLE, WCS_ROTATE, WCSSPH2XY, WCSXY2SPH, XY2AD.
+
+WCSXY2SPH has been modified from the Astrolib version of Oct 2007 to
+improve handling of the -HPX projection.
+
+XY2AD has been modified to reduce memory usage when processing large
+arrays.
+
+All the routines in this directory should run under IDL 5.6.
+

@@ -1,31 +1,29 @@
 /*
- *  This file is part of Healpix_cxx.
+ *  This file is part of libfftpack.
  *
- *  Healpix_cxx is free software; you can redistribute it and/or modify
+ *  libfftpack is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  Healpix_cxx is distributed in the hope that it will be useful,
+ *  libfftpack is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Healpix_cxx; if not, write to the Free Software
+ *  along with libfftpack; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
  */
 
 /*
- *  Healpix_cxx is being developed at the Max-Planck-Institut fuer Astrophysik
+ *  libfftpack is being developed at the Max-Planck-Institut fuer Astrophysik
  *  and financially supported by the Deutsches Zentrum fuer Luft- und Raumfahrt
  *  (DLR).
  */
 
 /*
- *  Copyright (C) 2005 Max-Planck-Society
+ *  Copyright (C) 2005, 2006, 2007 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -33,26 +31,6 @@
 #include <stdlib.h>
 #include "fftpack.h"
 #include "bluestein.h"
-
-/* returns the largest prime factor of n */
-int largest_prime_factor (int n)
-  {
-  int maxdiv=0,x,limit,tmp;
-  while (((tmp=(n>>1))<<1)==n)
-    { maxdiv=2; n=tmp; }
-
-  limit=sqrt(n+0.01);
-  for (x=3; x<=limit; x+=2)
-  while ((tmp=(n/x))*x==n)
-    {
-    maxdiv=x;
-    n=tmp;
-    limit=sqrt(n+0.01);
-    }
-  if (n>maxdiv) maxdiv=n;
-
-  return maxdiv;
-  }
 
 /* returns the sum of all prime factors of n */
 int prime_factor_sum (int n)
@@ -74,17 +52,8 @@ int prime_factor_sum (int n)
   return result;
   }
 
-/* returns the smallest power of 2 which is >= n */
-int nextpow2 (int n)
-  {
-  int cnt=1;
-  while ((n>>cnt)>0)
-    ++cnt;
-  return 1<<cnt;
-  }
-
 /* returns the smallest composite of 2, 3 and 5 which is >= n */
-int good_size(int n)
+static int good_size(int n)
   {
   int maxfactors=1, i, j, k, f2=1, f3, f5, bestfac, guessfac;
   while ((n>>maxfactors)>0)

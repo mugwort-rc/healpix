@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -26,11 +26,11 @@
 ;
 ; -----------------------------------------------------------------------------
 ;+
-; defines the common for data shared by gnomview, gnomcursor, gnom2pix and
-; mollview, mollcursor, moll2pix
+; defines the common for data shared by gnomview, gnomcursor, gnom2pix, 
+; mollview, mollcursor, moll2pix, cart* and orth*
 ;-
 
 common view_data, data_plot, $
    pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, sunits, do_flip, $
-   polar_type, w_num, projection, do_fullsky
+   polar_type, w_num, projection, do_fullsky, pixel_list, indlist
 

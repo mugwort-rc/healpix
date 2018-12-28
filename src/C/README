@@ -45,13 +45,16 @@ README               : This file
 ang2pix_nest.c       : Converts coordinates to pixel number in nested scheme
 ang2pix_ring.c       : Converts coordinates to pixel number in ring scheme
 chealpix.h           : Header file to be included to define the functions
+get_fits_size.c	     : returns number of elements in FITS file
 mk_pix2xy.c          : Utility routine. Never called directly
 mk_xy2pix.c          : Utility routine. Never called directly
 nest2ring.c          : Converts pixel number from nested to ring scheme
 nside2npix.c         : Given 'nside', calculates number of pixels in full sky
 pix2ang_nest.c       : Convers pixel number to coordinates in nested scheme
 pix2ang_ring.c       : Convers pixel number to coordinates in ring scheme
+read_healpix_map     : reads a Healpix map
 ring2nest.c          : Converts pixel number from ring to nested scheme
+write_healpix_map    : writes a Healpix map
 
 test_chealpix.c      : Test routine for pixel operations (to be compared to IDL)
 test_chealpix2.c     : Test routine for pixel operations (self contained)

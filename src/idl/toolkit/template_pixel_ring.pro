@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -73,6 +73,8 @@ pro template_pixel_ring, nside, ipix, itplt, reflexion
 ;
 ; MODIFICATION HISTORY:
 ;         2004-09, EH, v1.0
+;    Dec 2007, EH,  IAP, enabled nside > 8192
+;    Aug 2008, EH, IAP: issues warning if ipix is not of integer type
 ;
 ; Notes on pixel template
 ;
@@ -112,27 +114,38 @@ if (N_ELEMENTS(nside) GT 1) then message,'Nside should be a scalar in '+routine
 npix = nside2npix(nside, error = error)
 if (error ne 0) then message,'Invalid Nside '+string(nside)
 
-lnside = long(nside)
-
-min_pix = MIN(ipix)
-max_pix = MAX(ipix)
+assert_pixindex_type, ipix[0], /warning ; warning if ipix is not integer
+min_pix = MIN(ipix, MAX = max_pix)
 IF (min_pix LT 0) THEN BEGIN
-    PRINT,'pixel index : ',min_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
+    PRINT,'pixel index : ',min_pix,FORMAT='(A,I18)'
+    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
     message,'Abort'
 ENDIF
 IF (max_pix GT npix-1) THEN BEGIN
-    PRINT,'pixel index : ',max_pix,FORMAT='(A,I10)'
-    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I8)'
+    PRINT,'pixel index : ',max_pix,FORMAT='(A,I18)'
+    PRINT,'is out of range : ',0,npix-1,FORMAT='(A,I2,I18)'
     message,'Abort'
 ENDIF
 
-ncap = 2*lnside*(lnside+1)
-ns4  = 4*lnside
-n0   = (lnside*(lnside+2))/4 > 1
-
+lnside = long(nside)
 np = n_elements(ipix)
-itplt    = lonarr(np)
+
+if (lnside gt 8192) then begin
+    ncap = 2LL*lnside*(lnside+1LL)
+    ns4  = 4LL*lnside
+    n0   = (lnside*(lnside+2LL))/4
+    one  = 1LL
+    itplt = lon64arr(np)
+    l64 = 1
+endif else begin
+    ncap = 2*lnside*(lnside+1)
+    ns4  = 4*lnside
+    n0   = (lnside*(lnside+2))/4 > 1
+    one  = 1L
+    itplt = lonarr(np)
+    l64 = 0
+endelse
+
 if (do_sym) then begin
     reflexion = intarr(np)
 endif
@@ -140,10 +153,10 @@ endif
 ; North polar cap
 knorth = where(ipix lt ncap, nnorth)
 if (nnorth gt 0) then begin
-    ip = long(ipix[knorth]) + 1
-    iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1L ; counted from NORTH pole, starting at 1
-    ifi  = (ip - 1 - 2L*iring*(iring-1L)) MOD iring ; in [0,iring-1], upwards
-    ifd  = iring - 1 - ifi                          ; in [0,iring-1], downwards
+    ip = ROUND(ipix[knorth], L64=l64) + one
+    iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + one ; counted from NORTH pole, starting at 1
+    ifi  = (ip - 1L - 2L*iring*(iring-one)) MOD iring ; in [0,iring-1], upwards
+    ifd  = iring - 1L - ifi                          ; in [0,iring-1], downwards
     iff  = ifi < ifd                                ; in [0,(iring-1)/2]
     itplt[knorth] = (iring*iring)/4 + iff
     if (do_sym) then begin
@@ -156,30 +169,34 @@ knorth = 0 ; free memory
 ; North-Equatorial region
 kneq   = where(ipix ge ncap and ipix lt (npix+ns4)/2, nneq)
 if (nneq gt 0) then begin
-    itplt[kneq] = n0  + long((ipix[kneq] - ncap)/ns4)
+    ip = ROUND(ipix[kneq], L64=l64)
+    itplt[kneq] = n0  + long((ip - ncap)/ns4)
     if (do_sym) then begin
         reflexion[kneq] = 0      ; no swap
     endif
+    ip = 0
 endif
 kneq = 0 ; free memory
 
 ; South-Equatorial region
 kseq   = where(ipix ge (npix+ns4)/2 and ipix lt (npix-ncap), nseq)
 if (nseq gt 0) then begin
-    itplt[kseq] = n0 + long((npix - 1 - ipix[kseq] - ncap)/ns4)
+    ip = ROUND(ipix[kseq], L64=l64)
+    itplt[kseq] = n0 + long((npix - one - ip - ncap)/ns4)
     if (do_sym) then begin
         reflexion[kseq] = 2      ; North-South swap
     endif
+    ip = 0
 endif
 kseq = 0 ; free memory
 
 ; South polar cap
 ksouth = where(ipix ge (npix-ncap),  nsouth)
 if (nsouth gt 0) then begin
-    ip =  npix - long(ipix[ksouth])
-    iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + 1 ; counted from SOUTH pole, starting at 1
-    ifi  = (2L*iring*(iring+1L) - ip) MOD iring     ; in [0,iring-1], upwards
-    ifd  = iring - 1 - ifi                          ; in [0,iring-1], downwards
+    ip =  npix - ROUND(ipix[ksouth], L64=l64)
+    iring = LONG( SQRT( ip/2.d0 - SQRT(ip/2) ) ) + one ; counted from SOUTH pole, starting at 1
+    ifi  = (2L*iring*(iring+one) - ip) MOD iring     ; in [0,iring-1], upwards
+    ifd  = iring - 1L - ifi                          ; in [0,iring-1], downwards
     iff  = ifi < ifd                                ; in [0,(iring-1)/2]
     itplt[ksouth] = (iring*iring)/4 + iff
     if (do_sym) then begin

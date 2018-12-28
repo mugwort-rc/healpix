@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>ring_analysis</TITLE>
-<META NAME="description" CONTENT="ring_analysis">
+<TITLE>read_bintab*</TITLE>
+<META NAME="description" CONTENT="read_bintab*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,144 +28,157 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1113"
+<A NAME="tex2html1129"
   HREF="subroutinesnode76.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1119"
+<A NAME="tex2html1135"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1123"
+<A NAME="tex2html1139"
   HREF="subroutinesnode78.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1121"
+<A NAME="tex2html1137"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1114"
-  HREF="subroutinesnode76.htm">remove_dipole*</A>
+<B> Previous:</B> <A NAME="tex2html1130"
+  HREF="subroutinesnode76.htm">read_asctab*</A>
 
-<B>Up:</B> <A NAME="tex2html1120"
+<B>Up:</B> <A NAME="tex2html1136"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1124"
-  HREF="subroutinesnode78.htm">ring_num</A>
+<B> Next:</B> <A NAME="tex2html1140"
+  HREF="subroutinesnode78.htm">read_conbintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000770000000000000000"></A>
-<A NAME="sub:ring_analysis"></A>
+<A NAME="sub:read_bintab"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ring_analysis</FONT></font></b><hr><H2>This subroutine computes the Fast Fourier Transform of a single ring
- of pixels
- and extends the computed coefficients up to the maximum
- <SPAN CLASS="MATH"><I>m</I></SPAN> of the transform.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/alm_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">read_bintab*</FONT></font></b><hr><H2>This routine reads a <b>HEALPix</b> map from a binary FITS-file. The routine can read a temperature map or both temperature and polarisation maps (T,Q,U)</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/fitstools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">ring_analysis</FONT>(
-nsmax,nlmax,nmmax,datain,nph,dataout,kphi0
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">read_bintab*</FONT>(
+filename, map, npixtot, nmaps, nullval, anynull [,header, units, extno]
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;d&nbsp;imensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nsmax</TD>
+filename(LEN=<tt>filenamelen</tt>)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename of FITS-file containing the map(s).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>npixtot</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="41" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg6.png"
- ALT="${N_{\rm side}}$"></SPAN> of the map.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of pixels to be read from map.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmap</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Maximum <SPAN CLASS="MATH"><I>l</I></SPAN> of the analysis.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of maps to be read, 1 for temperature only, and 3 for (T,Q,U).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map(0:npixtot-1,1:nmap)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the map read from the FITS-file.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nullval</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value of missing pixels in the map.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>anynull</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>TRUE, if there are missing pixels, and FALSE
+                   otherwise.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80)(1:) (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>character string array
+                   containing the FITS header read from the file. Its
+                   dimension has to be defined prior to calling the
+                   routine</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>units(LEN=*)(1:nmaps) (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>character string array
+                   containing the physical units of each map read</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>extno (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Maximum <SPAN CLASS="MATH"><I>m</I></SPAN> of the analysis.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nph</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The number of points on the ring.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>datain(0:nph-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Function values on the ring.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>dataout(0:nmmax)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DPC</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Fourier components, replicated to <SPAN CLASS="MATH"><I>Nmmax</I></SPAN>.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kphi0</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>0 if the first pixel on the ring is  at
-                   <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg62.png"
- ALT="$\phi=0$"></SPAN>; 1 otherwise.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>extension number to read the data from
+                   (0 based).<b>default:</b>0 (the first extension is read)</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call ring_analysis(64,128,128,datain,8,dataout,0)  
+call read_bintab ('map.fits',map,12*32**2,1,nullval,anynull)  
 <BR></font></tt>
 <BR><blockquote>
-Returns the periodically extended complex 
-Fourier Transform of datain in
-dataout. They are returned in the following order: 0 1 2 3 4 5 6 7
-6 5 4 3 2 1 <SPAN CLASS="MATH"><IMG
- WIDTH="37" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg90.png"
- ALT="$0\dots$"></SPAN>. The value <SPAN CLASS="MATH"><I>kphi</I>0=0</SPAN> specifies that no phase
-factor needed to be applied, because the ring starts at <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg62.png"
- ALT="$\phi=0$"></SPAN>.
+Reads a <b>HEALPix</b> temperature map from the file `map.fits' to the array map(0:12*32**2-1,1:1). The pixel number 12*32**2 is the number of pixels in a <!-- MATH
+ ${N_{\rm side}}=32$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="${N_{\rm side}}=32$"></SPAN> <b>HEALPix</b> map. If there are missing pixels in the file, anynull is TRUE and these pixels get the value returned in nullval. 
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">ring_analysis</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">read_bintab*</FONT>.</h2>
   <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">healpix_fft</SPAN></B>
-<DD>module.
+<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
+<DD>module, containing:
+  <DT>
+<B>printerror</B>
+<DD>routine for printing FITS error messages.
+  <DT>
+<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
+<DD>library for FITS file handling.		
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ring_analysis</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_bintab*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode79.htm#sub:ring_synthesis">ring_synthesis</A></B>
-<DD>Inverse transform (complex-to-real), used in
-  <A HREF="subroutinesnode9.htm#sub:alm2map">alm2map</A>,
-  <A HREF="subroutinesnode10.htm#sub:alm2map_der">alm2map_der</A> and synfast
+<B><A HREF="subroutinesnode41.htm#sub:input_map">input_map</A></B>
+<DD>Routine which reads a map using <FONT COLOR="#CC0000">read_bintab*</FONT>and fills missing pixels with a given value.
+  <DT>
+<B><A HREF="subroutinesnode43.htm#sub:map2alm">map2alm</A></B>
+<DD>Routine which analyse a map and returns the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients.
+  <DT>
+<B><A HREF="subroutinesnode80.htm#sub:read_fits_cut4">read_fits_cut4</A></B>
+<DD>Routine to read cut sky <b>HEALPix</b> FITS maps
+  <DT>
+<B><A HREF="subroutinesnode103.htm#sub:write_plm">write_plm</A>, <A HREF="subroutinesnode98.htm#sub:write_bintab">write_bintab</A></B>
+<DD>Routines to write <b>HEALPix</b> FITS maps
   </DL>
 
 <P>
@@ -179,32 +192,32 @@ factor needed to be applied, because the ring starts at <SPAN CLASS="MATH"><IMG
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1113"
+<A NAME="tex2html1129"
   HREF="subroutinesnode76.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1119"
+<A NAME="tex2html1135"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1123"
+<A NAME="tex2html1139"
   HREF="subroutinesnode78.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1121"
+<A NAME="tex2html1137"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1114"
-  HREF="subroutinesnode76.htm">remove_dipole*</A>
+<B> Previous:</B> <A NAME="tex2html1130"
+  HREF="subroutinesnode76.htm">read_asctab*</A>
 
-<B>Up:</B> <A NAME="tex2html1120"
+<B>Up:</B> <A NAME="tex2html1136"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1124"
-  HREF="subroutinesnode78.htm">ring_num</A>
+<B> Next:</B> <A NAME="tex2html1140"
+  HREF="subroutinesnode78.htm">read_conbintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

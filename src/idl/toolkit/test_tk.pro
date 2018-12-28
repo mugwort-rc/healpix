@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -39,15 +39,16 @@ pro test_tk, nside, upix, random=random
 ;  KEYWORD
 ;   random : float scalar, some pixels (Npix * random + 1) are picked randomly in [0, Npix-1]
 ;
+;  2008-03-17: enabled Nside > 8192
 ;-
 
 if undefined(nside) then nside = 32
 lnside = long(nside)
 
 npix = nside2npix(lnside,err=err_nside)
-snpix = strtrim(string(npix,form='(i12)'),2)
-snpix1 = strtrim(string(npix-1,form='(i12)'),2)
-snside = strtrim(string(nside,form='(i5)'),2)
+snpix = strtrim(string(npix,form='(i18)'),2)
+snpix1 = strtrim(string(npix-1,form='(i18)'),2)
+snside = strtrim(string(nside,form='(i9)'),2)
 
 if (err_nside ne 0) then begin
     print,'Invalid Nside'
@@ -58,7 +59,11 @@ if defined(random) then begin
     nr = min([npix, long(npix*random)+1])
     print,'Nside = '+snside
     print,nr,' pixels are picked randomly in [0, '+snpix1+']'
-    pixel =long( randomu(seed,nr) * npix )
+    if (nside gt 8192) then begin
+        pixel =long64( randomu(seed,nr, /double) * npix )
+    endif else begin
+        pixel =long( randomu(seed,nr, /double) * npix )
+    endelse
     print,min(pixel),max(pixel)
 endif
 if defined(upix) then begin

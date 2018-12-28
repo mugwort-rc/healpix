@@ -1,4 +1,4 @@
-# Healpix 2.0
+# Healpix 2.10
 # parameter file for synfast
 # This parameter file is used by "make test".
 
@@ -25,3 +25,8 @@ outfile = !test_map.fits
 #outfile_alms = ''
 outfile_alms = !test_alm.fits
 
+apply_windows = F
+
+#windowfile
+
+#winfiledir

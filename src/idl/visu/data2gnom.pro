@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -31,7 +31,7 @@ pro data2gnom, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                MAX=max_set, MIN=min_set, $
                RESO_ARCMIN=reso_arcmin, FITS = fits, $
                FLIP=flip, DATA_plot = data_plot, $
-               POLARIZATION=polarization
+               POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 
 ;+
 ;==============================================================================================
@@ -42,7 +42,7 @@ pro data2gnom, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;     DATA2GNOM,  data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat,
 ;          color, Tmax, Tmin, color_bar, dx, planvec, vector_scale,
 ;          pxsize=, pysize=, rot=, log=, hist_equal=, max=, min=,
-;          reso_arcmin=, fits=, flip=, data_plot=, polarization=
+;          reso_arcmin=, fits=, flip=, data_plot=, polarization=, silent=, pixel_list
 ;
 ; IN :
 ;      data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -50,11 +50,14 @@ pro data2gnom, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;      color, Tmax, Tmin, color_bar, dx, planvec, vector_scale
 ; KEYWORDS
 ;      Pxsize, Pysize, Rot, Log, Hist_equal, Max, Min, Reso_arcmin,
-;      Fits, flip, data_plot, polarization
+;      Fits, flip, data_plot, polarization, pixel_list, asinh
 ;
 ;  called by gnomview
 ;
 ;  HISTORY; Feb 2005: added small_file to avoid pol direction variation within pixels
+; Sep 2007: added /silent
+; April 2008: added pixel_list=
+; July 2008: added asinh
 ;==============================================================================================
 ;-
 
@@ -71,10 +74,11 @@ do_polvector    = (polarization eq 3)
 !P.COLOR = 0                    ; black foreground
 
 mode_col = keyword_set(hist_equal)
-mode_col = mode_col + 2*keyword_set(log)
+mode_col = mode_col + 2*keyword_set(log) + 4*keyword_set(asinh)
 
-npix = n_elements(data)
-bad_data= -1.63750000e+30
+obs_npix = n_elements(data)
+npix_full = (pix_type eq 'Q') ? 6*(4L)^(pix_param-1) : nside2npix(pix_param)
+bad_data= !healpix.bad_value
 
 if (do_poldirection or do_polvector) then begin
     ; compute new position of pixelisation North Pole in the plot coordinates
@@ -90,10 +94,14 @@ if defined(pysize) then ysize = pysize*1L else ysize = xsize
 if defined(reso_arcmin) then resgrid = reso_arcmin/60. else resgrid = 1.5/60.
 dx      = resgrid * !DtoR
 N_uv = xsize*ysize
-small_file = (!pi*4./dx^2 GT npix and do_poldirection)
+indlist = (n_elements(pixel_list) eq n_elements(data[*,0]))
+small_file = ((!pi*4./dx^2 GT npix_full && do_poldirection))
 
-print,'Input map  :  ',3600.*6./sqrt(!pi*npix),' arcmin / pixel ',form='(a,f8.3,a)'
-print,'gnomonic map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
+
+if (~keyword_set(silent)) then begin
+    print,'Input map  :  ',3600.*6.d0/sqrt(!dpi*npix_full),' arcmin / pixel ',form='(a,f8.3,a)'
+    print,'gnomonic map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
+endif
 
 if (small_file) then begin
     ; file smaller than final map, make costly operation on the file
@@ -102,7 +110,11 @@ if (small_file) then begin
         phi = 0.
         if (do_rot or do_conv) then begin
             ; position of each map pixel after rotation and coordinate changes
-            id_pix = lindgen(npix)
+            if (indlist) then begin
+                id_pix = pixel_list
+            endif else begin
+                id_pix = lindgen(npix_full)
+            endelse
             case pix_type of
                 'R' : PIX2VEC_RING, pix_param, id_pix, vector ; Healpix ring
                 'N' : PIX2VEC_NEST, pix_param, id_pix, vector; Healpix nest
@@ -142,7 +154,7 @@ if (small_file) then begin
         endif
     ENDELSE
     data = COLOR_MAP(data, mindata, maxdata, Obs, $
-        color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set )
+        color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent )
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         pol_data[0,0] = vector_map(pol_data[*,0], Obs, vector_scale = vector_scale)
     endif
@@ -220,7 +232,8 @@ for ystart = 0, ysize - 1, yband do begin
             planvec[ystart*xsize]      = pol_data[id_pix,0]
             planvec[ystart*xsize+n_uv] = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI) ; angle
         endif else begin
-            grid[ystart*xsize] = data[id_pix]
+;;;            grid[ystart*xsize] = data[id_pix]
+            grid[ystart*xsize] = sample_sparse_array(data, id_pix, in_pix=pixel_list, default= !healpix.bad_value)
         endelse
     endelse
 endfor
@@ -273,7 +286,7 @@ endif else begin
         max_set = 2*!pi
     endif
     color = COLOR_MAP(grid, mindata, maxdata, Obs, $
-                      color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set )
+                      color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent)
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)
     endif

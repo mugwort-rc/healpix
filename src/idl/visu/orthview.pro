@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -26,12 +26,13 @@
 ;
 ; -----------------------------------------------------------------------------
 pro orthview, file_in, select_in, $
-CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
+EXECUTE=execute, $
 FACTOR=factor, FLIP=flip, $
-GAL_CUT=gal_cut, GIF = gif, GRATICULE = graticule, $
+GAL_CUT=gal_cut, GIF = gif, GLSIZE = glsize, GRATICULE = graticule, $
 HALF_SKY = half_sky, HBOUND = hbound, HELP = help, $
 HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGRATICULE=igraticule, $
+IGLSIZE = iglsize, IGRATICULE=igraticule, $
 LOG = log, $
 MAX = max_set, MIN = min_set, $
 NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, $
@@ -39,9 +40,9 @@ OFFSET=offset, ONLINE = online, OUTLINE=outline, $
 PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
 QUADCUBE = quadcube, $
 ROT = rot, $
-SAVE = save, SUBTITLE = subtitle, $
+SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
 TITLEPLOT = titleplot, $
-UNITS = units, XPOS = xpos, YPOS = ypos
+UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 
 ;+
 ; for extended description see mollview or the paper documentation
@@ -53,6 +54,8 @@ if (exists ne 1) then init_healpix
 
 @viewcom ; define common
 data_plot = 0 ; empty common array
+; record original color table and PLOTS settings
+record_original_settings, original_settings
 
 loadsky                         ; cgis package routine, define rotation matrices
 projection = 'ORTHOGRAPHIC'
@@ -60,7 +63,7 @@ routine = 'orthview'
 
 uroutine = strupcase(routine)
 if keyword_set(help) then begin
-    doc_library,'orthview'
+    doc_library,'mollview'
     return
 endif
 
@@ -73,20 +76,20 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     PRINT, 'Wrong number of arguments in '+uroutine
     print,'Syntax : '
     print, uroutine+', File, [Select, ]'
-    print,'              [CHARSIZE=, COLT=, COORD=, CROP=, '
-    print,'              FLIP=, GAL_CUT=, GIF=, GRATICULE=, '
+    print,'              [ASINH=, CHARSIZE=, COLT=, COORD=, CROP=, '
+    print,'              EXECUTE=, FACTOR=, FLIP=, GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, '
     print,'              HALF_SKY=, HBOUND =,     HELP=, '
     print,'              HIST_EQUAL=, HXSIZE=,  '
-    print,'              IGRATICULE=,'
+    print,'              IGLSIZE=, IGRATICULE=,'
     print,'              LOG=, '
     print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
     print,'              POLARIZATION=polarization, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              ROT=, SAVE=, '
+    print,'              ROT=, SAVE=, SILENT=, '
     print,'              SUBTITLE=, TITLEPLOT=, '
-    print,'              UNITS=, XPOS=, YPOS=]'
+    print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
     print,'   for an extended help'
@@ -120,7 +123,7 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save, ONLINE=online, NESTED=nested_online, UNITS=units, COORD=coord, FLIP=flip, $
   ROT=rot, QUADCUBE=quadcube, LOG=log, ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
 if error NE 0 then return
 
 data2orth, $
@@ -128,7 +131,7 @@ data2orth, $
   planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
-  POLARIZATION=polarization, HALF_SKY=half_sky
+  POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -137,9 +140,11 @@ proj2out, $
   HXSIZE=hxsize, NOBAR = nobar, NOLABELS = nolabels, PNG = png, PREVIEW = preview, PS=ps, PXSIZE=pxsize, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /ORTH, FLIP=flip, HALF_SKY=half_sky, COORD_IN=coord_in, $
-  IGRATICULE=igraticule, HBOUND = hbound
+  IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
 
 w_num = !d.window
+; restore original color table and PLOTS settings
+record_original_settings, original_settings, /restore
 
 return
 end

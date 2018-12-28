@@ -39,14 +39,9 @@ class simparams;
 template<typename T> class arr;
 
 void read_weight_ring (const std::string &dir, int nside,
-  arr<double> &weight_T);
-void read_weight_ring (const std::string &dir, int nside,
-  arr<double> &weight_T, arr<double> &weight_Q, arr<double> &weight_U);
-
+  arr<double> &weight);
 void get_ring_weights (paramfile &params, simparams &par, int nside,
-  arr<double> &weight_T);
-void get_ring_weights (paramfile &params, simparams &par, int nside,
-  arr<double> &weight_T, arr<double> &weight_Q, arr<double> &weight_U);
+  arr<double> &weight);
 
 void read_pixwin (const std::string &dir, int nside, arr<double> &temp);
 void read_pixwin (const std::string &dir, int nside, arr<double> &temp,

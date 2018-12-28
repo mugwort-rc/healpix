@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -32,25 +32,28 @@ function nside2npix, nside, error=error
 ; returns npix = 12*nside*nside
 ; number of pixels on a Healpix map of resolution nside
 ;
-; if nside is not a power of 2 <= 8192,
+; if nside is not a power of 2 <= 2^29,
 ; -1 is returned and the error flag is set to 1
 ;
 ; MODIFICATION HISTORY:
 ;
 ;     v1.0, EH, Caltech, 2000-02-11
 ;     v1.1, EH, Caltech, 2002-08-16 : uses !Healpix structure
+;     v2.1, EH, IAP,     2006-10-16 : enabled nside > 8192
 ;-
 
 defsysv, '!healpix', exists = exists
 if (exists ne 1) then init_healpix
 
 error = 1
-; is nside a power of 2 ?
-;  junk = where(nside eq [1L,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192], count)
 junk = where(nside eq !healpix.nside, count)
 if count ne 1 then return,-1
 
-npix = 12L* long(nside)^2
+if (nside gt 8192) then begin
+    npix = 12LL* long64(nside)^2
+endif else begin
+    npix = 12L * long(nside)^2
+endelse
 
 error = 0
 return, npix

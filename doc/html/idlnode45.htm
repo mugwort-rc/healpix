@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>vec2ang </TITLE>
-<META NAME="description" CONTENT="vec2ang ">
+<TITLE>read_fits_cut4 </TITLE>
+<META NAME="description" CONTENT="read_fits_cut4 ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,151 +28,178 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html633"
+<A NAME="tex2html663"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html639"
+<A NAME="tex2html669"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html643"
+<A NAME="tex2html673"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html641"
+<A NAME="tex2html671"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html634"
-  HREF="idlnode44.htm">ud_grade</A>
+<B> Previous:</B> <A NAME="tex2html664"
+  HREF="idlnode44.htm">query_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html640"
+<B>Up:</B> <A NAME="tex2html670"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html644"
-  HREF="idlnode46.htm">write_fits_cut4</A>
+<B> Next:</B> <A NAME="tex2html674"
+  HREF="idlnode46.htm">read_fits_map</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000450000000000000000"></A>
-<A NAME="idl:vec2ang"></A>
+<A NAME="idl:read_fits_cut4"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">vec2ang </FONT></font></b><hr><H2>This IDL facility convert the 3D position vectors of points into their angles
-on the sphere.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/vec2ang.pro
+<b><font size=+6><FONT COLOR="#CC0000">read_fits_cut4 </FONT></font></b><hr><H2>This IDL facility reads a cut sky <b>HEALPix</b> map from a FITS file according to
+the <b>HEALPix</b> convention. The format used for the
+FITS file follows the one used for Boomerang98 and is adapted from
+COBE/DMR. This routine can also be used to read polarized cut sky map, where
+each Stokes parameter is stored in a different extension of the same FITS file.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/fits/read_fits_cut4.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-VEC2ANG , Vector, Theta, Phi [, ASTRO=]
+READ_FITS_CUT4 , File, Pixel, Signal [, N_Obs, Serror, EXTENSION=, HDR=, XHDR=, NSIDE=,
+    ORDERING=, COORDSYS=]
+
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>Vector</B>
-<DD>input, array, 
+<B>File</B>
+<DD>name of a FITS file in which the map is to be written
+
+<P>
+<DT>
+<B>Pixel</B>
+<DD>(OUT, LONG vector), 
 <BR>
-three dimensional cartesian position vector
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> (not necessarily normalised). The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN>. 
-	The coordinates are ordered as follows
-                   <!-- MATH
- $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$
+index of observed (or valid) pixels
+
+<P>
+<DT>
+<B>Signal</B>
+<DD>(OUT, FLOAT vector), 
+<BR>
+value of signal in each observed pixel
+
+<P>
+<DT>
+<B>N_Obs</B>
+<DD>(OUT, LONG or INT vector, Optional), 
+<BR>
+number of observation per pixel
+
+<P>
+<DT>
+<B>Serror</B>
+<DD>(OUT, FLOAT vector, Optional), 
+<BR><EM>rms</EM> of signal in pixel. For white noise,
+                   this is <!-- MATH
+ $\propto 1/\sqrt{{\rm n\_obs}}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="424" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="$x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$"></SPAN>
-    <DT>
-<B>Theta</B>
-<DD>output, vector, 
-<BR>
-vector, colatitude in radians measured southward from north pole in
-    [0,<SPAN CLASS="MATH"><IMG
- WIDTH="15" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg1.png"
- ALT="$\pi$"></SPAN>] (mathematical coordinates).
-<BR>
-If ASTRO is set, Theta is the latitude in degrees measured 
-       northward from the equator, in [-90, 90] (astronomical coordinates).
-    <DT>
-<B>Phi</B>
-<DD>output, vector, 
-<BR>
-longitude in radians measured eastward, in [0, <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg2.png"
- ALT="$2\pi$"></SPAN>] (mathematical coordinates).
-<BR>
-If ASTRO is set, Phi is the longitude in degree measured eastward, in
-    [0,360] (astronomical coordinates).
-  </DL>
+ WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg49.png"
+ ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>
+
+<P>
+</DL>
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>ASTRO =</B>
-<DD>if set Theta and Phi are the latitude and longitude in
-    degrees (astronomical coordinates) instead of the colatitude and longitude
-    in radians (mathematical coordinates).
-  </DL>
+<B>EXTENSION =</B>
+<DD>(IN, optional), 
+<BR>
+0 based number of extension to read. Extension 0 contains the
+temperature information, while extensions 1 and 2 contain respectively the Q
+and U Stokes parameters related information. <b>default:</b>0 
+
+<P>
+<DT>
+<B>HDR =</B>
+<DD>(OUT, optional), 
+<BR>
+String array containing the primary header. 
+
+<P>
+<DT>
+<B>XHDR =</B>
+<DD>(OUT, optional), 
+<BR>
+String array containing the extension header. 
+
+<P>
+<DT>
+<B>NSIDE=</B>
+<DD>(OUT, optional), 
+<BR>
+returns on output the <b>HEALPix</b> resolution parameter, as read
+		from the FITS header. Set to -1 if not found
+
+<P>
+<DT>
+<B>ORDERING=</B>
+<DD>(OUT, optional), 
+<BR>
+returns on output the pixel ordering, as read from the FITS
+	        header. Either 'RING' or 'NESTED' or ' ' (if not found).
+
+<P>
+<DT>
+<B>COORDSYS=</B>
+<DD>(OUT, optional), 
+<BR>
+returns on output the astrophysical coordinate system used, 
+		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
+
+<P>
+</DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-vec2ang performs the geometrical transform from the 3D position vectors
-<SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> of
-points 
-into their angles <SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg4.png"
- ALT="$(\theta,\phi)$"></SPAN> on the sphere:
-<!-- MATH
- $x = \sin\theta\cos\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="111" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg5.png"
- ALT="$x = \sin\theta\cos\phi$"></SPAN>, <!-- MATH
- $y=\sin\theta\sin\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="107" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg6.png"
- ALT="$y=\sin\theta\sin\phi$"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="73" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg7.png"
- ALT="$z=\cos\theta$"></SPAN>
+
+<P>
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">vec2ang </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_cut4 </FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run vec2ang .	
+<DD>version 6.0 or more is necessary to run read_fits_cut4 <DT>
+<B><A HREF="idlnode56.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+facility can be used to generate the FITS format <EM>cut-sky</EM> maps complient
+with <b>HEALPix</b> convention and readable by read_fits_cut4 .
+  <DT>
+<B><A HREF="#idl:read_fits_cut4">read_fits_cut4</A>,
+<A HREF="idlnode46.htm#idl:read_fits_map">read_fits_map</A></B>
+<DD><DT>
+<B><A HREF="idlnode48.htm#idl:read_tqu">read_tqu</A>,
+<A HREF="idlnode47.htm#idl:read_fits_s">read_fits_s</A></B>
+<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
+arbitrary data sets from FITS files
     <DT>
-<B><A HREF="idlnode31.htm#idl:pix_tools">pix2xxx</A>, ... </B>
-<DD>conversion between vector or angles and pixel index
-    <DT>
-<B><A HREF="idlnode5.htm#idl:ang2vec">ang2vec</A></B>
-<DD>conversion from angles to position vectors
+<B>sxpar</B>
+<DD>This IDL routine (included in <b>HEALPix</b> package) can be
+  used to extract FITS keywords from the header(s) HDR or XHDR read with read_fits_map .
   </DL>
-
-<P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"></TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
-</TR>
-</TABLE>
-</font></tt>
-<BR>
 
 <P>
 
@@ -180,32 +207,32 @@ into their angles <SPAN CLASS="MATH"><IMG
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html633"
+<A NAME="tex2html663"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html639"
+<A NAME="tex2html669"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html643"
+<A NAME="tex2html673"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html641"
+<A NAME="tex2html671"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html634"
-  HREF="idlnode44.htm">ud_grade</A>
+<B> Previous:</B> <A NAME="tex2html664"
+  HREF="idlnode44.htm">query_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html640"
+<B>Up:</B> <A NAME="tex2html670"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html644"
-  HREF="idlnode46.htm">write_fits_cut4</A>
+<B> Next:</B> <A NAME="tex2html674"
+  HREF="idlnode46.htm">read_fits_map</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

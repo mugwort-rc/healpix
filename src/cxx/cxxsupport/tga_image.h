@@ -27,8 +27,8 @@
 /*! \file tga_image.h
  *  Classes for creation and output of TGA image files
  *
- *  Copyright (C) 2003 Max-Planck-Society
- *  \author Martin Reinecke
+ *  Copyright (C) 2003, 2006 Max-Planck-Society
+ *  \author Martin Reinecke, David Larson
  */
 
 #ifndef PLANCK_TGA_IMAGE_H
@@ -116,6 +116,10 @@ class Colour8
       { import (col); }
     const Colour8 &operator= (const Colour &col)
       { import (col); return *this; }
+    bool operator== (const Colour8 &that)
+      { return (r == that.r) && (g == that.g) && (b == that.b); }
+    bool operator!= (const Colour8 &that)
+      { return (r != that.r) || (g != that.g) || (b != that.b); }
   };
 
 class Font
@@ -164,6 +168,15 @@ class TGA_Image
       {
       if ((i>=0) && (i<pixel.size1()) && (j>=0) && (j<pixel.size2()))
         pixel[i][j] = col;
+      }
+    /*! Returns the colour of the pixel \a i, \a j, or black if the pixel
+        lies outside of the image. */
+    Colour8 get_pixel (int i, int j)
+      {
+      if ((i>=0) && (i<pixel.size1()) && (j>=0) && (j<pixel.size2()))
+        return pixel[i][j];
+      else
+        return Colour8(0, 0, 0);
       }
 
     /*! Writes the image to \a file. */

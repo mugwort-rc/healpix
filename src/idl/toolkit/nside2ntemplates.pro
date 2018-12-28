@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -26,17 +26,38 @@
 ;
 ; -----------------------------------------------------------------------------
 function nside2ntemplates, nside, error=error
+;+
+; ntemplates = nside2ntemplates(nside, error=error)
+;
+; returns the number of template shapes for a given Nside
+;           = Nside * (Nside + 6) /4   for Nside > 1
+;           = 2                        for Nside = 1
+;
+; if nside is not a power of 2 <= 2^29,
+; -1 is returned and the error flag is set to 1
+;
+; MODIFICATION HISTORY:
+;
+;     v1.0, EH, Caltech, ?
+;     v1.1, EH, IAP,     2000-03-18 : enabled nside > 8192
+;-
 
 npix = nside2npix(nside,err=error)
 
 if (error ne 0) then begin
     message,' WARNING: invalid nside: '+string(nside),/info
+    return, -1
 endif
 
-lnside = long(nside)
-nt = 1L + lnside * (lnside + 6L)
-
-ntemplate = long( nt / 4L )
+if (nside gt 8192) then begin
+    lnside = long64(nside)
+    nt = 1LL + lnside * (lnside + 6LL)
+    ntemplate = long64( nt / 4LL )
+endif else begin
+    lnside = long(nside)
+    nt = 1L + lnside * (lnside + 6L)
+    ntemplate = long( nt / 4L )
+endelse
 
 
 return, ntemplate

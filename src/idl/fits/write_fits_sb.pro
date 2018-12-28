@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -316,14 +316,14 @@ FXBCREATE, unit, filename, xthdr, xtn_id
 nloop = (long(nrows) * nentry * (number-1L)) / 1.e4 ; write 10^4 values at a time
 nloop = long(nloop+1) < nrows
 nw = nrows/nloop + 1L
+ip1   = indgen(number-1)+1
+stcol = '['+string(ip1,form='(50(i2, :, ","))')+']'
 for i=0L, nloop-1 do begin
     low = long64(i * nw)
     if (low ge nrows) then goto, done
     hi  = long64(low + nw - 1) < (nrows-1)
 ; uses FXBWRITM rather than FXBWRITE, and write a few rows at a time
-    ip1   = indgen(number-1)+1
-    stcol = '['+string(ip1,form='(50(i2, :, ","))')+']'
-    srange = strcompress(string(low*nentry,hi*nentry+nentry-1,form='("[",i12,":",i12,"]")'),/remove_all)
+    srange = strcompress(string(low*nentry,hi*nentry+nentry-1,form='("[",i15,":",i15,"]")'),/remove_all)
     starg =  strcompress(string(ip1,form='(50(:, ",exten_st.(",i2,")'+srange+'"))'),/remove_all)
     rows =   strcompress(string(low+1L,hi+1L,form='(",row=[",i12,",",i12,"]")'),/remove_all)
     command = 'FXBWRITM, unit, '+stcol+starg+rows

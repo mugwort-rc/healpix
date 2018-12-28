@@ -28,8 +28,15 @@ TD.eqno			{ }	/* equation-number cells */
 
 
 /* document-specific styles come next */
-SPAN.tt		{   }
 DIV.em		{   }
+SPAN.tt		{   }
+SPAN.bf		{   }
 DIV.navigation		{   }
+DIV.centerline		{   }
 SPAN.arabic		{   }
 SPAN.textbf		{ font-weight: bold  }
+#par13664		{   }
+#par13677		{   }
+#par13691		{   }
+#txt3494		{ text-decoration: underline;  }
+#txt3496		{ text-decoration: underline;  }

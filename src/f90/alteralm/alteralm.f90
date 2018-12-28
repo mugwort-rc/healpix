@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -30,10 +30,10 @@ module altmod
   use healpix_types
   use alm_tools, only: alter_alm, pixel_window, generate_beam, rotate_alm
   use fitstools, only: read_par, number_of_alms, getsize_fits, alms2fits, fits2alms, dump_alms
-  use head_fits, only: add_card
+  use head_fits, only: add_card !, write_minimal_header
   use misc_utils,only: assert, assert_alloc, fatal_error, wall_clock_time, string, strupcase, brag_openmp
   use paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_summarize, concatnl !, scan_directories
+         parse_string, parse_double, parse_summarize, parse_check_unused, parse_finish, concatnl !, scan_directories
   use coord_v_convert, only: coordsys2euler_zyz
   implicit none
 

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -135,12 +135,19 @@ endif
 
 sz = size(TQU)
 ndim = sz[0]
-if (ndim lt 2) then message,' Expect a Npix * Nmaps * Next  TQU array'
 npix = sz[1]
+nmap = 1
+n_ext = 1
+if (ndim lt 2) then begin
+;    message,' Expect a Npix * Nmaps * Next  TQU array'
+    print,'WARNING: write_tqu: Expected Npix * Nmaps * Next array, getting Npix vector'
+endif else begin
+    nmap = sz[2]
+    if (ndim ge 3) then n_ext = sz[3]
+endelse
 if (npix2nside(npix) lt 0) then message,' TQU 1st dimension (Npix) is not a valid Npix pixel number'
-nmap = sz[2]
-if (nmap lt 3 or nmap gt 4) then message,' Expect a Npix * [3 or 4]  TQU array'
-if (ndim ge 3) then n_ext = sz[3] else n_ext = 1
+if (nmap ne 1 && nmap ne 3 &&  nmap ne 4) then message,' Expect a Npix map or Npix * [3 or 4]  TQU array'
+if (nmap eq 1 && n_ext gt 1) then message, ' Expect Npix map'
 
 i_ext0 = 0
 if keyword_set(extension_id) then i_ext0 = extension_id
@@ -180,7 +187,7 @@ endelse
 for i_ext=i_ext0, i_ext0+n_ext-1 do begin
 ; create structure for 1st/2nd/3rd extension (number 0,1,2)
     sxaddpar,xhdr,'EXTNAME',xtname[i_ext]
-    sxaddpar,xhdr,'POLAR','T'
+    if (nmap eq 1) then sxaddpar,xhdr,'POLAR','F' else sxaddpar,xhdr,'POLAR','T'
 
 ; add UNITS information
     if defined(units) then begin
@@ -191,10 +198,15 @@ for i_ext=i_ext0, i_ext0+n_ext-1 do begin
     endif
 
     ia = i_ext - i_ext0
-    xtns = create_struct('HDR', xhdr, $
-                         name[0,i_ext], TQU[*,0,ia],$
-                         name[1,i_ext], TQU[*,1,ia],$
-                         name[2,i_ext], TQU[*,2,ia])
+    if (nmap eq 1) then begin
+        xtns = create_struct('HDR', xhdr, $
+                             name[0,i_ext], TQU[*,0,ia])
+    endif else begin
+        xtns = create_struct('HDR', xhdr, $
+                             name[0,i_ext], TQU[*,0,ia],$
+                             name[1,i_ext], TQU[*,1,ia],$
+                             name[2,i_ext], TQU[*,2,ia])
+    endelse
     if (wmap_format) then begin
         xtns = create_struct(xtns, name[3,i_ext], TQU[*,3,ia])
     endif

@@ -1,718 +1,108 @@
 #!/bin/sh
+#
+# configuration script for Healpix
+# will configure (and compile) the C, C++, F90 and IDL packages
+#
+# works in Bourne(-Again) and Korn shells
+#
+# 2008-03-26, IAP, EH
+#
 
-# -----------------------------------------------------------------
-# HEALPix 2.00 configuration script      June 14, 2005
-# Matthias Bartelmann, Feb. 29, 2000
-# edited by E. Hivon, Nov 2001 (addition of IdentifyCompiler)
-# edited by E. Hivon, April 2002 (addition of sun_modules)
-# addition of askFFT and countUnderScore July 2002, EH
-# choice of parallel/serial code Nov 2002, EH
-# deal with all versions of ifc (addition of ifc_modules)
-# extension to Darwin (Mac OS) Jan 2003, EH
-# addition of xlf (IBM) compiler to Darwin; Oct-Dec 2003, EH
-# test presence of Healpix profile file before modifying shell config. file, March 2004, EH
-# Aug 2004, EH: corrected guessCompiler for AIX
-#               can have FFTW and OpenMP simultaneously
-# Dec 2004, EH: remove setting of PARALL (no need for different source file anymore)
-#               remove FFTW
-# Jan 2005, EH: added Pro Absoft among compilers
-# March 2005, EH: added g95 among compilers
-# June 2005, EH: add suffix to directory to allow concurrent compilation
-#                added SUPER-UX (Nec) among supported platforms
-# July 2005, EH: added comment on 'make test'
-# Aug  2005, EH&MR: added GNU Fortran 95 (Gfortran) to supported compilers
-#            EH: added suffix to Makefile, added add64bitFlags
-#                added pathf90 to supported compilers
-# -----------------------------------------------------------------
-# auxiliary functions:
-#   findFITS: search for FITSIO library
-#   findFFTW: search for FFTW library
-#   fullPath: convert relative to absolute directory names
-#   checkDir: search for installation directories and create them
-#             is necessary
-#   setDefaults: set default values of variables
-#   sun_modules : test weither the Sun compiler creates modules ending with .M or .mod
-#   ifc_modules : test weither the IFC compiler creates .d or .mod (version7) modules
-#   GuessCompiler: tries to guess compiler from operating system
-#   askFFT: ask user for his choice of fft, find fftw library
-#   askOpenMP: ask user for compilation of OpenMP source files
-#   countUnderScore: match trailing underscores with fftw
-#   IdentifyCompiler : identify Non native f90 compiler
-#   add64bitFlags: add 64 bit flags
-#   askUserF90:  ask user the f90 compiler command
-#   askUserMisc:  ask user to confirm or change various defaults
-#   editMakefile: create makefile from template
-#   makeProfile: create profile
-#   installProfile: modify user's shell profile if agreed
-#   showDefaultDirs: show default directories
-#   updateDirs: update those directories
-#   showActualDirs: show actual directories
-# -----------------------------------------------------------------
+# version number
+HPXVERSION=2.11
 
-echoLn () {
-    if [ "`uname -s`" = "Linux" -o "`uname -s`" = "Darwin" ]; then
-	echo -n "$*"
-    else
-	echo "$*\c"
-    fi
-}
-
-findFITS () {
-    for dir in /usr/lib /usr/local/lib $1; do
-	[ -r "${dir}/lib${LIBFITS}.a" ] && FITSDIR=$dir
-    done
-}
-
-findFFTW () {
-    for dir in /usr/lib /usr/local/lib $1; do
-	[ -r "${dir}/lib${LIBFFTW}.a" ] && FFTWDIR=$dir
-    done
-}
-
-# -----------------------------------------------------------------
-
-fullPath () {
-    t='TEMP=`cd $TEMP; pwd`'
-    for d in $*; do
-	eval `echo $t | sed 's/TEMP/'$d'/g'`
-    done
-}
-
-# -----------------------------------------------------------------
-
-checkDir () {
-    l=""
-    for d in $*; do
-	[ ! -d $d ] && l="$l $d"
-    done
-    if [ "x$l" != "x" ]; then
-	echo "Warning: The following directories could not be found:"
-	for d in $l; do
-	    echo "$d"
-	done
-	echoLn "Should I attempt to create these directories (Y|n)? "
-	read answer
-	if [ "x$answer" != "xn" ]; then
-	    for d in $l; do
-		mkdir $d 1>/dev/null 2>&1
-		if [ $? -gt 0 ]; then
-		    echo "Error: Could not create directory $d"
-		    exit 1
-		fi
-	    done
-	else
-	    echo "Create installation directories first."
-	    exit 1
-	fi
-    fi
-}    
-
-# -----------------------------------------------------------------
-
-setDefaults () {
-    FC="f90"
-    CC="cc"
-    FFLAGS="-I\$(INCDIR)"
-    CFLAGS="-O"
-    LDFLAGS="-L\$(LIBDIR) -L\$(FITSDIR) -lhealpix -lgif -l\$(LIBFITS)"
-    LIBFITS="cfitsio"
-    FITSDIR="/usr/local/lib"
-    BINDIR="./bin"
-    INCDIR="./include"
-    LIBDIR="./lib"
-    DIRSUFF=""
-    HEALPIX=`pwd`
-    MOD="mod"
-    OS=`uname -s`
-    FFTSRC="healpix_fft"
-    FFTLD=" "
-    ADDUS=" "
-    LIBFFTW="dfftw"
-    FPP="-D"
-    PARALL=""
-    PRFLAGS=""
-    AR="ar rv"
-    FTYPE=""
-    PPFLAGS=""
-    FF64=""
-    CF64=""
-    AR64=""
-
-    echo "you seem to be running $OS"
-
-    case $OS in
-	AIX)
-	    FC="xlf90";;
-	Linux)
-	    FC="";;
-	Darwin)
-	    FC="";;
-	SUPER-UX)
-	    FC="f90";;
-    esac
-
-    FCNAME="$OS Native compiler"
-}
-
-# -----------------------------------------------------------------
-
-sun_modules () {
-cat > to_be_removed.f90 << EOF
-   module to_be_removed
-       integer :: i
-   end module to_be_removed
-EOF
-   $FC -c to_be_removed.f90 -o to_be_removed.o
-
-   if test -s to_be_removed.M  ; then
-       MOD="M"
-   else
-       MOD="mod"
-   fi
-
-   /bin/rm -f to_be_removed.*
-}
-
-# -----------------------------------------------------------------
-ifc_modules () {
-cat > to_be_removed.f90 << EOF
-   module to_be_removed
-       integer :: i
-   end module to_be_removed
-EOF
-   $FC -c to_be_removed.f90 -o to_be_removed.o 2> /dev/null
-
-   if test -s to_be_removed.d  ; then
-    # version 5 and 6 of ifc
-	echo "This version of ifc is no longer supported"
-	echo "use a more recent version (7 or higher)"
-	exit 1
-#         IFCMOD="d"
-#         IFCINC="-cl,\$(HEALPIX)/include/list.pcl"
-#         IFCVERSION="ifcold"
-   else
-       IFCMOD="mod"
-#         IFCINC="-I\$(HEALPIX)/include"
-       IFCINC="-I\$(INCDIR)"
-#         IFCVERSION="ifnew"
-       IFCVERSION="ifcnew"
-   fi
-
-   /bin/rm -f to_be_removed.* 
-   /bin/rm -f TO_BE_REMOVED.*
-}
-
-# -----------------------------------------------------------------
-
-GuessCompiler () {
-    case $OS in
-	AIX)
-	    FTYPE="xlf"
-	    FFLAGS="$FFLAGS -qsuffix=f=f90:cpp=F90"
-	    OFLAGS="-O"
-	    CFLAGS="$CFLAGS $FPP""RS6000"
-	    FPP="-WF,-D"
-	    PRFLAGS="-qsmp=omp"
-	    AR="ar -rv"
-	    FF64="-q64"
-	    CF64="-q64"
-	    AR64="-X64";;
-	SunOS)
-	    sun_modules
-	    FFLAGS=`echo $FFLAGS | sed "s/-I/-M/g"`
-	    LDFLAGS="$LDFLAGS -lm -lnsl -lsocket"
-	    OFLAGS="-fast";;
-	IRIX*)
-	    OS="IRIX"
-	    LDFLAGS="$LDFLAGS -lm"
-	    OFLAGS="-O"
-	    PRFLAGS="-mp";;
-	Linux)
-  	    OFLAGS="-O"
-	    IdentifyCompiler;;
-	Darwin)
-  	    OFLAGS="-O"
-	    AR="libtool -static -o" 
-	    IdentifyCompiler;;
-	OSF*)
-	    OS="OSF"
-	    OFLAGS="-O5 -fast"
-	    PRFLAGS="-omp";;
-	SUPER-UX)
-	    FC="f90"
-	    FFLAGS="$FFLAGS"
-	    OFLAGS="-C vopt"
-	    CFLAGS="-C vopt"
-	    FPP="-D"
-	    PRFLAGS="-P openmp";;
-	*)
-	    echo "\"$OS\" is not supported yet"
-	    exit 1;;
-    esac
-}
-
-# -----------------------------------------------------------------
-
-askFFT () {
-    FFT="0"
-    echo "Which FFT do you want to use ?"
-    echo " 0) the one already contained in the Healpix package "
-    echo " 1) FFTW (see www.fftw.org)"
-    echo "   (it requires the double precision FFTW to be installed)"
-###    echo "   (it can NOT be used with the OpenMP implementation of Healpix)"
-    echoLn "Enter choice                                      ($FFT): "
-    read answer
-    [ "x$answer" != "x" ] && FFT="$answer"
-    if [ $FFT = 1 ] ; then
-	echoLn "enter full name of fftw library (lib${LIBFFTW}.a): "
-	read answer
-	[ "x$answer" != "x" ] && LIBFFTW=`basename $answer ".a" | sed "s/^lib//"`
-
-	findFFTW $LIBDIR
-	echoLn "enter location of fftw library ($FFTWDIR): "
-	read answer
-	[ "x$answer" != "x" ] && FFTWDIR=$answer
-
-	lib="${FFTWDIR}/lib${LIBFFTW}.a"
-	if [ ! -r $lib ]; then
-	    echo "error: fftw library $lib not found"
-	    exit -1
-	fi
-
-	FFTSRC="healpix_fftw"
-	FFTLD="-L${FFTWDIR} -l${LIBFFTW}"
-
-	countUnderScore
-    fi
-    LDFLAGS="$LDFLAGS $FFTLD"
-}
-
-# -----------------------------------------------------------------
-
-askOpenMP () {
-    OpenMP="0"
-    echo " The Spherical Harmonics Transform routines used by synfast/anafast/smoothing/plmgen"
-    echo "and some routines used by ud_grade and alteralm respectively"
-    echo "have a parallel implementation (based on OpenMP)."
-    echo " It has currently been tested on IBM/xlf and Linux/ifc systems/compilers"
-    echo "Do you want to use :"
-    echo " 0) the standard scalar implementation ?"
-    echo " 1) the parallel implementation (slightly slower in single CPU usage with some compilers)"
-    echoLn "Enter choice                                      ($OpenMP): "
-    read answer
-    [ "x$answer" != "x" ] && OpenMP="$answer"
-    if [ $OpenMP = 1 ] ; then
-	if [ "x$PRFLAGS" != "x" ] ; then
-	    # update FFLAGS
-	    FFLAGS="$FFLAGS $PRFLAGS"
-##	    PARALL="_omp" # no need for a different source file
-	else
-	    echo "Healpix+OpenMP not tested for  \"$FCNAME\" under \"$OS\" "
-	    exit 1
-	fi 
-    fi
-}
-
-# -----------------------------------------------------------------
-
-countUnderScore () {
-cat > to_be_removed.f90 << EOF
-    subroutine sub1()
-      return
-    end subroutine sub1
-EOF
- case $FTYPE in
-  xlf)
-    $FC -qsuffix=f=f90 -c to_be_removed.f90 -o to_be_removed.o  2>&1 /dev/null ;;
-  *)
-    $FC -c to_be_removed.f90 -o to_be_removed.o  2>&1 /dev/null ;;
- esac
-
-    stwo=`nm to_be_removed.o | grep sub1__ | wc -l`
-    sone=`nm to_be_removed.o | grep sub1_  | wc -l`
-    ltwo=`nm $lib | grep fftw_f77_one__ | wc -l`
-    lone=`nm $lib | grep fftw_f77_one_  | wc -l`
-
-    if [ $ltwo != 0 ] ; then
-      if [ $stwo != 0 ] ; then
-        ADDUS="$FPP""ADD0US"
-      elif [ $sone != 0 ] ; then
-        ADDUS="$FPP""ADD1US"
-      else
-        ADDUS="$FPP""ADD2US"
-      fi
-    elif [ $lone != 0 ] ; then
-      if [ $stwo != 0 ] ; then
-        echo "uncompatible trailing underscores"
-        exit 1
-      elif [ $sone != 0 ] ; then
-        ADDUS="$FPP""ADD0US"
-      else
-        ADDUS="$FPP""ADD1US"
-      fi
-    else
-      if [ $stwo != 0 ] ; then
-        echo "uncompatible trailing underscores"
-	exit 1
-      elif [ $sone != 0 ] ; then
-        echo "uncompatible trailing underscores"
-	exit 1
-      else
-        ADDUS="$FPP""ADD0US"
-      fi
-    fi
-
-#      echo $ADDUS
-   /bin/rm -f to_be_removed.*
-
+#-------------
+welcome () {
+    echo
+    echo "*************************"
+    echo " Welcome to Healpix $HPXVERSION"
+    echo "*************************"
+    echo
+    echo "This script takes care of the configuration and compilation"
+    echo "of the C, C++, F90 and IDL packages of the Healpix distribution."
 
 }
-# -----------------------------------------------------------------
 
-IdentifyCompiler () {
-# For Linux and Darwin
-# Lahey and Fujitsu still have to be tested
-        nima=`$FC -V 2>&1 | grep -i imagine1 | wc -l`
-        nnag=`$FC -V 2>&1 | grep -i nagware  | wc -l`
-        nifc=`$FC -V 2>&1 | grep -i intel    | wc -l`
-        npgf=`$FC -V 2>&1 | grep -i portland | wc -l`
-	nlah=`$FC --version 2>&1 | grep -i lahey | wc -l`
-	nfuj=`$FC -V 2>&1 | grep -i fujitsu | wc -l`
-#	nvas=`$FC | grep -i sierra | wc -l`
-#  	nxlf=`man $FC | head -10 | grep XL | wc -l`
-	nxlf=`$FC --help 2>&1 | head -10 | grep XL | wc -l`
-	nabs=`$FC -V 2>&1 | grep 'Pro Fortran' | wc -l`
-	ng95=`$FC -dumpversion 2>&1 | grep 'g95' | wc -l`
-	ngfortran=`$FC -dumpversion 2>&1 | grep 'GNU Fortran 95' | wc -l`
-	npath=`$FC -v 2>&1 | grep -i ekopath | wc -l`
- 
-        if [ $nima != 0 ] ; then
-                FCNAME="Imagine F compiler"
-                FFLAGS="$FFLAGS -DNAG -w -dusty -mismatch_all"
-		echo "$FCNAME is not supported yet"
-		exit 1
-        elif [ $nnag != 0 ] ; then
-                FCNAME="NAGWare compiler"
-		PPFLAGS="-fpp"
-# very sloppy compiler flags: no longer needed
-#                FFLAGS="$FFLAGS -DNAG -w -dusty -mismatch_all"
-# compiler flags for very thorough checking. use for debugging
-#                FFLAGS="$FFLAGS -DNAG -strict95 -g -gline -C=all -u -colour"
-# standard flags
-                FFLAGS="$FFLAGS -DNAG -strict95"
-        elif [ $nifc != 0 ] ; then 
-		ifc_modules
-                FCNAME="Intel Fortran Compiler"
-                FFLAGS="$IFCINC -Vaxlib -cm -w -vec_report0"
-		MOD="$IFCMOD"
-		FTYPE="$IFCVERSION"
-#  		OFLAGS="-O3 -tpp7 -xW" # pentium 4
-  		OFLAGS="-O3"
-#		OFLAGS="-O3 -axiMKW" # generates optimized code for each Pentium platform
-		PRFLAGS="-openmp" # Open MP enabled
-        elif [ $npgf != 0 ] ; then
-                FCNAME="Portland Group Compiler"
-		PRFLAGS="-mp" # Open MP enabled, to be tested
-        elif [ $nlah != 0 ] ; then
-                FCNAME="Lahey/Fujitsu Compiler"
-#  		FFLAGS="$FFLAGS --nap --nchk --npca --ntrace --tpp --trap dio"
-		FFLAGS="$FFLAGS --nap --nchk --npca --ntrace --tpp --trap" # (on trial version)
-        elif [ $nfuj != 0 ] ; then
-                FCNAME="Fujitsu Compiler"
-  		FFLAGS="$FFLAGS -Am -X9 -static"
-	elif [ $nxlf != 0 ] ; then
-		FC="xlf90"
-		FCNAME="IBM XL Fortran for Mac OS"
-		FFLAGS="$FFLAGS -qfree=f90 -qsuffix=f=f90:cpp=F90"
-		OFLAGS="-O"
-		CC="gcc"
-		CFLAGS="$CFLAGS -DRS6000" #### 
-		#### FPP="-WF,-D"
-		PRFLAGS="-qsmp=omp" # Open MP enabled
-	elif [ $nabs != 0 ] ; then
-	        FCNAME="Absoft Pro Compiler"
-		FFLAGS=`echo $FFLAGS | sed "s/-I/-p/g"`
-		FFLAGS="$FFLAGS -YEXT_NAMES=LCS -YEXT_SFX=_ -q"
-		OFLAGS="-O3 -cpu:host"
-		LDFLAGS="$LDFLAGS -lU77"
-		CC="gcc"
-	elif [ $ng95 != 0 ] ; then
-	        FCNAME="g95 compiler"
-		FFLAGS="$FFLAGS"
-		OFLAGS="-O3"
-		CC="gcc"
-	elif [ $ngfortran != 0 ] ; then
-	        FCNAME="gfortran compiler"
-		FFLAGS="$FFLAGS -DGFORTRAN -fno-second-underscore"
-		OFLAGS="-O3"
-		CC="gcc"
-	elif [ $npath != 0 ] ; then
-	        FCNAME="PathScale EKOPath compiler"
-		FFLAGS="$FFLAGS"
-		OFLAGS="-O"
-		CC="pathcc"	    
-		PRFLAGS="-mp" # Open MP enabled
-        else
-	    nvas=`$FC | grep -i sierra | wc -l`
-            if [ $nvas != 0 ] ; then
-                FCNAME="Pacific/Sierra Compiler"
-		echo "$FCNAME is not supported"
-		exit 1
-	    else
-                echo "$FC: Unknown compiler"
-                exit 1
+
+# read functions definition
+. ./hpxconfig_functions.sh
+
+# foreplay1
+setTopDefaults
+HPX_CONF_DIR=${HPX_CONF_DIR_HOME}
+
+# ----------------- options parsing ----------------------
+usage="Usage: ./$(basename $0) [?|-h|-L|-v]"
+usage2="Type    ./$(basename $0) -h    for extended help"
+# do not accept options starting with a non-dash or with double dash
+if [ ${#} -gt 0 ]; then
+	    if [ "${1:0:1}" != "-"  -o  "${1:0:2}" = "--"  -o "${1}" = "-" ]; then
+		echo 
+		echo "${usage}"
+		echo
+		echo "${usage2}"
+		echo
+		exit -1
 	    fi
-        fi
-}
+fi
 
-# -----------------------------------------------------------------
-add64bitFlags () {
-
-    if [ "x$FF64$CF64$AR64" != "x" ]; then
-	echo "Do you want to make a 64 bit compilation ? [y/N]"
-	read answer
-	if [ "x$answer" = "xy" -o "x$answer" = "xY" ]; then
-	    FFLAGS="$FFLAGS $FF64"
-	    CFLAGS="$CFLAGS $CF64"
-	    AR="$AR $AR64"
-	fi
-    fi
-}
-# -----------------------------------------------------------------
-
-askUserF90 () {
-    echoLn "enter name of your F90 compiler ($FC): "
-    read answer
-    [ "x$answer" != "x" ] && FC="$answer"
-}
-
-# -----------------------------------------------------------------
-
-showDefaultDirs () {
-    echo " compiled Healpix products will be:"
-    echo "BINDIR =  $BINDIR[suffix]"
-    echo "INCDIR =  $INCDIR[suffix]"
-    echo "LIBDIR =  $LIBDIR[suffix]"
-    echo " and the Makefile will be copied into Makefile[suffix]"
-}
-
-updateDirs () {
-    BINDIR=$BINDIR$DIRSUFF
-    INCDIR=$INCDIR$DIRSUFF
-    LIBDIR=$LIBDIR$DIRSUFF
-}
-
-showActualDirs () {
-    echo " compiled Healpix products will be:"
-    echo "BINDIR =  $BINDIR"
-    echo "INCDIR =  $INCDIR"
-    echo "LIBDIR =  $LIBDIR"
-}
-# -----------------------------------------------------------------
-askUserMisc () {
-    echo "  Note: your Fortran compiler is $FCNAME"
-
-    echoLn " "
-
-    add64bitFlags
-
-    showDefaultDirs
-    echoLn "enter suffix for directories ($DIRSUFF): "
-    read answer
-    [ "x$answer" != "x" ] && DIRSUFF="$answer"
-    updateDirs
-    showActualDirs
-
-    checkDir $BINDIR $INCDIR $LIBDIR
-    fullPath BINDIR INCDIR LIBDIR
-
-    echoLn " "
-
-    echoLn "enter compilation flags for $FC compiler ($FFLAGS): "
-    read answer
-    [ "x$answer" != "x" ] && FFLAGS="$answer"
-
-    echoLn "enter optimisation flags for $FC compiler ($OFLAGS): "
-    read answer
-    [ "x$answer" != "x" ] && OFLAGS="$answer"
-    FFLAGS="$OFLAGS $FFLAGS"
-    echo "  Fortran code will be compiled with $FC $FFLAGS"
-
-    echoLn "enter name of your C compiler ($CC): "
-    read answer
-    [ "x$answer" != "x" ] && CC="$answer"
-
-    echoLn "enter compilation/optimisation flags for C compiler ($CFLAGS): "
-    read answer
-    [ "x$answer" != "x" ] && CFLAGS="$answer"
-    echo "  C subroutines will be compiled with $CC $CFLAGS"
-
-    echoLn "enter command for library archiving ($AR): "
-    read answer
-    [ "x$answer" != "x" ] && AR="$answer"
-
-    echoLn "enter full name of cfitsio library (lib${LIBFITS}.a): "
-    read answer
-    [ "x$answer" != "x" ] && LIBFITS=`basename $answer ".a" | sed "s/^lib//"`
-
-    findFITS $LIBDIR
-    echoLn "enter location of cfitsio library ($FITSDIR): "
-    read answer
-    [ "x$answer" != "x" ] && FITSDIR=$answer
-
-    lib="${FITSDIR}/lib${LIBFITS}.a"
-    if [ ! -r $lib ]; then
-	echo "error: fits library $lib not found"
+while getopts 'hLv' OPTION
+do
+    case ${OPTION} in
+	h) 
+	echo
+	echo "Configure script for Healpix ${HPXVERSION}"
+	echo
+	echo "${usage}"
+	echo
+	echo "?   Print usage and exit" 
+	echo
+	echo "-h  Print this help message and exit" 
+	echo
+	echo "-L  Put the configuration directory in ${HPX_CONF_DIR_INPLACE}" 
+	echo "    (instead of installer's home: ${HPX_CONF_DIR_HOME})."
+	echo "    Recommended when doing a system wide installation to be used by several users."
+	echo
+	echo "-v  Print Healpix version and exit"
+	echo
+	exit 0
+	;;
+	L)
+        HPX_CONF_DIR=${HPX_CONF_DIR_INPLACE}
+	echo 
+        echo "Note: the configuration directory will be ${HPX_CONF_DIR}"
+	echo
+	;;
+	v)
+	echo "${HPXVERSION}"
+	exit 0
+	;;
+	?)
+	echo
+	echo "${usage}"
+	echo
+	echo "${usage2}"
+	echo
 	exit -1
-    fi
-}
-
-# -----------------------------------------------------------------
-
-#  checkNAG () {
-#      [ "x`$FC -V 2>&1 | grep NAG`" != "x" ] && \
-#  	FFLAGS="$FFLAGS -DLINUX -w -dusty -mismatch_all"
-#  }
-
-# -----------------------------------------------------------------
-
-editMakefile () {
-    [ -r Makefile ] && mv Makefile Makefile.bak
-    cat Makefile.in |\
-	sed "s|^FC.*$|FC	= $FC|" |\
-	sed "s|^FFLAGS.*$|FFLAGS	= $FFLAGS|" |\
-	sed "s|^LDFLAGS.*$|LDFLAGS	= $LDFLAGS|" |\
-	sed "s|^CC.*$|CC	= $CC|" |\
-	sed "s|^CFLAGS.*$|CFLAGS	= $CFLAGS|" |\
-	sed "s|^HEALPIX.*$|HEALPIX	= $HEALPIX|" |\
-	sed "s|^FITSDIR.*$|FITSDIR	= $FITSDIR|" |\
-	sed "s|^LIBFITS.*$|LIBFITS	= $LIBFITS|" |\
-	sed "s|^BINDIR.*$|BINDIR	= $BINDIR|" |\
-	sed "s|^INCDIR.*$|INCDIR	= $INCDIR|" |\
-	sed "s|^LIBDIR.*$|LIBDIR	= $LIBDIR|" |\
-	sed "s|^AR.*$|AR        = $AR|" |\
-	sed "s|^FFTSRC.*$|FFTSRC	= $FFTSRC|" |\
-	sed "s|^ADDUS.*$|ADDUS	= $ADDUS|" |\
-####	sed "s|^PARALL.*$|PARALL	= $PARALL|" |\
-	sed "s|^MOD.*$|MOD	= $MOD|" |\
-	sed "s|^FTYPE.*$|FTYPE	= $FTYPE|" |\
-	sed "s|^PPFLAGS.*$|PPFLAGS	= $PPFLAGS|" |\
-	sed "s|^OS.*$|OS	= $OS|" > Makefile
-
-	if [ "x$DIRSUFF" != "x" ] ; then
-	    if [ "x$DIRSUFF" != "x.in" ] ; then
-		cp Makefile Makefile$DIRSUFF
-	    fi
-	fi
-}
-
-# -----------------------------------------------------------------
-
-makeProfile () {
-    USER=${USER-`id -u -n`}
-    SHELL=`basename ${SHELL-/bin/sh}`
-
-    echo "# $SHELL configuration for HEALPix" > profile
-
-    case $SHELL in
-    csh|tcsh)
-	cat <<EOF >>profile
-setenv HEALPIX $HEALPIX
-setenv HEXE    $BINDIR
-setenv PATH    \${PATH}:\${HEXE}
-alias  hidl    "idl $HEALPIX/src/idl/HEALPix_startup"
-alias  hidlde  "idlde $HEALPIX/src/idl/HEALPix_startup"
-EOF
 	;;
-    sh)
-	cat <<EOF >>profile
-HEALPIX=$HEALPIX
-HEXE=$BINDIR
-PATH="\${PATH}:\${HEXE}"
-export HEALPIX HEXE PATH
-EOF
-	;;
-    ksh|bash)
-	cat <<EOF >>profile
-HEALPIX=$HEALPIX
-HEXE=$BINDIR
-PATH="\${PATH}:\${HEXE}"
-export HEALPIX HEXE PATH
-alias hidl="idl $HEALPIX/src/idl/HEALPix_startup"
-alias hidlde="idlde $HEALPIX/src/idl/HEALPix_startup"
-EOF
-	;;
-    *)
-	echo "Shell $SHELL not supported yet."
-	rm -f profile
-	;;
-    esac
-}
+   esac
+done
+# --------------------------------------------------------
 
-# -----------------------------------------------------------------
+#-------------
 
-installProfile () {
-    BINDIR=$1
-    USER=${USER-`id -u -n`}
-    SHELL=`basename ${SHELL-/bin/sh}`
+# foreplay2
+setConfDir
+welcome
+makeTopConf
+readyTopMakefile
+#installProfile
 
-    case $SHELL in
-    sh|ksh|bash)
-	prof="${HOME}/.profile"
-	comd=". ${BINDIR}/profile.HEALPix";;
-    csh)
-	prof="${HOME}/.cshrc"
-	comd="source ${BINDIR}/profile.HEALPix";;
-    tcsh)
-	prof="${HOME}/.tcshrc"
-	[ ! -r $prof -a -r "${HOME}/.cshrc" ] && prof="${HOME}/.cshrc"
-	comd="source ${BINDIR}/profile.HEALPix";;
-    *) ;;
-    esac
-    [ ! -r $prof ] && touch $prof
-#      check=`grep HEALPixAutoConf $prof | wc -l`
-    check=`grep ${BINDIR}/profile.HEALPix $prof | wc -l`
-    if [ $check -eq 0 ]; then
-	cat <<EOF
+# loop over main menu
+while [ true ]  ; do 
+	mainMenu
+done
 
-The following line should be inserted into your shell profile
-($prof):
-
-  $comd
-
-profile.HEALPix contains the following commands:
-
-EOF
-	cat profile
-	echo ""
-	echoLn "Do you want this modification to be done (y|N)? "
-	read answer
-	if [ "x$answer" = "xy" -o "x$answer" = "xY" ]; then
-	    cp $prof ${prof}".save"
-	    echo "" >> $prof
-	    echo "# modifications by HEALPixAutoConf" >> $prof
-	    echo $comd >> $prof
-	    echo "Modification done and previous shell profile saved"
-	    echo "as ${prof}.save."
-	fi
-    fi
-}
-
-# -----------------------------------------------------------------
-
-setDefaults
-askUserF90
-GuessCompiler
-askUserMisc
-   askOpenMP
-makeProfile
-editMakefile
-
-installProfile $BINDIR
-
-echo "Configuration finished."
-echo "Now run \"(GNU)make\" to build the package,"
-echo "    and \"(GNU)make test\" to test it."
-echo "You can configure the IDL previewer by running ./config_preview"
-
-exit 0
+# done
+goodBye
+exit

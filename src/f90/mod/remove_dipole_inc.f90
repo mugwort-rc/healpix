@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -30,6 +30,8 @@
 ! generic body of the subroutines remove_dipole_*
 ! to be inserted as is in pix_tools.f90
 !
+! 2008-02-03: added weights; check that ordering is in [1,2]
+!
 !--------------------------------------------------------------
     ! dummy
     integer(kind=i4b),                  intent(in)    :: nside
@@ -40,16 +42,17 @@
     real   (kind=KMAP), dimension(0:),  intent(inout) :: map
     real   (kind=KMAP),                 intent(in), optional :: fmissval
     real   (kind=KMAP), dimension(0:),  intent(in), optional :: mask
+    real   (kind=KMAP), dimension(0:),  intent(in), optional :: weights
     ! local
     real   (kind=KMAP)                :: fmiss_effct
-    integer(kind=i4b)                 :: ipix, npix, n_mult
+    integer(kind=i4b)                 :: ipix, npix, n_mult, n_mult1
     integer(kind=i4b)                 :: i
-    logical(lgt)                      :: dodipole, do_mask
+    logical(lgt)                      :: dodipole, do_mask, do_weights
     real(kind=dp)                     :: flag, temp, wmin
     real(kind=dp), dimension(1:3)     :: vec
     real(kind=dp), dimension(0:3)     :: b, wdiag
-    real(kind=dp), dimension(0:3,0:3) :: mat, umat, vmat
-    real(kind=dp), dimension(0:3)     :: dmultipoles
+    real(kind=dp), dimension(0:3,0:3) :: mat, umat, vmat, imat
+    real(kind=dp), dimension(0:3)     :: dmultipoles, tmpvec
     real(kind=dp)                     :: theta1, theta2
     integer(kind=i4b)                 :: ncpix, ncp, nbad
     integer(kind=i4b), dimension(:), allocatable :: cut_pixel
@@ -57,11 +60,33 @@
 
     npix = nside2npix(nside)
     multipoles = 0.0_dp
-    n_mult = (degree)**2
     fmiss_effct = fbad_value
     if (present(fmissval)) fmiss_effct = fmissval
+
     do_mask = .false.
-    if (present(mask)) do_mask = (size(mask) == size(map))
+    if (present(mask)) then
+       if (size(mask) == size(map)) then
+          do_mask = .true.
+       else
+          if (size(mask) > 1) print*,'WARNING: '//code//' mask ignored'
+       endif
+    endif
+
+    do_weights = .false.
+    if (present(weights)) then
+       if (size(weights) == size(map)) then
+          do_weights = .true.
+       else
+          if (size(weights) > 1) print*,'WARNING: '//code//' weights ignored'
+       endif
+    endif
+
+    if (ordering < 1 .or. ordering > 2) then
+       print*,code//': ordering should be one of 1 (RING) or 2 (NESTED)'
+       print*,'       it is: ', ordering
+       print*,code//"> ABORT ! "
+       call fatal_error       
+    endif
 
     if (degree == 0) then
        print*," No monopole nor dipole removal"
@@ -76,6 +101,14 @@
        print*,"      2: monopole and dipole (l=0,1) removal"
        print*,code//"> ABORT ! "
        call fatal_error
+    endif
+
+    n_mult = (degree)**2
+    n_mult1 = size(multipoles)
+    if (n_mult1 < n_mult) then 
+       print*,'WARNING: '//code//' multipoles is not large enough to accomodate results:'
+       print*, 'size=',n_mult1, ';   needs:',n_mult
+       n_mult = n_mult1
     endif
 
     !----------------------------------------------
@@ -103,6 +136,8 @@
        ! flag = 1 for good values
        !      = 0 for bad values
        flag = 1.0_dp
+       if (do_weights) flag = flag * weights(ipix)
+
        if ( abs(map(ipix) - fmiss_effct) <= abs(1.e-5*fmiss_effct) ) then
           nbad = nbad + 1
           goto 20
@@ -161,6 +196,26 @@
        end where
        ! back substitution
        call dsvbksb(umat, wdiag, vmat, 4, 4, 4, 4, b, dmultipoles)
+
+! 9000   format(4(1pe13.5))
+!        print*,'-------------'
+!        write(*,9000) mat
+
+!        print*,'  ------'
+!        do i=0,3
+!           tmpvec = 0.0_dp
+!           tmpvec(i) = 1.0_dp
+!           call dsvbksb(umat, wdiag, vmat, 4, 4, 4, 4, tmpvec, imat(0:3,i))
+!        enddo
+!        write(*,9000) imat
+
+!        print*,'-------------'
+!        write(*,9000) matmul(imat,mat)
+!        imat = imat+transpose(imat)
+!        imat = imat * 0.5d0
+!        print*,'  ------'
+!        write(*,9000) matmul(imat,mat)
+!        print*,'-------------'
 
     else
        dmultipoles(0) = b(0) / mat(0,0) ! average temperature

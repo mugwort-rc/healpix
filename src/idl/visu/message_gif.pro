@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -34,13 +34,14 @@ pro message_gif, code = code, error=error
 error = 0
 
 version = !version.release
-vers_no_gif = 5.3 ; to be checked (smaller than 5.4 for sure)
+v_no_gif_first = 5.3 ; first version without gif support ; to be checked (smaller than 5.4 for sure)
+v_no_gif_last  = 6.0 ; last version without gif support
 
 scode = code+'> '
-if (version ge vers_no_gif) then begin
+if (version ge v_no_gif_first and version le v_no_gif_last) then begin
     print,'=========================================='
     print,scode+'     IDL version : '+string(version,form='(f3.1)')
-    print,scode+'ERROR : GIF is not supported anymore by IDL'
+    print,scode+'ERROR : GIF is not supported by this version of IDL'
     print,scode+'ERROR : Use PNG instead'
     print,'=========================================='
     error = 1

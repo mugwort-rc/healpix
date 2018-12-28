@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -51,7 +51,7 @@
   !     for any questions : efh@ipac.caltech.edu
   !
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.1.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file median_filter.f90 by the command  include
@@ -78,14 +78,14 @@
   real(kind=SP)                 :: ptime, ptime0, ptime1
 
   character(len=80), DIMENSION(1:120) :: header
-  integer :: nlheader
+  integer(kind=I4B) :: nlheader
 
   character(len=FILENAMELEN)          :: infile, mffile
   character(len=FILENAMELEN)          :: healpixdir
   character(len=FILENAMELEN)          :: description
   character(len=100)                  :: chline, sstr
   LOGICAL(kind=LGT) :: polarisation, fill_holes
-  character(len=*), PARAMETER :: version = "2.0.0"
+  character(len=*), PARAMETER :: version = "2.1.1"
 
   type(paramfile_handle) :: handle
 
@@ -189,8 +189,11 @@
   mffile = parse_string(handle, 'mffile', default= '!medfilt.fits', descr=description, filestatus='new')
 
   PRINT *," "
-  call parse_summarize(handle)
-  call brag_openmp()
+  call parse_check_unused(handle, code=lcode)
+  call parse_summarize(handle,code=lcode,prec=KMAP)
+  call parse_finish(handle)
+!  call parse_summarize(handle)
+!  call brag_openmp()
 
   !-----------------------------------------------------------------------
   !              allocate space for arrays
@@ -217,7 +220,7 @@
   PRINT *,"      "//code//"> Filtering map "
   do i=1, n_pols
      call medfiltmap(map_in(0:,i), mf_radius_rad, map_mf(0:,i), &
-          &          nest=order_type-1, fmissval=fbad_value, fill_holes=fill_holes)
+          &          nest=order_type-1_i4b, fmissval=fbad_value, fill_holes=fill_holes)
   enddo
   !-----------------------------------------------------------------------
   !                      output the map
@@ -228,8 +231,8 @@
   call add_card(header,"COMMENT", "-----------------------------------------------")
   call add_card(header,"HISTORY","median filtered map")
   call add_card(header,"HISTORY","input map: "//trim(infile))
-  call add_card(header,"CREATOR",code)
-  call add_card(header,"VERSION",version)
+  call add_card(header,"CREATOR",code,    update = .true.)
+  call add_card(header,"VERSION",version, update = .true.)
   call add_card(header,"MFRADIUS",mf_radius_deg,"[Deg] median filter radius")
   call add_card(header,"BAD_DATA",fbad_value,"Sentinel value given to missing data")
   call add_card(header,"COMMENT","-----------------------------------------------")

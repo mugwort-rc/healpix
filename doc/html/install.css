@@ -30,7 +30,11 @@ TD.eqno			{ }	/* equation-number cells */
 /* document-specific styles come next */
 SPAN.tt		{   }
 DIV.flushright		{   }
+DIV.em		{   }
+SPAN.bf		{   }
 DIV.navigation		{   }
+DIV.centerline		{   }
 PRE.preform		{   }
 SPAN.arabic		{   }
 SPAN.textbf		{ font-weight: bold  }
+#par2158		{   }

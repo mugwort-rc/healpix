@@ -10,11 +10,11 @@
 ;      http://idlastro.gsfc.nasa.gov/mrdfits.html 
 ;
 ; CALLING SEQUENCE:
-;      Result = MRDFITS( Filename/FileUnit,[Extension, Header],
+;      Result = MRDFITS( Filename/FileUnit,[Exten_no/Exten_name, Header],
 ;                       /FSCALE , /DSCALE , /UNSIGNED,
 ;                       ALIAS=strarr[2,n], /USE_COLNUM,
 ;                       /NO_TDIM, ROWS = [a,b,...], $
-;                       /POINTER_VAR, /FIXED_VAR,
+;                       /POINTER_VAR, /FIXED_VAR, EXTNUM= 
 ;                       RANGE=[a,b], COLUMNS=[a,b,...]), ERROR_ACTION=x,
 ;                       COMPRESS=comp_prog, STATUS=status, /VERSION )
 ;
@@ -22,8 +22,7 @@
 ;      Filename = String containing the name of the file to be read or
 ;                 file number of an open unit.  If a unit is specified
 ;                 if will be left open positioned to read the next HDU.
-;                 Note that the file name may be of the form
-;                 name.gz or name.Z on UNIX systems.  If so
+;                 If the file name ends in .gz (or .Z on Unix systems)
 ;                 the file will be dynamically decompressed.
 ;      FiluUnit = An integer file unit which has already been
 ;                 opened for input.  Data will be read from this
@@ -36,12 +35,14 @@
 ;                          ... process the HDU ...
 ;                      endrep until status lt 0
 ;
-;      Extension= Extension number to be read, 0 for primary array.
+;      Exten_no= Extension number to be read, 0 for primary array.
 ;                 Assumed 0 if not specified.
 ;                 If a unit rather than a filename
 ;                 is specified in the first argument, this is
 ;                 the number of HDU's to skip from the current position.
-;
+;      Exten_name - Name of the extension to read (as stored in the EXTNAME
+;                 keyword).   This is a slightly slower method then specifying
+;                 the extension number.
 ; OUTPUTS:
 ;      Result = FITS data array or structure constructed from
 ;               the designated extension.  The format of result depends
@@ -163,6 +164,8 @@
 ;       /VERSION Print the current version number
 ;
 ; OPTIONAL OUTPUT KEYWORDS:
+;       EXTNUM - the number of the extension actually read.   Useful if the
+;                 user specified the extension by name.
 ;       STATUS - A integer status indicating success or failure of
 ;                the request.  A status of >=0 indicates a successful read.
 ;                Currently
@@ -200,9 +203,9 @@
 ;       MRDFITS DOES NOT scale data by default.  The FSCALE or DSCALE
 ;       parameters must be used.
 ;
-;       As of version 2.5 MRDFITS support 64 bit integer data types.
-;       These are not standard FITS.  64 bit data also requires
-;       IDL version 5.2 or greater.
+;       MRDFITS support 64 bit integer data types, which are tentatively
+;       included in the FITS standard.
+;       http://fits.gsfc.nasa.gov/fits_64bit.html
 ;    
 ;
 ; PROCEDURES USED:
@@ -218,8 +221,7 @@
 ;           MRD_COLUMNS         -- Extract columns.
 ;
 ;        Other ASTRON Library routines used
-;           FXPAR(), FXADDPAR, IEEE_TO_HOST, FXPOSIT, FXMOVE(), IS_IEEE_BIG()
-;           MRD_STRUCT(), MRD_SKIP
+;           FXPAR(), FXADDPAR, FXPOSIT, FXMOVE(), MRD_STRUCT(), MRD_SKIP, 
 ;
 ; MODIfICATION HISTORY:
 ;       V1.0 November 9, 1994 ----  Initial release.
@@ -275,7 +277,6 @@
 ;       V2.1d June 16, 1997 Fixed problem for >32767 entries introduced 24-Apr
 ;       V2.1e Aug 12, 1997 Fixed problem handling double complex arrays
 ;       V2.1f Oct 22, 1997 IDL reserved words can't be structure tag names
-;       Converted to IDL V5.0   W. Landsman  2-Nov-1997
 ;       V2.1g Nov 24, 1997 Handle XTENSION keywords with extra blanks.
 ;       V2.1h Jul 26, 1998 More flexible parsing of TFORM characters
 ;       V2.2 Dec 14, 1998 Allow fields with longer names for
@@ -319,6 +320,19 @@
 ;       V2.9f Fix problem with string variable binary tables, possible math 
 ;             overflow on non-IEEE machines  WL Feb. 2005 
 ;       V2.9g Fix problem when setting /USE_COLNUM   WL Feb. 2005
+;       V2.10 Use faster keywords to BYTEORDER  WL May 2006
+;       V2.11  Add ON_IOERROR, CATCH, and STATUS keyword to MRD_READ_IMAGE to
+;             trap EOF in compressed files DZ  Also fix handling of unsigned 
+;             images when BSCALE not present  K Chu/WL   June 2006 
+;       V2.12 Allow extension to be specified by name, added EXTNUM keyword
+;                     WL    December 2006
+;       V2.12a Convert ASCII table column to DOUBLE if single precision is
+;                 insufficient  
+;       V2.12b Fixed problem when both /fscale and /unsigned are set 
+;                  C. Markwardt    Aug 2007
+;       V2.13  Use SWAP_ENDIAN_INPLACE instead of IEEE_TO_HOST and IS_IEEE_BIG
+;                W. Landsman Nov 2007
+;       V2.13a One element vector allowed for file name W.L. Dec 2007
 ;-
 PRO mrd_fxpar, hdr, xten, nfld, nrow, rsize, fnames, fforms, scales, offsets
 ;
@@ -705,20 +719,16 @@ end
 
 ; Is this one of the IDL unsigned types?
 function mrd_unsignedtype, data
-    
-    sz = size(data)
-    type = sz[sz[0]+1]
-    if type eq 12 or type eq 13 or type eq 15 then begin
-	return, type
-    endif else begin
-	return, 0
-    endelse
+       
+    type = size(data,/ type) 
+    if (type eq 12) or (type eq 13) or (type eq 15) then return, type $
+                                                    else return, 0
     
 end
     
 ; Return the currrent version string for MRDFITS
 function mrd_version
-    return, '2.9g'
+    return, '2.13a'
 end
 ;=====================================================================
 ; END OF GENERAL UTILITY FUNCTIONS ===================================
@@ -748,6 +758,8 @@ pro mrd_atype, form, type, slen
     if p gt 0 then length = strmid(length,0,p)
 
    if strlen(length) gt 0 then slen = fix(length) else slen = 1
+   if (type EQ 'F') or (type EQ 'E') then $     ;Updated April 2007
+        if (slen GE 8) then type = 'D'
 
 end
 
@@ -1086,20 +1098,29 @@ end
 
 
 ; Read in the image information. 
-pro mrd_read_image, unit, range, maxd, rsize, table, rows = rows 
+pro mrd_read_image, unit, range, maxd, rsize, table, rows = rows,status=status
  
     ; 
     ; Unit          Unit to read data from. 
     ; Table         Table/array to read information into. 
     ; 
 
+    error=0
+    catch,error
+    if error ne 0 then begin
+     catch,/cancel
+     status=-2
+     return
+    endif
+
     ; If necessary skip to beginning of desired data. 
 
-
     if range[0] gt 0 then mrd_skip, unit, range[0]*rsize
- 
+
+    status=-2
     if rsize eq 0 then return 
- 
+
+    on_ioerror,done
     readu, unit, table
 
     if N_elements(rows) GT 0 then begin
@@ -1131,13 +1152,21 @@ pro mrd_read_image, unit, range, maxd, rsize, table, rows = rows
     endif
 
     mrd_skip, unit, skipB
-    if not is_ieee_big() then ieee_to_host, table
+    swap_endian_inplace, table,/swap_if_little
 
     ; Fix offset for unsigned data
     type = mrd_unsignedtype(table)
     if type gt 0 then begin
 	table = table - mrd_unsigned_offset(type)
     endif
+    
+    status=0
+    done:
+
+;-- probably an EOF 
+
+    if status ne 0 then free_lun,unit
+ 
     return
 end 
 
@@ -1206,7 +1235,7 @@ pro mrd_image, header, range, maxd, rsize, table, scales, offsets, scaling, $
     gcount = long(gcount)
 
     xscale = fxpar(header, 'BSCALE', count=cnt)
-    if cnt eq 0 then scale = 1
+    if cnt eq 0 then xscale = 1      ;Corrected 06/29/06
     
     xunsigned = mrd_chkunsigned(bitpix,  xscale, $
 				fxpar(header, 'BZERO'), unsigned=unsigned)
@@ -1614,7 +1643,7 @@ pro mrd_varcolumn, vtype, array, heap, off, siz
 
 	; Fix endianness.
         if vtype ne 'B' and vtype ne 'X' and vtype ne 'L' then begin
-	    ieee_to_host, *array[w[j]]
+	    swap_endian_inplace, *array[w[j]],/swap_if_little
         endif
 
 	; Scale unsigneds.
@@ -1649,12 +1678,12 @@ pro mrd_fixcolumn, vtype, array, heap, off, siz
 			  
             'E': begin                  ;Delay conversion until after byteswapping to avoid possible math overflow   Feb 2005
 	         temp = heap[off[j]: off[j] + 4*siz[j]-1 ]
-		 byteorder, temp, /XDRTOF		 
+		 byteorder, temp, /LSWAP, /SWAP_IF_LITTLE	 
 	         array[0:siz[j]-1,w[j]] = float(temp,0,siz[j]) 
                  end			  
            'D': begin 
 	         temp = heap[off[j]: off[j] + 8*siz[j]-1 ]
-		 byteorder, temp, /XDRTOD		 
+		 byteorder, temp, /L64SWAP, /SWAP_IF_LITTLE		 
 	         array[0:siz[j]-1,w[j]] = double(temp,0,siz[j]) 
                  end			  
             'C': array[0:siz[j]-1,w[j]] = complex(heap, off[j], siz[j]) 
@@ -1673,7 +1702,7 @@ pro mrd_fixcolumn, vtype, array, heap, off, siz
     ; Fix endianness
     if (vtype ne 'A') and (vtype ne 'B') and (vtype ne 'X') and (vtype ne 'L')  and $
        (vtype NE 'D')  and (vtype NE 'E') then begin
-	ieee_to_host, array
+	swap_endian_inplace, array, /swap_if_little
     endif
 
     ; Scale unsigned data
@@ -1868,7 +1897,7 @@ pro mrd_read_heap, unit, header, range, fnames, fvalues, vcls, vtpes, table, $
                 ww = where(col eq vcols)
                 w = w[0]
                 ww = ww[0]
-                fvstr = '0l'
+                fvstr = '0L' ; <-- Originally, '0l'; breaks under the virtual machine!
                 fnstr = 'L'+strcompress(string(col),/remo)+'_'+fnames[w]
                 nf = n_elements(fnames)
                 
@@ -1924,7 +1953,6 @@ pro mrd_read_heap, unit, header, range, fnames, fvalues, vcls, vtpes, table, $
 
     if N_elements(rows) EQ 0 then nrow = range[1]-range[0]+1 $
                              else nrow = N_elements(rows)
-    is_ieee = is_ieee_big()
     
     ; I loops over the new table columns, col loops over the old table.
     ; When col is negative, it is a length column.
@@ -2061,7 +2089,7 @@ pro mrd_read_table, unit, range, rsize, structyp, nrows, nfld, typarr, table, ro
     
 
     ; If necessary then convert to native format.
-    if not is_ieee_big() then begin
+    if byte(1L, 0,1) EQ 1 then begin
 	
         for i=0, nfld-1 do begin 
  
@@ -2072,11 +2100,10 @@ pro mrd_read_table, unit, range, rsize, structyp, nrows, nfld, typarr, table, ro
             if typ eq 'I' then byteorder, fld, /htons 
             if typ eq 'J' or typ eq 'P' then byteorder, fld, /htonl 
             if typ eq 'K' then byteorder, fld, /l64swap
-            if typ eq 'E' or typarr[i] eq 'C' then byteorder, fld, /xdrtof
+            if typ eq 'E' or typarr[i] eq 'C' then $
+	                       byteorder, fld, /LSWAP
 	    
-            if typ eq 'D' or typarr[i] eq 'M' then begin 
-                ieee_to_host, fld 
-            endif
+            if typ eq 'D' or typarr[i] eq 'M' then byteorder, fld, /L64SWAP
 	    
             if n_elements(fld) gt 1 then begin
 		
@@ -2410,7 +2437,8 @@ pro mrd_table, header, structyp, use_colnum,           $
 
 		if xunsigned then begin
 		    fxaddpar, header, 'TZERO'+istr, 0, 'Modified by MRDFITS V'+mrd_version()
-		endif
+                    offsets[i] = 0 ;; C. Markwardt Aug 2007 - reset to zero so offset is not applied twice'
+	        endif
 
                 if dim eq 0 then begin
 
@@ -2519,12 +2547,12 @@ function mrdfits, file, extension, header,      $
 	version=version,                        $
 	pointer_var=pointer_var,                $
 	fixed_var=fixed_var,                    $
-        status=status
+        status=status, extnum = extnum
 
-    
+    compile_opt idl2    
     ;   Let user know version if MRDFITS being used.
     if keyword_set(version) then begin
-        print,'MRDFITS: Version '+mrd_version()+' Feb 07, 2005'
+        print,'MRDFITS: Version '+mrd_version()+' Dec 12, 2007'
     endif
     
     ;
@@ -2543,7 +2571,7 @@ function mrdfits, file, extension, header,      $
     if n_params() le 0  or n_params() gt 3 then begin
 	if keyword_set(version) then return, 0
         print, 'MRDFITS: Usage'
-        print, '   a=mrdfits(file/unit, [extension, header], /version       $'
+        print, '   a=mrdfits(file/unit, [exten_no/exten_name, header], /version $'
         print, '       /fscale, /dscale, /unsigned, /use_colnum, /silent    $'
         print, '       range=, rows= , structyp=, columns=, $'
 	print, '       /pointer_var, /fixed_var, error_action=, status= )'
@@ -2593,14 +2621,15 @@ function mrdfits, file, extension, header,      $
     ; Open the file and position to the appropriate extension then read
     ; the header.
 
-    sz = size(file)
-    if (sz[0] ne 0) then begin
+    if (N_elements(file) GT 1 ) then begin
         print, 'MRDFITS: Vector input not supported'
         return, 0
     endif
 
     inputUnit = 0
-    if sz[1] gt 0 and sz[1] lt 4 then begin
+   
+    dtype = size(file,/type)
+    if dtype gt 0 and dtype lt 4 then begin    ;File unit number specified
 	
         inputUnit = 1
         unit = file
@@ -2609,11 +2638,13 @@ function mrdfits, file, extension, header,      $
             return, -1
         endif
     
-    endif else begin 
-        unit = fxposit(file, extension, compress=compress, /readonly)
+    endif else begin                         ;File name specified
+        unit = fxposit(file, extension, compress=compress, $
+	               /readonly,extnum=extnum, errmsg= errmsg)
 
         if unit lt 0 then begin
-            print, 'MRDFITS: File access error'
+            message, 'File access error',/CON
+	    if errmsg NE '' then message,errmsg,/CON
             status = -1
             return, 0
         endif
@@ -2621,22 +2652,16 @@ function mrdfits, file, extension, header,      $
 
     if eof(unit) then begin
         print,'MRDFITS: Extension past EOF'
-	if inputUnit eq 0 then begin
-            free_lun, unit
-	endif
-	
+	if inputUnit eq 0 then free_lun,unit 
 	status = -2
-	
-        return, 0
+	return, 0
     endif
 
     mrd_hread, unit, header, status, SILENT = silent
     
     if status lt 0 then begin
         print, 'MRDFITS: Unable to read header for extension'
-	if inputUnit eq 0 then begin
-            free_lun, unit
-	endif
+	if inputUnit eq 0 then free_lun,unit
         return, 0
     endif
 
@@ -2644,17 +2669,12 @@ function mrdfits, file, extension, header,      $
     ; 0 which will be converted by strtrim to '0'
 
     xten = strtrim( fxpar(header,'XTENSION'), 2)
-    if xten eq '0' or xten eq 'IMAGE' then begin
-        type = 0
-    endif else if xten eq 'TABLE' then begin
-	type = 1
-    endif else if xten eq 'BINTABLE'  or xten eq 'A3DTABLE' then begin
-	type = 2
-    endif else begin 
-        print, 'MRDFITS: Unable to process extension type:', xten
-	if inputUnit eq 0 then begin
-	    free_lun,unit
-	endif
+    if xten eq '0' or xten eq 'IMAGE' then type = 0 $
+    else if xten eq 'TABLE' then type = 1 $
+    else if xten eq 'BINTABLE'  or xten eq 'A3DTABLE' then type = 2 $
+    else begin 
+        message, 'Unable to process extension type:', xten,/CON
+	if inputUnit eq 0 then free_lun,unit
 	status = -1
         return, 0
     endelse
@@ -2668,8 +2688,10 @@ function mrdfits, file, extension, header,      $
         mrd_image, header, arange, maxd, rsize, table, scales, offsets, $
           scaling, status, silent=silent, unsigned=unsigned, $
            rows= rows
-       if status ge 0 and rsize gt 0 then $
-           mrd_read_image, unit, arange, maxd, rsize, table, rows = rows
+       if status ge 0 and rsize gt 0 then begin
+           mrd_read_image, unit, arange, maxd, rsize, table, rows = rows,$
+            status=status
+        endif
        size = rsize
     endif else if type eq 1 then begin
 

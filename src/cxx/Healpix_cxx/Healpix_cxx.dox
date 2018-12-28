@@ -10,6 +10,8 @@
   Classes:
    - Healpix_Base contains all functionality related to the HEALPix
      pixelisation which does not require actual map data.
+   - Healpix_Base2 is analogous to Healpix_Base, but allows for much
+     higher resolutions.
    - Healpix_Map is derived from Healpix_Base and implements
      additional functionality like change of the ordering scheme, up- and
      degrading and interpolation.
@@ -17,13 +19,13 @@
    - PowSpec is used to store \f$C_l\f$ coefficients.
 
   Conversions between different data types:
-   - \ref alm_map_group "HEALPix maps <-> a_lm".
+   - \ref alm_healpix_group "HEALPix maps <-> a_lm".
    - \ref alm_ps_group "power spectra <-> a_lm".
 
   FITS I/O:
    - for \ref healpix_map_fitsio_group "HEALPix Maps"
    - for \ref alm_fitsio_group "spherical harmonic coefficients"
-   - for \ref healpix_ps_fitsio_group "power spectra"
+   - for \ref powspec_fitsio_group "power spectra"
 */
 
 /*! \page facilities HEALPix C++ facilities

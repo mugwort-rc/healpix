@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -42,6 +42,11 @@ module pix_tools
 !                     remove_dipole (R,D)
 !    2005-01-25      ensure backward compatibility of remove_dipole
 !    2005-08-03      edit same_shape_pixels_nest to comply with GFORTRAN
+!    2006-06-28      edit to neighbours_nest to correct error in Nside=1 case
+!    2008-02-03:     addition of weights in remove dipole
+!    2008-02-04:     check ordering in [1,2] in remove dipole ; check nest in [0,1] in query_*
+!    2008-03-28:     edit ring_num and query_strip to improve inclusive query_strip
+!                    bug fix on query_disc
 !==================================================================
 
   USE healpix_types
@@ -155,6 +160,7 @@ contains
     !
     ! v1.0, EH, Caltech, Jan-2002
     ! v2.0: 2004-12 : added inclusive keyword
+    ! v2.1: 2008-03-28: improved inclusive regime
     !=======================================================================
     integer(kind=I4B), intent(in)                    :: nside
     real(kind=DP),     intent(in)                    :: theta1, theta2
@@ -163,7 +169,7 @@ contains
     integer(kind=I4B), intent(in),  optional         :: nest
     integer(kind=i4b), intent(in),  optional         :: inclusive
 
-    integer(kind=I4B)                  :: npix, nstrip
+    integer(kind=I4B)                  :: npix, nstrip, my_nest
     integer(kind=I4B)                  :: iz, ip, is, irmin, irmax
     integer(kind=I4B)                  :: ilist, nir, nlost, list_size
     real(kind=DP)                      :: phi0, dphi, zu, zd, zring
@@ -201,14 +207,29 @@ contains
     be_inclusive = .false.
     if (present(inclusive)) be_inclusive = (inclusive==1)
 
+    my_nest = 0
+    if (present(nest)) then
+       if (nest == 0 .or. nest == 1) then
+          my_nest = nest
+       else
+          print*,code//"> NEST should be 0 or 1"
+          call fatal_error("> program abort ")
+       endif
+    endif
+
     !     ------------- loop on strips ---------------------
     ilist = -1
     allocate(listir(0:4*nside-1))
     do is =0, nstrip-1
        zu = cos(colrange(2*is+1)) ! upper bound in z
        zd = cos(colrange(2*is+2)) ! lower bound in z
-       irmin = ring_num(nside, zu)
-       irmax = ring_num(nside, zd)
+       if (be_inclusive) then
+          irmin = ring_num(nside, zu, shift=-1_i4b) ! shift up north
+          irmax = ring_num(nside, zd, shift=+1_i4b) ! shift down south
+       else
+          irmin = ring_num(nside, zu)
+          irmax = ring_num(nside, zd)
+       endif
 
 
        !     ------------- loop on ring number ---------------------
@@ -220,7 +241,7 @@ contains
              !        ------- finds pixels in the ring ---------
              phi0 = 0
              dphi = PI
-             call in_ring(nside, iz, phi0, dphi, listir, nir, nest)
+             call in_ring(nside, iz, phi0, dphi, listir, nir, nest=my_nest)
              
              nlost = ilist + nir + 1 - list_size
              if ( nlost > 0 ) then
@@ -287,6 +308,7 @@ contains
     integer(kind=I4B), dimension(1:1)                :: ix
     integer(kind=I4B), dimension(:), allocatable     :: templist
     character(len=*), parameter :: code = "QUERY_POLYGON"
+    integer(kind=I4B)                                :: my_nest
 
     !=======================================================================
 
@@ -306,6 +328,16 @@ contains
 
     allocate(vvlist(1:3, 1:n_remain))
     vvlist = vlist
+
+    my_nest = 0
+    if (present(nest)) then
+       if (nest == 0 .or. nest == 1) then
+          my_nest = nest
+       else
+          print*,code//"> NEST should be 0 or 1"
+          call fatal_error("> program abort ")
+       endif
+    endif
 
     !-----------------------------------------------------------------
     ! check that the polygon is convex or has only one concave vertex
@@ -371,7 +403,7 @@ contains
 
        ! find pixels within triangle
        allocate(templist(0:n_in_trg-1))
-       call query_triangle( nside, vp0, vp1, vp2, templist, ntl, nest=nest,inclusive=inclusive )
+       call query_triangle( nside, vp0, vp1, vp2, templist, ntl, nest=my_nest,inclusive=inclusive )
 
        ! merge new list with existing one
        nlost = ilist + ntl + 1 - list_size
@@ -441,6 +473,7 @@ contains
     !
     ! v1.0, EH, Caltech, Nov-Dec-2001
     ! v1.1,  Aug-Sep-2002 : added nest and inclusive
+    ! v1.2, 2008-03-28, EH/IAP: check that input vectors are 3D
     !=======================================================================
     integer(kind=I4B), intent(in) :: nside
     real(kind=DP),     intent(in),  dimension(1:)  :: v1, v2, v3
@@ -473,6 +506,7 @@ contains
     character(len=*), parameter :: code = "QUERY_TRIANGLE"
     integer(kind=I4B) :: list_size, nlost
     logical(LGT)      :: do_inclusive
+    integer(kind=I4B)       :: my_nest
 
     !=======================================================================
 
@@ -487,6 +521,21 @@ contains
     do_inclusive = .false.
     if (present(inclusive)) then
        if (inclusive == 1) do_inclusive = .true.
+    endif
+
+    my_nest = 0
+    if (present(nest)) then
+       if (nest == 0 .or. nest == 1) then
+          my_nest = nest
+       else
+          print*,code//"> NEST should be 0 or 1"
+          call fatal_error("> program abort ")
+       endif
+    endif
+
+    if (size(v1) < 3 .or. size(v2) < 3 .or. size(v3) < 3) then
+       print*,'Expecting 3d vectors in '//code
+       call fatal_error
     endif
 
     !   ! sort pixels by number
@@ -552,7 +601,7 @@ contains
     vo(1:3,1) = vo(1:3,1) /  SQRT(SUM(vo(1:3,1)**2))
     vo(1:3,2) = vo(1:3,2) /  SQRT(SUM(vo(1:3,2)**2))
     vo(1:3,3) = vo(1:3,3) /  SQRT(SUM(vo(1:3,3)**2))
-
+    
     ! test presence of poles in the triangle
     zmax = -1.0_dp
     zmin =  1.0_dp
@@ -714,7 +763,7 @@ contains
           endif
 
           !        ------- finds pixels in the triangle on that ring ---------
-          call in_ring(nside, iz, phi0, dphiring, listir, nir, nest=nest)
+          call in_ring(nside, iz, phi0, dphiring, listir, nir, nest=my_nest)
 
           !        ----------- merge pixel lists -----------
           nlost = ilist + nir + 1 - list_size
@@ -797,6 +846,7 @@ contains
     !
     ! v1.0, EH, TAC, ??
     ! v1.1, EH, Caltech, Dec-2001
+    ! v1.2, EH, IAP, 2008-03-30: fixed bug appearing when disc centered on either pole
     !=======================================================================
     integer(kind=I4B), intent(in)                 :: nside
     real(kind=DP),     intent(in), dimension(1:)  :: vector0
@@ -818,6 +868,7 @@ contains
     character(len=*), parameter :: code = "QUERY_DISC"
     integer(kind=I4B) :: list_size, nlost
     logical(LGT) :: do_inclusive
+    integer(kind=I4B)                                :: my_nest
 
     !=======================================================================
 
@@ -834,6 +885,16 @@ contains
     do_inclusive = .false.
     if (present(inclusive)) then
        if (inclusive == 1) do_inclusive = .true.
+    endif
+
+    my_nest = 0
+    if (present(nest)) then
+       if (nest == 0 .or. nest == 1) then
+          my_nest = nest
+       else
+          print*,code//"> NEST should be 0 or 1"
+          call fatal_error("> program abort ")
+       endif
     endif
 
     !     --------- allocate memory -------------
@@ -902,8 +963,8 @@ contains
        b = cosang - z*z0
        c = 1.0_dp - z*z
        if ((x0==0.0_dp).and.(y0==0.0_dp)) then
-          cosdphi=-1.0_dp
           dphi=PI
+          if (b > 0.0_dp) goto 1000 ! out of the disc, 2008-03-30
           goto 500
        endif
        cosdphi = b / SQRT(a*c)
@@ -916,7 +977,7 @@ contains
 500    continue
 
        !        ------- finds pixels in the disc ---------
-       call in_ring(nside, iz, phi0, dphi, listir, nir, nest)
+       call in_ring(nside, iz, phi0, dphi, listir, nir, nest=my_nest)
 
        !        ----------- merge pixel lists -----------
        nlost = ilist + nir + 1 - list_size
@@ -943,30 +1004,42 @@ contains
     return
   end subroutine query_disc
   !=======================================================================
-  function ring_num (nside, z) result(ring_num_result)
+  function ring_num (nside, z, shift) result(ring_num_result)
     !=======================================================================
+    ! ring = ring_num(nside, z [, shift=])
     !     returns the ring number in {1, 4*nside-1}
     !     from the z coordinate
+    ! usually returns the ring closest to the z provided
+    ! if shift < 0, returns the ring immediatly north (of smaller index) of z
+    ! if shift > 0, returns the ring immediatly south (of smaller index) of z
+    !
     !=======================================================================
-    INTEGER(KIND=I4B) :: ring_num_result
-    REAL(KIND=DP), INTENT(IN) :: z
+    INTEGER(KIND=I4B)             :: ring_num_result
+    REAL(KIND=DP),     INTENT(IN) :: z
     INTEGER(KIND=I4B), INTENT(IN) :: nside
+    integer(i4b),      intent(in), optional :: shift
 
     INTEGER(KIND=I4B) :: iring
+    real(DP) :: my_shift
     !=======================================================================
 
+
+    my_shift = 0.0_dp
+    if (present(shift)) my_shift = shift * 0.5_dp
+
     !     ----- equatorial regime ---------
-    iring = NINT( nside*(2.0_dp-1.500_dp*z))
+    iring = NINT( nside*(2.0_dp-1.500_dp*z)   + my_shift )
 
     !     ----- north cap ------
     if (z > twothird) then
-       iring = NINT( nside* SQRT(3.0_dp*(1.0_dp-z)))
+       iring = NINT( nside* SQRT(3.0_dp*(1.0_dp-z))  + my_shift )
        if (iring == 0) iring = 1
     endif
 
     !     ----- south cap -----
     if (z < -twothird   ) then
-       iring = NINT( nside* SQRT(3.0_dp*(1.0_dp+z)))
+       ! beware that we do a -shift in the south cap
+       iring = NINT( nside* SQRT(3.0_dp*(1.0_dp+z))   - my_shift )
        if (iring == 0) iring = 1
        iring = 4*nside - iring
     endif
@@ -2176,7 +2249,7 @@ contains
     return
   end subroutine warning_oldbounds
   !==============================================================
-  ! REMOVE_DIPOLE( nside, map, ordering, degree, multipoles, zbounds, fmissval, mask)
+  ! REMOVE_DIPOLE( nside, map, ordering, degree, multipoles, zbounds, fmissval, mask, weights)
   !
   ! removes monopole (and dipole) from a map
   !
@@ -2192,6 +2265,7 @@ contains
   ! mask    :  KMAP, Option, IN: Pixels with |mask|<1.e-10 are not used for fit
   !                              others are kept as is
   !                               note : the mask in NOT applied to the map
+  ! weights  : KMAP, Option, IN: pixel weight to be applied to the map
   !
   ! KMAP: either R4 or R8
   !
@@ -2203,8 +2277,11 @@ contains
   !  all other values of degree are invalid
   !
   ! v1.0, EH, Caltech, Jan-2002, based on homonyme IDL routine
+  ! 2008-02-03: addition of weights
+  !
   !==============================================================
-  subroutine remove_dipole_real( nside, map, ordering, degree, multipoles, zbounds, fmissval, mask)
+  subroutine remove_dipole_real( nside, map, ordering, degree, multipoles, zbounds, &
+       & fmissval, mask, weights)
     !============================================================
     use num_rec, only : dsvdcmp, dsvbksb
     ! parameters
@@ -2215,7 +2292,8 @@ contains
     include 'remove_dipole_inc.f90'
   end subroutine remove_dipole_real
   !==============================================================
-  subroutine remove_dipole_double( nside, map, ordering, degree, multipoles, zbounds, fmissval, mask)
+  subroutine remove_dipole_double( nside, map, ordering, degree, multipoles, zbounds, &
+       & fmissval, mask, weights)
     !============================================================
     use num_rec, only : dsvdcmp, dsvbksb
     ! parameters
@@ -3250,6 +3328,7 @@ contains
     !   Benjamin D. Wandelt October 1997
     !   Added to pix_tools in March 1999
     !   added 'return' for case nside=1, EH, Oct 2005
+    !   corrected bugs in case nside=1 and ipix=7, 9 or 11, EH, June 2006
     !====================================================================
     use bit_manipulation
     integer(kind=i4b), intent(in)::nside, ipix
@@ -3278,11 +3357,14 @@ contains
        if (ipix==4 ) n(1:6) = (/11, 7, 3, 0, 5, 8 /)
        if (ipix==5 ) n(1:6) = (/ 8, 4, 0, 1, 6, 9 /)
        if (ipix==6 ) n(1:6) = (/ 9, 5, 1, 2, 7,10 /)
-       if (ipix==7 ) n(1:6) = (/10, 6, 2, 3, 8,11 /)
+!        if (ipix==7 ) n(1:6) = (/10, 6, 2, 3, 8,11 /)
+       if (ipix==7 ) n(1:6) = (/10, 6, 2, 3, 4,11 /)
        if (ipix==8 ) n(1:6) = (/10,11, 4, 0, 5, 9 /)
-       if (ipix==9 ) n(1:6) = (/11, 8, 5, 1, 5,10 /)
+!        if (ipix==9 ) n(1:6) = (/11, 8, 5, 1, 5,10 /)
+       if (ipix==9 ) n(1:6) = (/11, 8, 5, 1, 6,10 /)
        if (ipix==10) n(1:6) = (/ 8, 9, 6, 2, 7,11 /)
-       if (ipix==11) n(1:6) = (/ 9,10, 6, 3, 4, 8 /)
+!        if (ipix==11) n(1:6) = (/ 9,10, 6, 3, 4, 8 /)
+       if (ipix==11) n(1:6) = (/ 9,10, 7, 3, 4, 8 /)
        return
     endif
 

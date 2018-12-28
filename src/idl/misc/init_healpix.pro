@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -29,28 +29,39 @@ pro init_healpix, verbose=verbose
 ;+
 ; defines the (structure) system variable Healpix
 ;
+; 2006-05-22: print caution message in version 5.5a which has touchy expand_path
+; 2006-oct : v 2.10, enabled nside > 8192
+; 2008-oct: v2.11, use getenv
 ;-
 
 ; system variable name
 healpix_sysvar = '!HEALPIX'
 
 ; Healpix version
-version = 2.00
+version = '2.11'
 
 ; release data
-date = '2005-08-29'
+date = '2008-11-13'
 
 ; Healpix directory
 sv = 'HEALPIX'
-dsv = '$'+sv
-directory = expand_path(dsv)
-if (strtrim(directory,2) eq dsv) then begin
+;dsv = '$'+sv
+
+; if (!version.release eq '5.5a') then message,'testing existence of '+sv+' environnement variable',/info
+; directory = expand_path(dsv)
+; directory = strtrim(directory,2)
+; if (directory eq dsv or directory eq '') then begin
+;     print,' system variable '+sv+' not found '
+;     directory = ''
+; endif
+directory = getenv(sv)
+if (strtrim(directory,2) eq '') then begin
     print,' system variable '+sv+' not found '
     directory = ''
 endif
 
 ; list of possible Nside's
-nside = 2L^lindgen(14)  ; 1, 2, 4, 8, ..., 8192
+nside = 2L^lindgen(30)  ; 1, 2, 4, 8, ..., 8192, ..., 2^29 = 0.54e9
 
 ; flag for missing values
 bad_value = -1.6375e30

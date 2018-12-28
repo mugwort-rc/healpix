@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -37,16 +37,18 @@ program plmgen
   !       (see Zaldarriaga, astro-ph/9709271; ApJ, 503, 1 (1998))
   ! version 1.3 : Aug 2004, EH, Ipac
   !      put calculations in plm_gen in alm_tools
+  ! version 1.4: June 2008: check that job is compatible with 4 bytes variable,
+  !              more verbose parsing
   !===================================================================================
   USE healpix_types
-  USE misc_utils, ONLY: assert_alloc, wall_clock_time
+  USE misc_utils, ONLY: assert_alloc, wall_clock_time, strlowcase, brag_openmp, fatal_error
   USE head_fits, ONLY: add_card
   USE fitstools, ONLY: write_plm
   USE pix_tools, ONLY: nside2npix
   USE alm_tools, ONLY: plm_gen
   USE extension, ONLY : getArgument, nArguments
   USE paramfile_io, ONLY : paramfile_handle, parse_init, parse_int, &
-         parse_string, concatnl
+         parse_string, concatnl, parse_check_unused, parse_summarize, parse_finish
 
   implicit none
 
@@ -58,15 +60,17 @@ program plmgen
   CHARACTER(LEN=filenamelen)        :: outfile
   CHARACTER(LEN=80), DIMENSION(160) :: header
   CHARACTER(LEN=*), PARAMETER :: code = 'PLMGEN'
-  CHARACTER(LEN=*), PARAMETER :: version = '2.0.0'
+  CHARACTER(LEN=*), PARAMETER :: version = '2.1.1'
 
   INTEGER(I4B) :: n_plm
+  integer(i8b) :: n_plm_8
   INTEGER(I4B) :: status, nlheader, simul_type
 
   type(paramfile_handle)        :: handle
   character(LEN=filenamelen)    :: parafile = ''
   character(len=filenamelen)    :: description
   character(len=100)            :: chline
+  character(len=20)             :: lcode
 
   real(kind=SP)                 :: clock_time, time0, time1
   real(kind=SP)                 :: ptime, ptime0, ptime1
@@ -75,12 +79,13 @@ program plmgen
 
   call wall_clock_time(time0)
   call cpu_time(ptime0)
+  lcode = trim(strlowcase(code))
 
   if (nArguments() == 0) then
      parafile=''
   else
      if (nArguments() /= 1) then
-        print "(' Usage: plmgen [parameter file name]')"
+        write(*,'(a)') " Usage:"//trim(lcode)//" [parameter file name]"
         stop 1
      end if
      call getArgument(1,parafile)
@@ -134,17 +139,29 @@ program plmgen
   outfile = parse_string(handle, "outfile", &
        & default="!plm.fits", descr=description, filestatus="new")
 
+  call parse_check_unused(handle, code=lcode)
+  call parse_summarize(handle, code=lcode)
+  call parse_finish(handle)
 
   nmmax = nlmax ! not required
-  n_plm = (nmmax+1)*(2*nlmax-nmmax+2)*nsmax
+  n_plm_8 = (nmmax+1_i8b)*(2*nlmax-nmmax+2_i8b)*nsmax
+  n_plm   = (nmmax+1    )*(2*nlmax-nmmax+2    )*nsmax
+
+  if (n_plm_8 > 2147483647 .or. n_plm < 0) then
+     print*,' '
+     write(*,'(a,i6,i6,a)') 'Error: these values of Nside and l_max (',nsmax,nlmax,')'
+     print*,' are too large for the current implementation of '//trim(lcode)//'.'
+     print*,'See documentation for details.'
+     call fatal_error('Aborting')
+  endif
 
   nd = 1
   if (polarisation) nd = 3
-  write(*,'(f10.2,a)') n_plm * nd * 8e-6, ' Mbytes'
+  write(*,'(a,f10.2,a)') 'The code requires ',n_plm_8 * nd * 8e-6, ' Mbytes'
 
-  ALLOCATE(plm(0:n_plm-1,1:nd),stat = status)
+  ALLOCATE(plm(0:n_plm_8-1,1:nd),stat = status)
   call assert_alloc(status,code,'plm')
-  print*,'allocated'
+  ! print*,'allocated'
 
   call plm_gen(nsmax, nlmax, nmmax, plm)
 
@@ -162,20 +179,40 @@ program plmgen
   call add_card(header,'COMMENT','     Data Description Specific Keywords       ')
   call add_card(header,'COMMENT','-----------------------------------------------')
   call add_card(header)
-  call add_card(header,'COMMENT','contains precomputed Y_lms,')
+!   call add_card(header,'COMMENT','contains precomputed Y_lms,')
+!   call add_card(header,'COMMENT','in the order: ')
+!   call add_card(header,'COMMENT','m=0:      Y_00, Y_10, Y_20, Y_30, ...')
+!   call add_card(header,'COMMENT','m=1:            Y_11, Y_21, Y_31, ...')
+!   call add_card(header,'COMMENT','m=2:                  Y_22, Y_32, ...')
+!   call add_card(header)
+!   call add_card(header,'COMMENT',' for each ring from North Pole to Equator.')
+!   call add_card(header,'COMMENT','synfast and anafast execute faster with precomputed Y_lms')
+!   call add_card(header)
+!   call add_card(header,'TTYPE1', 'SCALAR',  'Scalar Spherical Harmonics (Y_lm)')
+!   if (polarisation) then
+!      call add_card(header,'TTYPE2', 'SPINSUM', 'half sum        of Spin-weighted Spherical Harmonics')
+!      call add_card(header,'TTYPE3', 'SPINDIFF','half difference of Spin-weighted Spherical Harmonics')
+!      call add_card(header,'COMMENT','spin-weighted spherical harmocis now have CMBFAST normalisation')
+!   endif
+!   call add_card(header)
+  call add_card(header,'COMMENT','The complex spherical harmonics are defined as')
+  call add_card(header,'COMMENT','  Y_lm(theta, phi) = L_lm(theta) * exp(i m phi),')
+  call add_card(header,'COMMENT',' where L_lm are real numbers related to the Legendre Polynomials Plm')
+  call add_card(header)
+  call add_card(header,'COMMENT','This file contains precomputed L_lms,')
   call add_card(header,'COMMENT','in the order: ')
-  call add_card(header,'COMMENT','m=0:      Y_00, Y_10, Y_20, Y_30, ...')
-  call add_card(header,'COMMENT','m=1:            Y_11, Y_21, Y_31, ...')
-  call add_card(header,'COMMENT','m=2:                  Y_22, Y_32, ...')
+  call add_card(header,'COMMENT','m=0:      L_00, L_10, L_20, L_30, ...')
+  call add_card(header,'COMMENT','m=1:            L_11, L_21, L_31, ...')
+  call add_card(header,'COMMENT','m=2:                  L_22, L_32, ...')
   call add_card(header)
   call add_card(header,'COMMENT',' for each ring from North Pole to Equator.')
-  call add_card(header,'COMMENT','synfast and anafast execute faster with precomputed Y_lms')
+  call add_card(header,'COMMENT','synfast and anafast execute faster with precomputed L_lms')
   call add_card(header)
-  call add_card(header,'TTYPE1', 'SCALAR',  'Scalar Spherical Harmonics (Y_lm)')
+  call add_card(header,'TTYPE1', 'SCALAR',  'Scalar Spherical Harmonics (L_lm)')
   if (polarisation) then
-     call add_card(header,'TTYPE2', 'SPINSUM', 'half sum        of Spin-weighted Spherical Harmonics')
-     call add_card(header,'TTYPE3', 'SPINDIFF','half difference of Spin-weighted Spherical Harmonics')
-     call add_card(header,'COMMENT','spin-weighted spherical harmocis now have CMBFAST normalisation')
+     call add_card(header,'TTYPE2', 'SPINSUM', 'half sum   of Spin-weighted Spherical Harmonics')
+     call add_card(header,'TTYPE3', 'SPINDIFF','half diff. of Spin-weighted Spherical Harmonics')
+     call add_card(header,'COMMENT','spin-weighted spherical harmonics now have CMBFAST normalisation')
   endif
   call add_card(header)
 

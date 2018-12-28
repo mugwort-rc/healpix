@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>parse_xxx</TITLE>
-<META NAME="description" CONTENT="parse_xxx">
+<TITLE>nArguments</TITLE>
+<META NAME="description" CONTENT="nArguments">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,41 +28,46 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html885"
+<A NAME="tex2html901"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html891"
+<A NAME="tex2html907"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html895"
+<A NAME="tex2html911"
   HREF="subroutinesnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html893"
+<A NAME="tex2html909"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html886"
-  HREF="subroutinesnode57.htm">output_map*</A>
+<B> Previous:</B> <A NAME="tex2html902"
+  HREF="subroutinesnode57.htm">mpi_map2alm_slave</A>
 
-<B>Up:</B> <A NAME="tex2html892"
+<B>Up:</B> <A NAME="tex2html908"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html896"
-  HREF="subroutinesnode59.htm">pixel_window</A>
+<B> Next:</B> <A NAME="tex2html912"
+  HREF="subroutinesnode59.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000580000000000000000"></A>
-<A NAME="sub:parse_xxx"></A>
+<A NAME="sub:narguments"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">parse_xxx</FONT></font></b><hr><H2>The Fortran90 module paramfile_io contains functions to obtain
-parameters from parameter files or interactively</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/paramfile_io.f90
+<b><font size=+6><FONT COLOR="#CC0000">nArguments</FONT></font></b><hr><H2>This function emulates the C routine <TT>iargc</TT>, which returns the number of
+command line arguments provided.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/extension.F90
 </b>
+
+<P>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">nArguments</FONT>(
+ 
+)</h2>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -79,97 +84,26 @@ src/f90/mod/paramfile_io.f90
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-fname</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>file containing the simulation parameters.
-                   If empty, parameters are obtained interactively.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>handle</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>PMF</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>Object of type (paramfile_handle) used to store parameter information</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>keyname</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>name of the required parameter</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>default</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the default value for
-                     a given simulation parameter; must be of
-                     appropriate type.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmin</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the minimum value for
-                     a given simulation parameter; must be of
-                     appropriate type.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the maximum value for
-                     a given simulation parameter; must be of
-                     appropriate type.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>descr</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing a description of the
-                   required simulation parameter</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>filestatus</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. If present, the parameter
-                   must be a valid filename. If filestatus=='new',
-                   the file must not exist; if filestatus=='old',
-                   the file must exist.</TD>
+var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>number of command line arguments
+
+<P></TD>
 </TR>
 </TABLE>
 
 <P>
-
-<BIG CLASS="LARGE"><SPAN  CLASS="textbf">ROUTINES: </SPAN></BIG>
-<BR>
-<TT>handle = parse_init (fname)</TT> 
-<BR>
-<P>
-&nbsp;&nbsp;&nbsp;&nbsp;initializes the parser to work on the file fname, or interactively, if fname is empty
-
-<P>
-<TT>intval = parse_int (handle, keyname, default, vmin, vmax, descr)</TT> 
-
-<P>
-<TT>longval = parse_long (handle, keyname, default, vmin, vmax, descr)</TT> 
-
-<P>
-<TT>realval = parse_real (handle, keyname, default, vmin, vmax, descr)</TT> 
-
-<P>
-<TT>doubleval = parse_double (handle, keyname, default, vmin, vmax, descr)</TT> 
-
-<P>
-<TT>stringval = parse_string (handle, keyname, default, descr, filestatus)</TT> 
-
-<P>
-<TT>logicval = parse_lgt (handle, keyname, default, descr)</TT> 
-
-<P>
-&nbsp;&nbsp;&nbsp;&nbsp;These routines obtain integer(i4b), integer(i8b), real(sp), real(dp), character(len=*) and logical values,
-respectively
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">parse_xxx</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nArguments</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode17.htm#sub:concatnl">concatnl</A></B>
-<DD>generates from a set of strings the multi-line description
-  </DL>
+<B><A HREF="subroutinesnode34.htm#sub:getenvironment">getEnvironment</A></B>
+<DD>returns value of
+  environment variable
+  <DT>
+<B><A HREF="subroutinesnode33.htm#sub:getargument">getArgument</A></B>
+<DD>returns list of command line arguments
+</DL>
 
 <P>
 
@@ -182,32 +116,32 @@ respectively
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html885"
+<A NAME="tex2html901"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html891"
+<A NAME="tex2html907"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html895"
+<A NAME="tex2html911"
   HREF="subroutinesnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html893"
+<A NAME="tex2html909"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html886"
-  HREF="subroutinesnode57.htm">output_map*</A>
+<B> Previous:</B> <A NAME="tex2html902"
+  HREF="subroutinesnode57.htm">mpi_map2alm_slave</A>
 
-<B>Up:</B> <A NAME="tex2html892"
+<B>Up:</B> <A NAME="tex2html908"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html896"
-  HREF="subroutinesnode59.htm">pixel_window</A>
+<B> Next:</B> <A NAME="tex2html912"
+  HREF="subroutinesnode59.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

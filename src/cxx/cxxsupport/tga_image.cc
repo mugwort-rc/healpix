@@ -120,6 +120,7 @@ void TGA_Image::write (const string &file) const
     xres%256, xres/256, yres%256, yres/256, 24, 32 };
 
   ofstream out(file.c_str(), ios_base::out | ios_base::binary);
+  planck_assert(out, "could not create file " + file);
 
   out.write (header, 18);
 

@@ -70,7 +70,7 @@ PLANCK_DIAGNOSIS_BEGIN
   for (int m=0; m<inmap.Npix(); ++m)
     {
     float value = inmap[m];
-    if (!approx(value, Healpix_undef))
+    if (!approx<double>(value, Healpix_undef))
       {
       inmap.neighbors(m,nb);
       bool ismax=true, ismin=true;
@@ -79,7 +79,7 @@ PLANCK_DIAGNOSIS_BEGIN
         if (nb[n] >=0)
           {
           float nbval = inmap[nb[n]];
-          if (!approx(nbval, Healpix_undef))
+          if (!approx<double>(nbval, Healpix_undef))
             {
             if (nbval>=value) ismax=false;
             if (nbval<=value) ismin=false;

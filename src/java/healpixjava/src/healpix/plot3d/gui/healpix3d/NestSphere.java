@@ -1,0 +1,73 @@
+/*
+ * HEALPix Java code supported by the Gaia project.
+ * Copyright (C) 2006-2011 Gaia Data Processing and Analysis Consortium
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
+package healpix.plot3d.gui.healpix3d;
+import healpix.tools.SpatialVector;
+
+import javax.media.j3d.Geometry;
+import javax.media.j3d.GeometryArray;
+import javax.media.j3d.LineArray;
+
+
+public class NestSphere extends HealSphere{
+
+    protected int face = 0;
+
+    ////////////////////////////////////////////
+    //
+    // create sphere visual object
+    //
+    public NestSphere() {
+		super();
+
+    }
+    public NestSphere(int nside,int face) {
+		super(nside);
+		this.face=face;	
+		this.step=1;
+		this.setGeometry(createGeometry());
+       	this.setAppearance(createAppearance());
+	}
+
+
+/*  Render the given face to given resolution */
+    protected Geometry createGeometry(){
+	int nQuads = (int) Math.pow(nside,2);// one face
+	int ppq =(step*2 + 2)*2; // points per quad
+	int nPoints = nQuads* ppq ;
+	int faceoff = nQuads*face;
+	LineArray quads = 
+	    new LineArray(nPoints, GeometryArray.COORDINATES);
+	try {
+		int offset;
+		for (int q=0; q< nQuads; q++) {
+			SpatialVector[] points = index.corners_nest(faceoff+q,step);
+			offset = q*ppq;
+			addPix(points,offset,quads);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+	return quads;
+    }
+
+
+
+}

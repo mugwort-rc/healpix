@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -30,6 +30,7 @@ pro find_in_path, file, finalpath, count, crash_on_error=crash
 ;
 ; look for a specified file in !path
 ;
+; Mar 2006: added comments before crash
 ;_
 
 version = float(!version.release)
@@ -45,6 +46,14 @@ for i=0, nl-1 do begin
     if count gt 0 then goto, found
 endfor
 
+comments=["-----------------------------------------------------------------------------",$
+          "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
+          "and the hard copy paper size,",$
+          "by running the config_preview script in the main Healpix directory.",$
+;          "           (no need to restart IDL ;-)",$
+          "-----------------------------------------------------------------------------"]
+
+print,comments,form='(a)'
 if (keyword_set(crash)) then message, file+' not found'
 
 found :
@@ -55,9 +64,15 @@ end
 ;=====================================================
 
 pro test_preview, count,crash_on_error=crash
+;+
+; look for idl_default_previewer.pro in !path
+; if not found issues a warning and/or crash
+;
+;-
 
 prevdef = 'idl_default_previewer.pro'
 find_in_path, prevdef,finalpath,count,crash_on_error=crash
+
 
 if (count eq 0) then begin
     message,/info,prevdef+' not found,'

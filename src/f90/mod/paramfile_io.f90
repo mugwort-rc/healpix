@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -31,7 +31,12 @@
 ! v1.0: M. Reinecke
 ! v1.1: 2002-09, E. Hivon, added concatnl, scan_directories, numeric_string
 !                     made interactive mode more user friendly
-!
+! v1.2: added parse_summarize
+! v1.3: 2008-01-22, added parse_check_unused
+!       2008-01-29, addition of silent keyword in parse_init
+!       2008-03-25: expand environment variables (${XXX}) in parse_string
+! v1.4: 2008-10-15, avoid over-running keylist in parse_summarize
+! 
 module paramfile_io
   use healpix_types
   use extension
@@ -40,14 +45,17 @@ module paramfile_io
   private
 
   public paramfile_handle, parse_init, parse_real, parse_double, parse_int, &
-         parse_long, parse_lgt, parse_string, parse_summarize, parse_finish
+         parse_long, parse_lgt, parse_string, parse_summarize, parse_finish, &
+         parse_check_unused
+
   public concatnl, scan_directories
 
   type paramfile_handle
     character(len=filenamelen) filename
     character(len=filenamelen), pointer, dimension(:) :: keylist=>NULL()
     character(len=filenamelen), pointer, dimension(:) :: valuelist=>NULL()
-    logical interactive
+    logical(LGT),               pointer, dimension(:) :: usedlist=>NULL()
+    logical interactive, verbose
   end type paramfile_handle
 
   character(len=*), parameter, public :: ret = achar(10)//' '
@@ -107,29 +115,42 @@ subroutine notify_user (keyname, rdef, rmin, rmax, ddef, dmin, dmax, &
 end subroutine notify_user
 
 !===================================================================
-function parse_init (fname)
+function parse_init (fname, silent)
   !===================================================================
   character(len=*), intent(in) :: fname
   type(paramfile_handle) parse_init
+  logical(LGT), intent(in), optional :: silent
+
   integer  :: i,cnt
   character(len=filenamelen) :: line, name, value
+  logical(LGT) :: myverbose
+
+  ! be verbose by default
+  myverbose = .true.
+  if (present(silent)) myverbose = .not.silent
 
   if (len(trim(fname))==0) then
-    parse_init%filename = ''
-    parse_init%interactive=.true.
+    parse_init%filename    = ''
+    parse_init%interactive = .true.
+    parse_init%verbose     = .true.
     parse_init%keylist     => NULL()
     parse_init%valuelist   => NULL()
+    parse_init%usedlist    => NULL()
     cnt = 30
     allocate(parse_init%keylist(cnt),parse_init%valuelist(cnt))
+    allocate(parse_init%usedlist(cnt))
     parse_init%keylist = ''
     parse_init%valuelist = ''
+    parse_init%usedlist = .false.
   else
     call assert_present (fname)
     call assert(len(fname)<=filenamelen, 'Parser: error: file name too long')
     parse_init%filename    = fname
     parse_init%interactive = .false.
+    parse_init%verbose     = myverbose
     parse_init%keylist     => NULL()
     parse_init%valuelist   => NULL()
+    parse_init%usedlist    => NULL()
     ! count valid lines
     open  (1, file=trim(fname))
     cnt=0
@@ -142,6 +163,7 @@ function parse_init (fname)
 2   close (1)
     ! read and parse valid lines
     allocate(parse_init%keylist(cnt),parse_init%valuelist(cnt))
+    allocate(parse_init%usedlist(cnt))
     open  (1, file=trim(fname))
     cnt=0
     do
@@ -167,6 +189,7 @@ function parse_init (fname)
         endif
         parse_init%keylist(cnt) = name 
         parse_init%valuelist(cnt) = value
+        parse_init%usedlist(cnt) = .false.
       endif
     end do
 3   close (1)
@@ -177,8 +200,10 @@ function parse_init (fname)
      write(*,'(a)') 'Interactive mode. Answer the following questions.'
      write(*,'(a)') 'If no answer is entered, the default value will be taken'
   else
-     write(*,'(a)') 'Reading run parameters from '//trim(parse_init%filename)
-     write(*,'(a)') ' parameters not defined in that file will be set to their default value'
+     if (parse_init%verbose) then
+        write(*,'(a)') 'Reading run parameters from '//trim(parse_init%filename)
+        write(*,'(a)') ' parameters not defined in that file will be set to their default value'
+     endif
   endif
 end function parse_init
 !===================================================================
@@ -188,7 +213,7 @@ subroutine parse_summarize (handle, code, prec)
   character(len=*), optional, intent(in) :: code
   integer(i4b),     optional, intent(in) :: prec
   !
-  integer(i4b) :: i
+  integer(i4b) :: i, nkeys
   character(len=filenamelen) :: name, value, next_name, command
 
   if (handle%interactive) then
@@ -208,11 +233,16 @@ subroutine parse_summarize (handle, code, prec)
         print*,'  This run can be reproduced in non-interactive mode'
         print*,'if a parameter file with the following content is provided:'
      endif
-     do i=1,size(handle%keylist)
+     nkeys = size(handle%keylist)
+     do i=1, nkeys
         name = handle%keylist(i)
-        next_name = handle%keylist(i+1)
+        if (i < nkeys) then
+           next_name = handle%keylist(i+1)
+        else
+           next_name = ''
+        endif
         value = handle%valuelist(i)
-        if (trim(name) /= '' .and. trim(name) /= trim(next_name)) then 
+        if (trim(name) /= '' .and. trim(name) /= trim(next_name)) then
            if (trim(value) == '') then
               write(*,'(a)') '# '//trim(name)
            else
@@ -224,12 +254,55 @@ subroutine parse_summarize (handle, code, prec)
   endif
 end subroutine parse_summarize
 !===================================================================
+subroutine parse_check_unused(handle, code)
+  !===================================================================
+  ! print out unused keywords, if any
+  !===================================================================
+  type(paramfile_handle),     intent(in) :: handle
+  character(len=*), optional, intent(in) :: code
+  !
+  integer(i4b) :: i, unused
+  character(len=80) :: mycode
+!  character(len=filenamelen) :: name, value, next_name, command
+
+
+  ! non interactive mode
+  if (.not.handle%interactive) then
+     mycode = 'this code'
+     if (present(code)) mycode = trim(code)
+     ! count unused keywords in input parameter files
+     unused = 0
+     do i=1,size(handle%keylist)
+        if (.not. handle%usedlist(i)) unused = unused + 1
+     enddo
+     if (unused > 0) then
+        print*,' '
+        print*,' ====================================================='
+        print*,'  WARNING: the following keywords found in '//trim(handle%filename)
+        print*,'           have NOT been used by '//trim(mycode)
+        !print*,'           Make sure they are correctly spelled.'
+        do i=1,size(handle%keylist)
+           if (.not. handle%usedlist(i)) then
+              write(*,'(a)') trim(handle%keylist(i))//' = '//trim(handle%valuelist(i))
+           endif
+        enddo        
+        print*,' ====================================================='
+        print*,' '
+     endif
+
+  end if
+  return
+end subroutine parse_check_unused
+
+!===================================================================
 subroutine parse_finish (handle)
   !===================================================================
   type(paramfile_handle), intent(inout) :: handle
 
-  if (associated(handle%keylist)) &
-    deallocate(handle%keylist, handle%valuelist)
+  if (associated(handle%keylist)) then
+     deallocate(handle%keylist, handle%valuelist)
+     deallocate(handle%usedlist)
+  endif
 end subroutine parse_finish
 
 !===================================================================
@@ -265,6 +338,7 @@ subroutine find_param (handle,keyname,result,found,rdef,rmin,rmax, &
            handle%keylist(i)   = trim(keyname)
            if (found) then
               handle%valuelist(i) = trim(result)
+              handle%usedlist(i)  = .true.
            else
               if (present(rdef)) write(handle%valuelist(i),*) rdef
               if (present(ddef)) write(handle%valuelist(i),*) ddef
@@ -281,6 +355,7 @@ subroutine find_param (handle,keyname,result,found,rdef,rmin,rmax, &
         if (trim(handle%keylist(i))==keyname) then
            result=trim(handle%valuelist(i))
            found=.true.
+           handle%usedlist(i) = .true.
         end if
      end do
 2    close (1)
@@ -323,7 +398,7 @@ function parse_real (handle, keyname, default, vmin, vmax, descr)
         goto 2
      endif
   endif
-  print *,'Parser: ',trim(keyname),' = ',parse_real, trim(about_def)
+  if (handle%verbose) print *,'Parser: ',trim(keyname),' = ',parse_real, trim(about_def)
   if (present(vmin)) then
      if (parse_real<vmin) then
         print *,'Parser: error: value for ', trim(keyname),' too small.'
@@ -376,7 +451,7 @@ function parse_double (handle, keyname, default, vmin, vmax, descr)
       goto 2
     endif
   endif
-  print *,'Parser: ',trim(keyname),' = ',parse_double, about_def
+  if (handle%verbose) print *,'Parser: ',trim(keyname),' = ',parse_double, trim(about_def)
   if (present(vmin)) then
     if (parse_double<vmin) then
       print *,'Parser: error: value for ', trim(keyname),' too small.'
@@ -430,7 +505,7 @@ function parse_int (handle, keyname, default, vmin, vmax, descr)
       goto 2
     endif
   endif
-  print *,'Parser: ',trim(keyname),' = ',parse_int, trim(about_def)
+  if (handle%verbose) print *,'Parser: ',trim(keyname),' = ',parse_int, trim(about_def)
   if (present(vmin)) then
     if (parse_int<vmin) then
       print *,'Parser: error: value for ', trim(keyname),' too small.'
@@ -485,7 +560,7 @@ function parse_long (handle, keyname, default, vmin, vmax, descr)
       goto 2
     endif
   endif
-  print *,'Parser: ',trim(keyname),' = ',parse_long, trim(about_def)
+  if (handle%verbose) print *,'Parser: ',trim(keyname),' = ',parse_long, trim(about_def)
   if (present(vmin)) then
     if (parse_long<vmin) then
       print *,'Parser: error: value for ', trim(keyname),' too small.'
@@ -545,7 +620,7 @@ function parse_lgt (handle, keyname, default, descr)
       goto 2
     endif
   endif
-  print *,'Parser: ',trim(keyname),' = ',parse_lgt, trim(about_def)
+  if (handle%verbose) print *,'Parser: ',trim(keyname),' = ',parse_lgt, trim(about_def)
 
   return ! normal exit
 
@@ -598,7 +673,8 @@ function parse_string (handle, keyname, default, descr, filestatus, options)
       goto 2
     endif
   endif
-  write(*,'(1x,a)') 'Parser: '//trim(keyname)//' = '//trim(parse_string)//trim(about_def)
+  parse_string = expand_env_var(parse_string)
+  if (handle%verbose) write(*,'(1x,a)') 'Parser: '//trim(keyname)//' = '//trim(parse_string)//trim(about_def)
 
   ! 0 (zero), '' and ' ' (2 single quotes with nothing or one space in between)
   !         are interpreted as "No File"

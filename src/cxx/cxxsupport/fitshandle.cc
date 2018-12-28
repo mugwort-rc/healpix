@@ -28,7 +28,7 @@
  *  This file contains the implementation of the FITS I/O helper class
  *  used by the Planck LevelS package.
  *
- *  Copyright (C) 2002, 2003, 2004 Max-Planck-Society
+ *  Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -37,32 +37,57 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <cstdlib>
+#include <cctype>
+#include <cstring>
 #include "fitsio.h"
 #include "fitshandle.h"
 #include "cxxutils.h"
 
 using namespace std;
 
-string type2char (int type)
+namespace {
+
+string ftc2char (int type)
   {
-  if (type==TFLOAT) return "E";
-  if (type==TDOUBLE) return "D";
-  if (type==TINT) return "J";
-  if (type==TINT32BIT) return "J";
-  if (type==TSTRING) return "A";
-  throw Message_error("wrong datatype in type2char()");
+  switch (type)
+    {
+    case TLOGICAL : return "L";
+    case TFLOAT   : return "E";
+    case TDOUBLE  : return "D";
+    case TBYTE    : return "B";
+    case TSHORT   : return "I";
+    case TINT32BIT: return "J";
+    case TLONGLONG: return "K";
+    case TSTRING  : return "A";
+    default: throw Message_error("wrong datatype in ftc2char()");
+    }
   }
 
-string type2asciiform (int type)
+string ftc2asciiform (int type)
   {
-  if (type==TFLOAT) return "E14.7";
-  if (type==TDOUBLE) return "E23.15";
-  if (type==TINT) return "I11";
-  if (type==TINT32BIT) return "I11";
-  throw Message_error("wrong datatype in type2asciiform()");
+  switch (type)
+    {
+    case TFLOAT: return "E14.7";
+    case TDOUBLE: return "D23.15";
+    case TBYTE: return "I4";
+    case TSHORT: return "I6";
+    case TINT32BIT: return "I11";
+    case TLONGLONG: return "I22";
+    default: throw Message_error("wrong datatype in ftc2asciiform()");
+    }
   }
 
-void fitshandle::check_errors()
+string fixkey (const string &key)
+  {
+  for (unsigned int m=0; m<key.size(); ++m)
+    if (islower(key[m])) return string("HIERARCH "+key);
+
+  return key;
+  }
+} // namespace
+
+void fitshandle::check_errors() const
   {
   if (status==0) return;
   char msg[81];
@@ -97,8 +122,8 @@ void fitshandle::init_image()
   fits_get_img_type (fptr, &bitpix_, &status);
   fits_get_img_dim (fptr, &naxis, &status);
   check_errors();
-  arr<long> naxes(naxis);
-  fits_get_img_size (fptr, naxis, naxes, &status);
+  arr<LONGLONG> naxes(naxis);
+  fits_get_img_sizell (fptr, naxis, &naxes[0], &status);
   for (long m=0; m<naxis; ++m) axes_.push_back(naxes[naxis-m-1]);
   check_errors();
   }
@@ -108,7 +133,7 @@ void fitshandle::init_asciitab()
   char ttype[81], tunit[81], tform[81];
   int ncol, typecode;
   fits_get_num_cols (fptr, &ncol, &status);
-  fits_get_num_rows (fptr, &nrows_, &status);
+  { LONGLONG tmp; fits_get_num_rowsll (fptr, &tmp, &status); nrows_=tmp; }
   check_errors();
   for (int m=1; m<=ncol; ++m)
     {
@@ -123,14 +148,14 @@ void fitshandle::init_asciitab()
 void fitshandle::init_bintab()
   {
   char ttype[81], tunit[81], tform[81];
-  long repc;
+  LONGLONG repc;
   int ncol, typecode;
   fits_get_num_cols (fptr, &ncol, &status);
-  fits_get_num_rows (fptr, &nrows_, &status);
+  { LONGLONG tmp; fits_get_num_rowsll (fptr, &tmp, &status); nrows_=tmp; }
   check_errors();
   for (int m=1; m<=ncol; ++m)
     {
-    fits_get_bcolparms (fptr, m, ttype, tunit, tform, &repc,
+    fits_get_bcolparmsll (fptr, m, ttype, tunit, tform, &repc,
                         0, 0, 0, 0, &status);
     fits_binary_tform (tform, &typecode, 0,0, &status);
     check_errors();
@@ -140,6 +165,9 @@ void fitshandle::init_bintab()
 
 void fitshandle::init_data()
   {
+  clean_data();
+  fits_get_hdu_type (fptr, &hdutype_, &status);
+  check_errors();
   switch(hdutype_)
     {
     case IMAGE_HDU:
@@ -157,28 +185,28 @@ void fitshandle::init_data()
     }
   }
 
-void fitshandle::read_col (int colnum, void *data, long ndata, int dtype,
-  long offset)
+void fitshandle::read_col (int colnum, void *data, int64 ndata, int dtype,
+  int64 offset) const
   {
   assert_table_hdu("fitshandle::read_column()",colnum);
-  long repc = columns_[colnum-1].repcount();
+  int64 repc = columns_[colnum-1].repcount();
   planck_assert (ndata<=(repc*nrows_-offset),
                  "read_column(): array too large");
-  long frow = offset/repc+1;
-  long felem = offset%repc+1;
+  int64 frow = offset/repc+1;
+  int64 felem = offset%repc+1;
   fits_read_col (fptr, dtype, colnum, frow, felem, ndata, 0, data, 0, &status);
   check_errors();
   }
-void fitshandle::write_col (int colnum, const void *data, long ndata,
-  int dtype, long offset)
+void fitshandle::write_col (int colnum, const void *data, int64 ndata,
+  int dtype, int64 offset)
   {
   assert_table_hdu("fitshandle::write_column()",colnum);
-  long repc = columns_[colnum-1].repcount();
-  long frow = offset/repc+1;
-  long felem = offset%repc+1;
+  int64 repc = columns_[colnum-1].repcount();
+  int64 frow = offset/repc+1;
+  int64 felem = offset%repc+1;
   fits_write_col (fptr, dtype, colnum, frow, felem, ndata,
     const_cast<void *>(data), &status);
-  fits_get_num_rows (fptr, &nrows_, &status);
+  nrows_ = max(nrows_,offset+ndata);
   check_errors();
   }
 
@@ -187,6 +215,7 @@ void fitshandle::open (const string &fname, int rwmode)
   clean_all();
   fits_open_file(&fptr, fname.c_str(), rwmode, &status);
   check_errors();
+  init_data();
   }
 
 void fitshandle::create (const string &fname)
@@ -196,17 +225,47 @@ void fitshandle::create (const string &fname)
   fits_write_imghdr(fptr, 8, 0, 0, &status); // insert empty PHDU
   fits_write_date(fptr, &status);
   check_errors();
+  init_data();
+  }
+
+// static
+void fitshandle::delete_file (const string &name)
+  {
+  fitsfile *ptr;
+  int status = 0;
+  fits_open_file(&ptr, name.c_str(), READWRITE, &status);
+  fits_delete_file(ptr, &status);  
+  if (status==0) return;
+
+  char msg[81];
+  fits_get_errstatus (status, msg);
+  cerr << msg << endl;
+  while (fits_read_errmsg(msg)) cerr << msg << endl;
+  throw Message_error("FITS error");
   }
 
 void fitshandle::goto_hdu (int hdu)
   {
-  clean_data();
-  fits_movabs_hdu(fptr, hdu, &hdutype_, &status);
-  check_errors();
-  init_data();
+  int curhdu;
+  fits_get_hdu_num(fptr,&curhdu);
+  if (curhdu!=hdu)
+    {
+    fits_movabs_hdu(fptr, hdu, &hdutype_, &status);
+    check_errors();
+    init_data();
+    }
   }
 
-void fitshandle::insert_bintab (const vector<fitscolumn> &cols)
+int fitshandle::num_hdus () const
+  {
+  int result;
+  fits_get_num_hdus (fptr, &result, &status);
+  check_errors();
+  return result;
+  }
+
+void fitshandle::insert_bintab (const vector<fitscolumn> &cols,
+  const string &extname)
   {
   clean_data();
   int ncol=cols.size();
@@ -217,17 +276,17 @@ void fitshandle::insert_bintab (const vector<fitscolumn> &cols)
     strcpy (ttype[m], cols[m].name().c_str());
     strcpy (tunit[m], cols[m].unit().c_str());
     ostringstream x;
-    x << cols[m].repcount() << type2char (cols[m].type());
+    x << cols[m].repcount() << ftc2char (cols[m].type());
     strcpy (tform[m], x.str().c_str());
     }
-  fits_insert_btbl (fptr, nrows_, ncol, ttype, tform, tunit,
-    const_cast<char *>("xtension"), 0, &status);
+  fits_insert_btbl (fptr, nrows_, ncol, ttype.p0(), tform.p0(), tunit.p0(),
+    const_cast<char *>(extname.c_str()), 0, &status);
   check_errors();
-  hdutype_=BINARY_TBL;
-  columns_=cols;
+  init_data();
   }
 
-void fitshandle::insert_asctab (const vector<fitscolumn> &cols)
+void fitshandle::insert_asctab (const vector<fitscolumn> &cols,
+  const string &extname)
   {
   clean_data();
   int ncol=cols.size();
@@ -241,7 +300,7 @@ void fitshandle::insert_asctab (const vector<fitscolumn> &cols)
     if (cols[m].type()!=TSTRING)
       {
       planck_assert (cols[m].repcount()==1,"bad repcount for ASCII table");
-      x << type2asciiform (cols[m].type());
+      x << ftc2asciiform (cols[m].type());
       }
     else
       {
@@ -249,45 +308,46 @@ void fitshandle::insert_asctab (const vector<fitscolumn> &cols)
       }
     strcpy (tform[m], x.str().c_str());
     }
-  fits_insert_atbl (fptr, 0, nrows_, ncol, ttype, 0, tform, tunit,
-    const_cast<char *>("xtension"), &status);
+  fits_insert_atbl (fptr, 0, nrows_, ncol, ttype.p0(), 0, tform.p0(),
+    tunit.p0(), const_cast<char *>(extname.c_str()), &status);
   check_errors();
-  hdutype_=ASCII_TBL;
-  columns_=cols;
+  init_data();
   }
 
-void fitshandle::insert_image (int btpx, const vector<long> &Axes)
+void fitshandle::insert_image (int btpx, const vector<int64> &Axes)
   {
   clean_data();
-  hdutype_=IMAGE_HDU;
-  bitpix_=btpx;
-  axes_=Axes;
-  arr<long> tmpax(Axes.size());
+  arr<LONGLONG> tmpax(Axes.size());
   for (long m=0; m<long(Axes.size()); m++) tmpax[m]=Axes[Axes.size()-1-m];
-  fits_insert_img (fptr, btpx, Axes.size(), tmpax, &status);
+  fits_insert_imgll (fptr, btpx, Axes.size(), &tmpax[0], &status);
   check_errors();
+  init_data();
   }
 
 template<typename T>
   void fitshandle::insert_image (int btpx, const arr2<T> &data)
   {
   clean_data();
-  hdutype_=IMAGE_HDU;
-  bitpix_=btpx;
-  axes_.push_back(data.size1());
-  axes_.push_back(data.size2());
-  arr<long> tmpax(axes_.size());
-  for (long m=0; m<long(axes_.size()); m++) tmpax[m]=axes_[axes_.size()-1-m];
-  fits_insert_img (fptr, btpx, axes_.size(), tmpax, &status);
+  arr<LONGLONG> tmpax(2);
+  tmpax[0] = data.size2(); tmpax[1] = data.size1();
+  fits_insert_imgll (fptr, btpx, 2, &tmpax[0], &status);
   arr2<T> &tmparr = const_cast<arr2<T> &> (data);
-  fits_write_img (fptr, FITSUTIL<T>::DTYPE, 1, axes_[0]*axes_[1],
+  fits_write_img (fptr, FITSUTIL<T>::DTYPE, 1, tmpax[0]*tmpax[1],
     &tmparr[0][0], &status);
   check_errors();
+  init_data();
   }
 
 template void fitshandle::insert_image (int btpx, const arr2<double> &data);
 template void fitshandle::insert_image (int btpx, const arr2<float> &data);
 template void fitshandle::insert_image (int btpx, const arr2<int> &data);
+
+void fitshandle::write_checksum()
+  {
+  assert_connected("fitshandle::write_checksum()");
+  fits_write_chksum (fptr, &status);
+  check_errors();
+  }
 
 void fitshandle::copy_historified_header (const fitshandle &orig)
   {
@@ -359,7 +419,34 @@ void fitshandle::copy_header (const fitshandle &orig)
   check_errors();
   }
 
-void fitshandle::check_key_present(const string &name)
+void fitshandle::get_all_keys(vector<string> &keys) const
+  {
+  keys.clear();
+  char card[81];
+  const char *inclist[] = { "*" };
+  assert_connected("fitshandle::get_all_keys()");
+  fits_read_record (fptr, 0, card, &status);
+  check_errors();
+  while (true)
+    {
+    fits_find_nextkey (fptr, const_cast<char **>(inclist), 1,
+      0, 0, card, &status);
+    if (status!=0) break;
+    if (fits_get_keyclass(card)==TYP_USER_KEY)
+      {
+      char keyname[80];
+      int dummy;
+      fits_get_keyname(card, keyname, &dummy, &status);
+      check_errors();
+      keys.push_back(keyname);
+      }
+    check_errors();
+    }
+  if (status==KEY_NO_EXIST) { fits_clear_errmsg(); status=0; }
+  check_errors();
+  }
+
+void fitshandle::check_key_present(const string &name) const
   {
   char card[81];
   fits_read_card(fptr, const_cast<char *>(name.c_str()), card, &status);
@@ -374,16 +461,23 @@ template<typename T> void fitshandle::add_key (const string &name,
   const T &value, const string &comment)
   {
   assert_connected("fitshandle::add_key()");
+  string name2 = fixkey(name);
   check_key_present (name);
-  fits_write_key (fptr, FITSUTIL<T>::DTYPE, const_cast<char *>(name.c_str()),
+  fits_write_key (fptr, FITSUTIL<T>::DTYPE, const_cast<char *>(name2.c_str()),
     const_cast<T *>(&value), const_cast<char *>(comment.c_str()), &status);
   check_errors();
   }
 
 template void fitshandle::add_key(const string &name,
+  const signed char &value, const string &comment);
+template void fitshandle::add_key(const string &name,
+  const short &value, const string &comment);
+template void fitshandle::add_key(const string &name,
   const int &value, const string &comment);
 template void fitshandle::add_key(const string &name,
   const long &value, const string &comment);
+template void fitshandle::add_key(const string &name,
+  const long long &value, const string &comment);
 template void fitshandle::add_key(const string &name,
   const float &value, const string &comment);
 template void fitshandle::add_key(const string &name,
@@ -392,9 +486,10 @@ template<> void fitshandle::add_key(const string &name,
   const bool &value, const string &comment)
   {
   assert_connected("fitshandle::add_key()");
+  string name2 = fixkey(name);
   check_key_present (name);
   int val=value;
-  fits_write_key (fptr, TLOGICAL, const_cast<char *>(name.c_str()),
+  fits_write_key (fptr, TLOGICAL, const_cast<char *>(name2.c_str()),
     &val, const_cast<char *>(comment.c_str()),
     &status);
   check_errors();
@@ -403,8 +498,9 @@ template<> void fitshandle::add_key (const string &name,
   const string &value, const string &comment)
   {
   assert_connected("fitshandle::add_key()");
+  string name2 = fixkey(name);
   check_key_present (name);
-  fits_write_key (fptr, TSTRING, const_cast<char *>(name.c_str()),
+  fits_write_key_longstr (fptr, const_cast<char *>(name2.c_str()),
     const_cast<char *>(value.c_str()), const_cast<char *>(comment.c_str()),
     &status);
   check_errors();
@@ -414,15 +510,22 @@ template<typename T> void fitshandle::update_key (const string &name,
   const T &value, const string &comment)
   {
   assert_connected("fitshandle::update_key()");
-  fits_update_key (fptr, FITSUTIL<T>::DTYPE, const_cast<char *>(name.c_str()),
+  string name2 = fixkey(name);
+  fits_update_key (fptr, FITSUTIL<T>::DTYPE, const_cast<char *>(name2.c_str()),
     const_cast<T *>(&value), const_cast<char *>(comment.c_str()), &status);
   check_errors();
   }
 
 template void fitshandle::update_key(const string &name,
+  const signed char &value, const string &comment);
+template void fitshandle::update_key(const string &name,
+  const short &value, const string &comment);
+template void fitshandle::update_key(const string &name,
   const int &value, const string &comment);
 template void fitshandle::update_key(const string &name,
   const long &value, const string &comment);
+template void fitshandle::update_key(const string &name,
+  const long long &value, const string &comment);
 template void fitshandle::update_key(const string &name,
   const float &value, const string &comment);
 template void fitshandle::update_key(const string &name,
@@ -431,8 +534,9 @@ template<> void fitshandle::update_key(const string &name,
   const bool &value, const string &comment)
   {
   assert_connected("fitshandle::update_key()");
+  string name2 = fixkey(name);
   int val=value;
-  fits_update_key (fptr, TLOGICAL, const_cast<char *>(name.c_str()),
+  fits_update_key (fptr, TLOGICAL, const_cast<char *>(name2.c_str()),
     &val, const_cast<char *>(comment.c_str()),
     &status);
   check_errors();
@@ -441,7 +545,8 @@ template<> void fitshandle::update_key (const string &name,
   const string &value, const string &comment)
   {
   assert_connected("fitshandle::update_key()");
-  fits_update_key (fptr, TSTRING, const_cast<char *>(name.c_str()),
+  string name2 = fixkey(name);
+  fits_update_key_longstr (fptr, const_cast<char *>(name2.c_str()),
     const_cast<char *>(value.c_str()), const_cast<char *>(comment.c_str()),
     &status);
   check_errors();
@@ -461,7 +566,8 @@ void fitshandle::add_comment(const string &comment)
   check_errors();
   }
 
-template<typename T> void fitshandle::get_key (const string &name, T &value)
+template<typename T> void fitshandle::get_key
+  (const string &name, T &value) const
   {
   assert_connected("fitshandle::get_key()");
   fits_read_key (fptr, FITSUTIL<T>::DTYPE, const_cast<char *>(name.c_str()),
@@ -470,11 +576,14 @@ template<typename T> void fitshandle::get_key (const string &name, T &value)
     ("Fitshandle::get_key(): key "+name+" not found");
   check_errors();
   }
-template void fitshandle::get_key(const string &name,int &value);
-template void fitshandle::get_key(const string &name,long &value);
-template void fitshandle::get_key(const string &name,float &value);
-template void fitshandle::get_key(const string &name,double &value);
-template<> void fitshandle::get_key(const string &name,bool &value)
+template void fitshandle::get_key(const string &name,signed char &value) const;
+template void fitshandle::get_key(const string &name,short &value) const;
+template void fitshandle::get_key(const string &name,int &value) const;
+template void fitshandle::get_key(const string &name,long &value) const;
+template void fitshandle::get_key(const string &name,long long &value) const;
+template void fitshandle::get_key(const string &name,float &value) const;
+template void fitshandle::get_key(const string &name,double &value) const;
+template<> void fitshandle::get_key(const string &name,bool &value) const
   {
   assert_connected("fitshandle::get_key()");
   int val;
@@ -485,21 +594,23 @@ template<> void fitshandle::get_key(const string &name,bool &value)
   check_errors();
   value=val;
   }
-template<> void fitshandle::get_key (const string &name,string &value)
+template<> void fitshandle::get_key (const string &name,string &value) const
   {
-  char tmp[2049];
+  char *tmp=0;
   assert_connected("fitshandle::get_key()");
-  fits_read_key (fptr, TSTRING, const_cast<char *>(name.c_str()), tmp, 0,
+  fits_read_key_longstr (fptr, const_cast<char *>(name.c_str()), &tmp, 0,
     &status);
   if (status==KEY_NO_EXIST) throw Message_error
     ("Fitshandle::get_key(): key "+name+" not found");
   check_errors();
   value=tmp;
+  if (tmp) free(tmp);
   }
 
-bool fitshandle::key_present(const string &name)
+bool fitshandle::key_present(const string &name) const
   {
   char card[81];
+  assert_connected("fitshandle::key_present()");
   fits_read_card(fptr, const_cast<char *>(name.c_str()), card, &status);
   if (status==KEY_NO_EXIST)
     { fits_clear_errmsg(); status=0; return false; }
@@ -507,7 +618,26 @@ bool fitshandle::key_present(const string &name)
   return true;
   }
 
-void fitshandle::assert_pdmtype (const string &pdmtype)
+int fitshandle::get_key_type(const string &name) const
+  {
+  char card[81],value[81],dtype[10];
+  assert_connected("fitshandle::get_key_type()");
+  fits_read_card(fptr, const_cast<char *>(name.c_str()), card, &status);
+  check_errors();
+  fits_parse_value(card,value,0,&status);
+  fits_get_keytype(value,dtype,&status);
+  check_errors();
+  switch(dtype[0])
+    {
+    case 'C' : return PLANCK_STRING;
+    case 'L' : return PLANCK_BOOL;
+    case 'I' : return PLANCK_INT64;
+    case 'F' : return PLANCK_FLOAT64;
+    default : throw Message_error ("unknown key type");
+    }
+  }
+
+void fitshandle::assert_pdmtype (const string &pdmtype) const
   {
   string type;
   get_key("PDMTYPE",type);
@@ -516,16 +646,24 @@ void fitshandle::assert_pdmtype (const string &pdmtype)
   }
 
 void fitshandle::read_column_raw_void
-  (int colnum, void *data, int type, long num, long offset)
+  (int colnum, void *data, int type, int64 num, int64 offset) const
   {
   switch (type)
     {
+    case PLANCK_INT8:
+      read_col (colnum, data, num, TBYTE, offset); break;
+    case PLANCK_INT16:
+      read_col (colnum, data, num, TSHORT, offset); break;
     case PLANCK_INT32:
       read_col (colnum, data, num, TINT, offset); break;
+    case PLANCK_INT64:
+      read_col (colnum, data, num, TLONGLONG, offset); break;
     case PLANCK_FLOAT32:
       read_col (colnum, data, num, TFLOAT, offset); break;
     case PLANCK_FLOAT64:
       read_col (colnum, data, num, TDOUBLE, offset); break;
+    case PLANCK_BOOL:
+      read_col (colnum, data, num, TLOGICAL, offset); break;
     case PLANCK_STRING:
       {
       string *data2 = static_cast<string *> (data);
@@ -534,7 +672,7 @@ void fitshandle::read_column_raw_void
         "read_column(): array too large");
       arr2b<char> tdata(num, columns_[colnum-1].repcount()+1);
       fits_read_col (fptr, TSTRING, colnum, offset+1, 1, num,
-        0, tdata, 0, &status);
+        0, tdata.p0(), 0, &status);
       check_errors();
       for (long m=0;m<num;++m) data2[m]=tdata[m];
       break;
@@ -545,16 +683,24 @@ void fitshandle::read_column_raw_void
   }
 
 void fitshandle::write_column_raw_void
-  (int colnum, const void *data, int type, long num, long offset)
+  (int colnum, const void *data, int type, int64 num, int64 offset)
   {
   switch (type)
     {
+    case PLANCK_INT8:
+      write_col (colnum, data, num, TBYTE, offset); break;
+    case PLANCK_INT16:
+      write_col (colnum, data, num, TSHORT, offset); break;
     case PLANCK_INT32:
       write_col (colnum, data, num, TINT, offset); break;
+    case PLANCK_INT64:
+      write_col (colnum, data, num, TLONGLONG, offset); break;
     case PLANCK_FLOAT32:
       write_col (colnum, data, num, TFLOAT, offset); break;
     case PLANCK_FLOAT64:
       write_col (colnum, data, num, TDOUBLE, offset); break;
+    case PLANCK_BOOL:
+      write_col (colnum, data, num, TLOGICAL, offset); break;
     case PLANCK_STRING:
       {
       const string *data2 = static_cast<const string *> (data);
@@ -567,8 +713,8 @@ void fitshandle::write_column_raw_void
         tdata[m][stringlen-1] = '\0';
         }
       fits_write_col (fptr, TSTRING, colnum, offset+1, 1, num,
-        tdata, &status);
-      fits_get_num_rows (fptr, &nrows_, &status);
+        tdata.p0(), &status);
+      nrows_ = max(nrows_,offset+num);
       check_errors();
       break;
       }
@@ -594,7 +740,7 @@ template void fitshandle::write_image (const arr2<double> &data);
 template void fitshandle::write_image (const arr2<int> &data);
 
 template<typename T> void fitshandle::write_subimage
-  (const arr<T> &data, long offset)
+  (const arr<T> &data, int64 offset)
   {
   assert_image_hdu("fitshandle::write_subimage()");
   fits_write_img (fptr, FITSUTIL<T>::DTYPE, 1+offset,
@@ -602,12 +748,12 @@ template<typename T> void fitshandle::write_subimage
   check_errors();
   }
 
-template void fitshandle::write_subimage (const arr<float> &data, long offset);
+template void fitshandle::write_subimage (const arr<float> &data, int64 offset);
 template void fitshandle::write_subimage
-  (const arr<double> &data, long offset);
-template void fitshandle::write_subimage (const arr<int> &data, long offset);
+  (const arr<double> &data, int64 offset);
+template void fitshandle::write_subimage (const arr<int> &data, int64 offset);
 
-template<typename T> void fitshandle::read_image (arr2<T> &data)
+template<typename T> void fitshandle::read_image (arr2<T> &data) const
   {
   assert_image_hdu("fitshandle::read_image()");
   planck_assert (axes_.size()==2, "wrong number of dimensions");
@@ -617,12 +763,26 @@ template<typename T> void fitshandle::read_image (arr2<T> &data)
   check_errors();
   }
 
-template void fitshandle::read_image (arr2<float> &data);
-template void fitshandle::read_image (arr2<double> &data);
-template void fitshandle::read_image (arr2<int> &data);
+template void fitshandle::read_image (arr2<float> &data) const;
+template void fitshandle::read_image (arr2<double> &data) const;
+template void fitshandle::read_image (arr2<int> &data) const;
+
+template<typename T> void fitshandle::read_image (arr3<T> &data) const
+  {
+  assert_image_hdu("fitshandle::read_image()");
+  planck_assert (axes_.size()==3, "wrong number of dimensions");
+  data.alloc(axes_[0], axes_[1], axes_[2]);
+  fits_read_img (fptr, FITSUTIL<T>::DTYPE, 1, axes_[0]*axes_[1]*axes_[2],
+    0, &data(0,0,0), 0, &status);
+  check_errors();
+  }
+
+template void fitshandle::read_image (arr3<float> &data) const;
+template void fitshandle::read_image (arr3<double> &data) const;
+template void fitshandle::read_image (arr3<int> &data) const;
 
 template<typename T> void fitshandle::read_subimage
-  (arr2<T> &data, int xl, int yl)
+  (arr2<T> &data, int xl, int yl) const
   {
   assert_image_hdu("fitshandle::read_subimage()");
   planck_assert (axes_.size()==2, "wrong number of dimensions");
@@ -632,11 +792,15 @@ template<typename T> void fitshandle::read_subimage
   check_errors();
   }
 
-template void fitshandle::read_subimage (arr2<float> &data, int xl, int yl);
-template void fitshandle::read_subimage (arr2<double> &data, int xl, int yl);
-template void fitshandle::read_subimage (arr2<int> &data, int xl, int yl);
+template void fitshandle::read_subimage
+  (arr2<float> &data, int xl, int yl) const;
+template void fitshandle::read_subimage
+  (arr2<double> &data, int xl, int yl) const;
+template void fitshandle::read_subimage
+  (arr2<int> &data, int xl, int yl) const;
 
-template<typename T> void fitshandle::read_subimage (arr<T> &data, long offset)
+template<typename T> void fitshandle::read_subimage
+  (arr<T> &data, int64 offset) const
   {
   assert_image_hdu("fitshandle::read_subimage()");
   fits_read_img (fptr, FITSUTIL<T>::DTYPE, 1+offset,
@@ -644,21 +808,41 @@ template<typename T> void fitshandle::read_subimage (arr<T> &data, long offset)
   check_errors();
   }
 
-template void fitshandle::read_subimage (arr<float> &data, long offset);
-template void fitshandle::read_subimage (arr<double> &data, long offset);
-template void fitshandle::read_subimage (arr<int> &data, long offset);
+template void fitshandle::read_subimage (arr<float> &data, int64 offset) const;
+template void fitshandle::read_subimage (arr<double> &data, int64 offset) const;
+template void fitshandle::read_subimage (arr<int> &data, int64 offset) const;
 
 void fitshandle::add_healpix_keys (int datasize)
   {
   int nside = isqrt(datasize/12);
   planck_assert (12*nside*nside==datasize, "Wrong Healpix map size");
 
-  add_key ("PIXTYPE",string("HEALPIX"),"HEALPIX pixelisation");
-  add_key ("ORDERING",string("RING"),
-           "Pixel ordering scheme, either RING or NESTED");
-  add_key ("NSIDE",nside,"Resolution parameter for HEALPIX");
-  add_key ("FIRSTPIX",0,"First pixel # (0 based)");
-  add_key ("LASTPIX",datasize-1,"Last pixel # (0 based)");
-  add_key ("INDXSCHM",string("IMPLICIT"), "Indexing : IMPLICIT or EXPLICIT");
-  add_key ("GRAIN",0,"Grain of pixel indexing");
+  update_key ("PIXTYPE",string("HEALPIX"),"HEALPIX pixelisation");
+  update_key ("ORDERING",string("RING"),
+              "Pixel ordering scheme, either RING or NESTED");
+  update_key ("NSIDE",nside,"Resolution parameter for HEALPIX");
+  update_key ("FIRSTPIX",0,"First pixel # (0 based)");
+  update_key ("LASTPIX",datasize-1,"Last pixel # (0 based)");
+  update_key ("INDXSCHM",string("IMPLICIT"),
+              "Indexing : IMPLICIT or EXPLICIT");
+  update_key ("GRAIN",0,"Grain of pixel indexing");
   }
+
+namespace {
+
+class cfitsio_checker
+  {
+  public:
+    cfitsio_checker()
+      {
+      float fitsversion;
+      planck_assert(fits_get_version(&fitsversion),
+        "error calling fits_get_version()");
+      planck_assert (approx<double>(CFITSIO_VERSION,fitsversion),
+        "mismatch between CFITSIO header and library");
+      }
+  };
+
+static cfitsio_checker Cfitsio_Checker;
+
+} // namespace

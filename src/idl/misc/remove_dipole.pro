@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -28,7 +28,7 @@
 pro remove_dipole, map, weight, bad_data=bad_data, gal_cut = gal_cut, coord_in = coord_in, coord_out=coord_out, dipole = dipole, $
 monopole=monopole, noremove=noremove, nside=nside_usr, onlymonopole=onlymonopole, $
 ordering=ordering, pixel=pixel, $
-units = units
+units = units, help=help
 ;+
 ; NAME:
 ;   remove_dipole
@@ -41,7 +41,7 @@ units = units
 ;
 ; CALLING SEQUENCE:
 ;  remove_dipole, map, [weight, bad_data=, gal_cut=, coord_in=, coord_out=, dipole=, monopole=, $
-;             noremove=, nside=, onlymonopole=, ordering=, pixel=, units=]
+;             noremove=, nside=, onlymonopole=, ordering=, pixel=, units=, help=]
 ; 
 ; INPUTS:
 ;   map : array on which monopole and dipole are to be removed
@@ -57,9 +57,8 @@ units = units
 ;   bad_data : scalar float, value given on input to bad pixels
 ;         default = !healpix.bad_value = -1.63750000e+30
 ;   gal_cut : the pixels with galactic latitude |b|<gal_cut are not considered in the
-;        fit
-;   coord_in : coordinate system (either 'Q' or 'C' equatorial, 'G' galactic or
-;   'E' ecliptic) of the input map
+;        fit. In Degrees, in [0, 90]
+;   coord_in : coordinate system (either 'Q' or 'C' equatorial, 'G' galactic or 'E' ecliptic) of the input map
 ;         default = 'G' (galactic)
 ;   coord_out : coordinate system in which to output dipole vector in Dipole
 ;         default = same as coord_in
@@ -70,6 +69,7 @@ units = units
 ;   pixel : vector, gives the actual list of pixel whose temperature is given in map
 ;         useful in case of very limited sky coverage
 ;   units : units of the input map
+;   help:   displays this information header
 ;
 ; OUTPUTS:
 ;   map : contains the map minus monopole and dipole 
@@ -95,17 +95,24 @@ units = units
 ; MODIFICATION HISTORY:
 ;      2000-02-16, EH, Caltech, 1.0
 ;      2002-08-16, EH, Caltech, 1.1 cosmetic editions
+;      2006-06-23, EH, IAP: total() -> total(,/double) for improved accuracy
+;      2008-08-21, EH, IAP: accept Nside>8192; added /HELP keyword; slight speed increase
 ;-
 
 defsysv, '!healpix', exists = exists
 if (exists ne 1) then init_healpix
 
-syntax = 'remove_dipole, map, [weight, bad_data=, gal_cut=, coord_in=, coord_out=, dipole=, monopole=, noremove=, nside=, onlymonopole=, ordering=, pixel=, units=]'
+syntax = 'remove_dipole, map, [weight, bad_data=, gal_cut=, coord_in=, coord_out=, dipole=, monopole=, noremove=, nside=, onlymonopole=, ordering=, pixel=, units=, help=]'
 
 code = 'remove_dipole'
-if n_params() lt 1 or n_params() gt 2 then begin
+if keyword_set(help) then begin
     doc_library,code
-    message
+    return
+endif
+
+if n_params() lt 1 or n_params() gt 2 then begin
+    print,syntax
+    if n_params() gt 2 then message,'Abort' else return
 endif
 loadsky
 
@@ -159,13 +166,13 @@ endif
 if undefined(units) then units = ' '
 
 dodipole = 1
-n = fltarr(4)
-M = fltarr(4,4)
+n = dblarr(4)
+M = dblarr(4,4)
 if keyword_set(onlymonopole) then begin
     dipole_out = 0
     dodipole = 0
-    n = [0.]
-    M = [0.]
+    n = [0.d0]
+    M = [0.d0]
 endif
 if (dodipole or galcut) then begin
     if undefined(nside_usr) or undefined(ordering) then begin
@@ -201,8 +208,11 @@ for is = 0,npiece do begin
 
     if (dodipole or galcut) then begin
         ; compute pixel position from pixel number
-        if partial then id_pix = pixel[imin:imax] $
-                   else id_pix = lindgen(imax-imin+1)+imin
+        if partial then begin
+            id_pix = pixel[imin:imax]
+        endif else begin
+            id_pix = (pix_param gt 8192) ? lindgen64(imax-imin+1)+imin : lindgen(imax-imin+1)+imin
+        endelse
         case pix_type of
             'R' : PIX2VEC_RING, pix_param, id_pix, vec ; Healpix ring
             'N' : PIX2VEC_NEST, pix_param, id_pix, vec ; Healpix nest
@@ -219,20 +229,19 @@ for is = 0,npiece do begin
 
     if dodipole then begin
         temp = map_tmp*flag
-        n[0] = n[0]+total(temp)
-        n[1] = n[1]+total(temp*vec[*,0])
-        n[2] = n[2]+total(temp*vec[*,1])
-        n[3] = n[3]+total(temp*vec[*,2])
+        n[0] += total(temp, /double)
+        n[1] += total(temp*vec[*,0], /double)
+        n[2] += total(temp*vec[*,1], /double)
+        n[3] += total(temp*vec[*,2], /double)
     endif else begin
-        n[0] = n[0]+total(map_tmp*flag)
+        n[0] += total(map_tmp*flag, /double)
     endelse
-
-    M(0,0) = M(0,0)+TOTAL(flag)
+    M[0,0] += TOTAL(flag, /double)
     if dodipole then begin
         for i = 1,3 do begin
-            M(i,0) = M(i,0)+TOTAL(vec[*,i-1]*flag)
-            for j = 1,3 do begin
-                M(i,j) = M(i,j)+TOTAL(vec[*,i-1]*vec[*,j-1]*flag)
+            M[i,0] += TOTAL(vec[*,i-1]*flag, /double)
+            for j = 1,i do begin ; only fill one half of symmetric matrix
+                M[i,j] += TOTAL(vec[*,i-1]*vec[*,j-1]*flag, /double)
             endfor
         endfor
     endif
@@ -241,24 +250,30 @@ enough:
 
 print,'Best fit: '+scut
 if not dodipole then begin
-    monopole = (n/M)[0]
+    monopole = float( (n/M)[0] )
     print,'Monopole ['+units+']: ',monopole
 endif else begin
-   M[0,*] = M[*,0]
+    ; fill other half of matrix by symmetry
+    for i=1,3 do M[0:i-1,i] = M[i,0:i-1]
+
+    ; check matrix diagonal
+    err_on_mat = abs((M[1,1]+M[2,2]+M[3,3])/M[0,0]-1.d0)
+    if (err_on_mat gt 1.d-10) then begin
+        print, err_on_mat
+        message,'Error in matrix construction'
+    endif
 
    ; use SVD to invert matrix M and solve, A is inverse of Single Value
    ; Decomposition of M
-    SVD, M, w, U, V
+    SVD, M, w, U, V ; w contains (positive) eigenvalues
     nw = n_elements(w)
-    small = where(w LT (MAX(w) *1.0e-06), count)
-    IF (count ne 0) THEN w(small) = 0.0
-    Wp = fltarr(nw,nw)
-    for i =0, nw - 1  do begin
-        IF (w(i) ne 0) THEN Wp(i,i) = 1./w(i)
-    endfor
-    A = V # Wp # TRANSPOSE(U)
+    Wp = dblarr(nw,nw)
+    large = where(w GT (MAX(w) *1.0d-06), count) ; find large eigenvalues
+    if (count gt 0) then Wp[large, large] = 1.d0/w[large] ; only invert those
+    ;A = V # Wp # TRANSPOSE(U)
     C = V # Wp # (TRANSPOSE(U) # N)
 
+    C = float(C)
     Monopole = C(0)
     DX       = C(1)
     DY       = C(2)
@@ -266,7 +281,7 @@ endif else begin
     Dipole = [dx,dy, dz]
 
     print,'Monopole ['+units+']: ',monopole
-    dip_ampli = sqrt(total(dipole^2))
+    dip_ampli = sqrt(total(dipole^2, /double))
     print,'Dipole : amplitude: ',dip_ampli
     vec2ang,dipole,lat,long,/astro
     print,fullcoord+' coordinates [Deg]: ',long, lat,form='(a,f7.2,f7.2)'
@@ -283,8 +298,8 @@ endelse
 if not keyword_set(noremove) then begin
 
 ; do a loop to minimize arrays size
-    for i=0,npiece do begin
-        imin = i*stride 
+    for is=0,npiece do begin
+        imin = is*stride 
         imax = (imin+stride-1) < (obs_npix-1)
         if (imin gt imax) then goto, done
         map_tmp = map[imin:imax]

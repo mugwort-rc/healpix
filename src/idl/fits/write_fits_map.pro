@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -94,6 +94,7 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;    replace today() by today_fits()
 ;  Oct 2001, EH, slightly improved removal of trivial FITS keyword from
 ;    user supplied header
+;  Mar 2008, EH, use fxbwritm for better efficiency for large files
 ;
 ;-
 
@@ -184,7 +185,6 @@ SXADDPAR,h0,'DATE',fdate,' Creation date (CCYY-MM-DD) of FITS header'
 ; opens the file, write the header and the image if any, and close it
 WRITEFITS, filename, 0, h0
 
-
 ; -------- extension -----------
 
 data = REFORM(data,N_ELEMENTS(data),/OVERWRITE)
@@ -194,7 +194,7 @@ if (npix MOD nentry_healpix) EQ 0 then begin
     nentry = nentry_healpix
 endif else begin
     nrows = npix
-    nentry = 1
+    nentry = 1L
 endelse
 
 ; create the minimal extension header
@@ -213,11 +213,22 @@ endif
 FXBCREATE, unit, filename, xthdr
 
 ; writes data in the table
-for row = 1L, nrows do begin
-    ir = row - 1L
-    ifirst = ir * nentry
-    ilast  = row * nentry - 1
-    FXBWRITE,unit, data(ifirst:ilast), col, row
+; for row = 1LL, nrows do begin
+;     ir = row - 1LL
+;     ifirst = ir * nentry
+;     ilast  = row * nentry - 1LL
+;     FXBWRITE,unit, data(ifirst:ilast), col, row
+; endfor
+
+step = 12 ; 12 rows at once
+nstep = (nrows + step - 1L)/step
+for is=0LL, nstep-1 do begin
+    mystep = step < (nrows - is * step)
+    ifirst = (is * step) * nentry
+    ilast =  ifirst + mystep * nentry - 1LL
+    row = 1L + is*step + [0, mystep-1]
+    ;;;print,is, ifirst,ilast ,row
+    FXBWRITM,unit, col, data(ifirst:ilast), row=row
 endfor
 
 ; closes the file

@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2005 Max-Planck-Society
+ *  Copyright (C) 2005, 2006, 2007 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -35,6 +35,15 @@
 #ifdef _OPENMP
 #include <omp.h>
 #endif
+
+inline bool openmp_enabled()
+  {
+#ifdef _OPENMP
+  return true;
+#else
+  return false;
+#endif
+  }
 
 inline int openmp_max_threads ()
   {

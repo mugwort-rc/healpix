@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -76,6 +76,7 @@ pro preview_file, file, ps=ps, gif=gif, png=png, landscape=landscape
 ; MODIFICATION HISTORY:
 ;        Eric Hivon, Dec 2002, McM
 ;        May 2005, define 'factory' settings and issue reminder
+;        Mar 2006: added comments before crash
 ;-
 
 
@@ -97,14 +98,22 @@ gif_scom = 'display'
 gif_com = gif_scom
 settings = 'factory' ; that's how it feels
 
-; import user's choice
+comments=["-----------------------------------------------------------------------------",$
+          "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
+          "and the hard copy paper size,",$
+          "by running the config_preview script in the main Healpix directory.",$
+;          "           (no need to restart IDL ;-)",$
+          "-----------------------------------------------------------------------------"]
+
+; import user's choices, if they exist
+if (float(!version.release) ge 5.39) then begin
+    found = strlen(file_which('idl_default_previewer.pro'))
+    if (found eq 0) then print,comments,form='(a)'
+endif
 @idl_default_previewer
 
 ; issue a friendly but annoying reminder if user did not customize settings
-if (settings eq 'factory') then begin
-    print,"You can choose the facilities used to visualize Postscript, PNG and GIF files"
-    print,"by running the config_preview script in the main Healpix directory"
-endif
+if (settings eq 'factory') then print,comments,form='(a)'
 
 do_bbox = 0
 if defined(media) then begin

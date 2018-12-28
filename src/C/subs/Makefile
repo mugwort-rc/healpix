@@ -6,15 +6,27 @@
 #
 # Usage:
 #
-# To build the library, type
+# To build the static library, type
 #
-# % make [CFITSIO_INCDIR=<cfitsio_incdir>] [CFITSIO_LIBDIR=<cfitsio_libdir>]
+# % make [static] [CC=<cc>] [OPT=<opt>] [AR=<ar>] [CFITSIO_INCDIR=<cfitsio_incdir>] [CFITSIO_LIBDIR=<cfitsio_libdir>]
 #
 # where
+#  CC     is the C compiler you want to use (default: gcc)
+#  OPT    compilation option
 #  CFITSIO_INCDIR is where the header files for the 'cfitsio' library is kept
+#  CFITSIO_LIBDIR is where the 'cfitsio' library archive is kept
+#  AR is the command to create the archive with its index table
+#      default = ar -rsv
 #
 # For example:
 #  % make CFITSIO_INCDIR=/scr/kmg/include
+#
+# To build the shared(dynamical) library, type
+#
+# % make shared [CC=<cc>] [OPT=<opt>] [AR=<ar>] [CFITSIO_INCDIR=<cfitsio_incdir>] [CFITSIO_LIBDIR=<cfitsio_libdir>]
+#
+# For example:
+#  % make shared CFITSIO_INCDIR=/scr/kmg/include
 #
 # To install the files, type
 #
@@ -26,7 +38,8 @@
 # where
 #  INCDIR is the directory in which you want to install the header files
 #  LIBDIR is the directory in which you want to install the library files
-#  RANLIB is the 'ranlib' command. It defaults to 'ranlib', but if your
+#  RANLIB is the 'ranlib' command to be used for the static library archive.
+#         It defaults to 'ranlib', but if your
 #         system does not have or need this, you should use something like
 #         RANLIB="ar -ts" 
 #
@@ -42,21 +55,17 @@
 #  1) Type 'make install'
 #
 ##############################################################################
-#
-# Compiler Options
-CC = gcc -D__USE_FIXED_PROTOTYPES__ -Wall
-#
-# Where you want to install the library and header file
-LIBDIR = /home/efh/Healpix/lib2
-INCDIR = /home/efh/Healpix/include2
-RANLIB = ranlib
-#
-# Where you have the cfitsio installation
-CFITSIO_INCDIR = /usr/local/include
-CFITSIO_LIBDIR = /usr/local/lib
-#
 # You should not have to edit below this line ################################
 #
+#
+PIC = 
+#
+SHLIB_LD =      $(CC) $(OPT) $(PIC) -shared
+SHLIB_SUFFIX =  .so
+#
+DYLIB_LD =      $(CC) $(OPT) $(PIC) -dynamiclib
+DYLIB_SUFFIX =  .dylib
+
 # The sources in the package
 MODS = ang2pix_nest ang2pix_ring \
 	pix2ang_nest pix2ang_ring nest2ring ring2nest \
@@ -64,49 +73,80 @@ MODS = ang2pix_nest ang2pix_ring \
 	ang2vec vec2ang pix2vec_nest pix2vec_ring vec2pix_nest vec2pix_ring \
 	printerror get_fits_size write_healpix_map read_healpix_map
 
-OBJS = ${MODS:%=%.o}
+# static objects
+OBJS = ${MODS:%=%.s.o}
 
+# non-static objects
+OBJD = ${MODS:%=%.d.o}
+
+default: static
 #
-# Make the library itself
-libchealpix.a : ${OBJS}
-	ar -r $@ ${OBJS}
+# Make the static library itself
+static: libchealpix.a #tests
+
+libchealpix.a : $(OBJS)
+	$(AR) $@ $(OBJS)
 #
-# Install the library
-install : libchealpix.a chealpix.h
-	cp libchealpix.a ${LIBDIR}/.
-	${RANLIB}  ${LIBDIR}/libchealpix.a
-	cp chealpix.h ${INCDIR}/.
 #
+# Make the shared library itself
+shared: libchealpix$(SHLIB_SUFFIX) #tests
+
+libchealpix$(SHLIB_SUFFIX) : $(OBJD)
+	$(SHLIB_LD) -o $@ $(OBJD)
+
+# Make the dynamic (Mac) library itself
+dynamic: libchealpix$(DYLIB_SUFFIX) #tests
+
+libchealpix$(DYLIB_SUFFIX) : $(OBJD)
+	$(DYLIB_LD) -o $@ $(OBJD) -L$(CFITSIO_LIBDIR) -lcfitsio
+#
+# Install the static library (and the dynamic one)
+install :  chealpix.h
+	@if [ -f libchealpix.a ]; then \
+		cp libchealpix.a $(LIBDIR)/. ; \
+	fi; \
+	if [ -f libchealpix$(SHLIB_SUFFIX) ]; then \
+		cp libchealpix$(SHLIB_SUFFIX) $(LIBDIR)/. ; \
+	fi; \
+	if [ -f libchealpix$(DYLIB_SUFFIX) ]; then \
+		cp libchealpix$(DYLIB_SUFFIX) $(LIBDIR)/. ; \
+	fi; \
+	cp chealpix.h $(INCDIR)/.
+
 # Make the programs to test the package.
-test_chealpix : test_chealpix.o libchealpix.a chealpix.h
-	${CC} -o $@ test_chealpix.o  -L. -lchealpix -lm
 
-test_chealpix2 : test_chealpix2.o libchealpix.a chealpix.h
-	${CC} -o $@ test_chealpix2.o -L. -lchealpix -lm
+test_chealpix2 : test_chealpix2.c
+	$(CC) $(OPT) -c -o test_chealpix2.o $<
+	$(CC) $(OPT)    -o $@               test_chealpix2.o -L. -lchealpix -lm
 
-test_cio : test_cio.o libchealpix.a chealpix.h
-	${CC} -o $@ test_cio.o       -L. -lchealpix -lm -L${CFITSIO_LIBDIR} -lcfitsio
+test_cio : test_cio.c
+	$(CC) $(OPT) -c -o test_cio.o $<          -I$(CFITSIO_INCDIR)
+	$(CC) $(OPT)    -o $@         test_cio.o  -L. -lchealpix -L$(CFITSIO_LIBDIR) -lcfitsio -lm
 
-tests : test_chealpix test_chealpix2 test_cio
+tests : test_chealpix2 test_cio
+	./test_cio
+	./test_chealpix2
 
 #
 # General compilation rules
-%.o : %.c
-	${CC} -c -o $@ $< -I${CFITSIO_INCDIR}
+# static objects
+%.s.o : %.c
+	$(CC) $(OPT)        -c -o $@ $< -I$(CFITSIO_INCDIR)
 
-# Tidy
+# non-static objects
+%.d.o : %.c
+	$(CC) $(OPT) $(PIC) -c -o $@ $< -I$(CFITSIO_INCDIR)
+
+# Clean: remove intermediate files
 clean :
-	rm -f *~ *.o core libchealpix.a test_chealpix test_chealpix2 test_cio \
-		test_chealpix.dat test_chealpix.out test_output.fits
-#
-# Modification History:
-#
-#    Date     Programmer Remarks
-# ----------- ---------- -------
-# 06-Jan-2000 K. Ganga   First version. 
-# 16-Nov-2001 K. Ganga   Added documentation
-# 27-Nov-2001 S. Du      Introduced RANLIB parameter so this works on 
-#			systems without 'ranlib'
-#	      K. Ganga   Added some docs. 
-# 30-Jan-2003 E. Hivon   Edited for distribution
+	$(RM) *~ *.o core  \
+		test_chealpix.dat test_chealpix.out test_output.fits test_map.fits libchealpix.*  \
+		test_chealpix2 test_cio
 
+# Tidy: remove library and include files
+tidy : clean
+	$(RM) $(LIBDIR)/libchealpix.* $(INCDIR)/chealpix.h
+
+# Distclean: remove directories
+distclean: tidy
+	$(RM) -r $(LIBDIR) $(INCDIR)

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>input_tod*</TITLE>
-<META NAME="description" CONTENT="input_tod*">
+<TITLE>healpix_modules module</TITLE>
+<META NAME="description" CONTENT="healpix_modules module">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,146 +28,93 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html645"
+<A NAME="tex2html661"
   HREF="subroutinesnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html667"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html671"
   HREF="subroutinesnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html653"
+<A NAME="tex2html669"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html646"
-  HREF="subroutinesnode37.htm">input_map*</A>
+<B> Previous:</B> <A NAME="tex2html662"
+  HREF="subroutinesnode37.htm">getsize_fits</A>
 
-<B>Up:</B> <A NAME="tex2html652"
+<B>Up:</B> <A NAME="tex2html668"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html656"
-  HREF="subroutinesnode39.htm">map2alm*</A>
+<B> Next:</B> <A NAME="tex2html672"
+  HREF="subroutinesnode39.htm">healpix_types module</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000380000000000000000"></A>
-<A NAME="sub:input_tod"></A>
+<A NAME="sub:healpix_modules"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">input_tod*</FONT></font></b><hr><H2>This routine reads a large binary table (for instance a Time Ordered Data
- set) from a FITS file. The user can choose to read only a section of the table,
- starting from an arbitrary position. 
-The data can be read into a single or double precision array.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.f90
+<b><font size=+6><FONT COLOR="#CC0000">healpix_modules</FONT></font></b><hr><H2>This module is a meta module containing most of the <b>HEALPix</b> modules. It currently includes
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>alm_tools</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>bit_manipulation</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>coord_v_convert</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>extension</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>fitstools</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>head_fits</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>healpix_fft</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode39.htm#sub:healpix_types"><TT>healpix_types</TT></A>,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>misc_utils</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>num_rec</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>obsolete</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>paramfile_io</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>pix_tools</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>ran_tools</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>rngmod</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>statistics</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>udgrade_nr</TT>,
+  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>utilities</TT>.
+</DL>
+
+<P>
+Note that <TT>mpi_alm_tools</TT> is not included since it requires the MPI library for compilation.
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/healpix_modules.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">input_tod*</FONT>(
-filename, tod, npix, ntods [, header, firstpix, fmissval]
-)</h2></blockquote>
-
-<P>
-<hr><H1>ARGUMENTS</H1>
-
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-filename (LEN = <tt>filenamelen</tt>)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>tod(0:npix-1,1:ntods)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>array constructed
-                   from the data present in the file (from the sample <TT>firstpix</TT> to <TT>firstpix + npix</TT> - 1. Missing pixels or time
-                   samples are filled with <TT>fmissval</TT>.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>npix</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels or samples to be read. See Note below.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>ntods</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of columns to read</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>header(LEN=80)(1:)  (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>firstpix   (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>first pixel (or time sample) to read from
-                   (0 based). <b>default:</b>0. See Note below.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fmissval   (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value to be given to missing pixels, its default
-                   value is 0. Should be of the same type as <TT>tod</TT>.</TD>
-</TR>
-</TABLE>
-<B>Note :</B> Indices and number of data elements larger than
-                   <SPAN CLASS="MATH">2<SUP>31</SUP></SPAN> are only accessible in FITS files on computers with 64 bit
-                   enabled compilers and with some specific compilation options of
-                   cfitsio (see cfitsio documentation).
-
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">input_tod*</FONT>.</h2>
-  <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
-<DD>module, containing:
-  <DT>
-<B>printerror</B>
-<DD>routine for printing FITS error messages.
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.		
-  </DL>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">input_tod*</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B>anafast</B>
-<DD>executable that reads a <b>HEALPix</b> map and analyses it. 
-  <DT>
-<B>synfast</B>
-<DD>executable that generate full sky <b>HEALPix</b> maps
-  <DT>
-<B><A HREF="subroutinesnode34.htm#sub:getsize_fits">getsize_fits</A></B>
-<DD>subroutine to know the size of a FITS file.
-  <DT>
-<B><A HREF="subroutinesnode92.htm#sub:write_bintabh">write_bintabh</A></B>
-<DD>subroutine to write large arrays into FITS files
-  <DT>
-<B><A HREF="subroutinesnode57.htm#sub:output_map">output_map</A></B>
-<DD>subroutine to write a FITS file from a <b>HEALPix</b> map
-  <DT>
-<B><A HREF="subroutinesnode37.htm#sub:input_map">input_map</A></B>
-<DD>subroutine to read a <b>HEALPix</b> map
-  (either full sky of cut sky) from a FITS file
-  </DL>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+use healpix_modules 
+<BR>
+print*,' pi = ',PI 
+<BR>
+print*,' number of pixels in a Nside=64 map:',nside2npix(64)
+</font></tt>
+<BR><blockquote>
+Invoking <TT>healpix_modules</TT> gives access to all <b>HEALPix</b> routines and parameters.
+</blockquote>
 
 <P>
 
@@ -180,32 +127,32 @@ filename (LEN = <tt>filenamelen</tt>)</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html645"
+<A NAME="tex2html661"
   HREF="subroutinesnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html667"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html671"
   HREF="subroutinesnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html653"
+<A NAME="tex2html669"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html646"
-  HREF="subroutinesnode37.htm">input_map*</A>
+<B> Previous:</B> <A NAME="tex2html662"
+  HREF="subroutinesnode37.htm">getsize_fits</A>
 
-<B>Up:</B> <A NAME="tex2html652"
+<B>Up:</B> <A NAME="tex2html668"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html656"
-  HREF="subroutinesnode39.htm">map2alm*</A>
+<B> Next:</B> <A NAME="tex2html672"
+  HREF="subroutinesnode39.htm">healpix_types module</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

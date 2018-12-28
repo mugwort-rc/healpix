@@ -13,11 +13,11 @@ outfile (string, default=""):
   output file name for power spectrum; if empty, no spectrum is written
 
 outfile_alms (string, default=""):
-  output file name for the a_lms; if empty, no a_lms are written
+  output file name for the a_lm; if empty, no a_lm are written
 
 polarisation (bool):
-  if false, only the intensity a_lms are generated,
-  if true, a_lms for T, G and C component are generated
+  if false, only the intensity a_lm are generated,
+  if true, a_lm for T, G and C component are generated
 
 weighted (bool, default=false):
   if true, weighted quadrature is used

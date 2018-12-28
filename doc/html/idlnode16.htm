@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>getsize_fits </TITLE>
-<META NAME="description" CONTENT="getsize_fits ">
+<TITLE>fits2cl</TITLE>
+<META NAME="description" CONTENT="fits2cl">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,198 +28,173 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html285"
+<A NAME="tex2html315"
   HREF="idlnode15.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html291"
+<A NAME="tex2html321"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html295"
+<A NAME="tex2html325"
   HREF="idlnode17.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html293"
+<A NAME="tex2html323"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html286"
-  HREF="idlnode15.htm">getdisc_ring</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="idlnode15.htm">fits2alm</A>
 
-<B>Up:</B> <A NAME="tex2html292"
+<B>Up:</B> <A NAME="tex2html322"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html296"
-  HREF="idlnode17.htm">gnomcursor</A>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="idlnode17.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000160000000000000000"></A>
-<A NAME="idl:getsize_fits"></A>
+<A NAME="idl:fits2cl"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">getsize_fits </FONT></font></b><hr><H2>This IDL function reads the number of maps and/or the pixel ordering of a FITS file containing a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/getsize_fits.pro
+<b><font size=+6><FONT COLOR="#CC0000">fits2cl</FONT></font></b><hr><H2>This IDL facility provides a means to
+read from a FITS file an ascii or binary table extension containing power 
+spectrum (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>) or spherical harmonics (<SPAN CLASS="MATH"><I>a</I><SUB><I>l m</I></SUB></SPAN>) coefficients, and returns
+the corresponding power spectrum (<!-- MATH
+ $C(l) = \sum_m a_{lm}a^*_{lm} / (2l+1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="223" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg18.png"
+ ALT="$C(l) = \sum_m a_{lm}a^*_{lm} / (2l+1)$"></SPAN>). Reads primary and extension headers if
+required. The facility is intended to enable the user to read the
+output from the <b>HEALPix</b> facility <SPAN  CLASS="textbf">anafast</SPAN>.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/fits/fits2cl.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-var = GETSIZE_FITS (File, [Nmaps =, Nside =, Mlpol =, Ordering =, Obs_Npix =, Type =, Header =])
-
+FITS2CL, cl_array, fitsfile, [HDR = ,/HELP, /INTERACTIVE, MULTIPOLES=,  /RSHOW, /SHOW, /SILENT=, XHDR =]
 </h2>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file containing the <b>HEALPix</b> map(s).
+<B>cl_array</B>
+<DD>real array of <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> coefficients read or computed from the
+      file. The output dimension depends on the contents of the file. 
+	This has dimension either (lmax+1,6) given in the sequence T E B
+      TxE TxB ExB <B>or</B> (lmax+1,4) for T E B TxE <B>or</B> (lmax+1) for T
+    alone. 
+     The convention for the power spectrum is that it is not
+      normalised by the Harrison-Zeldovich (flat) spectrum.
+    <DT>
+<B>fitsfile</B>
+<DD>String containing the name of the FITS file to be read. The
+    file contains either <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra or <SPAN CLASS="MATH"><I>a</I><SUB><I>l m</I></SUB></SPAN> coefficients. In either
+    cases, <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> is returned.
+  </DL>
 
 <P>
-<DT>
-<B>var</B>
-<DD>contains on output the number of pixels stored in a map FITS file.
-     Each pixel is counted only once 
-     (even if several information is stored on each of them, see nmaps).
-     Depending on the data storage format, result may be : 
-<BR>       - equal or smaller to the number Npix of Healpix pixels available 
-          over the sky for the given resolution (Npix =
-     12*nside*nside) 
-<BR>       - equal or larger to the number of non blank pixels 
-         (obs_npix)
-
-<P>
-<DT>
-<B>Nmaps=</B>
-<DD>contains on output the number of maps in the file
-
-<P>
-<DT>
-<B>Nside=</B>
-<DD>contains on output the <b>HEALPix</b> resolution parameter <!-- MATH
- ${N_{\rm side}}$
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>HDR =</B>
+<DD>String array containing on output the primary header
+      read from the FITS file. 
+    <DT>
+<B>/HELP</B>
+<DD>If set, produces an extended help message (using the doc_library
+    IDL command). 
+    <DT>
+<B>/INTERACTIVE</B>
+<DD>If set, the plots generated by <TT>/SHOW</TT> and <TT>/RSHOW</TT> options are produced using iPlot routine, allowing 
+           for interactive cropping, zooming and annotation of the plots. This
+;           requires IDL 6.4 or newer to work properly.
+    <DT>
+<B>MULTIPOLES =</B>
+<DD>vector containing on output the multipoles
+    <SPAN CLASS="MATH"><I>l</I></SPAN> for which the power spectra are provided. They are either
+<BR>           - read from the file (1st column in the Planck format),
+<BR>          - or generated by the routine (assuming that all
+               multipoles from 0 to lmax included are provided).
+    <DT>
+<B>/RSHOW</B>
+<DD>If set, the raw power spectra <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> read from the file are plotted
+    <DT>
+<B>/SHOW</B>
+<DD>If set, the rescaled power spectra <!-- MATH
+ $l(l+1)C(l)/2\pi$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="41" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg14.png"
- ALT="${N_{\rm side}}$"></SPAN>
-
-<P>
-<DT>
-<B>Mlpol=</B>
-<DD>contains on output the maximum multipole used to generate the map 
-
-<P>
-<DT>
-<B>Ordering=</B>
-<DD>contains on output the pixel ordering
-	scheme: either 'RING' or 'NESTED'
-
-<P>
-<DT>
-<B>Obs_Npix=</B>
-<DD>contains on output the number of non blanck pixels. It is set to -1 if it can not be determined from header
-
-<P>
-<DT>
-<B>Type=</B>
-<DD>Healpix/FITS file type
-<BR>             <SPAN CLASS="MATH">&lt;</SPAN>0 : file not found, or not valid
-<BR>
-0  : image only fits file, deprecated Healpix format
-                   (var <!-- MATH
- $=12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg15.png"
- ALT="$=12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-1  : ascii table, generally used for C(l) storage 
-<BR>
-2  : binary table : with implicit pixel indexing (full sky)
-                   (var <!-- MATH
- $=12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg15.png"
- ALT="$=12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-3  : binary table : with explicit pixel indexing (generally cut sky)
-                   (var <!-- MATH
- $\le 12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg16.png"
- ALT="$\le 12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-999  : unable to determine the type 
-
-<P>
-<DT>
-<B>Header=</B>
-<DD>contains on output the FITS extension header
-
-<P>
-</DL>
+ WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg19.png"
+ ALT="$l(l+1)C(l)/2\pi$"></SPAN> are plotted
+    <DT>
+<B>/SILENT</B>
+<DD>If set, no message is issued during normal execution
+    <DT>
+<B>XHDR =</B>
+<DD>String array containing on output the extension header
+      read from the FITS file. 
+  </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-getsize_fits gets the number of pixels in a FITS file. If the file
-follows the <b>HEALPix</b> standard, the routine can also get the resolution
-parameter Nside, the ordering scheme, ..., and can determine the type
-of data set contained in the file.
+<FONT COLOR="#CC0000">fits2cl</FONT> reads the power spectrum coefficients from a FITS
+file containing an ascii table extension. Descriptive headers conforming
+to the FITS convention can also be read from the input file.
+
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">getsize_fits </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2cl</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 5.0 or more is necessary to run getsize_fits <DT>
-<B><A HREF="idlnode36.htm#idl:read_fits_map">read_fits_map</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to read in maps
-  written by getsize_fits .
-  <DT>
-<B>sxaddpar</B>
-<DD>This IDL routine (included in <b>HEALPix</b> package) can be used to update
-  or add FITS keywords to <TT>Header</TT>
-  <DT>
-<B><A HREF="idlnode40.htm#idl:reorder">reorder</A></B>
-<DD>This <b>HEALPix</b> IDL routine can be used to reorder a map from
-  NESTED scheme to RING scheme and vice-versa.
-  <DT>
-<B><A HREF="idlnode48.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD>routine to write multi-column binary FITS table
+<DD>version 6.0 or more is necessary to run <FONT COLOR="#CC0000">fits2cl</FONT>.
+    <DT>
+<B><A HREF="idlnode7.htm#idl:bin_llcl">bin_llcl</A></B>
+<DD>facility to bin a spectrum read
+with <FONT COLOR="#CC0000">fits2cl</FONT>.
+    <DT>
+<B><A HREF="idlnode8.htm#idl:bl2fits">bl2fits</A></B>
+<DD>facility to write a window function into a FITS file.
+    <DT>
+<B><A HREF="idlnode12.htm#idl:cl2fits">cl2fits</A></B>
+<DD>provides the complimentary routine to write a
+      power spectrum to a FITS file.
+    <DT>
+<B><A HREF="idlnode15.htm#idl:fits2alm">fits2alm</A>, <A HREF="idlnode5.htm#idl:alm2fits">alm2fits</A></B>
+<DD>routines to read and write <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
+    <DT>
+<B>anafast</B>
+<DD>provides the output file to be read by <FONT COLOR="#CC0000">fits2cl</FONT>.
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"></TD>
-<TD ALIGN="LEFT">npix = getsize_fits(!healpix.directory+'/test/map.fits', nside=nside, $</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">mlpol=lmax, type=filetype)</TD>
-</TR>
-<TR><TD ALIGN="LEFT">&nbsp;</TD>
-<TD ALIGN="LEFT">print, npix, nside, lmax, filetype</TD>
+<TR><TD ALIGN="LEFT">
+<FONT COLOR="#CC0000">fits2cl</FONT>, pwrsp, '$HEALPIX/test/cl.fits', HDR = hdr, XHDR = xhdr</TD>
 </TR>
 </TABLE>
 </font></tt>
-<BR><blockquote><IMG
- WIDTH="559" HEIGHT="128" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg17.png"
- ALT="$\textstyle \parbox{\hsize}{ should produce something like \\
-{\em 196608 \ \ ...
-...s
-nside=128, the maximum multipole was 256, and this a full sky map
-(type 2).
-}$"></blockquote>
+<BR><blockquote>
+<FONT COLOR="#CC0000">fits2cl</FONT> reads a power spectrum from the input FITS file 
+<TT>$HEALPIX/test/cl.fits</TT>
+into the variable <TT>pwrsp</TT>,  with optional headers
+passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>.
+</blockquote>
+
+<P>
+
+<P>
 
 <P>
 
@@ -227,32 +202,32 @@ nside=128, the maximum multipole was 256, and this a full sky map
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html285"
+<A NAME="tex2html315"
   HREF="idlnode15.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html291"
+<A NAME="tex2html321"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html295"
+<A NAME="tex2html325"
   HREF="idlnode17.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html293"
+<A NAME="tex2html323"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html286"
-  HREF="idlnode15.htm">getdisc_ring</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="idlnode15.htm">fits2alm</A>
 
-<B>Up:</B> <A NAME="tex2html292"
+<B>Up:</B> <A NAME="tex2html322"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html296"
-  HREF="idlnode17.htm">gnomcursor</A>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="idlnode17.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2005-08-31
+2008-11-13
 </ADDRESS>
 </BODY>
 </HTML>

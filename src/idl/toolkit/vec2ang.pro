@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -64,9 +64,11 @@ pro vec2ang, vector, theta, phi, astro = astro
 ; MODIFICATION HISTORY:
 ;       March 6, 1999    Eric Hivon, Caltech, Version 1.0
 ;       March 22, 2002     use Message
+;       Oct 4, 2007      Check dimensions of Vector
 ;-
 ;*****************************************************************************
 
+routine = 'VEC2ANG'
 if N_params() lt 2 then begin
     message,' syntax = vec2ang, vec, theta, phi, astro=',/noprefix
 endif
@@ -74,27 +76,47 @@ endif
 np1 = N_ELEMENTS(vector)
 np = np1 / 3L
 if (np1 NE 3 * np) then begin
-    message,'inconsistent Vector in vec2ang',/noprefix
+    message,/info,'input Vector should have Npix*3 elements',/noprefix
+    message,'It currently has: '+strtrim(np1,2),/noprefix
+endif
+sz = size(vector)
+ndim = sz[0] ; number of dimension
+if (sz[ndim] ne 1 and sz[ndim] ne 3 and sz[ndim] ne np1) then begin
+; if (sz[ndim] ne 3) then begin
+    dimensions = strtrim(sz[1:ndim],2)+[replicate('x',ndim-1),'']
+    message,/info,'Input Vector has dimensions: ',/noprefix
+    print,routine+':         ', dimensions
+;    message,/info,'I expected: '+strtrim(np,2)+'x 3 or
+;    '+strtrim(np1,2),/noprefix
+    message,/info,'I expected: '+strtrim(np,2)+'x 3',/noprefix
+    print,routine+' x0, x1, x2, ...'
+    print,routine+' y0, y1, y2, ...'
+    print,routine+' z0, z1, z2, ...'
+    message,'some reordering of the array may be necessary',/noprefix
 endif
 
 twopi = 2. * !Pi
 radeg = !RaDeg
-if (DATATYPE(vector,2) EQ 5) then begin ; double precision
+zero = 0.
+ninety = 90.
+if (size(/TYPE,vector) EQ 5) then begin ; double precision
     twopi = 2.d0 *!DPi 
     radeg = 180.d0 / !DPi
+    zero = 0.d0
+    ninety = 90.d0
 endif
 
 ;---------------
 
 Vector = REFORM(vector, np, 3, /OVER) ; condition the input vector
-
 theta_rad = ACOS( vector(*,2)  /  SQRT(  TOTAL(vector^2, 2) ) )
 phi_rad = ATAN( vector(*,1), vector(*,0) )  ; in [-Pi,Pi]
+vector = reform(vector,sz[1:ndim], /over) ; revert to original shape
 
-phi_rad = phi_rad + twopi * (phi_rad LT 0.)
+phi_rad = phi_rad + twopi * (phi_rad LT zero)
 
 IF KEYWORD_SET(astro) THEN BEGIN
-    theta = 90. - theta_rad * RaDeg
+    theta = ninety - theta_rad * RaDeg
     phi   = phi_rad * RaDeg
 ENDIF ELSE BEGIN
     theta = theta_rad

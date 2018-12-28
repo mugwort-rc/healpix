@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = cmbfast, UNITS = units
+PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = cmbfast, UNITS = units, BEAMWINDOW = beamwindow
 
 ;+
 ; NAME:
@@ -37,7 +37,7 @@ PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = 
 ;       headers if required.
 ;
 ; CALLING SEQUENCE:
-;       CL2FITS, cl_array, fitsfile, [HDR = , HELP =, XHDR =, CMBFAST=, UNITS=]
+;       CL2FITS, cl_array, fitsfile, [HDR = , HELP =, XHDR =, CMBFAST=, UNITS=, BEAMWINDOW=]
 ; 
 ; INPUTS:
 ;       cl_array = real array of Cl coefficients to be written to file.
@@ -73,6 +73,8 @@ PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = 
 ;         Kelvin**2, ...), to be put in keyword 'TUNIT*' of extension Header. 
 ;         If provided, will override the values present in XHDR (if any).
 ;
+;       BEAMWINDOW = if set, the data to be written is a beam window function
+;         (which can be of arbitrary sign) instead of a power spectrum
 ;
 ; EXAMPLE
 ;       Write the power spectrum coefficients in the real array, pwr,
@@ -97,6 +99,8 @@ PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = 
 ;       Feb 2003, EH: added CMBFAST keyword
 ;       Aug 2004, EH: added HELP keyword
 ;       May 2005, EH: added keywords in FITS header: MAX-LPOL, POLAR, BCROSS, UNITS
+;       May 2007. EH: added beamwindow
+;       Oct 2008. EH: prints out 'BL2FITS' in /beamwindow mode
 ;-
 
 code = 'CL2FITS'
@@ -126,6 +130,8 @@ if (i ne 1) then astrolib      ; if not, run astrolib to do so
 
 if n_elements(hdr)  eq 0 then hdr  = ' '
 if n_elements(xhdr) eq 0 then xhdr = ' '
+
+do_beam = keyword_set(beamwindow)
 
 ; ------- primary unit ----------
 ; opens the file, write a minimal header and close it
@@ -164,11 +170,20 @@ if ndims eq 1 then nsigs = 1 else $
   nsigs = info(2) ; # of signals; should be 1 corresponding to T
 ;                                        or 4 corresponding to T E B TxE
 
-if (nsigs ne 6 and nsigs ne 4 and nsigs ne 1) then begin
-  print,code+': Input array must have dimensions (lmax+1,1) or (lmax+1,4) or (lmax+1,6)'
-  print,'  No file written'
-  goto, Exit
-endif
+if (do_beam) then begin
+    code='BL2FITS'
+    if (nsigs gt 3) then begin
+        print,code+': Input array must have dimensions (lmax+1,1), (lmax+1,2) or (lmax+1,3)'
+        print,'  No file written'
+        goto, Exit
+    endif
+endif else begin
+    if (nsigs ne 6 and nsigs ne 4 and nsigs ne 1) then begin
+        print,code+': Input array must have dimensions (lmax+1,1) or (lmax+1,4) or (lmax+1,6)'
+        print,'  No file written'
+        goto, Exit
+    endif
+endelse
 
 if (datatype(cl_array) eq 'DOU') then begin
     width = 25                  ;(assuming TFORM= E24.x)
@@ -182,17 +197,27 @@ ncols = width*nsigs-1 ; # of character columns
 FTCREATE,ncols,nrows,xthdr,tab
 
 ; add/update header information
-SXADDPAR,xthdr,'EXTNAME','POWER SPECTRUM',' Power spectrum : C(l)  '
+if (do_beam) then begin
+    SXADDPAR,xthdr,'EXTNAME','WINDOW FUNCTION',' (beam) window function : B(l) or W(l)'
+endif else begin
+    SXADDPAR,xthdr,'EXTNAME','POWER SPECTRUM',' Power spectrum : C(l)  '
+endelse
 SXADDPAR,xthdr,'COMMENT','-----------------------------------------------',before='EXTNAME'
 SXADDPAR,xthdr,'COMMENT','-----------------------------------------------',after='EXTNAME'
 SXADDPAR,xthdr,'TFIELDS',nsigs,' # of fields in file'
 SXADDPAR,xthdr,'NAXIS1',width*nsigs-1,    ' # of characters in a row'
 SXADDPAR,xthdr,'NAXIS2',nrows, ' # of rows in file'
 
-ttype_kw = ['TEMPERATURE','GRADIENT','CURL','G-T','C-T','C-G']
-ttype_cm = [' Temperature C(l)',' Gradient (=ELECTRIC) polarisation C(l)',$
-            ' Curl (=MAGNETIC) polarisation C(l)',' Gradient-Temperature cross terms', $
-            ' Curl-Temperature cross terms', ' Curl-Gradient terms']
+if (do_beam) then begin
+    ttype_kw = ['TEMPERATURE','GRADIENT','CURL']
+    ttype_cm = [' Temperature B(l)',' Gradient (=ELECTRIC) polarisation B(l)',$
+                ' Curl (=MAGNETIC) polarisation B(l)']
+endif else begin
+    ttype_kw = ['TEMPERATURE','GRADIENT','CURL','G-T','C-T','C-G']
+    ttype_cm = [' Temperature C(l)',' Gradient (=ELECTRIC) polarisation C(l)',$
+                ' Curl (=MAGNETIC) polarisation C(l)',' Gradient-Temperature cross terms', $
+                ' Curl-Temperature cross terms', ' Curl-Gradient terms']
+endelse
 
 for i = 0,nsigs-1 do begin
   keyword = 'TTYPE' + STRTRIM(STRING(i+1),2)
@@ -209,8 +234,9 @@ endfor
 
 lmax = nrows - 1
 ft = ['F','T']
+polar_flag = (nsigs ge 4) || (do_beam && (nsigs gt 1)) ; 0 or 1
 sxaddpar,xthdr,'MAX-LPOL', lmax,          ' Maximum L multipole'
-sxaddpar,xthdr,'POLAR',    ft[nsigs ge 4],' Polarisation included (True/False)'
+sxaddpar,xthdr,'POLAR',    ft[polar_flag],' Polarisation included (True/False)'
 sxaddpar,xthdr,'BCROSS',   ft[nsigs eq 6],' Magnetic cross terms included (True/False)'
 
 six = ['1','2','3','4','5','6']
@@ -228,7 +254,7 @@ if (STRMID(xhdr(0),0,1) NE ' ') then begin
     endif
 endif
 
-if (keyword_set(cmbfast)) then begin
+if (keyword_set(cmbfast) && ~ do_beam) then begin
     sxaddpar, xthdr, 'POLNORM', 'CMBFAST',' CMBFAST (EB) convention for polar. spectra'
 endif
 

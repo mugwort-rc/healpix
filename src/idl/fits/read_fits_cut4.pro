@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -48,7 +48,7 @@ HDR = header, XHDR = xheader, NSIDE=nside, ORDERING=ordering, COORDSYS=coordsys,
 ;       Filename  : STRING scalar,      
 ;                   input filename
 ;
-; OPTIONAL OUTPUTS:
+; OPTIONAL INPUTS:
 ;       EXTENSION= number (0 based) of extension to be read
 ;
 ; OUTPUTS:

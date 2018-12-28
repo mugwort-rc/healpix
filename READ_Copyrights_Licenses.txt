@@ -1,6 +1,6 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  Copyright (C) 1997-2005  HEALPix collaboration
+  Copyright (C) 1997-2008  HEALPix collaboration
 
 
   HEALPix is free software; you can redistribute it and/or modify
@@ -97,6 +97,23 @@ COPYRIGHTS
  for the MPI implementation of Healpix F90 alm routines
   All rights reserved.
 
+ Copyright 2008 by E. Hivon, M. Reinecke, W. O'Mullane, H.K. Eriksen, K.M. Gorski, A.J. Banday, E. Joliet
+ for the HEALPix package version 2.10
+  All rights reserved.
+
+ Copyright 2008 by G. Rocha
+ for the ngsims package
+  All rights reserved.
+
+ Copyright 2008 by J. P. Leahy
+ for the ximview package
+  All rights reserved.
+
+ Copyright 2008 by D. Larson
+ for the alice package
+  All rights reserved.
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ACKNOWLEDGMENTS
@@ -128,6 +145,7 @@ significantly helped us to improve Healpix throughout its several releases
  Paolo Natoli,
  Clive Page,
  William Pence,
+ Nicolas Ponthieu,
  Torsti Poutanen,
  Simon Prunet,
  Benoit Revenu,

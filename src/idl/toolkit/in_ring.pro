@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-function in_ring, nside, iz, phi0, dphi, nir, nested=nested
+function in_ring, nside, iz, phi0, dphi, nir, nested=nested, conservative=conservative
 ;+
 ;
 ; result = in_ring(nside, iz, phi0, dphi, nir)
@@ -38,16 +38,27 @@ function in_ring, nside, iz, phi0, dphi, nir, nested=nested
 ;  nir on output)
 ;
 ;  correction for bug at low phi, EH, 2004-05-28, 2004-06-01
+;  get ready for nside > 8192, exit if dphi<0, 2008-03-29
 ;-
+
+if (dphi lt 0) then begin
+    nir = 0
+    return, -1
+endif
 
 twopi = 2.d0*!DPI
 take_all = 0 ; false
 to_top = 0   ; false
-conservative = 0
+;conservative = 0
 do_nest = (keyword_set(nested))
 
-npix = 12 * nside * nside
-ncap  = 2*nside*(nside-1L) ; number of pixels in the north polar cap
+npix = nside2npix(nside)
+if (nside gt 8192) then begin
+    one = 1LL
+endif else begin
+    one = 1L
+endelse
+ncap  = 2*nside*(nside-one) ; number of pixels in the north polar cap
 listir = -1
 nir = 0
 
@@ -58,17 +69,17 @@ if (phi_hi lt 0)  then phi_hi  = phi_hi  + twopi
 take_all = (ABS(dphi-!DPI) lt 1.d-6)
 
 ;     ------------ identifies ring number --------------
-if (iz ge nside and iz le 3*nside) then begin ; equatorial region
+if ((iz ge nside) && (iz le 3*nside)) then begin ; equatorial region
     ir = iz - nside + 1L  ; in {1, 2*nside + 1}
-    ipix1 = ncap + 4L*nside*(ir-1L) ;  lowest pixel number in the ring
-    ipix2 = ipix1 + 4L*nside - 1L   ; highest pixel number in the ring
+    ipix1 = ncap + 4L*nside*(ir-one) ;  lowest pixel number in the ring
+    ipix2 = ipix1 + 4L*nside - one   ; highest pixel number in the ring
     kshift = ir MOD 2
     nr = nside*4L
 endif else begin
     if (iz lt nside) then begin       ;    north pole
         ir = iz
-        ipix1 = 2L*ir*(ir-1L)        ;  lowest pixel number in the ring
-        ipix2 = ipix1 + 4L*ir - 1   ; highest pixel number in the ring
+        ipix1 = 2L*ir*(ir-one)        ;  lowest pixel number in the ring
+        ipix2 = ipix1 + 4L*ir - one   ; highest pixel number in the ring
     endif else begin                         ;    south pole
         ir = 4*nside - iz
         ipix1 = npix - 2L*ir*(ir+1L) ;  lowest pixel number in the ring
@@ -87,7 +98,7 @@ if (take_all) then begin
 endif
 
 shift = kshift * .5d0
-if (conservative) then begin
+if keyword_set(conservative) then begin
 ; conservative : include every intersected pixels, 
 ; even if pixel CENTER is not in the range [phi_low, phi_hi]
     ip_low = NINT (nr * phi_low / twopi - shift)
@@ -100,8 +111,9 @@ endif else begin
     ip_hi  = floor(nr * phi_hi  / TWOPI - shift) 
 ;     if ((ip_low - ip_hi eq 1) and (dphi*nr lt !DPI)) then begin  ; EH, 2004-06-01
     diff = (ip_low - ip_hi) mod nr      ; in {-nr+1,nr-1}
-    if (diff < 0) then diff = diff + nr ; in {0,nr-1}
-    if ((diff eq 1) and (dphi*nr lt !DPI)) then begin
+;    if (diff < 0) then diff = diff + nr ; in {0,nr-1} ; EH, 2008-03-29
+    if (diff lt 0) then diff = diff + nr ; in {0,nr-1}
+    if ((diff eq 1) && (dphi*nr lt !DPI)) then begin
 ; the interval is so small (and away from pixel center)
 ; that no pixel is included in it
         nir = 0
@@ -120,7 +132,7 @@ if (to_top) then begin
     nir1 = ipix2 - ip_low + 1
     nir2 = ip_hi - ipix1  + 1
     nir  = nir1 + nir2
-    if (nir1 gt 0 and nir2 gt 0) then begin
+    if ((nir1 gt 0) && (nir2 gt 0)) then begin
         listir   = [lindgen(nir2)+ipix1, lindgen(nir1)+ip_low]
     endif else begin
         if nir1 eq 0 then listir   = [lindgen(nir2)+ipix1]

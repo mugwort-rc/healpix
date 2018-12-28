@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -26,15 +26,29 @@
 !
 !-----------------------------------------------------------------------------
 module num_rec
-use healpix_types
-use misc_utils
-implicit none
-private
+  use healpix_types
+  use misc_utils
+  implicit none
 
-public :: dsvbksb, dsvdcmp, isort, sort, iindexx, indexx
+  integer(i4b), parameter :: IZERO = 0_i4b, IONE = 1_i4b, ITWO = 2_i4b
+  private
+
+  public :: dsvbksb, dsvdcmp, isort, sort, iindexx, indexx, othpl
+
 
 contains
-
+! f pythag
+! s SVD
+! s IPSORT
+! S XPSORT
+! s OTHPL
+! s dsvbksb
+! s dsvdcmp
+! s isort
+! s sort
+! S iindexx
+! S indexx
+!
 ! The routines PYTHAG, SVD and IPSORT were taken from SLATEC:
 ! http://www.netlib.org/slatec/src/<routine>.f
 ! The SLATEC routines are in the public domain.
@@ -51,6 +65,18 @@ contains
 !  psort has been edited from slatec's IPSORT
 !   IX --> XX
 !   ITEMP --> XTEMP
+! Jan 2008: replaced integer by integer(I4B)
+!           0, 1, 2 -> IZERO, IONE, ITWO
+!           int(x)  -> int(x, kind=i4b)
+!
+! The routine OTHPL was taken from:
+!   S. Zhang & J. Jin "Computation of Special Functions" (Wiley, 1996).
+!    http://jin.ece.uiuc.edu/routines/routines.html
+! editions by EH:
+! replaced implicit declaration by explicit ones,
+! added intent of dummy arguments
+! added tests (n>0)
+! -----------------------------------------------------------
 !
 !DECK PYTHAG
       FUNCTION PYTHAG (A, B)
@@ -81,7 +107,7 @@ contains
       Q = MIN(ABS(A),ABS(B))
       IF (Q .EQ. 0.0E0) GO TO 20
    10 CONTINUE
-         R = (Q/P)**2
+         R = (Q/P)**ITWO
          T = 4.0E0 + R
          IF (T .EQ. 4.0E0) GO TO 20
          S = R/T
@@ -183,7 +209,7 @@ contains
 !   900402  Added TYPE section.  (WRB)
 !***END PROLOGUE  SVD
 !
-      INTEGER I,J,K,L,M,N,II,I1,KK,K1,LL,L1,MN,NM,ITS,IERR
+      INTEGER(I4B) :: I,J,K,L,M,N,II,I1,KK,K1,LL,L1,MN,NM,ITS,IERR
       REAL(DP) A(NM,*),W(*),U(NM,*),V(NM,*),RV1(*)
       REAL(DP) C,F,G,H,S,X,Y,Z,SCALE,S1
 !      REAL(DP) PYTHAG
@@ -192,9 +218,9 @@ contains
 !***FIRST EXECUTABLE STATEMENT  SVD
       IERR = 0
 !
-      DO I = 1, M
+      DO I = IONE, M
 !
-         DO J = 1, N
+         DO J = IONE, N
             U(I,J) = A(I,J)
          END DO
       END DO
@@ -203,8 +229,8 @@ contains
       SCALE = 0.0_DP
       S1 = 0.0_DP
 !
-      DO 300 I = 1, N
-         L = I + 1
+      DO 300 I = IONE, N
+         L = I + IONE
          RV1(I) = SCALE * G
          G = 0.0_DP
          S = 0.0_DP
@@ -295,8 +321,8 @@ contains
 !     .......... ACCUMULATION OF RIGHT-HAND TRANSFORMATIONS ..........
       IF (.NOT. MATV) GO TO 410
 !     .......... FOR I=N STEP -1 UNTIL 1 DO -- ..........
-      DO 400 II = 1, N
-         I = N + 1 - II
+      DO 400 II = IONE, N
+         I = N + IONE - II
          IF (I .EQ. N) GO TO 390
          IF (G .EQ. 0.0_DP) GO TO 360
 !
@@ -332,9 +358,9 @@ contains
       MN = N
       IF (M .LT. N) MN = M
 !
-      DO 500 II = 1, MN
-         I = MN + 1 - II
-         L = I + 1
+      DO 500 II = IONE, MN
+         I = MN + IONE - II
+         L = I + IONE
          G = W(I)
          IF (I .EQ. N) GO TO 430
 !
@@ -374,15 +400,15 @@ contains
 !     .......... DIAGONALIZATION OF THE BIDIAGONAL FORM ..........
   510 CONTINUE
 !     .......... FOR K=N STEP -1 UNTIL 1 DO -- ..........
-      DO 700 KK = 1, N
+      DO 700 KK = IONE, N
          K1 = N - KK
-         K = K1 + 1
+         K = K1 + IONE
          ITS = 0
 !     .......... TEST FOR SPLITTING.
 !                FOR L=K STEP -1 UNTIL 1 DO -- ..........
-  520    DO 530 LL = 1, K
+  520    DO 530 LL = IONE, K
             L1 = K - LL
-            L = L1 + 1
+            L = L1 + IONE
             IF (S1 + ABS(RV1(L)) .EQ. S1) GO TO 565
 !     .......... RV1(1) IS ALWAYS ZERO, SO THERE IS NO EXIT
 !                THROUGH THE BOTTOM OF THE LOOP ..........
@@ -403,7 +429,7 @@ contains
             S = -F / H
             IF (.NOT. MATU) GO TO 560
 !
-            DO 550 J = 1, M
+            DO 550 J = IONE, M
                Y = U(J,L1)
                Z = U(J,I)
                U(J,L1) = Y * C + Z * S
@@ -416,7 +442,7 @@ contains
          IF (L .EQ. K) GO TO 650
 !     .......... SHIFT FROM BOTTOM 2 BY 2 MINOR ..........
          IF (ITS .EQ. 30) GO TO 1000
-         ITS = ITS + 1
+         ITS = ITS + IONE
          X = W(L)
          Y = W(K1)
          G = RV1(K1)
@@ -429,7 +455,7 @@ contains
          S = 1.0_DP
 !
          DO 600 I1 = L, K1
-            I = I1 + 1
+            I = I1 + IONE
             G = RV1(I)
             Y = W(I)
             H = S * G
@@ -444,7 +470,7 @@ contains
             Y = Y * C
             IF (.NOT. MATV) GO TO 575
 !
-            DO 570 J = 1, N
+            DO 570 J = IONE, N
                X = V(J,I1)
                Z = V(J,I)
                V(J,I1) = X * C + Z * S
@@ -461,7 +487,7 @@ contains
             X = -S * G + C * Y
             IF (.NOT. MATU) GO TO 600
 !
-            DO 590 J = 1, M
+            DO 590 J = IONE, M
                Y = U(J,I1)
                Z = U(J,I)
                U(J,I1) = Y * C + Z * S
@@ -480,7 +506,7 @@ contains
          W(K) = -Z
          IF (.NOT. MATV) GO TO 700
 !
-         DO J = 1, N
+         DO J = IONE, N
            V(J,K) = -V(J,K)
          END DO
 !
@@ -567,15 +593,15 @@ contains
 !           IF-THEN-ELSE-ENDIF.  (SMR, WRB)
 !***END PROLOGUE  IPSORT
 !     .. Scalar Arguments ..
-      INTEGER IER, KFLAG, N
+      INTEGER(I4B) :: IER, KFLAG, N
 !     .. Array Arguments ..
-      INTEGER IPERM(*), IX(*)
+      INTEGER(I4B) :: IPERM(*), IX(*)
 !     .. Local Scalars ..
       REAL R
-      INTEGER I, IJ, INDX, INDX0, ISTRT, ITEMP, J, K, KK, L, LM, LMT, M, &
+      INTEGER(I4B) :: I, IJ, INDX, INDX0, ISTRT, ITEMP, J, K, KK, L, LM, LMT, M, &
               NN
 !     .. Local Arrays ..
-      INTEGER IL(21), IU(21)
+      INTEGER(I4B) :: IL(21), IU(21)
 !     .. External Subroutines ..
 !      EXTERNAL XERMSG
 !     .. Intrinsic Functions ..
@@ -583,16 +609,16 @@ contains
 !***FIRST EXECUTABLE STATEMENT  IPSORT
       IER = 0
       NN = N
-      IF (NN .LT. 1) THEN
-         IER = 1
+      IF (NN .LT. IONE) THEN
+         IER = IONE
 !         CALL XERMSG ('SLATEC', 'IPSORT', &
 !          'The number of values to be sorted, N, is not positive.', &
 !          IER, 1)
          RETURN
       ENDIF
       KK = ABS(KFLAG)
-      IF (KK.NE.1 .AND. KK.NE.2) THEN
-         IER = 2
+      IF (KK.NE.IONE .AND. KK.NE.2) THEN
+         IER = ITWO
 !         CALL XERMSG ('SLATEC', 'IPSORT', &
 !          'The sort control parameter, KFLAG, is not 2, 1, -1, or -2.', &
 !          IER, 1)
@@ -601,26 +627,26 @@ contains
 !
 !     Initialize permutation vector
 !
-      DO 10 I=1,NN
+      DO 10 I=IONE,NN
          IPERM(I) = I
    10 CONTINUE
 !
 !     Return if only one value is to be sorted
 !
-      IF (NN .EQ. 1) RETURN
+      IF (NN .EQ. IONE) RETURN
 !
 !     Alter array IX to get decreasing order if needed
 !
-      IF (KFLAG .LE. -1) THEN
-         DO 20 I=1,NN
+      IF (KFLAG .LE. -IONE) THEN
+         DO 20 I=IONE,NN
             IX(I) = -IX(I)
    20    CONTINUE
       ENDIF
 !
 !     Sort IX only
 !
-      M = 1
-      I = 1
+      M = IONE
+      I = IONE
       J = NN
       R = .375_DP
 !
@@ -635,7 +661,7 @@ contains
 !
 !     Select a central element of the array and save it in location L
 !
-      IJ = I + INT((J-I)*R)
+      IJ = I + INT((J-I)*R, kind=i4b)
       LM = IPERM(IJ)
 !
 !     If first element of array is greater than LM, interchange with LM
@@ -671,13 +697,13 @@ contains
 !     Find an element in the second half of the array which is smaller
 !     than LM
 !
-   60 L = L-1
+   60 L = L-IONE
       IF (IX(IPERM(L)) .GT. IX(LM)) GO TO 60
 !
 !     Find an element in the first half of the array which is greater
 !     than LM
 !
-   70 K = K+1
+   70 K = K+IONE
       IF (IX(IPERM(K)) .LT. IX(LM)) GO TO 70
 !
 !     Interchange these elements
@@ -690,34 +716,34 @@ contains
          IL(M) = I
          IU(M) = L
          I = K
-         M = M+1
+         M = M+IONE
       ELSE
          IL(M) = K
          IU(M) = J
          J = L
-         M = M+1
+         M = M+IONE
       ENDIF
       GO TO 90
 !
 !     Begin again on another portion of the unsorted array
 !
-   80 M = M-1
-      IF (M .EQ. 0) GO TO 120
+   80 M = M-IONE
+      IF (M .EQ. IZERO) GO TO 120
       I = IL(M)
       J = IU(M)
 !
-   90 IF (J-I .GE. 1) GO TO 40
-      IF (I .EQ. 1) GO TO 30
-      I = I-1
+   90 IF (J-I .GE. IONE) GO TO 40
+      IF (I .EQ. IONE) GO TO 30
+      I = I-IONE
 !
-  100 I = I+1
+  100 I = I+IONE
       IF (I .EQ. J) GO TO 80
-      LM = IPERM(I+1)
+      LM = IPERM(I+IONE)
       IF (IX(IPERM(I)) .LE. IX(LM)) GO TO 100
       K = I
 !
-  110 IPERM(K+1) = IPERM(K)
-      K = K-1
+  110 IPERM(K+IONE) = IPERM(K)
+      K = K-IONE
 !
       IF (IX(LM) .LT. IX(IPERM(K))) GO TO 110
       IPERM(K+1) = LM
@@ -725,25 +751,25 @@ contains
 !
 !     Clean up
 !
-  120 IF (KFLAG .LE. -1) THEN
-         DO 130 I=1,NN
+  120 IF (KFLAG .LE. -IONE) THEN
+         DO 130 I=IONE,NN
             IX(I) = -IX(I)
   130    CONTINUE
       ENDIF
 !
 !     Rearrange the values of IX if desired
 !
-      IF (KK .EQ. 2) THEN
+      IF (KK .EQ. ITWO) THEN
 !
 !        Use the IPERM vector as a flag.
 !        If IPERM(I) < 0, then the I-th value is in correct location
 !
-         DO 150 ISTRT=1,NN
-            IF (IPERM(ISTRT) .GE. 0)  THEN
+         DO 150 ISTRT=IONE,NN
+            IF (IPERM(ISTRT) .GE. IZERO)  THEN
                INDX = ISTRT
                INDX0 = INDX
                ITEMP = IX(ISTRT)
-  140          IF (IPERM(INDX) .GT. 0)  THEN
+  140          IF (IPERM(INDX) .GT. IZERO)  THEN
                   IX(INDX) = IX(IPERM(INDX))
                   INDX0 = INDX
                   IPERM(INDX) = -IPERM(INDX)
@@ -756,7 +782,7 @@ contains
 !
 !        Revert the signs of the IPERM values
 !
-         DO 160 I=1,NN
+         DO 160 I=IONE,NN
             IPERM(I) = -IPERM(I)
   160    CONTINUE
 !
@@ -835,33 +861,33 @@ contains
 !   920818  Declarations section rebuilt and code restructured to use
 !           IF-THEN-ELSE-ENDIF.  (SMR, WRB)
 !     .. Scalar Arguments ..
-      INTEGER IER, KFLAG, N
+      INTEGER(I4B) :: IER, KFLAG, N
 !     .. Array Arguments ..
-      INTEGER IPERM(*)
+      INTEGER(I4B) :: IPERM(*)
       real(DP) :: XX(*)
 !     .. Local Scalars ..
       real(DP) :: xtemp
       REAL R
-      INTEGER I, IJ, INDX, INDX0, ISTRT, J, K, KK, L, LM, LMT, M, &
+      INTEGER(I4B) :: I, IJ, INDX, INDX0, ISTRT, J, K, KK, L, LM, LMT, M, &
               NN
 !     .. Local Arrays ..
-      INTEGER IL(21), IU(21)
+      INTEGER(I4B) :: IL(21), IU(21)
 !     .. External Subroutines ..
 !      EXTERNAL XERMSG
 !     .. Intrinsic Functions ..
       INTRINSIC ABS, INT
 !***FIRST EXECUTABLE STATEMENT  SORT
-      IER = 0
+      IER = IZERO
       NN = N
-      IF (NN .LT. 1) THEN
-         IER = 1
+      IF (NN .LT. IONE) THEN
+         IER = IONE
 !         CALL XERMSG ('SLATEC', 'SORT', &
 !          'The number of values to be sorted, N, is not positive.', &
 !          IER, 1)
          RETURN
       ENDIF
       KK = ABS(KFLAG)
-      IF (KK.NE.1 .AND. KK.NE.2) THEN
+      IF (KK.NE.IONE .AND. KK.NE.2) THEN
          IER = 2
 !         CALL XERMSG ('SLATEC', 'SORT', &
 !          'The sort control parameter, KFLAG, is not 2, 1, -1, or -2.', &
@@ -871,26 +897,26 @@ contains
 !
 !     Initialize permutation vector
 !
-      DO 10 I=1,NN
+      DO 10 I=IONE,NN
          IPERM(I) = I
    10 CONTINUE
 !
 !     Return if only one value is to be sorted
 !
-      IF (NN .EQ. 1) RETURN
+      IF (NN .EQ. IONE) RETURN
 !
 !     Alter array XX to get decreasing order if needed
 !
-      IF (KFLAG .LE. -1) THEN
-         DO 20 I=1,NN
+      IF (KFLAG .LE. -IONE) THEN
+         DO 20 I=IONE,NN
             XX(I) = -XX(I)
    20    CONTINUE
       ENDIF
 !
 !     Sort XX only
 !
-      M = 1
-      I = 1
+      M = IONE
+      I = IONE
       J = NN
       R = .375_DP
 !
@@ -905,7 +931,7 @@ contains
 !
 !     Select a central element of the array and save it in location L
 !
-      IJ = I + INT((J-I)*R)
+      IJ = I + INT((J-I)*R, kind=i4b)
       LM = IPERM(IJ)
 !
 !     If first element of array is greater than LM, interchange with LM
@@ -941,13 +967,13 @@ contains
 !     Find an element in the second half of the array which is smaller
 !     than LM
 !
-   60 L = L-1
+   60 L = L-IONE
       IF (XX(IPERM(L)) .GT. XX(LM)) GO TO 60
 !
 !     Find an element in the first half of the array which is greater
 !     than LM
 !
-   70 K = K+1
+   70 K = K+IONE
       IF (XX(IPERM(K)) .LT. XX(LM)) GO TO 70
 !
 !     Interchange these elements
@@ -960,60 +986,60 @@ contains
          IL(M) = I
          IU(M) = L
          I = K
-         M = M+1
+         M = M+IONE
       ELSE
          IL(M) = K
          IU(M) = J
          J = L
-         M = M+1
+         M = M+IONE
       ENDIF
       GO TO 90
 !
 !     Begin again on another portion of the unsorted array
 !
-   80 M = M-1
-      IF (M .EQ. 0) GO TO 120
+   80 M = M-IONE
+      IF (M .EQ. IZERO) GO TO 120
       I = IL(M)
       J = IU(M)
 !
-   90 IF (J-I .GE. 1) GO TO 40
-      IF (I .EQ. 1) GO TO 30
-      I = I-1
+   90 IF (J-I .GE. IONE) GO TO 40
+      IF (I .EQ. IONE) GO TO 30
+      I = I-IONE
 !
-  100 I = I+1
+  100 I = I+IONE
       IF (I .EQ. J) GO TO 80
-      LM = IPERM(I+1)
+      LM = IPERM(I+IONE)
       IF (XX(IPERM(I)) .LE. XX(LM)) GO TO 100
       K = I
 !
-  110 IPERM(K+1) = IPERM(K)
-      K = K-1
+  110 IPERM(K+IONE) = IPERM(K)
+      K = K-IONE
 !
       IF (XX(LM) .LT. XX(IPERM(K))) GO TO 110
-      IPERM(K+1) = LM
+      IPERM(K+IONE) = LM
       GO TO 100
 !
 !     Clean up
 !
-  120 IF (KFLAG .LE. -1) THEN
-         DO 130 I=1,NN
+  120 IF (KFLAG .LE. -IONE) THEN
+         DO 130 I=IONE,NN
             XX(I) = -XX(I)
   130    CONTINUE
       ENDIF
 !
 !     Rearrange the values of XX if desired
 !
-      IF (KK .EQ. 2) THEN
+      IF (KK .EQ. ITWO) THEN
 !
 !        Use the IPERM vector as a flag.
 !        If IPERM(I) < 0, then the I-th value is in correct location
 !
-         DO 150 ISTRT=1,NN
-            IF (IPERM(ISTRT) .GE. 0)  THEN
+         DO 150 ISTRT=IONE,NN
+            IF (IPERM(ISTRT) .GE. IZERO)  THEN
                INDX = ISTRT
                INDX0 = INDX
                XTEMP = XX(ISTRT)
-  140          IF (IPERM(INDX) .GT. 0)  THEN
+  140          IF (IPERM(INDX) .GT. IZERO)  THEN
                   XX(INDX) = XX(IPERM(INDX))
                   INDX0 = INDX
                   IPERM(INDX) = -IPERM(INDX)
@@ -1026,7 +1052,7 @@ contains
 !
 !        Revert the signs of the IPERM values
 !
-         DO 160 I=1,NN
+         DO 160 I=IONE,NN
             IPERM(I) = -IPERM(I)
   160    CONTINUE
 !
@@ -1035,25 +1061,106 @@ contains
       RETURN
     END SUBROUTINE
 !=========================================
+
+
+    SUBROUTINE OTHPL(KF,N,X,PL,DPL)
+      !
+      !       ==========================================================
+      !       Purpose: Compute orthogonal polynomials: Tn(x) or Un(x),
+      !                or Ln(x) or Hn(x), and their derivatives
+      !       Input :  KF --- Function code
+      !                       KF=1 for Chebyshev polynomial Tn(x)
+      !                       KF=2 for Chebyshev polynomial Un(x)
+      !                       KF=3 for Laguerre polynomial Ln(x)
+      !                       KF=4 for Hermite polynomial Hn(x)
+      !                n ---  Order of orthogonal polynomials
+      !                x ---  Argument of orthogonal polynomials
+      !       Output:  PL(n) --- Tn(x) or Un(x) or Ln(x) or Hn(x)
+      !                DPL(n)--- Tn'(x) or Un'(x) or Ln'(x) or Hn'(x)
+      !       =========================================================
+      ! copyright: 
+      !   S. Zhang & J. Jin "Computation of Special Functions" (Wiley, 1996).
+      !    http://jin.ece.uiuc.edu/routines/routines.html
+      !--------------------------------------------------------------------------
+      use healpix_types
+      IMPLICIT none
+      integer(i4b), intent(in) :: kf, n
+      real(DP), intent(in) :: x
+      real(DP), dimension(0:), intent(out) :: pl(0:),dpl(0:)
+      !
+      real(DP) :: a, b, c, y0, y1, dy0, dy1, yn, dyn
+      integer(i4b) :: k
+
+      a = 2.0d0
+      b = 0.0d0
+      c = 1.0d0
+      y0 = 1.0d0
+      y1 = 2.0d0*x
+      dy0 = 0.0d0
+      dy1 = 2.0d0
+      pl(0) = 1.0d0
+      dpl(0) = 0.0d0
+      if (n > 0) then
+         pl(1) = 2.0d0*x
+         dpl(1) = 2.0d0
+      endif
+      if (kf == 1) then
+         y1 = x
+         dy1 = 1.0d0
+         if (n > 0) then
+            pl(1) = x
+            dpl(1) = 1.0d0
+         endif
+      else if (kf == 3) then
+         y1 = 1.0d0-x
+         dy1 = -1.0d0
+         if (n > 0) then
+            pl(1) = 1.0d0-x
+            dpl(1) = -1.0d0
+         endif
+      endif
+      do k = 2,n
+         if (kf == 3) then
+            a = -1.0d0/k
+            b = 2.0d0+a
+            c = 1.0d0+a
+         else if (kf == 4) then
+            c = 2.0d0*(k-1.0d0)
+         endif
+         yn = (a*x+b)*y1-c*y0
+         dyn = a*y1+(a*x+b)*dy1-c*dy0
+         pl(k) = yn
+         dpl(k) = dyn
+         y0 = y1
+         y1 = yn
+         dy0 = dy1
+         dy1 = dyn
+      enddo
+      return
+
+    END SUBROUTINE OTHPL
+
+!=========================================
+
   subroutine dsvbksb(u,w,v,m,n,mp,np,b,x)
     integer(i4b), intent(in) :: m,mp,n,np
     real(dp), intent(in) ::  b(mp),u(mp,np),v(np,np),w(np)
     real(dp), intent(out) :: x(np)
     integer(i4b) ::  i,j,jj
     real(dp) ::  s,tmp(n)
-    do j=1,n
+    do j=IONE,n
        s = 0d0
        if (w(j)/=0d0) then
-          do i=1,m
+          do i=IONE,m
              s=s+u(i,j)*b(i)
           end do
           s=s/w(j)
        endif
        tmp(j)=s
     end do
-    do j=1,n
+    do j=IONE,n
        s=0.0d0
-       do jj=1,n
+       do jj=IONE,n
           s=s+v(j,jj)*tmp(jj)
        end do
        x(j)=s
@@ -1072,39 +1179,39 @@ contains
   end subroutine dsvdcmp
 
   subroutine isort(n,ra)
-    integer, intent(in) :: n
-    integer, intent(inout), dimension(1:) :: ra
-    integer indx(n),ier
-    call ipsort (ra,n,indx,2,ier)
-    call assert (ier==0, "error in ipsort()")
+    integer(i4b), intent(in) :: n
+    integer(i4b), intent(inout), dimension(1:) :: ra
+    integer(i4b) :: indx(n),ier
+    call ipsort (ra,n,indx,ITWO,ier)
+    call assert (ier==IZERO, "error in ipsort()")
   end subroutine isort
 
   subroutine sort(n,ra)
-    integer, intent(in) :: n
+    integer(i4b), intent(in) :: n
     real(dp), intent(inout), dimension(1:) :: ra
-    integer indx(n),ier
-    call xpsort (ra,n,indx,2,ier)
-    call assert (ier==0, "error in xpsort()")
+    integer(i4b) :: indx(n),ier
+    call xpsort (ra,n,indx,ITWO,ier)
+    call assert (ier==IZERO, "error in xpsort()")
   end subroutine sort
 
   SUBROUTINE iindexx(n,arr,indx)
-    INTEGER,                 intent(IN)  :: n
-    INTEGER, dimension(1:n), intent(IN)  :: arr
-    integer, dimension(1:n), intent(out) :: indx
+    INTEGER(I4B),                 intent(IN)  :: n
+    INTEGER(I4B), dimension(1:n), intent(IN)  :: arr
+    integer(i4b), dimension(1:n), intent(out) :: indx
     integer ier
 
-    call ipsort (arr,n,indx,1,ier)
-    call assert (ier==0, "error in ipsort()")
+    call ipsort (arr,n,indx,IONE,ier)
+    call assert (ier==IZERO, "error in ipsort()")
   END SUBROUTINE iindexx
 
   SUBROUTINE indexx(n,arr,indx)
-    INTEGER,                 intent(IN)  :: n
+    INTEGER(I4B),                 intent(IN)  :: n
     real(DP), dimension(1:n), intent(IN)  :: arr
-    integer,  dimension(1:n), intent(out) :: indx
-    integer ier
+    integer(i4b),  dimension(1:n), intent(out) :: indx
+    integer(i4b) ::  ier
 
-    call xpsort (arr,n,indx,1,ier)
-    call assert (ier==0, "error in xpsort()")
+    call xpsort (arr,n,indx,IONE,ier)
+    call assert (ier==IZERO, "error in xpsort()")
   END SUBROUTINE indexx
 
 end module num_rec

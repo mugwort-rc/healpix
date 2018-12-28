@@ -6,13 +6,13 @@ or:
     [-xsz <int>] [-bar] [-log] [-asinh] [-lon <float>] [-lat <float>]
     [-mul <float>] [-add <float>] [-min <float>] [-max <float>]
     [-res <float>] [-title <string>] [-flippal] [-gnomonic]
-    [-interpol <0|1|2>] [-equalize]
+    [-interpol] [-equalize] [-viewer <viewer>]
 
 
 Parameters read by map2tga:
 
 infile (string):
-  input FITS file containing the Healpix map
+  input file containing the Healpix map
 
 outfile (string):
   output TGA file
@@ -65,10 +65,12 @@ res (double, default=1):
 title (string, optional):
   if specified, this value is used as the image title
 
+viewer (string, optional):
+  if specified, this executable is used to show the resulting image
+
 pro (string, default="mollw"):
   if this is equal to "gno", gnomonic projection is used, else Mollweide
 
-interpol (int, default=0):
-  0: no interpolation
-  1: interpolation method 1 (fast for NEST maps)
-  2: interpolation method 2 (fast for RING maps)
+interpol (bool, default=false):
+  false: no interpolation
+  true : bilinear interpolation

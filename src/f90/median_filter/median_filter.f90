@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2005 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -34,7 +34,8 @@ module medmod
   USE pix_tools,  only: nside2npix, npix2nside, medfiltmap
   USE extension,  only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_summarize, parse_lgt, concatnl
+         parse_string, parse_double, parse_summarize, parse_lgt, parse_check_unused, parse_finish, &
+         concatnl
   implicit none
 
   character(len=*), parameter :: CODE = "MEDIAN_FILTER"
