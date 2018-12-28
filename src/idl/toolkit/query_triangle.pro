@@ -292,6 +292,7 @@ for iz = irmin, irmax do begin
     endfor
     ; identify the intersections (0,1,2 or 3) of the 3 intervals
     intrs_intrv, dom[0:1,0], dom[0:1,1], dom12, n12
+
     if (n12 eq 0) then goto, empty
     if (n12 eq 1) then begin
         intrs_intrv, dom[0:1,2], dom12, dom123a, n123a

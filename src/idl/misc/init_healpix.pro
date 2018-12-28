@@ -67,10 +67,10 @@ pro init_healpix, verbose=verbose
 healpix_sysvar = '!HEALPIX'
 
 ; Healpix version
-version = '2.14'
+version = '2.14a'
 
 ; release data
-date = '2010-03-04'
+date = '2010-03-22'
 
 
 ; Healpix directory

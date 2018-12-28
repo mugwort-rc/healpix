@@ -34,7 +34,7 @@ pro query_polygon, nside, vlist, listpix, nlist, help=help, nested=nested, inclu
 ; finds pixels that lie within a CONVEX polygon defined by its vertex on the sphere
 ;
 ; nside             : IN
-; vlist(1:3, 0:n-1) : IN, list of vertices
+; vlist(0:n-1, 0:2) : IN, list of vertices
 ; listpix           : OUT
 ; nlist             : OUT
 ; nested              : IN, OPTIONAL
@@ -47,6 +47,7 @@ pro query_polygon, nside, vlist, listpix, nlist, help=help, nested=nested, inclu
 ;
 ; v1.0, EH, Caltech, Dec-2001
 ; 2008-03-27, check # of params, added /HELP
+; 2010-03-12: corrected typo in documentation header
 ;=======================================================================
 ;-
 

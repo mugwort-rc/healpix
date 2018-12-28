@@ -84,6 +84,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;   Nov 2009, EH, retrofitting for GDL. 
 ;                 Everything works as in IDL except PS outputs and
 ;                 transparent pixels in PNG
+;   Mar 2010, EH, corrected bug with use_z_buffer
 ;-
 ;===============================================================================
 
@@ -410,6 +411,7 @@ my_color = !p.color
 if (~keyword_set(silent)) then print,'... here it is.'
 titlewindow = proj_big+' projection : ' + title_display
 back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
+use_z_buffer = 0 ; set it to 0 (for postscript) 2010-03-18
 if (do_ps) then begin
     ; 2009-11-04: 'ps' in GDL does not support: COLOR, BITS, XSIZE, ...
     if DEFINED(hxsize) then hxsize = (hxsize > 3) < 200 else hxsize = hxsize_def

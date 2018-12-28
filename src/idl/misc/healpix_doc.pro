@@ -74,7 +74,7 @@ pro healpix_doc, help=help, html=html, pdf=pdf, whole=whole
 ;
 ; MODIFICATION HISTORY:
 ;        created 2009-10-07 by EH.
-;
+;        2010-03-12: opens main.htm instead of index.htm when used with /html,/whole
 ;-
 
 routine = 'healpix_doc'
@@ -128,7 +128,8 @@ if keyword_set(pdf) then begin
 endif else begin
 
     if (do_whole) then begin
-        doc_path = path_html + 'index.htm'
+;;        doc_path = path_html + 'index.htm'
+        doc_path = path_html + 'main.htm'  ; corrected 2010-03-12
     endif else begin
         doc_path = path_html + 'idl.htm'
     endelse
