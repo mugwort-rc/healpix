@@ -41,7 +41,7 @@
 <a name="l00025"></a>00025 <span class="comment">/*</span>
 <a name="l00026"></a>00026 <span class="comment"> *  Helper code for efficient calculation of Y_lm(theta,phi=0)</span>
 <a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2005-2012 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2005-2014 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -64,7 +64,7 @@
 <a name="l00048"></a>00048   gen-&gt;lmax = l_max;
 <a name="l00049"></a>00049   gen-&gt;mmax = m_max;
 <a name="l00050"></a>00050   <a class="codeRef" doxygen="c_utils.tag:../c_utils/" href="../c_utils/c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(spin&gt;=0,<span class="stringliteral">"incorrect spin: must be nonnegative"</span>);
-<a name="l00051"></a>00051   <a class="codeRef" doxygen="c_utils.tag:../c_utils/" href="../c_utils/c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(m_max&gt;=spin,<span class="stringliteral">"incorrect m_max: must be &gt;= spin"</span>);
+<a name="l00051"></a>00051   <a class="codeRef" doxygen="c_utils.tag:../c_utils/" href="../c_utils/c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(l_max&gt;=spin,<span class="stringliteral">"incorrect l_max: must be &gt;= spin"</span>);
 <a name="l00052"></a>00052   <a class="codeRef" doxygen="c_utils.tag:../c_utils/" href="../c_utils/c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(l_max&gt;=m_max,<span class="stringliteral">"incorrect l_max: must be &gt;= m_max"</span>);
 <a name="l00053"></a>00053   gen-&gt;s = spin;
 <a name="l00054"></a>00054   <a class="codeRef" doxygen="c_utils.tag:../c_utils/" href="../c_utils/c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>((sharp_minscale&lt;=0)&amp;&amp;(sharp_maxscale&gt;0),
@@ -248,7 +248,7 @@
 <a name="l00232"></a>00232   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:24 2014 for LevelS SHT library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS SHT library
 </a> </small></address>
 </body>
 </html>

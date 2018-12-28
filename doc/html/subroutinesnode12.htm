@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html405"
+<A NAME="tex2html415"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html411"
+<A NAME="tex2html421"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html415"
+<A NAME="tex2html425"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html413"
+<A NAME="tex2html423"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html406"
+<B> Previous:</B> <A NAME="tex2html416"
   HREF="subroutinesnode11.htm">alms2fits*</A>
 
-<B>Up:</B> <A NAME="tex2html412"
+<B>Up:</B> <A NAME="tex2html422"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html416"
+<B> Next:</B> <A NAME="tex2html426"
   HREF="subroutinesnode13.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -68,15 +69,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="128" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg33.png"
+ SRC="subroutinesimg38.png"
  ALT="$a_{lm}
 \longrightarrow a_{lm} b(l) $"></SPAN> . It can also be used to
   multiply the  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> by an arbitray function of <SPAN CLASS="MATH"><I>l</I></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alter_alm*</FONT>(
-nsmax, nlmax, nmmax, fwhm_arcmin, alm_TGC [, beam_file, window]
+<A HREF="#sub:alter_alm:nsmax">nsmax</A>, <A HREF="#sub:alter_alm:nlmax">nlmax</A>, <A HREF="#sub:alter_alm:nmmax">nmmax</A>, <A HREF="#sub:alter_alm:fwhm_arcmin">fwhm_arcmin</A>, <A HREF="#sub:alter_alm:alm_TGC">alm_TGC</A>[, <A HREF="#sub:alter_alm:beam_file">beam_file</A>, <A HREF="#sub:alter_alm:window">window</A>]
 )</h3></blockquote>
 
 <P>
@@ -94,7 +95,7 @@ nsmax, nlmax, nmmax, fwhm_arcmin, alm_TGC [, beam_file, window]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>
-nsmax</TD>
+nsmax<A NAME="sub:alter_alm:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><!-- MATH
@@ -102,26 +103,26 @@ nsmax</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
+ SRC="subroutinesimg13.png"
  ALT="${N_{\rm side}}$"></SPAN> resolution parameter of the map associated with the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
                    considered. Currently has no effect on the routine.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>nlmax<A NAME="sub:alter_alm:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>nmmax<A NAME="sub:alter_alm:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>fwhm_arcmin</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>fwhm_arcmin<A NAME="sub:alter_alm:fwhm_arcmin"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>fwhm size of the gaussian beam in arcminutes.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>alm_TGC(1:p,0:nlmax,0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>alm_TGC<A NAME="sub:alter_alm:alm_TGC"></A>(1:p,0:nlmax,0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>INOUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>complex <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values
@@ -131,7 +132,7 @@ nsmax</TD>
 </TR>
 </TABLE>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>beam_file(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>beam_file<A NAME="sub:alter_alm:beam_file"></A>(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>name of the file
@@ -139,7 +140,7 @@ nsmax</TD>
                    <SPAN CLASS="MATH"><I>B</I><SUB><I>l</I></SUB></SPAN> of a circular beam. If present, it will override
                    the argument <TT>fwhm_arcmin</TT>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>window(0:nlw,1:d) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>window<A NAME="sub:alter_alm:window"></A>(0:nlw,1:d) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>arbitrary window by which to multiply the
@@ -147,7 +148,7 @@ nsmax</TD>
                    and <TT>beam_file</TT>. If nlw <SPAN CLASS="MATH">&lt;</SPAN> nlmax, the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> with
                    <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg34.png"
+ SRC="subroutinesimg39.png"
  ALT="$l\in \{$"></SPAN>nlw+1,nlmax<SPAN CLASS="MATH">}</SPAN> are set to 0, and a warning is issued. If <SPAN CLASS="MATH"><I>d</I>&lt;<I>p</I></SPAN> the
                    window for temperature is replicated for polarisation.</TD>
 </TR>
@@ -163,14 +164,14 @@ Alters scalar and tensor <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> 
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg35.png"
+ SRC="subroutinesimg40.png"
  ALT="${N_{\rm side}}=64$"></SPAN>, <!-- MATH
  $l_{\rm
   max}=m_{\rm max} = 128$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="157" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg36.png"
+ SRC="subroutinesimg41.png"
  ALT="$l_{\rm
 max}=m_{\rm max} = 128$"></SPAN> by multiplying them by the beam window function of a
 gaussian beam with FWHM = 5 arcmin.
@@ -185,7 +186,7 @@ gaussian beam with FWHM = 5 arcmin.
 <B><A HREF="subroutinesnode32.htm#sub:generate_beam">generate_beam</A></B>
 <DD>routine to generate beam window function
 	<DT>
-<B><A HREF="subroutinesnode70.htm#sub:pixel_window">pixel_window</A></B>
+<B><A HREF="subroutinesnode71.htm#sub:pixel_window">pixel_window</A></B>
 <DD>routine to generate pixel window function
   </DL>
 
@@ -196,7 +197,7 @@ gaussian beam with FWHM = 5 arcmin.
 <B><A HREF="subroutinesnode24.htm#sub:create_alm">create_alm</A></B>
 <DD>Routine to create <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
   <DT>
-<B><A HREF="subroutinesnode92.htm#sub:rotate_alm">rotate_alm</A></B>
+<B><A HREF="subroutinesnode93.htm#sub:rotate_alm">rotate_alm</A></B>
 <DD>Routine to rotate <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
   coefficients between 2 different arbitrary coordinate systems.
   <DT>
@@ -223,31 +224,31 @@ gaussian beam with FWHM = 5 arcmin.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html405"
+<A NAME="tex2html415"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html411"
+<A NAME="tex2html421"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html415"
+<A NAME="tex2html425"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html413"
+<A NAME="tex2html423"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html406"
+<B> Previous:</B> <A NAME="tex2html416"
   HREF="subroutinesnode11.htm">alms2fits*</A>
 
-<B>Up:</B> <A NAME="tex2html412"
+<B>Up:</B> <A NAME="tex2html422"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html416"
+<B> Next:</B> <A NAME="tex2html426"
   HREF="subroutinesnode13.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

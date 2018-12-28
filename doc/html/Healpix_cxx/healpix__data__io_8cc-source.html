@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_9b347822194fb75385309b582ebc89dc.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -37,7 +37,7 @@
 <a name="l00015"></a>00015 <span class="comment"> *  along with Healpix_cxx; if not, write to the Free Software</span>
 <a name="l00016"></a>00016 <span class="comment"> *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
 <a name="l00017"></a>00017 <span class="comment"> *</span>
-<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.jpl.nasa.gov</span>
+<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.sourceforge.net</span>
 <a name="l00019"></a>00019 <span class="comment"> */</span>
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="comment">/*</span>
@@ -64,14 +64,14 @@
 <a name="l00042"></a>00042   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfitshandle.html">fitshandle</a> inp;
 <a name="l00043"></a>00043   inp.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfitshandle.html#dc871ca88a696de64166f45540abcfb5">open</a>(dir+<span class="stringliteral">"/weight_ring_n"</span>+<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__stringutilsgroup.html#gb942deddd2b88ef37368ded0c45e837e">intToString</a>(nside,5)+<span class="stringliteral">".fits"</span>);
 <a name="l00044"></a>00044   inp.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfitshandle.html#99ab9785efa05ca7ae90c134b1e278fc">goto_hdu</a>(2);
-<a name="l00045"></a>00045   weight.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a> (2*nside);
+<a name="l00045"></a>00045   weight.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a> (2*nside);
 <a name="l00046"></a>00046   inp.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfitshandle.html#fa6802fe55deaa8690e4bcfad42fcacb">read_column</a>(1,weight);
 <a name="l00047"></a>00047   }
 <a name="l00048"></a>00048 
 <a name="l00049"></a>00049 <span class="keywordtype">void</span> get_ring_weights (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> &amp;params, <span class="keywordtype">int</span> nside, <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> &amp;weight)
 <a name="l00050"></a>00050   {
 <a name="l00051"></a>00051   <span class="keywordtype">bool</span> weighted = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">bool</span>&gt;(<span class="stringliteral">"weighted"</span>,<span class="keyword">false</span>);
-<a name="l00052"></a>00052   weight.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a> (2*nside);
+<a name="l00052"></a>00052   weight.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a> (2*nside);
 <a name="l00053"></a>00053   <span class="keywordflow">if</span> (weighted)
 <a name="l00054"></a>00054     {
 <a name="l00055"></a>00055     <span class="keywordtype">string</span> datadir = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">"healpix_data"</span>);
@@ -111,7 +111,7 @@
 <a name="l00089"></a>00089 <span class="keywordtype">void</span> get_pixwin (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> &amp;params, <span class="keywordtype">int</span> lmax, <span class="keywordtype">int</span> nside, <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> &amp;pixwin)
 <a name="l00090"></a>00090   {
 <a name="l00091"></a>00091   <span class="keywordtype">bool</span> do_pixwin = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">bool</span>&gt;(<span class="stringliteral">"pixel_window"</span>,<span class="keyword">false</span>);
-<a name="l00092"></a>00092   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00092"></a>00092   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00093"></a>00093   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr__ref.html#efb90c2a19980591e287707250a714a8">fill</a>(1);
 <a name="l00094"></a>00094   <span class="keywordflow">if</span> (do_pixwin)
 <a name="l00095"></a>00095     {
@@ -123,9 +123,9 @@
 <a name="l00101"></a>00101   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> &amp;pixwin_pol)
 <a name="l00102"></a>00102   {
 <a name="l00103"></a>00103   <span class="keywordtype">bool</span> do_pixwin = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">bool</span>&gt;(<span class="stringliteral">"pixel_window"</span>,<span class="keyword">false</span>);
-<a name="l00104"></a>00104   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00104"></a>00104   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00105"></a>00105   pixwin.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr__ref.html#efb90c2a19980591e287707250a714a8">fill</a>(1);
-<a name="l00106"></a>00106   pixwin_pol.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00106"></a>00106   pixwin_pol.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00107"></a>00107   pixwin_pol.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr__ref.html#efb90c2a19980591e287707250a714a8">fill</a>(1);
 <a name="l00108"></a>00108   <span class="keywordflow">if</span> (do_pixwin)
 <a name="l00109"></a>00109     {
@@ -135,7 +135,7 @@
 <a name="l00113"></a>00113   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

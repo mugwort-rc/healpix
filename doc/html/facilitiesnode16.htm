@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html264"
+<A NAME="tex2html270"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html270"
+<A NAME="tex2html276"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html274"
+<A NAME="tex2html280"
   HREF="facilitiesnode17.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html272"
+<A NAME="tex2html278"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html265"
+<B> Previous:</B> <A NAME="tex2html271"
   HREF="facilitiesnode15.htm">ud_grade</A>
 
-<B>Up:</B> <A NAME="tex2html271"
+<B>Up:</B> <A NAME="tex2html277"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html275"
+<B> Next:</B> <A NAME="tex2html281"
   HREF="facilitiesnode17.htm">About this document ...</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -55,7 +56,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html276"
+<LI><A NAME="tex2html282"
   HREF="facilitiesnode16.htm#SECTION000161000000000000000">Bug Correction in synfast 2.14</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -71,7 +72,7 @@ Appendix
 <BR>
 Bug Correction in synfast 2.14
 </H2><SMALL CLASS="FOOTNOTESIZE">
-Thanks to the routine <TT>alm2map_der</TT>, the Fortran90 
+Thanks to the routine <A HREF="./subroutinesnode9.htm#sub:alm2map_der"><TT>alm2map_der</TT></A>, the Fortran90 
 <A HREF="facilitiesnode14.htm#fac:synfast"><TT>synfast</TT></A> 
 facility  produces
 maps of <SPAN CLASS="MATH"><I>I</I>,<I>Q</I>,<I>U</I></SPAN> Stokes parameters and their first and second spatial derivatives,
@@ -95,7 +96,7 @@ starting from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="156" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg57.png"
+ SRC="facilitiesimg59.png"
  ALT="$\partial^2 X/(\partial\theta\partial\varphi\sin(\theta))$"></SPAN>, for <SPAN CLASS="MATH"><I>X</I>=(<I>Q</I>,<I>U</I>)</SPAN>
 was detected in this routine and has been fixed in release 2.14 (March 2010).</B>
 </SMALL>
@@ -106,7 +107,7 @@ assess how much their work could have been affected by this bug.
 </SMALL>
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:bug_derQU"></A><A NAME="3268"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:bug_derQU"></A><A NAME="3384"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Left panels: comparison of the EE power spectra <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> computed on polarized maps
@@ -118,14 +119,14 @@ and their differences (Diff maps, magenta lines). Note that what is plotted is
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg58.png"
+ SRC="facilitiesimg60.png"
  ALT="$l(l+1)C(l)/2\pi$"></SPAN>. Right panels show respectively
 the relative error on the EE power spectrum of the old derivatives maps compared
 to that of the new maps.
 The red dashes show analytical fit to these errors.
 </CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par5647" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par5722" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="533" ALIGN="BOTTOM" BORDER="0"
  SRC="IGimg1.png"
@@ -141,7 +142,7 @@ In Figure&nbsp;<A HREF="#fig:bug_derQU">1</A> we show the polarization <SPAN CLA
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="106" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg59.png"
+ SRC="facilitiesimg61.png"
  ALT="$N_{\rm side} = 1024$"></SPAN> maps
 in which the Stokes parameters <SPAN CLASS="MATH">(<I>Q</I>,<I>U</I>)</SPAN> have been replaced by, in turn, their derivatives
 <!-- MATH
@@ -149,28 +150,28 @@ in which the Stokes parameters <SPAN CLASS="MATH">(<I>Q</I>,<I>U</I>)</SPAN> hav
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="97" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg60.png"
+ SRC="facilitiesimg62.png"
  ALT="$\partial (Q,U)/\partial\theta$"></SPAN>, 
 <!-- MATH
  $\partial^2 (Q,U)/\partial \theta^2$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="113" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg61.png"
+ SRC="facilitiesimg63.png"
  ALT="$\partial^2 (Q,U)/\partial \theta^2$"></SPAN>, 
 <!-- MATH
  $\partial^2 (Q,U)/(\partial\theta\partial\varphi\sin\theta)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="181" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg62.png"
+ SRC="facilitiesimg64.png"
  ALT="$\partial^2 (Q,U)/(\partial\theta\partial\varphi\sin\theta)$"></SPAN>, 
 for maps generated
 by either the version 2.13a of <TT>synfast</TT> or the corrected version 2.14, or
 the difference of the two set of maps.
 The input power spectra were those of WMAP-1yr <SPAN CLASS="MATH"><IMG
  WIDTH="18" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="facilitiesimg63.png"
+ SRC="facilitiesimg65.png"
  ALT="$\Lambda$"></SPAN>-CDM best fit model with a Gaussian
 beam FWHM of 10 arcmin. The power spectra were computed on the whole maps, except
 for 12 pixels around each pole that were masked out, because they get very
@@ -194,10 +195,10 @@ the bug described above:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="69" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg64.png"
+ SRC="facilitiesimg66.png"
  ALT="$\Delta I, \Delta Q$"></SPAN> and <SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="facilitiesimg65.png"
+ SRC="facilitiesimg67.png"
  ALT="$\Delta U$"></SPAN>, with
 <!-- MATH
  $\Delta \equiv \left(
@@ -208,7 +209,7 @@ the bug described above:
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="251" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg66.png"
+ SRC="facilitiesimg68.png"
  ALT="$\Delta \equiv \left(
 \frac{\partial^2}{\partial\theta^2}
 + \cot\theta\frac{\partial}{\partial\theta} +
@@ -220,31 +221,31 @@ the bug described above:
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html264"
+<A NAME="tex2html270"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html270"
+<A NAME="tex2html276"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html274"
+<A NAME="tex2html280"
   HREF="facilitiesnode17.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html272"
+<A NAME="tex2html278"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html265"
+<B> Previous:</B> <A NAME="tex2html271"
   HREF="facilitiesnode15.htm">ud_grade</A>
 
-<B>Up:</B> <A NAME="tex2html271"
+<B>Up:</B> <A NAME="tex2html277"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html275"
+<B> Next:</B> <A NAME="tex2html281"
   HREF="facilitiesnode17.htm">About this document ...</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

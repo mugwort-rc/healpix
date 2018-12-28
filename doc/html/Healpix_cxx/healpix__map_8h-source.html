@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_9b347822194fb75385309b582ebc89dc.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -37,7 +37,7 @@
 <a name="l00015"></a>00015 <span class="comment"> *  along with Healpix_cxx; if not, write to the Free Software</span>
 <a name="l00016"></a>00016 <span class="comment"> *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
 <a name="l00017"></a>00017 <span class="comment"> *</span>
-<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.jpl.nasa.gov</span>
+<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.sourceforge.net</span>
 <a name="l00019"></a>00019 <span class="comment"> */</span>
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="comment">/*</span>
@@ -264,12 +264,12 @@
 <a name="l00242"></a>00242 <span class="comment">    /*! Returns the average of all defined map pixels. */</span>
 <a name="l00243"></a><a class="code" href="classHealpix__Map.html#2f59bf6579f824b62f4f2ed6644b47db">00243</a>     <span class="keywordtype">double</span> average()<span class="keyword"> const</span>
 <a name="l00244"></a>00244 <span class="keyword">      </span>{
-<a name="l00245"></a>00245       <span class="keywordtype">double</span> avg=0;
+<a name="l00245"></a>00245       kahan_adder&lt;double&gt; adder;
 <a name="l00246"></a>00246       <span class="keywordtype">int</span> pix=0;
 <a name="l00247"></a>00247       <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;npix_; ++m)
 <a name="l00248"></a>00248         <span class="keywordflow">if</span> (!approx&lt;double&gt;(map[m],<a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>))
-<a name="l00249"></a>00249           { ++pix; avg+=map[m]; }
-<a name="l00250"></a>00250       <span class="keywordflow">return</span> (pix&gt;0) ? avg/pix : <a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>;
+<a name="l00249"></a>00249           { ++pix; adder.add(map[m]); }
+<a name="l00250"></a>00250       <span class="keywordflow">return</span> (pix&gt;0) ? adder.result()/pix : <a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>;
 <a name="l00251"></a>00251       }
 <a name="l00252"></a>00252 <span class="comment"></span>
 <a name="l00253"></a>00253 <span class="comment">    /*! Adds \a val to all defined map pixels. */</span>
@@ -310,7 +310,7 @@
 <a name="l00288"></a>00288       T result=0;
 <a name="l00289"></a>00289       <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;npix_; ++m)
 <a name="l00290"></a>00290         <span class="keywordflow">if</span> (!approx&lt;double&gt;(map[m],<a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>))
-<a name="l00291"></a>00291           { result = max(result,<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(map[m])); }
+<a name="l00291"></a>00291           { result = max(result,abs(map[m])); }
 <a name="l00292"></a>00292       <span class="keywordflow">return</span> result;
 <a name="l00293"></a>00293       }<span class="comment"></span>
 <a name="l00294"></a>00294 <span class="comment">    /*! Returns \a true, if no pixel has the value \a Healpix_undef,</span>
@@ -337,7 +337,7 @@
 <a name="l00315"></a>00315 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

@@ -15,7 +15,7 @@
  *  along with Healpix_cxx; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 /*
@@ -71,7 +71,7 @@ int median_filter_cxx_module (int argc, const char **argv)
     inmap.query_disc(inmap.pix2ang(m),radius,pixset);
     list.resize(pixset.nval());
     tsize cnt=0;
-    for (tsize j=0; j<pixset.size(); ++j)
+    for (tsize j=0; j<pixset.nranges(); ++j)
       for (int i=pixset.ivbegin(j); i<pixset.ivend(j); ++i)
         if (!approx(inmap[i],float(Healpix_undef)))
           list[cnt++] = inmap[i];

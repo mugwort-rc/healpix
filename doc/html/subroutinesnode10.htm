@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html381"
+<A NAME="tex2html391"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html387"
+<A NAME="tex2html397"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html391"
+<A NAME="tex2html401"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html389"
+<A NAME="tex2html399"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html382"
+<B> Previous:</B> <A NAME="tex2html392"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 
-<B>Up:</B> <A NAME="tex2html388"
+<B>Up:</B> <A NAME="tex2html398"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html392"
+<B> Next:</B> <A NAME="tex2html402"
   HREF="subroutinesnode11.htm">alms2fits*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -74,12 +75,12 @@ A (complex) map <SPAN CLASS="MATH"><I>S</I></SPAN> of spin <SPAN CLASS="MATH"><I
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="198" HEIGHT="49" BORDER="0"
- SRC="subroutinesimg25.png"
+ SRC="subroutinesimg30.png"
  ALT="\begin{displaymath}
 {_s}S(p) = \sum_{lm} {_s}a_{lm}\ \ {_s}Y_{lm}(p)
 \end{displaymath}"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
 </TABLE>
 <BR CLEAR="ALL"></DIV><P></P>
 for <!-- MATH
@@ -87,7 +88,7 @@ for <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="122" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg26.png"
+ SRC="subroutinesimg31.png"
  ALT="$l \ge \vert m\vert, l \ge \vert s\vert$"></SPAN>,
 and is such that <!-- MATH
  ${_s}S^* = {_{-s}}S$
@@ -95,7 +96,7 @@ and is such that <!-- MATH
 <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>S</I><SUP>*</SUP> = <SUB>-<I>s</I></SUB><I>S</I></SPAN>.
 <BR>
 The 
-<A NAME="tex2html13"
+<A NAME="tex2html14"
   HREF="http://en.wikipedia.org/wiki/Spin-weighted_spherical_harmonics#Calculating">usual phase convention for the spin weighted harmonics</A>
 is
 <!-- MATH
@@ -121,24 +122,24 @@ and therefore
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>lm</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> + (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/2</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">4</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> - (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/(2<I>i</I>)</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">5</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 for <SPAN CLASS="MATH"><IMG
  WIDTH="56" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg28.png"
+ SRC="subroutinesimg33.png"
  ALT="$m\ge 0$"></SPAN>, knowing that, just as for spin 0 maps, the
 coefficients for <SPAN CLASS="MATH"><I>m</I>&lt;0</SPAN> are given by 
 <BR>
@@ -154,19 +155,19 @@ coefficients for <SPAN CLASS="MATH"><I>m</I>&lt;0</SPAN> are given by
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>l</I>-<I>m</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>+*</SUP><SUB><I>lm</I></SUB>,</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">4</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>l</I>-<I>m</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>-*</SUP><SUB><I>lm</I></SUB>.</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">5</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">7</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 The two (real) maps produced by <FONT COLOR="#CC0000">alm2map_spin*</FONT> are  defined respectively as
@@ -183,19 +184,19 @@ The two (real) maps produced by <FONT COLOR="#CC0000">alm2map_spin*</FONT> are  
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>S</I><SUP>+</SUP></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> + <SUB>-|s|</SUB><I>S</I>)/2</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">8</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>S</I><SUP>-</SUP></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
+ SRC="subroutinesimg32.png"
  ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> - <SUB>-|s|</SUB><I>S</I>)/(2<I>i</I>).</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">7</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">9</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 With these definitions, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>+</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>-</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>+</SUP></SPAN> and <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>-</SUP></SPAN>
@@ -205,28 +206,28 @@ match <b>HEALPix</b> polarization <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="112" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg29.png"
+ SRC="subroutinesimg34.png"
  ALT="$\ _{0}a^+_{lm} = -a^T_{lm}$"></SPAN>, <!-- MATH
  $\ _{0}a^-_{lm} = 0$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="80" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg30.png"
+ SRC="subroutinesimg35.png"
  ALT="$\ _{0}a^-_{lm} = 0$"></SPAN>, <SPAN CLASS="MATH"><IMG
  WIDTH="81" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg31.png"
+ SRC="subroutinesimg36.png"
  ALT="$\ {_0}S^+ = T$"></SPAN>, <!-- MATH
  $\ {_0}S^- = 0.$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="82" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg32.png"
+ SRC="subroutinesimg37.png"
  ALT="$\ {_0}S^- = 0.$"></SPAN></H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2map_spin*</FONT>(
-nsmax, nlmax, nmmax, spin, alm, map
+<A HREF="#sub:alm2map_spin:nsmax">nsmax</A>, <A HREF="#sub:alm2map_spin:nlmax">nlmax</A>, <A HREF="#sub:alm2map_spin:nmmax">nmmax</A>, <A HREF="#sub:alm2map_spin:spin">spin</A>, <A HREF="#sub:alm2map_spin:alm">alm</A>, <A HREF="#sub:alm2map_spin:map">map</A>
 )</h3></blockquote>
 
 <P>
@@ -244,28 +245,28 @@ nsmax, nlmax, nmmax, spin, alm, map
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
-nsmax</TD>
+nsmax<A NAME="sub:alm2map_spin:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the map to synthesize.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nlmax<A NAME="sub:alm2map_spin:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax<A NAME="sub:alm2map_spin:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>spin</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>spin<A NAME="sub:alm2map_spin:spin"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>spin <SPAN CLASS="MATH"><I>s</I></SPAN> of the maps to be generated (only its absolute value
 is relevant).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm(1:2, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm<A NAME="sub:alm2map_spin:alm"></A>(1:2, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <!-- MATH
@@ -277,7 +278,7 @@ is relevant).</TD>
 <SPAN CLASS="MATH"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></SPAN> values to make the map
                    from.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map(0:12*nsmax**2-1, 1:2)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map<A NAME="sub:alm2map_spin:map"></A>(0:12*nsmax**2-1, 1:2)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN CLASS="MATH"><SUB>|s|</SUB><I>S</I><SUP>+</SUP></SPAN> and <SPAN CLASS="MATH"><SUB>|s|</SUB><I>S</I><SUP>-</SUP></SPAN> output maps</TD>
@@ -317,7 +318,7 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 <P>
 <hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map_spin*</FONT>.</h3>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode91.htm#sub:ring_synthesis">ring_synthesis</A></B>
+<B><A HREF="subroutinesnode92.htm#sub:ring_synthesis">ring_synthesis</A></B>
 <DD>Performs FFT over <SPAN CLASS="MATH"><I>m</I></SPAN> for synthesis of the rings.
   <DT>
 <B>compute_lam_mm, get_pixel_layout, </B>
@@ -331,13 +332,13 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
 <DD>module, containing:
   <DT>
-<B>assert_alloc</B>
+<B><A HREF="subroutinesnode15.htm#sub:assert">assert_alloc</A></B>
 <DD>routine to print error message, when an array can not be
   allocated properly
   </DL>
 Note: Starting with <A HREF="subroutinesnode4.htm#sub:new2p20">version 2.20</A>, <TT>libpsht</TT> routines will be called if <SPAN CLASS="MATH"><IMG
  WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg6.png"
+ SRC="subroutinesimg7.png"
  ALT="$0 &lt; \vert s\vert \le 100$"></SPAN>.
 
 <P>
@@ -372,31 +373,31 @@ Note: Starting with <A HREF="subroutinesnode4.htm#sub:new2p20">version 2.20</A>,
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html381"
+<A NAME="tex2html391"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html387"
+<A NAME="tex2html397"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html391"
+<A NAME="tex2html401"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html389"
+<A NAME="tex2html399"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html382"
+<B> Previous:</B> <A NAME="tex2html392"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 
-<B>Up:</B> <A NAME="tex2html388"
+<B>Up:</B> <A NAME="tex2html398"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html392"
+<B> Next:</B> <A NAME="tex2html402"
   HREF="subroutinesnode11.htm">alms2fits*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

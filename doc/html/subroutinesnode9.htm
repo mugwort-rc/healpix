@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html369"
+<A NAME="tex2html379"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html375"
+<A NAME="tex2html385"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html379"
+<A NAME="tex2html389"
   HREF="subroutinesnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html377"
+<A NAME="tex2html387"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html370"
+<B> Previous:</B> <A NAME="tex2html380"
   HREF="subroutinesnode8.htm">alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html376"
+<B>Up:</B> <A NAME="tex2html386"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html380"
+<B> Next:</B> <A NAME="tex2html390"
   HREF="subroutinesnode10.htm">alm2map_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -66,17 +67,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 The routines accept both single and double precision arrays for alm, map, der1 and
 der2. The precision of these arrays should match. All maps produced are RING
 ordered.
-<br><br>See <A NAME="tex2html12"
+<br><br>See <A NAME="tex2html13"
   HREF="facilities.htm">''Fortran
 Facilities''</A>
-Appendix for a note on a bug
+<A HREF="./facilitiesnode16.htm#fac:sec:bug_synder">Appendix</A> for a note on a bug
 affecting the calculation of polarisation derivatives on past versions of this routine.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2map_der*</FONT>(
-nsmax, nlmax, nmmax, alm, map, der1 [, der2]
+<A HREF="#sub:alm2map_der:nsmax">nsmax</A>, <A HREF="#sub:alm2map_der:nlmax">nlmax</A>, <A HREF="#sub:alm2map_der:nmmax">nmmax</A>, <A HREF="#sub:alm2map_der:alm">alm</A>, <A HREF="#sub:alm2map_der:map">map</A>, <A HREF="#sub:alm2map_der:der1">der1</A>[, <A HREF="#sub:alm2map_der:der2">der2</A>]
 )</h3></blockquote>
 
 <P>
@@ -94,34 +95,34 @@ nsmax, nlmax, nmmax, alm, map, der1 [, der2]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
-nsmax</TD>
+nsmax<A NAME="sub:alm2map_der:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the map to synthesize.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nlmax<A NAME="sub:alm2map_der:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax<A NAME="sub:alm2map_der:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm(1:p, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm<A NAME="sub:alm2map_der:alm"></A>(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values to make the map
                    from. p is either 1 (temperature only) or 3 (temperature+polarisation).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map(0:12*nsmax**2-1) <EM>or  </EM>(0:12*nsmax**2-1,1:3)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map<A NAME="sub:alm2map_der:map"></A>(0:12*nsmax**2-1) <EM>or  </EM>(0:12*nsmax**2-1,1:3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>temperature
-map <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN> or temperature + polarisation maps <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>Q</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>U</I>(<I>p</I>)</SPAN> to be synthesized.</TD>
+map<A NAME="sub:alm2map_der:map"></A> <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN> or temperature + polarisation maps <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>Q</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>U</I>(<I>p</I>)</SPAN> to be synthesized.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der1(0:12*nsmax**2-1, 1:2*p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der1<A NAME="sub:alm2map_der:der1"></A>(0:12*nsmax**2-1, 1:2*p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>contains on output the first
@@ -130,7 +131,7 @@ derivatives of T: <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="185" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg18.png"
+ SRC="subroutinesimg23.png"
  ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
 $"></SPAN> or the interleaved derivatives of T, Q, and U: <!-- MATH
  $\left({\partial T}/{\partial
@@ -138,7 +139,7 @@ $"></SPAN> or the interleaved derivatives of T, Q, and U: <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="203" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg19.png"
+ SRC="subroutinesimg24.png"
  ALT="$\left({\partial T}/{\partial
 \theta}, {\partial Q}/{\partial \theta}, {\partial U}/{\partial \theta};\right. $"></SPAN>
 <!-- MATH
@@ -146,11 +147,11 @@ $"></SPAN> or the interleaved derivatives of T, Q, and U: <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="148" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg20.png"
+ SRC="subroutinesimg25.png"
  ALT="$\left.{\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
 $"></SPAN></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der2(0:12*nsmax**2-1,1:3*p), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der2<A NAME="sub:alm2map_der:der2"></A>(0:12*nsmax**2-1,1:3*p), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>If this optional
@@ -161,7 +162,7 @@ matrix is passed with this rank, it will contain on output the second derivative
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="231" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg21.png"
+ SRC="subroutinesimg26.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
 \theta\partial\phi}/\sin\theta,\right. $"></SPAN> 
 <!-- MATH
@@ -169,7 +170,7 @@ matrix is passed with this rank, it will contain on output the second derivative
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="142" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg22.png"
+ SRC="subroutinesimg27.png"
  ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $"></SPAN> or
 <!-- MATH
  $\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 Q}/{\partial \theta^2},
@@ -177,7 +178,7 @@ matrix is passed with this rank, it will contain on output the second derivative
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="276" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg23.png"
+ SRC="subroutinesimg28.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 Q}/{\partial \theta^2},
 {\partial^2 Q}/{\partial \theta^2}, \ldots \right) $"></SPAN> 
 
@@ -222,7 +223,7 @@ Make temperature maps and its derivatives from the <SPAN CLASS="MATH"><I>a</I><S
 <P>
 <hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map_der*</FONT>.</h3>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode91.htm#sub:ring_synthesis">ring_synthesis</A></B>
+<B><A HREF="subroutinesnode92.htm#sub:ring_synthesis">ring_synthesis</A></B>
 <DD>Performs FFT over <SPAN CLASS="MATH"><I>m</I></SPAN> for synthesis of the rings.
   <DT>
 <B>compute_lam_mm, get_pixel_layout, </B>
@@ -233,13 +234,13 @@ Make temperature maps and its derivatives from the <SPAN CLASS="MATH"><I>a</I><S
 <DD>Ancillary routines used
   for <SPAN CLASS="MATH"><IMG
  WIDTH="46" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
+ SRC="subroutinesimg29.png"
  ALT="$\ {_s}Y_{lm}$"></SPAN> recursion
   <DT>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
 <DD>module, containing:
   <DT>
-<B>assert_alloc</B>
+<B><A HREF="subroutinesnode15.htm#sub:assert">assert_alloc</A></B>
 <DD>routine to print error message, when an array can not be
   allocated properly
   </DL>
@@ -271,31 +272,31 @@ arbitrary spin from their  <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>a</I><SUB><I
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html369"
+<A NAME="tex2html379"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html375"
+<A NAME="tex2html385"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html379"
+<A NAME="tex2html389"
   HREF="subroutinesnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html377"
+<A NAME="tex2html387"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html370"
+<B> Previous:</B> <A NAME="tex2html380"
   HREF="subroutinesnode8.htm">alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html376"
+<B>Up:</B> <A NAME="tex2html386"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html380"
+<B> Next:</B> <A NAME="tex2html390"
   HREF="subroutinesnode10.htm">alm2map_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

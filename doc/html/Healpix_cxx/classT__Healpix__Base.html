@@ -69,6 +69,8 @@ Inherits Healpix_Tables.
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html">vec3</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classT__Healpix__Base.html#35762219147952046fcb061327fd145e">pix2vec</a> (I pix) const </td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">I&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classT__Healpix__Base.html#91b062ffdfe1d71f83a233d2daa749c9">pixel_import</a> (I pix, const <a class="el" href="classT__Healpix__Base.html">T_Healpix_Base</a> &amp;b) const </td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classT__Healpix__Base.html#31e15d5ab07f57e40e1f3d115d673a15">query_disc</a> (<a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a> ptg, double radius, <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset</a>&lt; I &gt; &amp;pixset) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classT__Healpix__Base.html#476158757ee5207d9895158c001d1c78">query_disc_inclusive</a> (<a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a> ptg, double radius, <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset</a>&lt; I &gt; &amp;pixset, int fact=1) const </td></tr>
@@ -132,7 +134,7 @@ Inherits Healpix_Tables.
  class T_Healpix_Base&lt; I &gt;</h3>
 
 Functionality related to the HEALPix pixelisation. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00042">42</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00046">46</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="d57f6e33ea9cced62f19f50372ca3b48"></a><!-- doxytag: member="T_Healpix_Base::T_Healpix_Base" ref="d57f6e33ea9cced62f19f50372ca3b48" args="()" -->
 <div class="memitem">
@@ -153,7 +155,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Constructs an unallocated object. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00690">690</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00694">694</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -186,7 +188,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Constructs an object with a given <em>order</em> and the ordering scheme <em>scheme</em>. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00101">101</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00105">105</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -225,7 +227,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Constructs an object with a given <em>nside</em> and the ordering scheme <em>scheme</em>. The <em>nside_dummy</em> parameter must be set to SET_NSIDE. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00106">106</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00110">110</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -250,7 +252,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the number of the next ring to the north of <em>z=cos</em>(theta). It may return 0; in this case <em>z</em> lies north of all rings. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00053">53</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00050">50</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -279,7 +281,7 @@ Calculates the map order from its <em>N_side</em> parameter. Returns -1 if <em>n
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00041">41</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00038">38</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -308,7 +310,7 @@ Calculates the <em>N_side</em> parameter from the number of pixels. <dl compact>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00046">46</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00043">43</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -343,7 +345,7 @@ template&lt;typename I&gt; </div>
 Adjusts the object to <em>order</em> and <em>scheme</em>. 
 <p>Reimplemented in <a class="el" href="classHealpix__Map.html#d55a24b5fa4698103f1ddfc8d1660fb2">Healpix_Map&lt; T &gt;</a>.</p>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00694">694</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00698">698</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -378,7 +380,7 @@ template&lt;typename I&gt; </div>
 Adjusts the object to <em>nside</em> and <em>scheme</em>. 
 <p>Reimplemented in <a class="el" href="classHealpix__Map.html#b0803611f6c32703a87d6565a335ea4d">Healpix_Map&lt; T &gt;</a>.</p>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00707">707</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00711">711</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -402,7 +404,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the z-coordinate of the ring <em>ring</em>. This also works for the (not really existing) rings 0 and 4*nside. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00722">722</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00726">726</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -426,7 +428,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the number of the ring in which <em>pix</em> lies. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00732">732</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00736">736</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -450,7 +452,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Translates a pixel number from NEST to RING. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00751">751</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00755">755</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -474,7 +476,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Translates a pixel number from RING to NEST. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00759">759</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00763">763</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -498,7 +500,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Translates a pixel number from NEST to its Peano index. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00785">785</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00792">792</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -522,7 +524,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Translates a pixel number from its Peano index to NEST. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00788">788</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00795">795</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -556,7 +558,7 @@ template&lt;typename I&gt; </div>
 <p>
 Returns the number of the pixel which contains the angular coordinates (<em>z:=cos</em>(theta), <em>phi</em>). <dl class="note" compact><dt><b>Note:</b></dt><dd>This method is inaccurate near the poles at high resolutions. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00143">143</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00147">147</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -580,7 +582,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the number of the pixel which contains the angular coordinates <em>ang</em>. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00148">148</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00152">152</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -604,7 +606,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the number of the pixel which contains the vector <em>vec</em> (<em>vec</em> is normalized if necessary). 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00158">158</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00162">162</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -644,7 +646,7 @@ template&lt;typename I&gt; </div>
 <p>
 Returns the angular coordinates (<em>z:=cos</em>(theta), <em>phi</em>) of the center of the pixel with number <em>pix</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd>This method is inaccurate near the poles at high resolutions. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00172">172</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00176">176</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -668,7 +670,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the angular coordinates of the center of the pixel with number <em>pix</em>. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00181">181</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00185">185</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -692,7 +694,41 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the vector to the center of the pixel with number <em>pix</em>. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00189">189</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00193">193</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="91b062ffdfe1d71f83a233d2daa749c9"></a><!-- doxytag: member="T_Healpix_Base::pixel_import" ref="91b062ffdfe1d71f83a233d2daa749c9" args="(I pix, const T_Healpix_Base &amp;b) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename I&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">I <a class="el" href="classT__Healpix__Base.html">T_Healpix_Base</a>&lt; I &gt;::pixel_import           </td>
+          <td>(</td>
+          <td class="paramtype">I&nbsp;</td>
+          <td class="paramname"> <em>pix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classT__Healpix__Base.html">T_Healpix_Base</a>&lt; I &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Returns the pixel number for this <a class="el" href="classT__Healpix__Base.html">T_Healpix_Base</a> corresponding to the pixel number <em>pix</em> in <em>b</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd><em>b.Nside()%<a class="el" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside()</a></em> must be 0. </dd></dl>
+
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00210">210</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -739,7 +775,7 @@ Returns the range set of all pixels whose centers lie within the disk defined by
 </dl>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>This method is more efficient in the RING scheme. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00320">320</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00324">324</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -794,7 +830,7 @@ Returns the range set of all pixels which overlap with the disk defined by <em>d
 <dl class="note" compact><dt><b>Note:</b></dt><dd>This method may return some pixels which don't overlap with the disk at all. The higher <em>fact</em> is chosen, the fewer false positives are returned, at the cost of increased run time. <p>
 This method is more efficient in the RING scheme. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00326">326</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l00330">330</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -834,7 +870,7 @@ template&lt;typename I&gt; </div>
 <p>
 <dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Please use the version based on <em><a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset</a></em> </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00232">232</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00248">248</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -880,7 +916,7 @@ template&lt;typename I&gt; </div>
 <p>
 <dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>Please use the version based on <em><a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset</a></em> </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00240">240</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00256">256</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1016,7 +1052,7 @@ Returns a range set of pixels whose centers lie within the colatitude range defi
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01024">1024</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01031">1031</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1083,7 +1119,7 @@ Returns useful information about a given ring of the map. <dl compact><dt><b>Par
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01064">1064</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01071">1071</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1143,7 +1179,7 @@ Returns useful information about a given ring of the map. <dl compact><dt><b>Par
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01091">1091</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01098">1098</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1196,7 +1232,7 @@ Returns useful information about a given ring of the map. <dl compact><dt><b>Par
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01041">1041</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01048">1048</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1231,7 +1267,7 @@ template&lt;typename I&gt; </div>
 Returns the neighboring pixels of <em>pix</em> in <em>result</em>. On exit, <em>result</em> contains (in this order) the pixel numbers of the SW, W, NW, N, NE, E, SE and S neighbor of <em>pix</em>. If a neighbor does not exist (this can only be the case for the W, N, E and S neighbors), its entry is set to -1.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>This method works in both RING and NEST schemes, but is considerably faster in the NEST scheme. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01119">1119</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01126">1126</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1271,7 +1307,7 @@ template&lt;typename I&gt; </div>
 <p>
 Returns interpolation information for the direction <em>ptg</em>. The surrounding pixels are returned in <em>pix</em>, their corresponding weights in <em>wgt</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd>This method works in both RING and NEST schemes, but is considerably faster in the RING scheme. </dd></dl>
 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01175">1175</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01182">1182</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1294,7 +1330,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the order parameter of the object. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00337">337</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00353">353</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1317,7 +1353,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the <em>N_side</em> parameter of the object. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00339">339</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00355">355</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1340,7 +1376,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the number of pixels of the object. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00341">341</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00357">357</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1363,7 +1399,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the ordering scheme of the object. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00343">343</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00359">359</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1387,7 +1423,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns <em>true</em>, if both objects have the same nside and scheme, else <em>false</em>. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00347">347</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00363">363</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1411,7 +1447,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Swaps the contents of two Healpix_Base objects. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01243">1243</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01250">1250</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1434,7 +1470,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the maximum angular distance (in radian) between any pixel center and its corners. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01255">1255</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01262">1262</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1458,7 +1494,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 Returns the maximum angular distance (in radian) between any pixel center and its corners in a given ring. 
-<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01265">1265</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8cc-source.html#l01272">1272</a> of file <a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a>.</p>
 
 </div>
 </div><p>
@@ -1521,7 +1557,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 The order of the map; -1 for nonhierarchical map. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00046">46</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00050">50</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1540,7 +1576,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 The N_side parameter of the map; 0 if not allocated. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00048">48</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00052">52</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1559,7 +1595,7 @@ template&lt;typename I&gt; </div>
 
 <p>
 The map's ordering scheme. 
-<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00052">52</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__base_8h-source.html#l00056">56</a> of file <a class="el" href="healpix__base_8h-source.html">healpix_base.h</a>.</p>
 
 </div>
 </div><p>
@@ -1567,7 +1603,7 @@ The map's ordering scheme.
 <li><a class="el" href="healpix__base_8h-source.html">healpix_base.h</a><li><a class="el" href="healpix__base_8cc-source.html">healpix_base.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

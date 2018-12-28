@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>azeqview</TITLE>
-<META NAME="description" CONTENT="azeqview">
+<TITLE>beam2bl</TITLE>
+<META NAME="description" CONTENT="beam2bl">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,153 +29,219 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html342"
+<A NAME="tex2html369"
   HREF="idlnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html348"
+<A NAME="tex2html375"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html352"
+<A NAME="tex2html379"
   HREF="idlnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html350"
+<A NAME="tex2html377"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html343"
-  HREF="idlnode11.htm">angulardistance</A>
+<B> Previous:</B> <A NAME="tex2html370"
+  HREF="idlnode11.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html349"
+<B>Up:</B> <A NAME="tex2html376"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html353"
-  HREF="idlnode13.htm">beam2bl</A>
+<B> Next:</B> <A NAME="tex2html380"
+  HREF="idlnode13.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000120000000000000000"></A>
-<A NAME="idl:azeqview"></A>
+<A NAME="idl:beam2bl"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">azeqview</FONT></font></b><hr>
-<H3>This IDL facility provides a means to visualise an azimuthal equidistant projection 
- of
-<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. 
-It also offers the possibility to
-generate GIF, JPEG, PNG and Postscript color-coded images of the projected map.
-The projected (but not color-coded) data can also be output in FITS files and
-IDL arrays.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/visu/azeqview.pro"><b>src/idl/visu/azeqview.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">beam2bl</FONT></font></b><hr>
+<H3>This IDL facility computes a transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> for a circular beam profile <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN>.
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/misc/beam2bl.pro"><b>src/idl/misc/beam2bl.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-AZEQVIEW, 
-</SMALL>
-<A HREF="idlnode44.htm#idl:mollview:file">File</A>, 
-[ <A HREF="idlnode44.htm#idl:mollview:select">Select</A>, ]
-[ <A HREF="idlnode44.htm#idl:mollview:asinh">ASINH=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:bad_color">BAD_COLOR=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:bg_color">BG_COLOR=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:charsize">CHARSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:charsize">CHARTHICK=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:colt">COLT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:coord">COORD=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:crop">/CROP</A>, 
-<A HREF="idlnode44.htm#idl:mollview:execute">EXECUTE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:factor">FACTOR=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:fg_color">FG_COLOR=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:fits">FITS=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:flip">/FLIP</A>, 
-<A HREF="idlnode44.htm#idl:mollview:gal_cut">GAL_CUT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:gif">GIF=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:glsize">GLSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:graticule">GRATICULE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:half_sky">/HALF_SKY</A>, 
-<A HREF="idlnode44.htm#idl:mollview:hbound">HBOUND=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:help">/HELP</A>, 
-<A HREF="idlnode44.htm#idl:mollview:hist_equal">/HIST_EQUAL</A>, 
-<A HREF="idlnode44.htm#idl:mollview:hxsize">HXSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:iglsize">IGLSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:igraticule">IGRATICULE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:jpeg">JPEG=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:log">/LOG</A>, 
-<A HREF="idlnode44.htm#idl:mollview:map_out">MAP_OUT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:max">MAX=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:min">MIN=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:nested">/NESTED</A>, 
-<A HREF="idlnode44.htm#idl:mollview:no_dipole">/NO_DIPOLE</A>, 
-<A HREF="idlnode44.htm#idl:mollview:no_monopole">/NO_MONOPOLE</A>, 
-<A HREF="idlnode44.htm#idl:mollview:nobar">/NOBAR</A>, 
-<A HREF="idlnode44.htm#idl:mollview:nolabels">/NOLABELS</A>, 
-<A HREF="idlnode44.htm#idl:mollview:noposition">/NOPOSITION</A>, 
-<A HREF="idlnode44.htm#idl:mollview:offset">OFFSET=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:outline">OUTLINE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:png">PNG=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:polarization">POLARIZATION=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:preview">/PREVIEW</A>, 
-<A HREF="idlnode44.htm#idl:mollview:ps">PS=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:pxsize">PXSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:pysize">PYSIZE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:reso_arcmin">RESO_ARCMIN=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:retain">RETAIN=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:rot">ROT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:save">/SAVE</A>, 
-<A HREF="idlnode44.htm#idl:mollview:shaded">/SHADED</A>, 
-<A HREF="idlnode44.htm#idl:mollview:silent">/SILENT</A>, 
-<A HREF="idlnode44.htm#idl:mollview:stagger">STAGGER=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:subtitle">SUBTITLE=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:titleplot">TITLEPLOT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:transparent">TRANSPARENT=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:truecolors">TRUECOLORS=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:units">UNITS=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:window">WINDOW=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:xpos">XPOS=</A>, 
-<A HREF="idlnode44.htm#idl:mollview:ypos">YPOS=</A>]
-<SMALL CLASS="FOOTNOTESIZE">
+bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
+<A HREF="#idl:beam2bl:beam">beam</A>, 
+<A HREF="#idl:beam2bl:theta">theta</A>, 
+<A HREF="#idl:beam2bl:lmax">lmax</A>, 
+[<A HREF="#idl:beam2bl:arcmin">/ARCMIN</A> ,
+<A HREF="#idl:beam2bl:degrees">/DEGREES</A>, 
+<A HREF="#idl:beam2bl:help">/HELP</A>, 
+<A HREF="#idl:beam2bl:radians">/RADIANS</A>])
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<DD>For a full list of qualifiers see <A HREF="idlnode44.htm#idl:mollview">mollview</A>
+<B>beam</B>
+<DD><A NAME="idl:beam2bl:beam"></A>input beam profile <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> 
+    <DT>
+<B>theta</B>
+<DD><A NAME="idl:beam2bl:theta"></A>angles <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN> (in arcmin, degrees or radians) 
+  at which the input beam <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> is defined
+    <DT>
+<B>lmax</B>
+<DD><A NAME="idl:beam2bl:lmax"></A>maximum multipole on which the output <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> is to be computed
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<DD>For a full list of keywords see <A HREF="idlnode44.htm#idl:mollview">mollview</A>
+<B>/ARCMIN</B>
+<DD><A NAME="idl:beam2bl:arcmin"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in arcmin
+    <DT>
+<B>/DEGREES</B>
+<DD><A NAME="idl:beam2bl:degrees"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in degrees
+    <DT>
+<B>/HELP</B>
+<DD><A NAME="idl:beam2bl:help"></A>if set, prints out the help header and exits
+    <DT>
+<B>/RADIANS</B>
+<DD><A NAME="idl:beam2bl:radians"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in radians
   </DL><SMALL CLASS="FOOTNOTESIZE">
-
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">azeqview</FONT> reads in a <b>HEALPix</b> sky map in FITS format and generates an
-azimuthal equidistant projection of it, that can be visualized on the screen or
-exported in a GIF, JPEG, PNG or Postscript file. azeqview allows the selection of
-the coordinate system, point of projection, map size, color table, color bar inclusion,
-linear or log scaling, histogram equalised
-color scaling, maximum and 
-minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
-polarization field. 
+Since the SH Transform of an arbitrary beam is
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+b_{lm} = \int d{\bf {r}}\ b({\bf {r}})\ Y_{lm}^*({\bf {r}})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="180" HEIGHT="41" BORDER="0"
+ SRC="idlimg30.png"
+ ALT="\begin{displaymath}
+b_{lm} = \int d{\bf {r}}\ b({\bf {r}})\ Y_{lm}^*({\bf {r}})
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+ then, for a circular beam
+</SMALL>
+<BR>
+<DIV ALIGN="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+b(l) &=& b_{l0}  \sqrt{\frac{4 \pi}{2l+1}} \nonumber \\
+             &=& \int  b(\theta) P_l(\theta) \sin(\theta)\ d\theta\ 2\pi
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>b</I>(<I>l</I>)</TD>
+<TD ALIGN="CENTER" NOWRAP>=</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="92" HEIGHT="73" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg31.png"
+ ALT="$\displaystyle b_{l0} \sqrt{\frac{4 \pi}{2l+1}}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP>=</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="198" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg32.png"
+ ALT="$\displaystyle \int b(\theta) P_l(\theta) \sin(\theta)\ d\theta\ 2\pi$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P><SMALL CLASS="FOOTNOTESIZE">
+where <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I></SUB></SPAN> is the Legendre Polynomial, <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> is the beam window (or transfer)
+function returned by <FONT COLOR="#CC0000">beam2bl</FONT> and <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> is the beam radial
+profile expected as input of <FONT COLOR="#CC0000">beam2bl</FONT>.
+<BR>
+IDL's routine <TT>INT_TABULATED</TT> is used to perform the integration.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">azeqview</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">beam2bl</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
-<DD>see <A HREF="idlnode44.htm#idl:mollview">mollview</A>
-  <DT>
-<B><A HREF="idlnode32.htm#idl:hpx2dm">hpx2dm</A></B>
-<DD>turns Healpix maps into DomeMaster images
-using <FONT COLOR="#CC0000">azeqview</FONT>.
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">beam2bl</FONT>.
+    <DT>
+<B><A HREF="idlnode14.htm#idl:bl2beam">bl2beam</A></B>
+<DD>facility to perform the inverse
+transform to <FONT COLOR="#CC0000">beam2bl</FONT>.
+    <DT>
+<B><A HREF="idlnode15.htm#idl:bl2fits">bl2fits</A></B>
+<DD>facility to write a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function into a FITS file.
+    <DT>
+<B><A HREF="idlnode23.htm#idl:fits2cl">fits2cl</A></B>
+<DD>facility to read a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window
+function from a FITS file
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> bl = <A HREF="idlnode24.htm#idl:gaussbeam">gaussbeam</A>(15.d0, 4000, 1) </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> theta = dindgen(4000)/100. </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> beam = <A HREF="idlnode14.htm#idl:bl2beam">bl2beam</A>(bl, theta, /arcmin)</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> bl1 = <FONT COLOR="#CC0000">beam2bl</FONT>(beam, theta, 4000, /arcmin) </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> plot, bl1-bl</SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
+the example above generates a beam window function (defined for
+all <SPAN CLASS="MATH"><I>l</I></SPAN> in <!-- MATH
+ $\{0,\ldots,4000\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg33.png"
+ ALT="$\{0,\ldots,4000\}$"></SPAN>) for a 15arcmin-FWHM gaussian beam, computes the
+beam profile for angles in <SPAN CLASS="MATH">[0,40]</SPAN> arcmin, computes back the beam window
+function from the beam profile and finally plots the difference between the beam
+window functions.</blockquote>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
+<P>
+
 <P>
 
 <P>
@@ -182,31 +249,31 @@ using <FONT COLOR="#CC0000">azeqview</FONT>.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html342"
+<A NAME="tex2html369"
   HREF="idlnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html348"
+<A NAME="tex2html375"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html352"
+<A NAME="tex2html379"
   HREF="idlnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html350"
+<A NAME="tex2html377"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html343"
-  HREF="idlnode11.htm">angulardistance</A>
+<B> Previous:</B> <A NAME="tex2html370"
+  HREF="idlnode11.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html349"
+<B>Up:</B> <A NAME="tex2html376"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html353"
-  HREF="idlnode13.htm">beam2bl</A>
+<B> Next:</B> <A NAME="tex2html380"
+  HREF="idlnode13.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

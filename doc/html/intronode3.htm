@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html85"
+<A NAME="tex2html89"
   HREF="intronode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html91"
+<A NAME="tex2html95"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html95"
+<A NAME="tex2html99"
   HREF="intronode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html93"
+<A NAME="tex2html97"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html86"
+<B> Previous:</B> <A NAME="tex2html90"
   HREF="intronode2.htm">Introduction</A>
 
-<B>Up:</B> <A NAME="tex2html92"
+<B>Up:</B> <A NAME="tex2html96"
   HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html96"
+<B> Next:</B> <A NAME="tex2html100"
   HREF="intronode4.htm">Geometric and Algebraic Properties</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -133,7 +134,7 @@ of the data base.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:quadtree"></A><A NAME="853"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:quadtree"></A><A NAME="940"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Quadrilateral tree pixel numbering. 
@@ -152,7 +153,7 @@ are joined at the boundaries to cover
 the sphere. All pixels indices carry a prefix (here omitted for clarity) 
 which identifies which base-resolution pixel they belong to.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3304" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par3853" ALIGN="CENTER">
 <IMG
   WIDTH="717" HEIGHT="280" ALIGN="BOTTOM" BORDER="0"
  SRC="./quad_tree.png"
@@ -195,19 +196,19 @@ and this renders it impractical for applications to high resolution data.
 A number of tessellations 
 have been  used for discretisation and analysis 
 of functions on the sphere (for example, see  
-[<A
- HREF="intronode9.htm#drhea">Driscoll &amp; Healy (1994)</A>],
-[<A
- HREF="intronode9.htm#munavi">Muciaccia, Natoli &amp; Vittorio (1998)</A>], [<A
- HREF="intronode9.htm#glesp">Doroshkevich et al. (2005)</A>] -- rectangular grids,
-[<A
- HREF="intronode9.htm#baum">Baumgardner &amp; Frederickson (1985)</A>],  [<A
- HREF="intronode9.htm#teg">Tegmark (1996)</A>] -- icosahedral grids,
-[<A
- HREF="intronode9.htm#mathint">Saff &amp; Kuijlaars (1997)</A>],  [<A
- HREF="intronode9.htm#crtu">Crittenden &amp; Turok (1998)</A>] --  `igloo' grids,
-and [<A
- HREF="intronode9.htm#szalay">Szalay &amp; Brunner (1998)</A>]  -- a triangular grid), but none 
+<A
+ HREF="intronode9.htm#drhea">Driscoll &amp; Healy  (1994)</A>,
+<A
+ HREF="intronode9.htm#munavi">Muciaccia, Natoli &amp; Vittorio  (1998)</A>, <A
+ HREF="intronode9.htm#glesp">Doroshkevich et al.  (2005)</A> -- rectangular grids,
+<A
+ HREF="intronode9.htm#baum">Baumgardner &amp; Frederickson  (1985)</A>,  <A
+ HREF="intronode9.htm#teg">Tegmark  (1996)</A> -- icosahedral grids,
+<A
+ HREF="intronode9.htm#mathint">Saff &amp; Kuijlaars  (1997)</A>,  <A
+ HREF="intronode9.htm#crtu">Crittenden &amp; Turok  (1998)</A> --  `igloo' grids,
+and <A
+ HREF="intronode9.htm#szalay">Szalay &amp; Brunner  (1998)</A>  -- a triangular grid), but none 
 satisfies simultaneously all three stated requirements. 
 
 <P>
@@ -215,12 +216,12 @@ All three requirements formulated above are satisfied by construction with the
 Hierarchical Equal Area, iso-Latitude Pixelation (<b>HEALPix</b>) 
 of the sphere, which is shown in Figure&nbsp;<A HREF="#fig:HEALPIX">2</A>.
 A more detailed description of
-<b>HEALPix</b>, its motivations, and applications can be found in [<A
- HREF="intronode9.htm#gorskihealpix05">G&#243;rski et al (2005)</A>].
+<b>HEALPix</b>, its motivations, and applications can be found in <A
+ HREF="intronode9.htm#gorskihealpix05">G&#243;rski et al  (2005)</A>.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="fig:HEALPIX"></A><A NAME="856"></A>
+<DIV ALIGN="CENTER"><A NAME="fig:HEALPIX"></A><A NAME="943"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
 Orthographic view of <b>HEALPix</b> partition of the sphere. 
@@ -234,20 +235,29 @@ base-resolution pixels.
 Moving clockwise from the upper left 
 panel the grid is hierarchically subdivided with 
 the grid resolution parameter equal to 
-<SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB> =</SPAN> 1, 2, 4, 8, 
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg6.png"
+ ALT="$N_{\rm side}=$"></SPAN> 1, 2, 4, 8, 
 and the total number of pixels  equal to 
 <!-- MATH
- $N_{pix} = 12 \times N_{side}^2$
+ ${N_{\rm pix}}= 12 \times N_{\rm side}^2$
  -->
-<SPAN CLASS="MATH"><I>N</I><SUB><I>pix</I></SUB> = 12 x <I>N</I><SUB><I>side</I></SUB><SUP>2</SUP></SPAN> = 12, 48, 192, 768. 
+<SPAN CLASS="MATH"><IMG
+ WIDTH="144" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg7.png"
+ ALT="${N_{\rm pix}}= 12 \times N_{\rm side}^2$"></SPAN> = 12, 48, 192, 768. 
 All pixel centers are located on <!-- MATH
- $N_{ring} = 4 \times N_{side} - 1$
+ $N_{\rm ring} = 4 \times N_{\rm side}- 1$
  -->
-<SPAN CLASS="MATH"><I>N</I><SUB><I>ring</I></SUB> = 4 x <I>N</I><SUB><I>side</I></SUB> - 1</SPAN> rings of 
+<SPAN CLASS="MATH"><IMG
+ WIDTH="173" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg8.png"
+ ALT="$N_{\rm ring} = 4 \times N_{\rm side}- 1$"></SPAN> rings of 
 constant latitude.
 Within each panel the areas of all pixels are identical.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3308" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par3857" ALIGN="CENTER">
 <IMG
   WIDTH="587" HEIGHT="582" ALIGN="BOTTOM" BORDER="0"
  SRC="./introf1.png"
@@ -261,31 +271,31 @@ Within each panel the areas of all pixels are identical.</CAPTION>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html85"
+<A NAME="tex2html89"
   HREF="intronode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html91"
+<A NAME="tex2html95"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html95"
+<A NAME="tex2html99"
   HREF="intronode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html93"
+<A NAME="tex2html97"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html86"
+<B> Previous:</B> <A NAME="tex2html90"
   HREF="intronode2.htm">Introduction</A>
 
-<B>Up:</B> <A NAME="tex2html92"
+<B>Up:</B> <A NAME="tex2html96"
   HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html96"
+<B> Next:</B> <A NAME="tex2html100"
   HREF="intronode4.htm">Geometric and Algebraic Properties</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

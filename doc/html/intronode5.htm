@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html109"
+<A NAME="tex2html115"
   HREF="intronode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html115"
+<A NAME="tex2html121"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html119"
+<A NAME="tex2html125"
   HREF="intronode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html117"
+<A NAME="tex2html123"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html110"
+<B> Previous:</B> <A NAME="tex2html116"
   HREF="intronode4.htm">Geometric and Algebraic Properties</A>
 
-<B>Up:</B> <A NAME="tex2html116"
+<B>Up:</B> <A NAME="tex2html122"
   HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html120"
+<B> Next:</B> <A NAME="tex2html126"
   HREF="intronode6.htm">HEALPix conventions</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,12 +59,12 @@ The <b>HEALPix</b> Software Package</A>
 
 <P>
 We have developed a package of <b>HEALPix</b> based mathematical software, consisting
-of Fortran90 and IDL source codes as well as documentation and
+of C, C++, Fortran90, IDL/GDL, Java and Python source codes as well as documentation and
 examples. Successful installation produces a set of facilities using standardised
 FITS I/O interfaces 
 (<A NAME="tex2html7"
   HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio"><TT>http://heasarc.gsfc.nasa.gov/docs/software/fitsio</TT></A>) 
-as well as two Fortran90
+as well as 
 libraries  which users can link to their own applications.
 Among the tasks performed by the  components of the 
 <b>HEALPix</b> package  are the
@@ -101,68 +102,61 @@ projections of the whole sky or small areas of it.
 
 <P>
 The package includes documents which describe the installation
-process, the Fortran 90
-facilities, the IDL facilities and a large number of 
-subroutines contained in the library. It is
+process, the facilities available and a large number of 
+subroutines contained in the various libraries. It is
 available to the scientific community  at <A NAME="tex2html8"
   HREF="http://healpix.sourceforge.net"><TT> http://healpix.sourceforge.net</TT></A>.
 
 <P>
-<b>HEALPix</b> is the format chosen by the <B>WMAP</B>
+<b>HEALPix</b> was the format chosen by the <B>WMAP</B>
 collaboration 
-to be used for the production
+for the production
 of sky maps (see 
 <A NAME="tex2html9"
   HREF="http://map.gsfc.nasa.gov/news/index.html"><TT>http://map.gsfc.nasa.gov/news/index.html</TT></A>)
  from the mission data. 
 
 <P>
-<b>HEALPix</b> software and format are used by the HFI and LFI consortia of <B>Planck</B>
+<b>HEALPix</b> software and format have been used by the HFI and LFI consortia of <B>Planck</B>
 collaboration for the simulation, analysis and data release of <B>Planck</B> data
 (see <A NAME="tex2html10"
-  HREF="http://www.sciops.esa.int/index.php?project=planck"><TT>http://www.sciops.esa.int/index.php?project=planck</TT></A>).
+  HREF="http://www.cosmos.esa.int/web/planck"><TT>http://www.cosmos.esa.int/web/planck</TT></A>).
 
 <P>
-It is also being used to analyse the data provided by the balloon CMB missions
-<B>Boomerang</B>
-(see <A NAME="tex2html11"
-  HREF="http://cmb.PHYS.cwru.edu/boomerang/"><TT>http://cmb.PHYS.cwru.edu/boomerang/</TT></A>
-or 
-<A NAME="tex2html12"
-  HREF="http://oberon.roma1.infn.it/boomerang/"><TT>http://oberon.roma1.infn.it/boomerang/</TT></A>)
-and <B>Archeops</B> (
-<A NAME="tex2html13"
-  HREF="http://archeops01.free.fr/main_archeops/index_english.html"><TT>http://archeops01.free.fr/main_archeops/index_english.html</TT></A>).
+<b>HEALPix</b> software has been selected by the GAIA satellite mission currently surveying our Galaxy
+(see 
+<A NAME="tex2html11"
+  HREF="http://www.esa.int/Our_Activities/Space_Science/Gaia_overview">http://www.esa.int/Our_Activities/Space_Science/Gaia_overview</A>)
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html109"
+<A NAME="tex2html115"
   HREF="intronode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html115"
+<A NAME="tex2html121"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html119"
+<A NAME="tex2html125"
   HREF="intronode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html117"
+<A NAME="tex2html123"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html110"
+<B> Previous:</B> <A NAME="tex2html116"
   HREF="intronode4.htm">Geometric and Algebraic Properties</A>
 
-<B>Up:</B> <A NAME="tex2html116"
+<B>Up:</B> <A NAME="tex2html122"
   HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html120"
+<B> Next:</B> <A NAME="tex2html126"
   HREF="intronode6.htm">HEALPix conventions</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

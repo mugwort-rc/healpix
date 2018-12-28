@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html873"
+<A NAME="tex2html883"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html879"
+<A NAME="tex2html889"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html883"
+<A NAME="tex2html893"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html881"
+<A NAME="tex2html891"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html874"
+<B> Previous:</B> <A NAME="tex2html884"
   HREF="subroutinesnode50.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html880"
+<B>Up:</B> <A NAME="tex2html890"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html884"
+<B> Next:</B> <A NAME="tex2html894"
   HREF="subroutinesnode52.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,11 +62,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">median*</FONT></font></b><hr>
 <H3>This function computes the median of a data set</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/statistics.f90"><b>src/f90/mod/statistics.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/statistics.f90"><b>src/f90/mod/statistics.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>var=<FONT COLOR="#CC0000">median*</FONT>(
-data [,&nbsp;badval, even]
+<A HREF="#sub:median:data">data</A>[,&nbsp;<A HREF="#sub:median:badval">badval</A>, <A HREF="#sub:median:even">even</A>]
 )</h3>
 
 <P>
@@ -90,19 +91,19 @@ var</TD>
                    the average of the 2 middle numbers) once the valid data points are
                    sorted in monotonous order</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>data(:)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>data<A NAME="sub:median:data"></A>(:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>data set</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>badval (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>badval<A NAME="sub:median:badval"></A> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to bad data points. Data points with this
                    value will be ignored during calculation of the median. If
                    not set, all points will be considered. <B>Do not set to 0!</B>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>even (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>even<A NAME="sub:median:even"></A> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to <TT>.true.</TT> and the number of
@@ -129,7 +130,7 @@ Outputs in <TT>med</TT> the median of <TT>map</TT>
   <DL COMPACT><DT>
 <B><SPAN  CLASS="textbf">m_indmed</SPAN></B>
 <DD>module of the Orderpack 2.0 package, written by:
-  Michel Olagnon,  <A NAME="tex2html19"
+  Michel Olagnon,  <A NAME="tex2html20"
   HREF="http://www.fortran-2000.com/rank/">http://www.fortran-2000.com/rank/</A>
 <DT>
 <B>indmed</B>
@@ -156,31 +157,31 @@ Outputs in <TT>med</TT> the median of <TT>map</TT>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html873"
+<A NAME="tex2html883"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html879"
+<A NAME="tex2html889"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html883"
+<A NAME="tex2html893"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html881"
+<A NAME="tex2html891"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html874"
+<B> Previous:</B> <A NAME="tex2html884"
   HREF="subroutinesnode50.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html880"
+<B>Up:</B> <A NAME="tex2html890"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html884"
+<B> Next:</B> <A NAME="tex2html894"
   HREF="subroutinesnode52.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

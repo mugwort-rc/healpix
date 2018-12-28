@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html825"
+<A NAME="tex2html835"
   HREF="subroutinesnode46.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html841"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html845"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html843"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html826"
+<B> Previous:</B> <A NAME="tex2html836"
   HREF="subroutinesnode46.htm">map2alm*</A>
 
-<B>Up:</B> <A NAME="tex2html832"
+<B>Up:</B> <A NAME="tex2html842"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html836"
+<B> Next:</B> <A NAME="tex2html846"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -86,13 +87,13 @@ Jacobi iterative process reads
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="323" HEIGHT="38" BORDER="0"
- SRC="subroutinesimg87.png"
+ SRC="subroutinesimg93.png"
  ALT="\begin{displaymath}
 \textbf{a}^{(n)} = \textbf{a}^{(n-1)} + \textbf{A}. \left( ...
 ...\textbf{m}- \textbf{w}. \textbf{S}.\textbf{a}^{(n-1)} \right),
 \end{displaymath}"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">8</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">10</SPAN>)</TD></TR>
 </TABLE>
 <BR CLEAR="ALL"></DIV><P></P>
 with
@@ -111,17 +112,17 @@ with
 </SPAN>
 </TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">9</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">11</SPAN>)</TD></TR>
 </TABLE>
 </DIV>
 <BR CLEAR="ALL"><P></P>
 <br><br></H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">map2alm_iterative*</FONT>(
-nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC [, zbounds, w8ring_TQU ,
-plm, mask]
+<A HREF="#sub:map2alm_iterative:nsmax">nsmax</A>, <A HREF="#sub:map2alm_iterative:nlmax">nlmax</A>, <A HREF="#sub:map2alm_iterative:nmmax">nmmax</A>, <A HREF="#sub:map2alm_iterative:iter_order">iter_order</A>, <A HREF="#sub:map2alm_iterative:map_TQU">map_TQU</A>, <A HREF="#sub:map2alm_iterative:alm_TGC">alm_TGC</A>[, <A HREF="#sub:map2alm_iterative:zbounds">zbounds</A>, <A HREF="#sub:map2alm_iterative:w8ring_TQU">w8ring_TQU</A>,
+<A HREF="#sub:map2alm_iterative:plm">plm</A>, <A HREF="#sub:map2alm_iterative:mask">mask</A>]
 )</h3></blockquote>
 
 <P>
@@ -139,22 +140,22 @@ plm, mask]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>
-nsmax</TD>
+nsmax<A NAME="sub:map2alm_iterative:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the map to analyse.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>nlmax<A NAME="sub:map2alm_iterative:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the analysis.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>nmmax<A NAME="sub:map2alm_iterative:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value for the analysis.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>iter_order</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>iter_order<A NAME="sub:map2alm_iterative:iter_order"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the order of Jacobi iteration. Increasing that order
@@ -163,20 +164,20 @@ improves the accuracy of the final <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SU
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="127" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg88.png"
+ SRC="subroutinesimg94.png"
  ALT="$
 T_{\rm CPU} \propto 1 + 2 \times $"></SPAN>iter_order. 
-iter_order <SPAN CLASS="MATH">=0</SPAN> is a straight analysis, while iter_order <SPAN CLASS="MATH">=3</SPAN> is usually a
+iter_order<A NAME="sub:map2alm_iterative:iter_order"></A> <SPAN CLASS="MATH">=0</SPAN> is a straight analysis, while iter_order <SPAN CLASS="MATH">=3</SPAN> is usually a
 good compromise.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>map_TQU(0:12*nsmax**2-1, 1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>map_TQU<A NAME="sub:map2alm_iterative:map_TQU"></A>(0:12*nsmax**2-1, 1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>INOUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>input map. <SPAN CLASS="MATH"><I>p</I></SPAN> is 1 or 3
 depending if temperature (T) only or temperature and polarisation (T, Q, U) are
 to be analysed. It will be altered on output if a mask is provided.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>alm_TGC(1:p, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>alm_TGC<A NAME="sub:map2alm_iterative:alm_TGC"></A>(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values output
@@ -184,7 +185,7 @@ from the analysis.
 <SPAN CLASS="MATH"><I>p</I></SPAN> is 1 or 3 depending on whether polarisation is included or not. In the former
 case, the first index is (1,2,3) corresponding to (T,E,B).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>zbounds(1:2), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>zbounds<A NAME="sub:map2alm_iterative:zbounds"></A>(1:2), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>section of the map on which to perform the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
@@ -194,7 +195,7 @@ case, the first index is (1,2,3) corresponding to (T,E,B).</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg85.png"
+ SRC="subroutinesimg91.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta).$"></SPAN> If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
@@ -202,14 +203,14 @@ case, the first index is (1,2,3) corresponding to (T,E,B).</TD>
                    zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1). If absent, the whole map is
 analyzed</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>w8ring_TQU(1:2*nsmax,1:p), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>w8ring_TQU<A NAME="sub:map2alm_iterative:w8ring_TQU"></A>(1:2*nsmax,1:p), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ring weights for
 quadrature corrections. p is 1 for a temperature analysis and 3 for (T,Q,U). If absent, the
 ring weights are all set to 1.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>plm(0:,1:p), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>plm<A NAME="sub:map2alm_iterative:plm"></A>(0:,1:p), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>If this
@@ -218,7 +219,7 @@ optional matrix is passed, precomputed scalar (and tensor) <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
+ SRC="subroutinesimg22.png"
  ALT="$P_{lm}(\theta)$"></SPAN> are
 used instead of recursion.</TD>
 </TR>
@@ -226,11 +227,11 @@ used instead of recursion.</TD>
 
 <P>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>mask(0:12*nsmax**2-1,1:q), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>mask<A NAME="sub:map2alm_iterative:mask"></A>(0:12*nsmax**2-1,1:q), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>pixel mask,
-assumed to have the same resolution (and RING ordering) as the map. The map <TT>map_TQU</TT> is
+assumed to have the same resolution (and RING ordering) as the map. The map <TT>map_TQU<A NAME="sub:map2alm_iterative:map_TQU"></A></TT> is
 multiplied by that mask before being analyzed, and will therefore be altered on
 output. 
 <SPAN CLASS="MATH"><I>q</I></SPAN> should be in <SPAN CLASS="MATH">{1,2,3}</SPAN>. If <SPAN CLASS="MATH"><I>p</I>=<I>q</I>=3</SPAN>, then each of
@@ -300,7 +301,7 @@ assumed. In order to improve the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB>
 <B><SPAN  CLASS="textbf">misc_util</SPAN></B>
 <DD>module, containing:
   <DT>
-<B>assert_alloc</B>
+<B><A HREF="subroutinesnode15.htm#sub:assert">assert_alloc</A></B>
 <DD>routine to print error message when an array is not
   properly allocated		
   </DL>
@@ -338,31 +339,31 @@ computed by <FONT COLOR="#CC0000">map2alm_iterative*</FONT>into a FITS file
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html825"
+<A NAME="tex2html835"
   HREF="subroutinesnode46.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html841"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html845"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html843"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html826"
+<B> Previous:</B> <A NAME="tex2html836"
   HREF="subroutinesnode46.htm">map2alm*</A>
 
-<B>Up:</B> <A NAME="tex2html832"
+<B>Up:</B> <A NAME="tex2html842"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html836"
+<B> Next:</B> <A NAME="tex2html846"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

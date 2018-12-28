@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html345"
+<A NAME="tex2html355"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html351"
+<A NAME="tex2html361"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html365"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html353"
+<A NAME="tex2html363"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html346"
+<B> Previous:</B> <A NAME="tex2html356"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 
-<B>Up:</B> <A NAME="tex2html352"
+<B>Up:</B> <A NAME="tex2html362"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html356"
+<B> Next:</B> <A NAME="tex2html366"
   HREF="subroutinesnode8.htm">alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,22 +62,65 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">alm2cl*</FONT></font></b><hr>
 <H3>This routine computes the auto (or cross) power spectra of a one (or two) sets of spherical harmonics
-  coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+  coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>,
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
 <!-- MATH
- $C_{12}(l) = \sum_{m=-l}^{l} a_{1,lm}
-  a_{2,lm}^* / (2 l+1)$
+ \begin{equation}
+C_{12}^{XY}(l) = \frac{1}{2 l+1}
+\sum_{m=-l}^{l} a_{1,lm}^X
+  a_{2,lm}^{Y*},
+\end{equation}
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="282" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg15.png"
- ALT="$C_{12}(l) = \sum_{m=-l}^{l} a_{1,lm}
-a_{2,lm}^* / (2 l+1) $"></SPAN> </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="257" HEIGHT="60" BORDER="0"
+ SRC="subroutinesimg16.png"
+ ALT="\begin{displaymath}
+C_{12}^{XY}(l) = \frac{1}{2 l+1}
+\sum_{m=-l}^{l} a_{1,lm}^X
+a_{2,lm}^{Y*},
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with <SPAN CLASS="MATH"><I>X</I></SPAN> and <SPAN CLASS="MATH"><I>Y</I></SPAN> belonging to <SPAN CLASS="MATH"><I>T</I>,<I>E</I>,<I>B</I></SPAN>. 
+<BR>
+If requested, for <SPAN CLASS="MATH"><IMG
+ WIDTH="62" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg17.png"
+ ALT="$X \ne Y$"></SPAN>, symmetrized power spectra
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+C_{\{12\}}^{\{XY\}}(l) \equiv \frac{C_{12}^{XY}(l)+C_{12}^{YX}(l)}{2} = \frac{C_{12}^{XY}(l)+C_{21}^{XY}(l)}{2}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="411" HEIGHT="48" BORDER="0"
+ SRC="subroutinesimg18.png"
+ ALT="\begin{displaymath}
+C_{\{12\}}^{\{XY\}}(l) \equiv \frac{C_{12}^{XY}(l)+C_{12}^{YX}(l)}{2} = \frac{C_{12}^{XY}(l)+C_{21}^{XY}(l)}{2}
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+are output.
+<br><br></H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2cl*</FONT>(
-nlmax, nmmax, alm1, [alm2,] cl
+<A HREF="#sub:alm2cl:nlmax">nlmax</A>, <A HREF="#sub:alm2cl:nmmax">nmmax</A>, <A HREF="#sub:alm2cl:alm1">alm1</A>, <i><font color="#224422">[<A HREF="#sub:alm2cl:alm2">alm2</A>,]</font></i> <A HREF="#sub:alm2cl:cl">cl</A>, <i><font color="#224422">[<A HREF="#sub:alm2cl:symmetric">symmetric</A>]</font></i>
 )</h3></blockquote>
+Arguments appearing in <i><font color="#224422">italic</font></i> are
+optional.
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -93,54 +137,69 @@ nlmax, nmmax, alm1, [alm2,] cl
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
-nlmax</TD>
+nlmax<A NAME="sub:alm2cl:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax<A NAME="sub:alm2cl:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm1(1:p, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm1<A NAME="sub:alm2cl:alm1"></A>(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>First set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values. <SPAN CLASS="MATH"><I>p</I></SPAN>
-                   is 3 or 1 depending on wether polarisation is included or
-                   not. In the former case, the first index runs from 1 to 3 corresponding to (T,E,B).</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>First set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values.
+ <SPAN CLASS="MATH"><I>p</I></SPAN> is 3 or 1 depending on wether polarisation is included or
+ not. In the former case, the first index runs from 1 to 3 corresponding to (T,E,B).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm2(1:p, 0:nlmax, 0:nmmax) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><i><font color="#224422">alm2<A NAME="sub:alm2cl:alm2"></A></font></i>(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Second set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-                   values.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Second set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>cl(0:nlmax,1:d)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>cl<A NAME="sub:alm2cl:cl"></A>(0:nlmax,1:d)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>resulting auto or cross power spectra. 
-                   If both <TT>alm1</TT> and <TT>alm2</TT> are present, <TT>cl</TT> will
-                   be their cross power spectrum. If only <TT>alm1</TT> is present,
-                   <TT>cl</TT> will be its power spectrum. 
-		   If <SPAN CLASS="MATH"><I>d</I>=1</SPAN>, only the temperature spectrum
-                   <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> will
-                   be output. If <SPAN CLASS="MATH"><I>d</I>=4</SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, the output will be <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>,
-                   <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
- $C_l^{T\times E}$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>, and if <SPAN CLASS="MATH"><IMG
+  If both <TT>alm1</TT> and <TT>alm2</TT> are present, <TT>cl</TT> will be their cross power spectrum. 
+  If only <TT>alm1</TT> is present,<TT>cl</TT> will be its power spectrum. 
+  If <SPAN CLASS="MATH"><I>d</I>=1</SPAN>, only the temperature spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>TT</I></SUP></SPAN> will be output. 
+  If <SPAN CLASS="MATH"><I>d</I>=4</SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, the output will be <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>TT</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>EE</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>BB</I></SUP></SPAN> 
+      and <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>TE</I></SUP></SPAN>.
+  If <SPAN CLASS="MATH"><IMG
  WIDTH="49" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg16.png"
- ALT="$d\geq 6$"></SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, <!-- MATH
- $C_l^{T\times
-                   B}$
+ SRC="subroutinesimg19.png"
+ ALT="$d\geq 6$"></SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>TB</I></SUP></SPAN> and  <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>EB</I></SUP></SPAN> will also be output, 
+  and if <SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg20.png"
+ ALT="$d\geq 9$"></SPAN>, <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, and <A HREF="#sub:alm2cl:symmetric"><TT>symmetric</TT></A> is not set, 
+  <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>ET</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>BT</I></SUP></SPAN> and <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>BE</I></SUP></SPAN> will be included.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><i><font color="#224422">symmetric<A NAME="sub:alm2cl:symmetric"></A></font></i></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>If set to <TT>.true.</TT> when <SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg21.png"
+ ALT="$d\geq4$"></SPAN>, <SPAN CLASS="MATH"><I>p</I>=3</SPAN> and <A HREF="#sub:alm2cl:alm2"><TT>alm2</TT></A> 
+  is present then a symmetrized version of the cross spectra 
+  will be output in <TT>cl</TT>, namely <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>TT</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>EE</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>BB</I></SUP></SPAN>,
+      <!-- MATH
+ $(C_{l}^{TE}+C_{l}^{ET})/2$
  -->
-<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x 
- <I>B</I></SUP></SPAN> <!-- MATH
- $C_l^{E\times B}$
+<SPAN CLASS="MATH">(<I>C</I><SUB><I>l</I></SUB><SUP><I>TE</I></SUP>+<I>C</I><SUB><I>l</I></SUB><SUP><I>ET</I></SUP>)/2</SPAN>, 
+      <!-- MATH
+ $(C_{l}^{TB}+C_{l}^{BT})/2$
  -->
-<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I> x <I>B</I></SUP></SPAN> will also be output.</TD>
+<SPAN CLASS="MATH">(<I>C</I><SUB><I>l</I></SUB><SUP><I>TB</I></SUP>+<I>C</I><SUB><I>l</I></SUB><SUP><I>BT</I></SUP>)/2</SPAN> and
+      <!-- MATH
+ $(C_{l}^{EB}+C_{l}^{BE})/2$
+ -->
+<SPAN CLASS="MATH">(<I>C</I><SUB><I>l</I></SUB><SUP><I>EB</I></SUP>+<I>C</I><SUB><I>l</I></SUB><SUP><I>BE</I></SUP>)/2</SPAN>.
+	<b>default:</b><TT>.false.</TT> (un-symmetrized output)</TD>
 </TR>
 </TABLE>
 
@@ -151,10 +210,13 @@ nlmax</TD>
 call alm2cl(lmax, mmax, alm1, cl_auto)  
 <BR>
 call alm2cl(lmax, mmax, alm1, alm2, cl_cross)  
+<BR>
+call alm2cl(lmax, mmax, alm1, alm2, cl_sym, symmetric=.true.)  
 <BR></tt>
 <blockquote>
 <TT>cl_auto</TT> will contain the (auto) power spectrum of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>alm1</TT> up to <SPAN CLASS="MATH"><I>l</I>= 128</SPAN>,
-while <TT>cl_cross</TT> will be the cross power spectra of the two sets of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>  alm1</TT> and <TT>alm2</TT>.
+<TT>cl_cross</TT> will be the cross power spectra of the two sets of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>  alm1</TT> and <TT>alm2</TT>, 
+while <TT>cl_sym</TT> will be a symmetrized version of <TT>cl_cross</TT>.
 </blockquote>
 
 <P>
@@ -187,31 +249,31 @@ while <TT>cl_cross</TT> will be the cross power spectra of the two sets of <SPAN
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html345"
+<A NAME="tex2html355"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html351"
+<A NAME="tex2html361"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html365"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html353"
+<A NAME="tex2html363"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html346"
+<B> Previous:</B> <A NAME="tex2html356"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 
-<B>Up:</B> <A NAME="tex2html352"
+<B>Up:</B> <A NAME="tex2html362"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html356"
+<B> Next:</B> <A NAME="tex2html366"
   HREF="subroutinesnode8.htm">alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

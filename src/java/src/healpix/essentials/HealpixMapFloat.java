@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 package healpix.essentials;
@@ -23,8 +23,8 @@ package healpix.essentials;
 import java.util.Arrays;
 
 /** Class representing a full HEALPix map containing float values.
-    This class is conceptually very similar the the Healpix_Map<float> class
-    of Healpix_cxx.
+    This class is conceptually very similar the the Healpix_Map&lt;float&gt;
+    class of Healpix_cxx.
 
     @copyright 2011,2012 Max-Planck-Society
     @author Martin Reinecke */

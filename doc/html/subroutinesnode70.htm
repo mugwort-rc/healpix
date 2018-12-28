@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>pixel_window</TITLE>
-<META NAME="description" CONTENT="pixel_window">
+<TITLE>parse_init, parse_int, , parse_finish</TITLE>
+<META NAME="description" CONTENT="parse_init, parse_int, , parse_finish">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,218 +29,237 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1101"
+<A NAME="tex2html1111"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1107"
+<A NAME="tex2html1117"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1111"
+<A NAME="tex2html1121"
   HREF="subroutinesnode71.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1109"
+<A NAME="tex2html1119"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1102"
-  HREF="subroutinesnode69.htm">parse_xxx</A>
+<B> Previous:</B> <A NAME="tex2html1112"
+  HREF="subroutinesnode69.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1108"
+<B>Up:</B> <A NAME="tex2html1118"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1112"
-  HREF="subroutinesnode71.htm">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</A>
+<B> Next:</B> <A NAME="tex2html1122"
+  HREF="subroutinesnode71.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000700000000000000000"></A>
-<A NAME="sub:pixel_window"></A>
+<A NAME="sub:parse_xxx"></A>
 <BR>
  
 </H1>
 
 <P>
-
-<P>
-<b><font size=+6><FONT COLOR="#CC0000">pixel_window</FONT></font></b><hr>
-<H3>This routine returns the <EM>averaged</EM> <SPAN CLASS="MATH"><I>l</I></SPAN>-space window function <!-- MATH
- $w_{\rm pix}(l)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg98.png"
- ALT="$w_{\rm pix}(l)$"></SPAN> (for temperature and
-  polarisation) associated to <b>HEALPix</b>    pixels of resolution parameter <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
- ALT="${N_{\rm side}}$"></SPAN>. Because of the integration of the
-signal over the
-pixel area, the <!-- MATH
- $a_{lm}^{\rm (pix)}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="44" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg99.png"
- ALT="$a_{lm}^{\rm (pix)}$"></SPAN> coefficients of a pixelated map
-are related to the unpixelated underlying <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> by <!-- MATH
- $a_{lm}^{\rm (pix)}= a_{lm}w_{\rm pix}(l)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="149" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg100.png"
- ALT="$a_{lm}^{\rm (pix)}= a_{lm}w_{\rm pix}(l)$"></SPAN>.
-<BR>
-Unless specified otherwise, the <!-- MATH
- $w_{\rm pix}(l)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg98.png"
- ALT="$w_{\rm pix}(l)$"></SPAN> are read from the files
-  $HEALPIX/data/pixel_window_n????.fits.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
-
-<P>
-<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">pixel_window</FONT>(
-pixlw, nside [, windowfile]
-)</h3></blockquote>
+<b><font size=+6><FONT COLOR="#CC0000">parse_init,&nbsp;parse_int,&nbsp;...,&nbsp;parse_finish</FONT></font></b><hr>
+<H3>The Fortran90 module paramfile_io contains functions to obtain
+parameters from parameter files or interactively</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/paramfile_io.F90"><b>src/f90/mod/paramfile_io.F90</b></a>&nbsp;  
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-pixlw(0:lmax,1:p)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel window function(s) <!-- MATH
- $w_{\rm pix}(l)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg98.png"
- ALT="$w_{\rm pix}(l)$"></SPAN> generated. The first index
-                   must be <!-- MATH
- $l_{\rm max}\leq 4{N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="109" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
- ALT="$l_{\rm max}\leq 4{N_{\rm side}}$"></SPAN>. The second index runs from 1:1 for
-                   temperature only, and 1:3 for polarisation. In the latter
-                   case, 1=T, 2=E, 3=B.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nside</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b>  <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
- ALT="${N_{\rm side}}$"></SPAN> resolution parameter. Unless <TT>windowfile</TT> is set, the file associated
-                   with <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
- ALT="${N_{\rm side}}$"></SPAN> and shipped with the package is read by
-                   default. If <TT>nside</TT> = 0, the pixel is assumed infinitely
-                   small and <TT>pixlw</TT> is returned with value 1.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>windowfile (OPTIONAL)</TD>
+fname</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file containing the pixel window to be read instead
-                   of the default.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>file containing the simulation parameters.
+                   If empty, parameters are obtained interactively.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>handle</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>PMF</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>Object of type (paramfile_handle) used to store parameter information</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>keyname</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>name of the required parameter</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>default</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the default value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmin</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the minimum value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the maximum value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>descr</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing a description of the
+                   required simulation parameter</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>filestatus</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. If present, the parameter
+                   must be a valid filename. If filestatus=='new',
+                   the file must not exist; if filestatus=='old',
+                   the file must exist.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>code</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. Contains the name of the executable.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>silent</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. If set to <TT>.true.</TT> the parsing
+routines will run silently in non-interactive mode (except for warning or error
+messages, which will always appear). This is mainly intended for MPI usage where
+many processors parse the same parameter file: <TT>silent</TT> can be set to
+<TT>.true.</TT> on all CPUs except one.</TD>
 </TR>
 </TABLE>
 
 <P>
+
+<BIG CLASS="LARGE"><SPAN  CLASS="textbf">ROUTINES: </SPAN></BIG>
+<BR>
+<TT>handle = parse_init (fname [,silent])</TT> 
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;initializes the parser to work on the file fname, or interactively, if fname is empty
+
+<P>
+<TT>intval = parse_int (handle, keyname [, default, vmin, vmax, descr])</TT> 
+
+<P>
+<TT>longval = parse_long (handle, keyname [, default, vmin, vmax, descr])</TT> 
+
+<P>
+<TT>realval = parse_real (handle, keyname [, default, vmin, vmax, descr])</TT> 
+
+<P>
+<TT>doubleval = parse_double (handle, keyname [, default, vmin, vmax, descr])</TT> 
+
+<P>
+<TT>stringval = parse_string (handle, keyname [, default, descr, filestatus])</TT> 
+
+<P>
+<TT>logicval = parse_lgt (handle, keyname [, default, descr])</TT> 
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;These routines obtain integer(i4b), integer(i8b), real(sp), real(dp), character(len=*) and logical values,
+respectively. 
+<BR>
+Note: <TT>parse_string</TT> will expand all environment variables of
+the form ${XXX} (eg: ${HOME}). It will also replace a <EM>leading</EM> 
+<code>~</code><SPAN CLASS="MATH"><IMG
+ WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg12.png"
+ ALT="$\!$"></SPAN><TT>/</TT>
+by the user's home directory.
+
+<P>
+<TT>call parse_summarize (handle [, code])</TT>
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;if the parameters were set interactively, this routine will print out a 
+parameter file performing the same settings.
+
+<P>
+<TT>call parse_check_unused (handle [, code])</TT>
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;if a parameter file was read, this routine will print out all the parameters
+found in the file but not used by the code. Intended at detecting typos in
+parameter names.
+
+<P>
+<TT>call parse_finish (handle)</TT>
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;frees the memory
+
+<P>
 <HR><H1>EXAMPLE:</H1> 
-<tt>call pixel_window(pixlw, 64)  
-<BR></tt>
-<blockquote>
-returns in pixlw the pixel window function for <!-- MATH
- ${N_{\rm side}}= 64$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg35.png"
- ALT="${N_{\rm side}}=64$"></SPAN>.
+<tt>program who_r_u 
+<BR>
+use healpix_types 
+<BR>
+use paramfile_io 
+<BR>
+use extension 
+<BR>
+<BR>
+implicit none 
+<BR>
+type(paramfile_handle) :: handle 
+<BR>
+character(len=256) :: parafile, name 
+<BR>
+real(DP) :: age 
+<BR>
+<BR>
+parafile = ''  
+<BR>
+if (<A HREF="subroutinesnode62.htm#sub:narguments">nArguments()</A> == 1) call <A HREF="subroutinesnode35.htm#sub:getargument">getArgument</A>(1, parafile)  
+<BR>
+handle = parse_init(parafile)  
+<BR>
+name  = parse_string(handle, 'name',descr='Enter your last name: ')  
+<BR>
+age   = parse_double(handle, 'age', descr='Enter your age in years: ', &amp;   
+<BR>&amp; default=18.d0,vmin=0.d0)  
+<BR>
+call parse_summarize(handle, 'who_r_u')  
+<BR>
+end program who_r_u</tt>
+<blockquote>If a file is provided as command line argument when running the executable <TT>who_r_u</TT>, that file
+  will be parsed in search of the lines starting with 'name =' and 'age =',
+  otherwise the same questions will be asked interactively.
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">pixel_window</FONT>.</h3>
-  <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
-<DD>module, containing:
-      <DT>
-<B>assert, fatal_error</B>
-<DD>interrupt code in case of error
-  <DT>
-<B><SPAN  CLASS="textbf">extension</SPAN></B>
-<DD>module, containing:
-     <DT>
-<B><A HREF="subroutinesnode36.htm#sub:getenvironment">getEnvironment</A></B>
-<DD>read environment variable
-  <DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
-<DD>module, containing:
-     <DT>
-<B><A HREF="subroutinesnode84.htm#sub:read_dbintab">read_dbintab</A></B>
-<DD>reads double precision binary table
-  </DL>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">pixel_window</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">parse_init,&nbsp;parse_int,&nbsp;...,&nbsp;parse_finish</FONT></b></h3>
  
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode31.htm#sub:gaussbeam">gaussbeam</A></B>
-<DD>routine to generate a gaussian
-beam window function
+<B><A HREF="subroutinesnode19.htm#sub:concatnl">concatnl</A></B>
+<DD>generates from a set of strings the
+  multi-line description
   <DT>
-<B><A HREF="subroutinesnode32.htm#sub:generate_beam">generate_beam</A></B>
-<DD>returns a beam window function
+<B><A HREF="subroutinesnode62.htm#sub:narguments">nArguments</A></B>
+<DD>returns the number of
+  command line arguments
   <DT>
-<B><A HREF="subroutinesnode12.htm#sub:alter_alm">alter_alm</A>, <A HREF="subroutinesnode92.htm#sub:rotate_alm">rotate_alm</A></B>
-<DD>modifies <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> to emulate effect
-of real space filtering and coordinate rotation respectively
-  <DT>
-<B><A HREF="subroutinesnode8.htm#sub:alm2map">alm2map</A></B>
-<DD>synthetize a <b>HEALPix</b> map from its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-(or <!-- MATH
- $a_{lm}^{\rm (pix)}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="44" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg99.png"
- ALT="$a_{lm}^{\rm (pix)}$"></SPAN>).
-  <DT>
-<B><A HREF="subroutinesnode9.htm#sub:alm2map_der">alm2map_der</A></B>
-<DD>synthetize a map and its
-derivatives from its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (or <!-- MATH
- $a_{lm}^{\rm (pix)}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="44" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg99.png"
- ALT="$a_{lm}^{\rm (pix)}$"></SPAN>).
+<B><A HREF="#sub:getArgument">getArgument</A></B>
+<DD>returns the list of command line arguments
   </DL>
 
 <P>
@@ -253,31 +273,31 @@ derivatives from its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (or 
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1101"
+<A NAME="tex2html1111"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1107"
+<A NAME="tex2html1117"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1111"
+<A NAME="tex2html1121"
   HREF="subroutinesnode71.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1109"
+<A NAME="tex2html1119"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1102"
-  HREF="subroutinesnode69.htm">parse_xxx</A>
+<B> Previous:</B> <A NAME="tex2html1112"
+  HREF="subroutinesnode69.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1108"
+<B>Up:</B> <A NAME="tex2html1118"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1112"
-  HREF="subroutinesnode71.htm">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</A>
+<B> Next:</B> <A NAME="tex2html1122"
+  HREF="subroutinesnode71.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

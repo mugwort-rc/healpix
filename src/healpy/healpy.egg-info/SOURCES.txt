@@ -5,7 +5,7 @@ INSTALL.rst
 MANIFEST.in
 README.rst
 ez_setup.py
-pykg_config.py
+run_pykg_config.py
 setup.py
 cfitsio/CMakeLists.txt
 cfitsio/FindPthreads.cmake
@@ -161,7 +161,6 @@ healpixsubmodule/src/cxx/autotools/Makefile.am
 healpixsubmodule/src/cxx/autotools/Makefile.in
 healpixsubmodule/src/cxx/autotools/aclocal.m4
 healpixsubmodule/src/cxx/autotools/ar-lib
-healpixsubmodule/src/cxx/autotools/compile
 healpixsubmodule/src/cxx/autotools/config.guess
 healpixsubmodule/src/cxx/autotools/config.sub
 healpixsubmodule/src/cxx/autotools/configure
@@ -171,7 +170,6 @@ healpixsubmodule/src/cxx/autotools/install-sh
 healpixsubmodule/src/cxx/autotools/ltmain.sh
 healpixsubmodule/src/cxx/autotools/make_release
 healpixsubmodule/src/cxx/autotools/missing
-healpixsubmodule/src/cxx/autotools/test-driver
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/Healpix_cxx.dox
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/alm.cc
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/alm.h
@@ -207,6 +205,11 @@ healpixsubmodule/src/cxx/autotools/Healpix_cxx/map2tga.par.txt
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/map2tga_module.cc
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/median_filter_cxx.cc
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/median_filter_cxx_module.cc
+healpixsubmodule/src/cxx/autotools/Healpix_cxx/moc.h
+healpixsubmodule/src/cxx/autotools/Healpix_cxx/moc_fitsio.cc
+healpixsubmodule/src/cxx/autotools/Healpix_cxx/moc_fitsio.h
+healpixsubmodule/src/cxx/autotools/Healpix_cxx/moc_query.cc
+healpixsubmodule/src/cxx/autotools/Healpix_cxx/moc_query.h
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/mult_alm.cc
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/mult_alm.par.txt
 healpixsubmodule/src/cxx/autotools/Healpix_cxx/mult_alm_module.cc
@@ -237,6 +240,8 @@ healpixsubmodule/src/cxx/autotools/cxxsupport/announce.cc
 healpixsubmodule/src/cxx/autotools/cxxsupport/announce.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/arr.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/bstream.h
+healpixsubmodule/src/cxx/autotools/cxxsupport/colour.h
+healpixsubmodule/src/cxx/autotools/cxxsupport/compress_utils.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/cxxsupport.dox
 healpixsubmodule/src/cxx/autotools/cxxsupport/datatypes.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/error_handling.cc
@@ -248,6 +253,7 @@ healpixsubmodule/src/cxx/autotools/cxxsupport/font_data.inc
 healpixsubmodule/src/cxx/autotools/cxxsupport/geom_utils.cc
 healpixsubmodule/src/cxx/autotools/cxxsupport/geom_utils.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/levels_facilities.h
+healpixsubmodule/src/cxx/autotools/cxxsupport/linear_map.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/ls_image.cc
 healpixsubmodule/src/cxx/autotools/cxxsupport/ls_image.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/lsconstants.h
@@ -265,6 +271,7 @@ healpixsubmodule/src/cxx/autotools/cxxsupport/rotmatrix.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/safe_cast.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/safe_ptr.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/share_utils.h
+healpixsubmodule/src/cxx/autotools/cxxsupport/sort_utils.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/sse_utils_cxx.h
 healpixsubmodule/src/cxx/autotools/cxxsupport/string_utils.cc
 healpixsubmodule/src/cxx/autotools/cxxsupport/string_utils.h

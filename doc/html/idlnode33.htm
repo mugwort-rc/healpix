@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>hpx2gs</TITLE>
-<META NAME="description" CONTENT="hpx2gs">
+<TITLE>ialteralm</TITLE>
+<META NAME="description" CONTENT="ialteralm">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,227 +29,291 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html594"
+<A NAME="tex2html621"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html600"
+<A NAME="tex2html627"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html604"
+<A NAME="tex2html631"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html602"
+<A NAME="tex2html629"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html595"
-  HREF="idlnode32.htm">hpx2dm</A>
+<B> Previous:</B> <A NAME="tex2html622"
+  HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html601"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html605"
-  HREF="idlnode34.htm">ialteralm</A>
+<B> Next:</B> <A NAME="tex2html632"
+  HREF="idlnode34.htm">ianafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000330000000000000000"></A>
-<A NAME="idl:hpx2gs"></A>
+<A NAME="idl:ialteralm"></A>
 <BR>
  
 </H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"> 
-</SMALL>
-<P>
-<b><font size=+6><FONT COLOR="#CC0000">hpx2gs</FONT></font></b><hr>
-<H3>This IDL facility provides a means to turn a <b>HEALPix</b> map into a image that
-can be visualized with 
-<A NAME="tex2html16"
-  HREF="http://earth.google.com/">Google Earth</A>
-or 
-<A NAME="tex2html17"
-  HREF="http://earth.google.com/sky/skyedu.html">Google Sky</A>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/visu/hpx2gs.pro"><b>src/idl/visu/hpx2gs.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">ialteralm</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to F90 '<A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>' facility. 
+This program can be used to modify a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> spherical harmonics
+  coefficients, as those extracted by <A HREF="idlnode34.htm#idl:ianafast">ianafast</A> or 
+  simulated by <A HREF="idlnode39.htm#idl:isynfast">isynfast</A>, before
+  they are used as constraints on a isynfast run. Currently the alterations
+  possible are </SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ rotation (using Wigner matrices) of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from the input
+    coordinate system to any other standard astrophysical coordinate system. The
+    resulting <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> can be used with e.g. synfast to generate a map in the
+    new coordinate system.
+    <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ removal of the pixel and beam window functions of the input
+  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (corresponding to the pixel size and beam shape of the map from which
+  they were extracted) and implementation of an arbitrary pixel and beam window
+  function. 
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
+ OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)},
+\end{equation}
+ -->
+<A NAME="eq:alteralm"></A>
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:alteralm"></A><IMG
+ WIDTH="233" HEIGHT="53" BORDER="0"
+ SRC="idlimg57.png"
+ ALT="\begin{displaymath}a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
+OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)},
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <SPAN CLASS="MATH"><I>P</I>(<I>l</I>)</SPAN> is the pixel window function, and <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> is the beam window
+ function (assuming a circular beam) or any other <SPAN CLASS="MATH"><I>l</I></SPAN> space filter (eg,
+ Wiener filter). For an infinitely small pixel (or beam) one would have <SPAN CLASS="MATH"><I>P</I>(<I>l</I>) =
+ 1</SPAN> (resp. <SPAN CLASS="MATH"><I>B</I>(<I>l</I>) = 1</SPAN>) for any <SPAN CLASS="MATH"><I>l</I></SPAN>.
+</DL><SMALL CLASS="FOOTNOTESIZE">
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/interfaces/ialteralm.pro"><b>src/idl/interfaces/ialteralm.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-<FONT COLOR="#CC0000">hpx2gs</FONT>, 
-<A HREF="#idl:hpx2gs:file">File</A>, 
-[ <A HREF="#idl:hpx2gs:select">Select</A>, ]
-[ <A HREF="#idl:hpx2gs:coord_in">COORD_IN=</A>, 
-<A HREF="#idl:hpx2gs:help">/HELP</A>, 
-<A HREF="#idl:hpx2gs:kml">KML=</A>, 
-<A HREF="#idl:hpx2gs:png">PNG=</A>, 
-<A HREF="#idl:hpx2gs:reso_arcmin">RESO_ARCMIN=</A>, 
-<A HREF="#idl:hpx2gs:subtitle">SUBTITLE=</A>, 
-<A HREF="#idl:hpx2gs:titleplot">TITLEPLOT=</A>,+ <A HREF="#idl:hpx2gs:other_keywords">most of cartview keywords</A><SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\ldots$"></SPAN>
+IALTERALM, 
+<A HREF="#idl:ialteralm:alm_in">alm_in</A>,  
+<A HREF="#idl:ialteralm:alm_out">alm_out</A>, [
+<A HREF="#idl:ialteralm:beam_file_in">beam_file_in</A>,
+<A HREF="#idl:ialteralm:beam_file_out">beam_file_out</A>,
+<A HREF="#idl:ialteralm:binpath">binpath=</A>,
+<A HREF="#idl:ialteralm:coord_in">coord_in</A>,
+<A HREF="#idl:ialteralm:coord_out">coord_out</A>,
+<A HREF="#idl:ialteralm:epoch_in">epoch_in</A>,
+<A HREF="#idl:ialteralm:epoch_out">epoch_out</A>,
+<A HREF="#idl:ialteralm:fwhm_arcmin_in">fwhm_arcmin_in</A>,
+<A HREF="#idl:ialteralm:fwhm_arcmin_out">fwhm_arcmin_out</A>,
+<A HREF="#idl:ialteralm:help">/help</A>,
+<A HREF="#idl:ialteralm:keep_tmp_files">keep_tmp_files=</A>, 
+<A HREF="#idl:ialteralm:lmax_out">lmax_out</A>,
+<A HREF="#idl:ialteralm:nlmax_out">nlmax_out</A>,
+<A HREF="#idl:ialteralm:nside_in">nside_in</A>,
+<A HREF="#idl:ialteralm:nside_out">nside_out</A>,
+<A HREF="#idl:ialteralm:nsmax_in">nsmax_in</A>,
+<A HREF="#idl:ialteralm:nsmax_out">nsmax_out</A>,
+<A HREF="#idl:ialteralm:silent">/silent</A>,
+<A HREF="#idl:ialteralm:tmpdir">tmpdir=</A>
 ]
-
 </h3>
 <P>
+<hr>
 <H1>QUALIFIERS</H1>
-<BR>
-</SMALL><TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE">  
-<A NAME="idl:hpx2gs:file"></A>File    </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Required
-<BR>
-name of a FITS file containing 
-               the <b>HEALPix</b>  map in an extension or in the image field, <BR></SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>or</EM>    name of an </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>online</EM> variable (either array or
-structure) containing the <b>HEALPix</b>  map (See note below);
-<BR>
-if Save is set   :    name of an IDL saveset file containing
-               the <b>HEALPix</b>  map stored under the variable  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>data</TT> <BR><b> (default : none)</b></SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE"><A NAME="idl:hpx2gs:select"></A>Select    </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Optional
-<BR>
-column of the BIN FITS table to be plotted, can be either  <BR>- a name : value given in TTYPEi of the FITS file <BR>
-NOT case sensitive and can be truncated, <BR>(only letters, digits and underscore are valid) <BR>- an integer        : number i of the column
-                            containing the data, starting with 1 (also valid if
-		  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>File</TT> is an online array) <BR><b>default:</b>1 for full sky maps, 'SIGNAL' column for FITS files
-		  containing cut sky maps</SMALL></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-
-<P>
-<hr><H1>KEYWORDS</H1>
-
+ 
   </SMALL><DL COMPACT><DT>
-<B><A NAME="idl:hpx2gs:coord_in"></A>COORD_IN =</B>
-<DD>1-character scalar, describing the input data coordinate system:
-<BR>
-either 'C' or 'Q' : Celestial2000 = eQuatorial,
-<BR>                       'E'        : Ecliptic,
-<BR>                       'G'        : Galactic.
-<BR>
-If set, it will over-ride the coordinates read from the FITS file header (when
-             applicable). In absence of information, the input coordinates is
-assumed to be celestial.
-<BR>
-The data will be rotated so that the output coordinates are Celestial, as expected by Google Sky
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:help"></A>/HELP</B>
-<DD>Prints out the documentation header 
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:kml"></A>KML =</B>
-<DD>Name of the KML file to be created (if the <TT>.kml</TT> suffix is missing,
-     it will be added automatically)
-     <b>default:</b><TT>'hpx2googlesky.kml'</TT>
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:png"></A>PNG =</B>
-<DD>Name of the PNG overlay file to be created. Only to be used if you want the
-     filename to be different from the default 
-	(<b>default:</b> same as KML file, with a <TT>.png</TT> suffix instead
-     of <TT>.kml</TT>)
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:reso_arcmin"></A>RESO_ARCMIN =</B>
-<DD>Pixel angular size in arcmin (at the equator) of the cartesian
-     map generated <b>default:</b>30
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:subtitle"></A>SUBTITLE =</B>
-<DD>information on the data, 
-will appear in KML file <TT>GroundOverlay
-     description</TT> field
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:titleplot"></A>TITLEPLOT =</B>
-<DD>information on the data, 
-will appear in KML file <TT>GroundOverlay
-     name</TT> field
-
-<P>
-<DT>
-<B><A NAME="idl:hpx2gs:other_keywords"></A>
-<A HREF="idlnode44.htm#idl:mollview:asinh">/ASINH</A>, </B>
-<DD><DT>
-<B><A HREF="idlnode44.htm#idl:mollview:colt">COLT</A>=,
-<A HREF="idlnode44.htm#idl:mollview:factor">FACTOR</A>=,
-<A HREF="idlnode44.htm#idl:mollview:flip">/FLIP</A>,
-<A HREF="idlnode44.htm#idl:mollview:glsize">GLSIZE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:graticule">GRATICULE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:hbound">HBOUND</A>=,</B>
-<DD><DT>
-<B><A HREF="idlnode44.htm#idl:mollview:hist_equal">/HIST_EQUAL</A>,
-<A HREF="idlnode44.htm#idl:mollview:iglsize">IGLSIZE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:igraticule">IGRATICULE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:log">/LOG</A>,
-<A HREF="idlnode44.htm#idl:mollview:max">MAX</A>=,
-<A HREF="idlnode44.htm#idl:mollview:min">MIN</A>=, </B>
-<DD><DT>
-<B><A HREF="idlnode44.htm#idl:mollview:nested">/NESTED</A>,
-<A HREF="idlnode44.htm#idl:mollview:offset">OFFSET</A>=, </B>
-<DD><DT>
-<B><A HREF="idlnode44.htm#idl:mollview:outline">OUTLINE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:polarization">POLARIZATION</A>=,
-<A HREF="idlnode44.htm#idl:mollview:preview">/PREVIEW</A>,</B>
-<DD><DT>
-<B><A HREF="#idl:mollview:quadcube">/QUADCUBE</A>,
-<A HREF="idlnode44.htm#idl:mollview:save">SAVE</A>=,
-<A HREF="idlnode44.htm#idl:mollview:silent">/SILENT</A>, </B>
-<DD><DT>
-<B><A HREF="idlnode44.htm#idl:mollview:truecolors">TRUECOLORS</A>=</B>
-<DD>those keywords have the same meaning as in
-<A HREF="idlnode18.htm#idl:cartview">cartview</A> and 
-<A HREF="idlnode44.htm#idl:mollview">mollview</A>
+<B>alm_in</B>
+<DD><A NAME="idl:ialteralm:alm_in"></A> required input: input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, must be a FITS file
+   <DT>
+<B>alm_out</B>
+<DD><A NAME="idl:ialteralm:alm_out"></A> required output: output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, must be a FITS file
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
+<hr><H1>KEYWORDS</H1>
+
+  </SMALL><DL COMPACT><DT>
+<B>binpath=</B>
+<DD><A NAME="idl:ialteralm:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/alteralm, then $HEALPIX/bin/alteralm
+<BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg58.png"
+ ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
+<BR>              - a binpath starting with ./ is interpreted as relative to current directory
+<BR>              - all other binpathes are relative to $HEALPIX
+
+<P>
+<DT>
+<B>beam_file_in=</B>
+<DD><A NAME="idl:ialteralm:beam_file_in"></A> Beam window function of input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>,
+                 either a FITS file or an array. If present, will override
+<A HREF="#idl:ialteralm:fwhm_arcmin_in"><TT>fwhm_arcmin_in</TT></A>
+                 <b>default:</b>value of BEAM_LEG  keyword read from
+<A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+
+<P>
+<DT>
+<B>beam_file_out=</B>
+<DD><A NAME="idl:ialteralm:beam_file_out"></A> Beam window function of output alm, 
+                 either a FITS file or an array. If present and non-empty, will override
+<A HREF="#idl:ialteralm:fwhm_arcmin_out"><TT>fwhm_arcmin_out</TT></A>
+                 <b>default:</b>'' (empty string, no beam window applied)
+
+<P>
+<DT>
+<B>coord_in=</B>
+<DD><A NAME="idl:ialteralm:coord_in"></A> Astrophysical coordinates system used to compute input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+                 Case-insensitive single letter code.
+                 Valid choices are 'g','G' = Galactic, 'e','E' = Ecliptic,
+                 'c','q','C','Q' = Celestial/eQuatorial.
+                 <b>default:</b>value of COORDSYS keyword read from
+<A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+
+<P>
+<DT>
+<B>coord_out=</B>
+<DD><A NAME="idl:ialteralm:coord_out"></A> Astrophysical coordinates system of output alm.
+                  <b>default:</b> <A HREF="#idl:ialteralm:coord_in"><TT>coord_in</TT></A> 
+
+<P>
+<DT>
+<B>epoch_in=</B>
+<DD><A NAME="idl:ialteralm:epoch_in"></A> Astronomical epoch of input coordinates 
+(<A HREF="#idl:ialteralm:coord_in"><TT>coord_in</TT></A>)
+                 <b>default:</b>2000.0
+ <DT>
+<B>epoch_out=</B>
+<DD><A NAME="idl:ialteralm:epoch_out"></A> Astronomical epoch of output coordinates 
+(<A HREF="#idl:ialteralm:coord_out"><TT>coord_out</TT></A>)
+                 <b>default:</b>same as <A HREF="#idl:ialteralm:epoch_in"><TT>epoch_in</TT></A>
+
+<P>
+<DT>
+<B>fwhm_arcmin_in=</B>
+<DD><A NAME="idl:ialteralm:fwhm_arcmin_in"></A> Full Width
+Half-Maximum in arcmin of Gaussian beam applied to map from which are obtained
+input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+<BR>           <b>default:</b>value of FWHM keyword in <A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+
+<P>
+<DT>
+<B>fwhm_arcmin_out=</B>
+<DD><A NAME="idl:ialteralm:fwhm_arcmin_out"></A> FWHM in
+arcmin to be applied to output alm.
+<BR><b>default:</b><A HREF="#idl:ialteralm:fwhm_arcmin_in"><TT>fwhm_arcmin_in</TT></A>
+
+<P>
+<DT>
+<B>/help</B>
+<DD><A NAME="idl:ialteralm:help"></A> if set, prints extended help
+<DT>
+<B>/keep_tmp_files</B>
+<DD><A NAME="idl:ialteralm:keep_tmp_files"></A> if set,
+temporary files are not discarded at the end of the run
+
+<P>
+<DT>
+<B>lmax_out=, nlmax_out=</B>
+<DD><A NAME="idl:ialteralm:lmax_out"></A><A NAME="idl:ialteralm:nlmax_out"></A> maximum multipole of output alm
+
+<P>
+<DT>
+<B>nside_in=, nsmax_in=</B>
+<DD><A NAME="idl:ialteralm:nside_in"></A><A NAME="idl:ialteralm:nsmax_in"></A>HEALPix resolution parameter of map
+                  from which were computed input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+                   <b>default:</b>determined from <A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+
+<P>
+<DT>
+<B>nside_out=,nsmax_out=</B>
+<DD><A NAME="idl:ialteralm:nside_out"></A><A NAME="idl:ialteralm:nsmax_out"></A>HEALPix resolution parameter Nside whose
+                  window function will be applied to output alm.
+<BR>
+Could be set to 0 for infinitely small pixels (no window)
+                   <b>default:</b>same as input <A HREF="#idl:ialteralm:nsmax_in"><TT>nsmax_in</TT></A>
+
+<P>
+<DT>
+<B>/silent</B>
+<DD><A NAME="idl:ialteralm:silent"></A> if set, works silently
+
+<P>
+<DT>
+<B>tmpdir=</B>
+<DD><A NAME="idl:ialteralm:tmpdir"></A> directory in which are written temporary files 
+<b>default:</b>IDL_TMPDIR (see IDL documentation)
+
+<P>
+</DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
+<P>
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">hpx2gs</FONT> reads in a <b>HEALPix</b> sky map in FITS format or from a memory array and generates a
-cartesian projection of it in a PNG file, as well as a Google Sky compatible 
-<A NAME="tex2html15"
-  HREF="http://earth.google.com/kml">KML</A>
-file. Missing or unobserved pixels in the input data will be
-   totally 'transparent' in the output file.
-
+<FONT COLOR="#CC0000">ialteralm</FONT> is an interface to '<A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>' F90 facility. It
+requires some disk space on which to write the parameter file and the other
+temporary files. Most data can be provided/generated as an external FITS
+file, or as a memory array.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">hpx2gs</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ialteralm</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
-<DD>see <A HREF="idlnode18.htm#idl:cartview">cartview</A>
-  <DT>
-<B><A HREF="idlnode32.htm#idl:hpx2dm">hpx2dm</A></B>
-<DD>turns Healpix maps into DomeMaster images
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">ialteralm</FONT>.
+    <DT>
+<B>alteralm</B>
+<DD>F90 facility called by <FONT COLOR="#CC0000">ialteralm</FONT>.
+<DT>
+<B><A HREF="idlnode34.htm#idl:ianafast">ianafast</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A> and C++ anafast_cxx
+    <DT>
+<B><A HREF="idlnode37.htm#idl:iprocess_mask">iprocess_mask</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode11.htm#fac:process_mask">process_mask</A>
+    <DT>
+<B><A HREF="idlnode38.htm#idl:ismoothing">ismoothing</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>
+    <DT>
+<B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> </SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> ialteralm, <A HREF="idlnode36.htm#idl:init_healpix">!healpix.path.test</A>+'alm.fits', '/tmp/alm_equat.fits', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">hpx2gs</FONT>, map, kml='my_map.kml',title='my map in Google'</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">     coord_in='g',coord_out='q'</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode39.htm#idl:isynfast">isynfast</A>, 0, alm_in='/tmp/alm_equat.fits', '/tmp/map_equat.fits'</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode43.htm#idl:mollview">mollview</A>,'/tmp/map_equat.fits',1</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode43.htm#idl:mollview">mollview</A>,'/tmp/map_equat.fits',2</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
-<blockquote>produces in <TT>my_map.kml</TT> and in <TT>my_map.png</TT> an image of the input map that can be seen with
-Google Sky.
-To do so, start GoogleEarth or GoogleSky and open <TT>my_map.kml</TT>. Under
-MacOSX, simply type <TT>open my_map.kml</TT> on the command line.
+<blockquote>
+  This example script reads the test (polarised) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> located in <TT>$HEALPIX/test/alm.fits</TT> and rotates them from Galactic to Equatorial
+  coordinates, it then synthetizes a map out of those,
+  and finally plots its I and Q Stokes components (in Equatorial coordinates)
 </blockquote>
 <P>
-<SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -256,31 +321,31 @@ MacOSX, simply type <TT>open my_map.kml</TT> on the command line.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html594"
+<A NAME="tex2html621"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html600"
+<A NAME="tex2html627"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html604"
+<A NAME="tex2html631"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html602"
+<A NAME="tex2html629"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html595"
-  HREF="idlnode32.htm">hpx2dm</A>
+<B> Previous:</B> <A NAME="tex2html622"
+  HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html601"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html605"
-  HREF="idlnode34.htm">ialteralm</A>
+<B> Next:</B> <A NAME="tex2html632"
+  HREF="idlnode34.htm">ianafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

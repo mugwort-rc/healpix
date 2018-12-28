@@ -47,6 +47,7 @@ PRO azeqview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE = igraticule, $
               JPEG = jpeg, $
+              LATEX=latex, $
               LOG = log, $
               MAP_OUT=map_out, $
               MAX = max_set, $
@@ -58,6 +59,8 @@ PRO azeqview, file_in, select_in, $
               OFFSET=offset, $
               ONLINE = online, $
               OUTLINE = outline, $
+              PDF = pdf, $
+              PFONTS = pfonts, $
               PNG = png, $
               POLARIZATION = polarization, $
               PREVIEW = preview, $
@@ -115,11 +118,11 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HIST_EQUAL=, HXSIZE=,'
     print,'              IGLSIZE=, IGRATICULE=,'
     print,'              JPEG=, '
-    print,'              LOG=, '
-    print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, NOPOSITION = '
+    print,'              LATEX=, LOG=, '
+    print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, NOPOSITION= '
 ;    print,'              NO_DIPOLE, NO_MONOPLE, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
-    print,'              PNG=,'
+    print,'              PDF=, PFONTS=, PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
     print,'              RESO_ARCMIN=, RETAIN=, ROT=, '
@@ -164,7 +167,7 @@ data2azeq, $
   MAX=max_set, MIN=min_set, $
   RESO_ARCMIN = reso_arcmin, FITS = fits, FLIP=flip, DATA_plot = data_plot, $
   POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out, HALF_SKY=half_sky
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=arg_present(map_out) ? map_out : -1, HALF_SKY=half_sky
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, dx, title_display, $
@@ -175,7 +178,9 @@ proj2out, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /AZEQ, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, TRANSPARENT = transparent, EXECUTE=execute, $
-  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick, JPEG=jpeg
+  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors, $
+  CHARTHICK=charthick, JPEG=jpeg, PDF=pdf, LATEX=latex, PFONTS=pfonts
+
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

@@ -36,6 +36,9 @@
 #             proposes -fPIC compilation of F90 code
 # 2013-04-18: work-around for GCC 4.4 bug
 # 2013-07-26: F90: add output location of modules ($MODDIR). Hacked from CMake.
+# 2014-11-25: propose cfitsio-free compilation of C package
+# 2015-05-12: correct bashism (==) introduced above (problematic for dash and zsh)
+# 2015-07-31: improved g95 support; updated support address
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -85,7 +88,7 @@ echoLn () {
 }
 #-------------
 findFITSLib () {
-    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ /softs/cfitsio/3.24/lib /usr/common/usg/cfitsio/3.26/lib ; do
+    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ /softs/cfitsio/3.3*/lib /softs/cfitsio/3.2*/lib /usr/common/usg/cfitsio/3.3*/lib ; do
 	if [ -r "${dir}/lib${LIBFITS}.a" -o -r "${dir}/lib${LIBFITS}.so" -o -r "${dir}/lib${LIBFITS}.dylib" ] ; then
 	    FITSDIR=$dir
 	    break
@@ -94,7 +97,7 @@ findFITSLib () {
 }
 #-------------
 findFITSInclude () {
-    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ /softs/cfitsio/3.24/include /usr/common/usg/cfitsio/3.26/include ; do
+    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ /softs/cfitsio/3.3*/include /softs/cfitsio/3.2*/include /usr/common/usg/cfitsio/3.3*/include /usr/common/usg/cfitsio/3.2*/include ; do
 	if [ -r "${dir}/fitsio.h" ] ; then
 	    FITSINC=$dir
 	    break
@@ -228,7 +231,7 @@ askCUserMisc () {
 
     echoLn "do you want the HEALPix/C library to include CFITSIO-related functions ? (Y|n): "
     read answer
-    if [ "x$answer" == "x" -o "x$answer" == "xY" -o "x$answer" == "xy" -o "x$answer" == "x1" ]; then
+    if [ "x$answer" = "x" -o "x$answer" = "xY" -o "x$answer" = "xy" -o "x$answer" = "x1" ]; then
 	C_WITHOUT_CFITSIO=0
 	echoLn "enter full name of cfitsio library (lib${LIBFITS}.a): "
 	read answer
@@ -554,21 +557,22 @@ Cpp_config () {
 #-------------
 Healpy_config () {  # for healpy 1.7.0
 
-    PYTHON='python'
+    HPY_PYTHON='python'
     tmpfile=to_be_removed
     HPY_SETUP='setup.py' # default setup
     HPY_SETUP2='setup2.py' # backup setup
     HPY_DIR='src/healpy/'
 
     # ask for python command
-    echoLn "Enter python command [$PYTHON] "
+    echoLn "Enter python command [$HPY_PYTHON] "
     read answer
-    [ "x$answer" != "x" ] && PYTHON="$answer"
+    [ "x$answer" != "x" ] && HPY_PYTHON="$answer"
 
     # test python version number
-    ${PYTHON} --version 1> ${tmpfile} 2>&1
+    ${HPY_PYTHON} --version 1> ${tmpfile} 2>&1
     python_version=`${CAT} ${tmpfile} | ${AWK} '{print \$NF}'` # current version
-    python_reqrd="2.4" # minimal version supported
+    #python_reqrd="2.4" # minimal version supported
+    python_reqrd="2.6" # minimal version supported
     p_v1=`echo ${python_version} | ${AWK} '{print $1*10}'`
     p_v2=`echo ${python_reqrd}   | ${AWK} '{print $1*10}'`
     ${RM} ${tmpfile}
@@ -582,8 +586,8 @@ Healpy_config () {  # for healpy 1.7.0
     # special treatement for MacOSX
     if [ "${OS}" = "Darwin" ]; then
 	# find out compiler and options used by python (and therefore healpy in setup.py)
-	HPY_CC=`${PYTHON}   -c "from distutils.sysconfig import get_config_var ; print get_config_var('CC')"`
-	HPY_OPTS=`${PYTHON} -c "from distutils.sysconfig import get_config_var ; print get_config_var('CFLAGS')"`
+	HPY_CC=`${HPY_PYTHON}   -c "from distutils.sysconfig import get_config_var ; print get_config_var('CC')"`
+	HPY_OPTS=`${HPY_PYTHON} -c "from distutils.sysconfig import get_config_var ; print get_config_var('CFLAGS')"`
 
 	# test these options on a C code
 ${CAT} > ${tmpfile}.c <<EOF
@@ -615,6 +619,7 @@ editHealpyMakefile () {
     mv -f Makefile Makefile_tmp
     ${CAT} Makefile_tmp |\
 	${SED} "s|^HPY_SETUP.*$|HPY_SETUP    = ${HPY_SETUP}|" |\
+	${SED} "s|^HPY_PYTHON.*$|HPY_PYTHON   = ${HPY_PYTHON}|" |\
 	${SED} "s|^ALL\(.*\) healpy-void\(.*\)|ALL\1 healpy-all \2|" |\
 	${SED} "s|^TESTS\(.*\) healpy-void\(.*\)|TESTS\1 healpy-test \2|" |\
 	${SED} "s|^CLEAN\(.*\) healpy-void\(.*\)|CLEAN\1 healpy-clean \2|" |\
@@ -645,7 +650,7 @@ askPS () {
 
     echo
     echo  "Please indicate the Postscript previewer you want to use "
-    echo  " (eg: gs, ghostview, gv, ggv, kghostview)"
+    echo  " (eg: gs, ghostview, gv, ggv, kghostview, evince)"
     echoLn "Enter choice [$ps_com]        "
     read answer
     [ "x$answer" != "x" ] && ps_com="$answer"
@@ -662,6 +667,17 @@ askPS () {
     else
 	ps_scom=$ps_com
     fi
+}
+#-------------
+askPDF () {
+
+    echo
+    echo  "Please indicate the PDF previewer you want to use "
+    echo  " (eg: gv, xpdf, kpdf, open)"
+    echoLn "Enter choice [$pdf_com]        "
+    read answer
+    [ "x$answer" != "x" ] && pdf_com="$answer"
+    pdf_scom=$pdf_com
 }
 #-------------
 askGif () {
@@ -699,6 +715,8 @@ papersize = '$papersize'
 media = '$media'
 ps_com = '$ps_com'
 ps_scom = '$ps_scom'
+pdf_com = '$pdf_com'
+pdf_scom = '$pdf_scom'
 gif_com  = '$gif_com'
 gif_scom = '$gif_scom'
 settings = 'user'
@@ -768,6 +786,61 @@ EOF
     echo
 }
 #-------------
+generateConfGdlFile () {
+    echo
+    echo "* Generating $HPX_CONF_GDL"
+    echo "containing:"
+
+
+    echo "# IDL configuration for HEALPix `date`" > $HPX_CONF_GDL
+
+    case $SHELL in
+    csh|tcsh)
+	${CAT} <<EOF >>$HPX_CONF_GDL
+# back up original GDL config, or give default value
+if (\$?GDL_PATH) then
+    setenv OGDL_PATH    "\${GDL_PATH}"
+else
+    setenv OGDL_PATH#    "<GDL_DEFAULT>"
+endif
+if (\$?GDL_STARTUP) then
+    setenv OGDL_STARTUP "\${GDL_STARTUP}"
+else
+    setenv OGDL_STARTUP
+endif
+# create Healpix GDL config, and return to original config after running Healpix-enhanced GDL
+setenv HGDL_PATH  "+\${HEALPIX}/src/idl:\${OGDL_PATH}"
+setenv HGDL_STARTUP \${HEALPIX}/src/idl/HEALPix_startup
+alias  hgdl    'setenv GDL_PATH \${HGDL_PATH} ; setenv GDL_STARTUP \${HGDL_STARTUP} ; gdl   ; setenv GDL_PATH \${OGDL_PATH} ; setenv GDL_STARTUP \${OGDL_STARTUP}'
+alias  hgdlde  'setenv GDL_PATH \${HGDL_PATH} ; setenv GDL_STARTUP \${HGDL_STARTUP} ; gdlde ; setenv GDL_PATH \${OGDL_PATH} ; setenv GDL_STARTUP \${OGDL_STARTUP}'
+EOF
+	;;
+    sh|ksh|bash|zsh)
+	${CAT} <<EOF >>$HPX_CONF_GDL
+# make sure GDL related variables are global
+export GDL_PATH GDL_STARTUP
+# back up original GDL config, or give default value
+OGDL_PATH="\${GDL_PATH-<GDL_DEFAULT>}"
+OGDL_STARTUP="\${GDL_STARTUP}"
+# create Healpix GDL config, and return to original config after running Healpix-enhanced GDL
+HGDL_PATH="+\${HEALPIX}/src/idl:\${OGDL_PATH}"
+HGDL_STARTUP="\${HEALPIX}/src/idl/HEALPix_startup"
+alias hgdl="GDL_PATH=\"\${HGDL_PATH}\"   ; GDL_STARTUP=\${HGDL_STARTUP} ; gdl   ; GDL_PATH=\"\${OGDL_PATH}\" ; GDL_STARTUP=\${OGDL_STARTUP} "
+alias hgdlde="GDL_PATH=\"\${HGDL_PATH}\" ; GDL_STARTUP=\${HGDL_STARTUP} ; gdlde ; GDL_PATH=\"\${OGDL_PATH}\" ; GDL_STARTUP=\${OGDL_STARTUP} "
+EOF
+	;;
+    *)
+	echo "Shell $SHELL not supported yet."
+	${RM} $HPX_CONF_GDL
+	crashAndBurn
+	;;
+    esac
+
+    ${CAT} $HPX_CONF_GDL
+    echo
+    echo
+}
+#-------------
 setIdlDefaults () {
 
     papersize="letter"
@@ -776,6 +849,7 @@ setIdlDefaults () {
     gif_com="netscape"
     [ "${OS}" = "Linux" ]   && gif_com="display"
     [ "${OS}" = "Darwin" ]  && gif_com="open"
+    [ "${OS}" = "Darwin" ]  && pdf_com="open"
     previewfile=$HEALPIX/src/idl/visu/idl_default_previewer.pro
    
 #     # if IDL_PATH is undefined, then set it to +IDL_DIR
@@ -793,12 +867,15 @@ setIdlDefaults () {
 idl_config () {
 
     HPX_CONF_IDL=$1
+    HPX_CONF_GDL=$2
     setIdlDefaults
     askPaperSize
     askPS
     askGif
+    askPDF
     generateProIdlFile
     generateConfIdlFile
+    generateConfGdlFile
     [ $NOPROFILEYET = 1 ] && installProfile
 }
 
@@ -812,6 +889,7 @@ idl_config () {
 #   checkF90Fitsio: check that CFITSIO library contains Fortran wrapper
 #   checkF90FitsioLink: check that CFITSIO library links to Fortran test code
 #   checkF90FitsioVersion: check that CFITSIO library is recent enough
+#   checkCParall: check that C compiler supports OpenMP
 #   GuessF90Compiler: tries to guess compiler from operating system
 #####   askFFT: ask user for his choice of fft, find fftw library
 #   askOpenMP: ask user for compilation of OpenMP source files
@@ -1010,7 +1088,8 @@ EOF
     # compile and link
     ${FC} ${FFLAGS}  ${tmpfile}${suffix} -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} ${WLRPATH_}
 
-    CFITSIOVREQ="3.14"            # required  version of CFITSIO
+    #CFITSIOVREQ="3.14"            # required  version of CFITSIO (in Healpix 3.00)
+    CFITSIOVREQ="3.20"            # required  version of CFITSIO (in Healpix 3.30)
     # run if executable
     if [ -x ${tmpfile}.x ]; then
 	CFITSIOVERSION=`${tmpfile}.x` # available version of CFITSIO 
@@ -1134,14 +1213,15 @@ askOpenMP () {
 
 	# deal with C and F90 flags
 	IdentifyCParallCompiler
-	if [ "x$PRCFLAGS" != "x"  -a "x$PRFLAGS" != "x" ] ; then
-	    # openMP must be supported by the F90 and C compilers
-	    CFLAGS="$CFLAGS $PRCFLAGS"
+	if [ "x$PRFLAGS" != "x" ] ; then
 	    FFLAGS="$FFLAGS $PRFLAGS"
-##	    PARALL="_omp" # no need for a different source file
+	    if [ "x$PRCFLAGS" != "x"  ] ; then
+		CFLAGS="$CFLAGS $PRCFLAGS"
+	    fi
 	else
-	    echo "Healpix+OpenMP not tested for  \"$FCNAME\" under \"$OS\" "
-	    echo "Contact healpix at jpl.nasa.gov if you already used OpenMP in this configuration."
+	    echo "WARNING: Healpix+OpenMP not tested for  \"$FCNAME\" under \"$OS\" "
+	    echo "Contact us (http://healpix.sf.net/support.php) "
+	    echo "if you already used OpenMP in this configuration."
 	    echo "Will perform serial implementation of C and F90 routines instead."
 	fi
 
@@ -1209,9 +1289,9 @@ ${CAT} > ${tmpfile}${suffix} << EOF
 EOF
  case $FTYPE in
   xlf)
-    $FC -qsuffix=f=f90 -c ${tmpfile}${suffix} -o ${tmpfile}.o  2>&1 ${DEVNULL} ;;
+    $FC -qsuffix=f=f90 -c ${tmpfile}${suffix} -o ${tmpfile}.o  > ${DEVNULL} 2>&1 ;;
   *)
-    $FC -c ${tmpfile}${suffix} -o ${tmpfile}.o  2>&1 ${DEVNULL} ;;
+    $FC -c ${tmpfile}${suffix} -o ${tmpfile}.o  > ${DEVNULL} 2>&1 ;;
  esac
 
     stwo=`${NM} ${tmpfile}.o | ${GREP} sub1__ | ${WC} -l`
@@ -1254,9 +1334,38 @@ EOF
 
 }
 # -----------------------------------------------------------------
+checkCParall () {
+# check that C compiler actually support parallel (OpenMP) compilation
+tmpfile=to_be_removed
+suffix=.c
+
+${CAT} > ${tmpfile}${suffix} <<EOF
+#include <omp.h>
+#include <stdio.h>
+int main() {
+#pragma omp parallel
+printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+}
+EOF
+
+${CC} ${PRCFLAGS} -c ${tmpfile}${suffix} -o ${tmpfile}.o  >  ${DEVNULL} 2>&1
+if [ ! -s ${tmpfile}.o ]; then
+    echo
+    echo "WARNING: the C compiler "
+    echo "   ${CC} ${PRCFLAGS} "
+    echo "  does not support OpenMP."
+    echo "  The code will not be as fast as it could be on multiprocessor architectures."
+    PRCFLAGS=""
+    ${RM} ${tmpfile}.*
+    #crashAndBurn
+fi
+${RM} ${tmpfile}.*
+
+}
+# -----------------------------------------------------------------
 IdentifyCParallCompiler () {
-# add OpenMP flag for C compiler (currently only gcc and icc)
-#    clang support to be added soon
+# add OpenMP flag for C compiler (currently only gcc, icc and clang-omp)
+# http://openmp.org/wp/openmp-compilers/
     nicc=`$CC -V 2>&1          | ${GREP} -i intel | ${WC} -l`
     ngcc=`$CC --version 2>&1   | ${GREP} -i 'GCC' | ${WC} -l`
     nclang=`$CC --version 2>&1 | ${GREP}  'clang' | ${WC} -l`
@@ -1266,6 +1375,8 @@ IdentifyCParallCompiler () {
     if [ $nicc != 0 ] ; then
 	PRCFLAGS='-openmp' # -openmp-report0
     elif [ $ngcc != 0 ] ; then
+	PRCFLAGS='-fopenmp'
+    elif [ $nclang != 0 ] ; then
 	PRCFLAGS='-fopenmp'
     elif [ $npgc != 0 ] ; then
 	PRCFLAGS='-mp'
@@ -1277,6 +1388,7 @@ IdentifyCParallCompiler () {
 	read answer
 	[ "x$answer" != "x" ] && PRCFLAGS="$answer"
     fi
+    checkCParall
 }
 # -----------------------------------------------------------------
 ExtendCFLAGS () {
@@ -1427,7 +1539,9 @@ IdentifyF90Compiler () {
 		FFLAGS="$FFLAGS -DGFORTRAN -DG95 -w -ffree-form -fno-second-underscore"
 		OFLAGS="-O3"
 		CC="gcc"
+		CFLAGS="$CFLAGS -DgFortran" # to combine C and F90
 		FI8FLAG="-i8" # change default INTEGER to 64 bits
+		[ $OS = "Linux" ] && WLRPATH="-Wl,-R"
 		MODDIR="-fmod=" # output location of modules
 		DO_F90_SHARED=1
 	elif [ $ngfortran != 0 ] ; then
@@ -1989,7 +2103,8 @@ mainMenu () {
     case x$answer in
 	x1) 
 	  eval idlconffile=$HPX_CONF_IDL
-          idl_config $idlconffile;;
+	  eval gdlconffile=$HPX_CONF_GDL
+          idl_config $idlconffile $gdlconffile;;
         x2)
            C_config;;
 	x3)
@@ -2075,6 +2190,7 @@ makeTopConf(){
 HEALPIX=${HEALPIX} ; export HEALPIX 
 HPX_CONF_DIR=${HPX_CONF_DIR}
 if [ -r ${HPX_CONF_IDL} ] ; then . ${HPX_CONF_IDL} ; fi
+if [ -r ${HPX_CONF_GDL} ] ; then . ${HPX_CONF_GDL} ; fi
 if [ -r ${HPX_CONF_F90} ] ; then . ${HPX_CONF_F90} ; fi
 if [ -r ${HPX_CONF_CPP} ] ; then . ${HPX_CONF_CPP} ; fi
 if [ -r ${HPX_CONF_C} ] ;   then . ${HPX_CONF_C} ;   fi
@@ -2086,6 +2202,7 @@ EOF
 setenv HEALPIX $HEALPIX
 setenv HPX_CONF_DIR ${HPX_CONF_DIR}
 if ( -e ${HPX_CONF_IDL} ) source ${HPX_CONF_IDL}
+if ( -e ${HPX_CONF_GDL} ) source ${HPX_CONF_GDL}
 if ( -e ${HPX_CONF_F90} ) source ${HPX_CONF_F90}
 if ( -e ${HPX_CONF_CPP} ) source ${HPX_CONF_CPP}
 if ( -e ${HPX_CONF_C} )   source ${HPX_CONF_C}
@@ -2121,7 +2238,7 @@ restartFromScratch () {
     echo "Removing Main Makefile"
     ${RM} Makefile
     echo "Removing configuration files in " ${HPX_CONF_DIR}
-    for hfile in ${HPX_CONF_MAIN} ${HPX_CONF_IDL} ${HPX_CONF_F90} ${HPX_CONF_CPP} ${HPX_CONF_C} ; do
+    for hfile in ${HPX_CONF_MAIN} ${HPX_CONF_IDL} ${HPX_CONF_GDL} ${HPX_CONF_F90} ${HPX_CONF_CPP} ${HPX_CONF_C} ; do
 	eval thisfile=${hfile}
         ${RM} ${thisfile}
     done
@@ -2187,6 +2304,7 @@ setConfDir () {
 
     HPX_CONF_MAIN=$HPX_CONF_DIR/config
     HPX_CONF_IDL=\${HPX_CONF_DIR}/idl.${suffix}
+    HPX_CONF_GDL=\${HPX_CONF_DIR}/gdl.${suffix}
     HPX_CONF_F90=\${HPX_CONF_DIR}/f90.${suffix}
     HPX_CONF_CPP=\${HPX_CONF_DIR}/cpp.${suffix}
     HPX_CONF_C=\${HPX_CONF_DIR}/c.${suffix}

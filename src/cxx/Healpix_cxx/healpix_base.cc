@@ -15,7 +15,7 @@
  *  along with Healpix_cxx; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 /*
@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2003-2012 Max-Planck-Society
+ *  Copyright (C) 2003-2015 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -34,9 +34,6 @@
 #include "lsconstants.h"
 
 using namespace std;
-
-template<> const int T_Healpix_Base<int  >::order_max=13;
-template<> const int T_Healpix_Base<int64>::order_max=29;
 
 template<typename I> int T_Healpix_Base<I>::nside2order (I nside)
   {
@@ -80,7 +77,7 @@ template<typename I, typename I2> inline void check_pixel (int o, int order_,
       int sdist=2*(order_-o); // the "bit-shift distance" between map orders
       pixset.append(pix<<sdist,(pix+1)<<sdist); // output all subpixels
       }
-    else // (zone>=1)
+    else // (1<=zone<=2)
       for (int i=0; i<4; ++i)
         stk.push_back(make_pair(4*pix+3-i,o+1)); // add children
     }
@@ -91,7 +88,7 @@ template<typename I, typename I2> inline void check_pixel (int o, int order_,
       pixset.append(pix>>(2*(o-order_))); // output the parent pixel at order_
       stk.resize(stacktop); // unwind the stack
       }
-    else // (zone>=1): pixel center in safety range
+    else // (zone==1): pixel center in safety range
       {
       if (o<omax) // check sublevels
         for (int i=0; i<4; ++i) // add children in reverse order
@@ -218,38 +215,45 @@ template<typename I> template<typename I2>
       double z=ring2z(iz);
       double x = (cosrbig-z*z0)*xa;
       double ysq = 1-z*z-x*x;
-      double dphi = (ysq<=0) ? pi-1e-15 : atan2(sqrt(ysq),x);
-      I nr, ipix1;
-      bool shifted;
-      get_ring_info_small(iz,ipix1,nr,shifted);
-      double shift = shifted ? 0.5 : 0.;
-
-      I ipix2 = ipix1 + nr - 1; // highest pixel number in the ring
-
-      I ip_lo = ifloor<I>(nr*inv_twopi*(ptg.phi-dphi) - shift)+1;
-      I ip_hi = ifloor<I>(nr*inv_twopi*(ptg.phi+dphi) - shift);
-
-      if (fct>1)
+      double dphi=-1;
+      if (ysq<=0) // no intersection, ring completely inside or outside
+        dphi = (fct==1) ? 0: pi-1e-15;
+      else
+        dphi = atan2(sqrt(ysq),x);
+      if (dphi>0)
         {
-        while ((ip_lo<=ip_hi) && check_pixel_ring
-               (*this,b2,ip_lo,nr,ipix1,fct,z0,ptg.phi,cosrsmall,cpix))
-          ++ip_lo;
-        while ((ip_hi>ip_lo) && check_pixel_ring
-               (*this,b2,ip_hi,nr,ipix1,fct,z0,ptg.phi,cosrsmall,cpix))
-          --ip_hi;
-        }
+        I nr, ipix1;
+        bool shifted;
+        get_ring_info_small(iz,ipix1,nr,shifted);
+        double shift = shifted ? 0.5 : 0.;
 
-      if (ip_lo<=ip_hi)
-        {
-        if (ip_hi>=nr)
-          { ip_lo-=nr; ip_hi-=nr; }
-        if (ip_lo<0)
+        I ipix2 = ipix1 + nr - 1; // highest pixel number in the ring
+
+        I ip_lo = ifloor<I>(nr*inv_twopi*(ptg.phi-dphi) - shift)+1;
+        I ip_hi = ifloor<I>(nr*inv_twopi*(ptg.phi+dphi) - shift);
+
+        if (fct>1)
           {
-          pixset.append(ipix1,ipix1+ip_hi+1);
-          pixset.append(ipix1+ip_lo+nr,ipix2+1);
+          while ((ip_lo<=ip_hi) && check_pixel_ring
+                (*this,b2,ip_lo,nr,ipix1,fct,z0,ptg.phi,cosrsmall,cpix))
+            ++ip_lo;
+          while ((ip_hi>ip_lo) && check_pixel_ring
+                (*this,b2,ip_hi,nr,ipix1,fct,z0,ptg.phi,cosrsmall,cpix))
+            --ip_hi;
           }
-        else
-          pixset.append(ipix1+ip_lo,ipix1+ip_hi+1);
+
+        if (ip_lo<=ip_hi)
+          {
+          if (ip_hi>=nr)
+            { ip_lo-=nr; ip_hi-=nr; }
+          if (ip_lo<0)
+            {
+            pixset.append(ipix1,ipix1+ip_hi+1);
+            pixset.append(ipix1+ip_lo+nr,ipix2+1);
+            }
+          else
+            pixset.append(ipix1+ip_lo,ipix1+ip_hi+1);
+          }
         }
       }
     if ((rlat2>=pi) && (irmax+1<4*nside_)) // south pole in the disk
@@ -511,7 +515,7 @@ template<typename I> void T_Healpix_Base<I>::query_multidisc_general
   else // scheme_ == NEST
     {
     int oplus=inclusive ? 2 : 0;
-    int omax=min(order_max,order_+oplus); // the order up to which we test
+    int omax=min<int>(order_max,order_+oplus); // the order up to which we test
 
     // TODO: ignore all disks with radius>=pi
 
@@ -767,16 +771,19 @@ template<typename I> I T_Healpix_Base<I>::ring2nest (I pix) const
 template<typename I> inline I T_Healpix_Base<I>::nest_peano_helper
   (I pix, int dir) const
   {
-  int face = pix>>(2*order_);
+  int face = (pix>>(2*order_));
   I result = 0;
-  uint8 path = peano_face2path[dir][face];
-
-  for (int shift=2*order_-2; shift>=0; shift-=2)
+  int state = ((peano_face2path[dir][face]<<4))|(dir<<7);
+  int shift=2*order_-4;
+  for (; shift>=0; shift-=4)
     {
-    uint8 spix = uint8((pix>>shift) & 0x3);
-    result <<= 2;
-    result |= peano_subpix[dir][path][spix];
-    path=peano_subpath[dir][path][spix];
+    state=peano_arr2[(state&0xF0) | ((pix>>shift)&0xF)];
+    result = (result<<4) | (state&0xF);
+    }
+  if (shift==-2)
+    {
+    state=peano_arr[((state>>2)&0xFC) | (pix&0x3)];
+    result = (result<<2) | (state&0x3);
     }
 
   return result + (I(peano_face2face[dir][face])<<(2*order_));
@@ -958,14 +965,14 @@ template<typename I> template<typename I2>
   int flip=0;
   for (tsize i=0; i<nv; ++i)
     {
-    normal[i]=crossprod(vv[i],vv[(i+1)%nv]);
+    normal[i]=crossprod(vv[i],vv[(i+1)%nv]).Norm();
     double hnd=dotprod(normal[i],vv[(i+2)%nv]);
     planck_assert(abs(hnd)>1e-10,"degenerate corner");
     if (i==0)
       flip = (hnd<0.) ? -1 : 1;
     else
       planck_assert(flip*hnd>0,"polygon is not convex");
-    normal[i]*=flip/normal[i].Length();
+    normal[i]*=flip;
     }
   arr<double> rad(ncirc,halfpi);
   if (inclusive)
@@ -1265,7 +1272,7 @@ template<typename I> double T_Healpix_Base<I>::max_pixrad() const
 template<typename I> double T_Healpix_Base<I>::max_pixrad(I ring) const
   {
   if (ring>=2*nside_) ring=4*nside_-ring;
-  double z=ring2z(ring), z_up=(ring>1) ? ring2z(ring-1) : 1.;
+  double z=ring2z(ring), z_up=ring2z(ring-1);
   vec3 mypos, uppos;
   uppos.set_z_phi(z_up,0);
   if (ring<=nside_)

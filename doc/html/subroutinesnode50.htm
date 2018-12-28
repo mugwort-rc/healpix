@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html861"
+<A NAME="tex2html871"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html867"
+<A NAME="tex2html877"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html871"
+<A NAME="tex2html881"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html869"
+<A NAME="tex2html879"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html862"
+<B> Previous:</B> <A NAME="tex2html872"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 
-<B>Up:</B> <A NAME="tex2html868"
+<B>Up:</B> <A NAME="tex2html878"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html872"
+<B> Next:</B> <A NAME="tex2html882"
   HREF="subroutinesnode51.htm">median*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -62,11 +63,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">medfiltmap*</FONT></font></b><hr>
 <H3>This routine performs the median filtering of a <b>HEALPix</b> full sky map for a
   given neighborhood radius </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">medfiltmap*</FONT>(
-in_map, radius, med_map [,&nbsp;nest, fmissval, fill_holes]
+<A HREF="#sub:medfiltmap:in_map">in_map</A>, <A HREF="#sub:medfiltmap:radius">radius</A>, <A HREF="#sub:medfiltmap:med_map">med_map</A>[,&nbsp;<A HREF="#sub:medfiltmap:nest">nest</A>, <A HREF="#sub:medfiltmap:fmissval">fmissval</A>, <A HREF="#sub:medfiltmap:fill_holes">fill_holes</A>]
 )</h3></blockquote>
 
 <P>
@@ -84,32 +85,32 @@ in_map, radius, med_map [,&nbsp;nest, fmissval, fill_holes]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-in_map(0:npix-1)</TD>
+in_map<A NAME="sub:medfiltmap:in_map"></A>(0:npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Full sky <b>HEALPix</b> map to filter. <TT>npix</TT>
                    should be valid <b>HEALPix</b> pixel number.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>radius</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>radius<A NAME="sub:medfiltmap:radius"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Radius in RADIANS of the disk on which the median is
                    computed.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>med_map(0:npix-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>med_map<A NAME="sub:medfiltmap:med_map"></A>(0:npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Median filtered map: each pixel is the
                    median of the input map valid neighboring pixels contained
                    within a distance <TT>radius</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nest OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nest<A NAME="sub:medfiltmap:nest"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>set to 1 if the map ordering is NESTED, set to 0 if
                    it is RING.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fmissval OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fmissval<A NAME="sub:medfiltmap:fmissval"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to missing or
@@ -118,10 +119,10 @@ in_map(0:npix-1)</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="130" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg89.png"
+ SRC="subroutinesimg95.png"
  ALT="$ = -1.6375\ 10^{30}$"></SPAN></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fill_holes OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fill_holes<A NAME="sub:medfiltmap:fill_holes"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to <TT>.true.</TT> will replace
@@ -155,11 +156,11 @@ Output in <TT>med</TT> the median filter of <TT>map</TT>, using a filter radius 
 <B><SPAN  CLASS="textbf">pix_tools</SPAN></B>
 <DD>module, containing:
   <DT>
-<B><A HREF="subroutinesnode71.htm#sub:pix_tools">pix2vec_ring, pix2vec_nest</A></B>
+<B><A HREF="subroutinesnode72.htm#sub:pix_tools">pix2vec_ring, pix2vec_nest</A></B>
 <DD>routines to find
   the location of a pixel on the sky
   <DT>
-<B><A HREF="subroutinesnode74.htm#sub:query_disc">query_disc</A></B>
+<B><A HREF="subroutinesnode75.htm#sub:query_disc">query_disc</A></B>
 <DD>routine to find pixels lying
   within a radius of a given point
   </DL>
@@ -175,31 +176,31 @@ Output in <TT>med</TT> the median filter of <TT>map</TT>, using a filter radius 
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html861"
+<A NAME="tex2html871"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html867"
+<A NAME="tex2html877"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html871"
+<A NAME="tex2html881"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html869"
+<A NAME="tex2html879"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html862"
+<B> Previous:</B> <A NAME="tex2html872"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 
-<B>Up:</B> <A NAME="tex2html868"
+<B>Up:</B> <A NAME="tex2html878"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html872"
+<B> Next:</B> <A NAME="tex2html882"
   HREF="subroutinesnode51.htm">median*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

@@ -129,10 +129,16 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>get_key_void</b> (con
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#fa6802fe55deaa8690e4bcfad42fcacb">read_column</a> (int colnum, <a class="el" href="classarr.html">arr</a>&lt; T &gt; &amp;data, int64 offset=0) const </td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#aa11774ec223a1af925026d7db56fab5">read_column</a> (int colnum, std::vector&lt; T &gt; &amp;data, int64 offset=0) const </td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#278734f1c9996a1b49c326ad6ed7cccd">read_column</a> (int colnum, T &amp;data, int64 offset=0) const </td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#e3cfe98edef5748efb5996b64b18c20e">read_entire_column</a> (int colnum, <a class="el" href="classarr.html">arr</a>&lt; T &gt; &amp;data) const </td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#101574a44b633c23913b7fde15432866">read_entire_column</a> (int colnum, std::vector&lt; T &gt; &amp;data) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="122111eaeb53a76dd320a79a43d6742b"></a><!-- doxytag: member="fitshandle::write_column_raw_void" ref="122111eaeb53a76dd320a79a43d6742b" args="(int colnum, const void *data, PDT type, int64 num, int64 offset=0)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>write_column_raw_void</b> (int colnum, const void *data, <a class="el" href="datatypes_8h.html#f978c5bc1d3ac738e02f5dc181e979e2">PDT</a> type, int64 num, int64 offset=0)</td></tr>
@@ -142,6 +148,9 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>write_column_raw_void
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#41569ab5af5ed6a6d8be0436b1cd4f76">write_column</a> (int colnum, const <a class="el" href="classarr.html">arr</a>&lt; T &gt; &amp;data, int64 offset=0)</td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#a65c64f094eafd53f847b5e40ad93c2c">write_column</a> (int colnum, const std::vector&lt; T &gt; &amp;data, int64 offset=0)</td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfitshandle.html#2a9a7f241dd1c5bf737c0c3d5945831b">write_column</a> (int colnum, const T &amp;data, int64 offset=0)</td></tr>
@@ -1059,6 +1068,45 @@ Fills <em>data</em> with elements from column <em>colnum</em>, starting at offse
 
 </div>
 </div><p>
+<a class="anchor" name="aa11774ec223a1af925026d7db56fab5"></a><!-- doxytag: member="fitshandle::read_column" ref="aa11774ec223a1af925026d7db56fab5" args="(int colnum, std::vector&lt; T &gt; &amp;data, int64 offset=0) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void fitshandle::read_column           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>colnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; T &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&nbsp;</td>
+          <td class="paramname"> <em>offset</em> = <code>0</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Fills <em>data</em> with elements from column <em>colnum</em>, starting at offset <em>offset</em> in the column. 
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00229">229</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+
+</div>
+</div><p>
 <a class="anchor" name="278734f1c9996a1b49c326ad6ed7cccd"></a><!-- doxytag: member="fitshandle::read_column" ref="278734f1c9996a1b49c326ad6ed7cccd" args="(int colnum, T &amp;data, int64 offset=0) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1094,7 +1142,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Reads the element <em>offset</em> from column <em>colnum</em> into <em>data</em>. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00228">228</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00233">233</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1127,7 +1175,40 @@ template&lt;typename T&gt; </div>
 
 <p>
 Reads the whole column <em>colnum</em> into <em>data</em> (which is resized accordingly). 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00233">233</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00238">238</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="101574a44b633c23913b7fde15432866"></a><!-- doxytag: member="fitshandle::read_entire_column" ref="101574a44b633c23913b7fde15432866" args="(int colnum, std::vector&lt; T &gt; &amp;data) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void fitshandle::read_entire_column           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>colnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; T &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>data</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reads the whole column <em>colnum</em> into <em>data</em> (which is resized accordingly). 
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00246">246</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1172,7 +1253,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Copies <em>num</em> elements from the memory pointed to by <em>data</em> to the column <em>colnum</em>, starting at offset <em>offset</em> in the column. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00244">244</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00257">257</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1211,7 +1292,46 @@ template&lt;typename T&gt; </div>
 
 <p>
 Copies all elements from <em>data</em> to the column <em>colnum</em>, starting at offset <em>offset</em> in the column. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00249">249</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00262">262</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="a65c64f094eafd53f847b5e40ad93c2c"></a><!-- doxytag: member="fitshandle::write_column" ref="a65c64f094eafd53f847b5e40ad93c2c" args="(int colnum, const std::vector&lt; T &gt; &amp;data, int64 offset=0)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void fitshandle::write_column           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>colnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64&nbsp;</td>
+          <td class="paramname"> <em>offset</em> = <code>0</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Copies all elements from <em>data</em> to the column <em>colnum</em>, starting at offset <em>offset</em> in the column. 
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00267">267</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1250,7 +1370,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Copies <em>data</em> to the column <em>colnum</em>, at the position <em>offset</em>. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00253">253</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00271">271</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1370,7 +1490,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Fills <em>data</em> with values from the image, starting at the offset <em>offset</em> in the image. The image is treated as a one-dimensional array. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00275">275</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00293">293</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1394,7 +1514,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Writes <em>data</em> into the current image. <em>data</em> must have the same dimensions as specified in the HDU. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00283">283</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00301">301</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1427,7 +1547,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Copies <em>data</em> to the image, starting at the offset <em>offset</em> in the image. The image is treated as a one-dimensional array. 
-<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00294">294</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
+<p>Definition at line <a class="el" href="fitshandle_8h-source.html#l00312">312</a> of file <a class="el" href="fitshandle_8h-source.html">fitshandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -1435,7 +1555,7 @@ Copies <em>data</em> to the image, starting at the offset <em>offset</em> in the
 <li><a class="el" href="fitshandle_8h-source.html">fitshandle.h</a><li><a class="el" href="fitshandle_8cc-source.html">fitshandle.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

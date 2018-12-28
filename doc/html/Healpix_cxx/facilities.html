@@ -46,6 +46,12 @@ polarisation (bool):
   if false, only the intensity a_lm are generated,
   if true, T, G and C a_lm are generated
 
+if (polarisation)
+  full_ps (bool, default=false):
+    if false, only TT, GG, CC and TG components of the spectrum are used
+    if true, also TC and GC components are used
+endif
+
 double_precision (bool, default=false):
   if false, the a_lm are created in single precision,
   otherwise in double precision.
@@ -138,6 +144,10 @@ if (polarisation==true &amp;&amp; outfile!="")
     if true, write a 6-column power spectrum;
     if false, write a 4-column power spectrum.
 endif
+
+remove_monopole (bool, default=false):
+  if true, subtract the average pixel value from the temperature map, and add
+  the corresponding value to almT(0,0) after the map2alm transform.
 </pre></div><h2><a class="anchor" name="map2tga">
 map2tga</a></h2>
 This program reads in a HEALPix sky map in FITS format and generates an image in TGA format. map2tga allows the selection of the projection scheme (Mollweide or Gnomonic for small patches of the sky), color table, color bar inclusion, linear or log scaling, maximum and minimum range for the plot and plot-title. The facility provides a command-line interface, but can also read a parameter file.<p>
@@ -328,7 +338,7 @@ median_filter_cxx</a></h2>
 This program inputs a HEALPix map, runs a median filter with the desired radius on it and saves the result to another file.<p>
 <div class="fragment"><pre class="fragment">Usage: median_filter_cxx &lt;input map&gt; &lt;output map&gt; &lt;radius in arcmin&gt;</pre></div> </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

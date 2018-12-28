@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 package healpix.essentials;
@@ -23,8 +23,8 @@ package healpix.essentials;
 import java.util.Arrays;
 
 /** Class representing a full HEALPix map containing double values.
-    This class is conceptually very similar the the Healpix_Map<double> class
-    of Healpix_cxx.
+    This class is conceptually very similar the the Healpix_Map&lt;double&gt;
+    class of Healpix_cxx.
 
     @copyright 2011,2012 Max-Planck-Society
     @author Martin Reinecke */
@@ -32,7 +32,7 @@ public class HealpixMapDouble extends HealpixBase
   {
   private double[] data;
 
-  public static final double undef=(double)(-1.6375e30);
+  public static final double undef=-1.6375e30;
 
   public HealpixMapDouble() throws Exception
     { this(1,Scheme.NESTED); }
@@ -204,7 +204,7 @@ public class HealpixMapDouble extends HealpixBase
             sum += orig.data[opix];
             }
           }
-      data[m] = (hits<minhits) ? undef : (double) (sum/hits);
+      data[m] = (hits<minhits) ? undef : (sum/hits);
       }
     }
   /** Imports the map "orig" to this object, adjusting pixel ordering

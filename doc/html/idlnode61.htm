@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html930"
+<A NAME="tex2html957"
   HREF="idlnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html936"
+<A NAME="tex2html963"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html940"
+<A NAME="tex2html967"
   HREF="idlnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html938"
+<A NAME="tex2html965"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html931"
+<B> Previous:</B> <A NAME="tex2html958"
   HREF="idlnode60.htm">read_fits_s</A>
 
-<B>Up:</B> <A NAME="tex2html937"
+<B>Up:</B> <A NAME="tex2html964"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html941"
+<B> Next:</B> <A NAME="tex2html968"
   HREF="idlnode62.htm">remove_dipole</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -64,10 +65,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 with optionally the error (dT,dQ,dU) and correlation (dQU, dTU, dTQ)
 from separate extensions
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/fits/read_tqu.pro"><b>src/idl/fits/read_tqu.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/fits/read_tqu.pro"><b>src/idl/fits/read_tqu.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-READ_TQU , File, TQU, [Extension=, Hdr=, Xhdr=, /HELP, Nside=, Ordering=, Coordsys=]
+READ_TQU , <A HREF="#idl:read_tqu:File">File</A>, <A HREF="#idl:read_tqu:TQU">TQU</A>, [<A HREF="#idl:read_tqu:Extension">Extension=</A>, <A HREF="#idl:read_tqu:Hdr">Hdr=</A>, <A HREF="#idl:read_tqu:Xhdr">Xhdr=</A>, <A HREF="#idl:read_tqu:HELP">/HELP</A>, <A HREF="#idl:read_tqu:Nside">Nside=</A>, <A HREF="#idl:read_tqu:Ordering">Ordering=</A>, <A HREF="#idl:read_tqu:Coordsys">Coordsys=</A>]
 </h3>
 <P>
 <hr>
@@ -82,14 +83,14 @@ READ_TQU , File, TQU, [Extension=, Hdr=, Xhdr=, /HELP, Nside=, Ordering=, Coords
 <B>TQU</B>
 <DD>: array of Healpix maps of size (<SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg90.png"
+ SRC="idlimg88.png"
  ALT="$N_{\rm pix}$"></SPAN>,3,<TT>n_ext</TT>) where <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg90.png"
+ SRC="idlimg88.png"
  ALT="$N_{\rm pix}$"></SPAN> is the total
    number of Healpix pixels on the sky, and <TT>n_ext</TT> <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg91.png"
+ SRC="idlimg93.png"
  ALT="$\le$"></SPAN> 3 is
    the number of extensions read
 <BR>
@@ -185,7 +186,7 @@ their physical order) using the Extension option
 <DD>This <b>HEALPix</b> f90 facility can be used to generate
   temperature+polarization maps that can be read with <FONT COLOR="#CC0000">read_tqu</FONT>
   <DT>
-<B><A HREF="idlnode72.htm#idl:write_tqu">write_tqu</A></B>
+<B><A HREF="idlnode73.htm#idl:write_tqu">write_tqu</A></B>
 <DD>This <b>HEALPix</b> IDL facility can be used to write
   out temperature+polarization that can be read by <FONT COLOR="#CC0000">read_tqu</FONT>.
   <DT>
@@ -228,31 +229,31 @@ The variable <TT>xhdr</TT> will contain the extension(s) header.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html930"
+<A NAME="tex2html957"
   HREF="idlnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html936"
+<A NAME="tex2html963"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html940"
+<A NAME="tex2html967"
   HREF="idlnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html938"
+<A NAME="tex2html965"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html931"
+<B> Previous:</B> <A NAME="tex2html958"
   HREF="idlnode60.htm">read_fits_s</A>
 
-<B>Up:</B> <A NAME="tex2html937"
+<B>Up:</B> <A NAME="tex2html964"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html941"
+<B> Next:</B> <A NAME="tex2html968"
   HREF="idlnode62.htm">remove_dipole</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

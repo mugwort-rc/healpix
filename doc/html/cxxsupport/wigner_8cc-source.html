@@ -15,7 +15,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_910219961535e9cb6ce25cf2653fa13f.html">cxxsupport</a>
+  <div class="navpath"><a class="el" href="dir_36dbee75ffc169c020c890f766651e8e.html">cxxsupport</a>
   </div>
 </div>
 <div class="contents">
@@ -46,7 +46,7 @@
 <a name="l00025"></a>00025 <span class="comment">/*! \file wigner.cc</span>
 <a name="l00026"></a>00026 <span class="comment"> *  Several C++ classes for calculating Wigner matrices</span>
 <a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2009-2011 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2009-2015 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  \author Martin Reinecke and others (see individual classes)</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -294,7 +294,7 @@
 <a name="l00273"></a>00273     mlo(-1234567890), mhi(-1234567890),
 <a name="l00274"></a>00274     fx(lmax+2), result(lmax+1)
 <a name="l00275"></a>00275   {
-<a name="l00276"></a>00276   <a class="code" href="group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(lmax&gt;0,<span class="stringliteral">"lmax too small"</span>);
+<a name="l00276"></a>00276   <a class="code" href="group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(lmax&gt;=0,<span class="stringliteral">"lmax too small"</span>);
 <a name="l00277"></a>00277   logsum[0] = 0.;
 <a name="l00278"></a>00278   <span class="keywordflow">for</span> (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> m=1; m&lt;logsum.<a class="code" href="classarr__ref.html#907c97ffb647df713a8fa02ebec97a3b">size</a>(); ++m)
 <a name="l00279"></a>00279     logsum[m] = logsum[m-1]+log(static_cast&lt;long double&gt;(m));
@@ -631,7 +631,7 @@
 <a name="l00610"></a>00610   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

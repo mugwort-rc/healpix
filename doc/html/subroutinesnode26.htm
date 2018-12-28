@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html573"
+<A NAME="tex2html583"
   HREF="subroutinesnode25.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html579"
+<A NAME="tex2html589"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html583"
+<A NAME="tex2html593"
   HREF="subroutinesnode27.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html581"
+<A NAME="tex2html591"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html574"
+<B> Previous:</B> <A NAME="tex2html584"
   HREF="subroutinesnode25.htm">del_card</A>
 
-<B>Up:</B> <A NAME="tex2html580"
+<B>Up:</B> <A NAME="tex2html590"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html584"
+<B> Next:</B> <A NAME="tex2html594"
   HREF="subroutinesnode27.htm">dump_alms*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,11 +64,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>For a input binary mask in NESTED ordering, <FONT COLOR="#CC0000">dist2holes_nest</FONT> returns the angular distance (in
 radians) from each <EM>valid</EM> (1-valued) pixel to the closest <EM>invalid</EM> (0-valued)
 pixel. Distances are measured between pixel centers.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/mask_tools.F90"><b>src/f90/mod/mask_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/mask_tools.F90"><b>src/f90/mod/mask_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">dist2holes_nest</FONT>(
-nside, mask, distance
+<A HREF="#sub:dist2holes_nest:nside">nside</A>, <A HREF="#sub:dist2holes_nest:mask">mask</A>, <A HREF="#sub:dist2holes_nest:distance">distance</A>
 )</h3></blockquote>
 
 <P>
@@ -85,17 +86,17 @@ nside, mask, distance
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
-nside</TD>
+nside<A NAME="sub:dist2holes_nest:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the input mask.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask(0:Npix-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask<A NAME="sub:dist2holes_nest:mask"></A>(0:Npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Input NESTED-ordered mask. Npix = 12*nside*nside</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>distance(0:Npix-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>distance<A NAME="sub:dist2holes_nest:distance"></A>(0:Npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Output NESTED-ordered angular-distance map</TD>
@@ -137,7 +138,7 @@ pixels located in 'holes' containing fewer pixels than the given threshold
 <DD>identify inner
 boundary pixels of 'holes' for given mask
 	<DT>
-<B><A HREF="subroutinesnode95.htm#sub:size_holes_nest">size_holes_nest</A></B>
+<B><A HREF="subroutinesnode96.htm#sub:size_holes_nest">size_holes_nest</A></B>
 <DD>returns size (in
 pixels) of holes found in input mask
 
@@ -154,31 +155,31 @@ pixels) of holes found in input mask
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html573"
+<A NAME="tex2html583"
   HREF="subroutinesnode25.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html579"
+<A NAME="tex2html589"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html583"
+<A NAME="tex2html593"
   HREF="subroutinesnode27.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html581"
+<A NAME="tex2html591"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html574"
+<B> Previous:</B> <A NAME="tex2html584"
   HREF="subroutinesnode25.htm">del_card</A>
 
-<B>Up:</B> <A NAME="tex2html580"
+<B>Up:</B> <A NAME="tex2html590"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html584"
+<B> Next:</B> <A NAME="tex2html594"
   HREF="subroutinesnode27.htm">dump_alms*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

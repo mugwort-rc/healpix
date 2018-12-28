@@ -21,10 +21,25 @@ import warnings
 import numpy as np
 import six
 pi = np.pi
+import warnings
 
-from . import _healpy_sph_transform_lib as sphtlib
-from . import _healpy_fitsio_lib as hfitslib
-from . import _sphtools as _sphtools
+try:
+    from exceptions import ImportError
+except:
+    pass
+
+try:
+    from . import _healpy_sph_transform_lib as sphtlib
+except ImportError:
+    warnings.warn('Warning: cannot import _healpy_pixel_lib module')
+try:
+    from . import _healpy_fitsio_lib as hfitslib
+except ImportError:
+    warnings.warn('Warning: cannot import _healpy_fitsio_lib module')
+try:
+    from . import _sphtools as _sphtools
+except ImportError:
+    warnings.warn('Warning: cannot import _sphtools module')
 from . import cookbook as cb
 
 import os.path
@@ -158,7 +173,7 @@ def map2alm(maps, lmax = None, mmax = None, iter = 3, pol = True,
     return alms
 
 def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
-            fwhm = 0.0, sigma = None, invert = False, pol = True,
+            fwhm = 0.0, sigma = None,  pol = True,
             inplace = False, verbose=True):
     """Computes an Healpix map given the alm.
 
@@ -185,10 +200,6 @@ def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
     sigma : float, scalar, optional
       The sigma of the Gaussian used to smooth the map (applied on alm)
       [in radians]
-    invert : bool, optional
-      If True, alms are divided by Gaussian beam function (un-smooth).
-      Otherwise, alms are multiplied by Gaussian beam function (smooth).
-      Default: False.
     pol : bool, optional
       If True, assumes input alms are TEB. Output will be TQU maps.
       (input must be 1 or 3 alms)
@@ -210,7 +221,7 @@ def alm2map(alms, nside, lmax = None, mmax = None, pixwin = False,
     if not cb.is_seq(alms):
         raise TypeError("alms must be a sequence")
 
-    alms = smoothalm(alms, fwhm = fwhm, sigma = sigma, invert = invert, 
+    alms = smoothalm(alms, fwhm = fwhm, sigma = sigma,  
                      pol = pol, inplace = inplace, verbose=verbose)
 
     if not cb.is_seq_of_seq(alms):
@@ -575,7 +586,7 @@ def almxfl(alm, fl, mmax = None, inplace = False):
     almout = _sphtools.almxfl(alm, fl, mmax = mmax, inplace = inplace)
     return almout
 
-def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
+def smoothalm(alms, fwhm = 0.0, sigma = None,  pol = True,
               mmax = None, verbose = True, inplace = True):
     """Smooth alm with a Gaussian symmetric beam function.
 
@@ -590,10 +601,6 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
     sigma : float, optional
       The sigma of the Gaussian. Override fwhm.
       [in radians]
-    invert : bool, optional
-      If True, alms are divided by Gaussian beam function (un-smooth).
-      Otherwise, alms are multiplied by Gaussian beam function (smooth).
-      Default: False.
     pol : bool, optional
       If True, assumes input alms are TEB. Output will be TQU maps.
       (input must be 1 or 3 alms)
@@ -669,7 +676,7 @@ def smoothalm(alms, fwhm = 0.0, sigma = None, invert = False, pol = True,
     return alms
 
 @accept_ma
-def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
+def smoothing(map_in, fwhm = 0.0, sigma = None,  pol = True,
               iter = 3, lmax = None, mmax = None, use_weights = False,
               datapath = None, verbose = True):
     """Smooth a map with a Gaussian symmetric beam.
@@ -678,7 +685,7 @@ def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
 
     Parameters
     ----------
-    maps : array or sequence of 3 arrays
+    map_in : array or sequence of 3 arrays
       Either an array representing one map, or a sequence of
       3 arrays representing 3 maps, accepts masked arrays
     fwhm : float, optional
@@ -686,10 +693,6 @@ def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
       radians]. Default:0.0
     sigma : float, optional
       The sigma of the Gaussian [in radians]. Override fwhm.
-    invert : bool, optional
-      If True, alms are divided by Gaussian beam function (un-smooth).
-      Otherwise, alms are multiplied by Gaussian beam function (smooth).
-      Default: False.
     pol : bool, optional
       If True, assumes input maps are TQU. Output will be TQU maps.
       (input must be 1 or 3 alms)
@@ -715,35 +718,34 @@ def smoothing(maps, fwhm = 0.0, sigma = None, invert = False, pol = True,
       The smoothed map(s)
     """
 
-    if not cb.is_seq(maps):
-        raise TypeError("maps must be a sequence")
+    if not cb.is_seq(map_in):
+        raise TypeError("map_in must be a sequence")
 
     # save the masks of inputs
-    masks = pixelfunc.mask_bad(maps) 
+    masks = pixelfunc.mask_bad(map_in) 
 
-    if cb.is_seq_of_seq(maps):
-        nside = pixelfunc.npix2nside(len(maps[0]))
-        n_maps = len(maps)
+    if cb.is_seq_of_seq(map_in):
+        nside = pixelfunc.npix2nside(len(map_in[0]))
+        n_maps = len(map_in)
     else:
-        nside = pixelfunc.npix2nside(len(maps))
+        nside = pixelfunc.npix2nside(len(map_in))
         n_maps = 0
 
     if pol or n_maps in (0, 1):
         # Treat the maps together (1 or 3 maps)
-        alms = map2alm(maps, lmax = lmax, mmax = mmax, iter = iter,
+        alms = map2alm(map_in, lmax = lmax, mmax = mmax, iter = iter,
                        pol = pol, use_weights = use_weights,
                        datapath = datapath)
-        smoothalm(alms, fwhm = fwhm, sigma = sigma, invert = invert,
+        smoothalm(alms, fwhm = fwhm, sigma = sigma, 
                   inplace = True, verbose = verbose)
         output_map = alm2map(alms, nside, pixwin = False, verbose=verbose)
     else:
         # Treat each map independently (any number)
         output_map = []
-        for m, mask in zip(maps, masks):
-            alm = map2alm(maps, iter = iter, pol = pol,
-                          use_weights = use_weights,
-                       datapath = datapath)
-            smoothalm(alm, fwhm = fwhm, sigma = sigma, invert = invert,
+        for m in map_in:
+            alm = map2alm(m, lmax = lmax, mmax = mmax, iter = iter, pol = pol,
+                          use_weights = use_weights, datapath = datapath)
+            smoothalm(alm, fwhm = fwhm, sigma = sigma, 
                       inplace = True, verbose = verbose)
             output_map.append(alm2map(alm, nside, pixwin = False, verbose=verbose))
     if pixelfunc.maptype(output_map) == 0:
@@ -779,10 +781,13 @@ def pixwin(nside, pol = False):
                          "or data files missing")
     # return hfitslib._pixwin(nside,datapath,pol)  ## BROKEN -> seg fault...
     try:
-        import pyfits
+        try:
+            import astropy.io.fits as pf
+        except ImportError:
+            import pyfits as pf
     except ImportError:
-        raise ImportError("You need to install pyfits to use this function.")
-    pw = pyfits.getdata(fname)
+        raise ImportError("You need to install astropy.io.fits or pyfits to use this function.")
+    pw = pf.getdata(fname)
     pw_temp, pw_pol = pw.field(0), pw.field(1)
     if pol:
         return pw_temp, pw_pol

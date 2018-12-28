@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html144"
+<A NAME="tex2html150"
   HREF="facilitiesnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html150"
+<A NAME="tex2html156"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html154"
+<A NAME="tex2html160"
   HREF="facilitiesnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html152"
+<A NAME="tex2html158"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html145"
+<B> Previous:</B> <A NAME="tex2html151"
   HREF="facilitiesnode5.htm">alteralm</A>
 
-<B>Up:</B> <A NAME="tex2html151"
+<B>Up:</B> <A NAME="tex2html157"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html155"
+<B> Next:</B> <A NAME="tex2html161"
   HREF="facilitiesnode7.htm">hotspot</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -80,18 +81,10 @@ The total operation count scales as
 depending on <SPAN CLASS="MATH"><I>l</I><SUB><I>max</I></SUB></SPAN>. 
 <BR>Anafast reads one (two) file(s) containing the map(s) and produces 
 a file containing the temperature auto- (or cross-) power spectrum
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I></SUP><SUB><I>l</I></SUB></SPAN> and, if requested, 
-also the polarisation power spectra <SPAN CLASS="MATH"><I>C</I><SUP><I>E</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>B</I></SUP><SUB><I>l</I></SUB></SPAN>, <!-- MATH
- $C^{T\times E}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>E</I></SUP><SUB><I>l</I></SUB></SPAN>,
-<!-- MATH
- $C^{T\times B}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>B</I></SUP><SUB><I>l</I></SUB></SPAN> and <!-- MATH
- $C^{E\times B}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>E</I> x <I>B</I></SUP><SUB><I>l</I></SUB></SPAN>.
+<SPAN CLASS="MATH"><I>C</I><SUP><I>TT</I></SUP><SUB><I>l</I></SUB></SPAN> and, if requested, 
+also the polarisation power spectra <SPAN CLASS="MATH"><I>C</I><SUP><I>EE</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>BB</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>TE</I></SUP><SUB><I>l</I></SUB></SPAN>,
+<SPAN CLASS="MATH"><I>C</I><SUP><I>TB</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>EB</I></SUP><SUB><I>l</I></SUB></SPAN> (as well as  <SPAN CLASS="MATH"><I>C</I><SUP><I>ET</I></SUP><SUB><I>l</I></SUB></SPAN>,
+<SPAN CLASS="MATH"><I>C</I><SUP><I>BT</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>BE</I></SUP><SUB><I>l</I></SUB></SPAN> if two maps are provided).
 The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients computed during the execution also can be  
 written to a (two) file(s) if requested. 
 <BR>Anafast executes an approximate, discrete point-set quadrature on 
@@ -127,7 +120,7 @@ on latitude, and/or
  ALT="$\bullet$"></SPAN> An iterative scheme using in 
 succession several backward and forward harmonic transforms 
 of the maps.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/anafast/anafast.f90"><b>src/f90/anafast/anafast.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/anafast/anafast.f90"><b>src/f90/anafast/anafast.f90</b></a>&nbsp;  
 <P>
 <hr> 
 <H1>RECOMMENDATIONS FOR USERS</H1> 
@@ -392,29 +385,18 @@ default = 0.
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-Anafast reads one of two binary FITS-files containing a <b>HEALPix</b> map. These
+Anafast reads one or two binary FITS-files containing a <b>HEALPix</b> map. These
 files can each contain
 a temperature map or both temperature and polarisation (Q,U) maps. Anafast analyses
 the map(s) and makes an output ascii-FITS file containing the angular auto or cross
-power spectra <SPAN CLASS="MATH"><I>C</I><SUP><I>T</I></SUP><SUB><I>l</I></SUB></SPAN>s
-(and <SPAN CLASS="MATH"><I>C</I><SUP><I>E</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>B</I></SUP><SUB><I>l</I></SUB></SPAN>, <!-- MATH
- $C^{T\times E}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>E</I></SUP><SUB><I>l</I></SUB></SPAN>, <!-- MATH
- $C^{T\times B}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>B</I></SUP><SUB><I>l</I></SUB></SPAN> and <!-- MATH
- $C^{E\times B}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>E</I> x <I>B</I></SUP><SUB><I>l</I></SUB></SPAN> if specified). Anafast
-produces <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>s up to a specified maximum <SPAN CLASS="MATH"><I>l</I></SPAN>-value
-(see Recommendations for Users). Note in particular that if 2 maps are provided,
-the <!-- MATH
- $C^{T\times E}_l$
- -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>E</I></SUP><SUB><I>l</I></SUB></SPAN> power
-      spectrum will be build from the <SPAN CLASS="MATH"><I>T</I></SPAN> field of the 1st (polarized) map, and the <SPAN CLASS="MATH"><I>E</I></SPAN>
-      field of the second polarized map.
+power spectra <SPAN CLASS="MATH"><I>C</I><SUP><I>TT</I></SUP><SUB><I>l</I></SUB></SPAN>s
+(and <SPAN CLASS="MATH"><I>C</I><SUP><I>EE</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>BB</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>TE</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>TB</I></SUP><SUB><I>l</I></SUB></SPAN> and <SPAN CLASS="MATH"><I>C</I><SUP><I>EB</I></SUP><SUB><I>l</I></SUB></SPAN> if specified, as well
+as <SPAN CLASS="MATH"><I>C</I><SUP><I>ET</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>BT</I></SUP><SUB><I>l</I></SUB></SPAN> and <SPAN CLASS="MATH"><I>C</I><SUP><I>BE</I></SUP><SUB><I>l</I></SUB></SPAN> if two maps are provided). 
+Here <SPAN CLASS="MATH"><I>C</I><SUP><I>TE</I></SUP><SUB><I>l</I></SUB></SPAN> is meant as the power
+spectrum built from the <SPAN CLASS="MATH"><I>T</I></SPAN> field of the first (polarized) map, and the <SPAN CLASS="MATH"><I>E</I></SPAN>
+field of the second polarized map, while it is the other way around for <SPAN CLASS="MATH"><I>C</I><SUP><I>ET</I></SUP><SUB><I>l</I></SUB></SPAN>.
+Anafast produces <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>s up to a specified maximum <SPAN CLASS="MATH"><I>l</I></SPAN>-value
+(see Recommendations for Users). 
 If requested, the computed <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients 
 can  be written to a FITS file. This file can be used in the 
 constrained realisation mode  of  <A HREF="facilitiesnode14.htm#fac:synfast">synfast</A>. 
@@ -635,31 +617,31 @@ can not allocate memory for array xxx </SMALL></TD>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html144"
+<A NAME="tex2html150"
   HREF="facilitiesnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html150"
+<A NAME="tex2html156"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html154"
+<A NAME="tex2html160"
   HREF="facilitiesnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html152"
+<A NAME="tex2html158"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html145"
+<B> Previous:</B> <A NAME="tex2html151"
   HREF="facilitiesnode5.htm">alteralm</A>
 
-<B>Up:</B> <A NAME="tex2html151"
+<B>Up:</B> <A NAME="tex2html157"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html155"
+<B> Next:</B> <A NAME="tex2html161"
   HREF="facilitiesnode7.htm">hotspot</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

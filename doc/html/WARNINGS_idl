@@ -5,6 +5,8 @@ redefining command \lq
 
 redefining command \contentsname 
 
+*** wrap_cmd_projfullname not defined, cannot wrap \projfullname 
+
 redefining command \l 
 
 *** wrap_cmd_facname not defined, cannot wrap \facname 
@@ -15,10 +17,10 @@ Substitution of arg to newlabelxx delayed.
 
 redefining command \ 
 
-? brace missing for \oldcontentsline
-
 ? brace missing for \oldnewlabel
-Could not find the external label file: /tmp/facilitieslabels.pl
+
+? brace missing for \oldcontentsline
+Could not find the external label file: /tmp/installlabels.pl
 
 ? brace missing for \newedenvironment
 

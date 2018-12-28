@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>udgrade_nest*</TITLE>
-<META NAME="description" CONTENT="udgrade_nest*">
+<TITLE>template_pixel_nest, template_pixel_ring</TITLE>
+<META NAME="description" CONTENT="template_pixel_nest, template_pixel_ring">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,55 +29,111 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1449"
+<A NAME="tex2html1459"
   HREF="subroutinesnode98.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1455"
+<A NAME="tex2html1465"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1459"
+<A NAME="tex2html1469"
   HREF="subroutinesnode100.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1457"
+<A NAME="tex2html1467"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1450"
-  HREF="subroutinesnode98.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Previous:</B> <A NAME="tex2html1460"
+  HREF="subroutinesnode98.htm">surface_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html1456"
+<B>Up:</B> <A NAME="tex2html1466"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1460"
-  HREF="subroutinesnode100.htm">udgrade_ring*</A>
+<B> Next:</B> <A NAME="tex2html1470"
+  HREF="subroutinesnode100.htm">udgrade_nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000990000000000000000"></A>
-<A NAME="sub:udgrade_nest"></A>
+<A NAME="sub:template_pixel_xxx"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">udgrade_nest*</FONT></font></b><hr>
-<H3>Routine to degrade or prograde the pixel size of a <b>HEALPix</b> map indexed with
-  the NESTED scheme. The degradation/progradation is done assuming an
-intensive quantity (like temperature) that does NOT scale with surface area. <BR>
-In case of degradation, a big pixel that contains one or several bad pixels will
-take the average of the valid small pixels, unless a 'pessimistic' behavior
-is assumed in which case the big pixel will take the bad pixel sentinel value.
-In case of progradation, a bad pixel only spawns bad pixels. <BR>
-The routine accepts both mono and bi-dimensional maps.
+<b><font size=+6><FONT COLOR="#CC0000">template_pixel_nest, template_pixel_ring</FONT></font></b><hr>
+<H3>Routines to provide the index of the template pixel associated with a given
+  <b>HEALPix</b> pixel, for a resolution parameter <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg13.png"
+ ALT="${N_{\rm side}}$"></SPAN>. 
+<br><br>Any pixel can be <EM>matched in shape</EM>
+  to a single of these templates by a combination of  a rotation around the polar axis with 
+  reflexion(s) around a meridian and/or the equator. 
+<br><br>The template pixels are all located in the Northern Hemisphere, or on the
+ Equator.
+They are chosen to have their center located at
+<BR>
+<DIV ALIGN="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
+     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="147" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg138.png"
+ ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg139.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="111" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg140.png"
+ ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg143.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg139.png"
+ ALT="$\textstyle \ $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg144.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+They are numbered continuously from 0, starting at the North Pole, with the index
+ increasing in <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg87.png"
+ ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/udgrade_nr.f90"><b>src/f90/mod/udgrade_nr.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">udgrade_nest*</FONT>(
-map_in, nside_in, map_out, nside_out <i><font color="#224422">[, fmissval, pessimistic]</font></i>
+
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">template_pixel_nest, template_pixel_ring</FONT>(
+nside, pixel_nest, template, reflexion
 )</h3></blockquote>
-Arguments appearing in <i><font color="#224422">italic</font></i> are
-optional.
+
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">template_pixel_nest, template_pixel_ring</FONT>(
+nside, pixel_ring, template, reflexion
+)</h3></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -93,107 +150,95 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-map_in(0:12*nside_in**2-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>mono-dimensional full sky map to be
-                   prograded or degraded.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_in(0:12*nside_in**2-1,1:nd)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>bi-dimensional full sky map to be
-                   prograded or degraded. The routine finds the second
-                   dimension (nd) by itself.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nside_in</TD>
+nside</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <!-- MATH
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <b>HEALPix</b> <!-- MATH
  ${N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
- ALT="${N_{\rm side}}$"></SPAN> resolution parameter of the input
-                   map. Must be a power of 2.</TD>
+ SRC="subroutinesimg13.png"
+ ALT="${N_{\rm side}}$"></SPAN> parameter.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_out(0:12*nside_out**2-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>mono-dimensional full sky map after
-                   degradation or progradation.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_out(0:12*nside_out**2-1,1:nd)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>bi-dimensional full sky map after
-                   degradation or progradation. The second dimension
-                   (nd) should match that of the input map.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nside_out</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_nest</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <!-- MATH
- ${N_{\rm side}}$
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>NESTED scheme pixel identification number over the range {0,<!-- MATH
+ $12{N_{\rm side}}^2-1$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
- ALT="${N_{\rm side}}$"></SPAN> resolution parameter of the output
-                   map. Must be a power of 2. If nside_out <SPAN CLASS="MATH">&gt;</SPAN> nside_in, the
-                   map is prograded (ie, more and smaller pixels) with each
-                   pixel having the same value as its parent; otherwise, the
-                   map in degraded (ie, fewer larger pixels), with each pixel
-                   being the average of its <SPAN CLASS="MATH">(</SPAN>nside_in/nside_out<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN> components.</TD>
+ WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg98.png"
+ ALT="$12{N_{\rm side}}^2-1$"></SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">fmissval</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel_ring</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>sentinel value given to bad pixels in input and output
-                   maps.<b>default:</b><A HREF="subroutinesnode41.htm#sub:healpix_types">\tt HPX_SBADVAL</A> or <A HREF="subroutinesnode41.htm#sub:healpix_types">\tt HPX_DBADVAL</A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>RING scheme pixel identification number over the
+                   range {0,<!-- MATH
+ $12{N_{\rm side}}^2-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg98.png"
+ ALT="$12{N_{\rm side}}^2-1$"></SPAN>}.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">pessimistic</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>if set to <TT>.true.</TT>, during a degradation, a big pixel containing at least a small
-                   bad pixel will be returned as bad as well, instead of taking
-                   the average of the remaing valid pixels. <b>default:</b><TT>.false.</TT></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>template</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>identification number of the
+                   template matching in shape the pixel provided (the numbering
+                   scheme of the pixel templates is the same for both routines).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>reflexion</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>in {0, 3} encodes the transformation(s) to
+                   apply to each pixel provided to match exactly in
+                   shape and position its respective template. 0: rotation around the polar axis only,
+                   1: rotation + East-West swap (ie, reflexion around meridian),
+                   2: rotation + North-South swap (ie, reflexion around
+                   Equator), 3: rotation + East-West and North-South swaps</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
-<tt>use udgrade_nr 
-<BR>
-call udgrade_nest(map_hi, 256, map_low, 64)  
+<tt>call template_pixel_ring(256, 500000, template, reflexion)  
 <BR></tt>
 <blockquote>
-Degrades a NESTED ordered map with <!-- MATH
+Returns in <TT>template</TT> the index of the template pixel (16663) whose shape matches
+that of the pixel #500000 for <!-- MATH
  ${N_{\rm side}}=256$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg54.png"
- ALT="${N_{\rm side}}=256$"></SPAN> into a NESTED map with <!-- MATH
- ${N_{\rm side}}=64$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg35.png"
- ALT="${N_{\rm side}}=64$"></SPAN>
+ SRC="subroutinesimg59.png"
+ ALT="${N_{\rm side}}=256$"></SPAN>. Upon return <TT>reflexion</TT> will
+contain 2, meaning that the template must be reflected around a meridian and
+around the equator (and then rotated around the polar axis) in order to match
+the pixel.
 </blockquote>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">udgrade_nest*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">template_pixel_nest, template_pixel_ring</FONT></b></h3>
  
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode100.htm#sub:udgrade_ring">udgrade_ring</A></B>
-<DD>prograde or degrade a RING
-  ordered map.
-</DL>
-
-<P>
+<B><A HREF="subroutinesnode67.htm#sub:nside2ntemplates">nside2templates</A></B>
+<DD>returns the
+  number of template pixel shapes available for a given <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg13.png"
+ ALT="${N_{\rm side}}$"></SPAN>.
+  <DT>
+<B><A HREF="subroutinesnode94.htm#sub:same_shape_pixels_xxx">same_shape_pixels_ring</A></B>
+<DD><DT>
+<B><A HREF="subroutinesnode94.htm#sub:same_shape_pixels_xxx">same_shape_pixels_nest</A></B>
+<DD>return
+  the ordered list of pixels having the same shape as a given pixel template
+  </DL>
 
 <P>
 
@@ -204,31 +249,31 @@ Degrades a NESTED ordered map with <!-- MATH
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1449"
+<A NAME="tex2html1459"
   HREF="subroutinesnode98.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1455"
+<A NAME="tex2html1465"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1459"
+<A NAME="tex2html1469"
   HREF="subroutinesnode100.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1457"
+<A NAME="tex2html1467"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1450"
-  HREF="subroutinesnode98.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Previous:</B> <A NAME="tex2html1460"
+  HREF="subroutinesnode98.htm">surface_triangle</A>
 
-<B>Up:</B> <A NAME="tex2html1456"
+<B>Up:</B> <A NAME="tex2html1466"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1460"
-  HREF="subroutinesnode100.htm">udgrade_ring*</A>
+<B> Next:</B> <A NAME="tex2html1470"
+  HREF="subroutinesnode100.htm">udgrade_nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

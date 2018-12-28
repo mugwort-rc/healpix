@@ -58,14 +58,14 @@ class TestPixelFunc(unittest.TestCase):
             ValueError, ang2pix, 1<<30, self.theta0, self.phi0, nest=False)
 
     def test_ang2pix_negative_theta(self):
-        self.assertRaises(AssertionError, ang2pix, 32, -1, 0)
+        self.assertRaises(ValueError, ang2pix, 32, -1, 0)
       
     def test_fit_dipole(self):
         nside = 32
         npix = nside2npix(nside)
         d = [0.3, 0.5, 0.2]
         vec = np.transpose(pix2vec(nside, np.arange(npix)))
-        signal = vec.dot(d)
+        signal = np.dot(vec, d)
         mono, dipole = fit_dipole(signal)
         self.assertAlmostEqual(mono, 0.)
         self.assertAlmostEqual(d[0], dipole[0])
@@ -103,6 +103,13 @@ class TestPixelFunc(unittest.TestCase):
                     second = ring[1:]
                     self.assertTrue(np.logical_or(first == second, first == second-1).all())
 
+    def test_accept_ma_allows_only_keywords(self):
+        """ Test whether the accept_ma wrapper accepts calls using only keywords."""
+        ma = np.zeros(12 * 16 ** 2)
+        try:
+            ud_grade(map_in=ma, nside_out=32)
+        except IndexError:
+            self.fail("IndexError raised")
 
 if __name__ == '__main__':
     unittest.main()

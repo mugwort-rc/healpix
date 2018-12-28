@@ -15,11 +15,10 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 package healpix.essentials;
-import java.io.*;
 import java.util.NoSuchElementException;
 
 /** Class for dealing with sets of integer ranges.
@@ -27,12 +26,10 @@ import java.util.NoSuchElementException;
     This code was inspired by Jan Kotek's "LongRangeSet" class, but has been
     completely reimplemented.
 
-    @copyright 2011, 2012 Max-Planck-Society
+    @copyright 2011-2015 Max-Planck-Society
     @author Martin Reinecke */
-public class RangeSet implements Externalizable
+public class RangeSet
   {
-  private static final long serialVersionUID = -4778909346616313978L;
-
   /** Interface describing an iterator for going through all values in
       a RangeSet object. */
   public interface ValueIterator {
@@ -46,40 +43,33 @@ public class RangeSet implements Externalizable
     public long next() { throw new NoSuchElementException(); }
     };
 
-  /** Sorted list of entries. */
+  /** Sorted list of interval boundaries. */
   protected long[] r;
   /** Current number of active entries. */
   protected int sz;
 
-  /** Construct new object with space for 8 entries (4 ranges). */
-  public RangeSet() { this(8); }
-  /** Construct new object with a given initial number of entries.
-      @param cap number of initially reserved entries. */
+  /** Construct new object with initial space for 4 ranges. */
+  public RangeSet() { this(4); }
+  /** Construct new object with initial capacity for a given number of ranges.
+      @param cap number of initially reserved ranges. */
   public RangeSet(int cap)
     {
     if (cap<0) throw new IllegalArgumentException("capacity must be positive");
-    r = new long[cap];
+    r = new long[cap<<1];
     sz=0;
     }
   /** Construct new object from an array of longs.
       @param data */
-  public RangeSet(long[] data)
-    {
-    sz=data.length;
-    r = new long[sz];
-    System.arraycopy(data,0,r,0,sz);
-    checkConsistency();
-    }
+   public RangeSet(long[] data)
+     {
+     sz=data.length;
+     r = new long[sz];
+     System.arraycopy(data,0,r,0,sz);
+     checkConsistency();
+     }
   /** Construct new object from another RangeSet
       @param other */
   public RangeSet(RangeSet other)
-    {
-    sz=other.sz;
-    r = new long[sz];
-    System.arraycopy(other.r,0,r,0,sz);
-    }
-
-  public void setTo(RangeSet other)
     {
     sz=other.sz;
     r = new long[sz];
@@ -113,6 +103,29 @@ public class RangeSet implements Externalizable
   /** Shrinks the array for the entries to minimum size. */
   public void trimSize()
     { resize(sz); }
+  /** Shrinks the array for the entries to minimum size, if it is more than
+      twice the minimum size */
+  public void trimIfTooLarge()
+    { if (r.length-sz>=sz) resize(sz); }
+
+  /** Returns an internal representation of the interval a number belongs to.
+      @param val number whose interval is requested
+      @return interval number, starting with -1 (smaller than all numbers in the
+      RangeSet), 0 (first "on" interval), 1 (first "off" interval etc.), up to
+      (and including) sz-1 (larger than all numbers in the RangeSet). */
+  private int iiv (long val)
+    {
+    int count=sz, first=0;
+    while (count>0)
+      {
+      int step=count>>>1, it = first+step;
+      if (r[it]<=val)
+        { first=++it; count-=step+1; }
+      else
+        count=step;
+      }
+    return first-1;
+    }
 
   /** Append a single-value range to the object.
       @param val value to append */
@@ -146,7 +159,7 @@ public class RangeSet implements Externalizable
     }
 
   /** @return number of ranges in the set. */
-  public int size()
+  public int nranges()
     { return sz>>>1; }
 
   /** @return true if no entries are stored, else false. */
@@ -168,24 +181,30 @@ public class RangeSet implements Externalizable
   private void pushv(long v)
     { ensureCapacity(sz+1); r[sz++]=v; }
 
-  private static boolean generalAllOrNothing (RangeSet a, RangeSet b,
+  /** Estimate a good strategy for set operations involving two RangeSets. */
+  private static int strategy (int sza, int szb)
+    {
+    final double fct1 = 1.;
+    final double fct2 = 1.;
+    int slo = sza<szb ? sza : szb,
+        shi = sza<szb ? szb : sza;
+    double cost1 = fct1 * (sza+szb);
+    double cost2 = fct2 * slo * Math.max(1.,HealpixUtils.ilog2(shi));
+    return (cost1<=cost2) ? 1 : (slo==sza) ? 2 : 3;
+    }
+
+  private static boolean generalAllOrNothing1 (RangeSet a, RangeSet b,
     boolean flip_a, boolean flip_b)
     {
-    if (a.isEmpty())
-      return flip_a ? true : b.isEmpty();
-    if (b.isEmpty())
-      return flip_b ? true : a.isEmpty();
     boolean state_a=flip_a, state_b=flip_b, state_res=state_a||state_b;
     int ia=0, ea=a.sz, ib=0, eb=b.sz;
     boolean runa = ia!=ea, runb = ib!=eb;
     while(runa||runb)
       {
-      boolean adv_a=false, adv_b=false;
-      long va=0,vb=0;
-      if (runa) va = a.r[ia];
-      if (runb) vb = b.r[ib];
-      if (runa && (!runb || (va<=vb))) adv_a=true;
-      if (runb && (!runa || (vb<=va))) adv_b=true;
+      long va = runa ? a.r[ia] : 0L,
+           vb = runb ? b.r[ib] : 0L;
+      boolean adv_a = runa && (!runb || (va<=vb)),
+              adv_b = runb && (!runa || (vb<=va));
       if (adv_a) { state_a=!state_a; ++ia; runa = ia!=ea; }
       if (adv_b) { state_b=!state_b; ++ib; runb = ib!=eb; }
       if ((state_a||state_b)!=state_res)
@@ -193,122 +212,144 @@ public class RangeSet implements Externalizable
       }
     return true;
     }
+
+  private static boolean generalAllOrNothing2 (RangeSet a, RangeSet b,
+    boolean flip_a, boolean flip_b)
+    {
+    int iva = flip_a ? 0 : -1;
+    while (iva<a.sz)
+      {
+      if (iva==-1) // implies that flip_a==false
+        { if ((!flip_b)||(b.r[0]<a.r[0])) return false; }
+      else if (iva==a.sz-1) // implies that flip_a==false
+        { if ((!flip_b)||(b.r[b.sz-1]>a.r[a.sz-1])) return false; }
+      else
+        {
+        int ivb=b.iiv(a.r[iva]);
+        if ((ivb!=b.sz-1)&&(b.r[ivb+1]<a.r[iva+1])) return false;
+        if (flip_b==((ivb&1)==0)) return false;
+        }
+      iva+=2;
+      }
+    return true;
+    }
+
+  private static boolean generalAllOrNothing (RangeSet a, RangeSet b,
+    boolean flip_a, boolean flip_b)
+    {
+    if (a.isEmpty())
+      return flip_a ? true : b.isEmpty();
+    if (b.isEmpty())
+      return flip_b ? true : a.isEmpty();
+    int strat = strategy (a.nranges(), b.nranges());
+    return (strat==1) ? generalAllOrNothing1(a,b,flip_a,flip_b) :
+             ((strat==2) ? generalAllOrNothing2(a,b,flip_a,flip_b)
+                         : generalAllOrNothing2(b,a,flip_b,flip_a));
+    }
+
   /** Internal helper function for constructing unions, intersections
       and differences of two RangeSets. */
-  private static void generalUnion (RangeSet a, RangeSet b,
-    boolean flip_a, boolean flip_b, RangeSet c)
+  private static RangeSet generalUnion1 (RangeSet a, RangeSet b,
+    boolean flip_a, boolean flip_b)
     {
-    c.clear();
-    if (a.isEmpty())
-      {
-      if (flip_a) return; // full range
-      c.setTo(b); // only b
-      return;
-      }
-    if (b.isEmpty())
-      {
-      if (flip_b) return; // full range
-      c.setTo(a); // only a
-      return;
-      }
+    RangeSet res = new RangeSet();
+
     boolean state_a=flip_a, state_b=flip_b, state_res=state_a||state_b;
     int ia=0, ea=a.sz, ib=0, eb=b.sz;
     boolean runa = ia!=ea, runb = ib!=eb;
     while(runa||runb)
       {
-      boolean adv_a=false, adv_b=false;
-      long val=0,va=0,vb=0;
-      if (runa) va = a.r[ia];
-      if (runb) vb = b.r[ib];
-      if (runa && (!runb || (va<=vb))) { adv_a=true; val=va; }
-      if (runb && (!runa || (vb<=va))) { adv_b=true; val=vb; }
+      long va = runa ? a.r[ia] : 0L,
+           vb = runb ? b.r[ib] : 0L;
+      boolean adv_a = runa && (!runb || (va<=vb)),
+              adv_b = runb && (!runa || (vb<=va));
       if (adv_a) { state_a=!state_a; ++ia; runa = ia!=ea; }
       if (adv_b) { state_b=!state_b; ++ib; runb = ib!=eb; }
       if ((state_a||state_b)!=state_res)
-        { c.pushv(val); state_res = !state_res; }
+        { res.pushv(adv_a ? va : vb); state_res = !state_res; }
       }
-    }
-  /** After this operation, the RangeSet contains the union of RangeSets a
-      and b. */
-  public void setToUnion (RangeSet a, RangeSet b)
-    { generalUnion (a,b,false,false,this); }
-  /** After this operation, the RangeSet contains the intersection of RangeSets
-      a and b. */
-  public void setToIntersection (RangeSet a, RangeSet b)
-    { generalUnion (a,b,true,true,this); }
-  /** After this operation, the RangeSet contains the difference of RangeSets
-      a and b. */
-  public void setToDifference (RangeSet a, RangeSet b)
-    { generalUnion (a,b,true,false,this); }
-  /** After this operation, the RangeSet contains the union of itself and
-      other. */
-  public RangeSet union (RangeSet other)
-    {
-    RangeSet res=new RangeSet();
-    generalUnion (this,other,false,false,res);
     return res;
     }
-  /** After this operation, the RangeSet contains the intersection of itself and
-      other. */
-  public RangeSet intersection (RangeSet other)
+  /** Internal helper function for constructing unions, intersections
+      and differences of two RangeSets. */
+  private static RangeSet generalUnion2 (RangeSet a, RangeSet b,
+    boolean flip_a, boolean flip_b)
     {
-    RangeSet res=new RangeSet();
-    generalUnion (this,other,true,true,res);
+    RangeSet res = new RangeSet();
+    int iva = flip_a ? 0 : -1;
+    while (iva<a.sz)
+      {
+      int ivb = (iva==-1) ? -1 : b.iiv(a.r[iva]);
+      boolean state_b = flip_b^((ivb&1)==0);
+      if ((iva>-1) && (!state_b)) res.pushv(a.r[iva]);
+      while((ivb<b.sz-1)&&((iva==a.sz-1)||(b.r[ivb+1]<a.r[iva+1])))
+        { ++ivb; state_b=!state_b; res.pushv(b.r[ivb]); }
+      if ((iva<a.sz-1)&&(!state_b)) res.pushv(a.r[iva+1]);
+      iva+=2;
+      }
     return res;
     }
-  /** After this operation, the RangeSet contains the difference of itself and
-      other. */
-  public RangeSet difference (RangeSet other)
+  private static RangeSet generalUnion (RangeSet a, RangeSet b,
+    boolean flip_a, boolean flip_b)
     {
-    RangeSet res=new RangeSet();
-    generalUnion (this,other,true,false,res);
-    return res;
+    if (a.isEmpty())
+      return flip_a ? new RangeSet() : new RangeSet(b);
+    if (b.isEmpty())
+      return flip_b ? new RangeSet() : new RangeSet(a);
+    int strat = strategy (a.nranges(), b.nranges());
+    return (strat==1) ? generalUnion1(a,b,flip_a,flip_b) :
+             ((strat==2) ? generalUnion2(a,b,flip_a,flip_b)
+                         : generalUnion2(b,a,flip_b,flip_a));
     }
 
-  /** Returns an internal representation of the interval a number belongs to.
-      @param val number whose interval is requested
-      @return interval number, starting with -1 (smaller
-      than all numbers in the RangeSet, 0 (first "on" interval), 2 (first
-      "off" interval etc.) */
-  private int iiv (long val)
-    {
-    int count=sz, first=0;
-    while (count>0)
-      {
-      int step=count>>>1, it = first+step;
-      if (r[it]<=val)
-        { first=++it; count-=step+1; }
-      else
-        count=step;
-      }
-    return first-1;
-    }
+  /** Return the union of this RangeSet and other. */
+  public RangeSet union (RangeSet other)
+    { return generalUnion (this,other,false,false); }
+  /** Return the intersection of this RangeSet and other. */
+  public RangeSet intersection (RangeSet other)
+    { return generalUnion (this,other,true,true); }
+  /** Return the difference of this RangeSet and other. */
+  public RangeSet difference (RangeSet other)
+    { return generalUnion (this,other,true,false); }
+
   /** Returns true if a is contained in the set, else false. */
   public boolean contains (long a)
     { return ((iiv(a)&1)==0); }
   /** Returns true if all numbers [a;b[ are contained in the set, else false. */
-  public boolean containsAll (long a,long b)
+  public boolean contains (long a,long b)
     {
     int res=iiv(a);
     if ((res&1)!=0) return false;
     return (b<=r[res+1]);
     }
+  @Deprecated
+  public boolean containsAll (long a,long b)
+    { return contains(a,b); }
   /** Returns true if any of the numbers [a;b[ are contained in the set,
       else false. */
-  public boolean containsAny (long a,long b)
+  public boolean overlaps (long a,long b)
     {
     int res=iiv(a);
     if ((res&1)==0) return true;
     if (res==sz-1) return false; // beyond the end of the set
     return (r[res+1]<b);
     }
+  @Deprecated
+  public boolean containsAny (long a,long b)
+    { return overlaps(a,b); }
   /** Returns true if the set completely contains "other", else false. */
-  public boolean containsAll (RangeSet other)
+  public boolean contains (RangeSet other)
     { return generalAllOrNothing(this,other,false,true); }
+  @Deprecated
+  public boolean containsAll (RangeSet other)
+    { return contains(other); }
   /** Returns true if there is overlap between the set and "other",
       else false. */
-  public boolean containsAny (RangeSet other)
+  public boolean overlaps (RangeSet other)
     { return !generalAllOrNothing(this,other,true,true); }
+  @Deprecated
+  public boolean containsAny (RangeSet other)
+    { return overlaps(other); }
   /** Returns true the object represents an identical set of ranges as obj. */
   public boolean equals(Object obj) {
     if (this == obj)
@@ -321,16 +362,11 @@ public class RangeSet implements Externalizable
       if (other.r[i]!=r[i]) return false;
     return true;
     }
-
   public int hashCode()
     {
-    int result = 0;
-    for (int i=0;i<sz;i++)
-      {
-      int elementHash = (int)(r[i] ^ (r[i] >>> 32));
-      result = 31 * result + elementHash;
-      }
-    result = 31 * result + sz;
+    int result = Integer.valueOf(sz).hashCode();
+    for (int i=0; i<sz; ++i)
+      result = 31 * result + Long.valueOf(r[sz]).hashCode();
     return result;
     }
 
@@ -403,13 +439,21 @@ public class RangeSet implements Externalizable
   /** After this operation, the RangeSet contains the union of itself and
       [a;b[. */
   public void add (long a, long b)
-    { addRemove(a,b,1); }
+    { if ((sz==0)||(a>=r[sz-1])) append(a,b); else addRemove(a,b,1); }
+  /** After this operation, the RangeSet contains the union of itself and
+      [a;a+1[. */
+  public void add (long a)
+    { if ((sz==0)||(a>=r[sz-1])) append(a,a+1); else addRemove(a,a+1,1); }
   /** After this operation, the RangeSet contains the difference of itself and
       [a;b[. */
   public void remove (long a, long b)
     { addRemove(a,b,0); }
+  /** After this operation, the RangeSet contains the difference of itself and
+      [a;a+1[. */
+  public void remove (long a)
+    { addRemove(a,a+1,0); }
 
-  /** Creates an array cointainig all the numbers in the RangeSet.
+  /** Creates an array containing all the numbers in the RangeSet.
       Not recommended, because the arrays can become prohibitively large.
       It is preferrable to use a ValueIterator or explicit loops. */
   public long[] toArray(){
@@ -420,6 +464,12 @@ public class RangeSet implements Externalizable
         res[ofs++]=j;
     return res;
     }
+  public static RangeSet fromArray(long[]v){
+    RangeSet res = new RangeSet();
+    for (int i=0; i<v.length; i++)
+      res.append(v[i]);
+    return res;
+    }
 
   public String toString()
     {
@@ -427,8 +477,8 @@ public class RangeSet implements Externalizable
     s.append("{ ");
     for (int i=0; i<sz; i+=2)
       {
-          s.append("[").append(r[i]).append(";").append(r[i + 1]).append("]");
-          if (i<sz-2) s.append(",");
+      s.append("[").append(r[i]).append(";").append(r[i + 1]).append("[");
+      if (i<sz-2) s.append(",");
       }
     s.append(" }");
     return s.toString();
@@ -462,71 +512,12 @@ public class RangeSet implements Externalizable
       };
     }
 
-  public void writeExternal(ObjectOutput out) throws IOException
-    {
-    out.writeInt(sz);
-    long last = 0;
-    for (long i:r)
-      {
-//write packed differences between values, this way it occupies less space
-      long diff = i - last;
-      packLong(out, diff);
-      last = i;
-      }
-    }
-
-  public void readExternal(ObjectInput in)
-    throws IOException, ClassNotFoundException
-    {
-    if(sz>0) throw new IOException("RangeSet already contains data!");
-    sz = in.readInt();
-    if((sz<0)||((sz&1)!=0)) throw new Error();
-    r = new long[sz];
-    long last = 0;
-    for (int i =0; i<sz; i++)
-      r[i] = last = last + unpackLong(in);
-    }
-
-  /** Pack non-negative long value into output stream.
-    * It will occupy 1-9 bytes depending on value (lower values occupy
-    * less space)
-    *
-    * @param os
-    * @param value
-    * @throws IOException
-    *
-    * Originally developed for Kryo by Nathan Sweet.
-    * Modified for JDBM by Jan Kotek
-    */
-  static private void packLong(DataOutput os, long value) throws IOException
-    {
-    while ((value & ~0x7FL) != 0)
-      {
-      os.write((((int) value & 0x7F) | 0x80));
-      value >>>= 7;
-      }
-    os.write((byte) value);
-    }
-
-  /** Unpack positive long value from the input stream.
-    *
-    * @param is The input stream.
-    * @return The long value.
-    * @throws java.io.IOException
-    *
-    * Originally developed for Kryo by Nathan Sweet.
-    * Modified for JDBM by Jan Kotek
-    */
-  static private long unpackLong(DataInput is) throws IOException
-    {
-    long result = 0;
-    for (int offset=0; offset<64; offset+=7)
-      {
-      long b = is.readUnsignedByte();
-      result |= (b & 0x7F) << offset;
-      if ((b & 0x80) == 0)
-        return result;
-      }
-    throw new Error("Malformed long.");
-    }
+  /** Returns a compressed representation of the RangeSet, using interpolative
+      coding. */
+  public byte[] toCompressed() throws Exception
+    { return Compressor.interpol_encode (r, 0, sz); }
+  /** Returns a RangeSet obtained by decompressing a byte array which was
+      originally generated by toCompressed(). */
+  public static RangeSet fromCompressed (byte[] data) throws Exception
+    { return new RangeSet(Compressor.interpol_decode(data)); }
   }

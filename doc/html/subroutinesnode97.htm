@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>surface_triangle</TITLE>
-<META NAME="description" CONTENT="surface_triangle">
+<TITLE>string, strlowcase, strupcase</TITLE>
+<META NAME="description" CONTENT="string, strlowcase, strupcase">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,117 +29,139 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1425"
+<A NAME="tex2html1435"
   HREF="subroutinesnode96.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1431"
+<A NAME="tex2html1441"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1435"
+<A NAME="tex2html1445"
   HREF="subroutinesnode98.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1433"
+<A NAME="tex2html1443"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1426"
-  HREF="subroutinesnode96.htm">string, strlowcase, strupcase</A>
+<B> Previous:</B> <A NAME="tex2html1436"
+  HREF="subroutinesnode96.htm">size_holes_nest</A>
 
-<B>Up:</B> <A NAME="tex2html1432"
+<B>Up:</B> <A NAME="tex2html1442"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1436"
-  HREF="subroutinesnode98.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Next:</B> <A NAME="tex2html1446"
+  HREF="subroutinesnode98.htm">surface_triangle</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000970000000000000000"></A>
-<A NAME="sub:surface_triangle"></A>
+<A NAME="sub:string"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">surface_triangle</FONT></font></b><hr>
-<H3>Returns the surface in steradians of the spherical triangle described by its
-three vertices</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
-
-<P>
-<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">surface_triangle</FONT>(
-v1, v2, v3, surface
-)</h3></blockquote>
+<b><font size=+6><FONT COLOR="#CC0000">string, strlowcase, strupcase</FONT></font></b><hr>
+<H3>The Fortran90 module misc_utils contains three functions to create or
+  manipulate character strings.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/misc_utils.F90"><b>src/f90/mod/misc_utils.F90</b></a>&nbsp;  
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=125><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=140><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=235><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-v1(3)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>
+number</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT/ I4B/ SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle first vertex.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>number or boolean flag to be turned into a character string.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>v2(3)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>instring</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle second vertex.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>arbitrary character string.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>v3(3)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>outstring</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>output character string.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>format OPTIONAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle third vertex.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>surface</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>surface of the triangle in steradians.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>character string describing Fortran
+                   format of output. </TD>
 </TR>
 </TABLE>
 
 <P>
+
+<BIG CLASS="LARGE"><SPAN  CLASS="textbf">FUNCTIONS: </SPAN></BIG>
+<BR>
+<TT>outstring = string(number [,format])</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>number</TT> converted to a
+                                         character string. If <TT>format</TT> is provided it is used to
+                                         format the output, if not, the fortran default format
+                                         matching <TT>number</TT>'s type is used.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+<P>
+<TT>outstring = strlowcase(instring)</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>instring</TT>
+                                         converted to lowercase. ASCII characters in the [A-Z] range
+                                         are mapped to [a-z], while all others remain unchanged.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+<P>
+<TT>outstring = strupcase(instring)</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>instring</TT>
+                                         converted to uppercase. ASCII characters in the [a-z] range
+                                         are mapped to [A-Z], while all others remain unchanged.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+<P>
 <HR><H1>EXAMPLE:</H1> 
-<tt>use healpix_types 
+<tt>use misc_utils 
 <BR>
-use pix_tools,    only : surface_triangle 
+character(len=24) :: s1 
 <BR>
-real(DP) :: surface, one = 1.0_dp 
+s1 = string(123,'(i5.5)') 
 <BR>
-call surface_triangle((/1,0,0/)*one, (/0,1,0/)*one, (/0,0,1/)*one, surface)  
+print*, trim(s1) 
 <BR>
-print*, surface</tt>
-<blockquote>
-Returns the surface in steradians of the triangle defined by the octant (<SPAN CLASS="MATH"><I>x</I>,<I>y</I>,<I>z</I>&gt;0</SPAN>) : 1.5707963267948966
+print*,trim(strupcase('*aBcD-123')) 
+<BR>
+print*,trim(strlowcase('*aBcD-123')) 
+<BR></tt>
+<blockquote> Will printout <TT>00123</TT>, <TT>*ABCD-123</TT> and <TT>*abcd-123</TT>.
 </blockquote>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">surface_triangle</FONT></b></h3>
- 
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode71.htm#sub:pix_tools">pix2ang</A>, <A HREF="subroutinesnode71.htm#sub:pix_tools">ang2pix</A></B>
-<DD>convert between angle and pixel number.
-  <DT>
-<B><A HREF="subroutinesnode71.htm#sub:pix_tools">pix2vec</A>, <A HREF="subroutinesnode71.htm#sub:pix_tools">vec2pix</A></B>
-<DD>convert between a cartesian vector and pixel number.
-  <DT>
-<B><A HREF="subroutinesnode74.htm#sub:query_disc">query_disc</A>, <A HREF="subroutinesnode75.htm#sub:query_polygon">query_polygon</A>,</B>
-<DD><DT>
-<B><A HREF="subroutinesnode76.htm#sub:query_strip">query_strip</A>, <A HREF="subroutinesnode77.htm#sub:query_triangle">query_triangle</A></B>
-<DD>render the list of pixels enclosed
-  respectively in a given disc, polygon, latitude strip and triangle
-
-<P>
-</DL>
 
 <P>
 
@@ -151,31 +174,31 @@ Returns the surface in steradians of the triangle defined by the octant (<SPAN C
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1425"
+<A NAME="tex2html1435"
   HREF="subroutinesnode96.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1431"
+<A NAME="tex2html1441"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1435"
+<A NAME="tex2html1445"
   HREF="subroutinesnode98.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1433"
+<A NAME="tex2html1443"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1426"
-  HREF="subroutinesnode96.htm">string, strlowcase, strupcase</A>
+<B> Previous:</B> <A NAME="tex2html1436"
+  HREF="subroutinesnode96.htm">size_holes_nest</A>
 
-<B>Up:</B> <A NAME="tex2html1432"
+<B>Up:</B> <A NAME="tex2html1442"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1436"
-  HREF="subroutinesnode98.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Next:</B> <A NAME="tex2html1446"
+  HREF="subroutinesnode98.htm">surface_triangle</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

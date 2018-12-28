@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_9b347822194fb75385309b582ebc89dc.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -37,7 +37,7 @@
 <a name="l00015"></a>00015 <span class="comment"> *  along with Healpix_cxx; if not, write to the Free Software</span>
 <a name="l00016"></a>00016 <span class="comment"> *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
 <a name="l00017"></a>00017 <span class="comment"> *</span>
-<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.jpl.nasa.gov</span>
+<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.sourceforge.net</span>
 <a name="l00019"></a>00019 <span class="comment"> */</span>
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="comment">/*</span>
@@ -47,7 +47,7 @@
 <a name="l00025"></a>00025 <span class="comment"> */</span>
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027 <span class="comment">/*</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2012 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2013 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -73,7 +73,7 @@
 <a name="l00051"></a>00051     <span class="keywordtype">int</span> x,y,f;
 <a name="l00052"></a>00052     pix2xyf(m,x,y,f);
 <a name="l00053"></a>00053     <span class="keywordtype">int</span> hits = 0;
-<a name="l00054"></a>00054     <span class="keywordtype">double</span> sum = 0;
+<a name="l00054"></a>00054     kahan_adder&lt;double&gt; adder;
 <a name="l00055"></a>00055     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j=fact*y; j&lt;fact*(y+1); ++j)
 <a name="l00056"></a>00056       <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=fact*x; i&lt;fact*(x+1); ++i)
 <a name="l00057"></a>00057         {
@@ -81,10 +81,10 @@
 <a name="l00059"></a>00059         <span class="keywordflow">if</span> (!approx&lt;double&gt;(orig.<a class="code" href="classHealpix__Map.html#f3c167dc79deee5b8dd60cc18271b518">map</a>[opix],<a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>))
 <a name="l00060"></a>00060           {
 <a name="l00061"></a>00061           ++hits;
-<a name="l00062"></a>00062           sum += orig.<a class="code" href="classHealpix__Map.html#f3c167dc79deee5b8dd60cc18271b518">map</a>[opix];
+<a name="l00062"></a>00062           adder.add(orig.<a class="code" href="classHealpix__Map.html#f3c167dc79deee5b8dd60cc18271b518">map</a>[opix]);
 <a name="l00063"></a>00063           }
 <a name="l00064"></a>00064         }
-<a name="l00065"></a>00065     map[m] = T((hits&lt;minhits) ? <a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a> : sum/hits);
+<a name="l00065"></a>00065     map[m] = T((hits&lt;minhits) ? <a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a> : adder.result()/hits);
 <a name="l00066"></a>00066     }
 <a name="l00067"></a>00067 }
 <a name="l00068"></a>00068   }
@@ -112,7 +112,7 @@
 <a name="l00090"></a>00090 <span class="keyword">template</span> <span class="keywordtype">void</span> <a class="code" href="classHealpix__Map.html#5ad65474926b6712c34f16032e169ad8">Healpix_Map&lt;double&gt;::minmax</a> (<span class="keywordtype">double</span> &amp;Min, <span class="keywordtype">double</span> &amp;Max) <span class="keyword">const</span>;
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

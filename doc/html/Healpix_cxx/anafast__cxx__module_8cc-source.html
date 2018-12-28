@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_9b347822194fb75385309b582ebc89dc.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -37,7 +37,7 @@
 <a name="l00015"></a>00015 <span class="comment"> *  along with Healpix_cxx; if not, write to the Free Software</span>
 <a name="l00016"></a>00016 <span class="comment"> *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
 <a name="l00017"></a>00017 <span class="comment"> *</span>
-<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.jpl.nasa.gov</span>
+<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.sourceforge.net</span>
 <a name="l00019"></a>00019 <span class="comment"> */</span>
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="comment">/*</span>
@@ -47,7 +47,7 @@
 <a name="l00025"></a>00025 <span class="comment"> */</span>
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027 <span class="comment">/*</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2010 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2015 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -82,87 +82,100 @@
 <a name="l00060"></a>00060     <span class="stringliteral">"no output specified, nothing done"</span>);
 <a name="l00061"></a>00061   <span class="keywordtype">bool</span> polarisation = params.template find&lt;bool&gt;(<span class="stringliteral">"polarisation"</span>);
 <a name="l00062"></a>00062   <span class="keywordtype">int</span> num_iter = params.template find&lt;int&gt;(<span class="stringliteral">"iter_order"</span>,0);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064   <span class="keywordflow">if</span> (!polarisation)
-<a name="l00065"></a>00065     {
-<a name="l00066"></a>00066     <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;T&gt;</a> map;
-<a name="l00067"></a>00067     <a class="code" href="group__healpix__map__fitsio__group.html#gc9bb9ebd33781ca2ae9b47de4baa1723">read_Healpix_map_from_fits</a>(infile,map,1,2);
-<a name="l00068"></a>00068     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> nmod = map.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>();
-<a name="l00069"></a>00069     <span class="keywordflow">if</span> (nmod!=0)
-<a name="l00070"></a>00070       cout &lt;&lt; <span class="stringliteral">"WARNING: replaced "</span> &lt;&lt; nmod &lt;&lt;
-<a name="l00071"></a>00071               <span class="stringliteral">" undefined map pixels with a value of 0"</span> &lt;&lt; endl;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> weight;
-<a name="l00074"></a>00074     get_ring_weights (params,map.<a class="code" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside</a>(),weight);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;T&gt;</a> &gt; alm(nlmax,nmmax);
-<a name="l00077"></a>00077     <span class="keywordtype">double</span> avg=map.<a class="code" href="classHealpix__Map.html#2f59bf6579f824b62f4f2ed6644b47db">average</a>();
-<a name="l00078"></a>00078     map.<a class="code" href="classHealpix__Map.html#6d4167fdd1bb45e4d3ff942fa7b625c3">Add</a>(T(-avg));
-<a name="l00079"></a>00079     <span class="keywordflow">if</span> (map.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) map.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
-<a name="l00080"></a>00080     <a class="code" href="group__alm__healpix__group.html#g58596cffc298251f647fe17d6f17f6ec">map2alm_iter</a>(map,alm,num_iter,weight);
+<a name="l00063"></a>00063   <span class="keywordtype">bool</span> remove_mono = params.template find&lt;bool&gt;(<span class="stringliteral">"remove_monopole"</span>,<span class="keyword">false</span>);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065   <span class="keywordflow">if</span> (!polarisation)
+<a name="l00066"></a>00066     {
+<a name="l00067"></a>00067     <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;T&gt;</a> map;
+<a name="l00068"></a>00068     <a class="code" href="group__healpix__map__fitsio__group.html#gc9bb9ebd33781ca2ae9b47de4baa1723">read_Healpix_map_from_fits</a>(infile,map,1,2);
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> nmod = map.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>();
+<a name="l00071"></a>00071     <span class="keywordflow">if</span> (nmod!=0)
+<a name="l00072"></a>00072       cout &lt;&lt; <span class="stringliteral">"WARNING: replaced "</span> &lt;&lt; nmod &lt;&lt;
+<a name="l00073"></a>00073               <span class="stringliteral">" undefined map pixels with a value of 0"</span> &lt;&lt; endl;
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="keywordtype">double</span> avg=0.;
+<a name="l00076"></a>00076     <span class="keywordflow">if</span> (remove_mono)
+<a name="l00077"></a>00077       {
+<a name="l00078"></a>00078       avg=map.<a class="code" href="classHealpix__Map.html#2f59bf6579f824b62f4f2ed6644b47db">average</a>();
+<a name="l00079"></a>00079       map.<a class="code" href="classHealpix__Map.html#6d4167fdd1bb45e4d3ff942fa7b625c3">Add</a>(T(-avg));
+<a name="l00080"></a>00080       }
 <a name="l00081"></a>00081 
-<a name="l00082"></a>00082     alm(0,0) += T(avg*sqrt(fourpi));
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keywordflow">if</span> (outfile!=<span class="stringliteral">""</span>)
-<a name="l00085"></a>00085       {
-<a name="l00086"></a>00086       <a class="code" href="classPowSpec.html">PowSpec</a> powspec;
-<a name="l00087"></a>00087       <a class="code" href="group__alm__ps__group.html#g259c18431789e6c5d4fc173490872c68">extract_powspec</a> (alm,powspec);
-<a name="l00088"></a>00088       <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,1);
-<a name="l00089"></a>00089       }
-<a name="l00090"></a>00090     <span class="keywordflow">if</span> (outfile_alms!=<span class="stringliteral">""</span>)
-<a name="l00091"></a>00091       <a class="code" href="group__alm__fitsio__group.html#ga7b735beabf9fbfca21f4a72ae51c189">write_Alm_to_fits</a>(outfile_alms,alm,nlmax,nmmax,planckType&lt;T&gt;());
-<a name="l00092"></a>00092     }
-<a name="l00093"></a>00093   <span class="keywordflow">else</span>
-<a name="l00094"></a>00094     {
-<a name="l00095"></a>00095     <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;T&gt;</a> mapT, mapQ, mapU;
-<a name="l00096"></a>00096     <a class="code" href="group__healpix__map__fitsio__group.html#gc9bb9ebd33781ca2ae9b47de4baa1723">read_Healpix_map_from_fits</a>(infile,mapT,mapQ,mapU,2);
-<a name="l00097"></a>00097     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> nmod = mapT.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>()+mapT.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>()
-<a name="l00098"></a>00098                 +mapU.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>();
-<a name="l00099"></a>00099     <span class="keywordflow">if</span> (nmod!=0)
-<a name="l00100"></a>00100       cout &lt;&lt; <span class="stringliteral">"WARNING: replaced "</span> &lt;&lt; nmod &lt;&lt;
-<a name="l00101"></a>00101               <span class="stringliteral">" undefined map pixels with a value of 0"</span> &lt;&lt; endl;
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> weight;
-<a name="l00104"></a>00104     get_ring_weights (params,mapT.<a class="code" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside</a>(),weight);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;T&gt;</a> &gt; almT(nlmax,nmmax), almG(nlmax,nmmax), almC(nlmax,nmmax);
-<a name="l00107"></a>00107     <span class="keywordtype">double</span> avg=mapT.<a class="code" href="classHealpix__Map.html#2f59bf6579f824b62f4f2ed6644b47db">average</a>();
-<a name="l00108"></a>00108     mapT.<a class="code" href="classHealpix__Map.html#6d4167fdd1bb45e4d3ff942fa7b625c3">Add</a>(T(-avg));
-<a name="l00109"></a>00109     <span class="keywordflow">if</span> (mapT.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapT.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
-<a name="l00110"></a>00110     <span class="keywordflow">if</span> (mapQ.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapQ.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
-<a name="l00111"></a>00111     <span class="keywordflow">if</span> (mapU.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapU.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
-<a name="l00112"></a>00112     <a class="code" href="group__alm__healpix__group.html#gb256910dcb940da74910502b13f2a363">map2alm_pol_iter</a>
-<a name="l00113"></a>00113       (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight);
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115     almT(0,0) += T(avg*sqrt(fourpi));
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="keywordflow">if</span> (outfile!=<span class="stringliteral">""</span>)
-<a name="l00118"></a>00118       {
-<a name="l00119"></a>00119       <a class="code" href="classPowSpec.html">PowSpec</a> powspec;
-<a name="l00120"></a>00120       <a class="code" href="group__alm__ps__group.html#g259c18431789e6c5d4fc173490872c68">extract_powspec</a> (almT,almG,almC,powspec);
-<a name="l00121"></a>00121       params.template find&lt;bool&gt;(<span class="stringliteral">"full_powerspectrum"</span>,<span class="keyword">false</span>) ?
-<a name="l00122"></a>00122         <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,6) :
-<a name="l00123"></a>00123         <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,4);
-<a name="l00124"></a>00124       }
-<a name="l00125"></a>00125     <span class="keywordflow">if</span> (outfile_alms!=<span class="stringliteral">""</span>)
-<a name="l00126"></a>00126       <a class="code" href="group__alm__fitsio__group.html#ga7b735beabf9fbfca21f4a72ae51c189">write_Alm_to_fits</a> (outfile_alms,almT,almG,almC,nlmax,nmmax,planckType&lt;T&gt;());
-<a name="l00127"></a>00127     }
-<a name="l00128"></a>00128   }
+<a name="l00082"></a>00082     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> weight;
+<a name="l00083"></a>00083     get_ring_weights (params,map.<a class="code" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside</a>(),weight);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;T&gt;</a> &gt; alm(nlmax,nmmax);
+<a name="l00086"></a>00086     <span class="keywordflow">if</span> (map.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) map.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
+<a name="l00087"></a>00087     <a class="code" href="group__alm__healpix__group.html#g58596cffc298251f647fe17d6f17f6ec">map2alm_iter</a>(map,alm,num_iter,weight);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089     alm(0,0) += T(avg*sqrt(fourpi));
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091     <span class="keywordflow">if</span> (outfile!=<span class="stringliteral">""</span>)
+<a name="l00092"></a>00092       {
+<a name="l00093"></a>00093       <a class="code" href="classPowSpec.html">PowSpec</a> powspec;
+<a name="l00094"></a>00094       <a class="code" href="group__alm__ps__group.html#g259c18431789e6c5d4fc173490872c68">extract_powspec</a> (alm,powspec);
+<a name="l00095"></a>00095       <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,1);
+<a name="l00096"></a>00096       }
+<a name="l00097"></a>00097     <span class="keywordflow">if</span> (outfile_alms!=<span class="stringliteral">""</span>)
+<a name="l00098"></a>00098       <a class="code" href="group__alm__fitsio__group.html#ga7b735beabf9fbfca21f4a72ae51c189">write_Alm_to_fits</a>(outfile_alms,alm,nlmax,nmmax,planckType&lt;T&gt;());
+<a name="l00099"></a>00099     }
+<a name="l00100"></a>00100   <span class="keywordflow">else</span>
+<a name="l00101"></a>00101     {
+<a name="l00102"></a>00102     <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;T&gt;</a> mapT, mapQ, mapU;
+<a name="l00103"></a>00103     <a class="code" href="group__healpix__map__fitsio__group.html#gc9bb9ebd33781ca2ae9b47de4baa1723">read_Healpix_map_from_fits</a>(infile,mapT,mapQ,mapU,2);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> nmod = mapT.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>()+mapQ.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>()
+<a name="l00106"></a>00106                 +mapU.<a class="code" href="classHealpix__Map.html#6e14f71622dec3a77f29a4121973052a">replaceUndefWith0</a>();
+<a name="l00107"></a>00107     <span class="keywordflow">if</span> (nmod!=0)
+<a name="l00108"></a>00108       cout &lt;&lt; <span class="stringliteral">"WARNING: replaced "</span> &lt;&lt; nmod &lt;&lt;
+<a name="l00109"></a>00109               <span class="stringliteral">" undefined map pixels with a value of 0"</span> &lt;&lt; endl;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111     <span class="keywordtype">double</span> avg=0.;
+<a name="l00112"></a>00112     <span class="keywordflow">if</span> (remove_mono)
+<a name="l00113"></a>00113       {
+<a name="l00114"></a>00114       avg=mapT.<a class="code" href="classHealpix__Map.html#2f59bf6579f824b62f4f2ed6644b47db">average</a>();
+<a name="l00115"></a>00115       mapT.<a class="code" href="classHealpix__Map.html#6d4167fdd1bb45e4d3ff942fa7b625c3">Add</a>(T(-avg));
+<a name="l00116"></a>00116       }
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;double&gt;</a> weight;
+<a name="l00119"></a>00119     get_ring_weights (params,mapT.<a class="code" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside</a>(),weight);
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121     <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;T&gt;</a> &gt; almT(nlmax,nmmax), almG(nlmax,nmmax), almC(nlmax,nmmax);
+<a name="l00122"></a>00122     <span class="keywordflow">if</span> (mapT.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapT.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
+<a name="l00123"></a>00123     <span class="keywordflow">if</span> (mapQ.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapQ.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
+<a name="l00124"></a>00124     <span class="keywordflow">if</span> (mapU.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>()==<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>) mapU.<a class="code" href="classHealpix__Map.html#2ffea19f709d54d8a25542a2fb7123d4">swap_scheme</a>();
+<a name="l00125"></a>00125     <a class="code" href="group__alm__healpix__group.html#gb256910dcb940da74910502b13f2a363">map2alm_pol_iter</a>
+<a name="l00126"></a>00126       (mapT,mapQ,mapU,almT,almG,almC,num_iter,weight);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     almT(0,0) += T(avg*sqrt(fourpi));
 <a name="l00129"></a>00129 
-<a name="l00130"></a>00130 } <span class="comment">// unamed namespace</span>
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132 <span class="keywordtype">int</span> anafast_cxx_module (<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
-<a name="l00133"></a>00133   {
-<a name="l00134"></a>00134   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"anafast_cxx"</span>, argc, argv);
-<a name="l00135"></a>00135   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> params (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html#6ebe5a9e4d4518a0ad41d270fe796c37">getParamsFromCmdline</a>(argc,argv));
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137   <span class="keywordtype">bool</span> dp = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">bool</span>&gt; (<span class="stringliteral">"double_precision"</span>,<span class="keyword">false</span>);
-<a name="l00138"></a>00138   dp ? anafast_cxx&lt;double&gt;(params) : anafast_cxx&lt;float&gt;(params);
-<a name="l00139"></a>00139   <span class="keywordflow">return</span> 0;
-<a name="l00140"></a>00140   }
+<a name="l00130"></a>00130     <span class="keywordflow">if</span> (outfile!=<span class="stringliteral">""</span>)
+<a name="l00131"></a>00131       {
+<a name="l00132"></a>00132       <a class="code" href="classPowSpec.html">PowSpec</a> powspec;
+<a name="l00133"></a>00133       <a class="code" href="group__alm__ps__group.html#g259c18431789e6c5d4fc173490872c68">extract_powspec</a> (almT,almG,almC,powspec);
+<a name="l00134"></a>00134       params.template find&lt;bool&gt;(<span class="stringliteral">"full_powerspectrum"</span>,<span class="keyword">false</span>) ?
+<a name="l00135"></a>00135         <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,6) :
+<a name="l00136"></a>00136         <a class="code" href="group__powspec__fitsio__group.html#gbf0f47cdceffda7dd998f0ae64c8fdd3">write_powspec_to_fits</a> (outfile,powspec,4);
+<a name="l00137"></a>00137       }
+<a name="l00138"></a>00138     <span class="keywordflow">if</span> (outfile_alms!=<span class="stringliteral">""</span>)
+<a name="l00139"></a>00139       <a class="code" href="group__alm__fitsio__group.html#ga7b735beabf9fbfca21f4a72ae51c189">write_Alm_to_fits</a> (outfile_alms,almT,almG,almC,nlmax,nmmax,planckType&lt;T&gt;());
+<a name="l00140"></a>00140     }
+<a name="l00141"></a>00141   }
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143 } <span class="comment">// unamed namespace</span>
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 <span class="keywordtype">int</span> anafast_cxx_module (<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
+<a name="l00146"></a>00146   {
+<a name="l00147"></a>00147   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"anafast_cxx"</span>, argc, argv);
+<a name="l00148"></a>00148   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> params (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html#6ebe5a9e4d4518a0ad41d270fe796c37">getParamsFromCmdline</a>(argc,argv));
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150   <span class="keywordtype">bool</span> dp = params.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html#40de8b283526fdbe4074bf677f1d6a77">find</a>&lt;<span class="keywordtype">bool</span>&gt; (<span class="stringliteral">"double_precision"</span>,<span class="keyword">false</span>);
+<a name="l00151"></a>00151   dp ? anafast_cxx&lt;double&gt;(params) : anafast_cxx&lt;float&gt;(params);
+<a name="l00152"></a>00152   <span class="keywordflow">return</span> 0;
+<a name="l00153"></a>00153   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

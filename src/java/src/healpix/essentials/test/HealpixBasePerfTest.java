@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
@@ -24,7 +24,10 @@ import java.text.DecimalFormat;
 
 import healpix.essentials.*;
 
-/** @author Martin Reinecke */
+/** Benchmarks for the HealpixBase class
+
+    @copyright 2014 Max-Planck-Society
+    @author Martin Reinecke */
 public class HealpixBasePerfTest extends TestCase
   {
   static private final DecimalFormat form = new DecimalFormat("##0.00");
@@ -222,7 +225,7 @@ public class HealpixBasePerfTest extends TestCase
     for (int m=0; m<1000; ++m)
       {
       RangeSet lrs=base.queryDisc(new Pointing(new Vec3(1,0,0)),Constants.halfpi/9.);
-      dummy+=lrs.size();
+      dummy+=lrs.nranges();
       ++cnt;
       }
     double time = 1e-9*(System.nanoTime()-tstart);
@@ -245,7 +248,7 @@ public class HealpixBasePerfTest extends TestCase
     for (int m=0; m<1000; ++m)
       {
       RangeSet lrs=base.queryPolygon(corner);
-      dummy+=lrs.size();
+      dummy+=lrs.nranges();
       ++cnt;
       }
     double time = 1e-9*(System.nanoTime()-tstart);

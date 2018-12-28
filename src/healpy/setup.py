@@ -86,10 +86,16 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 cython_require = 'Cython >= 0.16'
 try:
-    pkg_resources.require(cython_require)
-    from Cython.Distutils import build_ext
-    ext = "pyx"
-    extcpp = "pyx"
+    if ('--help' in sys.argv[1:] or
+        sys.argv[1] in ('--help-commands', 'egg_info', 'clean', '--version')):
+        from distutils.command.build_ext import build_ext        
+        ext = "c"
+        extcpp = "cpp"
+    else:
+        pkg_resources.require(cython_require)
+        from Cython.Distutils import build_ext
+        ext = "pyx"
+        extcpp = "pyx"
 except:
     # User does not have a sufficiently new version of Cython.
     if os.path.exists('healpy/src/_query_disc.cpp'):
@@ -115,9 +121,12 @@ OR, to build from development sources, first get {0} from:
 if on_rtd:
     numpy_inc = ''
 else:
-    from numpy import get_include
-    numpy_inc = get_include()
-
+    if ('--help' in sys.argv[1:] or
+        sys.argv[1] in ('--help-commands', 'egg_info', 'clean', '--version')):
+        numpy_inc = ''
+    else:
+        from numpy import get_include
+        numpy_inc = get_include()
 
 # Test if pkg-config is present. If not, fall back to pykg-config.
 try:
@@ -128,7 +137,7 @@ except OSError as e:
         raise ValueError
     log.warn('pkg-config is not installed, falling back to pykg-config')
     setup_requires = ['pykg-config >= 1.2.0']
-    os.environ['PKG_CONFIG'] = sys.executable + ' ' + os.path.abspath('pykg_config.py')
+    os.environ['PKG_CONFIG'] = sys.executable + ' ' + os.path.abspath('run_pykg_config.py')
 
 
 class build_external_clib(build_clib):
@@ -145,7 +154,9 @@ class build_external_clib(build_clib):
     def _environ(self):
         """Construct an environment dictionary suitable for having pkg-config
         pick up .pc files in the build_clib directory."""
-        pkg_config_path = os.path.join(os.path.realpath(self.build_clib), 'lib', 'pkgconfig')
+        pkg_config_path = (
+            os.path.join(os.path.realpath(self.build_clib), 'lib64', 'pkgconfig') +
+            ':' + os.path.join(os.path.realpath(self.build_clib), 'lib', 'pkgconfig'))
         try:
             pkg_config_path += ':' + os.environ['PKG_CONFIG_PATH']
         except KeyError:
@@ -153,7 +164,9 @@ class build_external_clib(build_clib):
         return dict(os.environ, PKG_CONFIG_PATH=pkg_config_path)
 
     def pkgconfig(self, *packages):
-        PKG_CONFIG = tuple(shlex.split(os.environ.get('PKG_CONFIG', 'pkg-config')))
+        PKG_CONFIG = tuple(shlex.split(
+            os.environ.get('PKG_CONFIG', 'pkg-config'),
+            posix=(os.sep == '/')))
         kw = {}
         index_key_flag = (
             (2, '--cflags-only-I', ('include_dirs',)),
@@ -208,7 +221,7 @@ class build_external_clib(build_clib):
                 cxx = os.environ['CXX']
             if 'CFLAGS' in os.environ:
                 cflags = opt + ' ' + os.environ['CFLAGS']
-            if 'CXXLAGS' in os.environ:
+            if 'CXXFLAGS' in os.environ:
                 cxxflags = opt + ' ' + os.environ['CXXFLAGS']
 
             # Use a subdirectory of build_temp as the build directory.
@@ -374,6 +387,13 @@ hfits_lib = Extension('healpy._healpy_fitsio_lib',
                       language='c++'
                       )
 
+install_requires = ['matplotlib', 'numpy', 'six']
+# Add install dependency on astropy, unless pyfits is already installed.
+try:
+    import pyfits
+except ImportError:
+    install_requires.append('astropy')
+
 if on_rtd:
     libraries = []
     cmdclass = {}
@@ -439,7 +459,7 @@ setup(name='healpy',
       ext_modules = extension_list,
       package_data = {'healpy': ['data/*.fits', 'data/totcls.dat', 'test/data/*.fits', 'test/data/*.sh']},
       setup_requires=setup_requires,
-      install_requires=['pyfits', 'six'],
+      install_requires=install_requires,
       tests_require=['pytest'],
       test_suite='healpy',
       license='GPLv2'

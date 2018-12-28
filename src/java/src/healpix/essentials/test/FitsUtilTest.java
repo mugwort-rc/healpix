@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
@@ -25,6 +25,10 @@ import junit.framework.TestCase;
 import java.util.UUID;
 import java.io.File;
 
+/** Tests for the FitsUtil class
+
+    @copyright 2014 Max-Planck-Society
+    @author Martin Reinecke */
 public class FitsUtilTest extends TestCase
   {
   public void testHPmapf() throws Exception

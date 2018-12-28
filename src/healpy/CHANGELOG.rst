@@ -1,3 +1,29 @@
+Release 1.9.0, 17 Sep 2015
+
+* updated healpix CXX to 786 (trunk) <https://github.com/healpy/healpy/pull/280>
+* drop support for Python 2.6 <https://github.com/healpy/healpy/pull/268>
+* option to read all fields with `read_map` <https://github.com/healpy/healpy/pull/258>
+* `write_map` and `read_map` support for partial sky maps <https://github.com/healpy/healpy/pull/254>
+* Allow `read_map` to also take an HDUList or HDU instance <https://github.com/healpy/healpy/issues/249>
+
+Release 1.8.6, 23 Apr 2015
+
+* Renamed `get_neighbours` to `get_interp_weights` <https://github.com/healpy/healpy/issues/240>
+* Updated HEALPix C++ to fix bug in `query_disc` <https://github.com/healpy/healpy/issues/229>
+
+Release 1.8.4, 16 Jan 2015
+
+* Fixed another permission issue on install-sh
+
+Release 1.8.3, 16 Jan 2015
+
+* Fix permission issue in the release tarball <https://github.com/healpy/healpy/issues/220>
+
+Release 1.8.2, 13 Jan 2015
+
+* Several fixes in the build process
+* Support for `astropy.fits` <https://github.com/healpy/healpy/pull/213>
+
 Release 1.8.1, 22 Jun 2014 
 
 * Added `common.pxd` to source tarball

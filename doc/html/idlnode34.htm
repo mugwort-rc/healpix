@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>ialteralm</TITLE>
-<META NAME="description" CONTENT="ialteralm">
+<TITLE>ianafast</TITLE>
+<META NAME="description" CONTENT="ianafast">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,126 +29,81 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html606"
+<A NAME="tex2html633"
   HREF="idlnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html612"
+<A NAME="tex2html639"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html616"
+<A NAME="tex2html643"
   HREF="idlnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html614"
+<A NAME="tex2html641"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html607"
-  HREF="idlnode33.htm">hpx2gs</A>
+<B> Previous:</B> <A NAME="tex2html634"
+  HREF="idlnode33.htm">ialteralm</A>
 
-<B>Up:</B> <A NAME="tex2html613"
+<B>Up:</B> <A NAME="tex2html640"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html617"
-  HREF="idlnode35.htm">ianafast</A>
+<B> Next:</B> <A NAME="tex2html644"
+  HREF="idlnode35.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000340000000000000000"></A>
-<A NAME="idl:ialteralm"></A>
+<A NAME="idl:ianafast"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ialteralm</FONT></font></b><hr>
-<H3>This IDL facility provides an interface to F90 '<A HREF="#fac:alteralm">alteralm</A>' facility. 
-This program can be used to modify a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> spherical harmonics
-  coefficients, as those extracted by <A HREF="idlnode35.htm#idl:ianafast">ianafast</A> or 
-  simulated by <A HREF="idlnode40.htm#idl:isynfast">isynfast</A>, before
-  they are used as constraints on a isynfast run. Currently the alterations
-  possible are </SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- rotation (using Wigner matrices) of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from the input
-    coordinate system to any other standard astrophysical coordinate system. The
-    resulting <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> can be used with e.g. synfast to generate a map in the
-    new coordinate system.
-    <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- removal of the pixel and beam window functions of the input
-  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (corresponding to the pixel size and beam shape of the map from which
-  they were extracted) and implementation of an arbitrary pixel and beam window
-  function. 
-<BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
-
-<!-- MATH
- \begin{equation}
-a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
- OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)},
-\end{equation}
- -->
-<A NAME="eq:alteralm"></A>
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:alteralm"></A><IMG
- WIDTH="233" HEIGHT="53" BORDER="0"
- SRC="idlimg57.png"
- ALT="\begin{displaymath}a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
-OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)},
-\end{displaymath}"></TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
-</TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-where <SPAN CLASS="MATH"><I>P</I>(<I>l</I>)</SPAN> is the pixel window function, and <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> is the beam window
- function (assuming a circular beam) or any other <SPAN CLASS="MATH"><I>l</I></SPAN> space filter (eg,
- Wiener filter). For an infinitely small pixel (or beam) one would have <SPAN CLASS="MATH"><I>P</I>(<I>l</I>) =
- 1</SPAN> (resp. <SPAN CLASS="MATH"><I>B</I>(<I>l</I>) = 1</SPAN>) for any <SPAN CLASS="MATH"><I>l</I></SPAN>.
-</DL><SMALL CLASS="FOOTNOTESIZE">
-</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/interfaces/ialteralm.pro"><b>src/idl/interfaces/ialteralm.pro</b></a>&nbsp;  
+<b><font size=+6><FONT COLOR="#CC0000">ianafast</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to '<A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
+facilities. It can be used to produce the Spherical Harmonics coefficients
+(<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> of a <b>HEALPix</b> map (or pair of maps) and/or the resulting auto (or
+cross) power spectra <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/interfaces/ianafast.pro"><b>src/idl/interfaces/ianafast.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-IALTERALM, 
-<A HREF="#idl:ialteralm:alm_in">alm_in</A>,  
-<A HREF="#idl:ialteralm:alm_out">alm_out</A>, [
-<A HREF="#idl:ialteralm:beam_file_in">beam_file_in</A>,
-<A HREF="#idl:ialteralm:beam_file_out">beam_file_out</A>,
-<A HREF="#idl:ialteralm:binpath">binpath=</A>,
-<A HREF="#idl:ialteralm:coord_in">coord_in</A>,
-<A HREF="#idl:ialteralm:coord_out">coord_out</A>,
-<A HREF="#idl:ialteralm:epoch_in">epoch_in</A>,
-<A HREF="#idl:ialteralm:epoch_out">epoch_out</A>,
-<A HREF="#idl:ialteralm:fwhm_arcmin_in">fwhm_arcmin_in</A>,
-<A HREF="#idl:ialteralm:fwhm_arcmin_out">fwhm_arcmin_out</A>,
-<A HREF="#idl:ialteralm:help">/help</A>,
-<A HREF="#idl:ialteralm:keep_tmp_files">keep_tmp_files=</A>, 
-<A HREF="#idl:ialteralm:lmax_out">lmax_out</A>,
-<A HREF="#idl:ialteralm:nlmax_out">nlmax_out</A>,
-<A HREF="#idl:ialteralm:nside_in">nside_in</A>,
-<A HREF="#idl:ialteralm:nside_out">nside_out</A>,
-<A HREF="#idl:ialteralm:nsmax_in">nsmax_in</A>,
-<A HREF="#idl:ialteralm:nsmax_out">nsmax_out</A>,
-<A HREF="#idl:ialteralm:silent">/silent</A>,
-<A HREF="#idl:ialteralm:tmpdir">tmpdir=</A>
-]
+IANAFAST,  <A HREF="#idl:ianafast:map1_in">map1_in</A>[, <A HREF="#idl:ianafast:cl_out">cl_out</A>,
+       <A HREF="#idl:ianafast:alm1_out">alm1_out=</A>, <A HREF="#idl:ianafast:alm2_out">alm2_out=</A>, <A HREF="#idl:ianafast:binpath">binpath=</A>, <A HREF="#idl:ianafast:cxx">cxx=</A>, <A HREF="#idl:ianafast:double">double=</A>, <A HREF="#idl:ianafast:help">help=</A>, <A HREF="#idl:ianafast:healpix_data">healpix_data=</A>, <A HREF="#idl:ianafast:iter_order">iter_order=</A>, <A HREF="#idl:ianafast:keep_tmp_files">keep_tmp_files=</A>, 
+       <A HREF="#idl:ianafast:map2_in">map2_in=</A>, <A HREF="#idl:ianafast:maskfile">maskfile=</A>, <A HREF="#idl:ianafast:nested">nested=</A>, <A HREF="#idl:ianafast:nlmax">nlmax=</A>, <A HREF="#idl:ianafast:nmmax">nmmax=</A>, <A HREF="#idl:ianafast:ordering">ordering=</A>, <A HREF="#idl:ianafast:plmfile">plmfile=</A>, <A HREF="#idl:ianafast:polarisation">polarisation=</A>, 
+       <A HREF="#idl:ianafast:regression">regression=</A>, <A HREF="#idl:ianafast:ring">ring=</A>, <A HREF="#idl:ianafast:show_cl">show_cl=</A>, <A HREF="#idl:ianafast:simul_type">simul_type=</A>, <A HREF="#idl:ianafast:silent">silent=</A>, <A HREF="#idl:ianafast:theta_cut_deg">theta_cut_deg=</A>, <A HREF="#idl:ianafast:tmpdir">tmpdir=</A>, 
+       <A HREF="#idl:ianafast:weighted">weighted=</A>, <A HREF="#idl:ianafast:won">won=</A>, <A HREF="#idl:ianafast:w8file">w8file=</A>, <A HREF="#idl:ianafast:w8dir">w8dir=</A>]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>alm_in</B>
-<DD><A NAME="idl:ialteralm:alm_in"></A> required input: input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, must be a FITS file
-   <DT>
-<B>alm_out</B>
-<DD><A NAME="idl:ialteralm:alm_out"></A> required output: output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, must be a FITS file
-
-<P>
-</DL><SMALL CLASS="FOOTNOTESIZE">
+<B>map1_in<A NAME="idl:ianafast:map1_in"></A></B>
+<DD>required input: 1st input map, can be a FITS file, or a memory array containing the
+        map to analyze
+    <DT>
+<B>cl_out<A NAME="idl:ianafast:cl_out"></A></B>
+<DD>optional output: auto or cross power spectrum <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, can be a FITS
+file or a memory array
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>binpath=</B>
-<DD><A NAME="idl:ialteralm:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/alteralm, then $HEALPIX/bin/alteralm
+<B>alm1_out<A NAME="idl:ianafast:alm1_out"></A>=</B>
+<DD>output alm of 1st map, must be a FITS file          <b>default:</b>alm not kept
+
+<P>
+<DT>
+<B>alm2_out<A NAME="idl:ianafast:alm2_out"></A>=</B>
+<DD>output alm of 2nd map (if any, must be a FITS file) <b>default:</b>alm not kept
+
+<P>
+<DT>
+<B>binpath<A NAME="idl:ianafast:binpath"></A>=</B>
+<DD>full path to back-end routine <b>default:</b>$HEXE/anafast, then $HEALPIX/bin/anafast 
+                or $HEALPIX/src/cxx/$HEALPIX_TARGET/bin/anafast_cxx, then $HEALPIX/src/cxx/generic_gcc/bin/anafast_cxx if cxx is set
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg58.png"
@@ -157,104 +113,150 @@ IALTERALM,
 
 <P>
 <DT>
-<B>beam_file_in=</B>
-<DD><A NAME="idl:ialteralm:beam_file_in"></A> Beam window function of input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>,
-                 either a FITS file or an array. If present, will override
-<A HREF="#idl:ialteralm:fwhm_arcmin_in"><TT>fwhm_arcmin_in</TT></A>
-                 <b>default:</b>value of BEAM_LEG  keyword read from
-<A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+<B>/cxx<A NAME="idl:ianafast:cxx"></A></B>
+<DD>if set, the C++ back-end anafast_cxx is invoked instead of F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>,
+           AND the parameter file is written accordingly
 
 <P>
 <DT>
-<B>beam_file_out=</B>
-<DD><A NAME="idl:ialteralm:beam_file_out"></A> Beam window function of output alm, 
-                 either a FITS file or an array. If present and non-empty, will override
-<A HREF="#idl:ialteralm:fwhm_arcmin_out"><TT>fwhm_arcmin_out</TT></A>
-                 <b>default:</b>'' (empty string, no beam window applied)
+<B>/double<A NAME="idl:ianafast:double"></A></B>
+<DD>if set, I/O is done in double precision <b>default:</b>single precision I/O
 
 <P>
 <DT>
-<B>coord_in=</B>
-<DD><A NAME="idl:ialteralm:coord_in"></A> Astrophysical coordinates system used to compute input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
-                 Case-insensitive single letter code.
-                 Valid choices are 'g','G' = Galactic, 'e','E' = Ecliptic,
-                 'c','q','C','Q' = Celestial/eQuatorial.
-                 <b>default:</b>value of COORDSYS keyword read from
-<A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+<B>/help<A NAME="idl:ianafast:help"></A></B>
+<DD>if set, prints extended help
 
 <P>
 <DT>
-<B>coord_out=</B>
-<DD><A NAME="idl:ialteralm:coord_out"></A> Astrophysical coordinates system of output alm.
-                  <b>default:</b> <A HREF="#idl:ialteralm:coord_in"><TT>coord_in</TT></A> 
+<B>healpix_data<A NAME="idl:ianafast:healpix_data"></A>=</B>
+<DD>directory with Healpix precomputed files (only for C++ back_end when weighted=1)
+     <b>default:</b>$HEALPIX/data
 
 <P>
 <DT>
-<B>epoch_in=</B>
-<DD><A NAME="idl:ialteralm:epoch_in"></A> Astronomical epoch of input coordinates 
-(<A HREF="#idl:ialteralm:coord_in"><TT>coord_in</TT></A>)
-                 <b>default:</b>2000.0
- <DT>
-<B>epoch_out=</B>
-<DD><A NAME="idl:ialteralm:epoch_out"></A> Astronomical epoch of output coordinates 
-(<A HREF="#idl:ialteralm:coord_out"><TT>coord_out</TT></A>)
-                 <b>default:</b>same as <A HREF="#idl:ialteralm:epoch_in"><TT>epoch_in</TT></A>
+<B>iter_order<A NAME="idl:ianafast:iter_order"></A>=</B>
+<DD>order of iteration in the analysis <b>default:</b>0
 
 <P>
 <DT>
-<B>fwhm_arcmin_in=</B>
-<DD><A NAME="idl:ialteralm:fwhm_arcmin_in"></A> Full Width
-Half-Maximum in arcmin of Gaussian beam applied to map from which are obtained
-input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
-<BR>           <b>default:</b>value of FWHM keyword in <A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+<B>/keep_tmp_files<A NAME="idl:ianafast:keep_tmp_files"></A></B>
+<DD>if set, temporary files are not discarded at the end of the
+                  run
 
 <P>
 <DT>
-<B>fwhm_arcmin_out=</B>
-<DD><A NAME="idl:ialteralm:fwhm_arcmin_out"></A> FWHM in
-arcmin to be applied to output alm.
-<BR><b>default:</b><A HREF="#idl:ialteralm:fwhm_arcmin_in"><TT>fwhm_arcmin_in</TT></A>
+<B>map2_in<A NAME="idl:ianafast:map2_in"></A>=</B>
+<DD>2nd input map (FITS file or array), if provided, Cl_out will
+  contain the cross power spectra of the 2 maps <b>default:</b>no 2nd map
 
 <P>
 <DT>
-<B>/help</B>
-<DD><A NAME="idl:ialteralm:help"></A> if set, prints extended help
-<DT>
-<B>/keep_tmp_files</B>
-<DD><A NAME="idl:ialteralm:keep_tmp_files"></A> if set,
-temporary files are not discarded at the end of the run
+<B>maskfile<A NAME="idl:ianafast:maskfile"></A>=</B>
+<DD>pixel mask (FITS file or array)   <b>default:</b>no mask
 
 <P>
 <DT>
-<B>lmax_out=, nlmax_out=</B>
-<DD><A NAME="idl:ialteralm:lmax_out"></A><A NAME="idl:ialteralm:nlmax_out"></A> maximum multipole of output alm
+<B>/nested<A NAME="idl:ianafast:nested"></A>=</B>
+<DD>if set, signals that *all* maps and mask read online are in
+   NESTED scheme (does not apply to FITS file), see also /ring and Ordering
 
 <P>
 <DT>
-<B>nside_in=, nsmax_in=</B>
-<DD><A NAME="idl:ialteralm:nside_in"></A><A NAME="idl:ialteralm:nsmax_in"></A>HEALPix resolution parameter of map
-                  from which were computed input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-                   <b>default:</b>determined from <A HREF="#idl:ialteralm:alm_in"><TT>alm_in</TT></A>
+<B>nlmax<A NAME="idl:ianafast:nlmax"></A>=</B>
+<DD>maximum multipole of analysis, *required* for C++ anafast_cxx,
+      optional for F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>
 
 <P>
 <DT>
-<B>nside_out=,nsmax_out=</B>
-<DD><A NAME="idl:ialteralm:nside_out"></A><A NAME="idl:ialteralm:nsmax_out"></A>HEALPix resolution parameter Nside whose
-                  window function will be applied to output alm.
-<BR>
-Could be set to 0 for infinitely small pixels (no window)
-                   <b>default:</b>same as input <A HREF="#idl:ialteralm:nsmax_in"><TT>nsmax_in</TT></A>
+<B>nmmax<A NAME="idl:ianafast:nmmax"></A>=</B>
+<DD>maximum degree m, only valid for C++ anafast_cxx <b>default:</b>nlmax
 
 <P>
 <DT>
-<B>/silent</B>
-<DD><A NAME="idl:ialteralm:silent"></A> if set, works silently
+<B>ordering<A NAME="idl:ianafast:ordering"></A>=</B>
+<DD>either 'RING' or 'NESTED', ordering of online maps and masks,
+ see /nested and /ring
 
 <P>
 <DT>
-<B>tmpdir=</B>
-<DD><A NAME="idl:ialteralm:tmpdir"></A> directory in which are written temporary files 
+<B>plmfile<A NAME="idl:ianafast:plmfile"></A>=</B>
+<DD>FITS file containing precomputed Spherical Harmonics (deprecated) <b>default:</b>no file
+
+<P>
+<DT>
+<B>/polarisation<A NAME="idl:ianafast:polarisation"></A></B>
+<DD>if set analyze temperature + polarization (same as simul_type = 2)
+
+<P>
+<DT>
+<B>regression<A NAME="idl:ianafast:regression"></A>=</B>
+<DD>0, 1 or 2, regress out best fit monopole and/or dipole before
+    alm analysis
+  <b>default:</b>0, analyze raw map 
+
+<P>
+<DT>
+<B>/ring<A NAME="idl:ianafast:ring"></A></B>
+<DD>see /nested and ordering above
+
+<P>
+<DT>
+<B>/show_cl<A NAME="idl:ianafast:show_cl"></A></B>
+<DD>if set, and <TT>cl_out</TT> is defined, the produced <!-- MATH
+ $l (l+1) C(l)/2\pi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg46.png"
+ ALT="$l(l+1)C(l)/2\pi$"></SPAN> will
+be plotted
+
+<P>
+<DT>
+<B>simul_type<A NAME="idl:ianafast:simul_type"></A>=</B>
+<DD>1 or 2, analyze temperature only or temperature + polarization
+
+<P>
+<DT>
+<B>/silent<A NAME="idl:ianafast:silent"></A></B>
+<DD>if set, works silently
+
+<P>
+<DT>
+<B>theta_cut_deg<A NAME="idl:ianafast:theta_cut_deg"></A>=</B>
+<DD>cut around the equatorial plane 
+
+<P>
+<DT>
+<B>tmpdir<A NAME="idl:ianafast:tmpdir"></A>=</B>
+<DD>directory in which are written temporary files 
 <b>default:</b>IDL_TMPDIR (see IDL documentation)
+
+<P>
+<DT>
+<B>/weighted<A NAME="idl:ianafast:weighted"></A></B>
+<DD>same as won
+    <b>default:</b>apply weighting
+
+<P>
+<DT>
+<B>/won<A NAME="idl:ianafast:won"></A></B>
+<DD>if set, a weighting scheme is used to improve the quadrature
+    <b>default:</b>apply weighting
+
+<P>
+<DT>
+<B>w8file<A NAME="idl:ianafast:w8file"></A>=</B>
+<DD>FITS file containing weights 
+     <b>default:</b>determined automatically by back-end routine.
+   Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>w8dir<A NAME="idl:ianafast:w8dir"></A>=</B>
+<DD>directory where the weights are to be found 
+        <b>default:</b>determined automatically by back-end routine
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -264,52 +266,50 @@ Could be set to 0 for infinitely small pixels (no window)
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">ialteralm</FONT> is an interface to '<A HREF="#fac:alteralm">alteralm</A>' F90 facility. It
+<FONT COLOR="#CC0000">ianafast</FONT> is an interface to '<A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
+facilities. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ialteralm</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ianafast</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">ialteralm</FONT>.
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">ianafast</FONT>.
     <DT>
-<B>alteralm</B>
-<DD>F90 facility called by <FONT COLOR="#CC0000">ialteralm</FONT>.
+<B><A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A></B>
+<DD>F90 facility called by <FONT COLOR="#CC0000">ianafast</FONT>.
+    <DT>
+<B>anafast_cxx</B>
+<DD>C++ called by <FONT COLOR="#CC0000">ianafast</FONT>.
+    <DT>
+<B><A HREF="idlnode33.htm#idl:ialteralm">ialteralm</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>
 <DT>
-<B><A HREF="idlnode35.htm#idl:ianafast">ianafast</A></B>
-<DD>IDL Interface to F90 <A HREF="#fac:anafast">anafast</A> and C++ anafast_cxx
+<B><A HREF="idlnode37.htm#idl:iprocess_mask">iprocess_mask</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode11.htm#fac:process_mask">process_mask</A>
     <DT>
-<B><A HREF="idlnode38.htm#idl:iprocess_mask">iprocess_mask</A></B>
-<DD>IDL Interface to F90 <A HREF="#fac:process_mask">process_mask</A>
+<B><A HREF="idlnode38.htm#idl:ismoothing">ismoothing</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>
     <DT>
-<B><A HREF="idlnode39.htm#idl:ismoothing">ismoothing</A></B>
-<DD>IDL Interface to F90 <A HREF="#fac:smoothing">smoothing</A>
-    <DT>
-<B><A HREF="idlnode40.htm#idl:isynfast">isynfast</A></B>
-<DD>IDL Interface to F90 <A HREF="#fac:synfast">synfast</A>
+<B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
+<DD>IDL Interface to F90 <A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> ialteralm, <A HREF="idlnode37.htm#idl:init_healpix">!healpix.path.test</A>+'alm.fits', '/tmp/alm_equat.fits', $ </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> whitenoise = randomn(seed, <A HREF="idlnode48.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">     coord_in='g',coord_out='q'</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <FONT COLOR="#CC0000">ianafast</FONT>, whitenoise, cl, /ring, /silent  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode40.htm#idl:isynfast">isynfast</A>, 0, alm_in='/tmp/alm_equat.fits', '/tmp/map_equat.fits'</SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode44.htm#idl:mollview">mollview</A>,'/tmp/map_equat.fits',1</SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode44.htm#idl:mollview">mollview</A>,'/tmp/map_equat.fits',2</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  plot, cl[*,0]  </SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
 <blockquote>
-  This example script reads the test (polarised) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> located in <TT>$HEALPIX/test/alm.fits</TT> and rotates them from Galactic to Equatorial
-  coordinates, it then synthetizes a map out of those,
-  and finally plots its I and Q Stokes components (in Equatorial coordinates)
+ will plot the power spectrum of a white noise map
 </blockquote>
 <P>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL>
@@ -320,31 +320,31 @@ file, or as a memory array.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html606"
+<A NAME="tex2html633"
   HREF="idlnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html612"
+<A NAME="tex2html639"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html616"
+<A NAME="tex2html643"
   HREF="idlnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html614"
+<A NAME="tex2html641"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html607"
-  HREF="idlnode33.htm">hpx2gs</A>
+<B> Previous:</B> <A NAME="tex2html634"
+  HREF="idlnode33.htm">ialteralm</A>
 
-<B>Up:</B> <A NAME="tex2html613"
+<B>Up:</B> <A NAME="tex2html640"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html617"
-  HREF="idlnode35.htm">ianafast</A>
+<B> Next:</B> <A NAME="tex2html644"
+  HREF="idlnode35.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

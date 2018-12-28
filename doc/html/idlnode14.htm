@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>bin_llcl</TITLE>
-<META NAME="description" CONTENT="bin_llcl">
+<TITLE>bl2beam</TITLE>
+<META NAME="description" CONTENT="bl2beam">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,115 +29,95 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html366"
+<A NAME="tex2html393"
   HREF="idlnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html372"
+<A NAME="tex2html399"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html376"
+<A NAME="tex2html403"
   HREF="idlnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html374"
+<A NAME="tex2html401"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html367"
-  HREF="idlnode13.htm">beam2bl</A>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="idlnode13.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html373"
+<B>Up:</B> <A NAME="tex2html400"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html377"
-  HREF="idlnode15.htm">bl2beam</A>
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="idlnode15.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000140000000000000000"></A>
-<A NAME="idl:bin_llcl"></A>
+<A NAME="idl:bl2beam"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">bin_llcl</FONT></font></b><hr>
-<H3>This IDL facility provides a means to bin an angular power spectrum into
-arbitrary bins.
+<b><font size=+6><FONT COLOR="#CC0000">bl2beam</FONT></font></b><hr>
+<H3>This IDL facility computes a circular beam profile <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> from its transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN>.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/misc/bin_llcl.pro"><b>src/idl/misc/bin_llcl.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/misc/bl2beam.pro"><b>src/idl/misc/bl2beam.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-BIN_LLCL, Llcl_in, Bin, L_out, Llcl_out, [Dllcl, DELTAL=, /FLATTEN, /HELP, /UNIFORM]
-
+beam=<FONT COLOR="#CC0000">bl2beam</FONT>(
+<A HREF="#idl:bl2beam:bl">bl</A>, 
+<A HREF="#idl:bl2beam:theta">theta</A>, [<A HREF="#idl:bl2beam:arcmin">/ARCMIN</A> ,
+<A HREF="#idl:bl2beam:degrees">/DEGREES</A>, 
+<A HREF="#idl:bl2beam:help">/HELP</A>, 
+<A HREF="#idl:bl2beam:radians">/RADIANS</A>])
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Llcl_in</B>
-<DD>1D vector: <B>input</B> power spectrum (given for each <SPAN CLASS="MATH"><I>l</I></SPAN> starting at 0).
+<B>bl</B>
+<DD><A NAME="idl:bl2beam:bl"></A>input <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function of beam (defined for all integer multipoles <SPAN CLASS="MATH"><I>l</I></SPAN> starting at 0)
     <DT>
-<B>Bin</B>
-<DD><B>input</B>: binning in <SPAN CLASS="MATH"><I>l</I></SPAN> to be applied, 
-<BR>-either a scalar interpreted as the step size of a regular binning, the first
-bins are then {0, <TT>bin</TT> - 1},{<TT>bin</TT>, 2<TT>bin</TT>-1}, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\ldots$"></SPAN>
-
-<BR>-or a 1D vector, interpreted as the lower bound of 
-each bin, ie the first bins are {bin[0],bin[1]-1}, {bin[1], bin[2]-1}, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\ldots$"></SPAN>
-<BR>	<DT>
-<B>L_out</B>
-<DD>contains on <B>output</B> the center of each bin <SPAN CLASS="MATH"><I>l</I><SUB><I>b</I></SUB></SPAN>.
-	<DT>
-<B>Llcl_out</B>
-<DD>contains on <B>output</B> the binned power spectrum
-<SPAN CLASS="MATH"><I>C</I>(<I>b</I>)</SPAN>, ie the (weighted) average of the input <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> over each bin.
-	<DT>
-<B>Dllcl</B>
-<DD><B>optional</B>, contains on <B>output</B> a rough estimate of the rms of the binned C(l) for a full
-sky observation <!-- MATH
- $C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="187" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg34.png"
- ALT="$C(b) \sqrt{ 2 / ((2l_b+1) \Delta l_b)}$"></SPAN>
-	<DT>
-<B>DELTAL=</B>
-<DD><B>optional</B>, contains on <B>output</B> the size of each bin <SPAN CLASS="MATH"><IMG
- WIDTH="49" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg35.png"
- ALT="$\Delta l(b)$"></SPAN></DL><SMALL CLASS="FOOTNOTESIZE">
+<B>theta</B>
+<DD><A NAME="idl:bl2beam:theta"></A>angles <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN> (in arcmin, degrees or radians) 
+  at which the output beam <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> is to be computed.
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>/FLATTEN</B>
-<DD>if set, the <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> is internally multiplied by
-<SPAN CLASS="MATH"><IMG
- WIDTH="93" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg36.png"
- ALT="$l(l+1)/2\pi$"></SPAN> before being binned. 
-<BR>
-By default, the input <TT>Llcl_in</TT> is binned as is.
-	<DT>
-<B>/HELP</B>
-<DD>if set, an extended help is printed and the code exits.
+<B>/ARCMIN</B>
+<DD><A NAME="idl:bl2beam:arcmin"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in arcmin
     <DT>
-<B>/UNIFORM</B>
-<DD>if set, the <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> in each bin is given the same weight.
-<BR>
-By default a weight <SPAN CLASS="MATH"><IMG
- WIDTH="72" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg37.png"
- ALT="$\propto 2l+1$"></SPAN> is used (inverse cosmic variance
-weighting). Note that this weighting affects <TT>Llcl_out</TT> but not <TT>L_out</TT>.
+<B>/DEGREES</B>
+<DD><A NAME="idl:bl2beam:degrees"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in degrees
+    <DT>
+<B>/HELP</B>
+<DD><A NAME="idl:bl2beam:help"></A>if set, prints out the help header and exits
+    <DT>
+<B>/RADIANS</B>
+<DD><A NAME="idl:bl2beam:radians"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in radians
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
@@ -144,49 +125,116 @@ weighting). Note that this weighting affects <TT>Llcl_out</TT> but not <TT>L_out
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-bin_llcl bins the input power spectrum (as is, or after flattening by a
+Since an arbitrary beam is related to its SH Transform via
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
 <!-- MATH
- $\l (\l +1)/2\pi$
+ \begin{equation}
+b({\bf {r}}) = \sum_{lm} b_{lm} Y_{lm}({\bf {r}}),
+\end{equation}
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="93" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg38.png"
- ALT="$\l (\l +1)/2\pi$"></SPAN> factor) according to an arbitrary binning scheme defined by the
-user. Different weighting scheme (uniform or inverse variance) can be applied inside the bins.
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="162" HEIGHT="49" BORDER="0"
+ SRC="idlimg39.png"
+ ALT="\begin{displaymath}
+b({\bf {r}}) = \sum_{lm} b_{lm} Y_{lm}({\bf {r}}),
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+a circular beam has a radial profile (as returned by <FONT COLOR="#CC0000">bl2beam</FONT>)
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+b(\theta) = \sum_l  b(l) P_l(\theta) \frac{2l+1}{4 \pi},
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="207" HEIGHT="54" BORDER="0"
+ SRC="idlimg40.png"
+ ALT="\begin{displaymath}
+b(\theta) = \sum_l b(l) P_l(\theta) \frac{2l+1}{4 \pi},
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">4</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+where <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I></SUB></SPAN> is Legendre Polynomial and 
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+b(l)=b_{l0} \sqrt{\frac{4 \pi}{2l+1}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="141" HEIGHT="55" BORDER="0"
+ SRC="idlimg41.png"
+ ALT="\begin{displaymath}
+b(l)=b_{l0} \sqrt{\frac{4 \pi}{2l+1}}
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">5</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+is the beam window (or transfer)
+function, expected as input to <FONT COLOR="#CC0000">bl2beam</FONT>.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">bin_llcl</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">bl2beam</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">bin_llcl</FONT>.
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">bl2beam</FONT>.
     <DT>
-<B><A HREF="idlnode24.htm#idl:fits2cl">fits2cl</A></B>
-<DD>facility to read a power spectrum from
-a FITS file.
+<B><A HREF="idlnode12.htm#idl:beam2bl">beam2bl</A></B>
+<DD>facility to perform the inverse
+transform to <FONT COLOR="#CC0000">bl2beam</FONT>.
+    <DT>
+<B><A HREF="idlnode15.htm#idl:bl2fits">bl2fits</A></B>
+<DD>facility to write a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function into a FITS file.
+    <DT>
+<B><A HREF="idlnode23.htm#idl:fits2cl">fits2cl</A></B>
+<DD>facility to read a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window
+function from a FITS file
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode37.htm#idl:init_healpix">init_healpix</A></SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> bl = <A HREF="idlnode24.htm#idl:gaussbeam">gaussbeam</A>(15.d0, 4000, 1) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode24.htm#idl:fits2cl">fits2cl</A>, cl, <A HREF="idlnode37.htm#idl:init_healpix">!healpix.directory</A>+'/test/cl.fits', multipoles=l </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> theta = dindgen(3000)/100. </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> fl =  l*(l+1) / (2. * !pi) </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> beam = <FONT COLOR="#CC0000">bl2beam</FONT>(bl, theta, /arcmin)</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">bin_llcl</FONT>, fl*cl[*,0], 10, lb, bbcb, /uniform </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> plot, l, fl*cl[*,0] </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> oplot, lb, bbcb, psym = 4 </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> plot, theta, beam</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
 <blockquote>
-Read a power spectrum, bin it with a binsize of 10 and a uniform weighting, and overplot the input
-spectrum and its binned version.
- </blockquote><SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+the example above generates a beam window function (defined for
+all <SPAN CLASS="MATH"><I>l</I></SPAN> in <!-- MATH
+ $\{0,\ldots,4000\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg33.png"
+ ALT="$\{0,\ldots,4000\}$"></SPAN>) for a 15arcmin-FWHM gaussian beam, computes the
+beam profile for angles in <SPAN CLASS="MATH">[0,30]</SPAN> arcmin and then plots it.
+</blockquote>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -194,31 +242,31 @@ spectrum and its binned version.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html366"
+<A NAME="tex2html393"
   HREF="idlnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html372"
+<A NAME="tex2html399"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html376"
+<A NAME="tex2html403"
   HREF="idlnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html374"
+<A NAME="tex2html401"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html367"
-  HREF="idlnode13.htm">beam2bl</A>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="idlnode13.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html373"
+<B>Up:</B> <A NAME="tex2html400"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html377"
-  HREF="idlnode15.htm">bl2beam</A>
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="idlnode15.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

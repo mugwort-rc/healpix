@@ -1,4 +1,4 @@
-AC_INIT([healpix_cxx], [3.11.2])
+AC_INIT([healpix_cxx], [3.30.0])
 AM_INIT_AUTOMAKE([foreign subdir-objects -Wall -Werror])
 AM_MAINTAINER_MODE([enable])
 
@@ -73,7 +73,6 @@ AX_CHECK_COMPILE_FLAG([-fno-trapping-math],[CFLAGS="$CFLAGS -fno-trapping-math"]
 AX_CHECK_COMPILE_FLAG([-fno-rounding-math],[CFLAGS="$CFLAGS -fno-rounding-math"])
 AX_CHECK_COMPILE_FLAG([-fno-signaling-nans],[CFLAGS="$CFLAGS -fno-signaling-nans"])
 AX_CHECK_COMPILE_FLAG([-fcx-limited-range],[CFLAGS="$CFLAGS -fcx-limited-range"])
-AX_CHECK_COMPILE_FLAG([-fomit-frame-pointer],[CFLAGS="$CFLAGS -fomit-frame-pointer"])
 
 AC_PROG_CXX
 AC_LANG_PUSH([C++])
@@ -100,7 +99,6 @@ AX_CHECK_COMPILE_FLAG([-fno-trapping-math],[CXXFLAGS="$CXXFLAGS -fno-trapping-ma
 AX_CHECK_COMPILE_FLAG([-fno-rounding-math],[CXXFLAGS="$CXXFLAGS -fno-rounding-math"])
 AX_CHECK_COMPILE_FLAG([-fno-signaling-nans],[CXXFLAGS="$CXXFLAGS -fno-signaling-nans"])
 AX_CHECK_COMPILE_FLAG([-fcx-limited-range],[CXXFLAGS="$CXXFLAGS -fcx-limited-range"])
-AX_CHECK_COMPILE_FLAG([-fomit-frame-pointer],[CXXFLAGS="$CXXFLAGS -fomit-frame-pointer"])
 AC_LANG_POP([C++])
 
 dnl

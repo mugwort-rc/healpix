@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html849"
+<A NAME="tex2html859"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html865"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html859"
+<A NAME="tex2html869"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html857"
+<A NAME="tex2html867"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html850"
+<B> Previous:</B> <A NAME="tex2html860"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 
-<B>Up:</B> <A NAME="tex2html856"
+<B>Up:</B> <A NAME="tex2html866"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html860"
+<B> Next:</B> <A NAME="tex2html870"
   HREF="subroutinesnode50.htm">medfiltmap*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,11 +64,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>For a input binary mask in NESTED ordering, <FONT COLOR="#CC0000">maskborder_nest</FONT> identifies the pixels
 located on the inner boundary of <EM>invalid</EM> regions
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/mask_tools.F90"><b>src/f90/mod/mask_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/mask_tools.F90"><b>src/f90/mod/mask_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">maskborder_nest</FONT>(
-nside, mask_in, mask_out, nbordpix, <i><font color="#224422">[ border_value]</font></i>
+<A HREF="#sub:maskborder_nest:nside">nside</A>, <A HREF="#sub:maskborder_nest:mask_in">mask_in</A>, <A HREF="#sub:maskborder_nest:mask_out">mask_out</A>, <A HREF="#sub:maskborder_nest:nbordpix">nbordpix</A>, <i><font color="#224422">[ <A HREF="#sub:maskborder_nest:border_value">border_value</A>]</font></i>
 )</h3></blockquote>
 Arguments appearing in <i><font color="#224422">italic</font></i> are
 optional.
@@ -87,17 +88,17 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
-nside</TD>
+nside<A NAME="sub:maskborder_nest:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the input mask.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask_in(0:Npix-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask_in<A NAME="sub:maskborder_nest:mask_in"></A>(0:Npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Input binary NESTED-ordered mask. Npix = 12*nside*nside</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask_out(0:Npix-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>mask_out<A NAME="sub:maskborder_nest:mask_out"></A>(0:Npix-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Output NESTED-ordered mask, in which inner border
@@ -105,12 +106,12 @@ pixels (defined as 0-valued and adjacent to 1-valued pixels) take the value 2
 (or <TT>border_value</TT>). Can be the same
 array as mask_in.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nbordpix</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nbordpix<A NAME="sub:maskborder_nest:nbordpix"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of border pixels found</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><i><font color="#224422">border_value</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><i><font color="#224422">border_value<A NAME="sub:maskborder_nest:border_value"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value to be given to border pixels in
@@ -155,7 +156,7 @@ pixels located in 'holes' containing fewer pixels than the given threshold
 <DD>identify inner
 boundary pixels of 'holes' for given mask
 	<DT>
-<B><A HREF="subroutinesnode95.htm#sub:size_holes_nest">size_holes_nest</A></B>
+<B><A HREF="subroutinesnode96.htm#sub:size_holes_nest">size_holes_nest</A></B>
 <DD>returns size (in
 pixels) of holes found in input mask
 
@@ -172,31 +173,31 @@ pixels) of holes found in input mask
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html849"
+<A NAME="tex2html859"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html865"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html859"
+<A NAME="tex2html869"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html857"
+<A NAME="tex2html867"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html850"
+<B> Previous:</B> <A NAME="tex2html860"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 
-<B>Up:</B> <A NAME="tex2html856"
+<B>Up:</B> <A NAME="tex2html866"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html860"
+<B> Next:</B> <A NAME="tex2html870"
   HREF="subroutinesnode50.htm">medfiltmap*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

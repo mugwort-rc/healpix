@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html753"
+<A NAME="tex2html763"
   HREF="subroutinesnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html759"
+<A NAME="tex2html769"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html763"
+<A NAME="tex2html773"
   HREF="subroutinesnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html761"
+<A NAME="tex2html771"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html754"
+<B> Previous:</B> <A NAME="tex2html764"
   HREF="subroutinesnode40.htm">healpix_modules module</A>
 
-<B>Up:</B> <A NAME="tex2html760"
+<B>Up:</B> <A NAME="tex2html770"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html764"
+<B> Next:</B> <A NAME="tex2html774"
   HREF="subroutinesnode42.htm">in_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -62,7 +63,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">healpix_types</FONT></font></b><hr>
 <H3>This module defines a set of parameters used by most other
 <b>HEALPix</b> modules.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/healpix_types.F90"><b>src/f90/mod/healpix_types.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/healpix_types.F90"><b>src/f90/mod/healpix_types.F90</b></a>&nbsp;  
 
 <P>
 
@@ -78,63 +79,63 @@ The parameters defined in <FONT COLOR="#CC0000">healpix_types</FONT> include
 <TABLE  WIDTH="100%">
 <TR><TD><SPAN CLASS="arabic">2</SPAN><SPAN CLASS="Alph"><IMG
  WIDTH="7" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg63.png"
- ALT="% latex2html id marker 25276
+ SRC="subroutinesimg68.png"
+ ALT="% latex2html id marker 30231
 \setcounter{footnote}{2}\fnsymbol{footnote}"></SPAN>
 
 <TABLE CELLPADDING=3 BORDER="1" WIDTH="100%">
 <TR><TD ALIGN="LEFT">name</TD>
 <TD ALIGN="CENTER">type</TD>
-<TD ALIGN="CENTER">value<A NAME="tex2html15"
-  HREF="#footmp4920"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></TD>
+<TD ALIGN="CENTER">value<A NAME="tex2html16"
+  HREF="#footmp6525"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></TD>
 <TD ALIGN="LEFT">definition</TD>
 </TR>
-<TR><TD ALIGN="LEFT">I1B</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:i1b"></A>I1B</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">1</TD>
 <TD ALIGN="LEFT">number of bytes in the hardware-supported signed integers covering the range -99 to
 99 with the least margin</TD>
 </TR>
-<TR><TD ALIGN="LEFT">I2B</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:i2b"></A>I2B</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">2</TD>
 <TD ALIGN="LEFT">same as above for the range -9999 to 9999 (ie, 4 digits)</TD>
 </TR>
-<TR><TD ALIGN="LEFT">I4B</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:i4b"></A>I4B</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">4</TD>
 <TD ALIGN="LEFT">same as above for 9 digits</TD>
 </TR>
-<TR><TD ALIGN="LEFT">I8B</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:i8b"></A>I8B</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">8</TD>
-<TD ALIGN="LEFT">same as above for 16 digits<A NAME="tex2html16"
-  HREF="#footmp4921"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A></TD>
+<TD ALIGN="LEFT">same as above for 16 digits<A NAME="tex2html17"
+  HREF="#footmp6530"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A></TD>
 </TR>
-<TR><TD ALIGN="LEFT">SP</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:sp"></A>SP</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">4</TD>
 <TD ALIGN="LEFT">number of bytes in the hardware-supported floating-point
 numbers covering the range <SPAN CLASS="MATH">10<SUP>-30</SUP></SPAN> to <SPAN CLASS="MATH">10<SUP>30</SUP></SPAN> with the least margin
 (hereafter single precision)</TD>
 </TR>
-<TR><TD ALIGN="LEFT">DP</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:dp"></A>DP</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">8</TD>
 <TD ALIGN="LEFT">same as above for the range <SPAN CLASS="MATH">10<SUP>-200</SUP></SPAN> to <SPAN CLASS="MATH">10<SUP>200</SUP></SPAN>
 (double precision)</TD>
 </TR>
-<TR><TD ALIGN="LEFT">SPC</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:spc"></A>SPC</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">4</TD>
 <TD ALIGN="LEFT">number of bytes in real (<EM>or</EM> imaginary) part of single precision complex numbers</TD>
 </TR>
-<TR><TD ALIGN="LEFT">DPC</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:dpc"></A>DPC</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">8</TD>
 <TD ALIGN="LEFT">same as above for double precision complex numbers</TD>
 </TR>
-<TR><TD ALIGN="LEFT">LGT</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:lgt"></A>LGT</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">4</TD>
 <TD ALIGN="LEFT">number of bytes in logical variables</TD>
@@ -143,10 +144,10 @@ numbers covering the range <SPAN CLASS="MATH">10<SUP>-30</SUP></SPAN> to <SPAN C
 </TD></TR>
 <TR ALIGN="LEFT">
 <TD><DL>
-<DD><A NAME="footmp4920"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> actual value may depend on hardware or compiler
+<DD><A NAME="footmp6525"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> actual value may depend on hardware or compiler
 </DD>
 
-<DD><A NAME="footmp4921"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A> may not be supported by
+<DD><A NAME="footmp6530"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A> may not be supported by
   some hardware or compiler; on those systems, the user should set the
 preprocessing variable <TT>NO64BITS</TT> to 1 during compilation to demote
 automatically <TT>I8B</TT> to <TT>I4B</TT>
@@ -163,15 +164,15 @@ largest accessible numbers,
 <TABLE  WIDTH="100%">
 <TR><TD><SPAN CLASS="arabic">2</SPAN><SPAN CLASS="Alph"><IMG
  WIDTH="7" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg64.png"
- ALT="% latex2html id marker 25323
+ SRC="subroutinesimg69.png"
+ ALT="% latex2html id marker 30278
 \setcounter{footnote}{2}\fnsymbol{footnote}"></SPAN>
 
 <TABLE CELLPADDING=3 BORDER="1" WIDTH="100%">
 <TR><TD ALIGN="LEFT">name</TD>
 <TD ALIGN="CENTER">type or kind</TD>
-<TD ALIGN="CENTER">value<A NAME="tex2html17"
-  HREF="#footmp4944"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></TD>
+<TD ALIGN="CENTER">value<A NAME="tex2html18"
+  HREF="#footmp6558"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></TD>
 <TD ALIGN="LEFT">definition</TD>
 </TR>
 <TR><TD ALIGN="LEFT">MAX_I1B</TD>
@@ -191,7 +192,7 @@ largest accessible numbers,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="143" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg65.png"
+ SRC="subroutinesimg70.png"
  ALT="$2^{31}-1 \simeq 2.1\ 10^9$"></SPAN></TD>
 <TD ALIGN="LEFT">same as above for <TT>I4B</TT> integers</TD>
 </TR>
@@ -202,9 +203,9 @@ largest accessible numbers,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="150" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg66.png"
+ SRC="subroutinesimg71.png"
  ALT="$2^{63}-1 \simeq 9.2\ 10^{18}$"></SPAN></TD>
-<TD ALIGN="LEFT">same as above for <TT>I4B</TT> integers</TD>
+<TD ALIGN="LEFT">same as above for <TT>I8B</TT> integers</TD>
 </TR>
 <TR><TD ALIGN="LEFT">MAX_SP</TD>
 <TD ALIGN="CENTER">SP</TD>
@@ -213,7 +214,7 @@ largest accessible numbers,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="97" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg67.png"
+ SRC="subroutinesimg72.png"
  ALT="$\simeq 3.40\ 10^{38}$"></SPAN></TD>
 <TD ALIGN="LEFT">same as above for <TT>SP</TT> floating-point</TD>
 </TR>
@@ -224,7 +225,7 @@ largest accessible numbers,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="104" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg68.png"
+ SRC="subroutinesimg73.png"
  ALT="$\simeq 1.80\ 10^{308}$"></SPAN></TD>
 <TD ALIGN="LEFT">same as above for <TT>DP</TT> floating-point</TD>
 </TR>
@@ -232,7 +233,7 @@ largest accessible numbers,
 </TD></TR>
 <TR ALIGN="LEFT">
 <TD><DL>
-<DD><A NAME="footmp4944"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> actual value may depend on hardware or compiler
+<DD><A NAME="footmp6558"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> actual value may depend on hardware or compiler
 </DD>
 </DL></TD></TR>
 </TABLE>
@@ -244,8 +245,8 @@ mathematical definitions,
 <BR><TABLE  WIDTH="100%">
 <TR><TD><SPAN CLASS="arabic">2</SPAN><SPAN CLASS="Alph"><IMG
  WIDTH="7" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg69.png"
- ALT="% latex2html id marker 25358
+ SRC="subroutinesimg74.png"
+ ALT="% latex2html id marker 30313
 \setcounter{footnote}{2}\fnsymbol{footnote}"></SPAN>
 
 <TABLE CELLPADDING=3 BORDER="1" WIDTH="100%">
@@ -258,7 +259,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg70.png"
+ SRC="subroutinesimg75.png"
  ALT="$\pi/4$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
@@ -266,23 +267,26 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg71.png"
+ SRC="subroutinesimg76.png"
  ALT="$\pi/2$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT">PI</TD>
 <TD ALIGN="CENTER">DP</TD>
-<TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg2.png"
- ALT="$\pi$"></SPAN></TD>
+<TD ALIGN="CENTER"><!-- MATH
+ $\pi \simeq 3.14159\ldots$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="128" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg77.png"
+ ALT="$\pi \simeq 3.14159\ldots$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT">TWOPI</TD>
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg72.png"
+ SRC="subroutinesimg78.png"
  ALT="$2\pi$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
@@ -290,7 +294,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg73.png"
+ SRC="subroutinesimg79.png"
  ALT="$4\pi$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
@@ -298,7 +302,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="30" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg74.png"
+ SRC="subroutinesimg80.png"
  ALT="$\sqrt{2}$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
@@ -309,7 +313,7 @@ mathematical definitions,
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="109" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg75.png"
+ SRC="subroutinesimg81.png"
  ALT="$\gamma \simeq 0.577\ldots$"></SPAN></TD>
 <TD ALIGN="LEFT">Euler constant</TD>
 </TR>
@@ -317,7 +321,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="60" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg76.png"
+ SRC="subroutinesimg82.png"
  ALT="$1/\sqrt{4\pi}$"></SPAN></TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
@@ -330,7 +334,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="53" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg77.png"
+ SRC="subroutinesimg83.png"
  ALT="$\pi/180$"></SPAN></TD>
 <TD ALIGN="LEFT">Degrees to Radians conversion factor</TD>
 </TR>
@@ -338,7 +342,7 @@ mathematical definitions,
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
  WIDTH="53" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg78.png"
+ SRC="subroutinesimg84.png"
  ALT="$180/\pi$"></SPAN></TD>
 <TD ALIGN="LEFT">Radians to Degrees conversion factor</TD>
 </TR>
@@ -353,8 +357,8 @@ and <b>HEALPix</b> specific definitions,
 <BR><TABLE  WIDTH="100%">
 <TR><TD><SPAN CLASS="arabic">2</SPAN><SPAN CLASS="Alph"><IMG
  WIDTH="7" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg79.png"
- ALT="% latex2html id marker 25418
+ SRC="subroutinesimg85.png"
+ ALT="% latex2html id marker 30373
 \setcounter{footnote}{2}\fnsymbol{footnote}"></SPAN>
 
 <TABLE CELLPADDING=3 BORDER="1" WIDTH="100%">
@@ -363,38 +367,38 @@ and <b>HEALPix</b> specific definitions,
 <TD ALIGN="CENTER">value</TD>
 <TD ALIGN="LEFT">definition</TD>
 </TR>
-<TR><TD ALIGN="LEFT">HPX_SBADVAL</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:hpx_sbadval"></A>HPX_SBADVAL</TD>
 <TD ALIGN="CENTER">SP</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $-1.6375\ 10^{30}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="111" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg80.png"
+ SRC="subroutinesimg86.png"
  ALT="$-1.6375\ 10^{30}$"></SPAN></TD>
 <TD ALIGN="LEFT">default sentinel value given to missing
 pixels in single precision data sets</TD>
 </TR>
-<TR><TD ALIGN="LEFT">HPX_DBADVAL</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:hpx_dbadval"></A>HPX_DBADVAL</TD>
 <TD ALIGN="CENTER">DP</TD>
 <TD ALIGN="CENTER"><!-- MATH
  $-1.6375\ 10^{30}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="111" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg80.png"
+ SRC="subroutinesimg86.png"
  ALT="$-1.6375\ 10^{30}$"></SPAN></TD>
 <TD ALIGN="LEFT">same as above for double precision data
 sets</TD>
 </TR>
-<TR><TD ALIGN="LEFT">FILENAMELEN</TD>
+<TR><TD ALIGN="LEFT"><A NAME="sub:healpix_types:filenamelen"></A>FILENAMELEN</TD>
 <TD ALIGN="CENTER">integer</TD>
 <TD ALIGN="CENTER">1024</TD>
 <TD ALIGN="LEFT">default length in character of file names.</TD>
 </TR>
 <TR><TD ALIGN="LEFT">HEALPIX_VERSION</TD>
 <TD ALIGN="CENTER">character</TD>
-<TD ALIGN="CENTER">``3.20''</TD>
+<TD ALIGN="CENTER">``3.30''</TD>
 <TD ALIGN="LEFT">current <b>HEALPix</b> package version.</TD>
 </TR>
 </TABLE>
@@ -427,31 +431,31 @@ to the code
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html753"
+<A NAME="tex2html763"
   HREF="subroutinesnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html759"
+<A NAME="tex2html769"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html763"
+<A NAME="tex2html773"
   HREF="subroutinesnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html761"
+<A NAME="tex2html771"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html754"
+<B> Previous:</B> <A NAME="tex2html764"
   HREF="subroutinesnode40.htm">healpix_modules module</A>
 
-<B>Up:</B> <A NAME="tex2html760"
+<B>Up:</B> <A NAME="tex2html770"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html764"
+<B> Next:</B> <A NAME="tex2html774"
   HREF="subroutinesnode42.htm">in_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

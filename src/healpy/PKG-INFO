@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: healpy
-Version: 1.8.1
+Version: 1.9.0
 Summary: Healpix tools package for Python
 Home-page: http://github.com/healpy
 Author: C. Rosset, A. Zonca

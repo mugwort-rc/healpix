@@ -101,15 +101,17 @@ dx      = resgrid * !DtoR
 zsize = (do_true) ? 3 : 1
 N_uv = xsize*ysize
 indlist = (n_elements(pixel_list) eq n_elements(data[*,0]))
+dtype = size(data,/type) eq 5 ? 5 : 4 ; double (5) or float (4) by default
 
 if (~keyword_set(silent)) then begin
     print,'Input map  :  ',3600.*6./sqrt(!dpi*npix_full),' arcmin / pixel ',form='(a,f8.3,a)'
     print,'AzimEquid map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
 endif
 
-grid = FLTARR(xsize, ysize, zsize)
+;;grid = FLTARR(xsize, ysize, zsize)
 ;; grid = MAKE_ARRAY(/FLOAT,xsize,ysize, Value = bad_data) 
-if do_polvector then planvec = MAKE_ARRAY(/FLOAT,xsize,ysize, 2, Value = bad_data) 
+grid = MAKE_ARRAY(type=dtype, xsize, ysize, zsize)
+if do_polvector then planvec = MAKE_ARRAY(type=dtype,xsize,ysize, 2, Value = bad_data) 
 ; -------------------------------------------------------------
 ; makes the projection around the chosen contact point
 ; -------------------------------------------------------------
@@ -209,10 +211,10 @@ if arg_present(map_out) then map_out = proj2map_out(grid, offmap=plan_off, bad_d
 
 ; grid -> FITS file
 if keyword_set(fits) then begin 
-    message_patch,level=-1,'FITS not supported yet',/info
-;     proj2fits, grid, fits, $
-;                projection = 'CART', flip=flip, $
-;                rot = rot_ang, coord=coord_out, reso = reso_arcmin, unit = sunits, min=mindata, max = maxdata
+;    message_patch,level=-1,'FITS not supported yet',/info
+    proj2fits, grid, fits, $
+               projection = 'AZEQ', flip=flip, $
+               rot = rot_ang, coord=coord_out, reso = resgrid, unit = sunits, min=mindata, max = maxdata
 endif
 
 ; -------------------------------------------------------------

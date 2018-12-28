@@ -49,6 +49,7 @@ PRO gnomview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE = igraticule, $
               JPEG=jpeg, $
+              LATEX=latex, $
               LOG = log, $
               MAP_OUT = map_out, $
               MAX = max_set, $
@@ -60,6 +61,8 @@ PRO gnomview, file_in, select_in, $
               OFFSET = offset, $
               ONLINE = online, $
               OUTLINE = outline, $
+              PDF = pdf, $
+              PFONTS = pfonts, $
               PNG = png, $
               POLARIZATION = polarization, $
               PREVIEW = preview, $
@@ -122,11 +125,11 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HIST_EQUAL=, HXSIZE=, '
     print,'              IGLSIZE=, IGRATICULE=,'
     print,'              JPEG=, '
-    print,'              LOG=, '
+    print,'              LATEX=, LOG=, '
     print,'              MAP_OUT=, MAX=, MIN=, '
-    print,'              NESTED=, NOBAR=, NOLABELS=, NOPOSITION = '
+    print,'              NESTED=, NOBAR=, NOLABELS=, NOPOSITION= '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
-    print,'              PNG=,'
+    print,'              PDF=, PFONTS=, PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
     print,'              RESO_ARCMIN=, RETAIN =, ROT=, '
@@ -173,7 +176,7 @@ data2gnom, $
   MAX=max_set, MIN=min_set, $
   RESO_ARCMIN = reso_arcmin, FITS = fits, FLIP=flip, DATA_plot = data_plot, $
   POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=arg_present(map_out) ? map_out : -1
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, dx, title_display, $
@@ -185,7 +188,9 @@ proj2out, $
   POLARIZATION=polarization, OUTLINE=outline, /GNOM, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
   IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, $
-  CHARTHICK=charthick, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color
+  CHARTHICK=charthick, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color, PDF=pdf, $
+  LATEX=latex, PFONTS=pfonts
+
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

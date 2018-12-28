@@ -41,7 +41,7 @@ Inherited by <a class="el" href="classarr2.html">arr2&lt; Colour8 &gt;</a>, and 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#d7f9e12b32cfc94e8d1db8e9322dc9ac">arr2T</a> (<a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz1, <a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz2)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#56e343d04a3f935edfabcd15ce700bd2">arr2T</a> (<a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz1, <a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz2, const T &amp;inival)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#64f74c4c6a4c37ec19183d41f3e6d3dd">arr2T</a> (T *p, <a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz1, <a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz2)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#4d965666b9a7c01d3a3524de7cf9e6e5">arr2T</a> (const <a class="el" href="classarr2T.html">arr2T</a> &amp;orig)</td></tr>
 
@@ -62,6 +62,8 @@ Inherited by <a class="el" href="classarr2.html">arr2&lt; Colour8 &gt;</a>, and 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#21db86dc27f3bb15dd540d1513cb36bb">dealloc</a> ()</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#e87ff820f44d37aa48c228156744935b">fill</a> (const T &amp;val)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#7bf21f8d13e4369d10cdbdd91fc688ab">scale</a> (const T &amp;val)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classarr2T.html">arr2T</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#677f625bdb58abba5e3f1eb277ba04a7">operator=</a> (const <a class="el" href="classarr2T.html">arr2T</a> &amp;orig)</td></tr>
 
@@ -90,7 +92,7 @@ Inherited by <a class="el" href="classarr2.html">arr2&lt; Colour8 &gt;</a>, and 
  class arr2T&lt; T, storageManager &gt;</h3>
 
 Two-dimensional array type, with selectable storage management. The storage ordering is the same as in C. An entry is located by address arithmetic, not by double dereferencing. The indices start at zero. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00348">348</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00347">347</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="6e339de8b36bb847bb979685b9ca52d1"></a><!-- doxytag: member="arr2T::arr2T" ref="6e339de8b36bb847bb979685b9ca52d1" args="()" -->
 <div class="memitem">
@@ -111,7 +113,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates a zero-sized array. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00356">356</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00355">355</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -144,11 +146,11 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates an array with the dimensions <em>sz1</em> and <em>sz2</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00358">358</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00357">357</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="56e343d04a3f935edfabcd15ce700bd2"></a><!-- doxytag: member="arr2T::arr2T" ref="56e343d04a3f935edfabcd15ce700bd2" args="(tsize sz1, tsize sz2, const T &amp;inival)" -->
+<a class="anchor" name="64f74c4c6a4c37ec19183d41f3e6d3dd"></a><!-- doxytag: member="arr2T::arr2T" ref="64f74c4c6a4c37ec19183d41f3e6d3dd" args="(T *p, tsize sz1, tsize sz2)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -157,6 +159,12 @@ template&lt;typename T, typename storageManager&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classarr2T.html">arr2T</a>&lt; T, storageManager &gt;::<a class="el" href="classarr2T.html">arr2T</a>           </td>
           <td>(</td>
+          <td class="paramtype">T *&nbsp;</td>
+          <td class="paramname"> <em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a>&nbsp;</td>
           <td class="paramname"> <em>sz1</em>, </td>
         </tr>
@@ -164,13 +172,7 @@ template&lt;typename T, typename storageManager&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a>&nbsp;</td>
-          <td class="paramname"> <em>sz2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&nbsp;</td>
-          <td class="paramname"> <em>inival</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>sz2</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -182,8 +184,9 @@ template&lt;typename T, typename storageManager&gt; </div>
 <div class="memdoc">
 
 <p>
-Creates an array with the dimensions <em>sz1</em> and <em>sz2</em> and initializes them with <em>inival</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00362">362</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+Creates an array with the dimensions <em>sz1</em> and <em>sz2</em> and initializes them with <em>inival</em>.<p>
+Creates an array with the dimensions <em>sz1</em> and <em>sz2</em> from existing pointer. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00363">363</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -207,7 +210,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates the array as a copy of <em>orig</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00366">366</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00369">369</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -230,7 +233,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Frees the memory associated with the array. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00369">369</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00372">372</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -254,7 +257,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Returns the first array dimension. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00372">372</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00375">375</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -277,7 +280,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Returns the second array dimension. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00374">374</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00377">377</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -300,7 +303,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Returns the total array size, i.e. the product of both dimensions. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00376">376</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00379">379</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -333,7 +336,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Allocates space for an array with <em>sz1*sz2</em> elements. The content of the array is undefined on exit. <em>sz1</em> or <em>sz2</em> can be 0. If <em>sz1*sz2</em> is the same as the currently allocated space, no reallocation is performed. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00382">382</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00385">385</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -372,7 +375,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Allocates space for an array with <em>sz1*sz2</em> elements. All elements are set to <em>inival</em>. <em>sz1</em> or <em>sz2</em> can be 0. If <em>sz1*sz2</em> is the same as the currently allocated space, no reallocation is performed. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00392">392</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00395">395</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -405,7 +408,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Allocates space for an array with <em>sz1*sz2</em> elements. The content of the array is undefined on exit. <em>sz1</em> or <em>sz2</em> can be 0. If <em>sz1*sz2</em> is smaller than the currently allocated space, no reallocation is performed. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00398">398</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00401">401</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -428,7 +431,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Deallocates the space and makes the array zero-sized. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00406">406</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00409">409</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -452,7 +455,31 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Sets all array elements to <em>val</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00409">409</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00412">412</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="7bf21f8d13e4369d10cdbdd91fc688ab"></a><!-- doxytag: member="arr2T::scale" ref="7bf21f8d13e4369d10cdbdd91fc688ab" args="(const T &amp;val)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename storageManager&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classarr2T.html">arr2T</a>&lt; T, storageManager &gt;::scale           </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&nbsp;</td>
+          <td class="paramname"> <em>val</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Multiplies all array elements by <em>val</em>. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00416">416</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -476,7 +503,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Changes the array to be a copy of <em>orig</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00413">413</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00420">420</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -502,7 +529,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Returns a pointer to the beginning of slice <em>n</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00422">422</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00429">429</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -528,7 +555,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Returns a constant pointer to the beginning of slice <em>n</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00424">424</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00431">431</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -563,7 +590,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns a reference to the element with the indices <em>n1</em> and <em>n2</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00427">427</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00434">434</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -598,7 +625,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns a constant reference to the element with the indices <em>n1</em> and <em>n2</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00431">431</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00438">438</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -631,7 +658,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Returns the minimum and maximum entry in <em>minv</em> and <em>maxv</em>, respectively. Throws an exception if the array is zero-sized. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00436">436</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00443">443</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -655,7 +682,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Swaps contents and sizes with <em>other</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00449">449</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00456">456</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -681,7 +708,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns <code>true</code> if the array and <em>other</em> have the same dimensions, else <code>false</code>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00459">459</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00466">466</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -689,7 +716,7 @@ Returns <code>true</code> if the array and <em>other</em> have the same dimensio
 <li><a class="el" href="arr_8h-source.html">arr.h</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

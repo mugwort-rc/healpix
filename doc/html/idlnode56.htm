@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html870"
+<A NAME="tex2html897"
   HREF="idlnode55.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html876"
+<A NAME="tex2html903"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html880"
+<A NAME="tex2html907"
   HREF="idlnode57.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html878"
+<A NAME="tex2html905"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html871"
+<B> Previous:</B> <A NAME="tex2html898"
   HREF="idlnode55.htm">query_polygon</A>
 
-<B>Up:</B> <A NAME="tex2html877"
+<B>Up:</B> <A NAME="tex2html904"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html881"
+<B> Next:</B> <A NAME="tex2html908"
   HREF="idlnode57.htm">query_triangle</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -62,27 +63,27 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This IDL facility provides a means to find the index of all pixels belonging to
 a latitude strip defined by its bounds
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/query_strip.pro"><b>src/idl/toolkit/query_strip.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/toolkit/query_strip.pro"><b>src/idl/toolkit/query_strip.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=]
+query_strip , <A HREF="#idl:query_strip:Nside">Nside</A>, <A HREF="#idl:query_strip:Theta1">Theta1</A>, <A HREF="#idl:query_strip:Theta2">Theta2</A>, <A HREF="#idl:query_strip:Listpix">Listpix</A>, [<A HREF="#idl:query_strip:Nlist">Nlist</A>, <A HREF="#idl:query_strip:NESTED">NESTED=</A>, <A HREF="#idl:query_strip:INCLUSIVE">INCLUSIVE=</A>, <A HREF="#idl:query_strip:HELP">HELP=</A>]
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Nside</B>
+<B>Nside<A NAME="idl:query_strip:Nside"></A></B>
 <DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
     <DT>
-<B>Theta1</B>
+<B>Theta1<A NAME="idl:query_strip:Theta1"></A></B>
 <DD>colatitude lower bound in radians measured from North Pole
                    (between 0 and <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg12.png"
  ALT="$\pi$"></SPAN>).
     <DT>
-<B>Theta2</B>
+<B>Theta2<A NAME="idl:query_strip:Theta2"></A></B>
 <DD>colatitude upper bound in radians measured from North Pole (between 0 and <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg12.png"
@@ -94,12 +95,12 @@ query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=
  SRC="idlimg12.png"
  ALT="$\pi$"></SPAN>] are output.
 <BR>    <DT>
-<B>Listpix</B>
+<B>Listpix<A NAME="idl:query_strip:Listpix"></A></B>
 <DD>on output: list of ordered index for the pixels found 
     in the strip. The RING numbering scheme is used unless the keyword <TT>NESTED</TT> is set.
      (=-1 if the strip is too small and no pixel is found)
     <DT>
-<B>Nlist</B>
+<B>Nlist<A NAME="idl:query_strip:Nlist"></A></B>
 <DD>on output: number of pixels in Listpix (=0 if no pixel is found).
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -107,16 +108,16 @@ query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>NESTED =</B>
+<B>NESTED<A NAME="idl:query_strip:NESTED"></A>=</B>
 <DD>if set, the output list uses the NESTED numbering scheme
     instead of the default RING
     <DT>
-<B>INCLUSIVE = </B>
+<B>INCLUSIVE<A NAME="idl:query_strip:INCLUSIVE"></A>= </B>
 <DD>if set, all the pixels overlapping (even partially)
                    with the strip are listed, otherwise only those whose
                    center lies within the strip are listed
     <DT>
-<B>/HELP </B>
+<B>/HELP<A NAME="idl:query_strip:HELP"></A></B>
 <DD>if set, the routine prints its documentation header and exits.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
@@ -157,10 +158,10 @@ inclusiveness of the strip can be changed
 Returns the NESTED pixel index of all pixels with colatitude in
 [0,<SPAN CLASS="MATH"><IMG
  WIDTH="35" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg86.png"
+ SRC="idlimg89.png"
  ALT="$\pi/5$"></SPAN>] and those with colatitude in [<SPAN CLASS="MATH"><IMG
  WIDTH="44" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg87.png"
+ SRC="idlimg90.png"
  ALT="$3\pi/4$"></SPAN>,<SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg12.png"
@@ -175,31 +176,31 @@ Returns the NESTED pixel index of all pixels with colatitude in
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html870"
+<A NAME="tex2html897"
   HREF="idlnode55.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html876"
+<A NAME="tex2html903"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html880"
+<A NAME="tex2html907"
   HREF="idlnode57.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html878"
+<A NAME="tex2html905"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html871"
+<B> Previous:</B> <A NAME="tex2html898"
   HREF="idlnode55.htm">query_polygon</A>
 
-<B>Up:</B> <A NAME="tex2html877"
+<B>Up:</B> <A NAME="tex2html904"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html881"
+<B> Next:</B> <A NAME="tex2html908"
   HREF="idlnode57.htm">query_triangle</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

@@ -36,7 +36,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#b7615f671f9eab16443abcf43ccb43f8">reserve</a> (<a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> n)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#87b9b93d2215bdaf9485181749772bfa">size</a> () const </td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a> () const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">const rtype &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#0f47e2110ee9819ddc13c57d9605c507">data</a> () const </td></tr>
 
@@ -66,27 +66,29 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#22484a5519389ac936f65239c0ab13a5">toVector</a> (std::vector&lt; T &gt; &amp;res) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#ebb44954be602f17925bde34871c0772">unite</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::vector&lt; T &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#22768a45ecf7a6e00ab44c08e361a889">toVector</a> () const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#8aea382d08fd662418694ae8f0e7f7dd">intersect</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classrangeset.html">rangeset</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#59b79bebb8c3cfc9d1d390f6af7bf3a8">op_or</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#22993571fa3ced5a693e02455ee1a3e6">subtract</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classrangeset.html">rangeset</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#5190782d152d76742d723e325e6c8131">op_and</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#64d05b47ed0e2eed011d0a5fbc8dd2a3">setToUnion</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;a, const <a class="el" href="classrangeset.html">rangeset</a> &amp;b)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classrangeset.html">rangeset</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#720c68f0ca308aa7396785877dccdfbb">op_andnot</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#62837414eb703b9520fcc3a810ce16c4">setToIntersection</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;a, const <a class="el" href="classrangeset.html">rangeset</a> &amp;b)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#2790b5a371a0876ef96ac69f0a4d464c">setToDifference</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;a, const <a class="el" href="classrangeset.html">rangeset</a> &amp;b)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classrangeset.html">rangeset</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#6f2d347775bba93aa30785fbd52a15b1">op_xor</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="datatypes_8h.html#6b0151345db6d0124c80ce3f7b4fb10f">tdiff</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#620df787a3a46e6933a0afab418f20d1">findInterval</a> (const T &amp;v) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#0cfff4736054081276701c1f9ecab79d">equals</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#9df875fc13198d2a86ece55687166fce">operator==</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#2ecaef517db8b6427f2ec794e5dfa510">containsAll</a> (T a, T b) const </td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#75fabddced2be73eb6fe8afed1da8740">contains</a> (T a, T b) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#ff8d62a64b47efef67f2510c7bac81c4">contains</a> (T v) const </td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#5deb520cdcc7a1a6a2bf53e162b48fad">contains</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#f9025bdf7dfd8a01f131d9afedfcf736">overlaps</a> (T a, T b) const </td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrangeset.html#079322becb56841140fe7ebc79673f95">overlaps</a> (const <a class="el" href="classrangeset.html">rangeset</a> &amp;other) const </td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -115,7 +117,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Removes all <a class="el" href="classrangeset.html">rangeset</a> entries. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00104">104</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00222">222</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -139,18 +141,18 @@ template&lt;typename T&gt; </div>
 
 <p>
 Reserves space for <em>n</em> ranges. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00106">106</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00224">224</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="87b9b93d2215bdaf9485181749772bfa"></a><!-- doxytag: member="rangeset::size" ref="87b9b93d2215bdaf9485181749772bfa" args="() const " -->
+<a class="anchor" name="4936cdeaa357994e652df2e8f8a30998"></a><!-- doxytag: member="rangeset::nranges" ref="4936cdeaa357994e652df2e8f8a30998" args="() const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::size           </td>
+          <td class="memname"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::nranges           </td>
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
@@ -162,7 +164,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the current number of ranges. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00108">108</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00226">226</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -185,7 +187,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the current vector of ranges. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00110">110</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00230">230</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -209,7 +211,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the first value of range <em>i</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00113">113</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00244">244</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -233,7 +235,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the one-past-last value of range <em>i</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00115">115</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00246">246</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -257,7 +259,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the length of range <em>i</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00117">117</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00248">248</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -290,7 +292,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Appends <em></em>[v1;v2[ to the <a class="el" href="classrangeset.html">rangeset</a>. <em>v1</em> must be larger than the minimum of the last range in the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00121">121</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00252">252</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -314,7 +316,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Appends <em></em>[v;v+1[ to the <a class="el" href="classrangeset.html">rangeset</a>. <em>v</em> must be larger than the minimum of the last range in the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00134">134</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00265">265</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -338,7 +340,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Appends <em>other</em> to the <a class="el" href="classrangeset.html">rangeset</a>. All values in <em>other</em> must be larger than the minimum of the last range in the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00139">139</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00270">270</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -371,7 +373,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of itself with <em></em>[v1;v2[. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00147">147</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00278">278</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -395,7 +397,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of itself with <em></em>[v;v+1[. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00150">150</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00286">286</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -428,7 +430,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Removes all values within <em></em>[v1;v2[ from the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00153">153</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00289">289</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -452,7 +454,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Removes the value <em>v</em> from the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00155">155</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00298">298</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -484,8 +486,8 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>
-Removes all values not within <em></em>[v1;v2[ from the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00158">158</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+Removes all values not within <em></em>[a;b[ from the <a class="el" href="classrangeset.html">rangeset</a>. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00301">301</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -508,7 +510,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the total number of elements in the <a class="el" href="classrangeset.html">rangeset</a>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00177">177</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00321">321</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -531,179 +533,127 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>
-After this opration, <em>res</em> contains all elements of the <a class="el" href="classrangeset.html">rangeset</a> in ascending order. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00187">187</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+After this operation, <em>res</em> contains all elements of the <a class="el" href="classrangeset.html">rangeset</a> in ascending order. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00331">331</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="ebb44954be602f17925bde34871c0772"></a><!-- doxytag: member="rangeset::unite" ref="ebb44954be602f17925bde34871c0772" args="(const rangeset &amp;other)" -->
+<a class="anchor" name="22768a45ecf7a6e00ab44c08e361a889"></a><!-- doxytag: member="rangeset::toVector" ref="22768a45ecf7a6e00ab44c08e361a889" args="() const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::unite           </td>
+          <td class="memname">std::vector&lt;T&gt; <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::toVector           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Returns a vector containing all elements of the <a class="el" href="classrangeset.html">rangeset</a> in ascending order. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00342">342</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="59b79bebb8c3cfc9d1d390f6af7bf3a8"></a><!-- doxytag: member="rangeset::op_or" ref="59b79bebb8c3cfc9d1d390f6af7bf3a8" args="(const rangeset &amp;other) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrangeset.html">rangeset</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::op_or           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
           <td class="paramname"> <em>other</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of itself and <em>other</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00198">198</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+Returns the union of this <a class="el" href="classrangeset.html">rangeset</a> and <em>other</em>. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00350">350</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="8aea382d08fd662418694ae8f0e7f7dd"></a><!-- doxytag: member="rangeset::intersect" ref="8aea382d08fd662418694ae8f0e7f7dd" args="(const rangeset &amp;other)" -->
+<a class="anchor" name="5190782d152d76742d723e325e6c8131"></a><!-- doxytag: member="rangeset::op_and" ref="5190782d152d76742d723e325e6c8131" args="(const rangeset &amp;other) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::intersect           </td>
+          <td class="memname"><a class="el" href="classrangeset.html">rangeset</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::op_and           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
           <td class="paramname"> <em>other</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the intersection of itself and <em>other</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00206">206</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+Returns the intersection of this <a class="el" href="classrangeset.html">rangeset</a> and <em>other</em>. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00357">357</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="22993571fa3ced5a693e02455ee1a3e6"></a><!-- doxytag: member="rangeset::subtract" ref="22993571fa3ced5a693e02455ee1a3e6" args="(const rangeset &amp;other)" -->
+<a class="anchor" name="720c68f0ca308aa7396785877dccdfbb"></a><!-- doxytag: member="rangeset::op_andnot" ref="720c68f0ca308aa7396785877dccdfbb" args="(const rangeset &amp;other) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::subtract           </td>
+          <td class="memname"><a class="el" href="classrangeset.html">rangeset</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::op_andnot           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
           <td class="paramname"> <em>other</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of itself with the inverse of <em>other</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00214">214</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+Returns the part of this <a class="el" href="classrangeset.html">rangeset</a> which is not in <em>other</em>. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00364">364</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="64d05b47ed0e2eed011d0a5fbc8dd2a3"></a><!-- doxytag: member="rangeset::setToUnion" ref="64d05b47ed0e2eed011d0a5fbc8dd2a3" args="(const rangeset &amp;a, const rangeset &amp;b)" -->
+<a class="anchor" name="6f2d347775bba93aa30785fbd52a15b1"></a><!-- doxytag: member="rangeset::op_xor" ref="6f2d347775bba93aa30785fbd52a15b1" args="(const rangeset &amp;other) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::setToUnion           </td>
+          <td class="memname"><a class="el" href="classrangeset.html">rangeset</a> <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::op_xor           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
+          <td class="paramname"> <em>other</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of <em>a</em> and <em>b</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00222">222</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="62837414eb703b9520fcc3a810ce16c4"></a><!-- doxytag: member="rangeset::setToIntersection" ref="62837414eb703b9520fcc3a810ce16c4" args="(const rangeset &amp;a, const rangeset &amp;b)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::setToIntersection           </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the intersection of <em>a</em> and <em>b</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00226">226</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="2790b5a371a0876ef96ac69f0a4d464c"></a><!-- doxytag: member="rangeset::setToDifference" ref="2790b5a371a0876ef96ac69f0a4d464c" args="(const rangeset &amp;a, const rangeset &amp;b)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::setToDifference           </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-After this operation, the <a class="el" href="classrangeset.html">rangeset</a> contains the union of <em>a</em> with the inverse of <em>b</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00230">230</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+Returns the parts of this <a class="el" href="classrangeset.html">rangeset</a> and <em>other</em>, which are not in both rangesets. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00372">372</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -727,18 +677,18 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the index of the interval containing <em>v</em>; if no such interval exists, -1 is returned. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00235">235</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00381">381</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="0cfff4736054081276701c1f9ecab79d"></a><!-- doxytag: member="rangeset::equals" ref="0cfff4736054081276701c1f9ecab79d" args="(const rangeset &amp;other) const " -->
+<a class="anchor" name="9df875fc13198d2a86ece55687166fce"></a><!-- doxytag: member="rangeset::operator==" ref="9df875fc13198d2a86ece55687166fce" args="(const rangeset &amp;other) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::equals           </td>
+          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::operator==           </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
           <td class="paramname"> <em>other</em>          </td>
@@ -751,18 +701,18 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns <em>true</em> if the <a class="el" href="classrangeset.html">rangeset</a> is identical to <em>other</em>, else <em>false</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00243">243</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00389">389</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="2ecaef517db8b6427f2ec794e5dfa510"></a><!-- doxytag: member="rangeset::containsAll" ref="2ecaef517db8b6427f2ec794e5dfa510" args="(T a, T b) const " -->
+<a class="anchor" name="75fabddced2be73eb6fe8afed1da8740"></a><!-- doxytag: member="rangeset::contains" ref="75fabddced2be73eb6fe8afed1da8740" args="(T a, T b) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::containsAll           </td>
+          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::contains           </td>
           <td>(</td>
           <td class="paramtype">T&nbsp;</td>
           <td class="paramname"> <em>a</em>, </td>
@@ -784,7 +734,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns <em>true</em> if the <a class="el" href="classrangeset.html">rangeset</a> contains all values in the range <em></em>[a;b[, else <em>false</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00248">248</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00394">394</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -808,7 +758,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns <em>true</em> if the <a class="el" href="classrangeset.html">rangeset</a> contains the value <em>v</em>, else <em>false</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00256">256</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00402">402</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -832,7 +782,64 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns <em>true</em> if the <a class="el" href="classrangeset.html">rangeset</a> contains all values stored in <em>other</em>, else <em>false</em>. 
-<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00260">260</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00406">406</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f9025bdf7dfd8a01f131d9afedfcf736"></a><!-- doxytag: member="rangeset::overlaps" ref="f9025bdf7dfd8a01f131d9afedfcf736" args="(T a, T b) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::overlaps           </td>
+          <td>(</td>
+          <td class="paramtype">T&nbsp;</td>
+          <td class="paramname"> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Returns true if any of the numbers [a;b[ are contained in the set, else false. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00410">410</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="079322becb56841140fe7ebc79673f95"></a><!-- doxytag: member="rangeset::overlaps" ref="079322becb56841140fe7ebc79673f95" args="(const rangeset &amp;other) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt;::overlaps           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrangeset.html">rangeset</a>&lt; T &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>other</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Returns true if there is overlap between the set and "other", else false. 
+<p>Definition at line <a class="el" href="rangeset_8h-source.html#l00419">419</a> of file <a class="el" href="rangeset_8h-source.html">rangeset.h</a>.</p>
 
 </div>
 </div><p>
@@ -840,7 +847,7 @@ Returns <em>true</em> if the <a class="el" href="classrangeset.html">rangeset</a
 <li><a class="el" href="rangeset_8h-source.html">rangeset.h</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

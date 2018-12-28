@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
@@ -24,7 +24,10 @@ import java.util.Random;
 
 import healpix.essentials.*;
 
-/** @author Martin Reinecke */
+/** Tests for the Fxyf class
+
+    @copyright 2015 Max-Planck-Society
+    @author Martin Reinecke */
 public class FxyfTest extends TestCase {
 
   public void testFxyf() throws Exception

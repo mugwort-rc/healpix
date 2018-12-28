@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html729"
+<A NAME="tex2html739"
   HREF="subroutinesnode38.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html745"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html739"
+<A NAME="tex2html749"
   HREF="subroutinesnode40.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html737"
+<A NAME="tex2html747"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html730"
+<B> Previous:</B> <A NAME="tex2html740"
   HREF="subroutinesnode38.htm">getnumext_fits</A>
 
-<B>Up:</B> <A NAME="tex2html736"
+<B>Up:</B> <A NAME="tex2html746"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html740"
+<B> Next:</B> <A NAME="tex2html750"
   HREF="subroutinesnode40.htm">healpix_modules module</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,12 +62,12 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">getsize_fits</FONT></font></b><hr>
 <H3>This routine reads the number of maps and/or the pixel ordering of a FITS file containing a <b>HEALPix</b> map.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><h3>var=<FONT COLOR="#CC0000">getsize_fits</FONT>(
-filename <i><font color="#224422">[, nmaps, ordering, obs_npix, nside, mlpol, type, polarisation,
-    fwhm_arcmin, beam_leg, coordsys, polcconv, extno]</font></i>
+<A HREF="#sub:getsize_fits:filename">filename</A><i><font color="#224422">[, <A HREF="#sub:getsize_fits:nmaps">nmaps</A>, <A HREF="#sub:getsize_fits:ordering">ordering</A>, <A HREF="#sub:getsize_fits:obs_npix">obs_npix</A>, <A HREF="#sub:getsize_fits:nside">nside</A>, <A HREF="#sub:getsize_fits:mlpol">mlpol</A>, <A HREF="#sub:getsize_fits:type">type</A>, <A HREF="#sub:getsize_fits:polarisation">polarisation</A>,
+    <A HREF="#sub:getsize_fits:fwhm_arcmin">fwhm_arcmin</A>, <A HREF="#sub:getsize_fits:beam_leg">beam_leg</A>, <A HREF="#sub:getsize_fits:coordsys">coordsys</A>, <A HREF="#sub:getsize_fits:polcconv">polcconv</A>, <A HREF="#sub:getsize_fits:extno">extno</A>]</font></i>
 )</h3>
 Arguments appearing in <i><font color="#224422">italic</font></i> are
 optional.
@@ -92,7 +93,7 @@ var</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels or time samples in the chosen extension of
                    the FITS file</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>filename(LEN=*)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>filename<A NAME="sub:getsize_fits:filename"></A>(LEN=*)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>filename of the FITS-file containing <b>HEALPix</b> map(s).</TD>
@@ -110,34 +111,34 @@ var</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>
-<i><font color="#224422">nmaps</font></i> (OPTIONAL)</TD>
+<i><font color="#224422">nmaps<A NAME="sub:getsize_fits:nmaps"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of maps in the extension.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">ordering</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">ordering<A NAME="sub:getsize_fits:ordering"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel ordering, 0=unknown, 1=RING, 2=NESTED</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">obs_npix</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">obs_npix<A NAME="sub:getsize_fits:obs_npix"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of non blanck pixels. It is set to -1 if it can not be determined from header
 information alone</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">nside</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">nside<A NAME="sub:getsize_fits:nside"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Healpix resolution parameter Nside. Returns a negative value if not found.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">mlpol</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">mlpol<A NAME="sub:getsize_fits:mlpol"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maximum multipole used to generate the map
                    (for simulated map). Returns a negative value if not found.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">type</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">type<A NAME="sub:getsize_fits:type"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Healpix/FITS file type
@@ -151,11 +152,11 @@ information alone</TD>
 3  : binary table : with explicit pixel indexing (generally cut sky)
                    (var <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg62.png"
+ SRC="subroutinesimg67.png"
  ALT="$\le$"></SPAN> 12 * nside * nside) <BR>
 999  : unable to determine the type</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">polarisation</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">polarisation<A NAME="sub:getsize_fits:polarisation"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>presence of polarisation data in the file
@@ -165,21 +166,21 @@ information alone</TD>
 <BR>
 1 : contains polarisation (Q,U or G,C)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">fwhm_arcmin</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">fwhm_arcmin<A NAME="sub:getsize_fits:fwhm_arcmin"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>returns the beam FWHM read from FITS header, 
                             translated from Deg (hopefully) to arcmin.
                          Returns a negative value if not found.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">beam_leg</font></i>(LEN=*) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">beam_leg<A NAME="sub:getsize_fits:beam_leg"></A></font></i>(LEN=*) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>filename of beam or
              filtering window function applied to data
 	     (FITS keyword BEAM_LEG). Returns a empty string if not found.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">coordsys</font></i>(LEN=20) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">coordsys<A NAME="sub:getsize_fits:coordsys"></A></font></i>(LEN=20) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>string describing the pixelation
@@ -187,13 +188,13 @@ information alone</TD>
 		'G' = Galactic, 'E' = ecliptic, 'C' = celestial = equatorial. 
 		Returns a empty string if not found.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">polcconv</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">polcconv<A NAME="sub:getsize_fits:polcconv"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>polarisation coordinate convention (see
              Healpix primer for details) 0=unknown, 1=COSMO, 2=IAU</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">extno</font></i> (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140><i><font color="#224422">extno<A NAME="sub:getsize_fits:extno"></A></font></i> (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>extension number (0 based) for which information
@@ -245,31 +246,31 @@ temperature or both temperature and polarisation maps. The pixel ordering number
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html729"
+<A NAME="tex2html739"
   HREF="subroutinesnode38.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html745"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html739"
+<A NAME="tex2html749"
   HREF="subroutinesnode40.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html737"
+<A NAME="tex2html747"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html730"
+<B> Previous:</B> <A NAME="tex2html740"
   HREF="subroutinesnode38.htm">getnumext_fits</A>
 
-<B>Up:</B> <A NAME="tex2html736"
+<B>Up:</B> <A NAME="tex2html746"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html740"
+<B> Next:</B> <A NAME="tex2html750"
   HREF="subroutinesnode40.htm">healpix_modules module</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

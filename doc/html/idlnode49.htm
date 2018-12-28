@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html786"
+<A NAME="tex2html813"
   HREF="idlnode48.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html792"
+<A NAME="tex2html819"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html796"
+<A NAME="tex2html823"
   HREF="idlnode50.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html794"
+<A NAME="tex2html821"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html787"
+<B> Previous:</B> <A NAME="tex2html814"
   HREF="idlnode48.htm">nside2npix</A>
 
-<B>Up:</B> <A NAME="tex2html793"
+<B>Up:</B> <A NAME="tex2html820"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html797"
+<B> Next:</B> <A NAME="tex2html824"
   HREF="idlnode50.htm">orthcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,27 +64,27 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 to resolution parameter Nside. Each template pixel has a different shape that
 <EM>can not</EM> be matched (by rotation or reflexion) to that of any of the other templates.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/idl/toolkit/nside2ntemplates.pro"><b>src/idl/toolkit/nside2ntemplates.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/toolkit/nside2ntemplates.pro"><b>src/idl/toolkit/nside2ntemplates.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
+<A HREF="#idl:nside2ntemplates:Ntemplates">Ntemplates=</A>NSIDE2NTEMPLATES (<A HREF="#idl:nside2ntemplates:Nside">Nside</A>[,<A HREF="#idl:nside2ntemplates:ERROR">ERROR=</A>])
 </h3>
 <P>
 <hr>
 <H1>QUALIFIERS</H1>
  
   </SMALL><DL COMPACT><DT>
-<B>Nside</B>
+<B>Nside<A NAME="idl:nside2ntemplates:Nside"></A></B>
 <DD><b>HEALPix</b> resolution parameter (scalar integer),
          should be a valid Nside (power of 2 in <!-- MATH
  $\{1,\ldots,8192\}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg80.png"
+ SRC="idlimg83.png"
  ALT="$\{1,\ldots,8192\}$"></SPAN>)
     <DT>
-<B>Ntemplates</B>
+<B>Ntemplates<A NAME="idl:nside2ntemplates:Ntemplates"></A></B>
 <DD>number of templates
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -91,7 +92,7 @@ Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
 <hr><H1>KEYWORDS</H1>
 
   </SMALL><DL COMPACT><DT>
-<B>ERROR =</B>
+<B>ERROR<A NAME="idl:nside2ntemplates:ERROR"></A>=</B>
 <DD>error flag, set to 1 on output if Nside is NOT valid, or
     stays to 0 otherwise.
   </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -107,23 +108,20 @@ nside2ntemplates outputs the number of template pixels
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <!-- MATH
  \begin{displaymath}
-{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.
+N_{\rm template}=\frac{1+N_{\rm side}(N_{\rm side}+6)}{4}.
 \end{displaymath}
  -->
 
 <IMG
  WIDTH="256" HEIGHT="47" BORDER="0"
- SRC="idlimg81.png"
- ALT="\begin{displaymath}{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.\end{displaymath}">
+ SRC="idlimg84.png"
+ ALT="\begin{displaymath}N_{\rm template}=\frac{1+N_{\rm side}(N_{\rm side}+6)}{4}.\end{displaymath}">
 </DIV>
 <BR CLEAR="ALL">
-<P></P><SMALL CLASS="FOOTNOTESIZE"> If the argument <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
+<P></P><SMALL CLASS="FOOTNOTESIZE"> If the argument <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN> is not
+ ALT="$N_{\rm side}$"></SPAN> is not
   valid, a  warning is issued and the error flag is raised.
 </blockquote>
 <P>
@@ -164,31 +162,31 @@ resolution parameter 256 and error will be 0</blockquote><SMALL CLASS="FOOTNOTES
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html786"
+<A NAME="tex2html813"
   HREF="idlnode48.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html792"
+<A NAME="tex2html819"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html796"
+<A NAME="tex2html823"
   HREF="idlnode50.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html794"
+<A NAME="tex2html821"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html787"
+<B> Previous:</B> <A NAME="tex2html814"
   HREF="idlnode48.htm">nside2npix</A>
 
-<B>Up:</B> <A NAME="tex2html793"
+<B>Up:</B> <A NAME="tex2html820"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html797"
+<B> Next:</B> <A NAME="tex2html824"
   HREF="idlnode50.htm">orthcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

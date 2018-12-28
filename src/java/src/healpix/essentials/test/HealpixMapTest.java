@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
@@ -25,7 +25,10 @@ import java.text.DecimalFormat;
 
 import healpix.essentials.*;
 
-/** @author Martin Reinecke */
+/** Tests for the HealpixMap class
+
+    @copyright 2014 Max-Planck-Society
+    @author Martin Reinecke */
 public class HealpixMapTest extends TestCase {
 
   public void test_swapScheme()throws Exception

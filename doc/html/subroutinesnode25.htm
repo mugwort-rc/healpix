@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html561"
+<A NAME="tex2html571"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html567"
+<A NAME="tex2html577"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html581"
   HREF="subroutinesnode26.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html579"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html562"
+<B> Previous:</B> <A NAME="tex2html572"
   HREF="subroutinesnode24.htm">create_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html568"
+<B>Up:</B> <A NAME="tex2html578"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html572"
+<B> Next:</B> <A NAME="tex2html582"
   HREF="subroutinesnode26.htm">dist2holes_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,11 +62,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">del_card</FONT></font></b><hr>
 <H3>This routine removes one or several keywords from a FITS header.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">del_card</FONT>(
-header, kwds
+<A HREF="#sub:del_card:header">header</A>, <A HREF="#sub:del_card:kwds">kwds</A>
 )</h3></blockquote>
 
 <P>
@@ -83,20 +84,20 @@ header, kwds
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-header(LEN=80)(1:nlheader)</TD>
+header<A NAME="sub:del_card:header"></A>(LEN=80)(1:nlheader)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The header to remove the keyword(s)
                    from. The routines finds out the header size.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwds(LEN=20)(1:nkws)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwds<A NAME="sub:del_card:kwds"></A>(LEN=20)(1:nkws)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>list of FITS keywords to
                    remove. The routine accepts either a vector a keywords or a
                    single one in a scalar variable</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwds(LEN=20)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwds<A NAME="sub:del_card:kwds"></A>(LEN=20)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the one FITS keyword to
@@ -141,7 +142,7 @@ Removes the keyword 'ORDERING' from Header
 <B><A HREF="subroutinesnode33.htm#sub:get_card">get_card</A></B>
 <DD>general purpose routine to read any keywords from a header in a FITS file.
   <DT>
-<B><A HREF="subroutinesnode86.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode67.htm#sub:number_of_alms">number_of_alms</A></B>
+<B><A HREF="subroutinesnode87.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode68.htm#sub:number_of_alms">number_of_alms</A></B>
 <DD>routines to read specific keywords from a
   header in a FITS file.
   <DT>
@@ -160,31 +161,31 @@ Removes the keyword 'ORDERING' from Header
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html561"
+<A NAME="tex2html571"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html567"
+<A NAME="tex2html577"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html581"
   HREF="subroutinesnode26.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html579"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html562"
+<B> Previous:</B> <A NAME="tex2html572"
   HREF="subroutinesnode24.htm">create_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html568"
+<B>Up:</B> <A NAME="tex2html578"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html572"
+<B> Next:</B> <A NAME="tex2html582"
   HREF="subroutinesnode26.htm">dist2holes_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

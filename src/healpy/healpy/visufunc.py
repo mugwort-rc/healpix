@@ -158,7 +158,7 @@ def mollview(map=None,fig=None,rot=None,coord=None,unit='',
             raise ValueError('Wrong values for sub: %d, %d, %d'%(nrows,
                                                                  ncols,
                                                                  idx))
-        c,r = (idx-1)%ncols,(idx-1)/ncols
+        c,r = (idx-1)%ncols,(idx-1)//ncols
         if not margins:
             margins = (0.01,0.0,0.0,0.02)
         extent = (c*1./ncols+margins[0], 
@@ -208,6 +208,7 @@ def mollview(map=None,fig=None,rot=None,coord=None,unit='',
                               shrink=0.5,aspect=25,ticks=PA.BoundaryLocator(),
                               pad=0.05,fraction=0.1,boundaries=b,values=v,
                               format=format)
+            cb.solids.set_rasterized(True)
         ax.set_title(title)
         if not notext:
             ax.text(0.86,0.05,ax.proj.coordsysstr,fontsize=14,
@@ -326,7 +327,7 @@ def gnomview(map=None,fig=None,rot=None,coord=None,unit='',
             raise ValueError('Wrong values for sub: %d, %d, %d'%(nrows,
                                                                  ncols,
                                                                  idx))
-        c,r = (idx-1)%ncols,(idx-1)/ncols
+        c,r = (idx-1)%ncols,(idx-1)//ncols
         if not margins:
             margins = (0.01,0.0,0.0,0.02)
         extent = (c*1./ncols+margins[0], 
@@ -371,6 +372,7 @@ def gnomview(map=None,fig=None,rot=None,coord=None,unit='',
                               shrink=0.5,aspect=25,ticks=PA.BoundaryLocator(),
                               pad=0.08,fraction=0.1,boundaries=b,values=v,
                               format=format)
+            cb.solids.set_rasterized(True)                  
         ax.set_title(title)
         if not notext:
             ax.text(-0.07,0.02,
@@ -502,7 +504,7 @@ def cartview(map=None,fig=None,rot=None,zat=None,coord=None,unit='',
             raise ValueError('Wrong values for sub: %d, %d, %d'%(nrows,
                                                                  ncols,
                                                                  idx))
-        c,r = (idx-1)%ncols,(idx-1)/ncols
+        c,r = (idx-1)%ncols,(idx-1)//ncols
         if not margins:
             margins = (0.01,0.0,0.0,0.02)
         extent = (c*1./ncols+margins[0], 
@@ -554,6 +556,7 @@ def cartview(map=None,fig=None,rot=None,zat=None,coord=None,unit='',
                               shrink=0.5,aspect=25,ticks=PA.BoundaryLocator(),
                               pad=0.08,fraction=0.1,boundaries=b,values=v,
                               format=format)
+            cb.solids.set_rasterized(True)                 
         ax.set_title(title)
         if not notext:
             ax.text(-0.07,0.6,ax.proj.coordsysstr,fontsize=14,
@@ -672,7 +675,7 @@ def orthview(map=None,fig=None,rot=None,coord=None,unit='',
             raise ValueError('Wrong values for sub: %d, %d, %d'%(nrows,
                                                                  ncols,
                                                                  idx))
-        c,r = (idx-1)%ncols,(idx-1)/ncols
+        c,r = (idx-1)%ncols,(idx-1)//ncols
         if not margins:
             margins = (0.01,0.0,0.0,0.02)
         extent = (c*1./ncols+margins[0],
@@ -722,6 +725,7 @@ def orthview(map=None,fig=None,rot=None,coord=None,unit='',
                               shrink=0.5,aspect=25,ticks=PA.BoundaryLocator(),
                               pad=0.05,fraction=0.1,boundaries=b,values=v,
                               format=format)
+            cb.solids.set_rasterized(True)                  
         ax.set_title(title)
         if not notext:
             ax.text(0.86,0.05,ax.proj.coordsysstr,fontsize=14,

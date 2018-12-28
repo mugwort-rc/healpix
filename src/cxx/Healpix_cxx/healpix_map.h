@@ -15,7 +15,7 @@
  *  along with Healpix_cxx; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 /*
@@ -242,12 +242,12 @@ template<typename T> class Healpix_Map: public Healpix_Base
     /*! Returns the average of all defined map pixels. */
     double average() const
       {
-      double avg=0;
+      kahan_adder<double> adder;
       int pix=0;
       for (int m=0; m<npix_; ++m)
         if (!approx<double>(map[m],Healpix_undef))
-          { ++pix; avg+=map[m]; }
-      return (pix>0) ? avg/pix : Healpix_undef;
+          { ++pix; adder.add(map[m]); }
+      return (pix>0) ? adder.result()/pix : Healpix_undef;
       }
 
     /*! Adds \a val to all defined map pixels. */

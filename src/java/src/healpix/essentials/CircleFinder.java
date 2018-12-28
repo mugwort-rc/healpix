@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 package healpix.essentials;
@@ -58,7 +58,7 @@ final class CircleFinder
   public CircleFinder (Vec3[] point) throws Exception
     {
     int np=point.length;
-    HealpixUtils.check(np>=3,"too few points");
+    HealpixUtils.check(np>=2,"too few points");
     center = point[0].add(point[1]); center.normalize();
     cosrad = point[0].dot(center);
     for (int i=2; i<np; ++i)

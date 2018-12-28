@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html645"
+<A NAME="tex2html655"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html661"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html665"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html653"
+<A NAME="tex2html663"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html646"
+<B> Previous:</B> <A NAME="tex2html656"
   HREF="subroutinesnode31.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html652"
+<B>Up:</B> <A NAME="tex2html662"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html656"
+<B> Next:</B> <A NAME="tex2html666"
   HREF="subroutinesnode33.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,11 +64,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This routine generates the beam window function in multipole space. It is
   either a gaussian parametrized by its FWHM in arcmin in real space, or it is
   read from an external file.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">generate_beam</FONT>(
-fwhm_arcmin, lmax, beam <i><font color="#224422">[, beam_file]</font></i>
+<A HREF="#sub:generate_beam:fwhm_arcmin">fwhm_arcmin</A>, <A HREF="#sub:generate_beam:lmax">lmax</A>, <A HREF="#sub:generate_beam:beam">beam</A><i><font color="#224422">[, <A HREF="#sub:generate_beam:beam_file">beam_file</A>]</font></i>
 )</h3></blockquote>
 Arguments appearing in <i><font color="#224422">italic</font></i> are
 optional.
@@ -87,22 +88,22 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-fwhm_arcmin</TD>
+fwhm_arcmin<A NAME="sub:generate_beam:fwhm_arcmin"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>fwhm size of the gaussian beam in arcminutes.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax<A NAME="sub:generate_beam:lmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value of the window function.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam(0:lmax,1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam<A NAME="sub:generate_beam:beam"></A>(0:lmax,1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>beam window function generated. The second index runs form 1:1 for temperature only, and 1:3 for polarisation. In the latter case, 1=T, 2=E, 3=B.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">beam_file</font></i>(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">beam<A NAME="sub:generate_beam:beam"></A>_file</font></i>(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>name of the file containing
@@ -130,7 +131,7 @@ call generate_beam(0_dp, 1024, b3, beam_file='file.fits[col 1; 2=0; 3=0]')
 <BR></tt>
 <blockquote><TT>gb0</TT> will contain the window function of a gaussian beam of FWHM = 5 arcmin, for <SPAN CLASS="MATH"><IMG
  WIDTH="73" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg61.png"
+ SRC="subroutinesimg66.png"
  ALT="$l
 \leq 1024$"></SPAN>.
 <BR>
@@ -169,7 +170,7 @@ while the columns 2 and 3 are set to 0. Therefore <TT>b3(:,3) = b3(:,2) = 0</TT>
 <DD>Routine to alter <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
   coefficients  using <FONT COLOR="#CC0000">generate_beam</FONT>.
   <DT>
-<B><A HREF="subroutinesnode70.htm#sub:pixel_window">pixel_window</A></B>
+<B><A HREF="subroutinesnode71.htm#sub:pixel_window">pixel_window</A></B>
 <DD>Routine returning a pixel
   window function.
   </DL>
@@ -185,31 +186,31 @@ while the columns 2 and 3 are set to 0. Therefore <TT>b3(:,3) = b3(:,2) = 0</TT>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html645"
+<A NAME="tex2html655"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html651"
+<A NAME="tex2html661"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html655"
+<A NAME="tex2html665"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html653"
+<A NAME="tex2html663"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html646"
+<B> Previous:</B> <A NAME="tex2html656"
   HREF="subroutinesnode31.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html652"
+<B>Up:</B> <A NAME="tex2html662"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html656"
+<B> Next:</B> <A NAME="tex2html666"
   HREF="subroutinesnode33.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

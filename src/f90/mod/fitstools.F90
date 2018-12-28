@@ -2120,6 +2120,7 @@ contains
     !     addition of extno, E.H (Nov 04)
     !     addition of fwhm_arcmin and beam_leg, EH (Jan 05).
     !     addition of polcconv, EH (June 05).
+    !     accept files with NAXIS2 > 2^31 (2015-04) (requires recent cfitsio >= 3.20)
     !=======================================================================
     use pix_tools, only: nside2npix
     character(LEN=*), intent(IN)             :: filename
@@ -2162,10 +2163,12 @@ contains
     INTEGER(I4B)      :: datacode, repeat1, repeat2, width
 
     INTEGER(I4B),           PARAMETER :: MAXDIM = MAXDIM_TOP !number of columns in the extension
-    INTEGER(I4B)                      :: nrows, tfields, varidat, rowlen
+    INTEGER(I4B)                      :: tfields, varidat, rowlen
     CHARACTER(LEN=20), dimension(1:MAXDIM) :: ttype, tform, tunit
     INTEGER(I4B),      dimension(1:MAXDIM) :: tbcol
     CHARACTER(LEN=20)                      :: extname
+    integer(I4B) :: nrows32
+    integer(I8B) :: nrows64
     !-----------------------------------------------------------------------
     status=0
     order_val = ''
@@ -2286,14 +2289,22 @@ contains
        !        reads all the keywords
        if (hdutype == 2) then ! binary table
           call ftghbn(unit, MAXDIM, &
-            &         nrows, tfields, ttype, tform, tunit, extname, varidat, &
-            &         status)
+            &         nrows32, tfields, ttype,        tform, tunit, &
+            &         extname, varidat, status)
        else ! ASCII table (hdutype = 1)
           ftype_in = 1
           call ftghtb(unit, MAXDIM, &
-            &         rowlen, nrows, tfields, ttype, tbcol, tform, tunit, &
-            &         extname, status)
+            &         rowlen, &
+            &         nrows32, tfields, ttype, tbcol, tform, tunit, &
+            &         extname,          status)
        endif
+       ! deal with NAXIS2 > 2^31, 2015-04
+#ifdef NO64BITS
+       call ftgnrw  (unit, nrows32, status)
+       nrows64 = nrows32
+#else
+       call ftgnrwll(unit, nrows64, status)
+#endif
 
        !        parse TFORM keyword to find out the length of the column vector
        repeat1 = 1
@@ -2301,7 +2312,8 @@ contains
        call ftbnfm(tform(1), datacode, repeat1, width, status)
        if (tfields > 1) call ftbnfm(tform(2), datacode, repeat2, width, status)
 
-       nsize = int(nrows, kind=i8b) * max(repeat1,repeat2) ! corrected Oct-03
+       !nsize = int(nrows32, kind=i8b) * max(repeat1,repeat2) ! corrected Oct-03
+       nsize = int(nrows64, kind=i8b) * max(repeat1,repeat2) ! 2015-04
 
        nmaps_in = tfields
 
@@ -2429,10 +2441,10 @@ contains
                 defpol(1:ndp,1) = (/ "GRA","E-M","POW","EE " /)
                 defpol(1:ndp,2) = (/ "CUR","B-M","POW","BB " /)    
              endif
-             if (hdutype == 2) then ! binary table -> maps
-                ndp = 4
-                defpol(1:ndp,1) = (/ "Q-P","Q_P","Q P","Q  " /)
-                defpol(1:ndp,2) = (/ "U-P","U_P","U P","U  " /)
+             if (hdutype == 2) then ! binary table -> maps or power spectra
+                ndp = 8
+                defpol(1:ndp,1) = (/ "Q-P","Q_P","Q P","Q  ","GRA","E-M","POW","EE " /)
+                defpol(1:ndp,2) = (/ "U-P","U_P","U P","U  ","CUR","B-M","POW","BB " /)
              endif
              pf(:) = .false.
              do i = 2, tfields ! do not consider first field (generally temperature)
@@ -2479,16 +2491,16 @@ contains
     if (order_val(1:4) == 'RING') ordering_in = 1
     if (order_val(1:4) == 'NEST') ordering_in = 2
 
-    if (present(nmaps)) nmaps = nmaps_in
-    if (present(mlpol)) mlpol = mlpol_in
-    if (present(obs_npix)) obs_npix = obs_npix_in
-    if (present(ordering)) ordering = ordering_in
-    if (present(nside)) nside = nside_in
-    if (present(type)) type = ftype_in
+    if (present(nmaps))       nmaps       = nmaps_in
+    if (present(mlpol))       mlpol       = mlpol_in
+    if (present(obs_npix))    obs_npix    = obs_npix_in
+    if (present(ordering))    ordering    = ordering_in
+    if (present(nside))       nside       = nside_in
+    if (present(type))        type        = ftype_in
     if (present(fwhm_arcmin)) fwhm_arcmin = fwhm_arcmin_in
-    if (present(beam_leg)) beam_leg = adjustl(beam_leg_in)
-    if (present(coordsys)) coordsys = adjustl(coordsys_in)
-    if (present(polcconv)) polcconv = polcconv_in
+    if (present(beam_leg))    beam_leg    = adjustl(beam_leg_in)
+    if (present(coordsys))    coordsys    = adjustl(coordsys_in)
+    if (present(polcconv))    polcconv    = polcconv_in
 
     return
   end function getsize_fits

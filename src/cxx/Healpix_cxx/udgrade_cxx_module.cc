@@ -15,7 +15,7 @@
  *  along with Healpix_cxx; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 
 /*
@@ -84,8 +84,8 @@ template<typename T> void degrade_pol (const Healpix_Map<T> &q1,
           sum += val*mul;
           }
         }
-    q2[m] = T((hits<minhits) ? Healpix_undef : sum.re/hits);
-    u2[m] = T((hits<minhits) ? Healpix_undef : sum.im/hits);
+    q2[m] = T((hits<minhits) ? Healpix_undef : sum.real()/hits);
+    u2[m] = T((hits<minhits) ? Healpix_undef : sum.imag()/hits);
     }
 }
   }

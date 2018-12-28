@@ -15,7 +15,7 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
@@ -229,7 +229,7 @@ public class HealpixBaseTest extends TestCase {
         RangeSet rs = base.queryDisc(ptg,rad);
         Vec3 vptg = new Vec3(ptg);
         double cosrad=Math.cos(rad);
-        for (int i=0; i<rs.size(); ++i)
+        for (int i=0; i<rs.nranges(); ++i)
           for (long j=rs.ivbegin(i); j<rs.ivend(i); ++j)
             map[(int)j]=true;
         for (int i=0; i<base.getNpix(); ++i)
@@ -237,7 +237,7 @@ public class HealpixBaseTest extends TestCase {
           boolean inside = vmap[i].dot(vptg)>cosrad;
           assertFalse ("query_disc_strict problem",inside^map[i]);
           }
-        for (int i=0; i<rs.size(); ++i)
+        for (int i=0; i<rs.nranges(); ++i)
           for (long j=rs.ivbegin(i); j<rs.ivend(i); ++j)
             map[(int)j]=false;
         }
@@ -320,6 +320,18 @@ public class HealpixBaseTest extends TestCase {
         assertTrue("queryPolygon problem 3", nv2>=nval);
         }
       }
+    }
+
+  public void testSmallPoly()  throws Exception
+    {
+    System.out.println("Testing small polygon");
+    HealpixBase base = new HealpixBase(1024,Scheme.NESTED);
+    Pointing[] corner = new Pointing[4];
+    corner[0]=new Pointing(2.7190983373838,1.50840508184223);
+    corner[1]=new Pointing(2.7190980835706067,1.5084057923700163);
+    corner[2]=new Pointing(2.719101654815075,1.5084144044115078);
+    corner[3]=new Pointing(2.719101908630556,1.5084136938829422);
+    RangeSet lrs=base.queryPolygon(corner);
     }
 
   public void test() throws Exception

@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html549"
+<A NAME="tex2html559"
   HREF="subroutinesnode23.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html555"
+<A NAME="tex2html565"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html559"
+<A NAME="tex2html569"
   HREF="subroutinesnode25.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html557"
+<A NAME="tex2html567"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html550"
+<B> Previous:</B> <A NAME="tex2html560"
   HREF="subroutinesnode23.htm">coordsys2euler_zyz</A>
 
-<B>Up:</B> <A NAME="tex2html556"
+<B>Up:</B> <A NAME="tex2html566"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html560"
+<B> Next:</B> <A NAME="tex2html570"
   HREF="subroutinesnode25.htm">del_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -66,12 +67,12 @@ file. The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> are gaussian di
   amplitude is multiplied with the <SPAN CLASS="MATH"><I>l</I></SPAN>-space window function of a gaussian
   beam characterized by its FWHM or an arbitrary circular beam
 and a pixel window read from an external file.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">create_alm*</FONT>(
-nsmax, nlmax, nmmax, polar, filename, rng_handle, fwhm_arcmin, alm_TGC, header <i><font color="#224422">[,
-windowfile, units, beam_file]</font></i>
+<A HREF="#sub:create_alm:nsmax">nsmax</A>, <A HREF="#sub:create_alm:nlmax">nlmax</A>, <A HREF="#sub:create_alm:nmmax">nmmax</A>, <A HREF="#sub:create_alm:polar">polar</A>, <A HREF="#sub:create_alm:filename">filename</A>, <A HREF="#sub:create_alm:rng_handle">rng_handle</A>, <A HREF="#sub:create_alm:fwhm_arcmin">fwhm_arcmin</A>, <A HREF="#sub:create_alm:alm_TGC">alm_TGC</A>, <A HREF="#sub:create_alm:header">header</A><i><font color="#224422">[,
+<A HREF="#sub:create_alm:windowfile">windowfile</A>, <A HREF="#sub:create_alm:units">units</A>, <A HREF="#sub:create_alm:beam_file">beam_file</A>]</font></i>
 )</h3></blockquote>
 Arguments appearing in <i><font color="#224422">italic</font></i> are
 optional.
@@ -80,116 +81,127 @@ optional.
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=185><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=190><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nsmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>
+nsmax<A NAME="sub:create_alm:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><!-- MATH
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190><!-- MATH
  ${N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg12.png"
+ SRC="subroutinesimg13.png"
  ALT="${N_{\rm side}}$"></SPAN> of the map to be synthetized from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
                    created by this routine.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>nlmax<A NAME="sub:create_alm:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value to be considered (MAX=<!-- MATH
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value to be considered (MAX=<!-- MATH
  $4{N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="52" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg59.png"
+ SRC="subroutinesimg64.png"
  ALT="$4{N_{\rm side}}$"></SPAN>
-if <TT>windowfile</TT> is provided).</TD>
+if <A HREF="#sub:create_alm:windowfile"><TT>windowfile</TT></A> is provided).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>nmmax<A NAME="sub:create_alm:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>polar</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>polar<A NAME="sub:create_alm:polar"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if set to 0, only Temperature (scalar) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> are
-generated. If set to 1, 'conventional' polarization is added. If set to 2, and if
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190><SPAN  CLASS="textbf">if set to 0</SPAN>, only Temperature (scalar) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> are
+generated using TT spectrum. <SPAN  CLASS="textbf">If set to 1</SPAN>, 'conventional' polarization is added, based on EE, BB and TE spectra. <SPAN  CLASS="textbf">If set to 2</SPAN>, and if
 the relevant information is in <TT>filename</TT>, polarization is generated
 assuming non-zero correlation of Curl (B) modes with Temperature (T) and Gradient
-(E) modes.</TD>
+(E) modes (TB and EB cross-spectra). Note that the <A HREF="./facilitiesnode14.htm#fac:synfast"><TT>synfast</TT></A> facility calls <FONT COLOR="#CC0000">create_alm*</FONT> with <TT>polar</TT>=0 <EM>or</EM> <TT>polar</TT>=1</TD>
 </TR>
-</TABLE> 
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename(LEN=<tt>filenamelen</tt>)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>filename<A NAME="sub:create_alm:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>name of FITS file containing power
-spectra in the order TT, [EE, BB, TE, [TB, EB]] (terms in brackets are optional)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>name of FITS file containing power
+spectra in the order TT, [EE, BB, TE, [TB, EB]] (terms in brackets are optional, see <A HREF="#sub:create_alm:polar"><TT>polar</TT></A>)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>rng_handle</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>planck_rng</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>rng_handle<A NAME="sub:create_alm:rng_handle"></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25><A HREF="subroutinesnode73.htm#sub:planck_rng">planck_rng</A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>structure containing
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>structure containing
 information necessary to continue a random sequence
 initiated <EM>previously</EM> with the 
-subroutine <TT>rand_init</TT>. Consecutive calls to <FONT COLOR="#CC0000">create_alm*</FONT>can be made after a
-single invocation to <TT>rand_init</TT>.</TD>
+subroutine <A HREF="subroutinesnode80.htm#sub:rand_init"><TT>rand_init</TT></A>. Consecutive calls to <FONT COLOR="#CC0000">create_alm*</FONT> can be made after a
+single invocation to <A HREF="subroutinesnode80.htm#sub:rand_init"><TT>rand_init</TT></A>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>fwhm_arcmin</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>fwhm_arcmin<A NAME="sub:create_alm:fwhm_arcmin"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>FWHM size of the gaussian beam in arcminutes.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>FWHM size of the gaussian beam in arcminutes.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alm_TGC(1:p,0:nlmax,0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>alm_TGC<A NAME="sub:create_alm:alm_TGC"></A>(1:p,0:nlmax,0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>complex <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values
-generated from the powerspectrum in the FITS-file. The first index here runs
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>complex <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values
+generated from the power spectrum in the FITS file. The first index here runs
 form 1:1 for temperature only, and 1:3 for polarisation. In the latter case,
 1=T, 2=E, 3=B.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80),dimension(60)</TD>
+</TABLE> 
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=185><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=190><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185>
+header<A NAME="sub:create_alm:header"></A>(LEN=80),dimension(60)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>part of header  which
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>part of header  which
 will be included in the FITS-file containing the
 map  synthesised from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> which create_alm generates.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">windowfile</font></i>(LEN=<tt>filenamelen</tt>)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185><i><font color="#224422">windowfile<A NAME="sub:create_alm:windowfile"></A></font></i>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>full filename specification
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>full filename specification
 of the FITS file with the pixel window function (defined for <!-- MATH
  $l\le4 {N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="84" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg60.png"
+ SRC="subroutinesimg65.png"
  ALT="$l\le4 {N_{\rm side}}$"></SPAN>)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">units</font></i>(LEN=80),dimension(1:)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185><i><font color="#224422">units<A NAME="sub:create_alm:units"></A></font></i>(LEN=80),dimension(1:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>physical units of the created
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>physical units of the created
 <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (square-root of the input power spectrum units).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">beam_file</font></i>(LEN=<tt>filenamelen</tt>)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=185><i><font color="#224422">beam_file<A NAME="sub:create_alm:beam_file"></A></font></i>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>name of the file containing
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>name of the file containing
 the (non necessarily gaussian) window function <SPAN CLASS="MATH"><I>B</I><SUB><I>l</I></SUB></SPAN> of a circular beam. If present, it will override
-the argument <TT>fwhm_arcmin</TT>.</TD>
+the argument <A HREF="#sub:create_alm:fwhm_arcmin"><TT>fwhm_arcmin</TT></A>.</TD>
 </TR>
 </TABLE>
 
@@ -204,7 +216,8 @@ type(planck_rng) :: rng_handle
 <BR>
 call rand_init(rng_handle, -1) 
 <BR>
-call create_alm(64, 128, 128, 1, 'cl.fits', rng_handle, 5.0, alm_TGC, header, 'data/pixel_window_n0064.fits')  
+call create_alm(64, 128, 128, 1, 'cl.fits', rng_handle, 5.0, alm_TGC, &amp;
+<BR>&amp;  header, 'data/pixel_window_n0064.fits')  
 <BR></tt>
 <blockquote>
 Creates scalar and tensor <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from the power spectrum given in the file
@@ -234,7 +247,7 @@ describing the origin and history of these <SPAN CLASS="MATH"><I>a</I><SUB><I>lm
 <B><A HREF="subroutinesnode32.htm#sub:generate_beam">generate_beam</A></B>
 <DD>routine to generate beam window function
 	<DT>
-<B><A HREF="subroutinesnode70.htm#sub:pixel_window">pixel_window</A></B>
+<B><A HREF="subroutinesnode71.htm#sub:pixel_window">pixel_window</A></B>
 <DD>routine to read in pixel window function
   <DT>
 <B><SPAN  CLASS="textbf">utilities</SPAN></B>
@@ -250,7 +263,7 @@ describing the origin and history of these <SPAN CLASS="MATH"><I>a</I><SUB><I>lm
 <DD>routine to read a FITS
   file containing a power spectrum.
         <DT>
-<B><A HREF="subroutinesnode84.htm#sub:read_dbintab">read_dbintab</A></B>
+<B><A HREF="subroutinesnode85.htm#sub:read_dbintab">read_dbintab</A></B>
 <DD>routine to read a FITS-binary file containing the pixel window functions.
   <DT>
 <B><SPAN  CLASS="textbf">head_fits</SPAN></B>
@@ -269,7 +282,7 @@ describing the origin and history of these <SPAN CLASS="MATH"><I>a</I><SUB><I>lm
 <B><SPAN  CLASS="textbf">rngmod</SPAN></B>
 <DD><u>module</u>, containing:
        <DT>
-<B><A HREF="subroutinesnode78.htm#sub:rand_gauss">rand_gauss</A></B>
+<B><A HREF="subroutinesnode79.htm#sub:rand_gauss">rand_gauss</A></B>
 <DD>function which returns a gaussian distributed random
   number. 
   </DL>
@@ -278,7 +291,7 @@ describing the origin and history of these <SPAN CLASS="MATH"><I>a</I><SUB><I>lm
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">create_alm*</FONT></b></h3>
  
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode79.htm#sub:rand_init">rand_init</A></B>
+<B><A HREF="subroutinesnode80.htm#sub:rand_init">rand_init</A></B>
 <DD>subroutine to initiate a random number sequence. 
   <DT>
 <B>synfast</B>
@@ -303,31 +316,31 @@ describing the origin and history of these <SPAN CLASS="MATH"><I>a</I><SUB><I>lm
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html549"
+<A NAME="tex2html559"
   HREF="subroutinesnode23.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html555"
+<A NAME="tex2html565"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html559"
+<A NAME="tex2html569"
   HREF="subroutinesnode25.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html557"
+<A NAME="tex2html567"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html550"
+<B> Previous:</B> <A NAME="tex2html560"
   HREF="subroutinesnode23.htm">coordsys2euler_zyz</A>
 
-<B>Up:</B> <A NAME="tex2html556"
+<B>Up:</B> <A NAME="tex2html566"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html560"
+<B> Next:</B> <A NAME="tex2html570"
   HREF="subroutinesnode25.htm">del_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

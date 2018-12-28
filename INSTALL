@@ -1,7 +1,7 @@
-HEALPix 3.20 Installation
+HEALPix 3.30 Installation
 =========================
 
-HEALPix 3.20 contains 6 independent packages (Fortran90, IDL, C, C++, java and python) 
+HEALPix 3.30 contains 6 independent packages (Fortran90, IDL, C, C++, java and python) 
 whose installation procedure is summarized below.
 
 Every effort has been made to make the installation and usage of HEALPix easy and straightforward.
@@ -100,6 +100,10 @@ To install the C++ package, do
    ./configure [-L]
    make cpp-all
    make cpp-test
+or
+   cd src/cxx
+   ./configure
+   make
 
 See src/cxx/README.compilation
 or

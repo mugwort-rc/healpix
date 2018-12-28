@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html921"
+<A NAME="tex2html931"
   HREF="subroutinesnode54.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html927"
+<A NAME="tex2html937"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html931"
+<A NAME="tex2html941"
   HREF="subroutinesnode56.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html929"
+<A NAME="tex2html939"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html922"
+<B> Previous:</B> <A NAME="tex2html932"
   HREF="subroutinesnode54.htm">mpi_alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html928"
+<B>Up:</B> <A NAME="tex2html938"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html932"
+<B> Next:</B> <A NAME="tex2html942"
   HREF="subroutinesnode56.htm">mpi_alm2map_slave</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -64,11 +65,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 alm2map. It supports both temperature and polarization inputs in both
 single and double precision. It must only be run by all nodes in
 the MPI communicator.  </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">mpi_alm2map_simple*</FONT>(
-comm, alms, map
+<A HREF="#sub:mpi_alm2map_simple:comm">comm</A>, <A HREF="#sub:mpi_alm2map_simple:alms">alms</A>, <A HREF="#sub:mpi_alm2map_simple:map">map</A>
 )</h3></blockquote>
 
 <P>
@@ -86,19 +87,19 @@ comm, alms, map
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-comm</TD>
+comm<A NAME="sub:mpi_alm2map_simple:comm"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>MPI communicator.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alms(1:nmaps,0:lmax,0:nmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alms<A NAME="sub:mpi_alm2map_simple:alms"></A>(1:nmaps,0:lmax,0:nmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC or DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Input alms. If
 nmaps=1, only temperature information is included; if nmaps=3,
 polarization information is included</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map(0:npix,1:nmaps)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map<A NAME="sub:mpi_alm2map_simple:map"></A>(0:npix,1:nmaps)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP or DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Output map. nmaps must match 
@@ -162,31 +163,31 @@ after execution.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html921"
+<A NAME="tex2html931"
   HREF="subroutinesnode54.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html927"
+<A NAME="tex2html937"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html931"
+<A NAME="tex2html941"
   HREF="subroutinesnode56.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html929"
+<A NAME="tex2html939"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html922"
+<B> Previous:</B> <A NAME="tex2html932"
   HREF="subroutinesnode54.htm">mpi_alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html928"
+<B>Up:</B> <A NAME="tex2html938"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html932"
+<B> Next:</B> <A NAME="tex2html942"
   HREF="subroutinesnode56.htm">mpi_alm2map_slave</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

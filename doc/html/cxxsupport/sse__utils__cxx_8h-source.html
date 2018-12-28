@@ -15,7 +15,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_910219961535e9cb6ce25cf2653fa13f.html">cxxsupport</a>
+  <div class="navpath"><a class="el" href="dir_36dbee75ffc169c020c890f766651e8e.html">cxxsupport</a>
   </div>
 </div>
 <div class="contents">
@@ -278,7 +278,7 @@
 <a name="l00257"></a>00257 
 <a name="l00258"></a>00258 <span class="keyword">inline</span> V4sf sqrt(<span class="keyword">const</span> V4sf &amp;v)
 <a name="l00259"></a>00259   { <span class="keywordflow">return</span> V4sf(_mm_sqrt_ps(v.v)); }
-<a name="l00260"></a>00260 <span class="keyword">inline</span> V4sf <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(<span class="keyword">const</span> V4sf &amp;v)
+<a name="l00260"></a>00260 <span class="keyword">inline</span> V4sf abs(<span class="keyword">const</span> V4sf &amp;v)
 <a name="l00261"></a>00261   { <span class="keywordflow">return</span> V4sf(_mm_andnot_ps(_mm_set1_ps(-0.),v.v)); }
 <a name="l00262"></a>00262 <span class="keyword">inline</span> V4sf blend(<span class="keyword">const</span> V4sf &amp;mask, <span class="keyword">const</span> V4sf &amp;a, <span class="keyword">const</span> V4sf &amp;b)
 <a name="l00263"></a>00263   { <span class="keywordflow">return</span> (mask&amp;a)|(mask.andnot(b)); }
@@ -382,7 +382,7 @@
 <a name="l00361"></a>00361 
 <a name="l00362"></a>00362 <span class="keyword">inline</span> V2df sqrt(<span class="keyword">const</span> V2df &amp;v)
 <a name="l00363"></a>00363   { <span class="keywordflow">return</span> V2df(_mm_sqrt_pd(v.v)); }
-<a name="l00364"></a>00364 <span class="keyword">inline</span> V2df <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(<span class="keyword">const</span> V2df &amp;v)
+<a name="l00364"></a>00364 <span class="keyword">inline</span> V2df abs(<span class="keyword">const</span> V2df &amp;v)
 <a name="l00365"></a>00365   { <span class="keywordflow">return</span> V2df(_mm_andnot_pd(_mm_set1_pd(-0.),v.v)); }
 <a name="l00366"></a>00366 <span class="keyword">inline</span> V2df blend(<span class="keyword">const</span> V2df &amp;mask, <span class="keyword">const</span> V2df &amp;a, <span class="keyword">const</span> V2df &amp;b)
 <a name="l00367"></a>00367   { <span class="keywordflow">return</span> V2df(_mm_or_pd(_mm_and_pd(a.v,mask.v),_mm_andnot_pd(mask.v,b.v))); }
@@ -409,7 +409,7 @@
 <a name="l00388"></a>00388 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:25 2014 for LevelS C++ support library
+Generated on Thu Oct 8 14:48:51 2015 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html357"
+<A NAME="tex2html367"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html363"
+<A NAME="tex2html373"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html377"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html375"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html358"
+<B> Previous:</B> <A NAME="tex2html368"
   HREF="subroutinesnode7.htm">alm2cl*</A>
 
-<B>Up:</B> <A NAME="tex2html364"
+<B>Up:</B> <A NAME="tex2html374"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html368"
+<B> Next:</B> <A NAME="tex2html378"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -71,11 +72,11 @@ since <b>HEALPix</b> v2.20 precomputed harmonics most likely won't speed up comp
 and some with or without polarisation.
 The routines accept both single and double precision arrays for alm_TGC and
   map_TQU. The precision of these arrays should match.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2map*</FONT>(
-nsmax, nlmax, nmmax, alm_TGC, map_TQU [, plm]
+<A HREF="#sub:alm2map:nsmax">nsmax</A>, <A HREF="#sub:alm2map:nlmax">nlmax</A>, <A HREF="#sub:alm2map:nmmax">nmmax</A>, <A HREF="#sub:alm2map:alm_TGC">alm_TGC</A>, <A HREF="#sub:alm2map:map_TQU">map_TQU</A>[, <A HREF="#sub:alm2map:plm">plm</A>]
 )</h3></blockquote>
 
 <P>
@@ -93,22 +94,22 @@ nsmax, nlmax, nmmax, alm_TGC, map_TQU [, plm]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nsmax</TD>
+nsmax<A NAME="sub:alm2map:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the map to synthesize.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:alm2map:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A NAME="sub:alm2map:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alm_TGC(1:p, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alm_TGC<A NAME="sub:alm2map:alm_TGC"></A>(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC or DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values to make
@@ -120,20 +121,20 @@ nsmax</TD>
 
 <P>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU(0:12*nsmax**2-1)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU<A NAME="sub:alm2map:map_TQU"></A>(0:12*nsmax**2-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP or DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if only a temperature map is
 to be synthesized, the map-array should be passed with this rank.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU(0:12*nsmax**2-1, 1:3)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU<A NAME="sub:alm2map:map_TQU"></A>(0:12*nsmax**2-1, 1:3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP or DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if both temperature an 
 polarisation maps are to be synthesized, the map array should have this rank, 
 where the second index is (1,2,3) corresponding to (T,Q,U).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A NAME="sub:alm2map:plm"></A>(0:n_plm-1), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>If this optional matrix is passed with
@@ -142,11 +143,11 @@ this rank, precomputed <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
+ SRC="subroutinesimg22.png"
  ALT="$P_{lm}(\theta)$"></SPAN> are used instead of recursion. (
 n_plm = nsmax*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1,1:3), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A NAME="sub:alm2map:plm"></A>(0:n_plm-1,1:3), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>If this optional matrix is 
@@ -155,10 +156,10 @@ passed with this rank, precomputed <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
+ SRC="subroutinesimg22.png"
  ALT="$P_{lm}(\theta)$"></SPAN> AND precomputed tensor
 harmonics are used instead of recursion. (n_plm =
-nsmax*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
+nsmax<A NAME="sub:alm2map:nsmax"></A>*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
 </TR>
 </TABLE>
 
@@ -203,7 +204,7 @@ passed with both precomputed <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
+ SRC="subroutinesimg22.png"
  ALT="$P_{lm}(\theta)$"></SPAN> AND tensor harmonics, there will
 be no recursions in the routine. However, this will most likely have a
 <SPAN  CLASS="textit">negative</SPAN> impact on execution speed.
@@ -212,7 +213,7 @@ be no recursions in the routine. However, this will most likely have a
 <P>
 <hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map*</FONT>.</h3>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode91.htm#sub:ring_synthesis">ring_synthesis</A></B>
+<B><A HREF="subroutinesnode92.htm#sub:ring_synthesis">ring_synthesis</A></B>
 <DD>Performs FFT over <SPAN CLASS="MATH"><I>m</I></SPAN> for synthesis of the rings.
   <DT>
 <B>compute_lam_mm, get_pixel_layout, </B>
@@ -226,7 +227,7 @@ be no recursions in the routine. However, this will most likely have a
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
 <DD>module, containing:
   <DT>
-<B>assert_alloc</B>
+<B><A HREF="subroutinesnode15.htm#sub:assert">assert_alloc</A></B>
 <DD>routine to print error message, when an array can not be
   allocated properly
   </DL>
@@ -259,7 +260,7 @@ arbitrary spin from their  <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>a</I><SUB><I
 <DD>routine to generate randomly
   distributed <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients according to a given power spectrum
   <DT>
-<B><A HREF="subroutinesnode70.htm#sub:pixel_window">pixel_window</A>,
+<B><A HREF="subroutinesnode71.htm#sub:pixel_window">pixel_window</A>,
 <A HREF="subroutinesnode32.htm#sub:generate_beam">generate_beam</A></B>
 <DD>return the <SPAN CLASS="MATH"><I>l</I></SPAN>-space <b>HEALPix</b> -pixel and beam window function respectively
   <DT>
@@ -275,31 +276,31 @@ of real space filtering
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html357"
+<A NAME="tex2html367"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html363"
+<A NAME="tex2html373"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html377"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html375"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html358"
+<B> Previous:</B> <A NAME="tex2html368"
   HREF="subroutinesnode7.htm">alm2cl*</A>
 
-<B>Up:</B> <A NAME="tex2html364"
+<B>Up:</B> <A NAME="tex2html374"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html368"
+<B> Next:</B> <A NAME="tex2html378"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

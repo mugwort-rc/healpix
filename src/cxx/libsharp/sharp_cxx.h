@@ -25,13 +25,14 @@
 /*! \file sharp_cxx.h
  *  Spherical transform library
  *
- *  Copyright (C) 2012 Max-Planck-Society
+ *  Copyright (C) 2012-2015 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
 #ifndef PLANCK_SHARP_CXX_H
 #define PLANCK_SHARP_CXX_H
 
+#include <complex>
 #include "sharp_lowlevel.h"
 #include "sharp_geomhelpers.h"
 #include "sharp_almhelpers.h"
@@ -88,6 +89,9 @@ class sharp_base
       if (ainfo) sharp_destroy_alm_info(ainfo);
       sharp_make_triangular_alm_info (lmax, mmax, 1, &ainfo);
       }
+
+    const sharp_geom_info* get_geom_info() const { return ginfo; }
+    const sharp_alm_info* get_alm_info() const { return ainfo; }
   };
 
 template<typename T> struct cxxjobhelper__ {};
@@ -104,7 +108,11 @@ template<typename T> class sharp_cxxjob: public sharp_base
   private:
     static void *conv (T *ptr)
       { return reinterpret_cast<void *>(ptr); }
+    static void *conv (std::complex<T> *ptr)
+      { return reinterpret_cast<void *>(ptr); }
     static void *conv (const T *ptr)
+      { return const_cast<void *>(reinterpret_cast<const void *>(ptr)); }
+    static void *conv (const std::complex<T> *ptr)
       { return const_cast<void *>(reinterpret_cast<const void *>(ptr)); }
 
   public:
@@ -115,8 +123,24 @@ template<typename T> class sharp_cxxjob: public sharp_base
       sharp_execute (SHARP_ALM2MAP, 0, &aptr, &mptr, ginfo, ainfo, 1,
         flags,0,0);
       }
-    void alm2map_spin (const T *alm1, const T *alm2, T *map1, T *map2,
-      int spin, bool add)
+    void alm2map (const std::complex<T> *alm, T *map, bool add)
+      {
+      void *aptr=conv(alm), *mptr=conv(map);
+      int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
+      sharp_execute (SHARP_ALM2MAP, 0, &aptr, &mptr, ginfo, ainfo, 1,
+        flags,0,0);
+      }
+    void alm2map_spin (const T *alm1, const T *alm2,
+      T *map1, T *map2, int spin, bool add)
+      {
+      void *aptr[2], *mptr[2];
+      aptr[0]=conv(alm1); aptr[1]=conv(alm2);
+      mptr[0]=conv(map1); mptr[1]=conv(map2);
+      int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
+      sharp_execute (SHARP_ALM2MAP,spin,aptr,mptr,ginfo,ainfo,1,flags,0,0);
+      }
+    void alm2map_spin (const std::complex<T> *alm1, const std::complex<T> *alm2,
+      T *map1, T *map2, int spin, bool add)
       {
       void *aptr[2], *mptr[2];
       aptr[0]=conv(alm1); aptr[1]=conv(alm2);
@@ -131,7 +155,20 @@ template<typename T> class sharp_cxxjob: public sharp_base
       int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
       sharp_execute (SHARP_ALM2MAP_DERIV1,1,&aptr,mptr,ginfo,ainfo,1,flags,0,0);
       }
+    void alm2map_der1 (const std::complex<T> *alm, T *map1, T *map2, bool add)
+      {
+      void *aptr=conv(alm), *mptr[2];
+      mptr[0]=conv(map1); mptr[1]=conv(map2);
+      int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
+      sharp_execute (SHARP_ALM2MAP_DERIV1,1,&aptr,mptr,ginfo,ainfo,1,flags,0,0);
+      }
     void map2alm (const T *map, T *alm, bool add)
+      {
+      void *aptr=conv(alm), *mptr=conv(map);
+      int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
+      sharp_execute (SHARP_MAP2ALM,0,&aptr,&mptr,ginfo,ainfo,1,flags,0,0);
+      }
+    void map2alm (const T *map, std::complex<T> *alm, bool add)
       {
       void *aptr=conv(alm), *mptr=conv(map);
       int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
@@ -139,6 +176,15 @@ template<typename T> class sharp_cxxjob: public sharp_base
       }
     void map2alm_spin (const T *map1, const T *map2, T *alm1, T *alm2,
       int spin, bool add)
+      {
+      void *aptr[2], *mptr[2];
+      aptr[0]=conv(alm1); aptr[1]=conv(alm2);
+      mptr[0]=conv(map1); mptr[1]=conv(map2);
+      int flags=cxxjobhelper__<T>::val | (add ? SHARP_ADD : 0);
+      sharp_execute (SHARP_MAP2ALM,spin,aptr,mptr,ginfo,ainfo,1,flags,0,0);
+      }
+    void map2alm_spin (const T *map1, const T *map2, std::complex<T> *alm1,
+      std::complex<T> *alm2, int spin, bool add)
       {
       void *aptr[2], *mptr[2];
       aptr[0]=conv(alm1); aptr[1]=conv(alm2);

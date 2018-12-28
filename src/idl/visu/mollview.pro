@@ -50,6 +50,7 @@ pro mollview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE=igraticule, $
               JPEG=jpeg, $
+              LATEX=latex, $
               LOG = log, $
               MAP_OUT = map_out, $
               MAX = max_set, $
@@ -62,6 +63,8 @@ pro mollview, file_in, select_in, $
               OFFSET = offset, $
               ONLINE = online, $
               OUTLINE = outline, $
+              PDF = pdf, $
+              PFONTS = pfonts, $
               PNG = png, $
               POLARIZATION = polarization, $
               PREVIEW = preview, $
@@ -100,12 +103,12 @@ pro mollview, file_in, select_in, $
 ;                       HALF_SKY =, HBOUND =, HELP =, HIST_EQUAL=, HXSIZE=, $
 ;                       IGLSIZE=, IGRATICULE=, $
 ;                       JPEG=, $
-;                       LOG=, $
+;                       LATEX=, LOG=, $
 ;                       MAP_OUT=, MAX=, MIN=, $ 
-;                       NESTED=, NOBAR=, NOLABELS=, NOPOSITION =, $
+;                       NESTED=, NOBAR=, NOLABELS=, NOPOSITION=, $
 ;                       NO_DIPOLE=, NO_MONOPOLE=, $
 ;                       OFFSET =, ONLINE=, OUTLINE=, $
-;                       PNG=, POLARIZATION=, PREVIEW=,$
+;                       PFONTS=, PNG=, POLARIZATION=, PREVIEW=,$
 ;                       PS=, PXSIZE=, PYSIZE=, $
 ;                       QUADCUBE= , $
 ;                       RESO_ARCMIN= , ROT=, $
@@ -198,9 +201,9 @@ pro mollview, file_in, select_in, $
 ;               original system assumed to be Galactic unless indicated otherwise in the file)
 ;                  see also : Rot
 ;
-;       CROP : if set the image file (gif, png) only contains the mollweide map and
-;               not the title, color bar, ...
-;               (see also : GIF, PNG)
+;       CROP : if set, the image produced (gif, jpeg, pdf, png, ps, X) only
+;               contains the projected map and not the title, color bar, ...
+;               (see also : GIF, JPEG, PDF, PNG, PS)
 ;
 ;       EXECUTE: character string containing an IDL command to be executed in
 ;                the plotting window
@@ -240,7 +243,7 @@ pro mollview, file_in, select_in, $
 ;	      if set to 1            : output the plot in plot_XXX.gif
 ;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             (see also : CROP, JPEG, PNG, PS and PREVIEW)
+;             (see also : CROP, JPEG, PNG, PDF, PS and PREVIEW)
 ;
 ;       GLSIZE : character size of the graticule labels in units of CHARSIZE
 ;             default: 0 (ie, no labeling of graticules)
@@ -253,6 +256,7 @@ pro mollview, file_in, select_in, $
 ;         ** gnomview : default =  5, gmin =  0 **
 ;         ** mollview : default = 45, gmin = 10 **
 ;         ** orthview : default = 45, gmin = 10 **
+;         The graticule lines thickness is controlled with !P.THICK
 ;
 ;       HALF_SKY: if set, only shows only one half of the sky 
 ;          (centered on (0,0) or on the location parametrized by Rot) instead of the full sky
@@ -300,7 +304,19 @@ pro mollview, file_in, select_in, $
 ;	      if set to 1            : output the plot in plot_XXX.jpeg
 ;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             (see also : CROP, GIF, PNG, PS and PREVIEW)
+;             (see also : CROP, GIF, PDF, PNG, PS and PREVIEW)
+;
+;       LATEX: if set to 1 or 2, enables LaTeX handling of character strings 
+;         such as TITLEPLOT, SUBTITLE and UNITS
+;        - if set to 2, together with PS or PDF outputs, these strings (and the graticule labels) 
+;          will be processed by genuine LaTeX and inserted in the final PS or PDF file 
+;         using psfrag package
+;          (requires LaTeX and its color, geometry, graphicx and psfrag packages)
+;           PFONTS settings will be ignored
+;        - if set to 1, whatever the output is, LaTeX is partially emulated with TeXtoIDL routines
+;          shipped with HEALPix (no extra requirements)
+;           Can be used with PFONTS
+;         default: 0 (not set)
 ;
 ; 	LOG: display the log of map (see also : HIST)
 ;         only applies to pixel with signal > 0.
@@ -319,7 +335,8 @@ pro mollview, file_in, select_in, $
 ;
 ;	NESTED: specify that the online file is ordered in the nested scheme
 ;
-; 	NOBAR : if set, no color bar is present
+; 	NOBAR : if set, the color bar (or the color wheel used for POLARIZATION=2)
+;                     is hidden
 ;
 ;	NOLABELS : if set, no color bar label (min and max) is present
 ;
@@ -366,6 +383,7 @@ pro mollview, file_in, select_in, $
 ;           - 'COORD' coordinate system (either, 'C', 'G', or 'E') of the contour
 ;           - 'RA'  or longitude coordinates (array)
 ;           - 'DEC' or lattitude coordinates (array of same size)
+;           and can optionally contain the fields
 ;           - 'LINE[STYLE]' : +2 : black dashes
 ;                           +1 : black dots
 ;                            0 : black solid [default]
@@ -379,16 +397,40 @@ pro mollview, file_in, select_in, $
 ;                        connected, by arcs of geodesics.
 ;                    if >0, only the vertices are shown
 ;                    (default = 0)
-;           - 'SYM[SIZE]' symbol size (same meaning as SYMSIZE in IDL)
+;           - 'SYM[SIZE]' symbol size (same meaning as SYMSIZE in IDL), (default = 1)
+;          The line and symbol thickness are controlled (indirectly) via !P.THICK.
 ;          Outline can be either a single structure, or an array of structures,
 ;          or a structure of structures
+;
+;	PDF : string containing the name of a PDF output
+;             if set to 0 or not set : output to screen
+;	      if set to 1            : output the plot in plot_XXX.pdf
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
+;	      if set to a file name  : output the plot in that file 
+;               (see: CROP, GIF, JPEG, PNG, PREVIEW and PS)
+;
+;      PFONTS:  2-element vector of integers [p0, p1] selecting the default IDL font 
+;              of character strings such as theSubtitle, Title and Units.
+;          p_0 must be in {-1,0,1} and selects the origin of the fonts among
+;              -1:  Hershey Vector, 
+;               0:  Device Specific, 
+;               1:  True Type Fonts.
+;          p_1 must be in {2,...,20} and selects the starting font of the character strings.
+;              The font can be changed within each string with embedded formatting commands, 
+;              as discussed on http://www.exelisvis.com/docs/Fonts_and_Colors.html.
+;          default=[-1,6], corresponding to the Hershey vector font of type 'Complex Roman', 
+;            and is equivalent to typing
+;             !p.font=-1
+;            and prepending the Subtitle, Title and Units strings with '!6'.
+;          Note that PFONTS will be ignored if Latex=2 *and* PDF or PS are set.
+;
 ;
 ;	PNG : string containing the name of a .PNG output
 ;	      if set to 0 or not set : no .PNG done
 ;	      if set to 1            : output the plot in plot_XXX.png
 ;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             (see also : CROP, GIF, JPEG, PNG, PS and PREVIEW)
+;             (see also : CROP, GIF, JPEG, PDF, PNG, PS and PREVIEW)
 ;
 ;       POLARIZATION: 
 ;         if set to 0, no polarization information is plotted.
@@ -411,11 +453,12 @@ pro mollview, file_in, select_in, $
 ;             (default=1), while the third one controls the distance between
 ;             vectors (default=1). Non positive values are replaced by 1.
 ;
-;	PREVIEW : if set, there is a 'ghostview' preview of the postscript file (see : PS)
-;                    or a 'xv' preview of the gif or png file (see: CROP, GIF,
-;                    JPEG, PNG and PS)
+;	PREVIEW : if set, there is a preview of the GIF, JPG, PDF, PostScript,
+;	         PNG file being produced  
+;                    (see: CROP, GIF, JPEG, PDF, PNG and PS)
 ;
-;	PS :  if set to 0 or not set : output to screen
+;	PS :  string containing the name of a PS output
+;             if set to 0 or not set : output to screen
 ;	      if set to 1            : output the plot in plot_XXX.ps
 ;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
@@ -560,9 +603,10 @@ pro mollview, file_in, select_in, $
 ;              Min-Max for LOG, use Z buffer when window<0, added RETAIN keyword
 ;       Oct-09:  added /TRUECOLORS to all routines and MAP_OUT= to Gnomview
 ;       Apr-10:  accept array of structures in Outline; added MAP_OUT= to
-;       Cartview and Mollview
+;          Cartview and Mollview
 ;       Jan-12: added STAGGER to orthview; created azeqview; added JPEG to all
 ;       Sep-13: added BAD_COLOR, BG_COLOR, FG_COLOR
+;       2015:   added PDF, LATEX and PFONTS
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -604,9 +648,9 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              LOG=, '
     print,'              MAP_OUT=, MAX=, MIN=, '
     print,'              NESTED=, NOBAR=, NOLABELS=, '
-    print,'              NO_DIPOLE, NO_MONOPLE, '
+    print,'              NO_DIPOLE=, NO_MONOPLE=, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
-    print,'              PNG=, POLARIZATION=, PREVIEW=, '
+    print,'              PDF=, PFONTS=, PNG=, POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
     print,'              RETAIN=, ROT=,  '
     print,'              SAVE=, SILENT=, SUBTITLE=, '
@@ -653,7 +697,7 @@ data2moll, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
   POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT = map_out, ROT=rot, FITS=fits
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT = arg_present(map_out) ? map_out : -1, ROT=rot, FITS=fits
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -664,7 +708,8 @@ proj2out, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
   IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick, $
-  JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color
+  JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color, PDF=pdf, $
+  LATEX=latex, PFONTS=pfonts
 
 
 w_num = !d.window

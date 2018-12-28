@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2011.8.3)  5 DEC 2014 16:03
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2011.8.3)  8 OCT 2015 14:51
 entering extended mode
 **./facilitiesimages.tex
 (./facilitiesimages.tex
@@ -27,7 +27,7 @@ File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 \bibindent=\dimen102
 ) (/sw2/share/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) (/tmp/Healpix_3.20/doc/TeX/healpix.sty
+) (/tmp/Healpix_3.30/doc/TeX/healpix.sty
 Package: healpix 
 Package: healpix macros (A.J. Banday, M. Bartelmann)
 Document format
@@ -63,8 +63,8 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \f@ncyO@erf=\skip49
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
-) (/tmp/Healpix_3.20/doc/TeX/hpxversion.tex) (/tmp/Healpix_3.20/doc/TeX/idlvers
-ion.tex) (/tmp/Healpix_3.20/doc/TeX/gdlversion.tex)
+) (/tmp/Healpix_3.30/doc/TeX/hpxversion.tex) (/tmp/Healpix_3.30/doc/TeX/idlvers
+ion.tex) (/tmp/Healpix_3.30/doc/TeX/gdlversion.tex)
 \bigicon=\skip52
 \smallicon=\skip53
 \blocksize=\skip54
@@ -136,203 +136,209 @@ Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 19.
-Package xr Info: IMPORTING LABELS FROM idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM alm_i2t_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM alm_t2i_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM alm2fits_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM ang2vec_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM angulardistance_idl.aux on input line 41
+Package xr Info: IMPORTING LABELS FROM intro.aux on input line 46.
+Package xr Info: IMPORTING LABELS FROM install.aux on input line 47.
+Package xr Info: IMPORTING LABELS FROM idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM alm_i2t_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM alm_t2i_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM alm2fits_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM ang2vec_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM angulardistance_idl.aux on input line 48
 .
-Package xr Info: IMPORTING LABELS FROM azeqview_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM beam2bl_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM bin_llcl_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM bl2beam_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM bl2fits_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM cartcursor_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM cartview_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM change_polcconv_idl.aux on input line 41
+Package xr Info: IMPORTING LABELS FROM azeqview_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM beam2bl_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM bin_llcl_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM bl2beam_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM bl2fits_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM cartcursor_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM cartview_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM change_polcconv_idl.aux on input line 48
 .
-Package xr Info: IMPORTING LABELS FROM cl2fits_idl.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM cl2fits_idl.aux on input line 48.
 Package xr Info: IMPORTING LABELS FROM convert_oldhpx2cmbfast_idl.aux on input 
-line 41.
+line 48.
 Package xr Info: IMPORTING LABELS FROM euler_matrix_new_idl.aux on input line 4
-1.
-Package xr Info: IMPORTING LABELS FROM fits2alm_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM fits2cl_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM gaussbeam_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM getdisc_ring_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM getsize_fits_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM gnomcursor_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM gnomview_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM healpix_doc_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM healpixwindow_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM hpx2dm_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM hpx2gs_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM ialteralm_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM ianafast_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM index2lm_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM init_healpix_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM iprocess_mask_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM ismoothing_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM isynfast_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM lm2index_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM median_filter_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM mollcursor_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM mollview_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM neighbours_nest_idl.aux on input line 41
+8.
+Package xr Info: IMPORTING LABELS FROM fits2alm_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM fits2cl_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM gaussbeam_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM getdisc_ring_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM getsize_fits_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM gnomcursor_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM gnomview_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM healpix_doc_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM healpixwindow_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM hpx2dm_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM hpx2gs_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM ialteralm_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM ianafast_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM index2lm_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM init_healpix_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM iprocess_mask_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM ismoothing_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM isynfast_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM lm2index_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM median_filter_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM mollcursor_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM mollview_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM neighbours_nest_idl.aux on input line 48
 .
-Package xr Info: IMPORTING LABELS FROM neighbours_ring_idl.aux on input line 41
+Package xr Info: IMPORTING LABELS FROM neighbours_ring_idl.aux on input line 48
 .
-Package xr Info: IMPORTING LABELS FROM npix2nside_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM nside2npix_idl.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM nest2uniq_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM npix2nside_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM nside2npix_idl.aux on input line 48.
 Package xr Info: IMPORTING LABELS FROM nside2ntemplates_idl.aux on input line 4
-1.
-Package xr Info: IMPORTING LABELS FROM orthcursor_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM orthview_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM pix_tools_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM planck_colors_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM query_disc_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM query_polygon_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM query_strip_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM query_triangle_idl.aux on input line 41.
+8.
+Package xr Info: IMPORTING LABELS FROM orthcursor_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM orthview_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM pix_tools_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM planck_colors_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM query_disc_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM query_polygon_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM query_strip_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM query_triangle_idl.aux on input line 48.
 
-Package xr Info: IMPORTING LABELS FROM read_fits_cut4_idl.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM read_fits_cut4_idl.aux on input line 48.
 
-Package xr Info: IMPORTING LABELS FROM read_fits_map_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM read_fits_s_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM read_tqu_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM remove_dipole_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM reorder_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM rotate_coord_idl.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM read_fits_map_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM read_fits_s_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM read_tqu_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM remove_dipole_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM reorder_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM rotate_coord_idl.aux on input line 48.
 Package xr Info: IMPORTING LABELS FROM same_shape_pixels_xxx_idl.aux on input l
-ine 41.
+ine 48.
 Package xr Info: IMPORTING LABELS FROM template_pixel_xxx_idl.aux on input line
- 41.
-Package xr Info: IMPORTING LABELS FROM ud_grade_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM vec2ang_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM write_fits_cut4_idl.aux on input line 41
+ 48.
+Package xr Info: IMPORTING LABELS FROM ud_grade_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM uniq2nest_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM vec2ang_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM write_fits_cut4_idl.aux on input line 48
 .
-Package xr Info: IMPORTING LABELS FROM write_fits_map_idl.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM write_fits_map_idl.aux on input line 48.
 
-Package xr Info: IMPORTING LABELS FROM write_fits_sb_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM write_tqu_idl.aux on input line 41.
-Package xr Info: IMPORTING LABELS FROM subroutines.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM add_card.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM add_dipole.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alm2cl.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alm2map.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alm2map_der.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alm2map_spin.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alms2fits.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM alter_alm.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM ang2vec.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM angdist.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM assert.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM brag_openmp.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM complex_fft.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM compute_statistics.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM write_fits_sb_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM write_tqu_idl.aux on input line 48.
+Package xr Info: IMPORTING LABELS FROM subroutines.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM add_card.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM add_dipole.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alm2cl.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alm2map.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alm2map_der.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alm2map_spin.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alms2fits.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM alter_alm.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM ang2vec.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM angdist.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM assert.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM brag_openmp.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM complex_fft.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM compute_statistics.aux on input line 49.
 
-Package xr Info: IMPORTING LABELS FROM concatnl.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM convert_inplace.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM convert_nest2ring.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM convert_ring2nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM coordsys2euler_zyz.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM concatnl.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM convert_inplace.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM convert_nest2ring.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM convert_ring2nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM coordsys2euler_zyz.aux on input line 49.
 
-Package xr Info: IMPORTING LABELS FROM create_alm.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM del_card.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM dist2holes_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM dump_alms.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM fill_holes_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM fits2alms.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM fits2cl.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM gaussbeam.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM generate_beam.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM get_card.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM get_healpix_xxx_dir.aux on input line 42
+Package xr Info: IMPORTING LABELS FROM create_alm.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM del_card.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM dist2holes_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM dump_alms.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM fill_holes_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM fits2alms.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM fits2cl.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM gaussbeam.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM generate_beam.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM get_card.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM get_healpix_xxx_dir.aux on input line 49
 .
-Package xr Info: IMPORTING LABELS FROM getargument.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM getenvironment.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM getdisc_ring.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM getnumext_fits.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM getsize_fits.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM healpix_modules.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM healpix_types.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM in_ring.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM input_map.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM input_tod.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM long_intrinsic.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM map2alm.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM map2alm_iterative.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM map2alm_spin.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM maskborder_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM medfiltmap.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM median.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM merge_headers.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM mpi_alm_tools.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM mpi_alm2map.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM mpi_alm2map_simple.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM getargument.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM getenvironment.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM getdisc_ring.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM getnumext_fits.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM getsize_fits.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM healpix_modules.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM healpix_types.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM in_ring.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM input_map.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM input_tod.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM long_intrinsic.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM map2alm.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM map2alm_iterative.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM map2alm_spin.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM maskborder_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM medfiltmap.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM median.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM merge_headers.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM mpi_alm_tools.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM mpi_alm2map.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM mpi_alm2map_simple.aux on input line 49.
 
-Package xr Info: IMPORTING LABELS FROM mpi_alm2map_slave.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM mpi_alm2map_slave.aux on input line 49.
 Package xr Info: IMPORTING LABELS FROM mpi_cleanup_alm_tools.aux on input line 
-42.
+49.
 Package xr Info: IMPORTING LABELS FROM mpi_initialize_alm_tools.aux on input li
-ne 42.
-Package xr Info: IMPORTING LABELS FROM mpi_map2alm.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM mpi_map2alm_simple.aux on input line 42.
+ne 49.
+Package xr Info: IMPORTING LABELS FROM mpi_map2alm.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM mpi_map2alm_simple.aux on input line 49.
 
-Package xr Info: IMPORTING LABELS FROM mpi_map2alm_slave.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM narguments.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM neighbours_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM npix2nside.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM nside2npix.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM nside2ntemplates.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM number_of_alms.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM output_map.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM parse_xxx.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM pixel_window.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM pix_tools.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM planck_rng.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM plm_gen.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM query_disc.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM query_polygon.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM query_strip.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM query_triangle.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM rand_gauss.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM rand_init.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM rand_uni.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_asctab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_bintab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_conbintab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_dbintab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_fits_cut4.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM read_par.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM real_fft.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM remove_dipole.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM ring_analysis.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM ring_num.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM ring_synthesis.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM rotate_alm.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM mpi_map2alm_slave.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM narguments.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM neighbours_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM nest2uniq.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM npix2nside.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM nside2npix.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM nside2ntemplates.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM number_of_alms.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM output_map.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM parse_xxx.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM pixel_window.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM pix_tools.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM planck_rng.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM plm_gen.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM query_disc.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM query_polygon.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM query_strip.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM query_triangle.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM rand_gauss.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM rand_init.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM rand_uni.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_asctab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_bintab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_conbintab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_dbintab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_fits_cut4.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM read_par.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM real_fft.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM remove_dipole.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM ring_analysis.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM ring_num.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM ring_synthesis.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM rotate_alm.aux on input line 49.
 Package xr Info: IMPORTING LABELS FROM same_shape_pixels_xxx.aux on input line 
-42.
-Package xr Info: IMPORTING LABELS FROM scan_directories.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM size_holes_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM string.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM surface_triangle.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM template_pixel_xxx.aux on input line 42.
+49.
+Package xr Info: IMPORTING LABELS FROM scan_directories.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM size_holes_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM string.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM surface_triangle.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM template_pixel_xxx.aux on input line 49.
 
-Package xr Info: IMPORTING LABELS FROM udgrade_nest.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM udgrade_ring.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM vec2ang.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM vect_prod.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM write_asctab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM write_bintab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM write_bintabh.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM write_dbintab.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM write_fits_cut4.aux on input line 42.
+Package xr Info: IMPORTING LABELS FROM udgrade_nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM udgrade_ring.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM uniq2nest.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM vec2ang.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM vect_prod.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM write_asctab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM write_bintab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM write_bintabh.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM write_dbintab.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM write_fits_cut4.aux on input line 49.
 Package xr Info: IMPORTING LABELS FROM write_minimal_header.aux on input line 4
-2.
-Package xr Info: IMPORTING LABELS FROM write_plm.aux on input line 42.
-Package xr Info: IMPORTING LABELS FROM xcc_v_convert.aux on input line 42.
+9.
+Package xr Info: IMPORTING LABELS FROM write_plm.aux on input line 49.
+Package xr Info: IMPORTING LABELS FROM xcc_v_convert.aux on input line 49.
 (/sw2/share/texmf-dist/tex/latex/graphics/color.sty
 Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
 (/sw2/share/texmf-dist/tex/latex/graphics/color.cfg
@@ -348,39 +354,40 @@ File: latin1.def 2004/02/05 v1.0d Input encoding file
 ))
 \sizebox=\box27
 \lthtmlwrite=\write5
-(./facilitiesimages.aux (/tmp/Healpix_3.20/doc/TeX/alteralm.aux
+(./facilitiesimages.aux (/tmp/Healpix_3.30/doc/TeX/alteralm_fac.aux
 
 LaTeX Warning: Label `eq:alteralm' multiply defined.
 
-) (/tmp/Healpix_3.20/doc/TeX/anafast.aux) (/tmp/Healpix_3.20/doc/TeX/hotspot.au
-x) (/tmp/Healpix_3.20/doc/TeX/map2gif.aux) (/tmp/Healpix_3.20/doc/TeX/median_fi
-lter.aux) (/tmp/Healpix_3.20/doc/TeX/plmgen.aux) (/tmp/Healpix_3.20/doc/TeX/pro
-cess_mask.aux) (/tmp/Healpix_3.20/doc/TeX/sky_ng_sim.aux) (/tmp/Healpix_3.20/do
-c/TeX/smoothing.aux) (/tmp/Healpix_3.20/doc/TeX/synfast.aux) (/tmp/Healpix_3.20
-/doc/TeX/ud_grade.aux) (/tmp/Healpix_3.20/doc/TeX/fac_appendix.aux))
+) (/tmp/Healpix_3.30/doc/TeX/anafast_fac.aux) (/tmp/Healpix_3.30/doc/TeX/hotspo
+t_fac.aux) (/tmp/Healpix_3.30/doc/TeX/map2gif_fac.aux) (/tmp/Healpix_3.30/doc/T
+eX/median_filter_fac.aux) (/tmp/Healpix_3.30/doc/TeX/plmgen_fac.aux) (/tmp/Heal
+pix_3.30/doc/TeX/process_mask_fac.aux) (/tmp/Healpix_3.30/doc/TeX/sky_ng_sim_fa
+c.aux) (/tmp/Healpix_3.30/doc/TeX/smoothing_fac.aux) (/tmp/Healpix_3.30/doc/TeX
+/synfast_fac.aux) (/tmp/Healpix_3.30/doc/TeX/ud_grade_fac.aux) (/tmp/Healpix_3.
+30/doc/TeX/fac_appendix.aux))
 \openout1 = `facilitiesimages.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 151.
-LaTeX Font Info:    ... okay on input line 151.
-Package hyperref Info: Link coloring ON on input line 151.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 160.
+LaTeX Font Info:    ... okay on input line 160.
+Package hyperref Info: Link coloring ON on input line 160.
 (/sw2/share/texmf-dist/tex/latex/hyperref_bk/nameref.sty
 Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
 \c@section@level=\count104
 )
-LaTeX Info: Redefining \ref on input line 151.
-LaTeX Info: Redefining \pageref on input line 151.
+LaTeX Info: Redefining \ref on input line 160.
+LaTeX Info: Redefining \pageref on input line 160.
 \openout3 = `facilitiesimages.out'.
 
 
@@ -407,339 +414,349 @@ latex2htmlLength oddsidemargin=0.0pt
 latex2htmlLength evensidemargin=0.0pt
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 185.
+(Font)              <12> on input line 196.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 185.
+(Font)              <8> on input line 196.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 185.
-l2hSize :tex2html_wrap_inline282:8.7pt::8.7pt::64.0157pt.
+(Font)              <6> on input line 196.
+l2hSize :tex2html_wrap_inline325:8.7pt::8.7pt::64.0157pt.
 [1
 
 
 
 ]
-l2hSize :tex2html_wrap_inline284:9.5pt::9.5pt::35.69131pt.
+l2hSize :tex2html_wrap_inline327:9.5pt::9.5pt::35.69131pt.
 [2
 
 
 ]
-l2hSize :tex2html_wrap_inline286:10.01027pt::10.01027pt::87.6179pt.
+l2hSize :tex2html_wrap_inline329:10.01027pt::10.01027pt::87.6179pt.
 [3
 
 
 ]
-l2hSize :tex2html_wrap_inline288:10.01027pt::10.01027pt::45.19144pt.
+l2hSize :tex2html_wrap_inline331:10.01027pt::10.01027pt::45.19144pt.
 [4
 
 
 ]
-l2hSize :displaymath491:30.17087pt::0.0pt::349.0pt.
+l2hSize :displaymath540:30.17087pt::0.0pt::349.0pt.
 [5
 
 
 ]
-l2hSize :tex2html_wrap_inline692:8.7pt::8.7pt::24.71059pt.
+l2hSize :tex2html_wrap_inline741:8.7pt::8.7pt::24.71059pt.
 [6
 
 
 ]
-l2hSize :tex2html_wrap_inline1017:12.63332pt::12.63332pt::43.52565pt.
+l2hSize :tex2html_wrap_inline1079:12.63332pt::12.63332pt::43.52565pt.
 [7
 
 
 ]
-l2hSize :tex2html_wrap_inline1035:8.33331pt::0.0pt::6.38954pt.
+l2hSize :tex2html_wrap_inline1103:8.33331pt::0.0pt::6.38954pt.
 [8
 
 
 ]
-l2hSize :tex2html_wrap_inline1037:8.83331pt::8.83331pt::7.5416pt.
+l2hSize :tex2html_wrap_inline1105:8.83331pt::8.83331pt::7.5416pt.
 [9
 
 
 ]
-l2hSize :tex2html_wrap_inline1039:7.75pt::0.0pt::6.58754pt.
+l2hSize :tex2html_wrap_inline1107:7.75pt::0.0pt::6.58754pt.
 [10
 
 
 ]
-l2hSize :tex2html_wrap_inline1051:8.83331pt::8.83331pt::87.6184pt.
+l2hSize :tex2html_wrap_inline1119:8.83331pt::8.83331pt::87.6184pt.
 [11
 
 
 ]
-l2hSize :tex2html_wrap_inline1055:8.83331pt::8.83331pt::70.36946pt.
+l2hSize :tex2html_wrap_inline1123:8.83331pt::8.83331pt::70.36946pt.
 [12
 
 
 ]
-l2hSize :tex2html_wrap_inline1059:8.83331pt::8.83331pt::107.96538pt.
+l2hSize :tex2html_wrap_inline1127:8.83331pt::8.83331pt::107.96538pt.
 [13
 
 
 ]
-l2hSize :tex2html_wrap_inline1063:8.83331pt::8.83331pt::58.72932pt.
+l2hSize :tex2html_wrap_inline1131:8.83331pt::8.83331pt::58.72932pt.
 [14
 
 
 ]
-l2hSize :tex2html_wrap_inline1065:8.25pt::8.25pt::36.15102pt.
+l2hSize :tex2html_wrap_inline1133:8.25pt::8.25pt::36.15102pt.
 [15
 
 
 ]
-l2hSize :tex2html_wrap_inline1071:8.83331pt::8.83331pt::173.98344pt.
+l2hSize :tex2html_wrap_inline1139:8.83331pt::8.83331pt::173.98344pt.
 [16
 
 
 ]
-l2hSize :tex2html_wrap_inline1075:8.83331pt::8.83331pt::90.91101pt.
+l2hSize :tex2html_wrap_inline1143:8.83331pt::8.83331pt::90.91101pt.
 [17
 
 
 ]
-l2hSize :tex2html_wrap_inline1095:8.0075pt::0.0pt::11.21252pt.
+l2hSize :tex2html_wrap_inline1163:8.0075pt::0.0pt::11.21252pt.
 [18
 
 
 ]
-l2hSize :tex2html_wrap_inline1137:9.5pt::9.5pt::33.75247pt.
+l2hSize :tex2html_wrap_inline1213:9.5pt::9.5pt::33.75247pt.
 [19
 
 
 ]
-l2hSize :tex2html_wrap_inline1345:8.7pt::8.7pt::47.51268pt.
+l2hSize :tex2html_wrap_inline1421:8.7pt::8.7pt::47.51268pt.
 [20
 
 
 ]
-l2hSize :tex2html_wrap_inline1478:9.5pt::9.5pt::6.58754pt.
+l2hSize :tex2html_wrap_inline1554:9.5pt::9.5pt::6.58754pt.
 [21
 
 
 ]
-l2hSize :tex2html_wrap_inline1482:8.25pt::8.25pt::9.92088pt.
+l2hSize :tex2html_wrap_inline1558:8.25pt::8.25pt::9.92088pt.
 [22
 
 
 ]
-l2hSize :tex2html_wrap_inline1484:8.25pt::8.25pt::7.6569pt.
+l2hSize :tex2html_wrap_inline1560:8.25pt::8.25pt::7.6569pt.
 [23
 
 
 ]
-l2hSize :tex2html_wrap_inline1621:8.83331pt::8.83331pt::24.0077pt.
+l2hSize :tex2html_wrap_inline1697:8.83331pt::8.83331pt::24.0077pt.
 [24
 
 
 ]
-l2hSize :tex2html_wrap_inline1623:8.83331pt::8.83331pt::18.13277pt.
+l2hSize :tex2html_wrap_inline1699:8.83331pt::8.83331pt::18.13277pt.
 [25
 
 
 ]
-l2hSize :tex2html_wrap_inline1801:8.7pt::8.7pt::35.51756pt.
+l2hSize :tex2html_wrap_inline1877:8.7pt::8.7pt::35.51756pt.
 [26
 
 
 ]
-l2hSize :tex2html_wrap_inline1803:9.5pt::9.5pt::182.85686pt.
+l2hSize :tex2html_wrap_inline1879:9.5pt::9.5pt::182.85686pt.
 [27
 
 
 ]
-l2hSize :tex2html_wrap_inline1807:10.01027pt::10.01027pt::120.69006pt.
+l2hSize :tex2html_wrap_inline1883:10.01027pt::10.01027pt::120.69006pt.
 [28
 
 
 ]
-l2hSize :tex2html_wrap_inline1809:8.25pt::8.25pt::36.75392pt.
+l2hSize :tex2html_wrap_inline1885:8.25pt::8.25pt::36.75392pt.
 [29
 
 
 ]
-l2hSize :tex2html_wrap_inline1825:7.75pt::0.0pt::14.37903pt.
+l2hSize :tex2html_wrap_inline1901:7.75pt::0.0pt::14.37903pt.
 [30
 
 
 ]
-l2hSize :tex2html_wrap_inline1966:10.68889pt::10.68889pt::88.66331pt.
+l2hSize :tex2html_wrap_inline2042:10.68889pt::10.68889pt::88.66331pt.
 [31
 
 
 ]
-l2hSize :tex2html_wrap_inline1976:8.7pt::8.7pt::58.14076pt.
+l2hSize :tex2html_wrap_inline2052:8.7pt::8.7pt::58.14076pt.
 [32
 
 
 ]
-l2hSize :tex2html_wrap_inline1978:8.7pt::8.7pt::64.0157pt.
+l2hSize :tex2html_wrap_inline2054:8.7pt::8.7pt::64.0157pt.
 [33
 
 
 ]
-l2hSize :tex2html_wrap_inline2223:12.63332pt::12.63332pt::63.34529pt.
+l2hSize :tex2html_wrap_inline2299:12.63332pt::12.63332pt::63.34529pt.
 [34
 
 
 ]
-l2hSize :tex2html_wrap_inline2231:7.75pt::0.0pt::9.7958pt.
+l2hSize :tex2html_wrap_inline2307:7.75pt::0.0pt::9.7958pt.
 [35
 
 
 ]
-l2hSize :tex2html_wrap_inline2233:7.75pt::0.0pt::8.13745pt.
+l2hSize :tex2html_wrap_inline2309:7.75pt::0.0pt::8.13745pt.
 [36
 
 
 ]
-l2hSize :tex2html_wrap_inline2235:8.25pt::8.25pt::19.1291pt.
+l2hSize :tex2html_wrap_inline2311:8.25pt::8.25pt::19.1291pt.
 [37
 
 
 ]
-l2hSize :tex2html_wrap_inline2237:8.25pt::8.25pt::11.455pt.
+l2hSize :tex2html_wrap_inline2313:8.25pt::8.25pt::11.455pt.
 [38
 
 
 ]
-l2hSize :tex2html_wrap_inline2241:9.5pt::9.5pt::30.604pt.
+l2hSize :tex2html_wrap_inline2317:9.5pt::9.5pt::30.604pt.
 [39
 
 
 ]
-l2hSize :displaymath2106:33.94446pt::0.0pt::349.0pt.
+l2hSize :displaymath2182:33.94446pt::0.0pt::349.0pt.
 [40
 
 
 ]
-l2hSize :tex2html_wrap_inline2249:10.01027pt::10.01027pt::12.44655pt.
+l2hSize :tex2html_wrap_inline2325:10.01027pt::10.01027pt::12.44655pt.
 [41
 
 
 ]
-l2hSize :tex2html_wrap_inline2251:11.48889pt::11.48889pt::29.65695pt.
+l2hSize :tex2html_wrap_inline2327:11.48889pt::11.48889pt::29.65695pt.
 [42
 
 
 ]
-l2hSize :tex2html_wrap_inline2255:8.36708pt::8.36708pt::26.4708pt.
+l2hSize :tex2html_wrap_inline2331:8.36708pt::8.36708pt::26.4708pt.
 [43
 
 
 ]
-l2hSize :tex2html_wrap_inline2257:12.8436pt::12.8436pt::112.04425pt.
+l2hSize :tex2html_wrap_inline2333:12.8436pt::12.8436pt::112.04425pt.
 [44
 
 
 ]
-l2hSize :displaymath2122:17.85555pt::0.0pt::349.0pt.
+l2hSize :displaymath2198:17.85555pt::0.0pt::349.0pt.
 [45
 
 
 ]
-l2hSize :tex2html_wrap_inline2269:10.01027pt::10.01027pt::88.06456pt.
+l2hSize :tex2html_wrap_inline2345:10.01027pt::10.01027pt::88.06456pt.
 [46
 
 
 ]
-l2hSize :tex2html_wrap_inline2283:8.7pt::8.7pt::58.14076pt.
+l2hSize :tex2html_wrap_inline2359:8.7pt::8.7pt::58.14076pt.
 [47
 
 
 ]
-l2hSize :tex2html_wrap_inline2285:8.25pt::8.25pt::33.69629pt.
+l2hSize :tex2html_wrap_inline2361:8.25pt::8.25pt::33.69629pt.
 [48
 
 
 ]
-l2hSize :tex2html_wrap_inline2287:9.5pt::9.5pt::73.69041pt.
+l2hSize :tex2html_wrap_inline2363:9.5pt::9.5pt::73.69041pt.
 [49
 
 
 ]
-l2hSize :tex2html_wrap_inline2866:9.5pt::9.5pt::114.05844pt.
+l2hSize :tex2html_wrap_inline2968:9.5pt::9.5pt::114.05844pt.
 [50
 
 
 ]
-l2hSize :tex2html_wrap_inline2868:10.01027pt::10.01027pt::142.86053pt.
+l2hSize :tex2html_wrap_inline2970:10.01027pt::10.01027pt::142.86053pt.
 [51
 
 
 ]
-l2hSize :tex2html_wrap_inline2870:12.50008pt::12.50008pt::87.17168pt.
+l2hSize :tex2html_wrap_inline2972:12.50008pt::12.50008pt::87.17168pt.
 [52
 
 
 ]
-l2hSize :tex2html_wrap_inline2878:9.5pt::9.5pt::212.95676pt.
+l2hSize :tex2html_wrap_inline2980:9.5pt::9.5pt::212.95676pt.
 [53
 
 
 ]
-l2hSize :tex2html_wrap_inline2880:10.01027pt::10.01027pt::184.97113pt.
+l2hSize :tex2html_wrap_inline2982:10.01027pt::10.01027pt::184.97113pt.
 [54
 
 
 ]
-l2hSize :tex2html_wrap_inline2882:12.50008pt::12.50008pt::102.96315pt.
+l2hSize :tex2html_wrap_inline2984:12.50008pt::12.50008pt::102.96315pt.
 [55
 
 
 ]
-l2hSize :tex2html_wrap_inline2922:8.7pt::8.7pt::52.26582pt.
+l2hSize :tex2html_wrap_inline3014:10.93335pt::10.93335pt::51.58215pt.
 [56
 
 
 ]
-l2hSize :tex2html_wrap_inline3280:10.01027pt::10.01027pt::95.49977pt.
+l2hSize :tex2html_wrap_inline3016:10.93335pt::10.93335pt::52.13075pt.
 [57
 
 
 ]
-l2hSize :tex2html_wrap_inline3288:9.5pt::9.5pt::78.6176pt.
+l2hSize :tex2html_wrap_inline3030:8.7pt::8.7pt::52.26582pt.
 [58
 
 
 ]
-l2hSize :tex2html_wrap_inline3292:8.7pt::8.7pt::64.0157pt.
+l2hSize :tex2html_wrap_inline3396:10.01027pt::10.01027pt::95.49977pt.
 [59
 
 
 ]
-l2hSize :tex2html_wrap_inline3296:9.5pt::9.5pt::58.91759pt.
+l2hSize :tex2html_wrap_inline3404:9.5pt::9.5pt::78.6176pt.
 [60
 
 
 ]
-l2hSize :tex2html_wrap_inline3298:10.01027pt::10.01027pt::68.41771pt.
+l2hSize :tex2html_wrap_inline3408:8.7pt::8.7pt::64.0157pt.
 [61
 
 
 ]
-l2hSize :tex2html_wrap_inline3300:10.01027pt::10.01027pt::111.58722pt.
+l2hSize :tex2html_wrap_inline3412:9.5pt::9.5pt::58.91759pt.
 [62
 
 
 ]
-l2hSize :tex2html_wrap_inline3302:8.2pt::0.0pt::8.743pt.
+l2hSize :tex2html_wrap_inline3414:10.01027pt::10.01027pt::68.41771pt.
 [63
 
 
 ]
-l2hSize :tex2html_wrap_inline3312:8.7pt::8.7pt::40.86615pt.
+l2hSize :tex2html_wrap_inline3416:10.01027pt::10.01027pt::111.58722pt.
 [64
 
 
 ]
-l2hSize :tex2html_wrap_inline3314:8.2pt::0.0pt::19.61263pt.
+l2hSize :tex2html_wrap_inline3418:8.2pt::0.0pt::8.743pt.
 [65
 
 
 ]
-l2hSize :tex2html_wrap_inline3316:12.50008pt::12.50008pt::155.28226pt.
+l2hSize :tex2html_wrap_inline3428:8.7pt::8.7pt::40.86615pt.
 [66
+
+
+]
+l2hSize :tex2html_wrap_inline3430:8.2pt::0.0pt::19.61263pt.
+[67
+
+
+]
+l2hSize :tex2html_wrap_inline3432:12.50008pt::12.50008pt::155.28226pt.
+[68
 
 
 ] (./facilitiesimages.aux)
@@ -748,12 +765,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3478 strings out of 94501
- 48318 string characters out of 1175975
- 114449 words of memory out of 1500000
- 6421 multiletter control sequences out of 10000+50000
+ 3548 strings out of 94501
+ 49382 string characters out of 1175975
+ 118292 words of memory out of 1500000
+ 6485 multiletter control sequences out of 10000+50000
  6881 words of font info for 26 fonts, out of 1200000 for 2000
  580 hyphenation exceptions out of 8191
  32i,6n,45p,356b,250s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on facilitiesimages.dvi (66 pages, 47140 bytes).
+Output written on facilitiesimages.dvi (68 pages, 48496 bytes).

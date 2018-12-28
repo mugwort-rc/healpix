@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html957"
+<A NAME="tex2html967"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html963"
+<A NAME="tex2html973"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html967"
+<A NAME="tex2html977"
   HREF="subroutinesnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html965"
+<A NAME="tex2html975"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html958"
+<B> Previous:</B> <A NAME="tex2html968"
   HREF="subroutinesnode57.htm">mpi_cleanup_alm_tools</A>
 
-<B>Up:</B> <A NAME="tex2html964"
+<B>Up:</B> <A NAME="tex2html974"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html968"
+<B> Next:</B> <A NAME="tex2html978"
   HREF="subroutinesnode59.htm">mpi_map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -85,11 +86,11 @@ time can be expected to decrease by roughly 50% using pre-computed
 Legendre polynomials for temperature calculations, and by about 30%
 for polarization calculations.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/mpi_alm_tools.f90"><b>src/f90/mod/mpi_alm_tools.f90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">mpi_initialize_alm_tools</FONT>(
-comm, [nsmax], [nlmax], [nmmax], [zbounds], [polarization], [precompute_plms], [w8ring]
+<A HREF="#sub:mpi_initialize_alm_tools:comm">comm</A>, [<A HREF="#sub:mpi_initialize_alm_tools:nsmax">nsmax</A>], [<A HREF="#sub:mpi_initialize_alm_tools:nlmax">nlmax</A>], [<A HREF="#sub:mpi_initialize_alm_tools:nmmax">nmmax</A>], [<A HREF="#sub:mpi_initialize_alm_tools:zbounds">zbounds</A>], [<A HREF="#sub:mpi_initialize_alm_tools:polarization">polarization</A>], [<A HREF="#sub:mpi_initialize_alm_tools:precompute_plms">precompute_plms</A>], [<A HREF="#sub:mpi_initialize_alm_tools:w8ring">w8ring</A>]
 )</h3></blockquote>
 
 <P>
@@ -107,29 +108,29 @@ comm, [nsmax], [nlmax], [nmmax], [zbounds], [polarization], [precompute_plms], [
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-comm</TD>
+comm<A NAME="sub:mpi_initialize_alm_tools:comm"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>MPI communicator.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax<A NAME="sub:mpi_initialize_alm_tools:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the HEALPix map. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:mpi_initialize_alm_tools:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A NAME="sub:mpi_initialize_alm_tools:nmmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. (OPTIONAL)</TD>
 </TR>
 </TABLE>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>zbounds(1:2)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>zbounds<A NAME="sub:mpi_initialize_alm_tools:zbounds"></A>(1:2)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>section of the map on which to perform the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
@@ -139,20 +140,20 @@ comm</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="214" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg90.png"
+ SRC="subroutinesimg96.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
                    it is performed <EM>outside</EM> of the strip
                    zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1). (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>polarization</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>polarization<A NAME="sub:mpi_initialize_alm_tools:polarization"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>if polarization is required, this should be
 set to true, else it should be set to false. (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>precompute_plms</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>precompute_plms<A NAME="sub:mpi_initialize_alm_tools:precompute_plms"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>0 = do not pre-compute any <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I>
@@ -168,7 +169,7 @@ set to true, else it should be set to false. (OPTIONAL)</TD>
  -->
 <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB><I>P</I></SPAN>.  (OPTIONAL)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring_TQU(1:2*nsmax, 1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring<A NAME="sub:mpi_initialize_alm_tools:w8ring"></A>_TQU(1:2*nsmax, 1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ring weights for quadrature corrections. If ring weights are not used, this array should be 1 everywhere. p is 1 for a temperature analysis and 3 for (T,Q,U). (OPTIONAL)</TD>
@@ -241,31 +242,31 @@ allocated memory.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html957"
+<A NAME="tex2html967"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html963"
+<A NAME="tex2html973"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html967"
+<A NAME="tex2html977"
   HREF="subroutinesnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html965"
+<A NAME="tex2html975"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html958"
+<B> Previous:</B> <A NAME="tex2html968"
   HREF="subroutinesnode57.htm">mpi_cleanup_alm_tools</A>
 
-<B>Up:</B> <A NAME="tex2html964"
+<B>Up:</B> <A NAME="tex2html974"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html968"
+<B> Next:</B> <A NAME="tex2html978"
   HREF="subroutinesnode59.htm">mpi_map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

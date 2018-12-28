@@ -38,12 +38,12 @@
 ;
 ; CALLING SEQUENCE:
 ;       FITS2CL, cl_array, [fitsfile, EXTENSION=, HELP=, INTERACTIVE=, RSHOW=, SILENT =, SHOW=$
-;                                     PLANCK1=, WMAP1=, WMAP5=, WMAP7= ,$
+;                                     PLANCK1=, PLANCK2=, WMAP1=, WMAP5=, WMAP7= ,$
 ;                                     HDR =, LLFACTOR=, MULTIPOLES=, XHDR =]
 ; 
 ; INPUTS:
 ;       fitsfile = String containing the name of the file to be read  
-;          if not provided, then /WMAP1, /WMAP5, /WMAP7 or /PLANCK1 or must be set.   
+;          if not provided, then /WMAP1, /WMAP5, /WMAP7, /PLANCK1 or /PLANCK2 must be set.   
 ;
 ; OPTIONAL INPUTS:
 ;       EXTENSION : extension unit to be read from FITS file: 
@@ -70,6 +70,12 @@
 ;          Lambda CDM best fit to   Planck2013 + external data
 ;          (!healpix.path.test+'planck2013ext_lcdm_cl_v1.fits') 
 ;          defined up to l=4500, is read
+;          See !healpix.path.test+'README' for details
+;
+;       PLANC21 = if set, and fitsfile is not provided, then the theoretical
+;          Lambda CDM best fit to   Planck2015
+;          (!healpix.path.test+'planck2015_lcdm_cl_v2.fits') 
+;          defined up to l=4900, is read
 ;          See !healpix.path.test+'README' for details
 ;
 ;       WMAP1 = if set, and fitsfile is not provided, then one WMAP-1yr best fit
@@ -129,8 +135,7 @@
 ;       May 1999: written by A.J. Banday (MPA)         
 ;       Oct 2001, EH : can now deal with 6 columns,
 ;                      added silent keyword
-;       Dec 2002, EH : can deal with Planck format (1st column is
-;       multipole),
+;       Dec 2002, EH : can deal with Planck format (1st column is multipole),
 ;                      added multipoles output variable
 ;       Mar 2003, EH : added SHOW keyword
 ;       Aug 2004, EH : added HELP keyword, updated header
@@ -145,6 +150,8 @@
 ;       May 2011: EH, added WMAP7 keyword
 ;       Feb 2013: EH, added EXTNAME keyword
 ;       Mar 2013: EH, added PLANCK1 keyword
+;       Aug 2015: EH, can read files with 9 columns
+;       Sep 2015: EH, added PLANCK2 keyword
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -198,29 +205,31 @@ PRO FITS2CL, cl_array, fitsfile, $
              SHOW=show, $
              XHDR = xhdr, $
              PLANCK1=planck1, $
+             PLANCK2=planck2, $
              WMAP1=wmap1, WMAP5=wmap5, WMAP7=wmap7
 
 code = 'FITS2CL'
 syntax = ['Syntax : '+code+', cl_array, [fitsfile, ',$
           '         EXTENSION=, HELP=, INTERACTIVE=, RSHOW=, SILENT =, SHOW=', $
-          '         HDR =, LLFACTOR=, MULTIPOLES=, XHDR =', $
-          '         PLANCK1 =, WMAP1=, WMAP5=, WMAP7=]']
+          '         HDR=, LLFACTOR=, MULTIPOLES=, XHDR=', $
+          '         PLANCK1=, PLANCK2=, WMAP1=, WMAP5=, WMAP7=]']
 
 if keyword_set(help) then begin
       doc_library,code
       return
 endif
 
-read_wmap1 = keyword_set(wmap1)
-read_wmap5 = keyword_set(wmap5)
-read_wmap7 = keyword_set(wmap7)
+read_wmap1   = keyword_set(wmap1)
+read_wmap5   = keyword_set(wmap5)
+read_wmap7   = keyword_set(wmap7)
 read_planck1 = keyword_set(planck1)
-read_internal = (read_wmap1 || read_wmap5 || read_wmap7 || read_planck1)
-multi_internal = (read_wmap1 + read_wmap5 + read_wmap7 + read_planck1 gt 1)
+read_planck2 = keyword_set(planck2)
+read_internal  = (read_wmap1 || read_wmap5 || read_wmap7 || read_planck1 || read_planck2)
+multi_internal = (read_wmap1 +  read_wmap5 +  read_wmap7 +  read_planck1 +  read_planck2 gt 1)
 
 if ((defined(fitsfile) && read_internal) || multi_internal) then begin
     print,syntax,form='(a)'
-    print,'  choose either an external FITSfile *or* /WMAP1 *or* /WMAP5 *or* /WMAP7 *or* /PLANCK1'
+    print,'  choose either an external FITSfile *or* /WMAP1 *or* /WMAP5 *or* /WMAP7 *or* /PLANCK1 *or* /PLANCK2'
     print,'   file NOT read '
     goto, Exit
 endif
@@ -238,6 +247,7 @@ if (read_wmap1)   then myfitsfile = !healpix.path.test+'wmap_lcdm_pl_model_yr1_v
 if (read_wmap5)   then myfitsfile = !healpix.path.test+'wmap_lcdm_sz_lens_wmap5_cl_v3.fits'
 if (read_wmap7)   then myfitsfile = !healpix.path.test+'wmap_lcdm_sz_lens_wmap7_cl_v4.fits'
 if (read_planck1) then myfitsfile = !healpix.path.test+'planck2013ext_lcdm_cl_v1.fits'
+if (read_planck2) then myfitsfile = !healpix.path.test+'planck2015_lcdm_cl_v2.fits'
 if (myfitsfile eq '') then myfitsfile = fitsfile
 
 if (datatype(cl_array) eq 'STR' or datatype(myfitsfile) ne 'STR') then begin
@@ -292,12 +302,12 @@ if (read_cl) then begin
     nrows = info(1)             ; # of entries for l-range: nrows = lmax+1
     ncols = n_elements(tag_names(tmpout)) - nextra
 
-    if ( (ncols ne 1) and (ncols ne 4) and (ncols ne 6)) then begin
+    if ( (ncols ne 1) and (ncols ne 4) and (ncols ne 6) and (ncols ne 9)) then begin
 ;         print,' Input file does not conform to expected structure'
 ;         print,code+' expects either 1, 4 or 6 columns,      found ',ncols
 ;         goto, Exit
         print,'WARNING: Input file does not conform to structure expected for C(l) file'
-        print,'WARNING: '+code+' expects either 1, 4 or 6 columns,      found ',ncols
+        print,'WARNING: '+code+' expects either 1, 4, 6 or 9 columns,      found ',ncols
 ;        goto, Exit
     endif
 
@@ -412,7 +422,9 @@ if (keyword_set(show) or keyword_set(rshow)) then begin
     screen_size = get_screen_size()
     xs = 800<screen_size[0]
     ys = ((ncols+1)/2)*400 < screen_size[1]
-    grid=[2<ncols,(ncols+1)/2]
+    ; grid=[2<ncols,(ncols+1)/2]
+    n1 = long(sqrt(ncols*1.))
+    grid = [n1, (ncols+n1-1)/n1]
 
     ; data to plot and labels
     l = multipoles

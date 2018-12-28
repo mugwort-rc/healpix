@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html417"
+<A NAME="tex2html427"
   HREF="subroutinesnode12.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html423"
+<A NAME="tex2html433"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html427"
+<A NAME="tex2html437"
   HREF="subroutinesnode14.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html425"
+<A NAME="tex2html435"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html418"
+<B> Previous:</B> <A NAME="tex2html428"
   HREF="subroutinesnode12.htm">alter_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html424"
+<B>Up:</B> <A NAME="tex2html434"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html428"
+<B> Next:</B> <A NAME="tex2html438"
   HREF="subroutinesnode14.htm">angdist</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -62,7 +63,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">ang2vec</FONT></font></b><hr>
 <H3>Routine to convert the position angles <SPAN CLASS="MATH"><IMG
  WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg37.png"
+ SRC="subroutinesimg42.png"
  ALT="$(\theta,\phi) $"></SPAN> of a point on the sphere 
 into its 3D position vector <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> with
 <!-- MATH
@@ -70,23 +71,23 @@ into its 3D position vector <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPA
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg38.png"
+ SRC="subroutinesimg43.png"
  ALT="$x = \sin\theta\cos\phi $"></SPAN>, <!-- MATH
  $y=\sin\theta\sin\phi$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg39.png"
+ SRC="subroutinesimg44.png"
  ALT="$y=\sin\theta\sin\phi $"></SPAN>, <SPAN CLASS="MATH"><IMG
  WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg40.png"
+ SRC="subroutinesimg45.png"
  ALT="$z=\cos\theta $"></SPAN>. 
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">ang2vec</FONT>(
-theta, phi, vector
+<A HREF="#sub:ang2vec:theta">theta</A>, <A HREF="#sub:ang2vec:phi">phi</A>, <A HREF="#sub:ang2vec:vector">vector</A>
 )</h3></blockquote>
 
 <P>
@@ -104,24 +105,24 @@ theta, phi, vector
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-theta</TD>
+theta<A NAME="sub:ang2vec:theta"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>colatitude in radians measured southward from north pole (in
     <SPAN CLASS="MATH"><IMG
  WIDTH="50" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg41.png"
+ SRC="subroutinesimg46.png"
  ALT="$[0,\ \pi] $"></SPAN>).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi<A NAME="sub:ang2vec:phi"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>longitude in radians measured eastward (in <SPAN CLASS="MATH"><IMG
  WIDTH="60" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg42.png"
+ SRC="subroutinesimg47.png"
  ALT="$[0,\ 2\pi] $"></SPAN>).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vector(3)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vector<A NAME="sub:ang2vec:vector"></A>(3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>three dimensional cartesian position vector
@@ -136,11 +137,11 @@ theta</TD>
 <B><A HREF="subroutinesnode14.htm#sub:angdist">angdist</A></B>
 <DD>computes the angular distance between 2 vectors
   <DT>
-<B><A HREF="subroutinesnode101.htm#sub:vec2ang">vec2ang</A></B>
+<B><A HREF="subroutinesnode103.htm#sub:vec2ang">vec2ang</A></B>
 <DD>converts the 3D position vector of point into its position
   angles on the sphere.
   <DT>
-<B><A HREF="subroutinesnode102.htm#sub:vect_prod">vect_prod</A></B>
+<B><A HREF="subroutinesnode104.htm#sub:vect_prod">vect_prod</A></B>
 <DD>computes the vector product between two 3D vectors
   </DL>
 
@@ -153,31 +154,31 @@ theta</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html417"
+<A NAME="tex2html427"
   HREF="subroutinesnode12.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html423"
+<A NAME="tex2html433"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html427"
+<A NAME="tex2html437"
   HREF="subroutinesnode14.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html425"
+<A NAME="tex2html435"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html418"
+<B> Previous:</B> <A NAME="tex2html428"
   HREF="subroutinesnode12.htm">alter_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html424"
+<B>Up:</B> <A NAME="tex2html434"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html428"
+<B> Next:</B> <A NAME="tex2html438"
   HREF="subroutinesnode14.htm">angdist</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

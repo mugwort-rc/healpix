@@ -51,6 +51,7 @@ pro orthview, file_in, select_in, $
               IGLSIZE = iglsize, $
               IGRATICULE=igraticule, $
               JPEG=jpeg, $
+              LATEX=latex, $
               LOG = log, $
               MAP_OUT = map_out, $
               MAX = max_set, $
@@ -63,6 +64,8 @@ pro orthview, file_in, select_in, $
               OFFSET = offset, $
               ONLINE = online, $
               OUTLINE = outline, $
+              PDF = pdf, $
+              PFONTS = pfonts, $
               PNG = png, $
               POLARIZATION = polarization, $
               PREVIEW = preview, $
@@ -125,12 +128,12 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HIST_EQUAL=, HXSIZE=,  '
     print,'              IGLSIZE=, IGRATICULE=,'
     print,'              JPEG=,'
-    print,'              LOG=, '
+    print,'              LATEX=, LOG=, '
     print,'              MAP_OUT=, MAX=, MIN=, '
     print,'              NESTED=, NOBAR=, NOLABELS=, '
     print,'              NO_DIPOLE=, NO_MONOPOLE=, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
-    print,'              PNG=, POLARIZATION=, PREVIEW=, '
+    print,'              PDF=, PFONTS=, PNG=, POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
     print,'              RETAIN=, ROT=,  '
     print,'              SAVE=, SHADED=, SILENT=, STAGGER=, SUBTITLE=, '
@@ -181,7 +184,8 @@ data2orth, $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
   POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
   DO_SHADE=do_shade, SHADEMAP=shademap, $
-  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=map_out, ROT=rot, FITS=fits, STAGGER=stagger
+  TRUECOLORS=truecolors, DATA_TC=data_tc, MAP_OUT=arg_present(map_out) ? map_out : -1, $
+  ROT=rot, FITS=fits, STAGGER=stagger
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -192,7 +196,9 @@ proj2out, $
   POLARIZATION=polarization, OUTLINE=outline, /ORTH, FLIP=flip, HALF_SKY=half_sky, COORD_IN=coord_in, $
   IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
   SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, $
-  CHARTHICK=charthick, STAGGER=stagger, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color
+  CHARTHICK=charthick, STAGGER=stagger, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color, $
+  PDF=pdf, LATEX=latex, PFONTS=pfonts
+
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

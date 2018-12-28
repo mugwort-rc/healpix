@@ -25,7 +25,7 @@
 /*! \file alloc_utils.h
  *  Classes providing raw memory allocation and deallocation support.
  *
- *  Copyright (C) 2011 Max-Planck-Society
+ *  Copyright (C) 2011-2015 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -33,40 +33,61 @@
 #define PLANCK_ALLOC_UTILS_H
 
 #include <cstdlib>
+#include <cstddef>
 #include "datatypes.h"
 
 template <typename T> class normalAlloc__
   {
   public:
-    T *alloc(tsize sz) const { return (sz>0) ? new T[sz] : 0; }
-    void dealloc (T *ptr) const { delete[] ptr; }
+    static T *alloc(tsize sz) { return (sz>0) ? new T[sz] : 0; }
+    static void dealloc (T *ptr) { delete[] ptr; }
   };
 
 template <typename T, int align> class alignAlloc__
   {
+  private:
+//#if (__cplusplus>=201103L)
+//    enum { max_nat_align = alignof(std::max_align_t) };
+//#else
+    enum { max_nat_align = sizeof(void *) };
+//#endif
+
   public:
-    T *alloc(tsize sz) const
+    static T *alloc(tsize sz)
       {
       using namespace std;
       if (sz==0) return 0;
       planck_assert((align&(align-1))==0,"alignment must be power of 2");
       void *res;
-/* OSX up to version 10.5 does not define posix_memalign(), but fortunately
-   the normal malloc() returns 16 byte aligned storage */
-#ifdef __APPLE__
-      planck_assert(align<=16, "bad alignment requested");
-      res=malloc(sz*sizeof(T));
-      planck_assert(res!=0,"error in malloc()");
-#else
-      planck_assert(posix_memalign(&res,align,sz*sizeof(T))==0,
-        "error in posix_memalign()");
-#endif
+      if (align<=max_nat_align)
+        {
+        res=malloc(sz*sizeof(T));
+        planck_assert(res!=0,"error in malloc()");
+        }
+      else
+        {
+        tsize overhead=align-1+sizeof(void*);
+        void *ptr=malloc(sz*sizeof(T)+overhead);
+        planck_assert(ptr!=0,"error in malloc()");
+        tsize sptr=reinterpret_cast<tsize>(ptr);
+        sptr = (sptr+overhead) & ~(align-1);
+        void **ptr2 = reinterpret_cast<void **>(sptr);
+        ptr2[-1]=ptr;
+        res=ptr2;
+        }
       return static_cast<T *>(res);
       }
-    void dealloc(T *ptr) const
+    static void dealloc(T *ptr)
       {
       using namespace std;
-      free(ptr);
+      if (align<=max_nat_align)
+        free(ptr);
+      else
+        {
+        if (ptr==0) return;
+        void **ptr2 = reinterpret_cast<void **>(ptr);
+        free (ptr2[-1]);
+        }
       }
   };
 

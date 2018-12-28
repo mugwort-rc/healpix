@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_9b347822194fb75385309b582ebc89dc.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -37,7 +37,7 @@
 <a name="l00015"></a>00015 <span class="comment"> *  along with Healpix_cxx; if not, write to the Free Software</span>
 <a name="l00016"></a>00016 <span class="comment"> *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA</span>
 <a name="l00017"></a>00017 <span class="comment"> *</span>
-<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.jpl.nasa.gov</span>
+<a name="l00018"></a>00018 <span class="comment"> *  For more information about HEALPix, see http://healpix.sourceforge.net</span>
 <a name="l00019"></a>00019 <span class="comment"> */</span>
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="comment">/*</span>
@@ -47,7 +47,7 @@
 <a name="l00025"></a>00025 <span class="comment"> */</span>
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027 <span class="comment">/*</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2011 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2015 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -58,12 +58,12 @@
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 <span class="keywordtype">void</span> PowSpec::dealloc()
 <a name="l00038"></a>00038   {
-<a name="l00039"></a>00039   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
-<a name="l00040"></a>00040   gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
-<a name="l00041"></a>00041   cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
-<a name="l00042"></a>00042   tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
-<a name="l00043"></a>00043   tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
-<a name="l00044"></a>00044   gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a>();
+<a name="l00039"></a>00039   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
+<a name="l00040"></a>00040   gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
+<a name="l00041"></a>00041   cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
+<a name="l00042"></a>00042   tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
+<a name="l00043"></a>00043   tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
+<a name="l00044"></a>00044   gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#2ee08232b10343d7e56776df14ab857c">dealloc</a>();
 <a name="l00045"></a>00045   }
 <a name="l00046"></a>00046 
 <a name="l00047"></a><a class="code" href="classPowSpec.html#ecb4a4374283af9190f2f682c4ad7db9">00047</a> <a class="code" href="classPowSpec.html#5aa968be5030b5dcf94460b30eb5a379">PowSpec::PowSpec</a>(<span class="keywordtype">int</span> nspec, <span class="keywordtype">int</span> lmax)
@@ -100,13 +100,13 @@
 <a name="l00078"></a>00078       {
 <a name="l00079"></a>00079       <span class="keywordflow">if</span> (gg_[l]&lt;0) <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00080"></a>00080       <span class="keywordflow">if</span> (cc_[l]&lt;0) <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00081"></a>00081       <span class="keywordflow">if</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(tg_[l])&gt;sqrt(tt_[l]*gg_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00081"></a>00081       <span class="keywordflow">if</span> (abs(tg_[l])&gt;sqrt(tt_[l]*gg_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00082"></a>00082       }
 <a name="l00083"></a>00083   <span class="keywordflow">if</span> (num_specs==6)
 <a name="l00084"></a>00084     <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> l=0; l&lt;tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr__ref.html#907c97ffb647df713a8fa02ebec97a3b">size</a>(); ++l)
 <a name="l00085"></a>00085       {
-<a name="l00086"></a>00086       <span class="keywordflow">if</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(tc_[l])&gt;sqrt(tt_[l]*cc_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00087"></a>00087       <span class="keywordflow">if</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(gc_[l])&gt;sqrt(gg_[l]*cc_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00086"></a>00086       <span class="keywordflow">if</span> (abs(tc_[l])&gt;sqrt(tt_[l]*cc_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00087"></a>00087       <span class="keywordflow">if</span> (abs(gc_[l])&gt;sqrt(gg_[l]*cc_[l])) <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00088"></a>00088       }
 <a name="l00089"></a>00089   <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00090"></a>00090   }
@@ -116,17 +116,17 @@
 <a name="l00094"></a>00094   num_specs=nspec;
 <a name="l00095"></a>00095   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a> ((num_specs==1) || (num_specs==4) || (num_specs==6),
 <a name="l00096"></a>00096     <span class="stringliteral">"wrong number of spectrums"</span>);
-<a name="l00097"></a>00097   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00097"></a>00097   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00098"></a>00098   <span class="keywordflow">if</span> (num_specs&gt;1)
 <a name="l00099"></a>00099     {
-<a name="l00100"></a>00100     gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
-<a name="l00101"></a>00101     cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
-<a name="l00102"></a>00102     tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00100"></a>00100     gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
+<a name="l00101"></a>00101     cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
+<a name="l00102"></a>00102     tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00103"></a>00103     }
 <a name="l00104"></a>00104   <span class="keywordflow">if</span> (num_specs&gt;4)
 <a name="l00105"></a>00105     {
-<a name="l00106"></a>00106     tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
-<a name="l00107"></a>00107     gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#b89c5ade7b607f3f3a5a2bf77d2fdc1a">alloc</a>(lmax+1);
+<a name="l00106"></a>00106     tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
+<a name="l00107"></a>00107     gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#48cc84efb0fa315b1b17ff79fb76d9ec">alloc</a>(lmax+1);
 <a name="l00108"></a>00108     }
 <a name="l00109"></a>00109   }
 <a name="l00110"></a>00110 
@@ -134,7 +134,7 @@
 <a name="l00112"></a>00112   {
 <a name="l00113"></a>00113   dealloc();
 <a name="l00114"></a>00114   num_specs = 1;
-<a name="l00115"></a>00115   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(tt_new);
+<a name="l00115"></a>00115   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(tt_new);
 <a name="l00116"></a>00116 <span class="comment">//FIXME: temporarily relaxed to allow cross-spectra</span>
 <a name="l00117"></a>00117   <span class="keywordflow">if</span> (!<a class="code" href="classPowSpec.html#8c5033d96af2b2219cd0142dd7541623">consistentAutoPowspec</a>())
 <a name="l00118"></a>00118     cerr &lt;&lt; <span class="stringliteral">"Warning: negative values in TT spectrum"</span> &lt;&lt; endl;
@@ -145,8 +145,8 @@
 <a name="l00123"></a>00123   {
 <a name="l00124"></a>00124   dealloc();
 <a name="l00125"></a>00125   num_specs = 4;
-<a name="l00126"></a>00126   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(tt_new); gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(gg_new);
-<a name="l00127"></a>00127   cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(cc_new); tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(tg_new);
+<a name="l00126"></a>00126   tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(tt_new); gg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(gg_new);
+<a name="l00127"></a>00127   cc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(cc_new); tg_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(tg_new);
 <a name="l00128"></a>00128   <a class="code" href="classPowSpec.html#f74cac162b7326d3fad7ff282d41fd39">assertArraySizes</a>();
 <a name="l00129"></a>00129   }
 <a name="l00130"></a>00130 
@@ -155,31 +155,35 @@
 <a name="l00133"></a>00133   {
 <a name="l00134"></a>00134   <a class="code" href="classPowSpec.html#448df4934fd82a6bddea26cb8a80825e">Set</a> (tt_new, gg_new, cc_new, tg_new);
 <a name="l00135"></a>00135   num_specs = 6;
-<a name="l00136"></a>00136   tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(tc_new); gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#a33caed2aa6385d820825aaeb636c423">transfer</a>(gc_new);
+<a name="l00136"></a>00136   tc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(tc_new); gc_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarrT.html#66e7151f0efca411b5e92ef27253ba7c">transfer</a>(gc_new);
 <a name="l00137"></a>00137   <a class="code" href="classPowSpec.html#f74cac162b7326d3fad7ff282d41fd39">assertArraySizes</a>();
 <a name="l00138"></a>00138   }
 <a name="l00139"></a>00139 
 <a name="l00140"></a><a class="code" href="classPowSpec.html#609577d04c08237dfcb44e573daf079b">00140</a> <span class="keywordtype">void</span> <a class="code" href="classPowSpec.html#609577d04c08237dfcb44e573daf079b">PowSpec::smoothWithGauss</a> (<span class="keywordtype">double</span> fwhm)
 <a name="l00141"></a>00141   {
-<a name="l00142"></a>00142   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a> (num_specs&lt;=4, "not yet implemented for num_specs&gt;4<span class="stringliteral">");</span>
-<a name="l00143"></a>00143 <span class="stringliteral">  double sigma = fwhm*fwhm2sigma;</span>
-<a name="l00144"></a>00144 <span class="stringliteral">  double fact_pol = exp(2*sigma*sigma);</span>
-<a name="l00145"></a>00145 <span class="stringliteral">  for (tsize l=0; l&lt;tt_.size(); ++l)</span>
-<a name="l00146"></a>00146 <span class="stringliteral">    {</span>
-<a name="l00147"></a>00147 <span class="stringliteral">    double f1 = exp(-.5*l*(l+1)*sigma*sigma);</span>
-<a name="l00148"></a>00148 <span class="stringliteral">    double f2 = f1*fact_pol;</span>
-<a name="l00149"></a>00149 <span class="stringliteral">    tt_[l] *= f1*f1;</span>
-<a name="l00150"></a>00150 <span class="stringliteral">    if (num_specs&gt;1)</span>
-<a name="l00151"></a>00151 <span class="stringliteral">      {</span>
-<a name="l00152"></a>00152 <span class="stringliteral">      gg_[l] *= f2*f2;</span>
-<a name="l00153"></a>00153 <span class="stringliteral">      cc_[l] *= f2*f2;</span>
-<a name="l00154"></a>00154 <span class="stringliteral">      tg_[l] *= f1*f2;</span>
-<a name="l00155"></a>00155 <span class="stringliteral">      }</span>
-<a name="l00156"></a>00156 <span class="stringliteral">    }</span>
-<a name="l00157"></a>00157 <span class="stringliteral">  }</span>
+<a name="l00142"></a>00142   <span class="keywordtype">double</span> sigma = fwhm*fwhm2sigma;
+<a name="l00143"></a>00143   <span class="keywordtype">double</span> fact_pol = exp(2*sigma*sigma);
+<a name="l00144"></a>00144   <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> l=0; l&lt;tt_.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr__ref.html#907c97ffb647df713a8fa02ebec97a3b">size</a>(); ++l)
+<a name="l00145"></a>00145     {
+<a name="l00146"></a>00146     <span class="keywordtype">double</span> f1 = exp(-.5*l*(l+1)*sigma*sigma);
+<a name="l00147"></a>00147     <span class="keywordtype">double</span> f2 = f1*fact_pol;
+<a name="l00148"></a>00148     tt_[l] *= f1*f1;
+<a name="l00149"></a>00149     <span class="keywordflow">if</span> (num_specs&gt;1)
+<a name="l00150"></a>00150       {
+<a name="l00151"></a>00151       gg_[l] *= f2*f2;
+<a name="l00152"></a>00152       cc_[l] *= f2*f2;
+<a name="l00153"></a>00153       tg_[l] *= f1*f2;
+<a name="l00154"></a>00154       <span class="keywordflow">if</span> (num_specs&gt;4)
+<a name="l00155"></a>00155         {
+<a name="l00156"></a>00156         tc_[l] *= f1*f2;
+<a name="l00157"></a>00157         gc_[l] *= f2*f2;
+<a name="l00158"></a>00158         }
+<a name="l00159"></a>00159       }
+<a name="l00160"></a>00160     }
+<a name="l00161"></a>00161   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Dec 5 16:00:27 2014 for Healpix C++
+Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
 </a> </small></address>
 </body>
 </html>

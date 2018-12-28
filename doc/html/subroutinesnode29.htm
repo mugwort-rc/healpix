@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html609"
+<A NAME="tex2html619"
   HREF="subroutinesnode28.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html615"
+<A NAME="tex2html625"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html619"
+<A NAME="tex2html629"
   HREF="subroutinesnode30.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html617"
+<A NAME="tex2html627"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html610"
+<B> Previous:</B> <A NAME="tex2html620"
   HREF="subroutinesnode28.htm">fill_holes_nest</A>
 
-<B>Up:</B> <A NAME="tex2html616"
+<B>Up:</B> <A NAME="tex2html626"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html620"
+<B> Next:</B> <A NAME="tex2html630"
   HREF="subroutinesnode30.htm">fits2cl*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -68,11 +69,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <SPAN CLASS="MATH"><I>index</I>=<I>l</I><SUP>2</SUP>+<I>l</I>+<I>m</I>+1</SPAN> and 2 or 4 single (or double) precision columns 
 with real/imaginary  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values and real/imaginary   standard deviation. 
 One can read temperature <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or temperature and polarisation, <SPAN CLASS="MATH"><I>a</I><SUP><I>T</I></SUP><SUB><I>lm</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP><SUB><I>lm</I></SUB></SPAN> and <SPAN CLASS="MATH"><I>a</I><SUP><I>B</I></SUP><SUB><I>lm</I></SUB></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">fits2alms*</FONT>(
-filename, nalms, alms, ncl, header, nlheader, next
+<A HREF="#sub:fits2alms:filename">filename</A>, <A HREF="#sub:fits2alms:nalms">nalms</A>, <A HREF="#sub:fits2alms:alms">alms</A>, <A HREF="#sub:fits2alms:ncl">ncl</A>, <A HREF="#sub:fits2alms:header">header</A>, <A HREF="#sub:fits2alms:nlheader">nlheader</A>, <A HREF="#sub:fits2alms:next">next</A>
 )</h3></blockquote>
 
 <P>
@@ -90,23 +91,23 @@ filename, nalms, alms, ncl, header, nlheader, next
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>
-filename(LEN=<tt>filenamelen</tt>)</TD>
+filename<A NAME="sub:fits2alms:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=30>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename of the FITS-file to read the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>nalms</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>nalms<A NAME="sub:fits2alms:nalms"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=30>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> to read.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>ncl</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>ncl<A NAME="sub:fits2alms:ncl"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=30>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of columns to read in the FITS file. If an standard
                deviation is to be read, this number is 5, otherwise it is 3.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>next</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=195>next<A NAME="sub:fits2alms:next"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=30>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the number of extensions to read. 1 for temperature only, 3
@@ -114,7 +115,7 @@ filename(LEN=<tt>filenamelen</tt>)</TD>
 </TR>
 </TABLE>
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alms(1:nalms,1:(ncl+1),1:next)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alms<A NAME="sub:fits2alms:alms"></A>(1:nalms,1:(ncl+1),1:next)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> to read from the
@@ -124,12 +125,12 @@ filename(LEN=<tt>filenamelen</tt>)</TD>
           <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. Finally, the   standard deviation for the ith  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> is
           contained in alms(i,5,j) (real) and alms(i,6,j) (imaginary).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader<A NAME="sub:fits2alms:nlheader"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of header lines to read from the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80) (1:nlheader, 1:next)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header<A NAME="sub:fits2alms:header"></A>(LEN=80) (1:nlheader, 1:next)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the header(s) read from the FITS-file.</TD>
@@ -166,11 +167,11 @@ Reads a FITS file with the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB><SUP><
 <B><A HREF="subroutinesnode11.htm#sub:alms2fits">alms2fits</A>, <A HREF="subroutinesnode27.htm#sub:dump_alms">dump_alms</A></B>
 <DD>routines to store <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> in a FITS-file 
   <DT>
-<B><A HREF="subroutinesnode83.htm#sub:read_conbintab">read_conbintab</A></B>
+<B><A HREF="subroutinesnode84.htm#sub:read_conbintab">read_conbintab</A></B>
 <DD>has the same function as
   <FONT COLOR="#CC0000">fits2alms*</FONT> but with parameters passed differently.
   <DT>
-<B><A HREF="subroutinesnode67.htm#sub:number_of_alms">number_of_alms</A>, <A HREF="subroutinesnode39.htm#sub:getsize_fits">getsize_fits</A></B>
+<B><A HREF="subroutinesnode68.htm#sub:number_of_alms">number_of_alms</A>, <A HREF="subroutinesnode39.htm#sub:getsize_fits">getsize_fits</A></B>
 <DD>can be used to find out the number of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> available in the file.
   </DL>
 
@@ -185,31 +186,31 @@ Reads a FITS file with the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB><SUP><
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html609"
+<A NAME="tex2html619"
   HREF="subroutinesnode28.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html615"
+<A NAME="tex2html625"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html619"
+<A NAME="tex2html629"
   HREF="subroutinesnode30.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html617"
+<A NAME="tex2html627"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html610"
+<B> Previous:</B> <A NAME="tex2html620"
   HREF="subroutinesnode28.htm">fill_holes_nest</A>
 
-<B>Up:</B> <A NAME="tex2html616"
+<B>Up:</B> <A NAME="tex2html626"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html620"
+<B> Next:</B> <A NAME="tex2html630"
   HREF="subroutinesnode30.htm">fits2cl*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

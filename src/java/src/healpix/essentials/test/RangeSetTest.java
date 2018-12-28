@@ -15,15 +15,35 @@
  *  along with this code; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  For more information about HEALPix, see http://healpix.jpl.nasa.gov
+ *  For more information about HEALPix, see http://healpix.sourceforge.net
  */
 package healpix.essentials.test;
 
 import healpix.essentials.RangeSet;
 import junit.framework.TestCase;
 import java.io.*;
+import java.util.Random;
 
+/** Tests for the RangeSet class
+
+    @copyright 2014 Max-Planck-Society
+    @author Martin Reinecke */
 public class RangeSetTest extends TestCase {
+
+  private static RangeSet randomRangeSet(Random rng, int num, long start,
+    int dist)
+    {
+    RangeSet rs = new RangeSet(num);
+    long curval=start;
+    for (int i=0; i<num; ++i)
+      {
+      long v1=curval+1+rng.nextInt(dist);
+      long v2=v1+1+rng.nextInt(dist);
+      rs.append(v1,v2);
+      curval=v2;
+      }
+    return rs;
+    }
 
   public void testAppend()
     {
@@ -166,7 +186,7 @@ public class RangeSetTest extends TestCase {
                  new RangeSet(new long[]{}).intersection
                  (new RangeSet(new long[]{20,31,40,51})));
     }
-  public void testSubstract()
+  public void testDifference()
     {
     assertEquals(new RangeSet(new long[]{20,31,40,45}),
                  new RangeSet(new long[]{20,31,40,51}).difference
@@ -179,76 +199,76 @@ public class RangeSetTest extends TestCase {
                  (new RangeSet(new long[]{})));
     }
 
-  public void testContainsAll()
+  public void testContainsRS()
     {
     RangeSet b = new RangeSet(new long[]{20,31,40,51});
 
-    assertFalse(b.containsAll(0,11));
-    assertFalse(b.containsAll(10,21));
-    assertFalse(b.containsAll(19,20));
-    assertTrue(b.containsAll(20,21));
-    assertTrue(b.containsAll(21,22));
-    assertTrue(b.containsAll(20,31));
-    assertFalse(b.containsAll(25,36));
-    assertTrue(b.containsAll(30,31));
-    assertFalse(b.containsAll(31,32));
-    assertFalse(b.containsAll(35,38));
-    assertFalse(b.containsAll(35,46));
-    assertTrue(b.containsAll(40,41));
-    assertFalse(b.containsAll(45,56));
-    assertFalse(b.containsAll(60,71));
+    assertFalse(b.contains(0,11));
+    assertFalse(b.contains(10,21));
+    assertFalse(b.contains(19,20));
+    assertTrue(b.contains(20,21));
+    assertTrue(b.contains(21,22));
+    assertTrue(b.contains(20,31));
+    assertFalse(b.contains(25,36));
+    assertTrue(b.contains(30,31));
+    assertFalse(b.contains(31,32));
+    assertFalse(b.contains(35,38));
+    assertFalse(b.contains(35,46));
+    assertTrue(b.contains(40,41));
+    assertFalse(b.contains(45,56));
+    assertFalse(b.contains(60,71));
     }
-  public void testContainsAll2()
+  public void testContainsRS2()
     {
     RangeSet b = new RangeSet(new long[]{20,31,40,51});
 
-    assertTrue(b.containsAll(new RangeSet(new long[]{20,31,40,51})));
-    assertTrue(b.containsAll(new RangeSet(new long[]{20,21})));
-    assertTrue(b.containsAll(new RangeSet(new long[]{50,51})));
-    assertFalse(b.containsAll(new RangeSet(new long[]{19,31,40,51})));
-    assertFalse(b.containsAll(new RangeSet(new long[]{20,31,40,52})));
-    assertFalse(b.containsAll(new RangeSet(new long[]{20,51})));
-    assertFalse(b.containsAll(new RangeSet(new long[]{0,1})));
-    assertFalse(b.containsAll(new RangeSet(new long[]{0,20,31,40,51,100})));
+    assertTrue(b.contains(new RangeSet(new long[]{20,31,40,51})));
+    assertTrue(b.contains(new RangeSet(new long[]{20,21})));
+    assertTrue(b.contains(new RangeSet(new long[]{50,51})));
+    assertFalse(b.contains(new RangeSet(new long[]{19,31,40,51})));
+    assertFalse(b.contains(new RangeSet(new long[]{20,31,40,52})));
+    assertFalse(b.contains(new RangeSet(new long[]{20,51})));
+    assertFalse(b.contains(new RangeSet(new long[]{0,1})));
+    assertFalse(b.contains(new RangeSet(new long[]{0,20,31,40,51,100})));
     }
-  public void testContainsAny()
+  public void testOverlaps()
     {
     RangeSet b = new RangeSet(new long[]{20,31,40,51});
 
-    assertFalse(b.containsAny(0,11));
-    assertTrue(b.containsAny(10,21));
-    assertFalse(b.containsAny(19,20));
-    assertTrue(b.containsAny(20,21));
-    assertTrue(b.containsAny(21,22));
-    assertTrue(b.containsAny(20,31));
-    assertTrue(b.containsAny(25,36));
-    assertTrue(b.containsAny(30,37));
-    assertFalse(b.containsAny(31,32));
-    assertFalse(b.containsAny(35,38));
-    assertTrue(b.containsAny(35,46));
-    assertTrue(b.containsAny(40,41));
-    assertTrue(b.containsAny(45,56));
-    assertFalse(b.containsAny(60,71));
+    assertFalse(b.overlaps(0,11));
+    assertTrue(b.overlaps(10,21));
+    assertFalse(b.overlaps(19,20));
+    assertTrue(b.overlaps(20,21));
+    assertTrue(b.overlaps(21,22));
+    assertTrue(b.overlaps(20,31));
+    assertTrue(b.overlaps(25,36));
+    assertTrue(b.overlaps(30,37));
+    assertFalse(b.overlaps(31,32));
+    assertFalse(b.overlaps(35,38));
+    assertTrue(b.overlaps(35,46));
+    assertTrue(b.overlaps(40,41));
+    assertTrue(b.overlaps(45,56));
+    assertFalse(b.overlaps(60,71));
     }
-  public void testContainsAny2()
+  public void testOverlaps2()
     {
     RangeSet b = new RangeSet(new long[]{20,31,40,51});
 
-    assertTrue(b.containsAny(new RangeSet(new long[]{20,31,40,51})));
-    assertTrue(b.containsAny(new RangeSet(new long[]{20,21})));
-    assertTrue(b.containsAny(new RangeSet(new long[]{50,51})));
-    assertTrue(b.containsAny(new RangeSet(new long[]{19,31,40,51})));
-    assertTrue(b.containsAny(new RangeSet(new long[]{20,31,40,52})));
-    assertTrue(b.containsAny(new RangeSet(new long[]{20,51})));
-    assertFalse(b.containsAny(new RangeSet(new long[]{0,1})));
-    assertFalse(b.containsAny(new RangeSet(new long[]{0,20,31,40,51,100})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{20,31,40,51})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{20,21})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{50,51})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{19,31,40,51})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{20,31,40,52})));
+    assertTrue(b.overlaps(new RangeSet(new long[]{20,51})));
+    assertFalse(b.overlaps(new RangeSet(new long[]{0,1})));
+    assertFalse(b.overlaps(new RangeSet(new long[]{0,20,31,40,51,100})));
     }
 
   public void testIterator()
     {
     RangeSet b = new RangeSet(new long[]{20,31,40,51});
     RangeSet.ValueIterator it =b.valueIterator();
-    for (int i=0; i<b.size(); ++i)
+    for (int i=0; i<b.nranges(); ++i)
       for (long j=b.ivbegin(i); j<b.ivend(i); ++j)
         {
         assertTrue(it.hasNext());
@@ -257,13 +277,41 @@ public class RangeSetTest extends TestCase {
     assertFalse(it.hasNext());
     }
 
-  public void testSerialize() throws IOException, ClassNotFoundException {
-      RangeSet r = new RangeSet(new long[]{10,20,30,40,50,51});
-      ByteArrayOutputStream s = new ByteArrayOutputStream();
-      new ObjectOutputStream(s).writeObject(r);
+  public void testCompress() throws Exception
+    {
+    RangeSet r = new RangeSet(new long[]{10,20,30,40,50,51});
+    assertEquals(r,RangeSet.fromCompressed(r.toCompressed()));
+    }
 
-      RangeSet r2 = (RangeSet) new ObjectInputStream(new ByteArrayInputStream(s.toByteArray())).readObject();
+  private static void rsOps(RangeSet a, RangeSet b) throws Exception
+    {
+    assertFalse(b.overlaps(a.difference(b)));
+    assertTrue(a.union(b).nval()>=a.nval());
+    assertTrue(a.union(b).nval()>=b.nval());
+    assertTrue(a.intersection(b).nval()<=a.nval());
+    assertTrue(a.intersection(b).nval()<=b.nval());
+    assertTrue(a.union(b).contains(a));
+    assertTrue(a.union(b).contains(b));
+    assertFalse(a.difference(b).overlaps(b));
+    assertFalse(b.difference(a).overlaps(a));
+    assertEquals(a.union(b).nval(),a.nval()+b.nval()-a.intersection(b).nval());
+    assertEquals(a.union(b).difference(a.intersection(b)).nval(),
+                 a.union(b).nval()-a.intersection(b).nval());
+    assertEquals(a,RangeSet.fromCompressed(a.toCompressed()));
+    }
 
-      assertEquals(r,r2);
+  public static void testOps() throws Exception
+    {
+    int niter = 100;
+    Random rng = new Random(42);
+    for (int iter=0; iter<niter; ++iter)
+      {
+      RangeSet a = randomRangeSet(rng, 1000, 0, 100);
+      RangeSet b = randomRangeSet(rng, 1000, 0, 100);
+      RangeSet c = randomRangeSet(rng, 10, 10000, 100);
+      rsOps(a,b);
+      rsOps(a,c);
+      rsOps(c,a);
+      }
+    }
   }
-}

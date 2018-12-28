@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html321"
+<A NAME="tex2html331"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html327"
+<A NAME="tex2html337"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html331"
+<A NAME="tex2html341"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html329"
+<A NAME="tex2html339"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html322"
+<B> Previous:</B> <A NAME="tex2html332"
   HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html328"
+<B>Up:</B> <A NAME="tex2html338"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html332"
+<B> Next:</B> <A NAME="tex2html342"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,11 +62,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">add_card</FONT></font></b><hr>
 <H3>This routine writes a keyword of any kind into a FITS header. It is a wrapper to other routines that write keywords of different kinds.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">add_card</FONT>(
-header, kwd, value <i><font color="#224422">[, comment, update]</font></i> 
+<A HREF="#sub:add_card:header">header</A>, <A HREF="#sub:add_card:kwd">kwd</A>, <A HREF="#sub:add_card:value">value</A><i><font color="#224422">[, <A HREF="#sub:add_card:comment">comment</A>, <A HREF="#sub:add_card:update">update</A>]</font></i> 
 )</h3></blockquote>
 Arguments appearing in <i><font color="#224422">italic</font></i> are
 optional.
@@ -85,25 +86,25 @@ optional.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-header(LEN=80) DIMENSION(:)</TD>
+header<A NAME="sub:add_card:header"></A>(LEN=80) DIMENSION(:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The header to write the keyword to.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwd(LEN=*)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwd<A NAME="sub:add_card:kwd"></A>(LEN=*)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the FITS keyword to write. Should be shorter
                    or equal to 8 characters.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value<A NAME="sub:add_card:value"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>any</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the value (double, real, integer, logical or
                    character string) to give to the keyword. Note that long string values
 (more than 68 characters in length) are supported.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">comment(LEN=*)</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">comment<A NAME="sub:add_card:comment"></A>(LEN=*)</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>comment to the keyword.</TD>
@@ -121,10 +122,10 @@ header(LEN=80) DIMENSION(:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-<i><font color="#224422">update</font></i></TD>
+<i><font color="#224422">update<A NAME="sub:add_card:update"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if set to <TT>.true.</TT>, the first occurence of the keyword <TT>kwd</TT> in <TT>header</TT> will be updated (and all other occurences removed); otherwise, the keyword will be appended at
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if set to <TT>.true.</TT>, the first occurence of the keyword <TT>kwd<A NAME="sub:add_card:kwd"></A></TT> in <TT>header</TT> will be updated (and all other occurences removed); otherwise, the keyword will be appended at
 the end (and any previous occurence removed). If the keyword is either 'HISTORY'
 or 'COMMENT', <TT>update</TT> is ignored and the keyword is peacefully appended at the end of the header.</TD>
 </TR>
@@ -159,7 +160,7 @@ anything in it.
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">add_card</FONT></b></h3>
  
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode108.htm#sub:write_minimal_header">write_minimal_header</A></B>
+<B><A HREF="subroutinesnode110.htm#sub:write_minimal_header">write_minimal_header</A></B>
 <DD>routine to
 write <b>HEALPix</b> compliant baseline FITS header
   <DT>
@@ -169,7 +170,7 @@ write <b>HEALPix</b> compliant baseline FITS header
 <B><A HREF="subroutinesnode25.htm#sub:del_card">del_card</A></B>
 <DD>routine to discard a keyword from a FITS header
   <DT>
-<B><A HREF="subroutinesnode86.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode67.htm#sub:number_of_alms">number_of_alms</A></B>
+<B><A HREF="subroutinesnode87.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode68.htm#sub:number_of_alms">number_of_alms</A></B>
 <DD>routines to read specific keywords from a
   header in a FITS file.
   <DT>
@@ -192,31 +193,31 @@ write <b>HEALPix</b> compliant baseline FITS header
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html321"
+<A NAME="tex2html331"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html327"
+<A NAME="tex2html337"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html331"
+<A NAME="tex2html341"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html329"
+<A NAME="tex2html339"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html322"
+<B> Previous:</B> <A NAME="tex2html332"
   HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html328"
+<B>Up:</B> <A NAME="tex2html338"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html332"
+<B> Next:</B> <A NAME="tex2html342"
   HREF="subroutinesnode6.htm">add_dipole*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

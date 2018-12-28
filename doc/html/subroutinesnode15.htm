@@ -7,12 +7,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>assert, assert_alloc, assert_directory_present, assert_not_present, assert_present</TITLE>
-<META NAME="description" CONTENT="assert, assert_alloc, assert_directory_present, assert_not_present, assert_present">
+<TITLE>assert, assert_alloc, assert_directory_present, assert_present, fatal_error</TITLE>
+<META NAME="description" CONTENT="assert, assert_alloc, assert_directory_present, assert_present, fatal_error">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html441"
+<A NAME="tex2html451"
   HREF="subroutinesnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html447"
+<A NAME="tex2html457"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html451"
+<A NAME="tex2html461"
   HREF="subroutinesnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html449"
+<A NAME="tex2html459"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html442"
+<B> Previous:</B> <A NAME="tex2html452"
   HREF="subroutinesnode14.htm">angdist</A>
 
-<B>Up:</B> <A NAME="tex2html448"
+<B>Up:</B> <A NAME="tex2html458"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html452"
+<B> Next:</B> <A NAME="tex2html462"
   HREF="subroutinesnode16.htm">brag_openmp</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,11 +62,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">assert,assert_alloc, assert_directory_present,&nbsp;<SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg5.png"
+ SRC="subroutinesimg6.png"
  ALT="$\ldots$"></SPAN></FONT></font></b><hr>
 <H3>The Fortran90 module misc_utils contains a few routines to test an assertion and return an error
   message if it is false.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/mod/misc_utils.F90"><b>src/f90/mod/misc_utils.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/misc_utils.F90"><b>src/f90/mod/misc_utils.F90</b></a>&nbsp;  
 
 <P>
 
@@ -83,7 +84,6 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 </TABLE>
 <BR>
-<BR>
 <P>
 <TT>call assert_alloc(status, code, array)</TT> 
 
@@ -97,7 +97,6 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 </TABLE>
 <BR>
-<BR>
 <P>
 <TT>call assert_directory_present(directory)</TT> 
 
@@ -108,19 +107,6 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
                         the directory named <TT>directory</TT> can not be found</TD>
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 </TABLE>
-<BR>
-<BR>
-<P>
-<TT>call assert_present(filename)</TT> 
-
-<P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>issues an error message and stops the code execution if
-                        the file named <TT>filename</TT> can not be found.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
 <BR>
 <P>
 <TT>call assert_not_present(filename)</TT> 
@@ -133,6 +119,29 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT">&nbsp;</TD></TR>
 </TABLE>
 <BR>
+<P>
+<TT>call assert_present(filename)</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>issues an error message and stops the code execution if
+                        the file named <TT>filename</TT> can not be found.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<P>
+<TT>call fatal_error([msg])</TT> 
+
+<P>
+<TT>call fatal_error</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>issue an (optional user defined) error message and stop the code execution.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
 <BR>
 <P>
 <P>
@@ -234,31 +243,31 @@ because <TT>a</TT> is actually negative.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html441"
+<A NAME="tex2html451"
   HREF="subroutinesnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html447"
+<A NAME="tex2html457"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html451"
+<A NAME="tex2html461"
   HREF="subroutinesnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html449"
+<A NAME="tex2html459"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html442"
+<B> Previous:</B> <A NAME="tex2html452"
   HREF="subroutinesnode14.htm">angdist</A>
 
-<B>Up:</B> <A NAME="tex2html448"
+<B>Up:</B> <A NAME="tex2html458"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html452"
+<B> Next:</B> <A NAME="tex2html462"
   HREF="subroutinesnode16.htm">brag_openmp</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>

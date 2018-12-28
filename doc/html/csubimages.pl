@@ -2,23 +2,17 @@
 # Associate images original text with physical files.
 
 
-$key = q/z=costheta;MSF=1.6;LFS=12;AAT/;
+$key = q/mathbf{phi};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|csubimg8.png"
- ALT="$z=\cos\theta $">|; 
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|csubimg3.png"
+ ALT="$\mathbf{\phi}$">|; 
 
-$key = q/{N_{{rm{pix}}=12{N_{{rm{side}}^2;MSF=1.6;LFS=12;AAT/;
+$key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="129" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg12.png"
- ALT="${N_{\rm pix}}=12{N_{\rm side}}^2$">|; 
-
-$key = q/x=sinthetacosphi;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg6.png"
- ALT="$x = \sin\theta\cos\phi $">|; 
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|csubimg10.png"
+ ALT="${N_{\rm side}}$">|; 
 
 $key = q/(theta,phi);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -26,11 +20,23 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|csubimg5.png"
  ALT="$(\theta,\phi) $">|; 
 
-$key = q/y=sinthetasinphi;MSF=1.6;LFS=12;AAT/;
+$key = q/x=sinthetacosphi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg7.png"
- ALT="$y=\sin\theta\sin\phi $">|; 
+ WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|csubimg6.png"
+ ALT="$x = \sin\theta\cos\phi $">|; 
+
+$key = q/2pi;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|csubimg9.png"
+ ALT="$2\pi$">|; 
+
+$key = q/{N_{{rm{pix}}=12{N_{{rm{side}}^2;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="129" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|csubimg12.png"
+ ALT="${N_{\rm pix}}=12{N_{\rm side}}^2$">|; 
 
 $key = q/{N_{{rm{pix}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -44,11 +50,11 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|csubimg2.png"
  ALT="$\pi$">|; 
 
-$key = q/mathbf{theta};MSF=1.6;LFS=12;AAT/;
+$key = q/y=sinthetasinphi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|csubimg1.png"
- ALT="$\mathbf{\theta}$">|; 
+ WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|csubimg7.png"
+ ALT="$y=\sin\theta\sin\phi $">|; 
 
 $key = q/phiin[0,2pi[;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -56,23 +62,17 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|csubimg4.png"
  ALT="$\phi\in[0,2\pi[$">|; 
 
-$key = q/mathbf{phi};MSF=1.6;LFS=12;AAT/;
+$key = q/z=costheta;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg3.png"
- ALT="$\mathbf{\phi}$">|; 
+ WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|csubimg8.png"
+ ALT="$z=\cos\theta $">|; 
 
-$key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
+$key = q/mathbf{theta};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg10.png"
- ALT="${N_{\rm side}}$">|; 
-
-$key = q/2pi;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|csubimg9.png"
- ALT="$2\pi$">|; 
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|csubimg1.png"
+ ALT="$\mathbf{\theta}$">|; 
 
 1;
 

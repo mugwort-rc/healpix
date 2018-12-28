@@ -13,6 +13,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
@@ -28,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html240"
+<A NAME="tex2html246"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html246"
+<A NAME="tex2html252"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html250"
+<A NAME="tex2html256"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html248"
+<A NAME="tex2html254"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html241"
+<B> Previous:</B> <A NAME="tex2html247"
   HREF="facilitiesnode13.htm">smoothing</A>
 
-<B>Up:</B> <A NAME="tex2html247"
+<B>Up:</B> <A NAME="tex2html253"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html251"
+<B> Next:</B> <A NAME="tex2html257"
   HREF="facilitiesnode15.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -82,7 +83,7 @@ during the execution of spectral synthesis, or  precomputed and read in
 before the synthesis is executed. The latter is no longer recommended since
 it provides no acceleration since the introduction of optimized algorithms
 in <b>HEALPix</b> v2.20. </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/670/tree/trunk/src/f90/synfast/synfast.f90"><b>src/f90/synfast/synfast.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/synfast/synfast.f90"><b>src/f90/synfast/synfast.f90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 synfast [options] [parameter_file]
@@ -121,11 +122,12 @@ synfast [options] [parameter_file]
       for the simulation (default= `')
      <DT>
 <B>simul_type = </B>
-<DD>Defines the simulation type, 1=temperature only,
-       2=temperature+polarisation, 3=temperature and its first spatial derivatives,
-       4=temperature and its first and second spatial derivatives, 5=temperature
-       and polarisation, and their first and second derivatives, 6=same as 5
-       plus the second derivatives of (T,Q,U).
+<DD>Defines the simulation type, 1=temperature only (1 field),
+       2=temperature+polarisation (3 fields), 3=temperature and its first
+spatial derivatives (3 fields),
+       4=temperature and its first and second spatial derivatives (6 fields), 5=temperature
+       and polarisation, and their first derivatives (9 fields), 6=same as 5
+       plus the second derivatives of (T,Q,U) (18 fields).
 (default= 1).
     <DT>
 <B>nsmax = </B>
@@ -203,9 +205,9 @@ Synfast reads the power spectrum from a file in  ascii FITS
 format. This can contain either just the temperature power spectrum <SPAN CLASS="MATH"><I>C</I><SUP><I>T</I></SUP><SUB><I>l</I></SUB></SPAN>s or 
 temperature and polarisation power spectra: <SPAN CLASS="MATH"><I>C</I><SUP><I>T</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>E</I></SUP><SUB><I>l</I></SUB></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUP><I>B</I></SUP><SUB><I>l</I></SUB></SPAN>
 and <!-- MATH
- $C^{T\times E}_l$
+ $C^{T\times E}_{l}$
  -->
-<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>E</I></SUP><SUB><I>l</I></SUB></SPAN>. If <TT>simul_type = 2</TT> synfast generates 
+<SPAN CLASS="MATH"><I>C</I><SUP><I>T</I> x <I>E</I></SUP><SUB><I>l</I></SUB></SPAN> (see <A HREF="#fac:synfast:note1">Note 1, below</A>). If <TT>simul_type = 2</TT> synfast generates 
 Q and U maps as well as the temperature map. The output map(s)
 is (are) saved in a FITS file. 
 The <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>s are used up to the specified 
@@ -323,6 +325,22 @@ polarization convention and the interface with CMBFAST. If the
 keyword is not found, <EM>no attempt will be made</EM> to renormalize the power
 spectrum. 
 If the keyword is present, it will be inherited by the simulated map.
+</SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><A NAME="fac:synfast:note1"></A><B>Note 1:</B> to allow the generation of maps (and <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>) with <!-- MATH
+ $C^{T\times B}_{l} \ne 0$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="86" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="facilitiesimg56.png"
+ ALT="$C^{T\times B}_{l} \ne 0$"></SPAN> and/or <!-- MATH
+ $C^{E\times B}_{l} \ne 0$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="87" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="facilitiesimg57.png"
+ ALT="$C^{E\times B}_{l} \ne 0$"></SPAN>,
+see the subroutine <A HREF="./subroutinesnode24.htm#sub:create_alm"><TT>create_alm</TT></A>.
 
 </blockquote>
 <P>
@@ -372,7 +390,7 @@ subroutine generates or reads the <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> w
 <B><A HREF="facilitiesnode5.htm#fac:alteralm">alteralm</A></B>
 <DD>This <b>HEALPix</b> Fortran facility can be
   used to implement the beam and pixel window functions on the constraining
-  <SPAN CLASS="MATH"><I>a</I><SUB><I>l</I></SUB><I>m</I></SPAN>s (<TT>almsfile</TT> file).
+  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s (<TT>almsfile</TT> file).
   <DT>
 <B><A HREF="facilitiesnode6.htm#fac:anafast">anafast</A></B>
 <DD>This <b>HEALPix</b> Fortran facility can analyse a <b>HEALPix</b> map and 
@@ -428,7 +446,7 @@ produces the (RING ordered) map
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg56.png"
+ SRC="facilitiesimg58.png"
  ALT="$N_{\rm side}=32$"></SPAN>.
 The map is convolved with a beam of FWHM 420.0 arcminutes. The <SPAN CLASS="MATH"><I>iseed</I>=-1</SPAN> sets
 the random seed for the realisation. A different <SPAN CLASS="MATH"><I>iseed</I></SPAN> would have given a different 
@@ -607,31 +625,31 @@ contain the proper amount of data. </SMALL></TD>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html240"
+<A NAME="tex2html246"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html246"
+<A NAME="tex2html252"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html250"
+<A NAME="tex2html256"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html248"
+<A NAME="tex2html254"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html241"
+<B> Previous:</B> <A NAME="tex2html247"
   HREF="facilitiesnode13.htm">smoothing</A>
 
-<B>Up:</B> <A NAME="tex2html247"
+<B>Up:</B> <A NAME="tex2html253"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html251"
+<B> Next:</B> <A NAME="tex2html257"
   HREF="facilitiesnode15.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.20, 2014-12-05
+Version 3.30, 2015-10-08
 </ADDRESS>
 </BODY>
 </HTML>
