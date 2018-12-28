@@ -37,44 +37,66 @@
 
 using namespace std;
 
-void read_weight_ring (const string &dir, int nside, arr<double> &weight)
+namespace {
+
+void read_wring (const string &weightfile, int nside, arr<double> &weight)
   {
   fitshandle inp;
-  inp.open(dir+"/weight_ring_n"+intToString(nside,5)+".fits");
+  inp.open(weightfile);
   inp.goto_hdu(2);
-  weight.alloc (2*nside);
-  inp.read_column(1,weight);
+  planck_assert(nside==inp.get_key<int>("NSIDE"),"incorrect Nside parameter");
+  inp.read_entire_column(1,weight);
+  planck_assert(weight.size()==size_t(2*nside),
+    "incorrect number of weights in ring weight file");
+  }
+
+} // unnamed namespace
+
+void read_weight_ring (const string &dir, int nside, arr<double> &weight)
+  {
+  read_wring(dir+"/weight_ring_n"+intToString(nside,5)+".fits", nside, weight);
   }
 
 void get_ring_weights (paramfile &params, int nside, arr<double> &weight)
   {
-  bool weighted = params.find<bool>("weighted",false);
+  string weightfile = params.find<string>("ringweights","");
   weight.alloc (2*nside);
-  if (weighted)
+  if (weightfile!="")
     {
-    string datadir = params.find<string>("healpix_data");
-    read_weight_ring (datadir, nside, weight);
+    read_wring (weightfile, nside, weight);
     for (tsize m=0; m<weight.size(); ++m) weight[m]+=1;
     }
   else
     weight.fill(1);
   }
 
-void read_pixwin (const string &dir, int nside, arr<double> &temp)
+vector<double> read_fullweights_from_fits(const std::string &weightfile,
+  int nside)
   {
   fitshandle inp;
-  inp.open(dir+"/pixel_window_n"+intToString(nside,4)+".fits");
+  inp.open(weightfile);
+  inp.goto_hdu(2);
+  planck_assert(inp.colname(1)=="COMPRESSED PIXEL WEIGHTS","wrong column name");
+  planck_assert(inp.get_key<int>("NSIDE")==nside,"incorrect NSIDE parameter");
+  vector<double> res;
+  inp.read_entire_column(1,res);
+  return res;
+  }
+
+void read_pixwin (const string &file, arr<double> &temp)
+  {
+  fitshandle inp;
+  inp.open(file);
   inp.goto_hdu(2);
   if (temp.size()==0)
     inp.read_entire_column(1,temp);
   else
     inp.read_column(1,temp);
   }
-void read_pixwin (const string &dir, int nside, arr<double> &temp,
-  arr<double> &pol)
+void read_pixwin (const string &file, arr<double> &temp, arr<double> &pol)
   {
   fitshandle inp;
-  inp.open(dir+"/pixel_window_n"+intToString(nside,4)+".fits");
+  inp.open(file);
   inp.goto_hdu(2);
   if (temp.size()==0)
     inp.read_entire_column(1,temp);
@@ -86,28 +108,22 @@ void read_pixwin (const string &dir, int nside, arr<double> &temp,
     inp.read_column(2,pol);
   }
 
-void get_pixwin (paramfile &params, int lmax, int nside, arr<double> &pixwin)
+void get_pixwin (paramfile &params, int lmax, arr<double> &pixwin)
   {
-  bool do_pixwin = params.find<bool>("pixel_window",false);
+  string windowfile = params.find<string>("windowfile","");
   pixwin.alloc(lmax+1);
   pixwin.fill(1);
-  if (do_pixwin)
-    {
-    string datadir = params.find<string>("healpix_data");
-    read_pixwin (datadir,nside,pixwin);
-    }
+  if (windowfile!="")
+    read_pixwin (windowfile,pixwin);
   }
-void get_pixwin (paramfile &params, int lmax, int nside, arr<double> &pixwin,
+void get_pixwin (paramfile &params, int lmax, arr<double> &pixwin,
   arr<double> &pixwin_pol)
   {
-  bool do_pixwin = params.find<bool>("pixel_window",false);
+  string windowfile = params.find<string>("windowfile","");
   pixwin.alloc(lmax+1);
   pixwin.fill(1);
   pixwin_pol.alloc(lmax+1);
   pixwin_pol.fill(1);
-  if (do_pixwin)
-    {
-    string datadir = params.find<string>("healpix_data");
-    read_pixwin (datadir,nside,pixwin,pixwin_pol);
-    }
+  if (windowfile!="")
+    read_pixwin (windowfile,pixwin,pixwin_pol);
   }

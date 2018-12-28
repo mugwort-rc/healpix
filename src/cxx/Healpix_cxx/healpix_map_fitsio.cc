@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2003-2011 Max-Planck-Society
+ *  Copyright (C) 2003-2017 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -44,6 +44,14 @@ unsigned int healpix_repcount (tsize npix)
   if (npix<1024) return 1;
   if ((npix%1024)==0) return 1024;
   return isqrt (npix/12);
+  }
+
+bool is_iau (const fitshandle &inp)
+  {
+  if (!inp.key_present("POLCCONV")) return false; // no keyword implies COSMO
+  string polcconv=inp.get_key<string>("POLCCONV");
+  planck_assert((polcconv=="COSMO")||(polcconv=="IAU"), "bad POLCCONV keyword");
+  return (polcconv=="IAU");
   }
 
 } // unnamed namespace
@@ -67,6 +75,20 @@ template void read_Healpix_map_from_fits (fitshandle &inp,
 template void read_Healpix_map_from_fits (fitshandle &inp,
   Healpix_Map<int> &map, int colnum);
 
+template<typename T> Healpix_Map<T> read_Healpix_map_from_fits
+  (fitshandle &inp, int colnum)
+  {
+  Healpix_Map<T> res;
+  read_Healpix_map_from_fits (inp, res, colnum);
+  return res;
+  }
+
+template Healpix_Map<float> read_Healpix_map_from_fits
+  (fitshandle &inp, int colnum);
+template Healpix_Map<double> read_Healpix_map_from_fits
+  (fitshandle &inp, int colnum);
+template Healpix_Map<int> read_Healpix_map_from_fits
+  (fitshandle &inp, int colnum);
 
 template<typename T> void read_Healpix_map_from_fits
   (const string &filename, Healpix_Map<T> &map, int colnum, int hdunum)
@@ -83,6 +105,21 @@ template void read_Healpix_map_from_fits (const string &filename,
   Healpix_Map<double> &map, int colnum, int hdunum);
 template void read_Healpix_map_from_fits (const string &filename,
   Healpix_Map<int> &map, int colnum, int hdunum);
+
+template<typename T> Healpix_Map<T> read_Healpix_map_from_fits
+  (const string &filename, int colnum, int hdunum)
+  {
+  Healpix_Map<T> res;
+  read_Healpix_map_from_fits (filename, res, colnum, hdunum);
+  return res;
+  }
+
+template Healpix_Map<float> read_Healpix_map_from_fits
+  (const string &filename, int colnum, int hdunum);
+template Healpix_Map<double> read_Healpix_map_from_fits
+  (const string &filename, int colnum, int hdunum);
+template Healpix_Map<int> read_Healpix_map_from_fits
+  (const string &filename, int colnum, int hdunum);
 
 template<typename T> void read_Healpix_map_from_fits
   (fitshandle &inp, Healpix_Map<T> &mapT, Healpix_Map<T> &mapQ,
@@ -104,6 +141,9 @@ template<typename T> void read_Healpix_map_from_fits
     inp.read_column_raw(2,&mapQ[offset],ppix,offset);
     inp.read_column_raw(3,&mapU[offset],ppix,offset);
     }
+  if (is_iau(inp))
+    for (int i=0; i<mapU.Npix(); ++i)
+      mapU[i]=-mapU[i];
   }
 
 template void read_Healpix_map_from_fits (fitshandle &inp,
@@ -154,7 +194,7 @@ template<typename T> void write_Healpix_map_to_fits
   (fitshandle &out, const Healpix_Map<T> &map, PDT datatype)
   {
   arr<string> colname(1);
-  colname[0] = "signal";
+  colname[0] = "TEMPERATURE";
   prepare_Healpix_fitsmap (out, map, datatype, colname);
   out.write_column(1,map.Map());
   }
@@ -172,10 +212,11 @@ template<typename T> void write_Healpix_map_to_fits
    const Healpix_Map<T> &mapQ, const Healpix_Map<T> &mapU, PDT datatype)
   {
   arr<string> colname(3);
-  colname[0] = "signal";
-  colname[1] = "Q-pol";
-  colname[2] = "U-pol";
+  colname[0] = "TEMPERATURE";
+  colname[1] = "Q_POLARISATION";
+  colname[2] = "U_POLARISATION";
   prepare_Healpix_fitsmap (out, mapT, datatype, colname);
+  out.set_key ("POLCCONV", string("COSMO"));
   chunkMaker cm(mapT.Npix(),out.efficientChunkSize(1));
   uint64 offset,ppix;
   while(cm.getNext(offset,ppix))

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>nside2npweights</TITLE>
+<META NAME="description" CONTENT="nside2npweights">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_nside2ntemplates.htm">
+<LINK REL="previous" HREF="idl_nside2npix.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_nside2ntemplates.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html859"
+  HREF="idl_nside2npix.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html865"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html869"
+  HREF="idl_nside2ntemplates.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html867"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html860"
+  HREF="idl_nside2npix.htm">nside2npix</A>
+
+<B>Up:</B> <A NAME="tex2html866"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html870"
+  HREF="idl_nside2ntemplates.htm">nside2ntemplates</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION5000"></A>
+<A NAME="idl:nside2npweights"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">nside2npweights</FONT></font></b><hr>
+<H3>This IDL facility provides the number pixel-based quadrature weights (in compact non-redundant form) 
+for a given resolution parameter Nside. Because of the <b>HEALPix</b> layout symmetries,
+<!-- MATH
+ $N_w  \simeq N_{\mathrm{pix}}/16$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="105" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img69.png"
+ ALT="$N_w \simeq N_{\mathrm{pix}}/16$"></SPAN>, allowing economical storage on disc.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/toolkit/nside2npweights.pro"><b>src/idl/toolkit/nside2npweights.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+<A HREF="#idl:nside2npweights:Npweights">Npweights=</A>NSIDE2NPWEIGHTS (<A HREF="#idl:nside2npweights:Nside">Nside</A>
+ [,<A HREF="#idl:nside2npweights:ERROR">ERROR=</A>, <A HREF="#idl:nside2npweights:HELP">/HELP</A>])
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>Nside<A NAME="idl:nside2npweights:Nside"></A></B>
+<DD><b>HEALPix</b> resolution parameter (integer, scalar or not),
+         should be a valid Nside (power of 2 in <!-- MATH
+ $\{1,\ldots,2^{29}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img67.png"
+ ALT="$\{1,\ldots,2^{29}\}$"></SPAN>)
+    <DT>
+<B>Npweights<A NAME="idl:nside2npweights:Npweights"></A></B>
+<DD>number of non-redundant weights
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+  <DL COMPACT><DT>
+<B>ERROR<A NAME="idl:nside2npweights:ERROR"></A>=</B>
+<DD>error flag, set to 1 on output if Nside is NOT valid, or
+    stays to 0 otherwise.
+    <DT>
+<B>/HELP<A NAME="idl:nside2npweights:HELP"></A></B>
+<DD>if set on input, the documentation header 
+  is printed out and the routine exits
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+nside2npweights outputs the number of different pixel-based weights
+  <BR><P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<!-- MATH
+ \begin{displaymath}
+N_w=\frac{(N_{\mathrm{side}}+1)(3N_{\mathrm{side}}+1)}{4}.
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="210" HEIGHT="42" BORDER="0"
+ SRC="idl_img70.png"
+ ALT="\begin{displaymath}N_w=\frac{(N_{\mathrm{side}}+1)(3N_{\mathrm{side}}+1)}{4}.\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+If the argument <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> is not
+  valid, a  warning is issued and the error flag is raised.
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2npweights</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run nside2npweights .	
+  <DT>
+<B><A HREF="idl_unfold_weights.htm#idl:unfold_weights">unfold_weights</A></B>
+<DD>generates a full sky map of pixel-based or ring-based quadrature weights
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Npweights = nside2npweights(256, ERROR=error)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+Npweights will be 49408 the number of pixel-based weights for the <b>HEALPix</b> 
+resolution parameter 256 and error will be 0</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html859"
+  HREF="idl_nside2npix.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html865"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html869"
+  HREF="idl_nside2ntemplates.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html867"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html860"
+  HREF="idl_nside2npix.htm">nside2npix</A>
+
+<B>Up:</B> <A NAME="tex2html866"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html870"
+  HREF="idl_nside2ntemplates.htm">nside2ntemplates</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

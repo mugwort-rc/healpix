@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>get_healpix_pixel_weight_file,&nbsp;
+get_healpix_weight_file</TITLE>
+<META NAME="description" CONTENT="get_healpix_pixel_weight_file,&nbsp;
+get_healpix_weight_file">
+<META NAME="keywords" CONTENT="subroutines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="subroutines.css">
+
+<LINK REL="next" HREF="sub_getArgument.htm">
+<LINK REL="previous" HREF="sub_get_healpix_data_dir_get_he.htm">
+<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
+<LINK REL="next" HREF="sub_getArgument.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html710"
+  HREF="sub_get_healpix_data_dir_get_he.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html716"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html720"
+  HREF="sub_getArgument.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html718"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html711"
+  HREF="sub_get_healpix_data_dir_get_he.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
+
+<B>Up:</B> <A NAME="tex2html717"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html721"
+  HREF="sub_getArgument.htm">getArgument</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION3500"></A>
+<A NAME="sub:get_healpix_xxx_file"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">get_healpix_weight_file,&nbsp;<SPAN CLASS="MATH"><IMG
+ WIDTH="24" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="sub_img6.png"
+ ALT="$\ldots$"></SPAN></FONT></font></b><hr>
+<H3>Functions are available to return the standardized name of 
+pre-generated FITS files required by some <b>HEALPix</b> facilities and subroutines.
+Those files are available in the <TT>data</TT> subdirectory, whose full path is returned by
+companion functions such as <A HREF="sub_get_healpix_data_dir_get_he.htm#sub:get_healpix_xxx_dir"><TT>get_healpix_data_dir</TT></A>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/paramfile_io.F90"><b>src/f90/mod/paramfile_io.F90</b></a>&nbsp;  
+
+<P>
+
+<BIG CLASS="LARGE"><SPAN  CLASS="textbf">FUNCTIONS: </SPAN></BIG>
+<BR>
+<TT>winfile = get_healpix_pixel_window_file(nside)</TT> <A NAME="sub:get_healpix_xxx_file:ghpwf"></A>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns, for the <TT>nside</TT> provided, 
+  the name of the FITS file containing the window function associated with the <b>HEALPix</b> pixel 
+(of the form <TT>pixel_window_n*.fits</TT>).</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR><TT>w8file = get_healpix_weight_file(nside, won)</TT>  <A NAME="sub:get_healpix_xxx_file:ghw8f"></A>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the name of the FITS file containing the
+	ring-based or pixel-based weights for the given <b>HEALPix</b> resolution parameter <TT>nside</TT>. 
+If <TT>won</TT> <SPAN CLASS="MATH">= 1</SPAN>, the output of 
+<A HREF="#sub:get_healpix_xxx_file:ghrw8f"><TT>get_healpix_ring_weight_file(nside)</TT></A> is returned,
+while if <TT>won</TT> <SPAN CLASS="MATH">= 2</SPAN>, it is the output of 
+<A HREF="#sub:get_healpix_xxx_file:ghpw8f"><TT>get_healpix_pixel_weight_file(nside)</TT></A>.
+<TT>won</TT><SPAN CLASS="MATH">=0</SPAN> will return an empty string, while
+other choices of <TT>won</TT> will result in errors.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR><TT>w8rfile = get_healpix_ring_weight_file(nside)</TT> <A NAME="sub:get_healpix_xxx_file:ghrw8f"></A>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns, for the <TT>nside</TT> provided, 
+ the name of the FITS file containing the ring-based weights 
+(of the form <TT>weight_ring_n*.fits</TT>).</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR><TT>w8pfile = get_healpix_pixel_weight_file(nside)</TT> <A NAME="sub:get_healpix_xxx_file:ghpw8f"></A>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns, for the <TT>nside</TT> provided, 
+   the name of the FITS file containing the pixel-based weights 
+(of the form <TT>weight_pixel_n*.fits</TT>). Some of them (for power of 2 <TT>nside</TT> in <SPAN CLASS="MATH">[16,2048]</SPAN>) 
+are located in the <TT>data</TT> directory, the
+other ones can be generated with the <TT>compute_weights</TT> C++ facility.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html710"
+  HREF="sub_get_healpix_data_dir_get_he.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html716"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html720"
+  HREF="sub_getArgument.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html718"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html711"
+  HREF="sub_get_healpix_data_dir_get_he.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
+
+<B>Up:</B> <A NAME="tex2html717"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html721"
+  HREF="sub_getArgument.htm">getArgument</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

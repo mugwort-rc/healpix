@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>read_fits_cut4 </TITLE>
+<META NAME="description" CONTENT="read_fits_cut4 ">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_read_fits_map.htm">
+<LINK REL="previous" HREF="idl_query_triangle.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_read_fits_map.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html979"
+  HREF="idl_query_triangle.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html985"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html989"
+  HREF="idl_read_fits_map.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html987"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html980"
+  HREF="idl_query_triangle.htm">query_triangle</A>
+
+<B>Up:</B> <A NAME="tex2html986"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html990"
+  HREF="idl_read_fits_map.htm">read_fits_map</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION6000"></A>
+<A NAME="idl:read_fits_cut4"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">read_fits_cut4 </FONT></font></b><hr>
+<H3>This IDL facility reads a cut sky <b>HEALPix</b> map from a FITS file according to
+the <b>HEALPix</b> convention. The format used for the
+FITS file follows the one used for Boomerang98 and is adapted from
+COBE/DMR. This routine can also be used to read polarized cut sky map, where
+each Stokes parameter is stored in a different extension of the same FITS file.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/fits/read_fits_cut4.pro"><b>src/idl/fits/read_fits_cut4.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+READ_FITS_CUT4 , <A HREF="#idl:read_fits_cut4:File">File</A>, <A HREF="#idl:read_fits_cut4:Pixel">Pixel</A>, <A HREF="#idl:read_fits_cut4:Signal">Signal</A>[, <A HREF="#idl:read_fits_cut4:N_Obs">N_Obs</A>, <A HREF="#idl:read_fits_cut4:Serror">Serror</A>, <A HREF="#idl:read_fits_cut4:EXTENSION">EXTENSION=</A>, <A HREF="#idl:read_fits_cut4:HDR">HDR=</A>, <A HREF="#idl:read_fits_cut4:XHDR">XHDR=</A>, <A HREF="#idl:read_fits_cut4:NSIDE">NSIDE=</A>, <A HREF="#idl:read_fits_cut4:ORDERING">ORDERING=</A>, <A HREF="#idl:read_fits_cut4:COORDSYS">COORDSYS=</A>, <A HREF="#idl:read_fits_cut4:HELP">HELP=</A>]
+
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>File</B>
+<DD><A NAME="idl:read_fits_cut4:File"></A>          name of a FITS file in which the map is to be written
+
+<P>
+<DT>
+<B>Pixel</B>
+<DD><A NAME="idl:read_fits_cut4:Pixel"></A>	 (OUT, LONG vector), 
+<BR>
+index of observed (or valid) pixels
+
+<P>
+<DT>
+<B>Signal</B>
+<DD><A NAME="idl:read_fits_cut4:Signal"></A>	 (OUT, FLOAT vector), 
+<BR>
+value of signal in each observed pixel
+
+<P>
+<DT>
+<B>N_Obs</B>
+<DD><A NAME="idl:read_fits_cut4:N_Obs"></A>	 (OUT, LONG or INT vector, Optional), 
+<BR>
+number of observation per pixel
+
+<P>
+<DT>
+<B>Serror</B>
+<DD><A NAME="idl:read_fits_cut4:Serror"></A>	 (OUT, FLOAT vector, Optional), 
+<BR><EM>rms</EM> of signal in pixel. For white noise,
+                   this is <!-- MATH
+ $\propto 1/\sqrt{{\rm n\_obs}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img76.png"
+ ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>
+
+<P>
+</DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+  <DL COMPACT><DT>
+<B>EXTENSION=</B>
+<DD><A NAME="idl:read_fits_cut4:EXTENSION"></A>(IN, optional), 
+<BR>
+0 based number of extension to read. Extension 0 contains the
+temperature information, while extensions 1 and 2 contain respectively the Q
+and U Stokes parameters related information. <b>default:</b>0 
+
+<P>
+<DT>
+<B>HDR=</B>
+<DD><A NAME="idl:read_fits_cut4:HDR"></A>(OUT, optional), 
+<BR>
+String array containing the primary header. 
+
+<P>
+<DT>
+<B>XHDR=</B>
+<DD><A NAME="idl:read_fits_cut4:XHDR"></A>(OUT, optional), 
+<BR>
+String array containing the extension header. 
+
+<P>
+<DT>
+<B>NSIDE=</B>
+<DD><A NAME="idl:read_fits_cut4:NSIDE"></A>		(OUT, optional), 
+<BR>
+returns on output the <b>HEALPix</b> resolution parameter, as read
+		from the FITS header. Set to -1 if not found
+
+<P>
+<DT>
+<B>ORDERING=</B>
+<DD><A NAME="idl:read_fits_cut4:ORDERING"></A>	        (OUT, optional), 
+<BR>
+returns on output the pixel ordering, as read from the FITS
+	        header. Either 'RING' or 'NESTED' or ' ' (if not found).
+
+<P>
+<DT>
+<B>COORDSYS=</B>
+<DD><A NAME="idl:read_fits_cut4:COORDSYS"></A>	        (OUT, optional), 
+<BR>
+returns on output the astrophysical coordinate system used, 
+		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
+
+<P>
+<DT>
+<B>HELP=</B>
+<DD><A NAME="idl:read_fits_cut4:HELP"></A>	        (IN, optional), 
+<BR>
+if set, an extensive help is displayed, and no file is read
+
+<P>
+</DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+<br><br></blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_cut4 </FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run read_fits_cut4 <DT>
+<B><A HREF="idl_write_fits_cut4.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+facility can be used to generate the FITS format <EM>cut-sky</EM> maps complient
+with <b>HEALPix</b> convention and readable by read_fits_cut4 .
+  <DT>
+<B><A HREF="#idl:read_fits_cut4">read_fits_cut4</A>,
+<A HREF="idl_read_fits_map.htm#idl:read_fits_map">read_fits_map</A></B>
+<DD><DT>
+<B><A HREF="idl_read_tqu.htm#idl:read_tqu">read_tqu</A>,
+<A HREF="idl_read_fits_s.htm#idl:read_fits_s">read_fits_s</A></B>
+<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
+arbitrary data sets from FITS files
+    <DT>
+<B>sxpar</B>
+<DD>This IDL routine (included in <b>HEALPix</b> package) can be
+  used to extract FITS keywords from the header(s) HDR or XHDR read with read_fits_map .
+  </DL>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html979"
+  HREF="idl_query_triangle.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html985"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html989"
+  HREF="idl_read_fits_map.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html987"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html980"
+  HREF="idl_query_triangle.htm">query_triangle</A>
+
+<B>Up:</B> <A NAME="tex2html986"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html990"
+  HREF="idl_read_fits_map.htm">read_fits_map</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

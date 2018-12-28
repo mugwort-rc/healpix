@@ -26,17 +26,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
-<A NAME="tex2html128"
+<A NAME="tex2html144"
   HREF="main.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html126"
+<A NAME="tex2html142"
   HREF="main.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="nx_grp.png"></A>   
 <BR>
-<B>Up:</B> <A NAME="tex2html129"
+<B>Up:</B> <A NAME="tex2html145"
   HREF="main.htm">Main Page</A>
 
-<B> Next:</B> <A NAME="tex2html127"
+<B> Next:</B> <A NAME="tex2html143"
   HREF="main.htm">Main Page</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -50,117 +50,119 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <div id=abstract align=center>This document describes the installation for the <b>HEALPix</b> facilities.</div>
 <P ALIGN=CENTER><STRONG>Eric Hivon, Anthony J.&nbsp;Banday, Matthias Bartelmann, Benjamin D.&nbsp;Wandelt,
 Frode K.&nbsp;Hansen and Krzysztof M.&nbsp;G&#243;rski</STRONG></P>
-<BR><P ALIGN=CENTER><I>Revision: </I>Version 3.31; August 26, 2016</P>
+<BR><P ALIGN=CENTER><I>Revision: </I>Version 3.40; June 22, 2018</P>
 <P ALIGN=CENTER><A NAME="tex2html1"
   HREF="http://healpix.sf.net">http://healpix.sf.net</A></P>
 
 <BR>
 
-<H2><A NAME="SECTION00010000000000000000">
+<H2><A NAME="SECTION100">
 TABLE OF CONTENTS</A>
 </H2>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html175"
-  HREF="install.htm#SECTION00010000000000000000">TABLE OF CONTENTS</A>
-<LI><A NAME="tex2html176"
-  HREF="install.htm#SECTION00020000000000000000">Introduction</A>
-<LI><A NAME="tex2html177"
-  HREF="install.htm#SECTION00030000000000000000">Installation Requirements</A>
-<LI><A NAME="tex2html178"
-  HREF="install.htm#SECTION00040000000000000000">healpix_doc: an easy access to HEALPix documentation</A>
-<LI><A NAME="tex2html179"
-  HREF="install.htm#SECTION00050000000000000000">The Installation Procedure</A>
-<UL>
-<LI><A NAME="tex2html180"
-  HREF="install.htm#SECTION00051000000000000000">./configure [-L]</A>
-<UL>
-<LI><A NAME="tex2html181"
-  HREF="install.htm#SECTION00051100000000000000">Configuration profile</A>
-<LI><A NAME="tex2html182"
-  HREF="install.htm#SECTION00051200000000000000">C configuration</A>
-<LI><A NAME="tex2html183"
-  HREF="install.htm#SECTION00051300000000000000">C++ configuration</A>
-<LI><A NAME="tex2html184"
-  HREF="install.htm#SECTION00051400000000000000">Fortran 90 configuration</A>
-<LI><A NAME="tex2html185"
-  HREF="install.htm#SECTION00051500000000000000">IDL/GDL configuration</A>
-<LI><A NAME="tex2html186"
-  HREF="install.htm#SECTION00051600000000000000">Java installation</A>
-<LI><A NAME="tex2html187"
-  HREF="install.htm#SECTION00051700000000000000">Python (healpy) installation</A>
-</UL>
-<LI><A NAME="tex2html188"
-  HREF="install.htm#SECTION00052000000000000000">Compilation and installation</A>
-<LI><A NAME="tex2html189"
-  HREF="install.htm#SECTION00053000000000000000">Testing the installation</A>
-<LI><A NAME="tex2html190"
-  HREF="install.htm#SECTION00054000000000000000">Cleaning up</A>
-</UL>
-<BR>
-<LI><A NAME="tex2html191"
-  HREF="install.htm#SECTION00060000000000000000">A Note on Re-installation</A>
-<LI><A NAME="tex2html192"
-  HREF="install.htm#SECTION00070000000000000000">Pkg-config files</A>
-<LI><A NAME="tex2html193"
-  HREF="install.htm#SECTION00080000000000000000">Troubleshooting and further information</A>
-<UL>
 <LI><A NAME="tex2html194"
-  HREF="install.htm#SECTION00081000000000000000">Free Fortran90/95 Compilers</A>
+  HREF="install.htm#SECTION100">TABLE OF CONTENTS</A>
 <LI><A NAME="tex2html195"
-  HREF="install.htm#SECTION00082000000000000000">Installation under Microsoft Windows</A>
-<UL>
+  HREF="install.htm#SECTION200">Introduction</A>
 <LI><A NAME="tex2html196"
-  HREF="install.htm#SECTION00082100000000000000">Installation on Windows 7 with Cygwin</A>
+  HREF="install.htm#SECTION300">Installation Requirements</A>
 <LI><A NAME="tex2html197"
-  HREF="install.htm#SECTION00082200000000000000">Other Windows configurations</A>
-</UL>
+  HREF="install.htm#SECTION400">healpix_doc: an easy access to HEALPix documentation</A>
 <LI><A NAME="tex2html198"
-  HREF="install.htm#SECTION00083000000000000000">Problems with CFITSIO</A>
+  HREF="install.htm#SECTION500">The Installation Procedure</A>
+<UL>
 <LI><A NAME="tex2html199"
-  HREF="install.htm#SECTION00084000000000000000">diff shows that the test files are different from
-the supplied files</A>
+  HREF="install.htm#SECTION510">./configure [-L]</A>
+<UL>
 <LI><A NAME="tex2html200"
-  HREF="install.htm#SECTION00085000000000000000">Try unlimit</A>
+  HREF="install.htm#SECTION511">Configuration profile</A>
 <LI><A NAME="tex2html201"
-  HREF="install.htm#SECTION00086000000000000000">hidl usage</A>
+  HREF="install.htm#SECTION512">C configuration</A>
 <LI><A NAME="tex2html202"
-  HREF="install.htm#SECTION00087000000000000000">Using HEALPix IDL together with other IDL libraries</A>
+  HREF="install.htm#SECTION513">C++ configuration</A>
 <LI><A NAME="tex2html203"
-  HREF="install.htm#SECTION00088000000000000000">Mac OS X, X11 and IDL cursor</A>
+  HREF="install.htm#SECTION514">Fortran 90 configuration</A>
 <LI><A NAME="tex2html204"
-  HREF="install.htm#SECTION00089000000000000000">Using GDL instead of IDL</A>
-</UL>
-<BR>
+  HREF="install.htm#SECTION515">IDL/GDL/FL configuration</A>
 <LI><A NAME="tex2html205"
-  HREF="install.htm#SECTION00090000000000000000">Appendix I: Recent Changes and New Features</A>
-<UL>
+  HREF="install.htm#SECTION516">Java installation</A>
 <LI><A NAME="tex2html206"
-  HREF="install.htm#SECTION00091000000000000000">Bug corrections and Improvements in Version 3.31</A>
-<UL>
+  HREF="install.htm#SECTION517">Python (healpy) installation</A>
+</UL>
 <LI><A NAME="tex2html207"
-  HREF="install.htm#SECTION00091100000000000000">General</A>
+  HREF="install.htm#SECTION520">Compilation and installation</A>
 <LI><A NAME="tex2html208"
-  HREF="install.htm#SECTION00091200000000000000">C++</A>
+  HREF="install.htm#SECTION530">Testing the installation</A>
 <LI><A NAME="tex2html209"
-  HREF="install.htm#SECTION00091300000000000000">Fortran 90 facilities
-and subroutines</A>
+  HREF="install.htm#SECTION540">Cleaning up</A>
+</UL>
+<BR>
 <LI><A NAME="tex2html210"
-  HREF="install.htm#SECTION00091400000000000000">IDL</A>
+  HREF="install.htm#SECTION600">A Note on Re-installation</A>
 <LI><A NAME="tex2html211"
-  HREF="install.htm#SECTION00091500000000000000">Python</A>
+  HREF="install.htm#SECTION700">Pkg-config files</A>
+<LI><A NAME="tex2html212"
+  HREF="install.htm#SECTION800">Troubleshooting and further information</A>
+<UL>
+<LI><A NAME="tex2html213"
+  HREF="install.htm#SECTION810">Free Fortran90/95 Compilers</A>
+<LI><A NAME="tex2html214"
+  HREF="install.htm#SECTION820">Installation under Microsoft Windows</A>
+<UL>
+<LI><A NAME="tex2html215"
+  HREF="install.htm#SECTION821">Installation on Windows 7 with Cygwin</A>
+<LI><A NAME="tex2html216"
+  HREF="install.htm#SECTION822">Other Windows configurations</A>
+</UL>
+<LI><A NAME="tex2html217"
+  HREF="install.htm#SECTION830">Problems with CFITSIO</A>
+<LI><A NAME="tex2html218"
+  HREF="install.htm#SECTION840">diff shows that the test files are different from
+the supplied files</A>
+<LI><A NAME="tex2html219"
+  HREF="install.htm#SECTION850">Try unlimit</A>
+<LI><A NAME="tex2html220"
+  HREF="install.htm#SECTION860">hidl usage</A>
+<LI><A NAME="tex2html221"
+  HREF="install.htm#SECTION870">Using HEALPix IDL together with other IDL libraries</A>
+<LI><A NAME="tex2html222"
+  HREF="install.htm#SECTION880">Mac OS X, X11 and IDL cursor</A>
+<LI><A NAME="tex2html223"
+  HREF="install.htm#SECTION890">Using GDL instead of IDL</A>
+<LI><A NAME="tex2html224"
+  HREF="install.htm#SECTION8100">Using FL instead of IDL</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html225"
+  HREF="install.htm#SECTION900">Appendix I: Recent Changes and New Features</A>
+<UL>
+<LI><A NAME="tex2html226"
+  HREF="install.htm#SECTION910">Bug corrections and Improvements in Version 3.40</A>
+<UL>
+<LI><A NAME="tex2html227"
+  HREF="install.htm#SECTION911">General</A>
+<LI><A NAME="tex2html228"
+  HREF="install.htm#SECTION912">C++</A>
+<LI><A NAME="tex2html229"
+  HREF="install.htm#SECTION913">Fortran 90 facilities
+and subroutines</A>
+<LI><A NAME="tex2html230"
+  HREF="install.htm#SECTION914">IDL</A>
+<LI><A NAME="tex2html231"
+  HREF="install.htm#SECTION915">Python</A>
 </UL>
 </UL>
 <BR>
-<LI><A NAME="tex2html212"
-  HREF="install.htm#SECTION000100000000000000000">Appendix II: Older changes (versions 3.00 to 3.30)</A>
+<LI><A NAME="tex2html232"
+  HREF="install.htm#SECTION1000">Appendix II: Older changes (versions 3.00 to 3.31)</A>
 </UL>
 <!--End of Table of Contents-->
 
 <P>
 
-<H1><A NAME="SECTION00020000000000000000">
+<H1><A NAME="SECTION200">
 Introduction</A>
 </H1>
 
@@ -175,27 +177,27 @@ A set of C subroutines and functions is also provided.
 <P>
 The distribution can be downloaded as a gzipped tarred file, <EM>or</EM> as a zipped file,
 which can respectively be unpacked by executing the commands<A NAME="tex2html2"
-  HREF="installfootnode.htm#foot1369"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> <BR>
-<TT>% gunzip Healpix_3.31.tar.gz</TT>
-<BR><TT>% tar -xpf Healpix_3.31.tar</TT>
+  HREF="installfootnode.htm#foot1584"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A> <BR>
+<TT>% gunzip Healpix_3.40.tar.gz</TT>
+<BR><TT>% tar -xpf Healpix_3.40.tar</TT>
 <BR>
 or 
-<BR><TT>% tar -xzpf Healpix_3.31.tar.gz</TT>
+<BR><TT>% tar -xzpf Healpix_3.40.tar.gz</TT>
 <BR>
 or 
-<BR><TT>% unzip Healpix_3.31.zip</TT>
+<BR><TT>% unzip Healpix_3.40.zip</TT>
 <BR>
-creating a directory named <TT>Healpix_3.31</TT> whose structure is shown in Figure
+creating a directory named <TT>Healpix_3.40</TT> whose structure is shown in Figure
 <A HREF="#fig:dirtree">1</A>.
 
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="1372"></A>
+<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="1587"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 The directory structure for the <b>HEALPix</b> distribution. </CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par4041" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par4019" ALIGN="CENTER">
 <IMG
   WIDTH="562" HEIGHT="478" ALIGN="BOTTOM" BORDER="0"
  SRC="./dir_tree.png"
@@ -219,7 +221,7 @@ configuration which is beyond our control.
 
 <P>
 
-<H1><A NAME="SECTION00030000000000000000"></A>
+<H1><A NAME="SECTION300"></A>
 <A NAME="sec:requirements"></A>
 <BR>
 Installation Requirements
@@ -227,7 +229,7 @@ Installation Requirements
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="1374"></A>
+<DIV ALIGN="CENTER"><A NAME="1589"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
   Documentation on the installation and usage of the different packages</CAPTION>
@@ -244,20 +246,20 @@ Installation Requirements
 Fortran 90</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html5"
-  HREF="facilities.htm">''Fortran Facilities''</A>
+  HREF="facilities.htm">"Fortran Facilities"</A>
 and 
 <A NAME="tex2html6"
-  HREF="subroutines.htm">''Fortran Subroutines''</A>
+  HREF="subroutines.htm">"Fortran Subroutines"</A>
 documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>IDL/GDL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>IDL/GDL/FL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html7"
-  HREF="idl.htm">''IDL Facilities''</A></TD>
+  HREF="idl.htm">"IDL Facilities"</A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
@@ -266,7 +268,7 @@ documents</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>C++</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/cxx/README.compilation</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html8"
-  HREF="index_cxx.html">''C++ Facilities and Subroutines''</A>
+  HREF="index_cxx.html">"C++ Facilities and Subroutines"</A>
 (HTML only)</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
@@ -276,7 +278,7 @@ documents</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>C</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/C/README</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html9"
-  HREF="csub.htm">''C Subroutines Overview''</A></TD>
+  HREF="csub.htm">"C Subroutines Overview"</A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
@@ -285,7 +287,7 @@ documents</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>Java</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><TT>src/java/README</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html10"
-  HREF="java/index.html">''Java Overview''</A>
+  HREF="java/index.html">"Java Overview"</A>
 (HTML only)</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
@@ -295,8 +297,8 @@ documents</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>Python</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/healpy/INSTALL</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html11"
-  HREF="http://healpy.github.com/healpy">''Healpy
-Documentation''</A>
+  HREF="https://healpy.readthedocs.io/en/latest">"Healpy
+Documentation"</A>
 (HTML only)</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
@@ -323,7 +325,7 @@ that at least version 6.4 is required), <SPAN  CLASS="textbf">Java</SPAN> and <S
 also available in <SPAN  CLASS="textbf">C</SPAN>. 
 <BR>
 Starting with version 3.0, the
-<A NAME="tex2html20"
+<A NAME="tex2html23"
   HREF="https://github.com/healpy/healpy">healpy</A>
 (HEALPix in Python) library has been integrated into <b>HEALPix</b> releases. Since it
 is, to a large extent, a
@@ -335,7 +337,7 @@ its own compilation of the current <b>HEALPix</b> C++ library.
 <EM>This section and the next focus on the compilation and installation of the
   <SPAN  CLASS="textbf">C</SPAN>, <SPAN  CLASS="textbf">C++</SPAN>, <SPAN  CLASS="textbf">Fortran&nbsp;90</SPAN>, <SPAN  CLASS="textbf">IDL</SPAN> and
 <SPAN  CLASS="textbf">Python</SPAN> routines. For more information on the 
-<SPAN  CLASS="textbf">Java</SPAN> routines see table&nbsp;<A HREF="#tab:allpackages">1</A></EM>
+<SPAN  CLASS="textbf">Java</SPAN> routines see table&nbsp;<A HREF="#tab:allpackages">1</A>.</EM>
 
 <P>
 The configure script is written in the Bourne shell. The script
@@ -343,9 +345,9 @@ attempts to generate a <TT>Makefile</TT> which is tailored to one of
 the above Operating Systems (OS's) and using 
 <TT>Makefile.in</TT> as a template for non system-specific statements. 
 Only the basic UNIX make facility is required to build the software, although we do
-still recommend the GNU make facility (<A NAME="tex2html21"
+still recommend the GNU make facility (<A NAME="tex2html24"
   HREF="ftp://ftp.gnu.org/gnu/make/"><TT>ftp://ftp.gnu.org/gnu/make/</TT></A>).
-In addition, several environment configuration files and an IDL/GDL startup file are
+In addition, several environment configuration files and an IDL/GDL/FL startup file are
 generated. These automatically establish
 various environment variables and aliases to make the use of the
 <b>HEALPix</b> package simpler. 
@@ -355,7 +357,7 @@ The <b>HEALPix</b> <SPAN  CLASS="textbf">Fortran 90</SPAN>, <SPAN  CLASS="textbf
 require the publicly available CFITSIO library. Note that the 
 <SPAN  CLASS="textbf">Fortran 90</SPAN> routines require 
 version 3.20 or more (post August 2009) 
-of CFITSIO
+of CFITSIO. Out of security concerns, the CFITSIO developers recommend using version 3.44 (April 2018) or more
 
 <P>
 <TABLE CELLPADDING=3 BORDER="1">
@@ -368,7 +370,7 @@ of CFITSIO
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 CFITSIO V 3.20 or more</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html13"
-  HREF="http://heasarc.gsfc.nasa.gov/fitsio/"><TT>http://heasarc.gsfc.nasa.gov/fitsio/</TT></A></TD>
+  HREF="https://heasarc.gsfc.nasa.gov/fitsio/"><TT>https://heasarc.gsfc.nasa.gov/fitsio/</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
@@ -397,7 +399,7 @@ available at
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 IDL V 6.4 or more</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html14"
-  HREF="http://www.exelisvis.com/"><TT>http://www.exelisvis.com/</TT></A></TD>
+  HREF="http://harrisgeospatial.com/ProductsandTechnology/Software/IDL.aspx"><TT>http://harrisgeospatial.com/ProductsandTechnology/Software/IDL.aspx</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
@@ -410,8 +412,11 @@ IDL V 6.4 or more</TD>
 <BR>
 <BR>
 <BR>
-while the GNU Data Language <SPAN  CLASS="textbf">GDL</SPAN>, a <EM>free</EM> clone of IDL 6.0, can also be used (with some
-caveats, see &#167;<A HREF="#install:using_gdl">7.9</A>) and can be downloaded for free from
+while the GNU Data Language <SPAN  CLASS="textbf">GDL</SPAN>, a <EM>free open</EM> clone of IDL 7.1, 
+or
+the freeware Fawlty Language <SPAN  CLASS="textbf">FL</SPAN>, a <EM>free closed</EM> clone of IDL 8, 
+can also be used (with some
+caveats, listed respectively in  &#167;<A HREF="#install:using_gdl">7.9</A> and &#167;<A HREF="#install:using_fl">7.10</A>) and can be downloaded for free from
 
 <P>
 <TABLE CELLPADDING=3 BORDER="1">
@@ -422,9 +427,17 @@ caveats, see &#167;<A HREF="#install:using_gdl">7.9</A>) and can be downloaded f
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-GDL 0.9.6 or more</TD>
+GDL 0.9.8 or more</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html15"
-  HREF="http://sourceforge.net/projects/gnudatalanguage"><TT>http://sourceforge.net/projects/gnudatalanguage</TT></A></TD>
+  HREF="https://sf.net/projects/gnudatalanguage"><TT>https://sf.net/projects/gnudatalanguage</TT></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+FL 0.79.44 or more</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html16"
+  HREF="https://www.flxpert.hu/fl"><TT>https://www.flxpert.hu/fl</TT></A>
+or
+                            <A NAME="tex2html17"
+  HREF="http://85.255.9.75/fl"><TT>http://85.255.9.75/fl</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
@@ -440,14 +453,14 @@ GDL 0.9.6 or more</TD>
 
 <P>
 As it was already the case in version 1.20, users no longer need to acquire the
-<SPAN  CLASS="textbf">I</SPAN>DL
-Astronomy User's Library (<A NAME="tex2html22"
-  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>http://idlastro.gsfc.nasa.gov/homepage.html</TT></A>)
-or the COBE (IDL) Analysis Software (<A NAME="tex2html23"
-  HREF="http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm"><TT>http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm</TT></A>),
+<SPAN  CLASS="textbf">IDL</SPAN>
+Astronomy User's Library (<A NAME="tex2html25"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>https://idlastro.gsfc.nasa.gov/homepage.html</TT></A>)
+or the COBE (IDL) Analysis Software (<A NAME="tex2html26"
+  HREF="https://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm"><TT>https://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm</TT></A>),
 although we do recommend these packages to the user.
-The 100-odd routines required for version 3.31 are contained in the
-subdirectory <TT>Healpix_3.31/src/idl/zzz_external</TT>.
+The 100-odd routines required for version 3.40 are contained in the
+subdirectory <TT>Healpix_3.40/src/idl/zzz_external</TT>.
 These procedures are included in the <b>HEALPix</b> package unchanged and 
 solely for the purpose of making it self contained. In this way,
 we remove the burden of installation of additional libraries from 
@@ -466,20 +479,24 @@ The  <SPAN  CLASS="textbf">Python</SPAN> <TT>healpy</TT> package requires
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 Python 2.6, 2.7, or 3.2-3.5</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html16"
-  HREF="http://www.python.org"><TT>http://www.python.org</TT></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html18"
+  HREF="https://www.python.org"><TT>https://www.python.org</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>Numpy 1.0.1 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html17"
-  HREF="http://numpy.scipy.org"><TT>http://numpy.scipy.org</TT></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html19"
+  HREF="https://numpy.scipy.org"><TT>https://numpy.scipy.org</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>Matplotlib 0.91.2 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html18"
-  HREF="http://matplotlib.sourceforge.net"><TT>http://matplotlib.sourceforge.net</TT></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html20"
+  HREF="https://matplotlib.sourceforge.net"><TT>https://matplotlib.sourceforge.net</TT></A></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>PyFITS</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html19"
-  HREF="http://www.stsci.edu/institute/software_hardware/pyfits"><TT>http://www.stsci.edu/institute/software_hardware/pyfits</TT></A></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>Astropy.io.fits</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html21"
+  HREF="https://www.astropy.org"><TT>https://www.astropy.org</TT></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>(PyFITS)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html22"
+  HREF="https://pypi.org/project/pyfits/3.3"><TT>https://pypi.org/project/pyfits/3.3</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
@@ -495,10 +512,10 @@ Python 2.6, 2.7, or 3.2-3.5</TD>
 
 <P>
 While not required, the 
-<TT>IPython</TT> (<A NAME="tex2html24"
-  HREF="http://ipython.org"><TT>http://ipython.org</TT></A>)
+<TT>IPython</TT> (<A NAME="tex2html27"
+  HREF="https://ipython.org"><TT>https://ipython.org</TT></A>)
 and 
-<TT>Cython</TT> (<A NAME="tex2html25"
+<TT>Cython</TT> (<A NAME="tex2html28"
   HREF="http://cython.org"><TT>http://cython.org</TT></A>)
 softwares can also be useful.
 
@@ -526,13 +543,13 @@ We are providing one (both in <SPAN  CLASS="textbf">C++</SPAN> and <SPAN  CLASS=
  $2^{128}-1 \approx 3.4\ 10^{38}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="156" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ WIDTH="139" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg1.png"
- ALT="$2^{128}-1 \approx 3.4\ 10^{38}$"></SPAN>.
+ ALT="$2^{128}-1 \approx 3.4 10^{38}$"></SPAN>.
 
 <P>
 
-<H1><A NAME="SECTION00040000000000000000">
+<H1><A NAME="SECTION400">
 <TT>healpix_doc</TT>: an easy access to <b>HEALPix</b> documentation</A>
 </H1>
 The shell script <TT>healpix_doc</TT> now is available to provide easy
@@ -553,7 +570,7 @@ environment variables
 
 <P>
 
-<H1><A NAME="SECTION00050000000000000000">
+<H1><A NAME="SECTION500">
 The Installation Procedure</A>
 </H1>
 
@@ -569,7 +586,7 @@ tailored to the user environment.
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>% ./configure</TT> <EM>[-L]</EM></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>uses <TT>Makefile.in</TT> as a template to build 
                          the correct Makefile (from user inputs as required), it
-                         will also configure the IDL/GDL routines</TD>
+                         will also configure the IDL/GDL/FL routines</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><TT>% make</TT></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>builds all the facilities</TD>
@@ -593,7 +610,7 @@ These different steps are detailed below.
 
 <P>
 
-<H2><A NAME="SECTION00051000000000000000">
+<H2><A NAME="SECTION510">
 ./configure [-L]</A>
 </H2>
 
@@ -604,7 +621,7 @@ Fortran90, IDL and Python suites of routines and facilities.
 <P>
 Since v2.11, it accepts the <TT>-L</TT> option to write the <b>HEALPix</b> specific configuration files
 into the <b>HEALPix</b> directory itself rather than in installer's home directory (see
-&#167;&nbsp;<A HREF="#subsub:conf">4.1.1</A>).
+&#167;<A HREF="#subsub:conf">4.1.1</A>).
 Using the <TT>-L</TT> option is recommended when doing a <EM>project</EM> or <EM>system wide</EM> installation of
 <b>HEALPix</b> to be accessed by several different users.
 
@@ -612,11 +629,11 @@ Using the <TT>-L</TT> option is recommended when doing a <EM>project</EM> or <EM
 An online help is available with 
 <TT>./configure&nbsp;-h</TT>, while 
 <TT>./configure&nbsp;-v</TT> 
-will return the <b>HEALPix</b> release number (currently 3.31) and exit.
+will return the <b>HEALPix</b> release number (currently 3.40) and exit.
 
 <P>
 
-<H3><A NAME="SECTION00051100000000000000"></A>
+<H3><A NAME="SECTION511"></A>
 <A NAME="subsub:conf"></A>
 <BR>
 Configuration profile
@@ -624,20 +641,20 @@ Configuration profile
 A feature introduced in previous releases and enhanced since v2.10, is that 
 the configure script creates a shell configuration file 
 <BR>(located in
-<TT>${HOME}/.healpix/3_31 _</TT><EM><SPAN CLASS="MATH"><IMG
- WIDTH="12" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+<TT>${HOME}/.healpix/3_40 _</TT><EM><SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg2.png"
  ALT="$\langle$"></SPAN>OS_TYPE<SPAN CLASS="MATH"><IMG
- WIDTH="12" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg3.png"
  ALT="$\rangle$"></SPAN></EM><TT>/config</TT>
 or in
 
-<BR><TT>${HEALPIX}/confdir/3_31 _</TT><EM><SPAN CLASS="MATH"><IMG
- WIDTH="12" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+<BR><TT>${HEALPIX}/confdir/3_40 _</TT><EM><SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg2.png"
  ALT="$\langle$"></SPAN>OS_TYPE<SPAN CLASS="MATH"><IMG
- WIDTH="12" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg3.png"
  ALT="$\rangle$"></SPAN></EM><TT>/config</TT>
 if <TT>./configure -L</TT> was used)
@@ -654,7 +671,7 @@ the package</B>.
 
 <P>
 
-<H3><A NAME="SECTION00051200000000000000">
+<H3><A NAME="SECTION512">
 C configuration</A>
 </H3>
 
@@ -670,7 +687,7 @@ in <TT>${HEALPIX}/lib/chealpix.*</TT> .
 
 <P>
 
-<H3><A NAME="SECTION00051300000000000000"></A>
+<H3><A NAME="SECTION513"></A>
 <A NAME="sec:cpp_config"></A>
 <BR>
 C++ configuration
@@ -681,12 +698,12 @@ Two options are available:
 ask for the full path to an installed <TT>cfitsio</TT> library to link to, and then provide a choice of
 predefined targets corresponding to different combinations of C++ compilers and
 options. Each of those targets is defined in a configuration file located in
-<TT>Healpix_3.31/src/cxx/config/config.</TT><EM>target</EM>.
+<TT>Healpix_3.40/src/cxx/config/config.</TT><EM>target</EM>.
 The user can therefore add new targets or edit existing ones, and the
 <TT>./configure</TT> script will update its menu accordingly.
 If a fairly recent version
 (4.2 or higher) of gcc and g++ is installed on the system, the target
-"generic_gcc" should always work, except under MacOSX, where ``osx'' target is
+"generic_gcc" should always work, except under MacOSX, where "osx" target is
 required.  
 <BR>
 The environment variables EXTERNAL_CFITSIO, 
@@ -696,25 +713,25 @@ HEALPIX_TARGET
 will be set according to the choices made above.
 
 <BR>
-If the HEALPIX configuration file is sourced as described in &#167;&nbsp;<A HREF="#subsub:conf">4.1.1</A>, the full path to the C++
+If the <b>HEALPix</b> configuration file is sourced as described in &#167;<A HREF="#subsub:conf">4.1.1</A>, the full path to the C++
 executables will be added to the environment PATH variable.
 
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Starting with HEALPix 3.0, an automated (<TT>autoconf</TT> generated) <TT>configure</TT> script is 
-available in <TT>Healpix_3.31/src/cxx/configure</TT>. To use it (and also make the compilation, and test it) 
+ Starting with <b>HEALPix</b> 3.0, an automated (<TT>autoconf</TT> generated) <TT>configure</TT> script is 
+available in <TT>Healpix_3.40/src/cxx/configure</TT>. To use it (and also make the compilation, and test it) 
 do
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; cd src/cxx &nbsp;&nbsp;&nbsp;&nbsp; </tt> 
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; ./configure &nbsp;&nbsp;&nbsp;&nbsp; </tt> 
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; make &nbsp;&nbsp;&nbsp;&nbsp; </tt> 
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; make test &nbsp;&nbsp;&nbsp;&nbsp; </tt> 
 <BR>
-which will put the compilation products in <TT>Healpix_3.31/src/cxx/auto</TT>.
+which will put the compilation products in <TT>Healpix_3.40/src/cxx/auto</TT>.
 </DL>
 
 <P>
 
-<H3><A NAME="SECTION00051400000000000000">
+<H3><A NAME="SECTION514">
 Fortran 90 configuration</A>
 </H3>
 When you run <TT>./configure</TT> on a supported system 
@@ -722,45 +739,53 @@ you will be prompted to enter compiler optimisation flags.
 We have not attempted to provide the best optimisation flags for all
 operating systems. The configure
 script will have a guess at optimisation options for some systems, but it
-is up to the user to figure out an optimal set<A NAME="tex2html26"
-  HREF="installfootnode.htm#foot1393"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. 
+is up to the user to figure out an optimal set<A NAME="tex2html29"
+  HREF="installfootnode.htm#foot1613"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. 
 From our experience,
 we have not found significant accumulation of numerical error even
 when using the most aggressive optimisation level available. 
 <BR>
-If the HEALPIX configuration file is sourced as described in &#167;&nbsp;<A HREF="#subsub:conf">4.1.1</A>, the full path to the F90
+If the <b>HEALPix</b> configuration file is sourced as described in &#167;<A HREF="#subsub:conf">4.1.1</A>, the full path to the F90
 executables will be added to the environment PATH variable.
 
 <P>
 
-<H3><A NAME="SECTION00051500000000000000"></A>
+<H3><A NAME="SECTION515"></A>
 <A NAME="install:idlgdlconfig"></A><A NAME="install:idlgdlconfig"></A>
 <BR>
-IDL/GDL configuration
+IDL/GDL/FL configuration
 </H3>
-You will be asked for the external applications you want to use to visualize the
-Postscript and PNG files created by IDL (or GDL). 
+You will be asked for the external applications, such as <TT>gv</TT>, <TT>xpdf</TT>, <TT>display</TT>,
+<SPAN CLASS="MATH"><IMG
+ WIDTH="24" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="installimg4.png"
+ ALT="$\ldots$"></SPAN> you want to use to visualize the
+GIF, JPEG, PDF, Postscript and PNG files <A HREF="./idl_mollview.htm#idl:mollview:preview">created by IDL, GDL or FL</A>. 
 <BR>
-If the HEALPix configuration file is
-sourced as described in &#167;&nbsp;<A HREF="#subsub:conf">4.1.1</A>, the aliases <TT>hidl</TT>, <TT>hidlde</TT>, <TT>hgdl</TT> and <TT>hgdlde</TT>
-are also defined to give you access to HEALPIX routines from IDL (and GDL).
+If the <b>HEALPix</b> configuration file is
+sourced as described in &#167;<A HREF="#subsub:conf">4.1.1</A>, the aliases 
+<TT>hidl</TT> (<TT>hidlde</TT>), 
+<TT>hgdl</TT> (<TT>hgdlde</TT>) and/or
+<TT>hfl</TT> (<TT>hflde</TT>)
+are also defined to give you access to <b>HEALPix</b> routines from respectively IDL, GDL and/or FL, 
+with a command-line (or graphical) interface.
 <BR>
-See the <A NAME="tex2html27"
-  HREF="idl.html"><b>HEALPix</b> IDL Document</A>
+See the <A NAME="tex2html30"
+  HREF="idl.htm"><b>HEALPix</b> IDL Document</A>
 for more
-information on using <b>HEALPix</b> IDL/GDL together with other IDL libraries.
+information on using <b>HEALPix</b> IDL/GDL/FL together with other IDL libraries, and &#167;<A HREF="#install:using_gdl">7.9</A>,<A HREF="#install:using_fl">7.10</A> on using GDL or FL instead of IDL.
 
 <P>
 
-<H3><A NAME="SECTION00051600000000000000">
+<H3><A NAME="SECTION516">
 Java installation</A>
 </H3>
-The configuration and installation of the Healpix Java package is currently
+The configuration and installation of the <b>HEALPix</b> Java package is currently
 handled separately. See table&nbsp;<A HREF="#tab:allpackages">1</A> for more information.
 
 <P>
 
-<H3><A NAME="SECTION00051700000000000000">
+<H3><A NAME="SECTION517">
 Python (healpy) installation</A>
 </H3>
 The <TT>./configure</TT> script will ask for the Python command you want to use 
@@ -772,7 +797,7 @@ Note that during the compilation with <TT>make</TT> (see below), the
 
 <P>
 
-<H2><A NAME="SECTION00052000000000000000">
+<H2><A NAME="SECTION520">
 Compilation and installation</A>
 </H2>
 
@@ -807,7 +832,7 @@ environment variables etc.
 
 <P>
 
-<H2><A NAME="SECTION00053000000000000000">
+<H2><A NAME="SECTION530">
 Testing the installation</A>
 </H2>
 
@@ -831,14 +856,14 @@ reference files.
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="1395"></A>
+<DIV ALIGN="CENTER"><A NAME="1615"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 
  <SMALL CLASS="FOOTNOTESIZE">
 Data files and images produced by the Fortran codes during the tests,
 and the respective reference files to which they can be compared. All the files listed
-are located or produced in the <TT>Healpix_3.31/test</TT> directory. The GIF images of full sky maps were
+are located or produced in the <TT>Healpix_3.40/test</TT> directory. The GIF images of full sky maps were
 produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the data set
 is not a sky map</SMALL></CAPTION>
 <TR><TD><TABLE CELLPADDING=3 BORDER="1">
@@ -941,44 +966,46 @@ is not a sky map</SMALL></CAPTION>
 <P>
 <B>Notes:</B> 
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the input power spectrum (in <TT>Healpix_3.31/test/cl.fits</TT>) used to generate the Fortran90 test maps
+ the input power spectrum (in <TT>Healpix_3.40/test/cl.fits</TT>) used to generate the Fortran90 test maps
 is currently the WMAP 1yr best fit, in <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg4.png"
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg5.png"
  ALT="$(\mu$"></SPAN>K<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN>, and is therefore different from the one
 included in releases 1.* (that can still be found in <TT>cl_old.fits</TT>).
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Other input fiducial <SPAN CLASS="MATH"><IMG
- WIDTH="42" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg5.png"
+ WIDTH="37" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg6.png"
  ALT="$C(\ell)$"></SPAN>, all in <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg4.png"
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg5.png"
  ALT="$(\mu$"></SPAN>K<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN> and defined on the multipole range <!-- MATH
- $[0, \ell_{\rm max}]$
+ $[0, \ell_\mathrm{max}]$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="67" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg6.png"
- ALT="$[0, \ell_{\rm max}]$"></SPAN>, have been included for convenience in 
-<TT>Healpix_3.31/test/</TT> in a <b>HEALPix</b> compatible format.
+ WIDTH="59" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg7.png"
+ ALT="$[0, \ell_\mathrm{max}]$"></SPAN>, have been included for convenience in 
+<A NAME="tex2html34"
+  HREF="https://sourceforge.net/p/healpix/code/HEAD/tree/trunk/test"><TT>Healpix_3.40/test/</TT></A>
+in a <b>HEALPix</b> compatible format.
 
 <BR><TABLE CELLPADDING=3 BORDER="1">
 <TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">File name</SPAN></TH>
 <TH ALIGN="LEFT"><SPAN  CLASS="textbf">alias</SPAN></TH>
 <TH ALIGN="LEFT"><SPAN  CLASS="textbf">Origin</SPAN></TH>
 <TD ALIGN="LEFT"><!-- MATH
- $\ell_{\rm max}$
+ $\ell_\mathrm{max}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="38" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg7.png"
- ALT="$\ell_{\rm max}$"></SPAN></TD>
+ WIDTH="35" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg8.png"
+ ALT="$\ell_\mathrm{max}$"></SPAN></TD>
 </TR>
 <TR><TD ALIGN="LEFT">wmap_lcdm_pl_model_yr1_v1.fits</TD>
 <TD ALIGN="LEFT">cl.fits</TD>
-<TD ALIGN="LEFT"><A NAME="tex2html29"
-  HREF="http://lambda.gsfc.nasa.gov/">WMAP</A>-1yr (2005)</TD>
+<TD ALIGN="LEFT"><A NAME="tex2html32"
+  HREF="https://lambda.gsfc.nasa.gov/">WMAP</A>-1yr (2005)</TD>
 <TD ALIGN="LEFT">3000</TD>
 </TR>
 <TR><TD ALIGN="LEFT">wmap_lcdm_sz_lens_wmap5_cl_v3.fits</TD>
@@ -993,8 +1020,8 @@ included in releases 1.* (that can still be found in <TT>cl_old.fits</TT>).
 </TR>
 <TR><TD ALIGN="LEFT">planck2013ext_lcdm_cl_v1.fits</TD>
 <TD ALIGN="LEFT">cl_planck1.fits</TD>
-<TD ALIGN="LEFT"><A NAME="tex2html30"
-  HREF="http://www.cosmos.esa.int/web/planck">Planck</A>
+<TD ALIGN="LEFT"><A NAME="tex2html33"
+  HREF="https://www.cosmos.esa.int/web/planck">Planck</A>
 2013</TD>
 <TD ALIGN="LEFT">4500</TD>
 </TR>
@@ -1007,7 +1034,7 @@ included in releases 1.* (that can still be found in <TT>cl_old.fits</TT>).
 
 <BR>
 For more information on their respective origin and underlying model see their FITS header, or
-<TT>Healpix_3.31/test/README</TT>
+<TT>Healpix_3.40/test/README</TT>.
 
 <P>
 </DL>
@@ -1015,11 +1042,12 @@ For more information on their respective origin and underlying model see their F
 <P>
 In order to test the new <b>HEALPix</b> profile set-up one can then attempt
 to run any C++ or F90 facility from any directory on your system. Similarly,
-IDL (and/or GDL) can be tested by invoking <TT>hidl</TT> or <TT>hidlde</TT>  (resp. <TT>hgdl</TT> or <TT>hgdlde</TT>).
+IDL, GDL or FL can be tested by invoking respectively 
+<TT>hidl</TT> (or <TT>hidlde</TT>),  <TT>hgdl</TT> (or <TT>hgdlde</TT>), or <TT>hfl</TT> (or <TT>hflde</TT>).
 
 <P>
 
-<H2><A NAME="SECTION00054000000000000000">
+<H2><A NAME="SECTION540">
 Cleaning up</A>
 </H2>
 Three levels of cleaning are available:
@@ -1047,7 +1075,7 @@ while
 
 <P>
 
-<H1><A NAME="SECTION00060000000000000000">
+<H1><A NAME="SECTION600">
 A Note on <I>Re</I>-installation</A>
 </H1>
 
@@ -1060,7 +1088,7 @@ allowing the corrected version to be added.
 
 <P>
 
-<H1><A NAME="SECTION00070000000000000000"></A>
+<H1><A NAME="SECTION700"></A>
 <A NAME="sec:pkg-config"></A>
 <BR>
 Pkg-config files
@@ -1073,19 +1101,19 @@ C, C++ and F90 packages, and are initially located respectively in
 and 
 <TT>${HEALPIX}/lib</TT><EM>suffix</EM><TT>/healpix.pc</TT>.
 If the 
-<A NAME="tex2html32"
-  HREF="http://en.wikipedia.org/wiki/Pkg-config"><TT>pkg-config</TT> software</A>
+<A NAME="tex2html36"
+  HREF="https://en.wikipedia.org/wiki/Pkg-config"><TT>pkg-config</TT> software</A>
 is available on your system (see 
-<A NAME="tex2html33"
-  HREF="http://www.freedesktop.org/wiki/Software/pkg-config/">http://www.freedesktop.org/wiki/Software/pkg-config/</A>
+<A NAME="tex2html37"
+  HREF="https://www.freedesktop.org/wiki/Software/pkg-config/">https://www.freedesktop.org/wiki/Software/pkg-config/</A>
 to download, install and
 use it) and if the location of
 the <b>HEALPix</b> <TT>pkg-config</TT> files above are known to it (either by moving/copying them
 to one of the standard locations returned by 
 <BR><TT>pkg-config -variable pc_path pkg-config</TT>
 <BR>
-or by customizing the environment variable <TT>PKG_CONFIG_PATH</TT><A NAME="tex2html31"
-  HREF="installfootnode.htm#foot1399"><SUP><SPAN CLASS="arabic">3</SPAN></SUP></A>) then linking
+or by customizing the environment variable <TT>PKG_CONFIG_PATH</TT><A NAME="tex2html35"
+  HREF="installfootnode.htm#foot1620"><SUP><SPAN CLASS="arabic">3</SPAN></SUP></A>) then linking
 your own code with the 
 C,
 C++,
@@ -1098,20 +1126,20 @@ F90 <b>HEALPix</b> library simply becomes
 
 <P>
 
-<H1><A NAME="SECTION00080000000000000000"></A>
+<H1><A NAME="SECTION800"></A>
 <A NAME="sec:troubleshoot"></A>
 <BR>
 Troubleshooting and further information
 </H1>
 This section contains a list of difficulties which we have dealt
 with. It is by no means exhaustive. 
-In case of problems, see <A NAME="tex2html34"
+In case of problems, see <A NAME="tex2html38"
   HREF="http://healpix.sourceforge.net/support.php"><TT> http://healpix.sourceforge.net/support.php</TT></A>
 or contact <EM>healpix-support</EM> <TT>at</TT> <EM>lists.sourceforge.net</EM>
 
 <P>
 
-<H2><A NAME="SECTION00081000000000000000"></A>
+<H2><A NAME="SECTION810"></A>
 <A NAME="sec:freef90compilers"></A>
 <BR>
 Free Fortran90/95 Compilers
@@ -1119,35 +1147,35 @@ Free Fortran90/95 Compilers
 The <B>free</B> Fortran90/95 compilers that can be used to compile <b>HEALPix</b> include: 
     <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>Intel Fortran</B> Compiler for Linux based computers (versions
-11.* to 16.*<A NAME="tex2html35"
-  HREF="installfootnode.htm#foot1400"><SUP><SPAN CLASS="arabic">4</SPAN></SUP></A>) 
-<BR>         <A NAME="tex2html36"
+11.* to 18.*<A NAME="tex2html39"
+  HREF="installfootnode.htm#foot1621"><SUP><SPAN CLASS="arabic">4</SPAN></SUP></A>) 
+<BR>         <A NAME="tex2html40"
   HREF="https://software.intel.com/en-us/fortran-compilers"><TT>        https://software.intel.com/en-us/fortran-compilers</TT></A>
 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>GNU Fortran 95</B> compiler (<TT>gfortran</TT>) included in GNU Compiler Collection <EM>GCC</EM> version 4.0.0
          and up and available for Linux, Mac OSX, Windows, Sun ... platforms
          
-<BR>          <A NAME="tex2html37"
-  HREF="http://www.gnu.org/software/gcc/fortran/"><TT>http://www.gnu.org/software/gcc/fortran/</TT></A>. 
+<BR>          <A NAME="tex2html41"
+  HREF="https://www.gnu.org/software/gcc/fortran/"><TT>https://www.gnu.org/software/gcc/fortran/</TT></A>. 
 <BR>
 GFortran binaries for all platforms can also be downloaded from  
-<BR>          <A NAME="tex2html38"
-  HREF="http://gcc.gnu.org/wiki/GFortranBinaries"><TT>http://gcc.gnu.org/wiki/GFortranBinaries</TT></A>. 
+<BR>          <A NAME="tex2html42"
+  HREF="https://gcc.gnu.org/wiki/GFortranBinaries"><TT>https://gcc.gnu.org/wiki/GFortranBinaries</TT></A>. 
 <BR>
 Please note that only recent versions of <TT>gfortran</TT> (Aug 2005
-         and later) compile HEALPix correctly, and v4.2.1 and more have given satisfying
+         and later) compile <b>HEALPix</b> correctly, and v4.2.1 and more have given satisfying
          results so far, including native OpenMP support.
      <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>G95</B> compiler available for Linux, Mac OSX, Windows, Sun and HP platforms with 32 and 64 bit architectures (eg, x86 and x86-64). In the latter case, the '32bit default integer' (32bit DI) version of <TT>g95</TT> <EM>must</EM> be used.
          
-<BR><A NAME="tex2html39"
+<BR><A NAME="tex2html43"
   HREF="http://www.g95.org"><TT>http://www.g95.org</TT></A>
 </DL>
 
 <P>
 
-<H2><A NAME="SECTION00082000000000000000"></A>
+<H2><A NAME="SECTION820"></A>
 <A NAME="sec:windows"></A>
 <BR>
 Installation under Microsoft Windows
@@ -1156,7 +1184,7 @@ Detailed instructions to install <b>HEALPix</b> on Windows 7 using Cygwin, kindl
 are available in &#167;<A HREF="#sec:windows_seven">7.2.1</A>, 
 while other configurations are discussed in &#167;<A HREF="#sec:windows_other">7.2.2</A>.
 
-<H3><A NAME="SECTION00082100000000000000"></A>
+<H3><A NAME="SECTION821"></A>
 <A NAME="sec:windows_seven"></A>
 <BR>
 Installation on Windows 7 with Cygwin
@@ -1167,7 +1195,7 @@ The three steps (installation of Cygwin, cfitsio and <b>HEALPix</b> respectively
 <SPAN  CLASS="textbf">A: Install Cygwin</SPAN>
 
 <OL>
-<LI>Go to <A NAME="tex2html40"
+<LI>Go to <A NAME="tex2html44"
   HREF="https://www.cygwin.com/"><TT>https://www.cygwin.com/</TT></A>
 and click on `Install Cygwin' in the menu on the left.
 
@@ -1189,7 +1217,7 @@ double-click on the setup-x86*.exe file to run it.
 
 <OL>
 <LI>You have to `Choose A Download Site'. (eg:
-  <A NAME="tex2html41"
+  <A NAME="tex2html45"
   HREF="ftp://ftp.gtlib.gatech.edu"><TT>ftp://ftp.gtlib.gatech.edu</TT></A>).
 </LI>
 <LI>When prompted to `Select Packages', expand `Default' (if you see a `+'
@@ -1211,8 +1239,8 @@ double-click on the setup-x86*.exe file to run it.
 
 <OL>
 <LI>Get the latest source code package from NASA's HEASARC website
-  (<A NAME="tex2html42"
-  HREF="http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz">http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz</A>).
+  (<A NAME="tex2html46"
+  HREF="https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz">https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz</A>).
   When prompted to save the file, in the Save dialog window, navigate to
   C:&#92;cygwin64&#92;usr&#92;local
   (assuming you accepted the defaults when installing Cygwin), click on
@@ -1239,7 +1267,7 @@ double-click on the setup-x86*.exe file to run it.
 
 <OL>
 <LI>Get the latest version of HEALPix from SourceForge
-  (<A NAME="tex2html43"
+  (<A NAME="tex2html47"
   HREF="https://sourceforge.net/projects/healpix/files/latest/download">https://sourceforge.net/projects/healpix/files/latest/download</A>). When
   prompted to save the file, save it in
   C:&#92;cygwin64&#92;usr&#92;local&#92;src.
@@ -1272,38 +1300,38 @@ If you want to install the C++ package of <b>HEALPix</b> (option 4), pick <TT>ge
 
 <P>
 
-<H3><A NAME="SECTION00082200000000000000"></A>
+<H3><A NAME="SECTION822"></A>
 <A NAME="sec:windows_other"></A>
 <BR>
 Other Windows configurations
 </H3>
 Installation on Windows versions other than 7 should be very similar to the one detailed above.
 <BR>
-In step A above, replacing Cygwin with <B>MinGW</B> (<A NAME="tex2html44"
+In step A above, replacing Cygwin with <B>MinGW</B> (<A NAME="tex2html48"
   HREF="http://www.mingw.org/"><TT>http://www.mingw.org/</TT></A>) together with the MSYS collection of GNU utilities 
-(see <A NAME="tex2html45"
+(see <A NAME="tex2html49"
   HREF="http://www.mingw.org/wiki/msys"><TT>http://www.mingw.org/wiki/msys</TT></A>
 and
-<A NAME="tex2html46"
+<A NAME="tex2html50"
   HREF="https://sourceforge.net/projects/mingw/files"><TT>https://sourceforge.net/projects/mingw/files</TT></A>) is also possible.
 The Unix/Linux tools required include <TT>sh, make, awk, grep, sed, ls, wc, cat, more, nm, ar</TT>,
 as well as C, C++ and Fortran compilers.
 <BR>
 The latest <TT>gfortran</TT> binaries for Cygwin and/or MinGW can be found at, eg
 
-<BR><A NAME="tex2html47"
+<BR><A NAME="tex2html51"
   HREF="https://cygwin.com/cgi-bin2/package-grep.cgi?grep=gcc-fortran&amp;arch=x86_64"><TT><SMALL CLASS="SMALL">https://cygwin.com/cgi-bin2/package-grep.cgi?grep=gcc-fortran&amp;arch=x86_64</SMALL></TT></A>,
 following the tips found at 
-<A NAME="tex2html48"
-  HREF="http://gcc.gnu.org/wiki/GFortranBinaries"><TT>http://gcc.gnu.org/wiki/GFortranBinaries</TT></A>.
+<A NAME="tex2html52"
+  HREF="https://gcc.gnu.org/wiki/GFortranBinaries"><TT>https://gcc.gnu.org/wiki/GFortranBinaries</TT></A>.
 
 <P>
 
-<H2><A NAME="SECTION00083000000000000000">
+<H2><A NAME="SECTION830">
 Problems with CFITSIO</A>
 </H2>
 
-<H3><A NAME="SECTION00083100000000000000">
+<H3><A NAME="SECTION831">
 Compilation of CFITSIO Fortran wrappers</A>
 </H3>
 The most common problem with the Fortran <b>HEALPix</b> compilation will produce
@@ -1343,8 +1371,8 @@ To solve this problem
 <BR>
 Assuming that <B>ifort</B> is available on your
 system (it can be replaced below by <TT><B>gfortran</B></TT>, <TT><B>g95</B></TT>, <TT><B>f77</B></TT>, <TT><B>f2c</B></TT>, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="installimg8.png"
+ WIDTH="24" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="installimg4.png"
  ALT="$\ldots$"></SPAN>) type: 
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; ./configure FC=<B>ifort</B> &nbsp;&nbsp;&nbsp;&nbsp; </tt>  
 <BR><tt>  &nbsp;&nbsp;&nbsp;&nbsp; make &nbsp;&nbsp;&nbsp;&nbsp; </tt>  
@@ -1360,7 +1388,7 @@ See also the note below on 64 bit architectures.
 
 <P>
 
-<H3><A NAME="SECTION00083200000000000000">
+<H3><A NAME="SECTION832">
 CFITSIO problems on systems with 64 bit architecture</A>
 </H3>
 
@@ -1414,7 +1442,7 @@ then force compilation to the same binary format by entering either
 
 <P>
 
-<H3><A NAME="SECTION00083300000000000000">
+<H3><A NAME="SECTION833">
 CFITSIO linking problems</A>
 </H3>
 
@@ -1431,7 +1459,7 @@ Makefile.
 
 <P>
 
-<H3><A NAME="SECTION00083400000000000000">
+<H3><A NAME="SECTION834">
 CFITSIO and Debian/Linux</A>
 </H3>
 
@@ -1443,7 +1471,7 @@ to <b>HEALPix</b> .
 
 <P>
 
-<H2><A NAME="SECTION00084000000000000000">
+<H2><A NAME="SECTION840">
 <TT>diff</TT> shows that the test files are different from
 the supplied files</A>
 </H2>
@@ -1458,7 +1486,7 @@ representations. Also, the FITS files carry date information.
 
 <P>
 
-<H2><A NAME="SECTION00085000000000000000">
+<H2><A NAME="SECTION850">
 Try <TT>unlimit</TT></A>
 </H2>
 
@@ -1468,7 +1496,7 @@ sometimes helps.
 
 <P>
 
-<H2><A NAME="SECTION00086000000000000000">
+<H2><A NAME="SECTION860">
 <TT>hidl</TT> usage</A>
 </H2>
 
@@ -1483,7 +1511,7 @@ the user to access the <b>HEALPix</b> IDL procedures simply by invoking
 IDL. For example, in the typical installation documented
 above for a user running the tcsh shell, the command 
 <BR><TT>setenv IDL_STARTUP
-/disk1/user1/HEALPix_3.31/src/idl/HEALPix_startup</TT>
+/disk1/user1/HEALPix_3.40/src/idl/HEALPix_startup</TT>
 
 <BR>
 should be issued (or added to the user's shell profile).
@@ -1503,14 +1531,14 @@ administrator to adjust the local IDL script.
 
 <P>
 
-<H2><A NAME="SECTION00087000000000000000">
+<H2><A NAME="SECTION870">
 Using <b>HEALPix</b> IDL together with other IDL libraries</A>
 </H2>
-See the <A HREF="./idlnode2.htm#idl:other_idl_libs">eponymous section</A> in the <A NAME="tex2html49"
-  HREF="idl.html">``IDL Facilities Overview''</A>
+See the <A HREF="./idl_Using_HEALPix_IDL_facilitie.htm#idl:other_idl_libs">homonymous section</A> in the <A NAME="tex2html53"
+  HREF="idl.htm">"IDL Facilities Overview"</A>
 <P>
 
-<H2><A NAME="SECTION00088000000000000000"></A>
+<H2><A NAME="SECTION880"></A>
 <A NAME="install:macos_idl_cursor"></A>
 <BR>
 Mac OS X,  X11 and IDL cursor
@@ -1528,8 +1556,9 @@ type
 <BR> <TT>defaults write org.x.x11 wm_click_through -bool true</TT>
 </DL>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- with Xquartz (default under Moutain Lion (10.8.*), Mavericks (10.9.*) and Yosemite (10.10.*), available
-for download for El Capitan (10.11.*) and Sierra (10.12.*)):
+ with Xquartz (default under Moutain Lion (10.8.*), Mavericks (10.9.*) and Yosemite (10.10.*), 
+available for download for 
+El Capitan (10.11.*), Sierra (10.12.*) and High Sierra (10.13.*)):
 <BR><TT>defaults write org.macosforge.xquartz.X11 wm_click_through -bool true</TT>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  with MacPort's X11 (package xorg-server):
@@ -1540,69 +1569,66 @@ at your X11 prompt and restart X11.
 Note that the command <TT>ls -lrt  $HOME/Library/Preferences/*[xX]11*plist</TT> 
 can be used to determine the X window system installed on
 your Mac.
-See also <A NAME="tex2html50"
+See also <A NAME="tex2html54"
   HREF="http://www.idlcoyote.com/misc_tips/maccursor.html"><TT>http://www.idlcoyote.com/misc_tips/maccursor.html</TT></A>
 and
-<A HREF="./idlnode42.htm#idl:mollcursor"><TT>mollcursor</TT></A> documentation in <A NAME="tex2html51"
-  HREF="idl.htm">''IDL
-Facilities''</A>).
+<A HREF="./idl_mollcursor.htm#idl:mollcursor"><TT>mollcursor</TT></A> documentation in <A NAME="tex2html55"
+  HREF="idl.htm">"IDL
+Facilities"</A>).
 
 <P>
 
-<H2><A NAME="SECTION00089000000000000000"></A>
+<H2><A NAME="SECTION890"></A>
 <A NAME="install:using_gdl"></A><A NAME="install:using_gdl"></A>
 <BR>
 Using GDL instead of IDL
 </H2>
 
 <P>
-GNU Data Language (GDL), is a <EM>free</EM> clone of IDL 6.0 (for more information see
-<A NAME="tex2html53"
+GNU Data Language (GDL), is a <EM>free</EM> clone of IDL 7.1, with support for some IDL 8.0 features (for more information see
+<A NAME="tex2html58"
   HREF="http://gnudatalanguage.sourceforge.net"><TT>http://gnudatalanguage.sourceforge.net</TT></A>).
 Both the source code and precompiled executables for various platforms are available.
 
 <P>
-When used to run IDL-Healpix routines, GDL 0.9.6 or more gives
-very satisfactory results<A NAME="tex2html52"
-  HREF="installfootnode.htm#foot1436"><SUP><SPAN CLASS="arabic">5</SPAN></SUP></A>. The calculations agree with those done under IDL, with
-comparable computation times, but a few minor features are missing in the production
-of Postscript, GIF and PNG files, as described below.
+When used to run IDL-Healpix routines, GDL 0.9.8 or more gives
+very satisfactory results<A NAME="tex2html56"
+  HREF="installfootnode.htm#foot1840"><SUP><SPAN CLASS="arabic">5</SPAN></SUP></A>. 
+The calculations agree with those done under IDL, with
+comparable computation times, but a few minor features, mostly related to the font selection, are missing.
 
 <P>
 
-<H3><A NAME="SECTION00089100000000000000">
+<H3><A NAME="SECTION891">
 GDL+<b>HEALPix</b> specific requirements</A>
 </H3>
 To fully enjoy GDL capabilities
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <b>HEALPix</b> 3.31 or more must be installed<A NAME="tex2html54"
-  HREF="installfootnode.htm#foot1437"><SUP><SPAN CLASS="arabic">6</SPAN></SUP></A>.
-
-<P>
+ <b>HEALPix</b> 3.40 or more must be installed
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 
-Besides the mandatory requirements (<A NAME="tex2html58"
-  HREF="http://plplot.sourceforge.net/source/index.html"><TT>plplot</TT></A>, 
-<A NAME="tex2html59"
-  HREF="http://www.gnu.org/software/gsl"><TT>gsl</TT></A>, 
-<A NAME="tex2html60"
-  HREF="http://ftp.gnu.org/pub/gnu/readline/"><TT>readline</TT></A>
+Besides the mandatory requirements (<A NAME="tex2html61"
+  HREF="https://plplot.sourceforge.net/source/index.html"><TT>plplot</TT></A>, 
+<A NAME="tex2html62"
+  HREF="https://www.gnu.org/software/gsl"><TT>gsl</TT></A>, 
+<A NAME="tex2html63"
+  HREF="https://ftp.gnu.org/pub/gnu/readline/"><TT>readline</TT></A>
 and 
-<A NAME="tex2html61"
-  HREF="http://www.zlib.net/"><TT>zlib</TT></A>) 
+<A NAME="tex2html64"
+  HREF="https://www.zlib.net/"><TT>zlib</TT></A>) 
 GDL must also have been (pre-)compiled with links to
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A NAME="tex2html56"
-  HREF="http://www.imagemagick.org"><TT>ImageMagick</TT></A>
-(or <A NAME="tex2html57"
+ <A NAME="tex2html59"
+  HREF="https://www.imagemagick.org"><TT>ImageMagick</TT></A>
+(or <A NAME="tex2html60"
   HREF="http://www.graphicsmagick.org/"><TT>GraphicsMagick</TT></A>) 
-to produce PNG and JPEG output files, 
+to produce GIF, JPEG and PNG output files, 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A NAME="tex2html62"
+ <A NAME="tex2html65"
   HREF="http://pslib.sourceforge.net"><TT>pslib</TT></A>
 to produce PostScript and PDF files (in the latter case,
-a recent version of <A NAME="tex2html63"
-  HREF="http://www.ghostscript.com/"><TT>ghostscript</TT></A>, i.e. 9.07 or more, is also recommended).
+a recent version of <A NAME="tex2html66"
+  HREF="https://www.ghostscript.com/"><TT>ghostscript</TT></A>, i.e. 9.07 or more, is also recommended).
 </DL>
 
 <P>
@@ -1610,45 +1636,264 @@ a recent version of <A NAME="tex2html63"
 
 <P>
 
-<H3><A NAME="SECTION00089200000000000000">
+<H3><A NAME="SECTION892">
 Impact of GDL limitations on <b>HEALPix</b> </A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- When run under GDL 0.9.6, and if the requirements stated above are met, 
+ When run under GDL 0.9.8, and if the requirements stated above are met, 
 the visualization routines
-<A HREF="./idlnode43.htm#idl:mollview"><TT>azeqview</TT>, <TT>cartview</TT>, <TT>gnomview</TT>, <TT>mollview</TT> and <TT>orthview</TT></A> 
-will produce correct screen (X) outputs and PS, PDF, PNG and JPEG images, with the following caveats:
+<A HREF="./idl_mollview.htm#idl:mollview"><TT>azeqview</TT>, <TT>cartview</TT>, <TT>gnomview</TT>, <TT>mollview</TT> and <TT>orthview</TT></A> 
+will produce correct screen (X) outputs and PS, PDF, PNG, GIF, and JPEG images, with the following caveat(s):
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- they won't produce <A HREF="./idlnode43.htm#idl:mollview:gif">GIF</A> files (because GDL's <TT>write_gif</TT> is not yet functional); 
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the <A HREF="./idlnode43.htm#idl:mollview:transparent"><TT>transparent</TT></A> keyword will be ignored in the
-production of <A HREF="./idlnode43.htm#idl:mollview:png">PNG</A> files under GDL (except when <A HREF="./idlnode43.htm#idl:mollview:truecolors"><TT>TrueColors</TT></A> is set and <SPAN CLASS="MATH"><I>N</I></SPAN>x3 map is provided), 
-and for the same reason, the <A HREF="./idlnode32.htm#idl:hpx2gs"><TT>hpx2gs</TT></A> routine won't mark missing pixels as
-transparent in the output PNG file;
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-  and finally, the <A HREF="./idlnode43.htm#idl:mollview:pfonts"><TT>pfonts</TT></A> keyword will not allow the selection of other fonts than Hershey vectorial fonts (pfonts[0]=-1).
+ the <A HREF="./idl_mollview.htm#idl:mollview:pfonts"><TT>pfonts</TT></A> keyword will not allow the selection of other fonts than Hershey vectorial fonts (pfonts[0]=-1).
 </DL>
-All other features work properly, including the <A HREF="./idlnode43.htm#idl:mollview:latex"><TT>Latex</TT></A> keyword.
+All other features work properly, including the <A HREF="./idl_mollview.htm#idl:mollview:latex"><TT>Latex</TT></A> keyword.
 
 <P>
 </DL>
 
 <P>
 
-<H1><A NAME="SECTION00090000000000000000"></A>
+<H2><A NAME="SECTION8100"></A>
+<A NAME="install:using_fl"></A><A NAME="install:using_fl"></A>
+<BR>
+Using FL instead of IDL
+</H2>
+Fawlty Language (FL) is a black-box implementation of IDL 8.0, for which precompiled self-contained packages
+are available for Linux, Windows, MacOSX and more from 
+<A NAME="tex2html67"
+  HREF="https://www.flxpert.hu/fl">https://www.flxpert.hu/fl</A>.
+
+<P>
+Most of the IDL routines and features have been implemented, with a few exceptions 
+(like <TT>xloadct</TT>) and the restrictions listed below.
+
+<P>
+
+<H3><A NAME="SECTION8101">
+FL+<b>HEALPix</b> specific requirements</A>
+</H3>
+To fully enjoy FL capabilities
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <b>HEALPix</b> 3.40 or more must be installed,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ the version 0.79.44 or more of FL must be used,
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ it is recommended to set the environment variable <TT>FL_DIR</TT> to the FL top directory (ie <EM>path</EM><TT>/fl/fl_0.79.44 </TT>in Linux and Windows, and <EM>path</EM><TT>/fl.app</TT> in MacOSX) 
+in order for the <b>HEALPix</b> enabled FL tools (<TT>hfl</TT> and <TT>hflde</TT>) to be defined properly during the
+<A HREF="#install:idlgdlconfig">IDL/GDL/FL configuration</A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ to produce PDF files
+a recent version of <A NAME="tex2html68"
+  HREF="https://www.ghostscript.com"><TT>ghostscript</TT></A>, i.e. 9.07 or more, is recommended.
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION8102">
+Impact of FL limitations on <b>HEALPix</b> </A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ In FL, the <TT>!p.font</TT> selection is ignored in the 'X' device.
+In 'PS' device, the Hershey Fonts (<TT>!p.font=-1</TT>) and Device Fonts (<TT>!p.font=0</TT>)
+look respectively slightly and noticeably different from their IDL counterparts,
+while the TrueType Fonts (<TT>!p.font=1</TT>) are not fully implemented yet.
+<BR>
+As a consequence, the graphical outputs of 
+<A HREF="./idl_mollview.htm#idl:mollview"><TT>azeqview</TT>, <TT>cartview</TT>, <TT>gnomview</TT>, <TT>mollview</TT> and <TT>orthview</TT></A>
+will look slightly different in FL and IDL, 
+while in those routines the option 
+<A HREF="./idl_mollview.htm#idl:mollview:pfonts"><TT>PFONTS</TT></A> will not work fully as expected.
+However, the <A HREF="./idl_mollview.htm#idl:mollview:latex"><TT>Latex</TT></A> keyword will work properly in those routines.
+
+<P>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION900"></A>
 <A NAME="sec:newfeatures"></A>
 <BR>
 Appendix I: Recent Changes and New Features
 </H1>
 
-<H2><A NAME="SECTION00091000000000000000">
-Bug corrections and Improvements in Version 3.31</A>
+<H2><A NAME="SECTION910">
+Bug corrections and Improvements in Version 3.40</A>
 </H2>
 <P>
 
-<H3><A NAME="SECTION00091100000000000000">
+<H3><A NAME="SECTION911">
 General</A>
 </H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ A new set of (pixel-based) quadrature weights has been introduced, besides the older ring-based ones, to improve the accuracy of the Spherical Harmonics calculation. For maps
+  containing a signal that is band-limited at <!-- MATH
+ $\ell_{\mathrm{max}}=1.5 N_\mathrm{side}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg9.png"
+ ALT="$\ell_{\mathrm{max}}=1.5 N_\mathrm{side}$"></SPAN>, this allows
+  recovery of the <SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
+ ALT="$a_{\ell m}$"></SPAN> at almost machine precision. They are supported by map-analysis routines in C++, Fortran, IDL and Python. 
+The weights for power-of-2 values of <!-- MATH
+ $N_\mathrm{side}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> in <!-- MATH
+ $\{16,\ldots,2048\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg11.png"
+ ALT="$\{16,\ldots,2048\}$"></SPAN> are precomputed and shipped in <A NAME="tex2html69"
+  HREF="https://sourceforge.net/p/healpix/code/HEAD/tree/trunk/data"><TT>Healpix/data/weight_pixel_n?????.fits</TT></A>, and the missing ones can be computed for any value of <!-- MATH
+ $N_\mathrm{side}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> with the <TT>compute_weights</TT> C++ facility.
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION912"></A>
+<BR>
+<A NAME="tex2html70"
+  HREF="http://healpix.sourceforge.net/html/index_cxx.htm">C++</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ IMPORTANT: the syntax for specifying ring weights and pixel windows has
+  changed! This affects the facilities <TT>anafast_cxx</TT>, <TT>smoothing_cxx</TT>,
+  <TT>udgrade_harmonic_cxx</TT>, <TT>alm2map_cxx</TT>, <TT>mult_alm_cxx</TT>.
+  Pixel window files have to be specified (with path) using the parameter
+  <TT>windowfile</TT>; <TT>ringweights</TT> is used for ring weight files, and <TT>pixelweights</TT>
+  for pixel weight files.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Full pixel quadrature weights are now supported in map analysis facilities such as <TT>anafast_cxx</TT>, <TT>smoothing_cxx</TT> and <TT>udgrade_harmonic_cxx</TT>
+  using the <TT>pixelweights</TT> parameter.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Experimental <TT>needlet_tool</TT> code for needlet analysis
+</DL>
+
+<P>
+
+<H3><A NAME="SECTION913">
+Fortran 90 </A><A NAME="tex2html71"
+  HREF="facilities.htm">facilities</A>
+and
+	<A NAME="tex2html72"
+  HREF="subroutines.htm">subroutines</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The facilities 
+<A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> and 
+<A HREF="./fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A> now support pixel-based quadrature weights.
+Introduction of the supporting 
+<A HREF="./sub_nside2npweights.htm#sub:nside2npweights"><TT>nside2npweights</TT></A>,
+<A HREF="./sub_unfold_weightsfile.htm#sub:unfold_weightsfile"><TT>unfold_weightsfile</TT></A>,
+<A HREF="./sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghw8f"><TT>get_healpix_weight_file</TT></A>,
+<A HREF="./sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghpw8f"><TT>get_healpix_pixel_weight_file</TT></A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The subroutine 
+<A HREF="./sub_input_map.htm#sub:input_map"><TT>input_map</TT></A> in its default mode
+and the facilities 
+<A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A>,
+<A HREF="./fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A>,
+<A HREF="./fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A>, and
+<A HREF="./fac_ud_grade.htm#fac:ud_grade"><TT>ud_grade</TT></A> 
+test the value of the <TT>POLCCONV</TT> FITS keyword when reading a polarized map,
+and interpret the polarization accordingly, 
+as described in the <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A NAME="tex2html73"
+  HREF="intro.htm">The <b>HEALPix</b> Primer</A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="./fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A> facility and 
+<A HREF="./sub_median.htm#sub:median"><TT>median</TT></A> subroutine: faster by moving an internal array from heap to stack; do not crash anymore when dealing with empty data sets; 
+slightly different output of <A HREF="./fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A>: when median is computed over an even number of pixels <SPAN CLASS="MATH"><IMG
+ WIDTH="62" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg12.png"
+ ALT="$n \ge 100$"></SPAN>, sorted in <SPAN CLASS="MATH">[1,<I>n</I>]</SPAN>,
+the output is <SPAN CLASS="MATH"><I>d</I>(<I>n</I>/2)</SPAN> instead of <!-- MATH
+ $(d(n/2)+d(n/2+1))/2$
+ -->
+<SPAN CLASS="MATH">(<I>d</I>(<I>n</I>/2)+<I>d</I>(<I>n</I>/2+1))/2</SPAN> previously. Result remains <SPAN CLASS="MATH"><I>d</I>(<I>n</I>/2+1)</SPAN> for odd <SPAN CLASS="MATH"><I>n</I></SPAN>.
+</DL>
+<H3><A NAME="SECTION914"></A>
+<BR>
+<A NAME="tex2html74"
+  HREF="idl.htm">IDL</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The routines <A HREF="./idl_ianafast.htm#idl:ianafast"><TT>ianafast</TT></A> and <A HREF="./idl_ismoothing.htm#idl:ismoothing"><TT>ismoothing</TT></A>
+can now use pixel-based quadrature weights. Addition of the supporting functions 
+<A HREF="./idl_nside2npweights.htm#idl:nside2npweights"><TT>nside2npweights</TT></A> and
+<A HREF="./idl_unfold_weights.htm#idl:unfold_weights"><TT>unfold_weights</TT></A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="./idl_ianafast.htm#idl:ianafast"><TT>ianafast</TT></A> and <A HREF="./idl_ismoothing.htm#idl:ismoothing"><TT>ismoothing</TT></A>: 
+see note on <TT>POLCCONV</TT> in F90 facilities above.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ 
+<A NAME="install:idl:change_polcconv"></A><A NAME="install:idl:change_polcconv"></A><A HREF="./idl_change_polcconv.htm#idl:change_polcconv"><TT>change_polcconv</TT></A> has been improved to allow the change of 
+polarization convention (by changing the sign of <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter and updating <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv"><TT>POLCCONV</TT></A> value) in FITS files 
+containing polarized maps generated by standard <b>HEALPix</b> tools, 
+as well as for specific formats brewed by the WMAP and Planck projects throughout the years.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New <A HREF="./idl_help_st.htm#idl:help_st"><TT>help_st</TT></A> to get information on a structure and its sub-structures
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="./idl_mollview.htm#idl:mollview"><TT>azeqview, cartview, gnomview, mollview, orthview</TT></A> 
+visualization routines:
+  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of the keywords 
+	<A HREF="./idl_mollview.htm#idl:mollview:customize"><TT>CUSTOMIZE</TT></A> and 
+	<A HREF="./idl_mollview.htm#idl:mollview:default_settings"><TT>DEFAULT_SETTINGS</TT></A>
+	for extensize customization of the figures produced
+    <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="./idl_mollview.htm#idl:mollview:glsize"><TT>GLSIZE</TT></A> and
+	<A HREF="./idl_mollview.htm#idl:mollview:iglsize"><TT>IGLSIZE</TT></A> can now be 2-element vectors to control separately the size
+	(and presence) of labels on the parallel and meridian graticules
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ fine control of polarisation rods thickness with <A HREF="./idl_mollview.htm#idl:mollview:polarization"><TT>POLARIZATION</TT></A>
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of the <A HREF="./idl_mollview.htm#idl:mollview:silhouette"><TT>SILHOUETTE</TT></A> keyword to add a tunable silhouette around the projected map (<A HREF="./idl_mollview.htm#idl:mollview"><TT>mollview</TT> and <TT>orthview</TT> only</A>)
+  </DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Improved support for <A HREF="#install:using_gdl">GDL</A> and <A HREF="#install:using_fl">FL (Fawlty Language)</A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Update of the required
+    <A NAME="tex2html75"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and <A NAME="tex2html76"
+  HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
+library
+    routines (2018-05-15).
+</DL>
+<H3><A NAME="SECTION915"></A>
+<BR>
+<A NAME="tex2html77"
+  HREF="https://healpy.readthedocs.org/en/latest/">Python</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Switch to 
+	<A NAME="tex2html78"
+  HREF="https://github.com/healpy/healpy/releases"><TT>healpy 1.12.0 </TT></A>
+(<A NAME="tex2html79"
+  HREF="https://github.com/healpy/healpy/blob/master/CHANGELOG.rst">CHANGELOG</A>)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Addition of the python facility <TT>src/python/change_polcconv.py</TT> to change the polarization convention 
+(see <A HREF="#install:idl:change_polcconv">IDL's <TT>change_polcconv.pro</TT> above</A>).
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION1000">
+Appendix II: Older changes (versions 3.00 to 3.31)</A>
+</H1>
+
+<P>
+
+<P>
+<b>Bug corrections and Improvements in Version 3.31 (2016-08)</b>
+<P>
+<b>General</b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Detailed <A HREF="#sec:windows">HOWTO</A> for installation under Windows;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1657,55 +1902,45 @@ General</A>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Improved cross-document linking in PDF documentation.
 	</DL>
-<H3><A NAME="SECTION00091200000000000000"></A>
-<BR>
-<A NAME="tex2html64"
-  HREF="http://healpix.sourceforge.net/html/index_cxx.htm">C++</A>
-</H3>
+<b><A NAME="tex2html80"
+  HREF="http://healpix.sourceforge.net/html/index_cxx.htm">C++</A></b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Removal of C++11 features inadvertently introduced in Version 3.30 
-	(see <A NAME="tex2html65"
-  HREF="http://sourceforge.net/p/healpix/bugs/72"><TT>http://sourceforge.net/p/healpix/bugs/72</TT></A>)
+	(see <A NAME="tex2html123"
+  HREF="https://sourceforge.net/p/healpix/bugs/72"><TT>https://sourceforge.net/p/healpix/bugs/72</TT></A>)
 	</DL>
-<H3>Fortran 90 <A NAME="tex2html66"
+<b>Fortran 90 <A NAME="tex2html81"
   HREF="facilities.htm">facilities</A>
 and
- 	<A NAME="tex2html67"
-  HREF="subroutines.htm">subroutines</A>
-</H3>
+ 	<A NAME="tex2html82"
+  HREF="subroutines.htm">subroutines</A></b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Bug correction in <A HREF="./subroutinesnode43.htm#sub:input_map"><TT>input_map</TT></A> routine for reading of polarized multi-HDU cut sky FITS files;
+ Bug correction in <A HREF="./sub_input_map.htm#sub:input_map"><TT>input_map</TT></A> routine for reading of polarized multi-HDU cut sky FITS files;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Introduction of 
-<A HREF="./facilitiesnode5.htm#fac:alteralm:winfiledir_in"><TT>winfiledir_*</TT></A> and 
-<A HREF="./facilitiesnode5.htm#fac:alteralm:windowfile_in"><TT>windowfile_*</TT></A> qualifiers in <A HREF="./facilitiesnode5.htm#fac:alteralm"><TT>alteralm</TT></A> facility.
+<A HREF="./fac_alteralm.htm#fac:alteralm:winfiledir_in"><TT>winfiledir_*</TT></A> and 
+<A HREF="./fac_alteralm.htm#fac:alteralm:windowfile_in"><TT>windowfile_*</TT></A> qualifiers in <A HREF="./fac_alteralm.htm#fac:alteralm"><TT>alteralm</TT></A> facility.
 	</DL>
-<H3><A NAME="SECTION00091400000000000000"></A>
-<BR>
-<A NAME="tex2html68"
-  HREF="idl.htm">IDL</A>
-</H3>
+<b><A NAME="tex2html83"
+  HREF="idl.htm">IDL</A></b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Improved support for <A HREF="#install:using_gdl">GDL</A>;
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-    <A NAME="tex2html69"
-  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and <A NAME="tex2html70"
+    <A NAME="tex2html124"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and <A NAME="tex2html125"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 library
     routines (2016-08-19).
 	</DL>
-<H3><A NAME="SECTION00091500000000000000"></A>
-<BR>
-<A NAME="tex2html71"
-  HREF="http://healpy.readthedocs.org/en/latest/">Python</A>
-</H3>
+<b><A NAME="tex2html84"
+  HREF="https://healpy.readthedocs.org/en/latest/">Python</A></b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Switch to 
-	<A NAME="tex2html72"
+	<A NAME="tex2html126"
   HREF="https://github.com/healpy/healpy/releases"><TT>healpy 1.9.1</TT></A>
-(<A NAME="tex2html73"
+(<A NAME="tex2html127"
   HREF="https://github.com/healpy/healpy/blob/master/CHANGELOG.rst">CHANGELOG</A>)
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Removed C++ 11 features<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1714,22 +1949,14 @@ library
  Numpy 1.10 fix</DL></DL>
 
 <P>
-
-<H1><A NAME="SECTION000100000000000000000">
-Appendix II: Older changes (versions 3.00 to 3.30)</A>
-</H1>
-
-<P>
-
-<P>
-<b>Bug corrections and Improvements in Version 3.30 (2015-10)</b><b><A NAME="tex2html74"
+<b>Bug corrections and Improvements in Version 3.30 (2015-10)</b><b><A NAME="tex2html85"
   HREF="http://healpix.sourceforge.net/html/index_cxx.htm">C++</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  support for multi-order coverages (MOC);
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  allow generation of <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg9.png"
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
  ALT="$a_{\ell m}$"></SPAN> from 6-component power spectra;
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  moved from <TT>alice2</TT> to <TT>alice3</TT>, which produces FITS <b>HEALPix</b> maps as output.
@@ -1741,99 +1968,99 @@ Appendix II: Older changes (versions 3.00 to 3.30)</A>
 </DL>
 
 <P>
-<b>Fortran 90 <A NAME="tex2html75"
+<b>Fortran 90 <A NAME="tex2html86"
   HREF="facilities.htm">facilities</A>
 and
-	<A NAME="tex2html76"
+	<A NAME="tex2html87"
   HREF="subroutines.htm">subroutines</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A> facility now produces nine spectra 
+ <A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> facility now produces nine spectra 
 	(TT, EE, BB, TE, TB, EB, ET, BT and BE), instead of six previously,
           when analyzing two polarized maps;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./subroutinesnode7.htm#sub:alm2cl"><TT>alm2cl</TT></A> subroutine can now produces nine spectra 
+ <A HREF="./sub_alm2cl.htm#sub:alm2cl"><TT>alm2cl</TT></A> subroutine can now produces nine spectra 
       (TT, EE, BB, TE, TB, EB, ET, BT and BE), instead of six previously, when 
       called with two sets of polarized <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg9.png"
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
  ALT="$a_{\ell m}$"></SPAN> and can also symmetrize 
       the output <SPAN CLASS="MATH"><IMG
- WIDTH="42" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg5.png"
+ WIDTH="37" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg6.png"
  ALT="$C(\ell)$"></SPAN> if requested;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg9.png"
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
  ALT="$a_{\ell m}$"></SPAN> generated by 
-	<A HREF="./subroutinesnode24.htm#sub:create_alm"><TT>create_alm</TT></A> subroutine can now take into account
- non-zero (exotic) TB and EB cross-spectra (option <A HREF="./subroutinesnode24.htm#sub:create_alm:polar"><TT>polar=2</TT></A>) if the input FITS file contains the relevant information
+	<A HREF="./sub_create_alm.htm#sub:create_alm"><TT>create_alm</TT></A> subroutine can now take into account
+ non-zero (exotic) TB and EB cross-spectra (option <A HREF="./sub_create_alm.htm#sub:create_alm:polar"><TT>polar=2</TT></A>) if the input FITS file contains the relevant information
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- new routines <A HREF="./subroutinesnode64.htm#sub:nest2uniq"><TT>nest2uniq</TT></A> 
-	and <A HREF="./subroutinesnode102.htm#sub:uniq2nest"><TT>uniq2nest</TT></A> for conversion 
-	of standard pixel index to/from Unique ID number. See <A HREF="./intronode4.htm#intro:unique">''The Unique Identifier scheme''</A> section in <A NAME="tex2html77"
-  HREF="intro.htm">''<b>HEALPix</b> Introduction Document''</A>
+ new routines <A HREF="./sub_nest2uniq.htm#sub:nest2uniq"><TT>nest2uniq</TT></A> 
+	and <A HREF="./sub_uniq2nest.htm#sub:uniq2nest"><TT>uniq2nest</TT></A> for conversion 
+	of standard pixel index to/from Unique ID number. See <A HREF="./intro_Geometric_Algebraic_Propert.htm#intro:unique">"The Unique Identifier scheme"</A> section in <A NAME="tex2html88"
+  HREF="intro.htm">"<b>HEALPix</b> Introduction Document"</A>
 for more details.
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved 
-<A HREF="./subroutinesnode107.htm#sub:write_bintabh:repeat"><TT>repeat</TT></A>
-behavior in <A HREF="./subroutinesnode107.htm#sub:write_bintabh"><TT>write_bintabh</TT></A> routine
+<A HREF="./sub_write_bintabh.htm#sub:write_bintabh:repeat"><TT>repeat</TT></A>
+behavior in <A HREF="./sub_write_bintabh.htm#sub:write_bintabh"><TT>write_bintabh</TT></A> routine
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- edited <A HREF="./subroutinesnode47.htm#sub:map2alm_iterative"><TT>map2alm_iterative</TT></A> 
+ edited <A HREF="./sub_map2alm_iterative.htm#sub:map2alm_iterative"><TT>map2alm_iterative</TT></A> 
 routine to avoid a bug specific to Intel's Ifort 15.0.2
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  CFITSIO version 3.20 (August 2009) or more now required;
 </DL>
 
 <P>
-<b><A NAME="tex2html78"
+<b><A NAME="tex2html89"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  
-<A HREF="./idlnode43.htm#idl:mollview"><TT>azeqview, cartview, gnomview, mollview, orthview</TT></A> 
+<A HREF="./idl_mollview.htm#idl:mollview"><TT>azeqview, cartview, gnomview, mollview, orthview</TT></A> 
 visualization routines:
  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode43.htm#idl:mollview:pdf"><TT>PDF</TT></A> keyword for production of Adobe PDF outputs;
+ addition of <A HREF="./idl_mollview.htm#idl:mollview:pdf"><TT>PDF</TT></A> keyword for production of Adobe PDF outputs;
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode43.htm#idl:mollview:latex"><TT>LATEX</TT></A> keyword for genuine 
+ addition of <A HREF="./idl_mollview.htm#idl:mollview:latex"><TT>LATEX</TT></A> keyword for genuine 
  or emulated <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> processing of character strings;
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode43.htm#idl:mollview:pfonts"><TT>PFONTS</TT></A> keyword to select 
+ addition of <A HREF="./idl_mollview.htm#idl:mollview:pfonts"><TT>PFONTS</TT></A> keyword to select 
 origin and type of character font;
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the <A HREF="./idlnode43.htm#idl:mollview:crop"><TT>CROP</TT></A> keyword now has the same behavior for all output media (GIF, JPEG, PDF, PNG, PS, ... and X);  the <A HREF="./idlnode43.htm#idl:mollview:nobar"><TT>NOBAR</TT></A> keyword now removes the color bar <EM>or</EM> the polarization color wheel, as applicable; correct EQUINOX date in header of output <A HREF="./idlnode43.htm#idl:mollview:fits">FITS</A> map; the double precision maps and those with constant value are now correctly handled.
+ the <A HREF="./idl_mollview.htm#idl:mollview:crop"><TT>CROP</TT></A> keyword now has the same behavior for all output media (GIF, JPEG, PDF, PNG, PS, ... and X);  the <A HREF="./idl_mollview.htm#idl:mollview:nobar"><TT>NOBAR</TT></A> keyword now removes the color bar <EM>or</EM> the polarization color wheel, as applicable; correct EQUINOX date in header of output <A HREF="./idl_mollview.htm#idl:mollview:fits">FITS</A> map; the double precision maps and those with constant value are now correctly handled.
  </DL>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <A HREF="./idlnode23.htm#idl:fits2cl:planck2"><TT>/PLANCK2</TT></A> keyword
+ <A HREF="./idl_fits2cl.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <A HREF="./idl_fits2cl.htm#idl:fits2cl:planck2"><TT>/PLANCK2</TT></A> keyword
 to read best fit <SPAN CLASS="MATH"><IMG
- WIDTH="42" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg5.png"
+ WIDTH="37" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg6.png"
  ALT="$C(\ell)$"></SPAN> model to Planck 2015 data.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- new routines <A HREF="./idlnode46.htm#idl:nest2uniq"><TT>nest2uniq</TT></A> and <A HREF="./idlnode68.htm#idl:uniq2nest"><TT>uniq2nest</TT></A> for conversion of standard pixel index to/from Unique ID number. See <A HREF="./intronode4.htm#intro:unique">''The Unique Identifier scheme''</A> section in <A NAME="tex2html79"
-  HREF="intro.htm">''<b>HEALPix</b> Introduction Document''</A>
+ new routines <A HREF="./idl_nest2uniq.htm#idl:nest2uniq"><TT>nest2uniq</TT></A> and <A HREF="./idl_uniq2nest.htm#idl:uniq2nest"><TT>uniq2nest</TT></A> for conversion of standard pixel index to/from Unique ID number. See <A HREF="./intro_Geometric_Algebraic_Propert.htm#intro:unique">"The Unique Identifier scheme"</A> section in <A NAME="tex2html90"
+  HREF="intro.htm">"<b>HEALPix</b> Introduction Document"</A>
 for more details.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <b>HEALPix</b> enabled GDL commands (<TT>hgdl</TT> and  <TT>hgdlde</TT>) are defined during the 
 <A HREF="#install:idlgdlconfig">configuration process</A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-    <A NAME="tex2html112"
-  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and <A NAME="tex2html113"
+    <A NAME="tex2html128"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and <A NAME="tex2html129"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 library
     routines (2015-09-23).
 </DL>
 
 <P>
-<b><A NAME="tex2html80"
+<b><A NAME="tex2html91"
   HREF="http://healpix.sourceforge.net/html/java/index.html">Java</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  deprecated parts of the library have been removed;
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  MOC support (see 
-<A NAME="tex2html81"
+<A NAME="tex2html92"
   HREF="http://ivoa.net/documents/MOC/">http://ivoa.net/documents/MOC/</A>
 for high-level description);
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1843,10 +2070,10 @@ for high-level description);
 </DL>
 
 <P>
-<b><A NAME="tex2html82"
-  HREF="http://healpy.readthedocs.org/en/latest/">Python</A></b>
+<b><A NAME="tex2html93"
+  HREF="https://healpy.readthedocs.org/en/latest/">Python</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- switch to <A NAME="tex2html114"
+ switch to <A NAME="tex2html130"
   HREF="https://github.com/healpy/healpy/releases"><TT>healpy
 1.9.0</TT></A>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1869,16 +2096,16 @@ for high-level description);
 <b>General</b>
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Generation of 
-<A NAME="tex2html115"
-  HREF="http://en.wikipedia.org/wiki/Pkg-config"><TT>pkg-config</TT></A>
+<A NAME="tex2html131"
+  HREF="https://en.wikipedia.org/wiki/Pkg-config"><TT>pkg-config</TT></A>
 files during the configuration of the C, C++ and F90 packages. 
 See Section&nbsp;<A HREF="#sec:pkg-config">6</A> of 
-<A NAME="tex2html116"
-  HREF="install.htm">''<b>HEALPix</b>  Installation''</A>
+<A NAME="tex2html132"
+  HREF="install.htm">"<b>HEALPix</b>  Installation"</A>
 for
 details.
 </DL>
-<b><A NAME="tex2html83"
+<b><A NAME="tex2html94"
   HREF="csub.htm">C</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Top <TT>configure</TT> script now proposes compilation with <EM>or</EM> without
@@ -1892,14 +2119,14 @@ CFITSIO-related functions
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  automatic workaround for bugs in older versions of GNU <TT>g++</TT> compiler
  (bug reports 
-<A NAME="tex2html84"
-  HREF="http://sourceforge.net/p/healpix/bugs/37">37</A>, 
-<A NAME="tex2html85"
-  HREF="http://sourceforge.net/p/healpix/bugs/45">45</A>, 
-<A NAME="tex2html86"
-  HREF="http://sourceforge.net/p/healpix/bugs/48">48</A>, 
-<A NAME="tex2html87"
-  HREF="http://sourceforge.net/p/healpix/bugs/51">51</A>)
+<A NAME="tex2html95"
+  HREF="https://sourceforge.net/p/healpix/bugs/37">37</A>, 
+<A NAME="tex2html96"
+  HREF="https://sourceforge.net/p/healpix/bugs/45">45</A>, 
+<A NAME="tex2html97"
+  HREF="https://sourceforge.net/p/healpix/bugs/48">48</A>, 
+<A NAME="tex2html98"
+  HREF="https://sourceforge.net/p/healpix/bugs/51">51</A>)
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  workaround for possible bug in Intel <TT>icc</TT> 14.0 compiler
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1911,18 +2138,18 @@ CFITSIO-related functions
 </DL>
 
 <P>
-<b>Fortran 90 <A NAME="tex2html88"
+<b>Fortran 90 <A NAME="tex2html99"
   HREF="facilities.htm">facilities</A>
 and
-	<A NAME="tex2html89"
+	<A NAME="tex2html100"
   HREF="subroutines.htm">subroutines</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <b>HEALPix</b>-F90 routines and facilities can now also be compiled with
 the free Fortran95 compiler <SPAN  CLASS="textbf">g95</SPAN>
-(<A NAME="tex2html90"
+(<A NAME="tex2html101"
   HREF="http://www.g95.org/">http://www.g95.org/</A>).
-See Section&nbsp;<A HREF="#sec:freef90compilers">7.1</A> of <A NAME="tex2html91"
-  HREF="install.htm">''<b>HEALPix</b>  Installation''</A>
+See Section&nbsp;<A HREF="#sec:freef90compilers">7.1</A> of <A NAME="tex2html102"
+  HREF="install.htm">"<b>HEALPix</b>  Installation"</A>
 for details.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  A separate <TT>build</TT> directory is used to store the objects,
@@ -1930,54 +2157,57 @@ modules, ... produced during the compilation of the source codes
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved handling of long FITS keywords, now producing FITS files
 fully compatible with the
-<A NAME="tex2html92"
-  HREF="http://www.stsci.edu/institute/software_hardware/pyfits"><TT>PyFITS</TT></A>
+<A NAME="tex2html103"
+  HREF="https://pypi.org/project/pyfits/3.3"><TT>PyFITS</TT></A>
 and 
-<TT>Astropy</TT> (<A NAME="tex2html93"
-  HREF="http://www.astropy.org/">www.astropy.org</A>)
+<TT>Astropy</TT> (<A NAME="tex2html104"
+  HREF="https://www.astropy.org/">https://www.astropy.org</A>)
 <TT>Python</TT> libraries
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved FITS file parsing in 
-<A HREF="./subroutinesnode32.htm#sub:generate_beam"><TT>generate_beam</TT></A>,
+<A HREF="./sub_generate_beam.htm#sub:generate_beam"><TT>generate_beam</TT></A>,
 affecting the external <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> reading in the F90 facilities 
-<A HREF="./facilitiesnode5.htm#fac:alteralm"><TT>alteralm</TT></A>, 
-<A HREF="./facilitiesnode14.htm#fac:synfast"><TT>synfast</TT></A>, 
-<A HREF="./facilitiesnode12.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A>, 
-<A HREF="./facilitiesnode13.htm#fac:smoothing"><TT>smoothing</TT></A>.
+<A HREF="./fac_alteralm.htm#fac:alteralm"><TT>alteralm</TT></A>, 
+<A HREF="./fac_synfast.htm#fac:synfast"><TT>synfast</TT></A>, 
+<A HREF="./fac_sky_ng_sim.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A>, 
+<A HREF="./fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A>.
 </DL>
 
 <P>
-<b><A NAME="tex2html94"
+<b><A NAME="tex2html105"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode33.htm#idl:ialteralm"><TT>ialteralm</TT></A> to modify
-  Spherical Harmonics coefficients (<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>).
+ addition of <A HREF="./idl_ialteralm.htm#idl:ialteralm"><TT>ialteralm</TT></A> to modify
+  Spherical Harmonics coefficients (<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
+ ALT="$a_{\ell m}$"></SPAN>).
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode53.htm#idl:planck_colors"><TT>planck_colors</TT></A> to
+ addition of <A HREF="./idl_planck_colors.htm#idl:planck_colors"><TT>planck_colors</TT></A> to
   modify current color table to one used in Planck 2013 publications.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode43.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>: 
+ <A HREF="./idl_mollview.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>: 
   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  addition of  
-    <A HREF="./idlnode43.htm#idl:mollview:bad_color"><TT>BAD_COLOR</TT></A>,
-    <A HREF="./idlnode43.htm#idl:mollview:bg_color"><TT>BG_COLOR</TT></A> and
-    <A HREF="./idlnode43.htm#idl:mollview:fg_color"><TT>FG_COLOR</TT></A> keywords to change the color of the
+    <A HREF="./idl_mollview.htm#idl:mollview:bad_color"><TT>BAD_COLOR</TT></A>,
+    <A HREF="./idl_mollview.htm#idl:mollview:bg_color"><TT>BG_COLOR</TT></A> and
+    <A HREF="./idl_mollview.htm#idl:mollview:fg_color"><TT>FG_COLOR</TT></A> keywords to change the color of the
     missing pixels, background and foreground labels and lines.
     <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  support for 
-    <A HREF="./idlnode43.htm#idl:mollview:colt"><TT>COLT='planck1'</TT></A> and 
-    <A HREF="./idlnode43.htm#idl:mollview:colt"><TT>COLT='planck2'</TT></A> to use the Planck color tables
-    defined in <A HREF="./idlnode53.htm#idl:planck_colors"><TT>planck_colors</TT></A>
+    <A HREF="./idl_mollview.htm#idl:mollview:colt"><TT>COLT='planck1'</TT></A> and 
+    <A HREF="./idl_mollview.htm#idl:mollview:colt"><TT>COLT='planck2'</TT></A> to use the Planck color tables
+    defined in <A HREF="./idl_planck_colors.htm#idl:planck_colors"><TT>planck_colors</TT></A>
   </DL>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Bugs correction in 
-<A HREF="./idlnode13.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>,
-<A HREF="./idlnode54.htm#idl:query_disc"><TT>query_disc</TT></A>.
+<A HREF="./idl_bin_llcl.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>,
+<A HREF="./idl_query_disc.htm#idl:query_disc"><TT>query_disc</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-    <A NAME="tex2html117"
-  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and their supporting <A NAME="tex2html118"
+    <A NAME="tex2html133"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and their supporting <A NAME="tex2html134"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 routines (2014-11-10).
 </DL>
@@ -1991,7 +2221,7 @@ routines (2014-11-10).
 <P>
 <b>Python</b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- switch to <A NAME="tex2html119"
+ switch to <A NAME="tex2html135"
   HREF="https://github.com/healpy/healpy/releases"><TT>healpy
 1.8.1</TT></A>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -2008,8 +2238,8 @@ routines (2014-11-10).
 <P>
 <b>General</b>
 <A NAME="sec:general3p11"></A><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A NAME="tex2html120"
-  HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
+ <A NAME="tex2html136"
+  HREF="https://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
 C library used for Spherical Harmonics Transforms 
 in Fortran and C++ since <b>HEALPix</b>  3.10
 can now be compiled with <EM>any</EM> <TT>gcc</TT> version.
@@ -2020,32 +2250,32 @@ can now be compiled with <EM>any</EM> <TT>gcc</TT> version.
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  See General section above
 </DL>
-<b>Fortran 90 <A NAME="tex2html95"
+<b>Fortran 90 <A NAME="tex2html106"
   HREF="facilities.htm">facilities</A>
 and
-	<A NAME="tex2html96"
+	<A NAME="tex2html107"
   HREF="subroutines.htm">subroutines</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- bug correction in <A HREF="./subroutinesnode75.htm#sub:query_disc"><TT>query_disc</TT></A> 
+ bug correction in <A HREF="./sub_query_disc.htm#sub:query_disc"><TT>query_disc</TT></A> 
 	routine in <TT>inclusive</TT> mode
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- bug correction in <A HREF="./subroutinesnode10.htm#sub:alm2map_spin"><TT>alm2map_spin</TT></A> 
+ bug correction in <A HREF="./sub_alm2map_spin.htm#sub:alm2map_spin"><TT>alm2map_spin</TT></A> 
 	routine, which had its <TT>spin</TT> value set to 2
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  See General section above
 </DL>
-<b><A NAME="tex2html97"
+<b><A NAME="tex2html108"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode52.htm#idl:pix_tools"><TT>ang2pix_ring</TT></A> and
-		<A HREF="./idlnode52.htm#idl:pix_tools"><TT>pix2ang_nest</TT></A>
+ <A HREF="./idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools"><TT>ang2pix_ring</TT></A> and
+		<A HREF="./idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools"><TT>pix2ang_nest</TT></A>
 		routines now accept scalar arguments
 </DL>
 
 <P>
 <b>Bug corrections and Improvements in Version 3.10 (2013-03)</b>
 <b>General</b>
-N/A<b><A NAME="tex2html98"
+N/A<b><A NAME="tex2html109"
   HREF="csub.htm">C</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  experimental GNU autotools support (undocumented); the standard
@@ -2055,13 +2285,13 @@ configuration script remains available
 <P>
 <b>C++</b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Spherical Harmonics Transform library <TT>libpsht</TT> replaced by <A NAME="tex2html100"
-  HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
-(<A NAME="tex2html101"
-  HREF="http://arxiv.org/abs/1303.4945">Reinecke &amp; Seljebotn, 2013</A>). 
+ Spherical Harmonics Transform library <TT>libpsht</TT> replaced by <A NAME="tex2html111"
+  HREF="https://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
+(<A NAME="tex2html112"
+  HREF="https://arxiv.org/abs/1303.4945">Reinecke &amp; Seljebotn, 2013</A>). 
 <BR><EM><A NAME="install:cpp:gccreleases"></A>Note that 
-some <A NAME="tex2html99"
-  HREF="http://gcc.gnu.org/releases.html"><TT>gcc</TT> versions</A>
+some <A NAME="tex2html110"
+  HREF="https://gcc.gnu.org/releases.html"><TT>gcc</TT> versions</A>
 (4.4.1 to 4.4.6) crash with an internal compiler error during compilation of <TT>libsharp</TT></EM>. 
 The problem has been fixed in <TT>gcc</TT> 4.4.7, 4.5.*, 4.6.*, 4.7.* and
 newer versions and was not present in versions 4.2.* and 4.3.*.
@@ -2073,72 +2303,72 @@ configuration script remains available
 </DL>
 
 <P>
-<b>Fortran 90 <A NAME="tex2html102"
+<b>Fortran 90 <A NAME="tex2html113"
   HREF="facilities.htm">facilities</A>
 and
-	<A NAME="tex2html103"
+	<A NAME="tex2html114"
   HREF="subroutines.htm">subroutines</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- all Fortran facilities now support most of <TT>cfitsio</TT>'s ``<A NAME="tex2html104"
-  HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/filters.html">Extended File
-Name Syntax</A>'' features,
+ all Fortran facilities now support most of <TT>cfitsio</TT>'s "<A NAME="tex2html115"
+  HREF="https://heasarc.gsfc.nasa.gov/docs/software/fitsio/filters.html">Extended File
+Name Syntax</A>" features,
 allowing the reading and processing of an arbitrary HDU and table column out of
 remote, compressed FITS files. For example, setting 
 <BR><TT>infile = ftp://</TT><I>url/file.fits</I><TT>.gz[</TT><I>extn</I><TT>][col </TT><I>colname</I><TT>]</TT>  
 <BR>
-in <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A>
+in <A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A>
 will download the FITS file <I>file.fits.gz</I> from <I>url</I>, 
 uncompress it, open the HDU (extension) featuring keyword <TT>EXTNAME=</TT><I>extn</I>, or the one with 1-based rank number <I>extn</I>, read the table column
 with <TT>TTYPE*=</TT><I>colname</I> out of it and will analyze it.
 <BR>
-It is also possible to perform a remote <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A> analysis of a 
-<A NAME="tex2html105"
-  HREF="http://www.sciops.esa.int/index.php?project=planck&amp;page=Planck_Legacy_Archive">Planck Legacy Archive (PLA)</A>
-sky map named <I>map.fits</I> via the PLA <A NAME="tex2html106"
-  HREF="http://pla.esac.esa.int/pla/aio/">AIO
+It is also possible to perform a remote <A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> analysis of a 
+<A NAME="tex2html116"
+  HREF="https://www.sciops.esa.int/index.php?project=planck&amp;page=Planck_Legacy_Archive">Planck Legacy Archive (PLA)</A>
+sky map named <I>map.fits</I> via the PLA <A NAME="tex2html117"
+  HREF="https://pla.esac.esa.int/pla/aio/">AIO
 Subsystem</A>
 by simply setting
-<TT>infile=http://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=</TT><I>map.fits</I>
+<TT>infile=https://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=</TT><I>map.fits</I>
 as input map file.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  yet faster 
-<A HREF="./facilitiesnode14.htm#fac:synfast"><TT>synfast</TT></A>,
-<A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A>,
-<A HREF="./facilitiesnode13.htm#fac:smoothing"><TT>smoothing</TT></A> thanks to <A NAME="tex2html121"
-  HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
+<A HREF="./fac_synfast.htm#fac:synfast"><TT>synfast</TT></A>,
+<A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A>,
+<A HREF="./fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A> thanks to <A NAME="tex2html137"
+  HREF="https://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
 routines (see <A HREF="#install:cpp:gccreleases">warning on
 gcc releases above</A>).
 </DL>
 
 <P>
-<b><A NAME="tex2html107"
+<b><A NAME="tex2html118"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  bug corrections: 
-	<A HREF="./idlnode54.htm#idl:query_disc"><TT>query_disc</TT></A>: correct handling of empty disc; 
-	<A HREF="./idlnode13.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>: correct handling of optional argument.
+	<A HREF="./idl_query_disc.htm#idl:query_disc"><TT>query_disc</TT></A>: correct handling of empty disc; 
+	<A HREF="./idl_bin_llcl.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>: correct handling of optional argument.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  double precision of input now preserved in
-	<A HREF="./idlnode24.htm#idl:gaussbeam"><TT>gaussbeam</TT></A> and 
-	<A HREF="./idlnode21.htm#idl:euler_matrix_new"><TT>euler_matrix_new</TT></A>.
+	<A HREF="./idl_gaussbeam.htm#idl:gaussbeam"><TT>gaussbeam</TT></A> and 
+	<A HREF="./idl_euler_matrix_new.htm#idl:euler_matrix_new"><TT>euler_matrix_new</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of 
+ <A HREF="./idl_fits2cl.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of 
 	<TT>/PLANCK1</TT> keyword
 	to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to Planck 2013 + external data.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  it is now possible to read a specific FITS file extension identified by its
 	(0-based) number or its case-insensitive EXTNAME value with the <TT>Extension</TT>
 	keyword added to 
-	<A HREF="./idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>,
-	<A HREF="./idlnode26.htm#idl:getsize_fits"><TT>getsize_fits</TT></A>,
-	<A HREF="./idlnode59.htm#idl:read_fits_map"><TT>read_fits_map</TT></A>,
-	<A HREF="./idlnode60.htm#idl:read_fits_s"><TT>read_fits_s</TT></A> and 
-	<A HREF="./idlnode61.htm#idl:read_tqu"><TT>read_tqu</TT></A>.
+	<A HREF="./idl_fits2cl.htm#idl:fits2cl"><TT>fits2cl</TT></A>,
+	<A HREF="./idl_getsize_fits.htm#idl:getsize_fits"><TT>getsize_fits</TT></A>,
+	<A HREF="./idl_read_fits_map.htm#idl:read_fits_map"><TT>read_fits_map</TT></A>,
+	<A HREF="./idl_read_fits_s.htm#idl:read_fits_s"><TT>read_fits_s</TT></A> and 
+	<A HREF="./idl_read_tqu.htm#idl:read_tqu"><TT>read_tqu</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-	<A NAME="tex2html122"
-  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and their supporting <A NAME="tex2html123"
+	<A NAME="tex2html138"
+  HREF="https://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and their supporting <A NAME="tex2html139"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 routines (2013-02-08).
 </DL>
@@ -2148,7 +2378,7 @@ routines (2013-02-08).
 N/A<b>Python</b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 	switch to <TT>healpy 1.5.0</TT>: addition of 
-<A NAME="tex2html124"
+<A NAME="tex2html140"
   HREF="https://healpy.readthedocs.org/en/1.5.0/generated/healpy.sphtfunc.gauss_beam.html"><TT>gauss_beam</TT></A>
 to generate Gaussian beam window function.
 </DL>
@@ -2161,14 +2391,14 @@ Introduction of the script <TT>healpix_doc</TT> for easy access to the <b>HEALPi
 PDF and HTML documentation.
 
 <P>
-<b><A NAME="tex2html108"
+<b><A NAME="tex2html119"
   HREF="csub.htm">C</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Interface has remained unchanged, but the code has been replaced by a C port
 of the relevant Healpix C++ functions, resulting in significant speedups.
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Additional functions are provided which support Nside values up to <SPAN CLASS="MATH">2<SUP>29</SUP></SPAN>.
-They have the same name as the traditional functions, with a ``64'' suffix appended.
+They have the same name as the traditional functions, with a "64" suffix appended.
 </DL>
 
 <P>
@@ -2201,8 +2431,8 @@ module parameters can now optionally be passed on the command line instead
  $\langle\ldots\rangle$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="41" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg10.png"
+ WIDTH="37" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg13.png"
  ALT="$\langle\ldots\rangle$"></SPAN>
 <BR>
 Facilities now check input maps for undefined pixels before calling map2alm().
@@ -2234,10 +2464,10 @@ Facilities now check input maps for undefined pixels before calling map2alm().
 </DL>
 
 <P>
-<b>Fortran 90 <A NAME="tex2html109"
+<b>Fortran 90 <A NAME="tex2html120"
   HREF="facilities.htm">facilities</A>
 and
-<A NAME="tex2html110"
+<A NAME="tex2html121"
   HREF="subroutines.htm">subroutines</A>
 </b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -2245,97 +2475,100 @@ and
 read. CFITSIO 3.14 or more is now required;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  introduction of the 
-<A HREF="./facilitiesnode11.htm#fac:process_mask"><TT>process_mask</TT></A>
+<A HREF="./fac_process_mask.htm#fac:process_mask"><TT>process_mask</TT></A>
 facility to compute the angular distance of valid
 pixels to the closest invalid pixels for a input binary mask, and of the
 supporting routines 
-<A HREF="./subroutinesnode26.htm#sub:dist2holes_nest"><TT>dist2holes_nest</TT></A>, 
-<A HREF="./subroutinesnode28.htm#sub:fill_holes_nest"><TT>fill_holes_nest</TT></A>, 
-<A HREF="./subroutinesnode49.htm#sub:maskborder_nest"><TT>maskborder_nest</TT></A>,
-<A HREF="./subroutinesnode96.htm#sub:size_holes_nest">size_holes_nest</A>;
+<A HREF="./sub_dist2holes_nest.htm#sub:dist2holes_nest"><TT>dist2holes_nest</TT></A>, 
+<A HREF="./sub_fill_holes_nest.htm#sub:fill_holes_nest"><TT>fill_holes_nest</TT></A>, 
+<A HREF="./sub_maskborder_nest.htm#sub:maskborder_nest"><TT>maskborder_nest</TT></A>,
+<A HREF="./sub_size_holes_nest.htm#sub:size_holes_nest">size_holes_nest</A>;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the pixel query routine
- <A HREF="./subroutinesnode75.htm#sub:query_disc"><TT>query_disc</TT></A>
+ <A HREF="./sub_query_disc.htm#sub:query_disc"><TT>query_disc</TT></A>
 has been improved and will return fewer
 false positive pixels in the 
 inclusive mode;
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved accuracy of the co-latitude calculation in the vicinity
 of the poles at high resolution in 
-<A HREF="./subroutinesnode72.htm#sub:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="installimg8.png"
+<A HREF="./sub_pix2xxx_ang2xxx_vec2xxx_nes.htm#sub:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
+ WIDTH="24" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="installimg4.png"
  ALT="$\ldots$"></SPAN></TT></A>;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./facilitiesnode12.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
+ <A HREF="./fac_sky_ng_sim.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
 of the spatial derivatives of the non Gaussian map being produced, and the
-output of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients of that map;
+output of the <SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
+ ALT="$a_{\ell m}$"></SPAN> coefficients of that map;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A> now allows the
+ <A HREF="./fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> now allows the
 pro/down-grading of the input mask to match the resolution of the map(s) being
 analyzed;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the median filter routine <A HREF="./subroutinesnode50.htm#sub:medfiltmap"><TT>medfiltmap</TT></A>, used by the facility
-<A HREF="./facilitiesnode9.htm#fac:median_filter"><TT>median_filter</TT></A> is now parallelized.
+ the median filter routine <A HREF="./sub_medfiltmap.htm#sub:medfiltmap"><TT>medfiltmap</TT></A>, used by the facility
+<A HREF="./fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A> is now parallelized.
 </DL>
 
 <P>
-<b><A NAME="tex2html111"
+<b><A NAME="tex2html122"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  New routines to go from circular beam profile to transfer function
-(<A HREF="./idlnode12.htm#idl:beam2bl"><TT>beam2bl</TT></A>), 
-and back (<A HREF="./idlnode14.htm#idl:bl2beam"><TT>bl2beam</TT></A>); 
-to go from indexed list of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> to a(l,m) 2D table
-(<A HREF="./idlnode6.htm#idl:alm_i2t"><TT>alm_i2t</TT></A>), 
+(<A HREF="./idl_beam2bl.htm#idl:beam2bl"><TT>beam2bl</TT></A>), 
+and back (<A HREF="./idl_bl2beam.htm#idl:bl2beam"><TT>bl2beam</TT></A>); 
+to go from indexed list of <SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg10.png"
+ ALT="$a_{\ell m}$"></SPAN> to a(l,m) 2D table
+(<A HREF="./idl_alm_i2t.htm#idl:alm_i2t"><TT>alm_i2t</TT></A>), 
 and back
-(<A HREF="./idlnode7.htm#idl:alm_t2i"><TT>alm_t2i</TT></A>); and to compute the angular distance
-between pairs of vectors (<A HREF="./idlnode10.htm#idl:angulardistance"><TT>angulardistance</TT></A>).
+(<A HREF="./idl_alm_t2i.htm#idl:alm_t2i"><TT>alm_t2i</TT></A>); and to compute the angular distance
+between pairs of vectors (<A HREF="./idl_angulardistance.htm#idl:angulardistance"><TT>angulardistance</TT></A>).
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="./idlnode37.htm#idl:iprocess_mask"><TT>iprocess_mask</TT></A>
+ addition of <A HREF="./idl_iprocess_mask.htm#idl:iprocess_mask"><TT>iprocess_mask</TT></A>
 interface to F90 <TT>process_mask</TT> facility to compute the angular distance of valid
 pixels to the closest invalid pixels for a input binary mask.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- creation of <A HREF="./idlnode31.htm#idl:hpx2dm"><TT>hpx2dm</TT></A> routine to generate
+ creation of <A HREF="./idl_hpx2dm.htm#idl:hpx2dm"><TT>hpx2dm</TT></A> routine to generate
 DomeMaster images of <b>HEALPix</b> maps that can be projected on planetariums.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the pixel query routines 
-<A HREF="./idlnode57.htm#idl:query_triangle"><TT>query_triangle</TT></A>, 
-<A HREF="./idlnode55.htm#idl:query_polygon"><TT>query_polygon</TT></A>, 
-and in particular <A HREF="./idlnode54.htm#idl:query_disc"><TT>query_disc</TT></A>, 
+<A HREF="./idl_query_triangle.htm#idl:query_triangle"><TT>query_triangle</TT></A>, 
+<A HREF="./idl_query_polygon.htm#idl:query_polygon"><TT>query_polygon</TT></A>, 
+and in particular <A HREF="./idl_query_disc.htm#idl:query_disc"><TT>query_disc</TT></A>, 
 have been improved and will return fewer
 false positive pixels in the <EM>inclusive</EM> mode
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved accuracy of the co-latitude calculation in the vicinity
 of the poles at high resolution in 
-<A HREF="./idlnode52.htm#idl:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="installimg8.png"
+<A HREF="./idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
+ WIDTH="24" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="installimg4.png"
  ALT="$\ldots$"></SPAN></TT></A>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode43.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+ <A HREF="./idl_mollview.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
  the length and spacing of the headless vectors used to represent
 polarization is now user-controlled  via 
 <TT>POLARIZATION</TT>
 keyword. The <TT>COLT</TT> keyword now
 allows the use of an interactively modified color table.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode51.htm#idl:orthview"><TT>orthview</TT></A> now accepts
+ <A HREF="./idl_orthview.htm#idl:orthview"><TT>orthview</TT></A> now accepts
 <TT>STAGGER</TT> keyword to overplot staggered
 spheres (with a twist) in order to detect periodic boundary conditions on the
 sky
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <TT>WMAP7</TT> keyword
+ <A HREF="./idl_fits2cl.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <TT>WMAP7</TT> keyword
 to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to WMAP 7yr data.
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./idlnode59.htm#idl:read_fits_map"><TT>read_fits_map</TT></A> can now read
+ <A HREF="./idl_read_fits_map.htm#idl:read_fits_map"><TT>read_fits_map</TT></A> can now read
 <!-- MATH
- ${N_{\rm side}}$
+ $N_\mathrm{side}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="installimg11.png"
- ALT="${N_{\rm side}}$"></SPAN>=8192 <b>HEALPix</b> maps and is generally faster than previously for smaller
+<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN>=8192 <b>HEALPix</b> maps and is generally faster than previously for smaller
 maps
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of <TT>astron</TT> library routines (01-Feb-2012).
@@ -2346,7 +2579,7 @@ maps
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Core functionality has been reimplemented from scratch in the form of the
 "healpix.essentials" package. It is strongly recommended to use this package
-directly in future projects making use of Java HEALPix.
+directly in future projects making use of Java <b>HEALPix</b> .
 "healpix.essentials" is a port of the Healpix C++ library and presents a very
 similar interface.
 
@@ -2390,7 +2623,7 @@ as the C++ implementation (see <A HREF="#install:cpp:query">above</A>).
 <b>Python</b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the 
-<A NAME="tex2html125"
+<A NAME="tex2html141"
   HREF="https://github.com/healpy/healpy"><TT>healpy</TT></A>
 package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b> 
 </DL>
@@ -2401,7 +2634,7 @@ package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b>
 
 <P>
 
-<H1><A NAME="SECTION000110000000000000000">
+<H1><A NAME="SECTION1100">
 About this document ...</A>
 </H1>
  <STRONG><b>HEALPix</b> Facility Installation Guidelines</STRONG><P>
@@ -2417,146 +2650,154 @@ Copyright &#169; 1997, 1998, 1999,
 Mathematics Department, Macquarie University, Sydney.
 <P>
 The command line arguments were: <BR>
- <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages//html -up_url main.htm -up_title 'Main Page' -down_url main.htm -down_title 'Main Page' -math -html_version 4.1 -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -address 'Version 3.31, 2016-08-26' -info 1 -split 3 -prefix install -t 'Installing HEALPix' install</TT>
+ <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html -up_url main.htm -up_title 'Main Page' -down_url main.htm -down_title 'Main Page' -math -html_version 4.1 -antialias -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -address 'Version 3.40, 2018-06-22' -info 1 -split 3 -prefix install -external_file ./install -t 'Installing HEALPix' install</TT>
 <P>
-The translation was initiated by Eric Hivon on 2016-08-26
+The translation was initiated by Eric Hivon on 2018-06-22
 <BR><HR>
 <!--Table of Child-Links-->
 <A NAME="CHILD_LINKS"></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html130"
-  HREF="install.htm#SECTION00010000000000000000">TABLE OF CONTENTS</A>
-<LI><A NAME="tex2html131"
-  HREF="install.htm#SECTION00020000000000000000">Introduction</A>
-<LI><A NAME="tex2html132"
-  HREF="install.htm#SECTION00030000000000000000">Installation Requirements</A>
-<LI><A NAME="tex2html133"
-  HREF="install.htm#SECTION00040000000000000000"><TT>healpix_doc</TT>: an easy access to <b>HEALPix</b> documentation</A>
-<LI><A NAME="tex2html134"
-  HREF="install.htm#SECTION00050000000000000000">The Installation Procedure</A>
-<UL>
-<LI><A NAME="tex2html135"
-  HREF="install.htm#SECTION00051000000000000000">./configure [-L]</A>
-<UL>
-<LI><A NAME="tex2html136"
-  HREF="install.htm#SECTION00051100000000000000">Configuration profile</A>
-<LI><A NAME="tex2html137"
-  HREF="install.htm#SECTION00051200000000000000">C configuration</A>
-<LI><A NAME="tex2html138"
-  HREF="install.htm#SECTION00051300000000000000">C++ configuration</A>
-<LI><A NAME="tex2html139"
-  HREF="install.htm#SECTION00051400000000000000">Fortran 90 configuration</A>
-<LI><A NAME="tex2html140"
-  HREF="install.htm#SECTION00051500000000000000">IDL/GDL configuration</A>
-<LI><A NAME="tex2html141"
-  HREF="install.htm#SECTION00051600000000000000">Java installation</A>
-<LI><A NAME="tex2html142"
-  HREF="install.htm#SECTION00051700000000000000">Python (healpy) installation</A>
-</UL>
-<LI><A NAME="tex2html143"
-  HREF="install.htm#SECTION00052000000000000000">Compilation and installation</A>
-<LI><A NAME="tex2html144"
-  HREF="install.htm#SECTION00053000000000000000">Testing the installation</A>
-<LI><A NAME="tex2html145"
-  HREF="install.htm#SECTION00054000000000000000">Cleaning up</A>
-</UL>
-<BR>
 <LI><A NAME="tex2html146"
-  HREF="install.htm#SECTION00060000000000000000">A Note on <I>Re</I>-installation</A>
+  HREF="install.htm#SECTION100">TABLE OF CONTENTS</A>
 <LI><A NAME="tex2html147"
-  HREF="install.htm#SECTION00070000000000000000">Pkg-config files</A>
+  HREF="install.htm#SECTION200">Introduction</A>
 <LI><A NAME="tex2html148"
-  HREF="install.htm#SECTION00080000000000000000">Troubleshooting and further information</A>
-<UL>
+  HREF="install.htm#SECTION300">Installation Requirements</A>
 <LI><A NAME="tex2html149"
-  HREF="install.htm#SECTION00081000000000000000">Free Fortran90/95 Compilers</A>
+  HREF="install.htm#SECTION400"><TT>healpix_doc</TT>: an easy access to <b>HEALPix</b> documentation</A>
 <LI><A NAME="tex2html150"
-  HREF="install.htm#SECTION00082000000000000000">Installation under Microsoft Windows</A>
+  HREF="install.htm#SECTION500">The Installation Procedure</A>
 <UL>
 <LI><A NAME="tex2html151"
-  HREF="install.htm#SECTION00082100000000000000">Installation on Windows 7 with Cygwin</A>
+  HREF="install.htm#SECTION510">./configure [-L]</A>
+<UL>
 <LI><A NAME="tex2html152"
-  HREF="install.htm#SECTION00082200000000000000">Other Windows configurations</A>
-</UL>
+  HREF="install.htm#SECTION511">Configuration profile</A>
 <LI><A NAME="tex2html153"
-  HREF="install.htm#SECTION00083000000000000000">Problems with CFITSIO</A>
-<UL>
+  HREF="install.htm#SECTION512">C configuration</A>
 <LI><A NAME="tex2html154"
-  HREF="install.htm#SECTION00083100000000000000">Compilation of CFITSIO Fortran wrappers</A>
+  HREF="install.htm#SECTION513">C++ configuration</A>
 <LI><A NAME="tex2html155"
-  HREF="install.htm#SECTION00083200000000000000">CFITSIO problems on systems with 64 bit architecture</A>
+  HREF="install.htm#SECTION514">Fortran 90 configuration</A>
 <LI><A NAME="tex2html156"
-  HREF="install.htm#SECTION00083300000000000000">CFITSIO linking problems</A>
+  HREF="install.htm#SECTION515">IDL/GDL/FL configuration</A>
 <LI><A NAME="tex2html157"
-  HREF="install.htm#SECTION00083400000000000000">CFITSIO and Debian/Linux</A>
-</UL>
+  HREF="install.htm#SECTION516">Java installation</A>
 <LI><A NAME="tex2html158"
-  HREF="install.htm#SECTION00084000000000000000"><TT>diff</TT> shows that the test files are different from
-the supplied files</A>
-<LI><A NAME="tex2html159"
-  HREF="install.htm#SECTION00085000000000000000">Try <TT>unlimit</TT></A>
-<LI><A NAME="tex2html160"
-  HREF="install.htm#SECTION00086000000000000000"><TT>hidl</TT> usage</A>
-<LI><A NAME="tex2html161"
-  HREF="install.htm#SECTION00087000000000000000">Using <b>HEALPix</b> IDL together with other IDL libraries</A>
-<LI><A NAME="tex2html162"
-  HREF="install.htm#SECTION00088000000000000000">Mac OS X,  X11 and IDL cursor</A>
-<LI><A NAME="tex2html163"
-  HREF="install.htm#SECTION00089000000000000000">Using GDL instead of IDL</A>
-<UL>
-<LI><A NAME="tex2html164"
-  HREF="install.htm#SECTION00089100000000000000">GDL+<b>HEALPix</b> specific requirements</A>
-<LI><A NAME="tex2html165"
-  HREF="install.htm#SECTION00089200000000000000">Impact of GDL limitations on <b>HEALPix</b> </A>
+  HREF="install.htm#SECTION517">Python (healpy) installation</A>
 </UL>
+<LI><A NAME="tex2html159"
+  HREF="install.htm#SECTION520">Compilation and installation</A>
+<LI><A NAME="tex2html160"
+  HREF="install.htm#SECTION530">Testing the installation</A>
+<LI><A NAME="tex2html161"
+  HREF="install.htm#SECTION540">Cleaning up</A>
 </UL>
 <BR>
+<LI><A NAME="tex2html162"
+  HREF="install.htm#SECTION600">A Note on <I>Re</I>-installation</A>
+<LI><A NAME="tex2html163"
+  HREF="install.htm#SECTION700">Pkg-config files</A>
+<LI><A NAME="tex2html164"
+  HREF="install.htm#SECTION800">Troubleshooting and further information</A>
+<UL>
+<LI><A NAME="tex2html165"
+  HREF="install.htm#SECTION810">Free Fortran90/95 Compilers</A>
 <LI><A NAME="tex2html166"
-  HREF="install.htm#SECTION00090000000000000000">Appendix I: Recent Changes and New Features</A>
+  HREF="install.htm#SECTION820">Installation under Microsoft Windows</A>
 <UL>
 <LI><A NAME="tex2html167"
-  HREF="install.htm#SECTION00091000000000000000">Bug corrections and Improvements in Version 3.31</A>
-<UL>
+  HREF="install.htm#SECTION821">Installation on Windows 7 with Cygwin</A>
 <LI><A NAME="tex2html168"
-  HREF="install.htm#SECTION00091100000000000000">General</A>
+  HREF="install.htm#SECTION822">Other Windows configurations</A>
+</UL>
 <LI><A NAME="tex2html169"
-  HREF="install.htm#SECTION00091200000000000000">C++</A>
+  HREF="install.htm#SECTION830">Problems with CFITSIO</A>
+<UL>
 <LI><A NAME="tex2html170"
-  HREF="install.htm#SECTION00091300000000000000">Fortran</A>
+  HREF="install.htm#SECTION831">Compilation of CFITSIO Fortran wrappers</A>
 <LI><A NAME="tex2html171"
-  HREF="install.htm#SECTION00091400000000000000">IDL</A>
+  HREF="install.htm#SECTION832">CFITSIO problems on systems with 64 bit architecture</A>
 <LI><A NAME="tex2html172"
-  HREF="install.htm#SECTION00091500000000000000">Python</A>
+  HREF="install.htm#SECTION833">CFITSIO linking problems</A>
+<LI><A NAME="tex2html173"
+  HREF="install.htm#SECTION834">CFITSIO and Debian/Linux</A>
+</UL>
+<LI><A NAME="tex2html174"
+  HREF="install.htm#SECTION840"><TT>diff</TT> shows that the test files are different from
+the supplied files</A>
+<LI><A NAME="tex2html175"
+  HREF="install.htm#SECTION850">Try <TT>unlimit</TT></A>
+<LI><A NAME="tex2html176"
+  HREF="install.htm#SECTION860"><TT>hidl</TT> usage</A>
+<LI><A NAME="tex2html177"
+  HREF="install.htm#SECTION870">Using <b>HEALPix</b> IDL together with other IDL libraries</A>
+<LI><A NAME="tex2html178"
+  HREF="install.htm#SECTION880">Mac OS X,  X11 and IDL cursor</A>
+<LI><A NAME="tex2html179"
+  HREF="install.htm#SECTION890">Using GDL instead of IDL</A>
+<UL>
+<LI><A NAME="tex2html180"
+  HREF="install.htm#SECTION891">GDL+<b>HEALPix</b> specific requirements</A>
+<LI><A NAME="tex2html181"
+  HREF="install.htm#SECTION892">Impact of GDL limitations on <b>HEALPix</b> </A>
+</UL>
+<LI><A NAME="tex2html182"
+  HREF="install.htm#SECTION8100">Using FL instead of IDL</A>
+<UL>
+<LI><A NAME="tex2html183"
+  HREF="install.htm#SECTION8101">FL+<b>HEALPix</b> specific requirements</A>
+<LI><A NAME="tex2html184"
+  HREF="install.htm#SECTION8102">Impact of FL limitations on <b>HEALPix</b> </A>
 </UL>
 </UL>
 <BR>
-<LI><A NAME="tex2html173"
-  HREF="install.htm#SECTION000100000000000000000">Appendix II: Older changes (versions 3.00 to 3.30)</A>
-<LI><A NAME="tex2html174"
-  HREF="install.htm#SECTION000110000000000000000">About this document ...</A>
+<LI><A NAME="tex2html185"
+  HREF="install.htm#SECTION900">Appendix I: Recent Changes and New Features</A>
+<UL>
+<LI><A NAME="tex2html186"
+  HREF="install.htm#SECTION910">Bug corrections and Improvements in Version 3.40</A>
+<UL>
+<LI><A NAME="tex2html187"
+  HREF="install.htm#SECTION911">General</A>
+<LI><A NAME="tex2html188"
+  HREF="install.htm#SECTION912">C++</A>
+<LI><A NAME="tex2html189"
+  HREF="install.htm#SECTION913">Fortran</A>
+<LI><A NAME="tex2html190"
+  HREF="install.htm#SECTION914">IDL</A>
+<LI><A NAME="tex2html191"
+  HREF="install.htm#SECTION915">Python</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html192"
+  HREF="install.htm#SECTION1000">Appendix II: Older changes (versions 3.00 to 3.31)</A>
+<LI><A NAME="tex2html193"
+  HREF="install.htm#SECTION1100">About this document ...</A>
 </UL>
 <!--End of Table of Child-Links-->
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
-<A NAME="tex2html128"
+<A NAME="tex2html144"
   HREF="main.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html126"
+<A NAME="tex2html142"
   HREF="main.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="nx_grp.png"></A>   
 <BR>
-<B>Up:</B> <A NAME="tex2html129"
+<B>Up:</B> <A NAME="tex2html145"
   HREF="main.htm">Main Page</A>
 
-<B> Next:</B> <A NAME="tex2html127"
+<B> Next:</B> <A NAME="tex2html143"
   HREF="main.htm">Main Page</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.31, 2016-08-26
+Version 3.40, 2018-06-22
 </ADDRESS>
 </BODY>
 </HTML>

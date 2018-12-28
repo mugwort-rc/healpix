@@ -1,7 +1,7 @@
-HEALPix 3.31 Installation
+HEALPix 3.40 Installation
 =========================
 
-HEALPix 3.31 contains 6 independent packages (Fortran90, IDL, C, C++, java and python) 
+HEALPix 3.40 contains 6 independent packages (Fortran90, IDL, C, C++, java and python) 
 whose installation procedure is summarized below.
 
 Every effort has been made to make the installation and usage of HEALPix easy and straightforward.

@@ -25,7 +25,7 @@
 /*! \file string_utils.h
  *  Various functions for manipulating strings.
  *
- *  Copyright (C) 2002-2012 Max-Planck-Society
+ *  Copyright (C) 2002-2017 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -94,10 +94,24 @@ std::string tolower(const std::string &input);
     type \a T, and appends them to \a list. */
 template<typename T> void split (const std::string &inp, std::vector<T> &list);
 
+/*! Tries to split \a inp into a white-space separated list of values of
+    type \a T, and appends them to \a list. */
+template<typename T> inline std::vector<T> split (const std::string &inp)
+  { std::vector<T> res; split(inp,res); return res; }
+
 /*! Breaks the string \a inp into tokens separated by \a delim, and returns them
     in \a list. */
 void tokenize (const std::string &inp, char delim,
   std::vector<std::string> &list);
+
+/*! Breaks the string \a inp into tokens separated by \a delim, and returns them
+    as a vector<string>. */
+inline std::vector<std::string> tokenize (const std::string &inp, char delim)
+  {
+  std::vector<std::string> res;
+  tokenize(inp,delim,res);
+  return res;
+  }
 
 /*! Reads all white-space separated strings from \a filename, and returns
     them in \a words. */

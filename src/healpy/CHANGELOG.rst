@@ -1,4 +1,25 @@
-Release 1.9.1, 17 Nov 2015
+Release 1.12.0, 12 Giu 2018
+
+* Implementation of pixel weights for map2alm that makes transform exact <https://github.com/healpy/healpy/pull/442>
+* Change default output FITS column names to agree with other HEALPix packages <https://github.com/healpy/healpy/pull/446>
+* Reformatted the Python code with black, this made a huge changeset  <https://github.com/healpy/healpy/pull/454>
+
+Release 1.11.0, 8 Aug 2017
+
+* Remove NSIDE restriction to be a power of 2 for RING <https://github.com/healpy/healpy/pull/377>
+* Implement Coordsys2euler zyz <https://github.com/healpy/healpy/pull/399>
+* Return multiple maps as a single 2D array instead of a tuple of 1D arrays <https://github.com/healpy/healpy/pull/400>
+* Support for galactic cut in anafast and map2alm <https://github.com/healpy/healpy/pull/406>
+* Change in write_map default behavior: <https://github.com/healpy/healpy/pull/379> and <https://github.com/healpy/healpy/pull/386>
+
+Release 1.10.1, 8 Nov 2016
+
+* Removed support for Python 2.6
+* Implemented Lambert azimuthal equal-area projection <https://github.com/healpy/healpy/pull/354>
+* Bugfix: write multiple alms <https://github.com/healpy/healpy/pull/342>
+* Depend on `astropy` instead of `pyfits` <https://github.com/healpy/healpy/pull/337>
+
+Release 1.9.1, 17 Nov 2015, Last version to support Python 2.6
 
 * Remove C++ 11 features <https://github.com/healpy/healpy/pull/297>
 * Streamlined setup.py <https://github.com/healpy/healpy/pull/298>
@@ -61,7 +82,7 @@ Release 1.7.1, 23 Jan 2014
 
 Release 1.7.0, 14 Jan 2014 
 
-* rewritten spherical armonics unit tests, now it uses low res maps included in the repository
+* rewritten spherical harmonics unit tests, now it uses low res maps included in the repository
 * fix in HEALPix C++ build flags allows easier install on MAC-OSX and other python environments (e.g. anaconda)
 * orthview: orthografic projection
 * fixed bug in monopole removal in anafast

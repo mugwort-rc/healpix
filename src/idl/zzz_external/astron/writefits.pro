@@ -1,4 +1,4 @@
-pro writefits, filename, data, header, heap, Append = Append,  $
+pro writefits, filename, data, header, heap, Append = Append, Silent = Silent, $
        compress = compress, CheckSum = checksum, NaNValue = NaNvalue
        
 ;+
@@ -57,8 +57,8 @@ pro writefits, filename, data, header, heap, Append = Append,  $
 ;           to 1. and 0) except with integer data
 ;       (2) WRITEFITS will remove any group parameters from the FITS header
 ;       (3) As of Feb 2008, WRITEFITS no longer requires the primary header of a
-;           FITS file with extension contain the EXTEND keyword, consistent with 
-;           Section 4.4.2.1 of the FITS 3.0 standard.    A warning is still 
+;           FITS file with extensions to contain the EXTEND keyword, consistent 
+;           with Section 4.4.2.1 of the FITS 3.0 standard.    A warning is still 
 ;           given.  See http://fits.gsfc.nasa.gov/fits_standard.html
 ;
 ; EXAMPLE:
@@ -100,14 +100,23 @@ pro writefits, filename, data, header, heap, Append = Append,  $
 ;       Set /APPEND if XTENSION specifies a table   W.L.  July 2012
 ;       Bug fix when /CHECKSUM used with unsigned data  W.L. June 2013
 ;       June 2013 bug fix introduced problem when NAXIS=0  W.L. July 2013
+;       Added /Silent keyword W.L. April 2016
+;		Support unsigned 64 bit data type  W.L.  January 2018
 ;-
-  On_error, 2
+
   compile_opt idl2  
 
   if N_params() LT 2 then begin 
        print,'Syntax - WRITEFITS, filename, data,[ header, /APPEND, /CHECKSUM]'
        return
   endif
+  
+  Catch, theError
+  IF theError NE 0 then begin
+	Catch,/Cancel
+	void = cgErrorMsg(/quiet)
+	RETURN
+  ENDIF
 
 ; Get information about data
 
@@ -123,11 +132,9 @@ pro writefits, filename, data, header, heap, Append = Append,  $
                 if keyword_set(append) then mkhdr, header, data, /IMAGE  $
                                        else mkhdr, header, data, /EXTEND
         endif else if naxis GT 0 then $         
-              check_FITS, data, header, /UPDATE, /FITS
+              check_FITS, data, header, /UPDATE, Silent= silent
 
-; Remove any STSDAS/random group keywords from the primary header
-
-  hdr = header
+  hdr = header     ;Don't modify supplied header
   
 ;If header indicates a table extension then set the append keyword  
   if ~keyword_set( APPEND) && ( strmid(hdr[0],0,8) EQ 'XTENSION' ) then begin
@@ -135,7 +142,7 @@ pro writefits, filename, data, header, heap, Append = Append,  $
 	 if (xten EQ 'TABLE') || (xten Eq 'BINTABLE') || (xten Eq 'A3DTABLE') $
 	     then begin 
 	     append = 1
-	     message,'Writing FITS table extension',/INF
+	     message,'Writing FITS table extension',/INF,NoPrint = silent
 	 endif    
    endif	     
 
@@ -143,7 +150,7 @@ pro writefits, filename, data, header, heap, Append = Append,  $
          simple = 'SIMPLE  =                    T / Written by IDL:  ' $
                         + systime()  
          hdr[0] =  simple + string( replicate(32b,80-strlen(simple) ) )
-         sxdelpar, hdr, [ 'GCOUNT', 'GROUPS', 'PCOUNT', 'PSIZE' ]
+         sxdelpar, hdr, [ 'GCOUNT', 'GROUPS', 'PCOUNT', 'PSIZE' ]     ;Remove random groups keywords
   endif
   
 ; If necessary,convert unsigned to signed.    Do not destroy the original data
@@ -151,17 +158,22 @@ pro writefits, filename, data, header, heap, Append = Append,  $
   unsigned = 0
   if naxis NE 0 then begin
               
-        unsigned = (type EQ 12) || (type EQ 13)
+        unsigned = (type EQ 12) || (type EQ 13) || (type EQ 15)
         if  unsigned then begin
              if type EQ 12 then begin
-                     sxaddpar,hdr,'BZERO',32768,'Data is Unsigned Integer', $
+                     sxaddpar,hdr,'BZERO',32768,' Data is Unsigned Integer', $
                               before = 'DATE'
                      newdata = fix(data - 32768)
              endif else if type EQ 13 then begin 
-                    sxaddpar,hdr,'BZERO',2147483648,'Data is Unsigned Long', $
+                    sxaddpar,hdr,'BZERO',2147483648,' Data is Unsigned Long', $
                               before = 'DATE'
                     newdata = long(data - 2147483648)
-             endif
+             endif else if type EQ 15 then begin
+                offset = ulong64(2)^63
+             	sxaddpar,hdr,'BZERO',offset,' Data is 64 bit Unsigned Long', $
+             			before = 'DATE'
+             	newdata = long64(data - offset )
+             endif	
          endif 
 
 ; For floating or double precision test for NaN values to write
@@ -193,7 +205,7 @@ pro writefits, filename, data, header, heap, Append = Append,  $
             mrd_hread, unit, hprimary
             extend = where( strcmp(hprimary,'EXTEND  ',8), Nextend)
             if Nextend EQ 0 then $
-               message,'WARNING - EXTEND keyword not found in primary FITS header',/CON
+               message,'WARNING - EXTEND keyword not found in primary FITS header',/CON,NoPrint=silent
             endelse
                    
             file = fstat(unit)
@@ -221,7 +233,7 @@ pro writefits, filename, data, header, heap, Append = Append,  $
        endline = where( strcmp(hdr, 'END     ', 8), Nend)
      if Nend EQ 0 then begin
 
- message,'WARNING - An END statement has been appended to the FITS header',/INF
+     message,'WARNING - An END statement has been appended to the FITS header',/INF,NoPrint=silent
      hdr = [ hdr, 'END' + string( replicate(32b,77) ) ]
      endline = N_elements(hdr) - 1 
 

@@ -25,7 +25,73 @@
 ;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ;  mollview,findgen(12),fact=1.e6,units='$\mu$K',pdf='/tmp/moll.pdf',/preview,silent=1,sub='sub',/grat,glsize=1,title='title {\bf title} tit2'
+
 ; -----------------------------------------------------------------------------
+function is_structure, stc
+return, size(/tname, stc) eq 'STRUCT'
+end
+; -----------------------------------------------------------------------------
+function is_tag_in_stc, stc, tag, index
+index = where(tag_names(stc) eq strupcase(tag), n)
+return,n
+end
+; -----------------------------------------------------------------------------
+function parse_custom_structure,default,structure,sub1,sub2,sub3,sub4,sub5
+;
+;2017-04-28
+out = default
+if is_structure(structure) then begin
+    st = structure 
+    if ~is_structure(st) then goto,  found
+    if defined(sub1) && is_tag_in_stc(st, sub1, i1) then begin
+        st = st.(i1[0]) 
+        if ~is_structure(st) then goto,  found
+        if defined(sub2) && is_tag_in_stc(st, sub2, i2) then begin
+            st = st.(i2[0]) 
+            if ~is_structure(st) then goto,  found
+            if defined(sub3) && is_tag_in_stc(st, sub3, i3) then begin
+                st = st.(i3[0]) 
+                if ~is_structure(st) then goto,  found
+                if defined(sub4) && is_tag_in_stc(st, sub4, i4) then begin
+                    st = st.(i4[0]) 
+                    if ~is_structure(st) then goto,  found
+                    if defined(sub5) && is_tag_in_stc(st, sub5, i5) then begin
+                        st = st.(i5[0]) 
+                        if ~is_structure(st) then goto,  found
+                    endif
+                endif
+            endif
+        endif
+    endif
+endif
+return, out
+found:
+return, st
+end
+; -----------------------------------------------------------------------------
+
+function absolute_file_path, file
+; afp = absolute_file_path(file) return absolute path to provided file
+;
+;            file                   afp
+;       '/a/b/c.abc'         '/a/b/c.abc'
+;       '~john/a.b.c'        '/home/users/john/a.b.c'
+;       'c.'                 '[current_dir]/c.'
+;       './c'                '[current_dir]/c'
+;       '../c.fits'          '[parent_dir]/c.fits'
+; 2017-04-28
+basename = cgRootname(file,directory=filedir,extension=suffix)
+if (strtrim(suffix,2) eq '') then begin
+    if (strpos(file,'.',/reverse_search) eq strlen(file)-1) then suffix='.'
+endif else begin
+    suffix='.'+suffix
+endelse
+cd,filedir,curr=cwd1
+cd,cwd1,   curr=cwd2
+afp = Filepath(root_dir=expand_tilde(cwd2), basename+suffix)
+return, afp
+end
+
 function parse_planck_colorstring, color, colshift
 ; -----------------------
 ;   number   -> number
@@ -77,7 +143,8 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
               SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick, $
               STAGGER=stagger, AZEQ=azeq, JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color, $
-              PDF=pdf, LATEX=latex, PFONTS=pfonts
+              PDF=pdf, LATEX=latex, PFONTS=pfonts, customize=custom_stc, default_settings=default_stc, $
+              SILHOUETTE=silhouette
 
 ;===============================================================================
 ;+
@@ -102,7 +169,8 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;              ORTHOGRAPHIC=orthographic, $
 ;              FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, IGRATICULE=,
 ;              HBOUND=, DIAMONDS =, WINDOW =, TRANSPARENT=, EXECUTE=, SILENT=
-;              GLSIZE=, IGLSIZE=, SHADEMAP=, STAGGER=, AZEQ=, JPEG=, PDF=, LATEX=, PFONTS=
+;              GLSIZE=, IGLSIZE=, SHADEMAP=, STAGGER=, AZEQ=, JPEG=, PDF=, LATEX=, PFONTS=,
+;              CUSTOMIZE=, DEFAULT_SETTINGS=, SILHOUETTE=
 ;
 ;   for more information, see Gnomview.pro Mollview.pro
 ;
@@ -141,15 +209,35 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;          limited !P.FONT)
 ;
 ;
-; 2 problems with write_png,...,/transparent in GDL:
+; 2 problems with write_png,file,image,red,grn,blu,/transparent in GDL:
 ;  - it is currently (v0.9.6) not supported
 ;  - it expects a pixel mask (ie an array of the same size as the image) with
 ;    values in [0,255] setting the opacity of each pixel
 ;   while the IDL version expects a color mask (ie, a vector of size 255) with
 ;   values in [0,255] setting the opacity of each color
+;  - in GDL 0.9.7 and 0.9.8, expects a list (ie a vector of length <= 256) of
+;   the colors to be turned transparent
+;
+;
+; In GDL CVS of 2017-01-06
+;     Device, Decomposed=    seems to work
+;     !D.n_colors            OK
+;     write_gif              OK
+;     set_plot,'Z' & device,set_pixel_depth=    remains at 24bits
+;     write_png, transparent   somehow fixed in GDL 0.9.7 and 0.9.8, see above
+;     !p.font               Only !p.font=-1
+;
+;
+;   Apr 2017, EH, fixed path problem when PDF=1 instead of PDF=file_name
+;                 added CUSTOM (input) and DEFAULT_SETTINGS (output) structure
+;                 for customization of color bar size, title and subtitle location
+;    2017-05-30: replaced obsolete DATATYPE() with IDL's SIZE(/TNAME)
+;
+;   June 2017, EH, work on compatibility with Fawlty Language
 ;-
 ;===============================================================================
 
+;;;;;;;;;;;;;common junks, junk1, junk2, junk3, junk4
 debug = 0
 do_gif  = keyword_set(gif)
 do_png  = keyword_set(png)
@@ -184,293 +272,252 @@ if undefined(polarization) then polarization=0
 do_polamplitude = (polarization[0] eq 1)
 do_poldirection = (polarization[0] eq 2)
 do_polvector    = (polarization[0] eq 3)
+
+do_silhouette = keyword_set(silhouette)
 ;-------------------------------------------------
 in_gdl = is_gdl()
-in_idl = ~in_gdl
+in_fl  = is_fl()
+in_idl = is_idl()
 test_preview
 @idl_default_previewer ; defines the paper size
 if (do_print and undefined(papersize)) then papersize = 'a4'
 
-xsize = (size(planmap))(1)
-ysize = (size(planmap))(2)
+; -------------------------------------------------
+; implement default settings for each projection
+; -------------------------------------------------
+sz = size(planmap,/dim)
+xsize = sz[0]
+ysize = sz[1]
 w_pos = (do_crop) ? [0.00, 0.00, 1.00, 1.00] : [0.00, 0.10, 1.00, 0.90]
 
-if (projtype eq 2) then begin
-;  ---- Gnomonic specific definitions for the plot ----
-    routine    = 'GNOMVIEW'
-    proj_small = 'gnomic'
-    proj_big   = 'Gnomic'
-    do_gnom    = 1
+default_stc = {$
+              aspos:   {x:-1.0,    y:-1.0}, $
+              cbar:    {dx:1./3.,  dy:1./70., spaces:[' ',' ',' '], ty:0.0, box:0.0}, $
+              cring:   {dx:1./10., xll:0.025, yll:0.025}, $
+              pdf:     {debug:0}, $
+              subtitle:{x:0.5,     y:0.905,   charsize:1.2}, $
+              title:   {x:0.5,     y:0.95,    charsize:1.6}, $
+              vscale:  {x:0.05,    y:0.02, ty:0.0}}
 
-    du_dv = xsize/float(ysize)                  ; aspect ratio
-    fudge = 1.00                ; 
-    xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
-    yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
-; u and v range of the map
-    umin = - dx * xc * fudge & umax = dx * xc * fudge
-    vmin = - dx * yc * fudge & vmax = dx * yc * fudge
-; position of the rectangle in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1.4
-; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
-; polarisation color ring, position, dimension
-    cring_dx = 1./15.
-    cring_dy = 1./15.
-    cring_xll = .025
-    cring_yll = .025
-; location of astro. coordinate
-    x_aspos = 0.5
-    y_aspos = 0.04
-; location of pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.01
-; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.915
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 15.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
+case projtype of
 
-if (projtype eq 1) then begin
+    1:begin
 ;  ---- Mollweide specific definitions for the plot ----
-    routine    = 'MOLLVIEW'
-    proj_big   = 'Mollweide'
-    proj_small = 'mollweide'
-    do_moll    = 1
-
-    du_dv = 2.                  ; aspect ratio
-    fudge = 1.02                ; spare some space around the Mollweide egg
-    xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
-    yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
+        routine    = 'MOLLVIEW'
+        proj_big   = 'Mollweide'
+        proj_small = 'mollweide'
+        do_moll    = 1
+        ; no change to default_stc
+        
+        du_dv = 2.              ; aspect ratio
+        fudge = 1.02            ; spare some space around the Mollweide egg
+        xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
+        yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
 ; x and y range of egg
-    umin = - du_dv * fudge & umax = du_dv * fudge
-    vmin = - fudge         & vmax =         fudge
+        umin = - du_dv * fudge & umax = du_dv * fudge
+        vmin = - fudge         & vmax =         fudge
 ; position of the egg in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1./.8
-; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
-; polarisation color ring, position, dimension
-    cring_dx = 1./10.
-    cring_dy = 1./10.
-    cring_xll = .025
-    cring_yll = .025
-; location of pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.02
-; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.905
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 26.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1./.8
+; create silhouette
+        if (do_silhouette) then begin
+            np_sil  = 360 & phi_sil = 2 * !DPI * dindgen(np_sil+1)/np_sil
+            u_sil   = cos(phi_sil)*du_dv & v_sil   = sin(phi_sil)
+        endif
+        if (do_print) then begin
+            hxsize_def = 26.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
 
-if (projtype eq 5) then begin
-;  ---- Diamonds specific definitions for the plot ----
-    routine    = 'DIAMONDS'
-    proj_big   = 'Diamonds'
-    proj_small = 'diamonds'
-    do_moll    = 1
+    2:begin
+;  ---- Gnomonic specific definitions for the plot ----
+        routine    = 'GNOMVIEW'
+        proj_small = 'gnomic'
+        proj_big   = 'Gnomic'
+        do_gnom    = 1
+        default_stc.aspos      = {x:0.5, y:0.04}
+        default_stc.cring.dx   = 1./15.
+        default_stc.subtitle.y = 0.915
+        default_stc.vscale     = {x:0.05, y:0.01, ty:0.0}
+        
+        du_dv = xsize/float(ysize) ; aspect ratio
+        fudge = 1.00            ; 
+        xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
+        yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
+; u and v range of the map
+        umin = - dx * xc * fudge & umax = dx * xc * fudge
+        vmin = - dx * yc * fudge & vmax = dx * yc * fudge
+; position of the rectangle in the final window
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1.4
+        if (do_print) then begin
+            hxsize_def = 15.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
 
-    du_dv = 2.                  ; aspect ratio
-    fudge = 1.00                ; spare some space around the 12-Diamonds
-    xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
-    yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
-; x and y range of egg
-    umin = - du_dv * fudge & umax = du_dv * fudge
-    vmin = - fudge         & vmax =         fudge
-; position of the egg in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1./.8
-; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
-; polarisation color ring, position, dimension
-    cring_dx = 1./10.
-    cring_dy = 1./10.
-    cring_xll = .025
-    cring_yll = .025
-; location of pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.02
-; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.905
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 26.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
+    3:begin
+;------------ cartesion projection ----------------
+        routine    = 'CARTVIEW'
+        proj_small = 'cartesian'
+        proj_big   = 'Cartesian'
+        do_cart    = 1
+        default_stc.aspos      = {x:0.5, y:0.04}
+        default_stc.cring.dx   = 1./15.
+        ;default_stc.subtitle.y = 0.905
+        default_stc.vscale     = {x:0.05, y:0.01, ty:0.0}
+        
+        du_dv = xsize/float(ysize) ; aspect ratio
+        fudge = 1.00            ; 
+        xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
+        yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
+; u and v range of the map
+        umin = - dx * xc * fudge & umax = dx * xc * fudge
+        vmin = - dx * yc * fudge & vmax = dx * yc * fudge
+; position of the rectangle in the final window
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1.4
+        if (do_print) then begin
+            hxsize_def = 15.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
 
-if (projtype eq 4) then begin
+    4: begin
 ;  ---- Orthographic specific definitions for the plot ----
-    routine    = 'ORTHVIEW'
-    proj_big   = 'Orthographic'
-    proj_small = 'orthographic'
-    do_orth    = 1
-    
-    if keyword_set(half_sky) then do_fullsky = 0 else do_fullsky = 1
-    if (do_fullsky) then du_dv = 2. else du_dv = 1. ; aspect ratio
+        routine    = 'ORTHVIEW'
+        proj_big   = 'Orthographic'
+        proj_small = 'orthographic'
+        do_orth    = 1
+        ; no change to default_stc
+        
+        do_fullsky = ~keyword_set(half_sky)
+        du_dv = do_fullsky ? 2. : 1. ; aspect ratio
 
-    fudge = 1.02                ; spare some space around the Orthographic disc
-    xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
-    yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
+        fudge = 1.02            ; spare some space around the Orthographic disc
+        xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
+        yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
 ; x and y range of disc
-    umin = - du_dv * fudge & umax = du_dv * fudge
-    vmin = - fudge         & vmax =         fudge
+        umin = - du_dv * fudge & umax = du_dv * fudge
+        vmin = - fudge         & vmax =         fudge
 ; position of the disc in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1./.8
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1./.8
+; create silhouette
+        if (do_silhouette) then begin
+            np_sil  = 360 & phi_sil = 2 * !DPI * dindgen(np_sil+1)/np_sil
+            u_sil   = cos(phi_sil) & v_sil   = sin(phi_sil)
+            if do_fullsky then begin
+                u_sil = [u_sil-1, 1-u_sil] & v_sil = [v_sil, v_sil]
+            endif
+        endif
+        if (do_print) then begin
+            hxsize_def = 26.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
+
+    5:begin
+;  ---- Diamonds specific definitions for the plot ----
+        routine    = 'DIAMONDS'
+        proj_big   = 'Diamonds'
+        proj_small = 'diamonds'
+        do_moll    = 1
+        ; no change to default_stc
+
+        du_dv = 2.              ; aspect ratio
+        fudge = 1.00            ; spare some space around the 12-Diamonds
+        xc = 0.5*(xsize-1) & delta_x = (xsize-1 - xc)
+        yc = 0.5*(ysize-1) & delta_y = (ysize-1 - yc)
+; x and y range of egg
+        umin = - du_dv * fudge & umax = du_dv * fudge
+        vmin = - fudge         & vmax =         fudge
+; position of the egg in the final window
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1./.8
+        if (do_print) then begin
+            hxsize_def = 26.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
+
+    6:begin
+;------------ azimuthal equidistant projection ----------------
+        routine    = 'AZEQVIEW'
+        proj_small = 'azimequid'
+        proj_big   = 'AzimEquidistant'
+        do_azeq    = 1
+        default_stc.aspos      = {x:0.5, y:0.04}
+        default_stc.cring.dx   = 1./15.
+        ;default_stc.subtitle.y = 0.905
+        default_stc.vscale     = {x:0.05, y:0.01, ty:0.0}
+        
+        du_dv = xsize/float(ysize) ; aspect ratio
+        fudge = 1.00            ; 
+        xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
+        yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
+; u and v range of the map
+        umin = - dx * xc * fudge & umax = dx * xc * fudge
+        vmin = - dx * yc * fudge & vmax = dx * yc * fudge
+; position of the rectangle in the final window
+        w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
+        w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
+        w_dx_dy = w_dx / w_dy   ; 1.4
+        if (do_print) then begin
+            hxsize_def = 15.                     ; default X dimension of hardcopy (cm)
+            yoffset = (papersize eq 'a4') ? 2 : 1; offset along the long axis of the page
+        endif
+    end
+
+    else: begin
+        message,'Unknown projtype, not in [1,6]: '+strtrim(projtype,2)
+    end
+endcase
+
+;----------------------------------------
+; take into account user customization
+;----------------------------------------
 ; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
+cbar_dx = parse_custom_structure(default_stc.cbar.dx,     custom_stc, 'cbar','dx')
+cbar_dy = parse_custom_structure(default_stc.cbar.dy,     custom_stc, 'cbar','dy')
+cbar_sp = parse_custom_structure(default_stc.cbar.spaces, custom_stc, 'cbar','spaces')
+cbar_sp = ([cbar_sp,' ',' '])[0:2] ; absent elements are set to ' '
+cbar_ty = parse_custom_structure(default_stc.cbar.ty,     custom_stc, 'cbar','ty')
+cbar_xll = (1. - cbar_dx)/2.
+cbar_xur = (1. + cbar_dx)/2.
+cbar_yur = w_yll - cbar_dy
+cbar_yll = cbar_yur - cbar_dy
+cbar_box = parse_custom_structure(default_stc.cbar.box,  custom_stc, 'cbar','box')
 ; polarisation color ring, position, dimension
-    cring_dx = 1./10.
-    cring_dy = 1./10.
-    cring_xll = .025
-    cring_yll = .025
+cring_dx  = parse_custom_structure(default_stc.cring.dx,     custom_stc, 'cring','dx')
+cring_dy  = cring_dx
+cring_xll = parse_custom_structure(default_stc.cring.xll,    custom_stc, 'cring','xll')
+cring_yll = parse_custom_structure(default_stc.cring.xll,    custom_stc, 'cring','yll')
+; location of astro. coordinate
+x_aspos   = parse_custom_structure(default_stc.aspos.x,      custom_stc, 'aspos','x')
+y_aspos   = parse_custom_structure(default_stc.aspos.y,      custom_stc, 'aspos','y')
 ; location of pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.02
+vscal_x   = parse_custom_structure(default_stc.vscale.x,     custom_stc, 'vscale','x')
+vscal_y   = parse_custom_structure(default_stc.vscale.y,     custom_stc, 'vscale','y')
+vscal_ty  = parse_custom_structure(default_stc.vscale.ty,    custom_stc, 'vscale','ty')
 ; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.905
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 26.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
+x_title  = parse_custom_structure(default_stc.title.x,           custom_stc, 'title','x') 
+y_title  = parse_custom_structure(default_stc.title.y,           custom_stc, 'title','y') 
+cs_title = parse_custom_structure(default_stc.title.charsize,    custom_stc, 'title','charsize') 
+x_subtl  = parse_custom_structure(default_stc.subtitle.x,        custom_stc, 'subtitle','x') 
+y_subtl  = parse_custom_structure(default_stc.subtitle.y,        custom_stc, 'subtitle','y') 
+cs_subtl = parse_custom_structure(default_stc.subtitle.charsize, custom_stc, 'subtitle','charsize') 
+; debugging of PDF generation
+pdf_debug = parse_custom_structure(default_stc.pdf.debug,    custom_stc, 'pdf', 'debug')
+pdf_debug and= ~keyword_set(silent)
 
-if (projtype eq 3) then begin
-    ;------------ cartesion projection ----------------
-    routine    = 'CARTVIEW'
-    proj_small = 'cartesian'
-    proj_big   = 'Cartesian'
-    do_cart    = 1
-    
-;     du_dv = 1.                  ; aspect ratio
-    du_dv = xsize/float(ysize)                  ; aspect ratio
-    fudge = 1.00                ; 
-    xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
-    yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
-; u and v range of the map
-    umin = - dx * xc * fudge & umax = dx * xc * fudge
-    vmin = - dx * yc * fudge & vmax = dx * yc * fudge
-; position of the rectangle in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1.4
-; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
-; polarisation color ring, position, dimension
-    cring_dx = 1./15.
-    cring_dy = 1./15.
-    cring_xll = .025
-    cring_yll = .025
-; location of astro. coordinate
-    x_aspos = 0.5
-    y_aspos = 0.04
-; pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.01
-; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.915
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 15.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
 
-if (projtype eq 6) then begin
-    ;------------ azimuthal equidistant projection ----------------
-    routine    = 'AZEQVIEW'
-    proj_small = 'azimequid'
-    proj_big   = 'AzimEquidistant'
-    do_cart    = 1
-    
-;     du_dv = 1.                  ; aspect ratio
-    du_dv = xsize/float(ysize)                  ; aspect ratio
-    fudge = 1.00                ; 
-    xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
-    yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
-; u and v range of the map
-    umin = - dx * xc * fudge & umax = dx * xc * fudge
-    vmin = - dx * yc * fudge & vmax = dx * yc * fudge
-; position of the rectangle in the final window
-    w_xll = w_pos[0] & w_xur = w_pos[2] & w_dx = w_xur - w_xll
-    w_yll = w_pos[1] & w_yur = w_pos[3] & w_dy = w_yur - w_yll
-    w_dx_dy = w_dx / w_dy       ; 1.4
-; color bar, position, dimension
-    cbar_dx = 1./3.
-    cbar_dy = 1./70.
-    cbar_xll = (1. - cbar_dx)/2.
-    cbar_xur = (1. + cbar_dx)/2.
-    cbar_yur = w_yll - cbar_dy
-    cbar_yll = cbar_yur - cbar_dy
-; polarisation color ring, position, dimension
-    cring_dx = 1./15.
-    cring_dy = 1./15.
-    cring_xll = .025
-    cring_yll = .025
-; location of astro. coordinate
-    x_aspos = 0.5
-    y_aspos = 0.04
-; pol vector scale
-    vscal_x = 0.05
-    vscal_y = 0.01
-; location of title and subtitle
-    x_title = 0.5 & y_title = 0.95
-    x_subtl = 0.5 & y_subtl = 0.915
-    if (do_print) then begin
-; default X dimension of hardcopy (cm)
-        hxsize_def = 15.
-; offset along the long axis of the page
-        yoffset = (papersize eq 'a4') ? 2 : 1
-    endif
-endif
 ;====================================================
 do_shade = (do_orth && defined(shademap))
 ; set color table and character size
@@ -552,8 +599,12 @@ if (do_print) then begin
     if (do_ps) then begin
         if (size(ps,/tname) ne 'STRING')  then file_ps = 'plot_'+proj_small+'.ps' else file_ps = ps[0]
     endif
-    if (do_pdf) then begin
-        if (size(pdf,/tname) ne 'STRING') then file_pdf = 'plot_'+proj_small+'.pdf' else file_pdf = pdf[0]
+    if (do_pdf) then begin ; make sure that PDF file path is always absolute, with home '~' expanded
+        if (size(pdf,/tname) ne 'STRING') then begin
+            file_pdf = absolute_file_path('plot_'+proj_small+'.pdf')
+        endif else begin
+            file_pdf = absolute_file_path(pdf[0])
+        endelse
         file_ps = file_pdf+'TEMP.ps'
     endif
     SET_plot,'ps'
@@ -578,7 +629,7 @@ if (do_print) then begin
     TVLCT,red,green,blue
 ;    thick_dev = 2. ; device dependent thickness factor
     thick_dev = (!P.THICK ne 0) ? 2.*!P.THICK : 2. ; device dependent thickness factor
-; GDL (0.9.6) ignores FONT argument in XYOUTS, PLOT, ..., !p.font must be set prior to calling any of those
+; GDL (0.9.6 and 0.9.7) ignores FONT argument in XYOUTS, PLOT, ..., !p.font must be set prior to calling any of those
     if (is_gdl() && my_latex eq 2) then !p.font = 0
 endif else begin ; X, png, gif or jpeg output
     idl_window = defined(window_user) ? window_user : 32 ; idl_window = 32 or window_user
@@ -660,6 +711,7 @@ endelse
 ; print,!p.background,!p.color,red[0:3],green[0:3],blue[0:3]
 ; print,back[0:4,0:4]
 
+z_buf64 = ((in_gdl || in_fl) && use_z_buffer) ; ugly patch for GDL 0.9.6 and FL 0.79.43 = Z buffer is 64 bits
 myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur],xstyle:5,ystyle:5}
 plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
 ; if (use_z_buffer) then begin; Set the background when doing a plot in Z buffer
@@ -670,7 +722,7 @@ if (do_image) then begin; set the background when doing PNG/GIF/JPG
         tv, reform(back3, xsize, l64ysize, 3, /overwrite),true=3
         back3=0
     endif else begin
-        if (in_gdl && use_z_buffer) then begin ; ugly patch for GDL 0.9.6
+        if z_buf64 then begin
             tv, replicate(!p.background, xsize, l64ysize, 3), true=3
         endif else begin
             tv, replicate(!p.background, xsize, l64ysize)
@@ -680,12 +732,14 @@ endif
 ; ---------- projection independent ------------------
 ; map itself
 if (do_shade) then begin
+    ;;;;common debug, image3d
     image = planmap
     image3d  =   make_array(/uint, xsize, ysize, 3)
     image3d[*,*,0] = uint( (256. * red  [image] * shademap) < 65535.)
     image3d[*,*,1] = uint( (256. * green[image] * shademap) < 65535.)
     image3d[*,*,2] = uint( (256. * blue [image] * shademap) < 65535.)
     if (do_print) then loadct,0,/silent ; must be in grey-scale for TrueColor PS output
+    ;;;; if (in_fl && ~do_print && ~do_image) then device, decomposed=1 ; patch for FL in X solved in 0.79.41?
     TV, bytscl(image3d),w_xll,w_yll,/normal,xsize=1.,true=3
     if (do_print) then tvlct,red,green,blue ; revert to custom color table
     image3d = 0
@@ -701,7 +755,7 @@ endif else if (do_true) then begin
 ;;;    if (do_print) then tvlct,red,green,blue ; revert to custom color table
     image3d = 0
 endif else begin
-    if (in_gdl && use_z_buffer) then begin ; ugly patch for GDL 0.9.6
+    if z_buf64 then begin
         TV, [ [[planmap]], [[planmap]], [[planmap]] ],true=3,w_xll,w_yll,/normal,xsize=1.
     endif else begin
         TV, planmap,                                         w_xll,w_yll,/normal,xsize=1.
@@ -725,7 +779,7 @@ if (~keyword_set(nobar) && ~do_crop && do_poldirection) then begin
         angle = atan(xx,-yy)  * !radeg + 180. ; angle in deg in [0,360]
     endelse
     color_ring = (bytscl(angle,TOP=252) + 3B) * mask + byte((1-mask)*!P.BACKGROUND); in [3,255] in ring and !p.background outside ring
-    if (in_gdl && use_z_buffer) then begin ; ugly patch for GDL 0.9.6
+    if z_buf64 then begin
         TV,[[[color_ring]],[[color_ring]],[[color_ring]]],true=3,cring_xll,cring_yll,/normal,xsize = npring/float(xsize)
     endif else begin
         TV,color_ring,                                           cring_xll,cring_yll,/normal,xsize = npring/float(xsize)
@@ -733,9 +787,9 @@ if (~keyword_set(nobar) && ~do_crop && do_poldirection) then begin
 endif
 
 ; polarisation vector field
-pgparam=[1.,1.]; [scale, grid_step] of grid of headless vector
+pgparam=[1.,1.,1.]; [scale, grid_step, thickness] of grid of headless vector
 if (do_polvector) then begin
-    pgparam = ([polarization[*], 1., 1.])[1:2] ; 2nd and 3rd elements of polarization (default:[1,1])
+    pgparam = ([polarization[*], 1., 1., 1.])[1:3] ; 2nd,3rd and 4th elements of polarization (default:[1,1,1])
     pgparam = pgparam*(pgparam gt 0) + (pgparam le 0) ; replace non-positive values by 1.
     dyg = 10.
     pol_rescale = float(dyg)/ysize * pgparam[0]
@@ -749,10 +803,10 @@ if (do_polvector) then begin
         angle = planvec[xg[i],yg[i],1]
         if (hpxv11) then begin
             ; angles are measured from horizontal
-            if (norm gt 0) then plots, u[i]+norm*cos(angle)*[-.5,.5], v[i]+norm*sin(angle)*[-.5,.5]
+            if (norm gt 0) then plots, u[i]+norm*cos(angle)*[-.5,.5], v[i]+norm*sin(angle)*[-.5,.5], thick=pgparam[2]*thick_dev
         endif else begin
             ; angles are measured from vertical
-            if (norm gt 0) then plots, u[i]-norm*sin(angle)*[-.5,.5], v[i]+norm*cos(angle)*[-.5,.5]
+            if (norm gt 0) then plots, u[i]-norm*sin(angle)*[-.5,.5], v[i]+norm*cos(angle)*[-.5,.5], thick=pgparam[2]*thick_dev
         endelse
     endfor
     xg = 0 & yg = 0 & u = 0 & v = 0
@@ -763,15 +817,22 @@ if (~(do_crop || keyword_set(nobar) || do_poldirection || do_true )) then begin
     color_bar_out = BYTE(CONGRID(color_bar,xsize*cbar_dx)) # REPLICATE(1.,(ysize*cbar_dy*w_dx_dy)>1)
     back[xsize*cbar_xll,0] = color_bar_out
     if (do_shade) then begin
-        newback3 = (do_print) ? [ [[back]], [[back]], [[back]] ] : [ [[red[back]]], [[green[back]]], [[blue[back]]] ]
-        TV, newback3,0, cbar_yll, /normal, xsize = 1., true=3
+        if (do_print) then loadct, 0, /silent
+        TV, [ [[red[back]]], [[green[back]]], [[blue[back]]] ], true=3, 0, cbar_yll, /normal, xsize = 1.
+        if (do_print) then tvlct, red, green, blue
     endif else begin
-        if (in_gdl && use_z_buffer) then begin ; ugly patch for GDL 0.9.6
+        if z_buf64 then begin
             TV, [ [[back]], [[back]], [[back]] ], true=3, 0, cbar_yll, /normal, xsize = 1.
         endif else begin
             TV, back,                                     0, cbar_yll, /normal, xsize = 1.
         endelse
     endelse
+    if (abs(cbar_box) gt 0.0) then begin
+        ; add box around color bar. Mimic truncation used for pixel location
+        xcbbox = (long(xsize*        cbar_xll) +long(xsize*        cbar_dx)*[0,0,1,1,0,0])/float(xsize)
+        ycbbox = (long(ysize*w_dx_dy*cbar_yll) +long(ysize*w_dx_dy*cbar_dy)*[0,1,1,0,0,1])/float(ysize*w_dx_dy)
+        plots, xcbbox, ycbbox, /normal, thick=abs(cbar_box)*thick_dev
+    endif
     ; For Totor <<<<<<<<<<<<<<<<<<<<<<<<<
 ;     plot, /nodata, [tmin,tmax],[0,1],pos=[cbar_xll,cbar_yll,cbar_xur,cbar_yur],/noerase
 ;     plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle, /noerase ; to ensure that mollcursor will work
@@ -784,10 +845,10 @@ if (~(do_crop || keyword_set(nobar) || keyword_set(nolabels) || do_true || do_po
     if ((Tmax - Tmin) ge 5  and MAX(ABS([Tmax,Tmin])) le 1.e2) then format='(f6.1)'
     strmin = STRING(Tmin,format=format)
     strmax = STRING(Tmax,format=format)
-    xyouts_latex, cbar_xll, cbar_yll,prefont+STRTRIM(strmin,2)+' ',$
+    xyouts_latex, cbar_xll, cbar_yll+cbar_ty,prefont+STRTRIM(strmin,2)+cbar_sp[0],$
                   ALIGN=1.,/normal, chars=1.3*charsfactor, charthick=mycharthick, $
                   latex=my_latex, ltxstc=ltxstc
-    xyouts_latex, cbar_xur, cbar_yll,prefont+' '+STRTRIM(strmax,2)+' '+sunits,$
+    xyouts_latex, cbar_xur, cbar_yll+cbar_ty,prefont+cbar_sp[1]+STRTRIM(strmax,2)+cbar_sp[2]+sunits,$
                   ALIGN=0.,/normal, chars=1.3*charsfactor, charthick=mycharthick, $
                   latex=my_latex, ltxstc=ltxstc
 endif
@@ -796,11 +857,11 @@ endif
 if (~do_crop && ~keyword_set(nobar)  && do_polvector) then begin
     vp_plot = 5*pol_rescale[0] /pgparam[0]; length of ruler on plot
     vp_phys = 5*vector_scale[0]/pgparam[0] ; 'physical' length of ruler
-    plots, vscal_x*[1,1], vscal_y+[0, vp_plot]*w_dy, /normal
+    plots, vscal_x*[1,1], vscal_y+[0, vp_plot]*w_dy, /normal, thick=pgparam[2]*thick_dev
     format = '(g10.2)'
     if (vp_phys lt 1.e3 && vp_phys ge 10)    then format = '(f5.1)'
     if (vp_phys lt 10   && vp_phys gt 1.e-1) then format = '(f4.2)'
-    xyouts_latex, vscal_x, vscal_y + .5*(vp_plot)*w_dy, $
+    xyouts_latex, vscal_x, vscal_y + vscal_ty + .5*(vp_plot)*w_dy, $
             prefont+'  '+strtrim(string(vp_phys,form=format),2)+' '+sunits,$
             ALIGN=0.,/normal, chars=1.1*charsfactor, charthick=mycharthick, $
             latex=my_latex, ltxstc=ltxstc
@@ -810,14 +871,14 @@ endif
 if (~do_crop) then begin
     if (~ keyword_set(titleplot)) then title= prefont+title_display else title=prefont+titleplot
     xyouts_latex, x_title, y_title ,title, $
-            align=0.5, /normal, chars=1.6*charsfactor, charthick=mycharthick, $
+            align=x_title, /normal, chars=cs_title*charsfactor, charthick=mycharthick, $
             latex=my_latex, ltxstc=ltxstc
 endif
 
 ;  the subtitle
 if (~do_crop && keyword_set(subtitle)) then begin
-    xyouts_latex, x_subtl, y_subtl ,prefont+' '+subtitle, $
-            align=0.5, /normal, chars=1.6*.75*charsfactor, charthick=mycharthick, $
+    xyouts_latex, x_subtl, y_subtl ,prefont+subtitle, $
+            align=x_subtl, /normal, chars=cs_subtl*charsfactor, charthick=mycharthick, $
             latex=my_latex, ltxstc=ltxstc
 endif
 
@@ -837,7 +898,7 @@ endif
 
 ; do not plot graticules, outlines or pixel boundaries in stagger mode (orthview)
 skip_oplots = do_orth && keyword_set(stagger) && $
-  ( keyword_set(graticule) || keyword_set(igraticule) || keyword_set(hbound) || keyword_set(outline))
+  ( keyword_set(graticule) || keyword_set(igraticule) || keyword_set(hbound) || keyword_set(outline) || do_silhouette)
 
 if (skip_oplots) then begin
     message_patch,/info,level=-1,'*Warning*: GRAT, IGRAT, HBOUND and OUTLINE keywords are ignored in STAGGER mode'
@@ -846,7 +907,8 @@ endif else begin
 ;  the graticule in output astrophysical coordinates
     if (KEYWORD_SET(graticule)) then begin
         grattwice =1
-        glabelsize = charsfactor * (keyword_set(glsize) ? glsize : 0 )
+        glabelsize = charsfactor * (keyword_set(glsize) ? glsize : [0,0] )
+        if n_elements(glabelsize) eq 1 then glabelsize=[1,1]*glabelsize[0]
         oplot_graticule, graticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, $
                          color = !p.color, half_sky=half_sky, linestyle=0, charsize=glabelsize, reso_rad=dx, $
                          latex=my_latex, ltxstc=ltxstc
@@ -855,7 +917,8 @@ endif else begin
 ;  the graticule in input coordinates
     if (KEYWORD_SET(igraticule)) then begin
         lines_ig = 2*grattwice  ; either 0 or 2
-        iglabelsize = charsfactor * (keyword_set(iglsize) ? iglsize : 0 )
+        iglabelsize = charsfactor * (keyword_set(iglsize) ? iglsize : [0,0] )
+        if n_elements(glabelsize) eq 1 then glabelsize=[1,1]*glabelsize[0]
         oplot_graticule, igraticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, $
                          color = !p.color, half_sky=half_sky, linestyle=lines_ig, charsize=iglabelsize, reso_rad=dx, $
                          coordsys=[coord_in,coord_out],  $
@@ -878,6 +941,13 @@ endif else begin
             if (hbound[i] gt 0) then oplot_healpix_bounds, hbound[i], eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lnst[i], coordsys=[coord_in,coord_out]
         endfor
     endif
+
+; overplot silhouette
+    if (do_silhouette && silhouette[0] ne 0.) then begin
+        col_sil = n_elements(silhouette) ge 2 ? abs(silhouette[1]) : !p.color
+        plots, u_sil, v_sil, thick = abs(silhouette[0]) * thick_dev, color=col_sil
+    endif
+
 endelse
 
 ; overplot user defined commands
@@ -903,13 +973,17 @@ if do_image then begin
         endif else valid_transparent = 1
     endif
 
-    if (do_gif)  then file_image = (datatype(gif)  ne 'STR') ? 'plot_'+proj_small+'.gif'  : gif
-    if (do_png)  then file_image = (datatype(png)  ne 'STR') ? 'plot_'+proj_small+'.png'  : png
-    if (do_jpeg) then file_image = (datatype(jpeg) ne 'STR') ? 'plot_'+proj_small+'.jpeg' : jpeg
+    if (do_gif)  then file_image = (size(/tname,gif)  ne 'STRING') ? 'plot_'+proj_small+'.gif'  : gif
+    if (do_png)  then file_image = (size(/tname,png)  ne 'STRING') ? 'plot_'+proj_small+'.png'  : png
+    if (do_jpeg) then file_image = (size(/tname,jpeg) ne 'STRING') ? 'plot_'+proj_small+'.jpeg' : jpeg
         
     image = (do_true || do_shade) ? tvrd(true=1) : tvrd() ; a single call to tvrd()
+    ;image = (do_true || do_shade || z_buf64) ? tvrd(true=1) : tvrd() ; a single call to tvrd()
+    ;;;;help,image
+    ;;;;print,minmax(image)
     if (do_shade) then begin
         image3d  =   make_array(/byte, 3, !d.x_size, !d.y_size)
+        ;;;;help,image3d,image,planmap,w_xll,w_yll
         image3d[0,0,0] = image
     endif
     if (do_true) then begin
@@ -951,9 +1025,10 @@ if do_image then begin
             write_png, file_image, image3d
         endif else begin
             if (keyword_set(transparent)) then begin
-                mytransp = (in_idl) ? transp_colors  : 0 ; transp_colors[image] ; no transparent support in GDL
+                ;mytransp = (in_idl) ? transp_colors  : 0 ; transp_colors[image] ; no transparent support in GDL
                 ;mytransp = (in_idl) ? transp_colors  : transp_colors[image]    ; GDL same as IDL doc
-                ;mytransp = transp_colors                                       ; GDL same as IDL actual behavior
+                ;mytransp = transp_colors ; test on 2017-01-06                  ; GDL same as IDL actual behavior
+                mytransp = (in_idl || in_fl) ? transp_colors : where(transp_colors eq 0B) ; what works with GDL 0.9.7 2017-05-31
                 write_png,file_image, image,red,green,blue, transparent=mytransp
             endif else begin
                 write_png,file_image, image,red,green,blue
@@ -975,7 +1050,10 @@ if do_image then begin
             device,decomposed=0     ; put back colors on X window and redo color image
         endelse
         if (do_shade || do_true) then begin
+            fl_patch =  0 ; (in_fl && do_shade && ~do_print) ; solved in 0.79.41 ?
+            if fl_patch then device, decomposed=1 ; patch for FL in GIF/JPEG/PNG
             tv, bytscl(image3d[0:2,*,*]),0,0,/normal,xsize=1.,true=1
+            if fl_patch then device, decomposed=0 
         endif else begin
             tv, image
         endelse
@@ -997,11 +1075,12 @@ endif
 if (do_print) then begin
     device,/close
     set_plot,old_device
-    if (my_latex eq 2) then begin
+    if (my_latex eq 2 && size(/tname,ltxstc) eq 'STRUCT') then begin
         nlts = ltxstc.n
         hpx_latexify, file_ps, ltxstc.tag[0:nlts-1], ltxstc.tex[0:nlts-1], ltxstc.scale[0:nlts-1], $
+                      alignment = ltxstc.alignment[0:nlts-1], $
                       width  = do_portrait ? hxsize : hysize, $
-                      height = do_portrait ? hysize : hxsize
+                      height = do_portrait ? hysize : hxsize, keep_temporary_files=pdf_debug
     endif
     ;;;;;; cgfixps, file_ps,/a4 ; in test
     if (do_ps) then begin
@@ -1016,7 +1095,8 @@ if (do_print) then begin
     endif 
     if (do_pdf) then begin
         ;cgPS2PDF, file_ps, file_pdf, /delete_ps, pagetype=papersize, /showcmd
-        epstopdf, file_ps, file_pdf, /delete_ps, /silent
+        ;epstopdf, file_ps, file_pdf, /delete_ps, /silent ; <<<<< normal mode
+        epstopdf, file_ps, file_pdf, delete_ps=~pdf_debug, silent=~pdf_debug, showcmd=pdf_debug ; <<<<< test mode
         ;epstopdf, file_ps, file_pdf, delete_ps=0,/showcmd, /silent
         ;epstopdf, file_ps, file_pdf, /delete_ps, silent=0, /showcmd ;, options='--autorotate=All'
         if (be_verbose) then print,'PDF file is in '+file_pdf

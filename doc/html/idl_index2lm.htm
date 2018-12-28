@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>index2lm</TITLE>
+<META NAME="description" CONTENT="index2lm">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_init_healpix_healpix_system.htm">
+<LINK REL="previous" HREF="idl_ianafast.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_init_healpix_healpix_system.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html691"
+  HREF="idl_ianafast.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html697"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html701"
+  HREF="idl_init_healpix_healpix_system.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html699"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html692"
+  HREF="idl_ianafast.htm">ianafast</A>
+
+<B>Up:</B> <A NAME="tex2html698"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html702"
+  HREF="idl_init_healpix_healpix_system.htm">init_healpix and !healpix system variable</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION3600"></A>
+<A NAME="idl:index2lm"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">index2lm</FONT></font></b><hr>
+<H3>This IDL routine provides a means to convert the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> index <!-- MATH
+ $i=l^2 +
+l+ m + 1$
+ -->
+<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> +
+<I>l</I>+ <I>m</I> + 1</SPAN> (as returned by eg the fits2alm routine) into <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/misc/index2lm.pro
+<P>
+"><b>src/idl/misc/index2lm.pro
+<P>
+</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+INDEX2LM, 
+<A HREF="#idl:index2lm:index">index</A>, 
+<A HREF="#idl:index2lm:l">l</A>, 
+<A HREF="#idl:index2lm:m">m</A>
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>index<A NAME="idl:index2lm:index"></A></B>
+<DD>Long array containing on INPUT the index <BR>
+                 <!-- MATH
+ $i=l^2 + l+ m + 1$
+ -->
+<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN>.
+    <DT>
+<B>l<A NAME="idl:index2lm:l"></A></B>
+<DD>Long array containing on OUTPUT the order <SPAN CLASS="MATH"><I>l</I></SPAN>. It has the same
+    size as <TT>index</TT>.
+    <DT>
+<B>m<A NAME="idl:index2lm:m"></A></B>
+<DD>Long array containing on OUTPUT the degree <SPAN CLASS="MATH"><I>m</I></SPAN>. It has the same
+    size as <TT>index</TT>.
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+<FONT COLOR="#CC0000">index2lm</FONT> converts <!-- MATH
+ $i=l^2 + l+ m + 1$
+ -->
+<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN> into <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN>. Note that the index <SPAN CLASS="MATH"><I>i</I></SPAN> is only
+defined for <!-- MATH
+ $0 \le |m|\le l$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="87" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img50.png"
+ ALT="$0 \le \vert m\vert\le l$"></SPAN>.
+
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">index2lm</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">index2lm</FONT>.
+    <DT>
+<B><A HREF="idl_fits2alm.htm#idl:fits2alm">fits2alm</A></B>
+<DD>reads a FITS file containing
+    <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values.
+    <DT>
+<B><A HREF="idl_alm2fits.htm#idl:alm2fits">alm2fits</A></B>
+<DD>writes <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values into a FITS file.
+    <DT>
+<B><A HREF="idl_lm2index.htm#idl:lm2index">lm2index</A></B>
+<DD>routine complementary to <FONT COLOR="#CC0000">index2lm</FONT>:
+    converts <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN> into <!-- MATH
+ $i=l^2 + l+ m + 1$
+ -->
+<SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN>.
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">index2lm</FONT>, index, l, m</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+will return in <TT>l</TT> and <TT>m</TT> the order <SPAN CLASS="MATH"><I>l</I></SPAN> and degree <SPAN CLASS="MATH"><I>m</I></SPAN> such that <TT>index</TT> <!-- MATH
+ $=l^2 +
+l+ m + 1$
+ -->
+<SPAN CLASS="MATH">=<I>l</I><SUP>2</SUP> +
+<I>l</I>+ <I>m</I> + 1</SPAN>
+</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html691"
+  HREF="idl_ianafast.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html697"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html701"
+  HREF="idl_init_healpix_healpix_system.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html699"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html692"
+  HREF="idl_ianafast.htm">ianafast</A>
+
+<B>Up:</B> <A NAME="tex2html698"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html702"
+  HREF="idl_init_healpix_healpix_system.htm">init_healpix and !healpix system variable</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,4 +1,5 @@
 import matplotlib
+
 matplotlib.use("agg")
 import unittest
 import numpy as np
@@ -7,14 +8,18 @@ import healpy as hp
 from ..visufunc import *
 from ..zoomtool import mollzoom
 
+
 class TestNoCrash(unittest.TestCase):
-    
+
     def setUp(self):
-        self.nside = 1
+        self.nside = 16
         self.m = np.arange(hp.nside2npix(self.nside), dtype=np.double)
         self.ma = self.m.copy()
         self.ma[3] = hp.UNSEEN
         self.ma = hp.ma(self.ma)
+        self.m2 = self.m.copy()
+        self.m2[100:] = hp.UNSEEN
+        self.ma2 = hp.ma(self.m2)
 
     def test_cartview_nocrash(self):
         cartview(self.m)
@@ -28,8 +33,14 @@ class TestNoCrash(unittest.TestCase):
     def test_orthview_nocrash(self):
         orthview(self.m)
 
+    def test_azeqview_nocrash(self):
+        azeqview(self.m)
+
     def test_mollzoom_nocrash(self):
         mollzoom(self.m)
+
+    def test_mollzoom_histnocrash(self):
+        mollzoom(self.m, norm="hist")
 
     def test_cartview_ma_nocrash(self):
         cartview(self.ma)
@@ -45,3 +56,9 @@ class TestNoCrash(unittest.TestCase):
 
     def test_mollzoom_ma_nocrash(self):
         mollzoom(self.ma)
+
+    def test_mollzoom_ma_hist_nocrash(self):
+        mollzoom(self.ma2, norm="hist")
+
+    def test_azeqview_ma_nocrash(self):
+        azeqview(self.ma)

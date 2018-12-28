@@ -37,6 +37,8 @@
 !    subroutine read_alms_KLOAD                NotYet
 !    subroutine read_bintod_KLOAD           (8)
 !    subroutine write_bintabh_KLOAD         (8)
+!    subroutine unfold_weights_KLOAD
+!    subroutine unfold_weightslist_KLOAD
 !
 !
 ! K M A P   : map kind                 either SP or DP
@@ -52,6 +54,7 @@
 ! 2008-10-14: corrected bug introduced in write_asctab
 ! 2012-02-23: correction of a possible bug with index writing in dump_alms and write_alms
 ! 2013-12-13: increased MAXDIM from 40 to MAXDIM_TOP
+! 2018-05-22: added unfold_weights, unfold_weightslist
 !
 
 !=======================================================================
@@ -97,7 +100,7 @@ subroutine map_bad_pixels_KLOAD(map, fin, fout, nbads, verbose)
      write(*,'(a,1pe11.4)') 'blank value : ' ,fin
      do imap = 1, nmaps
         if (imiss(imap) > 0) then
-           write(*,'(i7,a,f7.3,a,1pe11.4)') &
+           write(*,'(i12,a,f7.3,a,1pe11.4)') &
                 &           imiss(imap),' missing pixels (', &
                 &           (100.0_KMAP*imiss(imap))/npix,' %),'// &
                 &           ' have been set to : ',fout
@@ -119,11 +122,15 @@ end subroutine map_bad_pixels_KLOAD
 !     header    = OPTIONAL (output) contains extension header
 !     units     = OPTIONAL (output) contains the maps units
 !     extno     = OPTIONAL (input)  contains the unit number to read from (0 based)
+!     ignore_polcconv = OPTIONAL (input), LGT, default=.false.
+!                  take into account or not the POLCCONV FITS keyword
 !
 !     modified Feb 03 for units argument to run with Sun compiler
+!     2017-02-15: deals with POLCCONV
 !=======================================================================
 #ifndef NO64BITS
-subroutine input_map4_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
+subroutine input_map4_KLOAD(filename, map, npixtot, nmaps, &
+     & fmissval, header, units, extno, ignore_polcconv)
     !=======================================================================
 
     INTEGER(I4B),     INTENT(IN)                           :: npixtot
@@ -134,19 +141,23 @@ subroutine input_map4_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: header
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: units
     INTEGER(I4B),     INTENT(IN)                , optional :: extno
+    logical(LGT),     intent(IN)                , optional :: ignore_polcconv
     integer(i8b) :: npixtot8
 
     npixtot8 = npixtot
-    call input_map8_KLOAD(filename, map, npixtot8, nmaps, fmissval, header, units, extno)
+    call input_map8_KLOAD(filename, map, npixtot8, nmaps, &
+         fmissval, header, units, extno, ignore_polcconv)
 
     return
   end subroutine input_map4_KLOAD
 #endif
 
 !=======================================================================
-subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
+subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, &
+     fmissval, header, units, extno, ignore_polcconv)
     !=======================================================================
-
+  use head_fits, only: get_card, add_card
+  use pix_tools, only: nside2npix
     INTEGER(I8B),     INTENT(IN)                           :: npixtot
     INTEGER(I4B),     INTENT(IN)                           :: nmaps
     REAL(KMAP),       INTENT(OUT), dimension(0:,1:)        :: map
@@ -155,12 +166,13 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: header
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: units
     INTEGER(I4B),     INTENT(IN)                , optional :: extno
+    logical(LGT),     intent(IN)                , optional :: ignore_polcconv
 
     INTEGER(I8B) :: i, imissing, obs_npix, maxpix, minpix
-    REAL(KMAP)     :: fmissing, fmiss_effct
+    REAL(KMAP)   :: fmissing, fmiss_effct
     integer(I4B) :: imap, nlheader
 
-    LOGICAL(LGT) :: anynull
+    LOGICAL(LGT) :: anynull, do_polcconv
     ! Note : read_fits_cut4 still SP and I4B only
     integer(I4B), dimension(:), allocatable :: pixel
 !     real(KMAP),     dimension(:), allocatable :: signal
@@ -168,9 +180,13 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     integer(I4B) :: status
     integer(I4B) :: type_fits, nmaps_fits
     CHARACTER(LEN=80)  :: units1
-    CHARACTER(LEN=80),dimension(1:10)  :: unitsm
+    CHARACTER(LEN=80),dimension(1:30)  :: unitsm
+    character(len=80), dimension(:), allocatable  :: hbuffer
 !    CHARACTER(LEN=80),dimension(:), allocatable  :: unitsm
     integer(I4B) :: extno_i, extno_f
+    CHARACTER(LEN=80)  :: polcconv
+    integer(I4B)       :: ipolcconv, polar, nside_fits
+    character(len=*), parameter :: primer_url = 'http://healpix.sf.net/pdf/intro.pdf'
     !-----------------------------------------------------------------------
 
     units1    = ' '
@@ -181,26 +197,31 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     if (PRESENT(header)) then
        nlheader = size(header)
     else
-       nlheader = 0
+       nlheader = 36*100
     endif
     extno_i = 0
     if (present(extno)) extno_i = extno
+    allocate(hbuffer(1:nlheader))
+    do_polcconv = .true.
+    if (present(ignore_polcconv)) then
+       do_polcconv = .not. ignore_polcconv
+    endif
 
-    obs_npix = getsize_fits(filename, nmaps = nmaps_fits, type=type_fits, extno=extno_i)
+    obs_npix = getsize_fits(filename, nmaps = nmaps_fits, type=type_fits, extno=extno_i, &
+         polcconv=ipolcconv, polarisation=polar, nside=nside_fits)
 
     !       if (nmaps_fits > nmaps) then 
     !          print*,trim(filename)//' only contains ',nmaps_fits,' maps'
     !          print*,' You try to read ',nmaps
     !       endif
     if (type_fits == 0 .or. type_fits == 2) then ! full sky map (in image or binary table)
+       call read_bintab(filename, map(0:,1:), &
+            & npixtot, nmaps, fmissing, anynull, header=hbuffer(1:), &
+            & units=unitsm(1:), extno=extno_i)
        if (present(header)) then
-          call read_bintab(filename, map(0:,1:), &
-               & npixtot, nmaps, fmissing, anynull, header=header(1:), &
-               & units=unitsm(1:), extno=extno_i)
-       else
-          call read_bintab(filename, map(0:,1:), &
-               & npixtot, nmaps, fmissing, anynull, units=unitsm(1:), &
-               &  extno=extno_i)
+          do i=1,nlheader
+             header(i) = hbuffer(i)
+          enddo
        endif
        if (present(units)) then
           units(1:size(units)) = unitsm(1:size(units))
@@ -228,7 +249,12 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
           allocate(pixel(0:obs_npix-1), stat = status)
           allocate(signal(0:obs_npix-1), stat = status)
           call read_fits_cut4(filename, int(obs_npix,kind=i4b), &
-               &              pixel, signal, header=header, units=units1, extno=extno_f)
+               &              pixel, signal, header=hbuffer, units=units1, extno=extno_f)
+          if (present(header) .and. imap == 1) then
+             do i=1,nlheader
+                header(i) = hbuffer(i)
+             enddo
+          endif
           if (present(units)) units(imap) = trim(units1)
           maxpix = maxval(pixel)
           minpix = maxval(pixel)
@@ -250,13 +276,55 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     endif
     !-----------------------------------------------------------------------
     if (imissing > 0) then
-       write(*,'(i7,a,f7.3,a,1pe11.4)') &
+       write(*,'(i12,a,f7.3,a,1pe11.4)') &
             &           imissing,' missing pixels (', &
             &           (100.*imissing)/npixtot,' %),'// &
             &           ' have been set to : ',fmiss_effct
     endif
 
 !    deallocate(unitsm)
+
+    !-----------------------------------------------------------------------
+    ! deal with polcconv
+    ! print*,'******* in input_map ',nmaps, polar, type_fits, nside_fits
+
+    if ( do_polcconv .and. ( &
+         & (nmaps >= 3 .and. type_fits == 3) &  ! cut-sky, multiple maps
+         &  .or. &
+         & (nmaps >=3 .and. polar==1 .and. type_fits ==2 .and. &
+         &    obs_npix==nside2npix(nside_fits)) & ! full-sky, polarized map
+         &                  )      ) then 
+       if (ipolcconv == 0) then
+          print 9000,' The POLCCONV keyword was not found in '//trim(filename)
+          print 9000,' COSMO (HEALPix default) will be assumed, and map is unchanged.'
+          print 9000,' See HEALPix primer ('//primer_url//') for details.'
+       endif
+!        if (ipolcconv == 1) then
+!           print 9000,' POLCCONV=COSMO found in '//trim(filename)//'. Map is unchanged.'
+!        endif
+       if (ipolcconv == 2) then
+          print 9000,' POLCCONV=IAU found in '//trim(filename)
+          map(:,3) = - map(:,3)
+          if (present(header)) then
+             print 9000,' The sign of the U polarisation is changed in memory,'&
+                  & //' and the header is updated.'
+             call add_card(header, 'POLCCONV', 'COSMO', &
+                  comment='Changed by input_map', update=.true.)
+          else
+             print 9000,' The sign of the U polarisation is changed in memory.'
+          endif
+          print 9000,' See HEALPix primer ('//primer_url//') for details.'
+       endif
+       if (ipolcconv == 3) then
+          call get_card(hbuffer,'POLCCONV',polcconv)
+          print 9000,' POLCCONV='//trim(polcconv)//' found in '//trim(filename)
+          print 9000,' It is neither COSMO nor IAU.   Aborting!'
+          print 9000,' See HEALPix primer ('//primer_url//') for details.'
+          call fatal_error
+       endif
+    endif
+9000 format(a)
+    if (allocated(hbuffer)) deallocate(hbuffer)
 
     RETURN
   END subroutine input_map8_KLOAD
@@ -842,6 +910,9 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
        !     create the new empty FITS file
        !*************************************
        call ftinit(unit,filename,blocksize,status)
+       if (status > 0) call fatal_error("Error while creating file " &
+            & //trim(filename) &
+            & //". Check path and/or access rights.")
 
        !     -----------------------------------------------------
        !     initialize parameters about the FITS image
@@ -1006,6 +1077,9 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
 
     if (extno_i == 0) then
        call ftinit(unit,filename,blocksize,status)
+       if (status > 0) call fatal_error("Error while creating file " &
+            & //trim(filename) &
+            & //". Check path and/or access rights.")
        
        !     -----------------------------------------------------
        !     initialize parameters about the FITS image
@@ -1176,6 +1250,9 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
        !     create the new empty FITS file
        !*********************************************
        call ftinit(unit,filename,blocksize,status)
+       if (status > 0) call fatal_error("Error while creating file " &
+            & //trim(filename) &
+            & //". Check path and/or access rights.")
 
        !     -----------------------------------------------------
        !     initialize parameters about the FITS image
@@ -1350,6 +1427,9 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     if (extno==1) then
 
        call ftinit(unit,filename,blocksize,status)
+       if (status > 0) call fatal_error("Error while creating file " &
+            & //trim(filename) &
+            & //". Check path and/or access rights.")
 
        !     -----------------------------------------------------
        !     initialize parameters about the FITS image
@@ -1938,6 +2018,9 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
 
        if (extno_i == 0) then 
           CALL ftinit(unit,filename,blocksize,status)
+          if (status > 0) call fatal_error("Error while creating file " &
+               & //trim(filename) &
+               & //". Check path and/or access rights.")
 
           ! -----------------------------------------------------
           ! Initialize parameters about the FITS image
@@ -2127,4 +2210,147 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
 
   END SUBROUTINE write_bintabh_KLOAD
   ! ==============================================================================
+
+!******************************************************************************
+!---------------------------------------
+!  reads a FITS file containing a list of 
+!  ring-based or pixel-based quadrature weights
+!  and turns it into a (ring-ordered) full sky map
+!
+! adapted from unfold_weights.pro
+! 2018-05-25
+!---------------------------------------
+  subroutine unfold_weightsfile_KLOAD(w8file, w8map)
+
+    USE pix_tools,      only: nside2npix, nside2npweights
+
+    character(len=*), intent(in)                  :: w8file
+    real(KMAP),       intent(out), dimension(0:)  :: w8map
+    real(KMAP),       allocatable, dimension(:,:) :: w8list
+    integer(i4b)                :: nside, status, won
+    integer(i8b)                :: nfw8, npw8, nrw8
+    character(len=*), parameter :: code = 'unfold_weightsfile'
+
+    nfw8 = getsize_fits(w8file, nside=nside)
+    npw8 = nside2npweights(nside)
+    nrw8 = 2*nside
+
+    won = 0
+    if (nfw8 == nrw8) won = 1
+    if (nfw8 == npw8) won = 2
+    if (won == 0) then
+       print*,'Weights file = '//trim(w8file)
+       print*,'contains ',nfw8,' weights'
+       print*,'for Nside    = ',nside
+       print*,'Expected either ',nrw8,' or ',npw8
+       call fatal_error
+    endif
+
+    allocate(w8list(0:nfw8-1,1:1), stat=status)
+    call assert_alloc(status,code,"w8list")
+    call input_map(w8file, w8list, nfw8, 1)
+    call unfold_weightslist(nside, won, w8list(:,1), w8map)
+    deallocate(w8list)
+    
+    return
+  end subroutine unfold_weightsfile_KLOAD
+!---------------------------------------
+!  turns a list of ring-based or pixel-based quadrature weights 
+!  into a (ring-ordered) full sky map
+!
+! adapted from unfold_weights.pro
+! 2018-05-18
+!---------------------------------------
+  subroutine unfold_weightslist_KLOAD(nside, won, w8list, w8map)
+
+    USE pix_tools,      only: nside2npix, nside2npweights
+    USE long_intrinsic, only: long_size
+
+    integer(i4b),            intent(in)  :: nside, won
+    real(KMAP), dimension(0:), intent(in)  :: w8list
+    real(KMAP), dimension(0:), intent(out) :: w8map
+
+    integer(i8b) :: np, npix
+    integer(i8b) :: nf, nw8, pnorth, psouth, vpix, qp4, p
+    integer(i4b) :: ring, qpix, odd, shifted, rpix, wpix, j4, n4, it
+
+    ! test nside
+    npix = nside2npix(nside)
+    if (npix <= 0) then 
+       print*,'Unvalid Nside = ',nside
+       call fatal_error
+    endif
+
+    ! test won
+    if (won < 1 .or. won > 2) then
+       print*,'Expected either 1 or 2, got ',won
+       call fatal_error
+    endif
+
+    ! test input list size
+    nf  = long_size(w8list)
+    if (won == 1) then
+       nw8 = 2 * nside
+    else
+       nw8 = nside2npweights(nside)
+    endif
+    if (nf /= nw8) then
+       print*,'Expected in input weight list',nw8
+       print*,'got ',nf
+       call fatal_error
+    endif
+
+    ! test output map size
+    np = long_size(w8map)
+    if (np /= npix) then
+       print*,'Expected in output weight map',npix
+       print*,'got ',np
+       call fatal_error
+    endif
+
+    ! do actual unfolding
+    if (won == 1) then
+
+       pnorth = 0_i8b
+       n4 = 4 * nside
+       do ring=1,n4-1                ! loop on all rings
+          it = min(ring, n4 - ring)  ! ring index, counting from closest pole
+          qp4= 4_i8b * min(it, nside)    ! pixels / ring
+          w8map(pnorth:pnorth+qp4-1) = w8list(it-1)
+          pnorth = pnorth + qp4
+       enddo
+
+    else
+       
+       pnorth = 0_i8b            ! position in expanded weights
+       vpix   = 0_i8b            ! position in compress list
+       do ring=0, 2*nside-1
+           qpix    = min(ring+1, nside) ! 1/4 of number of pixels per ring
+           shifted = 0
+           if (ring < (nside-1) .or. iand(ring+nside,1_i4b) == 1_i4b) shifted = 1
+           odd     = iand(qpix,1)
+           qp4     = 4_i8b*qpix       ! number of pixels per ring
+           ! fill the weight map
+           do p=0,qp4-1
+              j4 = mod(p, qpix)
+              rpix = min(j4, qpix - shifted - j4) ! seesaw
+              w8map(pnorth+p) = w8list(vpix + rpix)
+           enddo
+       
+           if (ring < 2*nside-1) then  ! south part (except equator)
+               psouth     = npix - pnorth - qp4
+               w8map(psouth:psouth+qp4-1) = w8map(pnorth:pnorth+qp4-1)
+           endif
+           ! locations on next ring
+           pnorth  = pnorth + qp4
+           wpix    = (qpix+1)/2  + 1 - ior(odd, shifted)
+           vpix    = vpix + wpix
+       enddo
+    endif
+
+    ! add 1 to get final weight
+    w8map = w8map + 1.0_KMAP
+
+    return
+  end subroutine unfold_weightslist_KLOAD
 

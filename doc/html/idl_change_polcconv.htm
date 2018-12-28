@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>change_polcconv </TITLE>
+<META NAME="description" CONTENT="change_polcconv ">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_cl2fits.htm">
+<LINK REL="previous" HREF="idl_cartview.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_cl2fits.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html475"
+  HREF="idl_cartview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html481"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html485"
+  HREF="idl_cl2fits.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html483"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html476"
+  HREF="idl_cartview.htm">cartview</A>
+
+<B>Up:</B> <A NAME="tex2html482"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html486"
+  HREF="idl_cl2fits.htm">cl2fits</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION1800"></A>
+<A NAME="idl:change_polcconv"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr>
+<H3>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
+The main effect is to change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter,
+and add/update the <TT>POLCCONV</TT> FITS header keyword with either
+<TT>COSMO</TT> or <TT>IAU</TT> value.
+<BR>
+See <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A NAME="tex2html27"
+  HREF="intro.htm">The <b>HEALPix</b> Primer</A></H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+CHANGE_POLCCONV, <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#idl:change_polcconv:File_Out">File_Out</A>, [<A HREF="#idl:change_polcconv:I2C">/I2C</A>|<A HREF="#idl:change_polcconv:C2I">/C2I</A>|<A HREF="#idl:change_polcconv:C2C">/C2C</A>|<A HREF="#idl:change_polcconv:I2I">/I2I</A>], [<A HREF="#idl:change_polcconv:FORCE">/FORCE</A>]
+
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>File_In</B>
+<DD><A NAME="idl:change_polcconv:File_In"></A>          name of a FITS file to be read
+
+<P>
+<DT>
+<B>File_Out</B>
+<DD><A NAME="idl:change_polcconv:File_Out"></A>          name of a FITS file to be written, after modification of the
+          polarisation coordinate convention, if applicable. 
+	It must be different from <A HREF="#idl:change_polcconv:File_In">File_In</A>
+
+<P>
+</DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+One and only one among 
+<A HREF="#idl:change_polcconv:I2C">I2C</A>, 
+<A HREF="#idl:change_polcconv:C2I">C2I</A>, 
+<A HREF="#idl:change_polcconv:C2C">C2C</A> and 
+<A HREF="#idl:change_polcconv:I2I">I2I</A> must be set.
+<BR>  <DL COMPACT><DT>
+<B>/I2C</B>
+<DD><A NAME="idl:change_polcconv:I2C"></A> changes from IAU to COSMO coordinate convention 
+<BR>            -if POLCCONV is not found or found with value 'IAU', 
+	     or <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is set,
+             it is added/replaced with value 'COSMO', and the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter map is changed; 
+<BR>            -if POLCCONV already has value 'COSMO' 
+             and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set, 
+             <A HREF="#idl:change_polcconv:File_In">File_In</A> is copied
+             unchanged into <A HREF="#idl:change_polcconv:File_Out">File_Out</A>.
+
+<P>
+<DT>
+<B>/C2I</B>
+<DD><A NAME="idl:change_polcconv:C2I"></A> changes from COSMO to IAU coordinate convention 
+<BR>            -if POLCCONV is not found or found with value 'COSMO', 
+	     or <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is set,
+             it is added/replaced with value 'IAU', and the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameter map is changed; 
+<BR>            -if POLCCONV already has value 'IAU',  
+             and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set, 
+             <A HREF="#idl:change_polcconv:File_In">File_In</A> is copied
+             unchanged into <A HREF="#idl:change_polcconv:File_Out">File_Out</A>.
+
+<P>
+<DT>
+<B>/C2C</B>
+<DD><A NAME="idl:change_polcconv:C2C"></A> does NOT change coordinate system 
+<BR>            -if POLCCONV is found with value 'IAU', 
+             and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set,
+             program will issue error message and no file is written; 
+<BR>            -in all other cases POLCCONV is set/added with value 'COSMO' in <A HREF="#idl:change_polcconv:File_Out">File_Out</A>, 
+             but data is NOT changed.
+
+<P>
+<DT>
+<B>/I2I</B>
+<DD><A NAME="idl:change_polcconv:I2I"></A> does NOT change coordinate system 
+<BR>            -if POLCCONV is found with value 'COSMO', 
+             and <A HREF="#idl:change_polcconv:FORCE">FORCE</A> is NOT set,
+             program will issue error message and no file is written; 
+<BR>            -in all other cases POLCCONV is set/added with value 'IAU' in <A HREF="#idl:change_polcconv:File_Out">File_Out</A>, 
+             but data is NOT changed.
+
+<P>
+<DT>
+<B>/FORCE</B>
+<DD><A NAME="idl:change_polcconv:FORCE"></A> if set, 
+           the value of <TT>POLCCONV</TT> read from 
+	<A HREF="#idl:change_polcconv:File_In">File_In</A> FITS header is ignored.
+              The sign of <SPAN CLASS="MATH"><I>U</I></SPAN> is swapped (if used with 
+              <A HREF="#idl:change_polcconv:C2I">/C2I</A> or 
+              <A HREF="#idl:change_polcconv:I2C">/I2C</A>), and/or the <A HREF="#idl:change_polcconv:File_Out">File_Out</A>
+              FITS keyword is updated to IAU (if used with 
+		<A HREF="#idl:change_polcconv:I2I">/I2I</A> or 
+		<A HREF="#idl:change_polcconv:C2I">/C2I</A>) or to COSMO (if used with 
+		<A HREF="#idl:change_polcconv:C2C">/C2C</A> or 
+		<A HREF="#idl:change_polcconv:I2C">/I2C</A>).
+
+<P>
+</DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+This routine will change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameters (and related
+quantities, such as the <SPAN CLASS="MATH"><I>TU</I></SPAN> and <SPAN CLASS="MATH"><I>QU</I></SPAN> cross-correlations) and update the
+<TT>POLCCONV</TT> FITS keyword where applicable.
+The recognised formats are: 
+<BR>- standard <b>HEALPix</b> full sky polarised format, 
+<BR>- cut sky <b>HEALPix</b> polarised format, 
+<BR>- WMAP 9-year release polarised <TT>*_iqumap_*</TT> and <TT>*_iqusmap_*</TT> formats,
+<BR>- Planck <TT>*_SkyMap_*</TT> and <TT>*_CMB_IQU*</TT> formats
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">change_polcconv </FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run change_polcconv <DT>
+<B><A HREF="idl_write_fits_cut4.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to write a (polarised or unpolarised) cut sky map into a
+  FITS file.
+  <DT>
+<B><A HREF="idl_read_fits_cut4.htm#idl:read_fits_cut4">read_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to read a (polarised or unpolarised) cut sky map from a
+  FITS file.
+  <DT>
+<B><A HREF="idl_write_tqu.htm#idl:write_tqu">write_tqu</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to write a polarised full sky map (with either the
+  standard Healpix format or the WMAP 2nd year format) into a
+  FITS file
+  <DT>
+<B><A HREF="idl_read_tqu.htm#idl:read_tqu">read_tqu</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to read a polarised cut sky map from a
+  FITS file
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote> Modify the file 'map_cosmo.fits', which was using the 'COSMO' convention for
+  polarisation coordinate convention into 'map_iau.fits' which uses the 'IAU' convention
+</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html475"
+  HREF="idl_cartview.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html481"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html485"
+  HREF="idl_cl2fits.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html483"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html476"
+  HREF="idl_cartview.htm">cartview</A>
+
+<B>Up:</B> <A NAME="tex2html482"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html486"
+  HREF="idl_cl2fits.htm">cl2fits</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

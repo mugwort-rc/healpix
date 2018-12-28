@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2004-2015 Max-Planck-Society
+ *  Copyright (C) 2004-2017 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -62,6 +62,9 @@ Candidates for testing the validity of the Healpix routines:
 #include "compress_utils.h"
 #include "moc.h"
 #include "moc_fitsio.h"
+#include "crangeset.h"
+#include "weight_utils.h"
+#include "powspec.h"
 
 using namespace std;
 
@@ -374,6 +377,195 @@ template<typename I> void check_rangeset()
     }
   }
   }
+template<typename I> crangeset<I> randomCRangeSet(int num, I start, int dist)
+  {
+  crangeset<I> rs;
+  I curval=start;
+  for (int i=0; i<num; ++i)
+    {
+    I v1=curval+1+(rng.int_rand_uni()%dist);
+    I v2=v1+1+(rng.int_rand_uni()%dist);
+    rs.append(v1,v2);
+    curval=v2;
+    }
+  return rs;
+  }
+template<typename I> crangeset<I> makeCRS(const string &input)
+  {
+  istringstream is(input);
+  crangeset<I> res;
+  I a,b;
+  while (is)
+    {
+    is>>a>>b;
+    planck_assert (is||is.eof(),"aargh");
+    if (is) res.append(a,b);
+    }
+  return res;
+  }
+template<typename I> void crsOps(const crangeset<I> &a, const crangeset<I> &b)
+  {
+  planck_assert(!b.overlaps(a.op_andnot(b)),"error");
+  planck_assert(a.op_or(b).nval()>=a.nval(),"error");
+  planck_assert(a.op_or(b).nval()>=b.nval(),"error");
+  planck_assert(a.op_and(b).nval()<=a.nval(),"error");
+  planck_assert(a.op_and(b).nval()<=b.nval(),"error");
+  planck_assert(a.op_or(b).contains(a),"error");
+  planck_assert(a.op_or(b).contains(b),"error");
+  planck_assert(!a.op_andnot(b).overlaps(b),"error");
+  planck_assert(!b.op_andnot(a).overlaps(a),"error");
+  planck_assert(a.op_or(b).nval()==a.nval()+b.nval()-a.op_and(b).nval(),
+    "error");
+  planck_assert(a.op_or(b).op_andnot(a.op_and(b)).nval()==
+    a.op_or(b).nval()-a.op_and(b).nval(),"error");
+  planck_assert(a.op_xor(b)==a.op_andnot(b).op_or(b.op_andnot(a)),"error");
+  }
+template<typename I> void check_crangeset()
+  {
+  cout << "testing crangeset " << bname<I>() << endl;
+  {
+  crangeset<I> b;
+  b.append(1,11);
+  planck_assert(b==makeCRS<I>("1 11"),"mismatch");
+  b.append(10,15);
+  planck_assert(b==makeCRS<I>("1 15"),"mismatch");
+  b.append(1,15);
+  planck_assert(b==makeCRS<I>("1 15"),"mismatch");
+  b.append(7,15);
+  planck_assert(b==makeCRS<I>("1 15"),"mismatch");
+  b.append(30,41);
+#if 0
+  planck_assert(b==makeRS<I>("1 15 30 41"),"mismatch");
+  try
+    {
+    b.append(29,31);
+    planck_fail("Should have raised an IllegalArgumentException");
+    }
+  catch (PlanckError E) {}
+#endif
+  }
+  {
+  crangeset<I> b=makeCRS<I>("1 11 30 41");
+  planck_assert(!b.contains(0),"error");
+  planck_assert(b.contains(1),"error");
+  planck_assert(b.contains(5),"error");
+  planck_assert(b.contains(10),"error");
+  planck_assert(!b.contains(11),"error");
+  planck_assert(!b.contains(29),"error");
+  planck_assert(b.contains(30),"error");
+  planck_assert(b.contains(35),"error");
+  planck_assert(b.contains(40),"error");
+  planck_assert(!b.contains(41),"errror");
+  }
+  {
+  planck_assert(makeCRS<I>("1 11 20 31 40 56")==
+                makeCRS<I>("20 31 40 51").op_or
+                (makeCRS<I>("1 11 45 56")),"error");
+  planck_assert(makeCRS<I>("1 11 45 56")==
+                makeCRS<I>("").op_or
+                (makeCRS<I>("1 11 45 56")),"error");
+  planck_assert(makeCRS<I>("1 11 45 56")==
+                makeCRS<I>("1 11 45 56").op_or
+                (makeCRS<I>("")),"error");
+  }
+  {
+  planck_assert(makeCRS<I>("22 24 45 51")==
+                makeCRS<I>("20 31 40 51").op_and
+                (makeCRS<I>("1 11 22 24 45 56")),"error");
+  planck_assert(makeCRS<I>("20 31 40 51 90 101 110 121 200 201")==
+                makeCRS<I>("10 101 110 121 200 221").op_and
+                (makeCRS<I>("20 31 40 51 90 201")),"error");
+  planck_assert(makeCRS<I>("")==
+                makeCRS<I>("20 31 40 51").op_and
+                (makeCRS<I>("")),"error");
+  planck_assert(makeCRS<I>("")==
+                makeCRS<I>("").op_and
+                (makeCRS<I>("20 31 40 51")),"error");
+  }
+  {
+  planck_assert(makeCRS<I>("20 31 40 45")==
+                makeCRS<I>("20 31 40 51").op_andnot
+                (makeCRS<I>("1 11 45 56")),"error");
+  planck_assert(makeCRS<I>("")==
+                makeCRS<I>("").op_andnot
+                (makeCRS<I>("1 11 45 56")),"error");
+  planck_assert(makeCRS<I>("1 11 45 56")==
+                makeCRS<I>("1 11 45 56").op_andnot
+                (makeCRS<I>("")),"error");
+  }
+  {
+  crangeset<I> b = makeCRS<I>("20 31 40 51");
+
+  planck_assert(!b.contains(0,11),"error");
+  planck_assert(!b.contains(10,21),"error");
+  planck_assert(!b.contains(19,20),"error");
+  planck_assert(b.contains(20,21),"error");
+  planck_assert(b.contains(21,22),"error");
+  planck_assert(b.contains(20,31),"error");
+  planck_assert(!b.contains(25,36),"error");
+  planck_assert(b.contains(30,31),"error");
+  planck_assert(!b.contains(31,32),"error");
+  planck_assert(!b.contains(35,38),"error");
+  planck_assert(!b.contains(35,46),"error");
+  planck_assert(b.contains(40,41),"error");
+  planck_assert(!b.contains(45,56),"error");
+  planck_assert(!b.contains(60,71),"error");
+  }
+  {
+  crangeset<I> b = makeCRS<I>("20 31 40 51");
+
+  planck_assert(b.contains(makeCRS<I>("20 31 40 51")),"error");
+  planck_assert(b.contains(makeCRS<I>("20 21")),"error");
+  planck_assert(b.contains(makeCRS<I>("50 51")),"error");
+  planck_assert(!b.contains(makeCRS<I>("19 31 40 51")),"error");
+  planck_assert(!b.contains(makeCRS<I>("20 31 40 52")),"error");
+  planck_assert(!b.contains(makeCRS<I>("20 51")),"error");
+  planck_assert(!b.contains(makeCRS<I>("0 1")),"error");
+  planck_assert(!b.contains(makeCRS<I>("0 20 31 40 51 100")),"error");
+  }
+  {
+  crangeset<I> b = makeCRS<I>("20 31 40 51");
+
+  planck_assert(!b.overlaps(0,11),"error");
+  planck_assert(b.overlaps(10,21),"error");
+  planck_assert(!b.overlaps(19,20),"error");
+  planck_assert(b.overlaps(20,21),"error");
+  planck_assert(b.overlaps(21,22),"error");
+  planck_assert(b.overlaps(20,31),"error");
+  planck_assert(b.overlaps(25,36),"error");
+  planck_assert(b.overlaps(30,37),"error");
+  planck_assert(!b.overlaps(31,32),"error");
+  planck_assert(!b.overlaps(35,38),"error");
+  planck_assert(b.overlaps(35,46),"error");
+  planck_assert(b.overlaps(40,41),"error");
+  planck_assert(b.overlaps(45,56),"error");
+  planck_assert(!b.overlaps(60,71),"error");
+  }
+  {
+  crangeset<I> b = makeCRS<I>("20 31 40 51");
+
+  planck_assert(b.overlaps(makeCRS<I>("20 31 40 51")),"error");
+  planck_assert(b.overlaps(makeCRS<I>("20 21")),"error");
+  planck_assert(b.overlaps(makeCRS<I>("50 51")),"error");
+  planck_assert(b.overlaps(makeCRS<I>("19 31 40 51")),"error");
+  planck_assert(b.overlaps(makeCRS<I>("20 31 40 52")),"error");
+  planck_assert(b.overlaps(makeCRS<I>("20 51")),"error");
+  planck_assert(!b.overlaps(makeCRS<I>("0 1")),"error");
+  planck_assert(!b.overlaps(makeCRS<I>("0 20 31 40 51 100")),"error");
+  }
+  {
+  const int niter = 1000;
+  for (int iter=0; iter<niter; ++iter)
+    {
+    crangeset<I> a = randomCRangeSet<I>(1000, 0, 100);
+    crangeset<I> b = randomCRangeSet<I>(1000, 0, 100);
+    crangeset<I> c = randomCRangeSet<I>(10, 10000, 100);
+    crsOps(a,b);
+    crsOps(a,c);
+    crsOps(c,a);
+    }
+  }
+  }
 template<typename I> void check_Moc()
   {
   cout << "testing MOC " << bname<I>() << endl;
@@ -420,9 +612,7 @@ template<typename I> void check_Moc()
     planck_assert(a.op_and(a.complement())==empty,"error");
 #if 0
     write_Moc_to_fits("!healpixtestmoctmp",a);
-    Moc<I> b;
-    read_Moc_from_fits("healpixtestmoctmp",b);
-    planck_assert(a==b,"FITS problem");
+    planck_assert(a==read_Moc_from_fits<I>("healpixtestmoctmp"),"FITS problem");
 #endif
     }
   }
@@ -658,10 +848,9 @@ void check_issue_229 (Healpix_Ordering_Scheme scheme)
   Healpix_Map<vec3> vmap(order,scheme);
   for (int m=0; m<vmap.Npix(); ++m)
     vmap[m]=vmap.pix2vec(m);
-  rangeset<int> pixset;
   pointing ptg(halfpi-0.1,0);
   double rad=0.1;
-  map.query_disc(ptg,rad,pixset);
+  auto pixset = map.query_disc(ptg,rad);
   vec3 vptg=ptg;
   double cosrad=cos(rad);
   for (tsize j=0; j<pixset.nranges(); ++j)
@@ -688,13 +877,12 @@ void check_query_disc_strict (Healpix_Ordering_Scheme scheme)
     Healpix_Map<vec3> vmap(order,scheme);
     for (int m=0; m<vmap.Npix(); ++m)
       vmap[m]=vmap.pix2vec(m);
-    rangeset<int> pixset;
     for (int m=0; m<100000; ++m)
       {
       pointing ptg;
       random_dir (ptg);
       double rad = pi/1 * rng.rand_uni();
-      map.query_disc(ptg,rad,pixset);
+      auto pixset = map.query_disc(ptg,rad);
       vec3 vptg=ptg;
       double cosrad=cos(rad);
       for (tsize j=0; j<pixset.nranges(); ++j)
@@ -721,30 +909,27 @@ template<typename I>void check_query_disc()
   for (int order=0; order<=omax; ++order)
     {
     T_Healpix_Base<I> rbase (order,RING), nbase (order,NEST);
-    rangeset<I> pixset;
     int niter=max(1,min(1000,100000>>order));
     for (int m=0; m<niter; ++m)
       {
       pointing ptg;
       random_dir (ptg);
       double rad = pi/1 * rng.rand_uni();
-      rbase.query_disc(ptg,rad,pixset);
+      auto pixset = rbase.query_disc(ptg,rad);
       rangeset<I> pslast=pixset;
       for (tsize fct=5; fct>0; --fct)
         {
-        rangeset<I> psi;
-        rbase.query_disc_inclusive(ptg,rad,psi,fct);
+        auto psi = rbase.query_disc_inclusive(ptg,rad,fct);
         if (!psi.contains(pslast))
           cout << "  Potential problem: RING pixel sets inconsistent" << endl;
         swap(pslast,psi);
         }
       I nval = pixset.nval();
-      nbase.query_disc(ptg,rad,pixset);
+      pixset = nbase.query_disc(ptg,rad);
       pslast=pixset;
       for (tsize fct=8; fct>0; fct>>=1)
         {
-        rangeset<I> psi;
-        nbase.query_disc_inclusive(ptg,rad,psi,fct);
+        auto psi = nbase.query_disc_inclusive(ptg,rad,fct);
         if (!psi.contains(pslast))
           FAIL(cout << "  PROBLEM: NEST pixel sets inconsistent" << endl)
         swap(pslast,psi);
@@ -763,21 +948,20 @@ template<typename I>void check_query_polygon()
   for (int order=0; order<=omax; ++order)
     {
     T_Healpix_Base<I> rbase (order,RING), nbase (order,NEST);
-    rangeset<I> pixset;
     int niter=max(1,min(1000,100000>>order));
     for (int m=0; m<niter; ++m)
       {
       vector<pointing> corner(3);
       random_dir(corner[0]); random_dir(corner[1]); random_dir(corner[2]);
-      rbase.query_polygon(corner,pixset);
+      auto pixset = rbase.query_polygon(corner);
       I nval = pixset.nval();
-      nbase.query_polygon(corner,pixset);
+      pixset = nbase.query_polygon(corner);
       if (nval!=pixset.nval())
         FAIL(cout << "  PROBLEM: number of pixels different: "
                   << nval << " vs. " << pixset.nval() << endl)
-      rbase.query_polygon_inclusive(corner,pixset,4);
+      pixset = rbase.query_polygon_inclusive(corner,4);
       I nv1=pixset.nval();
-      nbase.query_polygon_inclusive(corner,pixset,4);
+      pixset = nbase.query_polygon_inclusive(corner,4);
       I nv2=pixset.nval();
       if (nv1<nv2)
         FAIL(cout << "  PROBLEM: inclusive(RING)<inclusive(NEST): "
@@ -879,13 +1063,9 @@ void random_alm (Alm<xcomplex<double> >&almT, Alm<xcomplex<double> >&almG,
   for (int m=1; m<=mmax; ++m)
     for (int l=m; l<=lmax; ++l)
       {
-      double t1,t2;
-      t1=rng.rand_gauss(); t2=rng.rand_gauss();
-      almT(l,m)=xcomplex<double>(t1,t2);
-      t1=rng.rand_gauss(); t2=rng.rand_gauss();
-      almG(l,m)=xcomplex<double>(t1,t2);
-      t1=rng.rand_gauss(); t2=rng.rand_gauss();
-      almC(l,m)=xcomplex<double>(t1,t2);
+      almT(l,m).real(rng.rand_gauss()); almT(l,m).imag(rng.rand_gauss());
+      almG(l,m).real(rng.rand_gauss()); almG(l,m).imag(rng.rand_gauss());
+      almC(l,m).real(rng.rand_gauss()); almC(l,m).imag(rng.rand_gauss());
       }
   almG(0,0)=almC(0,0)=almG(1,0)=almC(1,0)=almG(1,1)=almC(1,1)=0;
   }
@@ -899,11 +1079,7 @@ void random_alm (Alm<xcomplex<double> >&alm, int lmax, int mmax)
 
   for (int m=1; m<=mmax; ++m)
     for (int l=m; l<=lmax; ++l)
-      {
-      double t1,t2;
-      t1=rng.rand_gauss(); t2=rng.rand_gauss();
-      alm(l,m)=xcomplex<double>(t1,t2);
-      }
+      { alm(l,m).real(rng.rand_gauss()); alm(l,m).imag(rng.rand_gauss()); }
   }
 
 void check_alm (const Alm<xcomplex<double> >&oalm,
@@ -982,6 +1158,62 @@ void check_rot_alm ()
   rotate_alm (alm,3,4,5);
   rotate_alm (alm,-5,-4,-3);
   check_alm (oalm, alm, epsilon);
+  }
+
+double map_residual (const Healpix_Map<double> &a, const Healpix_Map<double> &b)
+  {
+  planck_assert(a.conformable(b), "maps are not conformable");
+  double res=0;
+  for (int i=0; i<a.Npix(); ++i)
+    {
+    double diff=a[i]-b[i];
+    res+=diff*diff;
+    }
+  return res;
+  }
+
+void check_ringweights ()
+  {
+  cout << "testing the accuracy of ring weights" << endl;
+  int nside=128;
+  double dummy;
+  auto rwgt0=get_ringweights(nside,3*nside,1e-6,3000,dummy);
+  arr<double> rwgt(2*nside);
+  for (tsize i=0; i<rwgt.size(); ++i) rwgt[i]=rwgt0[i]+1.;
+  Alm<xcomplex<double> > alm; random_alm(alm,1.5*nside,0);
+  Healpix_Map<double> omap(nside,RING,SET_NSIDE),map2(omap);
+  alm2map(alm,omap);
+  map2alm(omap,alm,arr<double>(2*nside,1.));
+  alm2map(alm,map2);
+  double ressimple = map_residual(omap,map2);
+  map2alm(omap,alm,rwgt);
+  alm2map(alm,map2);
+  double reswgt = map_residual(omap,map2);
+  double resquot=sqrt(reswgt/ressimple);
+  if (resquot>1e-5)
+    FAIL(cout << "  PROBLEM with ringweights: resquot =  " << resquot << endl)
+  }
+
+void check_fullweights ()
+  {
+  cout << "testing the accuracy of pixel weights" << endl;
+  int nside=128;
+  double dummy;
+  auto fwgt=get_fullweights(nside,3*nside,1e-6,3000,dummy);
+  Alm<xcomplex<double> > alm; random_alm(alm,1.5*nside,1.5*nside);
+  Healpix_Map<double> omap(nside,RING,SET_NSIDE),map2(omap);
+  alm2map(alm,omap);
+  map2alm(omap,alm,arr<double>(2*nside,1.));
+  alm2map(alm,map2);
+  double ressimple = map_residual(omap,map2);
+  map2=omap;
+  apply_fullweights(map2,fwgt);
+  map2alm(map2,alm,arr<double>(2*nside,1.));
+  alm2map(alm,map2);
+  double reswgt = map_residual(omap,map2);
+  double resquot=sqrt(reswgt/ressimple);
+  if (resquot>1e-5)
+    FAIL(cout << "  PROBLEM with full weights: resquot =  " << resquot << endl)
   }
 
 void check_isqrt()
@@ -1208,9 +1440,7 @@ template<typename I>void perf_query_disc(const string &name,
   wallTimers.start(name);
   for (int m=0; m<1000; ++m)
     {
-    rangeset<I> pix;
-    base.query_disc(vec3(1,0,0),halfpi/9,pix);
-    dummy+=pix.nranges();
+    dummy += base.query_disc(vec3(1,0,0),halfpi/9).nranges();
     ++cnt;
     }
   wallTimers.stop(name);
@@ -1228,9 +1458,7 @@ template<typename I>void perf_query_triangle(const string &name,
   wallTimers.start(name);
   for (int m=0; m<1000; ++m)
     {
-    rangeset<I> pix;
-    base.query_polygon(corner,pix);
-    dummy+=pix.nranges();
+    dummy += base.query_polygon(corner).nranges();
     ++cnt;
     }
   wallTimers.stop(name);
@@ -1249,9 +1477,7 @@ template<typename I>void perf_query_polygon(const string &name,
   wallTimers.start(name);
   for (int m=0; m<1000; ++m)
     {
-    rangeset<I> pix;
-    base.query_polygon(corner,pix);
-    dummy+=pix.nranges();
+    dummy += base.query_polygon(corner).nranges();
     ++cnt;
     }
   wallTimers.stop(name);
@@ -1324,6 +1550,8 @@ int main(int argc, const char **argv)
   check_Moc<int64>();
   check_rangeset<int>();
   check_rangeset<int64>();
+  check_crangeset<int>();
+  check_crangeset<int64>();
   check_isqrt();
   check_pix2ang_acc();
   check_smooth_alm();
@@ -1353,7 +1581,10 @@ int main(int argc, const char **argv)
   check_query_disc<int64>();
   check_query_polygon<int>();
   check_query_polygon<int64>();
+  check_ringweights();
+  check_fullweights();
 #ifdef UNITTESTS
   if (errcount>0) planck_fail("unit test errors");
 #endif
+  return 0;
   }

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Changes between releases 3.31 and 3.40</TITLE>
+<META NAME="description" CONTENT="Changes between releases 3.31 and 3.40">
+<META NAME="keywords" CONTENT="facilities">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="facilities.css">
+
+<LINK REL="next" HREF="fac_Older_Changes.htm">
+<LINK REL="previous" HREF="fac_Using_HEALPix_Fortran_90_fa.htm">
+<LINK REL="up" HREF="fac_HEALPix_F90_facilities.htm">
+<LINK REL="next" HREF="fac_Older_Changes.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html122"
+  HREF="fac_Using_HEALPix_Fortran_90_fa.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html128"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html132"
+  HREF="fac_Older_Changes.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html130"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html123"
+  HREF="fac_Using_HEALPix_Fortran_90_fa.htm">Using the HEALPix Fortran 90 facilities</A>
+
+<B>Up:</B> <A NAME="tex2html129"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html133"
+  HREF="fac_Older_Changes.htm">Older Changes</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION300">
+Changes between releases 3.31 and 3.40</A>
+</H1>
+
+<P>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The facilities 
+<A HREF="fac_anafast.htm#fac:anafast"><TT>anafast</TT></A> and 
+<A HREF="fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A> now support pixel-based quadrature weights.
+Introduction of the supporting 
+<A HREF="./sub_nside2npweights.htm#sub:nside2npweights"><TT>nside2npweights</TT></A>,
+<A HREF="./sub_unfold_weightsfile.htm#sub:unfold_weightsfile"><TT>unfold_weightsfile</TT></A>,
+<A HREF="./sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghw8f"><TT>get_healpix_weight_file</TT></A>,
+<A HREF="./sub_get_healpix_pixel_weight_fi.htm#sub:get_healpix_xxx_file:ghpw8f"><TT>get_healpix_pixel_weight_file</TT></A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The facilities 
+<A HREF="fac_anafast.htm#fac:anafast"><TT>anafast</TT></A>,
+<A HREF="fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A>,
+<A HREF="fac_smoothing.htm#fac:smoothing"><TT>smoothing</TT></A>, and
+<A HREF="fac_ud_grade.htm#fac:ud_grade"><TT>ud_grade</TT></A> 
+test the value of the <TT>POLCCONV</TT> FITS keyword when reading a polarized map,
+and interpret the polarization accordingly, 
+as described in the <A HREF="./intro_HEALPix_conventions.htm#intro:polcconv">note on POLCCONV</A> in <A NAME="tex2html2"
+  HREF="intro.htm">The <b>HEALPix</b> Primer</A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="fac_median_filter.htm#fac:median_filter"><TT>median_filter</TT></A> faster by moving an internal array from heap to stack; does not crash anymore when dealing with empty data sets; 
+slightly different output when median is computed over an even number of pixels <SPAN CLASS="MATH"><IMG
+ WIDTH="62" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img5.png"
+ ALT="$n\ge 100$"></SPAN>, sorted in <SPAN CLASS="MATH">[1,<I>n</I>]</SPAN>,
+the output is <SPAN CLASS="MATH"><I>d</I>(<I>n</I>/2)</SPAN> instead of <!-- MATH
+ $(d(n/2)+d(n/2+1))/2$
+ -->
+<SPAN CLASS="MATH">(<I>d</I>(<I>n</I>/2)+<I>d</I>(<I>n</I>/2+1))/2</SPAN> previously. Result remains <SPAN CLASS="MATH"><I>d</I>(<I>n</I>/2+1)</SPAN> for odd <SPAN CLASS="MATH"><I>n</I></SPAN>.
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html122"
+  HREF="fac_Using_HEALPix_Fortran_90_fa.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html128"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html132"
+  HREF="fac_Older_Changes.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html130"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html123"
+  HREF="fac_Using_HEALPix_Fortran_90_fa.htm">Using the HEALPix Fortran 90 facilities</A>
+
+<B>Up:</B> <A NAME="tex2html129"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html133"
+  HREF="fac_Older_Changes.htm">Older Changes</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

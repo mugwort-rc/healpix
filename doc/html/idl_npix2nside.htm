@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>npix2nside </TITLE>
+<META NAME="description" CONTENT="npix2nside ">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_nside2npix.htm">
+<LINK REL="previous" HREF="idl_nest2uniq.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_nside2npix.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html835"
+  HREF="idl_nest2uniq.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html841"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html845"
+  HREF="idl_nside2npix.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html843"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html836"
+  HREF="idl_nest2uniq.htm">nest2uniq</A>
+
+<B>Up:</B> <A NAME="tex2html842"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html846"
+  HREF="idl_nside2npix.htm">nside2npix</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION4800"></A>
+<A NAME="idl:npix2nside"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">npix2nside </FONT></font></b><hr>
+<H3>This IDL facility provides the <b>HEALPix</b> resolution parameter Nside corresponding to Npix
+pixels over the full sky.
+</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/toolkit/npix2nside.pro"><b>src/idl/toolkit/npix2nside.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+<A HREF="#idl:npix2nside:Nside">Nside=</A>NPIX2NSIDE (<A HREF="#idl:npix2nside:Npix">Npix</A>[,<A HREF="#idl:npix2nside:ERROR">ERROR=</A>])
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>Npix<A NAME="idl:npix2nside:Npix"></A></B>
+<DD>number of pixels over the full sky (scalar integer),
+         should be a valid Npix 
+	(<!-- MATH
+ $N_{\mathrm{pix}}= 12N_{\mathrm{side}}^2$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>= 12<I>N</I><SUB>side</SUB><SUP>2</SUP></SPAN> with <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> power of 2 in <!-- MATH
+ $\{1,\ldots,2^{29}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img67.png"
+ ALT="$\{1,\ldots,2^{29}\}$"></SPAN>)
+    <DT>
+<B>Nside<A NAME="idl:npix2nside:Nside"></A></B>
+<DD>on output: resolution parameter if Npix is valid, -1 otherwise
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+  <DL COMPACT><DT>
+<B>ERROR<A NAME="idl:npix2nside:ERROR"></A>=</B>
+<DD>error flag, set to 1 on output if Npix is NOT valid, or
+    stays to 0 otherwise.
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+npix2nside checks that the given Npix is valid 
+(<!-- MATH
+ $N_{\mathrm{pix}}= 12N_{\mathrm{side}}^2$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>= 12<I>N</I><SUB>side</SUB><SUP>2</SUP></SPAN> with <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> a power of 2 in
+<!-- MATH
+ $\{1,\ldots,2^{29}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img67.png"
+ ALT="$\{1,\ldots,2^{29}\}$"></SPAN>) and then computes the
+corresponding resolution parameter <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN>.
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">npix2nside </FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run npix2nside .	
+    <DT>
+<B><A HREF="idl_nside2npix.htm#idl:nside2npix">nside2npix</A></B>
+<DD>computes Npix corresponding to Nside 
+    <DT>
+<B><A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">pix2xxx</A>, <A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">ang2xxx</A>, <A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">vec2xxx</A>, ... </B>
+<DD>conversion between vector or angles and pixel index and vice-versa
+    <DT>
+<B><A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">vec2pix</A>, <A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">pix2vec</A></B>
+<DD>conversion between vector and pixel index
+    <DT>
+<B><A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">nest2ring</A>, <A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">ring2nest</A></B>
+<DD>conversion between NESTED and RING indices
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Nside = npix2nside(49152, ERROR=error)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+Nside will be 64 because 49152 is a valid pixel number (=12*64<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> and 64 is a power of 2), and error will be 0</blockquote>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Nside = npix2nside(49151, ERROR=error)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+Nside will be -1 and error: 1, because 49151 is not a valid number of <b>HEALPix</b> 
+pixels over the full sky.</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html835"
+  HREF="idl_nest2uniq.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html841"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html845"
+  HREF="idl_nside2npix.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html843"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html836"
+  HREF="idl_nest2uniq.htm">nest2uniq</A>
+
+<B>Up:</B> <A NAME="tex2html842"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html846"
+  HREF="idl_nside2npix.htm">nside2npix</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

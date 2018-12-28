@@ -58,6 +58,7 @@ module pix_tools
 !    2013-04-02: bug correction in query_disc in inclusive mode
 !    2013-05-07: G95-compatible
 !    2015-09-02: added nest2uniq, uniq2nest
+!    2018-05-22: added nside2npweights
 !==================================================================
   ! subroutine query_strip                          Done (To be Tested) depends on in_ring
   ! subroutine query_polygon                        Done (To be Tested) depends on isort
@@ -455,6 +456,8 @@ module pix_tools
   public :: getdisc_ring  ! obsolete
 
   public :: nest2uniq, uniq2nest
+
+  public :: nside2npweights
 
 
 contains
@@ -1074,8 +1077,8 @@ contains
     write(*,9001) '    ',zbounds(1),zbounds(2)
     print*,'    See documentation for details.'
     print*,' -------------------------------------'
-9000 format (a,g12.6)
-9001 format (a,g12.6,g12.6)
+9000 format (a,g13.6)
+9001 format (a,g13.6,g13.6)
 
     return
   end subroutine warning_oldbounds
@@ -1438,7 +1441,7 @@ contains
        call query_disc(nside, vector, radius, listpix, nlist, nest=nest)
 
        if (do_fill .or. abs(in_map(p)-fmissval_in) > abs(fmissval_in*1.e-7)) then
-          med_map(p) = median(in_map(listpix(0:nlist-1)), badval = fmissval_in, even= .true.)
+          med_map(p) = median(in_map(listpix(0:nlist-1)), badval = fmissval_in, even=(nlist<100))
        else
           med_map(p) = in_map(p)
        endif
@@ -1512,7 +1515,7 @@ contains
        call query_disc(nside, vector, radius, listpix, nlist, nest=nest)
 
        if (do_fill .or. abs(in_map(p)-fmissval_in) > abs(fmissval_in*1.e-7)) then
-          med_map(p) = median(in_map(listpix(0:nlist-1)), badval = fmissval_in, even= .true.)
+          med_map(p) = median(in_map(listpix(0:nlist-1)), badval = fmissval_in, even=(nlist<100))
        else
           med_map(p) = in_map(p)
        endif
@@ -2092,6 +2095,28 @@ contains
 
     return
   end function nside2ntemplates
+
+!******************************************************************************
+  function nside2npweights(nside) result(npweights)
+!---------------------------------------
+!  returns the number of full sky weights (in compressed form) for a given Nside.
+! Given the symmetries of the Healpix lay out, the number of non-redundant weights
+! is  nf = ((3*Nside+1)*(Nside+1))/4 ~ Npix/16
+!
+! adapted from nside2npweights.pro
+! 2018-05-18
+!---------------------------------------
+  
+    integer(i8b) :: npweights
+    integer(i4b), intent(in) :: nside
+    integer(i8b), parameter  :: one  = 1_i8b
+    integer(i8b), parameter  :: four = 4_i8b
+
+    npweights = ((3*Nside + one)*(Nside + one)) / four
+
+    return
+  end function nside2npweights
+
 
 end module pix_tools
 

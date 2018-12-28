@@ -69,6 +69,7 @@ module fitstools
   ! 2013-12-13 : increased MAXDIM from 40 to MAXDIM_TOP
   ! 2014-05-02: fixed problem with keywords having a long string value
   ! 2016-08-16: debugged input_map on cut4 FITS files with multi-HDU polarized data
+  ! 2018-05-22: added unfold_weightsfile and unfold_weightslist
   ! -------------------------------------------------------------
   !
   ! --------------------------- from include file (see fits_template.f90)
@@ -82,6 +83,7 @@ module fitstools
   ! subroutine read_alms
   ! subroutine read_bintod
   ! subroutine write_bintabh
+  ! subroutine unfold_weights
   ! ----------------------------------
   !
   ! subroutine read_fits_cut4               ?
@@ -108,9 +110,10 @@ module fitstools
   ! subroutine putrec                      NA
   ! subroutine get_clean_header            NA
   !
-
+  ! subroutine check_input_map
+  !
   use healpix_types
-  use misc_utils, only : fatal_error, assert, strupcase, string
+  use misc_utils, only : fatal_error, assert, assert_alloc, strupcase, string
   implicit none
 
   real(kind=SP),     private, parameter :: s_bad_value = HPX_SBADVAL
@@ -233,6 +236,14 @@ module fitstools
      module procedure map_bad_pixels_s, map_bad_pixels_d
   end interface
 
+  interface unfold_weightsfile
+     module procedure unfold_weightsfile_s, unfold_weightsfile_d
+  end interface
+
+  interface unfold_weightslist
+     module procedure unfold_weightslist_s, unfold_weightslist_d
+  end interface
+
   private
 
   public :: read_fits_cut4, write_fits_cut4, & 
@@ -245,6 +256,8 @@ module fitstools
   public :: dump_alms, alms2fits, fits2alms, write_alms, read_alms, read_conbintab
   public :: printerror, read_par, getsize_fits, number_of_alms, getnumext_fits
   public :: putrec
+  public :: check_input_map
+  public :: unfold_weightsfile, unfold_weightslist
 
 contains
 
@@ -415,7 +428,8 @@ contains
        print*,'Expected 4 columns in FITS file '//filename
        print*,'found ',tfields
        if (tfields < 2) call fatal_error
-       if (trim(ttype(1)) /= 'PIXEL') call fatal_error
+       if (.not.  (trim(ttype(1)) == 'PIXEL' &
+            & .or. trim(ttype(1)) == 'PIX'  ) ) call fatal_error
     endif
 
     if (present(header)) then 
@@ -557,6 +571,9 @@ contains
        !     create the new empty FITS file
        !*************************************
        call ftinit(unit,filename,blocksize,status)
+       if (status > 0) call fatal_error("Error while creating file " &
+            & //trim(filename) &
+            & //". Check path and/or access rights.")
 
        !     -----------------------------------------------------
        !     initialize parameters about the FITS image
@@ -1369,6 +1386,9 @@ contains
     !     create the new empty FITS file
     blocksize=1
     call ftinit(unit,filename,blocksize,status)
+    if (status > 0) call fatal_error("Error while creating file " &
+         & //trim(filename) &
+         & //". Check path and/or access rights.")
 
     !     -----------------------------------------------------
     !     initialize parameters about the FITS image
@@ -2103,9 +2123,10 @@ contains
     !                     empty if not found.
     !
     !     polcconv     = (OPTIONAL, I4B, OUT) coordinate convention for polarisation
-    !                   0: unknown
+    !                   0: not found
     !                   1: COSMO (default for Healpix)
     !                   2: IAU
+    !                   3: neither COSMO nor IAU
     !
     !     extno = (OPTIONAL, IN) specify FITS extension to look at (0 based)
     !                  default = 0 (first extension)
@@ -2122,6 +2143,7 @@ contains
     !     addition of fwhm_arcmin and beam_leg, EH (Jan 05).
     !     addition of polcconv, EH (June 05).
     !     accept files with NAXIS2 > 2^31 (2015-04) (requires recent cfitsio >= 3.20)
+    !     accept files with polarisation columns named Q_S*, Q-S*, ... U_S*, U-S*
     !=======================================================================
     use pix_tools, only: nside2npix
     character(LEN=*), intent(IN)             :: filename
@@ -2150,7 +2172,7 @@ contains
 !     INTEGER(I4B)           :: getsize_fits
     INTEGER(I8B)           :: getsize_fits
     LOGICAL(LGT)           ::  polar_in
-    character(len=3),  dimension(1:10,1:2)  :: defpol
+    character(len=3),  dimension(1:16,1:2)  :: defpol
     logical(kind=LGT), dimension(1:2)       :: pf
     integer(kind=I4B)                       :: ndp, j, k
 
@@ -2397,7 +2419,7 @@ contains
           endif
           ! 3rd most stringent test
           if (trim(ttype(1)) /= '') then
-             if (trim(ttype(1)) == 'PIXEL') then
+             if (trim(ttype(1)) == 'PIXEL' .or. trim(ttype(1)) == 'PIX') then
                 ftype_in = 3
              else
                 ftype_in = 2
@@ -2443,9 +2465,11 @@ contains
                 defpol(1:ndp,2) = (/ "CUR","B-M","POW","BB " /)    
              endif
              if (hdutype == 2) then ! binary table -> maps or power spectra
-                ndp = 8
-                defpol(1:ndp,1) = (/ "Q-P","Q_P","Q P","Q  ","GRA","E-M","POW","EE " /)
-                defpol(1:ndp,2) = (/ "U-P","U_P","U P","U  ","CUR","B-M","POW","BB " /)
+                ndp = 10
+                defpol(1:ndp,1) = (/ "Q-P","Q_P","Q P", "Q-S","Q_S", &
+                     &               "Q  ",      "GRA","E-M","POW","EE " /)
+                defpol(1:ndp,2) = (/ "U-P","U_P","U P", "U-S","U_S", &
+                     &               "U  ",      "CUR","B-M","POW","BB " /)
              endif
              pf(:) = .false.
              do i = 2, tfields ! do not consider first field (generally temperature)
@@ -2469,9 +2493,11 @@ contains
 
        call ftgkys(unit,'POLCCONV',polcconv_val,comment,status)
        if (status == 0) then
+          polcconv_in = 3 ! neither COSMO nor IAU
           if (trim(polcconv_val) == 'COSMO') polcconv_in = 1
           if (trim(polcconv_val) == 'IAU')   polcconv_in = 2
        else
+          polcconv_in = 0 ! not found
           status = 0
        endif
 
@@ -2712,11 +2738,85 @@ contains
 
     return
   end subroutine get_clean_header
-  !====================================================================
 
   
+  !====================================================================
+  subroutine check_input_map(code, mapfile, polarisation)
+  !====================================================================
+    ! check out that file contains a valid HEALPIX map
+    ! on input polarisation is set to T if one wants to get polarisation data from map,
+    ! and on output it will be set to F if that is not possible
+    !====================================================================
+    use pix_tools, only: nside2npix, npix2nside
+    character(len=*)                      :: code
+    character(len=*)                      :: mapfile
+    logical(LGT), intent(inout)           :: polarisation
+    
+    !
+    integer(I4B) :: nmaps, order_map, nsmax, mlpol, type, polar_fits, polcconv
+    integer(I4B) :: npixtot
+    character(len=1) :: coordsys
+    character(len=*), parameter :: primer_url = 'http://healpix.sf.net/pdf/intro.pdf'
+    !====================================================================
+    
+    npixtot = getsize_fits(mapfile, nmaps = nmaps, ordering=order_map, nside=nsmax,&    
+         &              mlpol=mlpol, type = type, polarisation = polar_fits, &
+         &             coordsys=coordsys, polcconv=polcconv)
+    
+    if (nsmax<=0) then
+       print*,"Keyword NSIDE not found in FITS header!"
+       call fatal_error(code)
+    endif
+    if (type == 3) npixtot = nside2npix(nsmax) ! cut sky input data set
+    if (nsmax/=npix2nside(npixtot)) then
+       print 9000,"FITS header keyword NSIDE does not correspond"
+       print 9000,"to the size of the map!"
+       call fatal_error(code)
+    endif
 
-
-
+    if (polarisation .and. (nmaps >=3) .and. polar_fits == -1) then
+       print 9000,"The input fits file MAY NOT contain polarisation data."
+       print 9000,"Proceed at your own risk"
+    endif
+    
+    if (polarisation .and. (nmaps<3 .or. polar_fits ==0)) then
+       print 9000,"The file does NOT contain polarisation maps"
+       print 9000,"only the temperature field will be analyzed"
+       polarisation = .false.
+    endif
+    
+    ! POLCCONV now dealt with in input_map
+!     if (polarisation .and. (polcconv == 3)) then
+!        print 9000,"The polarisation coordinate convention (POLCCONV) is neither COSMO nor IAU."
+!        print 9000,code//" can not proceed with these data"
+!        print 9000,"See Healpix primer ("//primer_url//") for details."
+!        call fatal_error(code)
+!     endif
+    
+!     if (polarisation .and. (polcconv == 2)) then
+!        print 9000,"The input map contains polarized data in the IAU coordinate convention (POLCCONV)"
+!        print 9000,code//" can not proceed with these data"
+!        print 9000,"See Healpix primer ("//primer_url//") for details."
+!        call fatal_error(code)
+!     endif
+    
+!     if (polarisation .and. (polcconv == 0)) then
+!        print 9000,"WARNING: the polarisation coordinate convention (POLCCONV) can not be determined"
+!        print 9000,"         COSMO will be assumed."
+!        print 9000,"See Healpix primer ("//primer_url//") for details."
+!     endif
+    
+    !     --- check ordering scheme ---
+    if ((order_map/=1).and.(order_map/=2)) then
+       print 9000,"The ordering scheme of the map must be RING or NESTED."
+       print 9000,"No ordering specification is given in the FITS-header!"
+       call fatal_error(code)
+    endif
+    
+9000 format(a)
+    
+    return
+  end subroutine check_input_map
+      
 
 end module fitstools

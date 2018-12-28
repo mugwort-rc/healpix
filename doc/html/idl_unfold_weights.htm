@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>unfold_weights</TITLE>
+<META NAME="description" CONTENT="unfold_weights">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_uniq2nest.htm">
+<LINK REL="previous" HREF="idl_ud_grade.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_uniq2nest.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html1099"
+  HREF="idl_ud_grade.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1105"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1109"
+  HREF="idl_uniq2nest.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1107"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1100"
+  HREF="idl_ud_grade.htm">ud_grade</A>
+
+<B>Up:</B> <A NAME="tex2html1106"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1110"
+  HREF="idl_uniq2nest.htm">uniq2nest</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION7000"></A>
+<A NAME="idl:unfold_weights"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">unfold_weights</FONT></font></b><hr>
+<H3>This IDL function returns the full sky map of the weights to be applied to a <b>HEALPix</b> map in order to improve the quadrature.
+The input weights can be either ring-based or pixel-based, and read from file with user provided path, or from files with standardized name and location (ie, <TT>!healpix.path.data+'weight_ring_n?????.fits'</TT> and 
+<TT>!healpix.path.data+'weight_pixel_n?????.fits'</TT></H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/toolkit/unfold_weights.pro"><b>src/idl/toolkit/unfold_weights.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL><A HREF="#idl:unfold_weights:weight_map">weight_map</A> = unfold_weights (<A HREF="#idl:unfold_weights:nside">Nside</A>, 
+[<A HREF="#idl:unfold_weights:dim">Dim</A>,
+<A HREF="#idl:unfold_weights:pixel">/PIXEL</A>,
+<A HREF="#idl:unfold_weights:ring">/RING</A>,
+<A HREF="#idl:unfold_weights:scheme">SCHEME=</A>,
+<A HREF="#idl:unfold_weights:directory">DIRECTORY=</A>,
+<A HREF="#idl:unfold_weights:help">/HELP</A>,
+<A HREF="#idl:unfold_weights:silent">/SILENT</A>])</h3><h3>IDL><A HREF="#idl:unfold_weights:weight_map">weight_map</A> = unfold_weights (<A HREF="#idl:unfold_weights:nside">File</A>, 
+[<A HREF="#idl:unfold_weights:dim">Dim</A>,
+<A HREF="#idl:unfold_weights:help">/HELP</A>,
+<A HREF="#idl:unfold_weights:silent">/SILENT</A>])</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>Nside<A NAME="idl:unfold_weights:nside"></A></B>
+<DD><b>HEALPix</b> resolution parameter (scalar integer),
+         should be a valid Nside (power of 2 in <!-- MATH
+ $\{1,\ldots,2^{29}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img67.png"
+ ALT="$\{1,\ldots,2^{29}\}$"></SPAN>)
+    <DT>
+<B>File<A NAME="idl:unfold_weights:file"></A></B>
+<DD>Input weight file to be read. If not provided, 
+the function will try to guess the relevant file path based on 
+<A HREF="#idl:unfold_weights:nside">Nside</A>, 
+the optional <A HREF="#idl:unfold_weights:directory">DIRECTORY</A>, 
+and the weighting scheme which <SPAN  CLASS="textbf">must</SPAN> be set, with either
+<A HREF="#idl:unfold_weights:ring">RING</A>, 
+<A HREF="#idl:unfold_weights:pixel">PIXEL</A> or 
+<A HREF="#idl:unfold_weights:scheme">SCHEME</A>
+    <DT>
+<B>Dim<A NAME="idl:unfold_weights:dim"></A></B>
+<DD>dimension of output, either 1 or 2. <b>default:</b>1
+    <DT>
+<B>weight_map<A NAME="idl:unfold_weights:weight_map"></A></B>
+<DD>output: vector of size <!-- MATH
+ $N_{\mathrm{pix}}=12N_{\mathrm{side}}^2$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>pix</SUB>=12<I>N</I><SUB>side</SUB><SUP>2</SUP></SPAN> if Dim=1, array of size <!-- MATH
+ $(N_{\mathrm{pix}},3)$
+ -->
+<SPAN CLASS="MATH">(<I>N</I><SUB>pix</SUB>,3)</SPAN> if Dim=2 (in the latter case, all three columns are identical).
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+  <DL COMPACT><DT>
+<B>DIRECTORY=<A NAME="idl:unfold_weights:directory"></A></B>
+<DD>directory in which to look for the weight file <b>default:</b><A HREF="idl_init_healpix_healpix_system.htm#idl:init_healpix">!healpix.path.data</A>
+    <DT>
+<B>/HELP<A NAME="idl:unfold_weights:help"></A></B>
+<DD>if set on input, the documentation header 
+  is printed out and the function exits
+    <DT>
+<B>/PIXEL<A NAME="idl:unfold_weights:pixel"></A></B>
+<DD>if set, the code will look for the pixel-based weight file corresponding the the <A HREF="#idl:unfold_weights:nside">Nside</A> provided, in the default or provided 
+   <A HREF="#idl:unfold_weights:directory">Directory</A>
+    <DT>
+<B>/RING<A NAME="idl:unfold_weights:ring"></A></B>
+<DD>if set, the code will look for the ring-based weight file corresponding the the <A HREF="#idl:unfold_weights:nside">Nside</A> provided, in the default or provided
+   <A HREF="#idl:unfold_weights:directory">Directory</A>
+    <DT>
+<B>SCHEME=<A NAME="idl:unfold_weights:scheme"></A></B>
+<DD>can be either 'PIXEL' or 'RING', setting the type of weight file the code will look for.
+    <DT>
+<B>/SILENT<A NAME="idl:unfold_weights:silent"></A></B>
+<DD>if set on input, the function works silently
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+unfold_weights reads a list of weights, stored in a compact form in a FITS file, and centered on 0,
+either ring-based (uniform weights on each iso-latitude rings, defined on <!-- MATH
+ $2N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH">2<I>N</I><SUB>side</SUB></SPAN> rings),
+or pixel-based (defined on <!-- MATH
+ $N_w \simeq 0.75 N_{\mathrm{side}}^2 \simeq N_{\mathrm{pix}}/16$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="191" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img89.png"
+ ALT="$N_w \simeq 0.75 N_{\mathrm{side}}^2 \simeq N_{\mathrm{pix}}/16$"></SPAN>) and turns them into a 
+full sky <b>HEALPix</b> map of quadrature weights, with RING indexing and with values centered on 1.
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">unfold_weights</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run unfold_weights .	
+  <DT>
+<B><A HREF="idl_nside2npweights.htm#idl:nside2npweights">nside2npweights</A></B>
+<DD>returns the number of non-redundant pixel-based weights used for disc storage
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><A HREF="idl_mollview.htm#idl:mollview">mollview</A>, <A HREF="idl_mollview.htm#idl:mollview:hist_equal">/hist</A>,</TD>
+</TR>
+<TR><TD ALIGN="LEFT">unfold_weights(256, <A HREF="#idl:unfold_weights:ring">/ring</A>),  title='Ring-based weights @ Nside=256'</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><A HREF="idl_mollview.htm#idl:mollview">mollview</A>, <A HREF="idl_mollview.htm#idl:mollview:hist_equal">/hist</A>,</TD>
+</TR>
+<TR><TD ALIGN="LEFT">unfold_weights(256, <A HREF="#idl:unfold_weights:pixel">/pixel</A>),  title='Pixel-based weights @ Nside=256'</TD>
+</TR>
+</TABLE></tt>
+<blockquote>will plot the full sky map of the ring-based and pixel-based quadrature weights for <!-- MATH
+ $N_{\mathrm{side}}=256$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=256</SPAN>.
+</blockquote>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1099"
+  HREF="idl_ud_grade.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1105"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1109"
+  HREF="idl_uniq2nest.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1107"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1100"
+  HREF="idl_ud_grade.htm">ud_grade</A>
+
+<B>Up:</B> <A NAME="tex2html1106"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1110"
+  HREF="idl_uniq2nest.htm">uniq2nest</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

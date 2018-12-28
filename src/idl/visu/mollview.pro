@@ -34,6 +34,8 @@ pro mollview, file_in, select_in, $
               COLT = colt, $
               COORD = coord, $
               CROP = crop, $
+              CUSTOMIZE = customize, $
+              DEFAULT_SETTINGS = default_settings, $
               EXECUTE = execute, $
               FACTOR = factor, $
               FITS = fits, $
@@ -75,6 +77,7 @@ pro mollview, file_in, select_in, $
               ROT = rot, $
               SAVE = save, $
               SILENT = silent, $
+              SILHOUETTE = silhouette, $
               SUBTITLE = subtitle, $
               TITLEPLOT = titleplot, $
               TRANSPARENT = transparent, $
@@ -97,6 +100,8 @@ pro mollview, file_in, select_in, $
 ;                       [ASINH=, $
 ;                       BAD_COLOR=, BG_COLOR=, $
 ;                       CHARSIZE=, COLT=, COORD=, CROP=, $
+;                       CUSTOMIZE=, $
+;                       DEFAULT_SETTINGS=, $
 ;                       EXECUTE=, $
 ;                       FACTOR=, FG_COLOR=, FITS=, FLIP=, $
 ;                       GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, $
@@ -112,7 +117,7 @@ pro mollview, file_in, select_in, $
 ;                       PS=, PXSIZE=, PYSIZE=, $
 ;                       QUADCUBE= , $
 ;                       RESO_ARCMIN= , ROT=, $
-;                       SAVE=, SHADED=, SILENT=, STAGGER=, SUBTITLE=, $
+;                       SAVE=, SHADED=, SILENT=, SILHOUETTE=, STAGGER=, SUBTITLE=, $
 ;                       TITLEPLOT=, TRANSPARENT=, TRUECOLORS= $
 ;                       UNITS=, WINDOW=, XPOS=, YPOS=]
 ;                        
@@ -205,6 +210,24 @@ pro mollview, file_in, select_in, $
 ;               contains the projected map and not the title, color bar, ...
 ;               (see also : GIF, JPEG, PDF, PNG, PS)
 ;
+;       CUSTOMIZE: (input) IDL structure containing customization parameters
+;          whose default values are listed in DEFAULT_SETTINGS
+;           accept   aspos.x, aspos.y:               astronomical coordinates,
+;                    cbar.dx, cbar.dy:               color bar X and Y sizes,
+;                    cbar.spaces, cbar.ty:           management of text around color bar
+;                    cbar.box:                       thickness of box around color bar
+;                    cring.dx, cring.xll, cring.yll: color ring size and location
+;                    pdf.debug:                      if set to 1, and SILENT not set, will help debugging PDF generation
+;                    subtitle.x, subtitle.y, subtible.charsize: subtitle X,Y location and charsize
+;                    title.x, title.y, title.charsize:        title X and Y location
+;                    vscale.x, vscale.y:                X,Y location for polarization vector legend
+;
+;         eg   customize={cbar:{dx:1./3., dy:1./70.}, title:{x:0.5, y:0.95}, subtitle:{x:0.5, y:0.905}}
+;
+;       DEFAULT_SETTINGS: (output) IDL structure listing the default values
+;          of the plot settings, like the color bar size, title and subtitle location
+;          can be inspected with HELP_ST
+;
 ;       EXECUTE: character string containing an IDL command to be executed in
 ;                the plotting window
 ;
@@ -246,6 +269,8 @@ pro mollview, file_in, select_in, $
 ;             (see also : CROP, JPEG, PNG, PDF, PS and PREVIEW)
 ;
 ;       GLSIZE : character size of the graticule labels in units of CHARSIZE
+;             can be a scalar (which applies to both parallel and meridian labels),
+;             or a 2 element vector (interpreted as [meridian_label_size, parallel_label_size])
 ;             default: 0 (ie, no labeling of graticules)
 ;             (see also: CHARSIZE, GRATICULE)
 ;
@@ -292,6 +317,7 @@ pro mollview, file_in, select_in, $
 ;               (see also : PXSIZE)
 ;
 ;       IGLSIZE : character size of the input coordinates graticule labels in units of CHARSIZE
+;             either scalar or 2-element vector (see GLSIZE)
 ;             default: 0 (ie, no labeling of graticules)
 ;             (see also: CHARSIZE, IGRATICULE)
 ;
@@ -445,13 +471,15 @@ pro mollview, file_in, select_in, $
 ;             the ANGLE phi = 0.5*ATAN(U/Q) of the polarisation is plotted
 ;             Note: the angles are color coded with a fixed color table (independant of Colt)
 ;
-;         if set to 3 or [3, scale_factor, step_factor]
+;         if set to 3 or [3, scale_factor, step_factor, thickness]
 ;             -the temperature is color coded (with a color table defined by Colt)
-;             -and the polarisation is overplot as a headless vector
-;             Polarization can be a 3-element vector (the first element being 3).
-;             The second element controls the average length of vectors
-;             (default=1), while the third one controls the distance between
-;             vectors (default=1). Non positive values are replaced by 1.
+;             -and the polarisation is overplot as small rods.
+;             Polarization can be a 4-element vector (the first element being 3).
+;             The second element controls the average length of the rods (default=1), 
+;             the third one controls their spacing (default=1),
+;             while the fourth one controls their thickness 
+;             (which also depends in a device dependent manner on !P.THICK, default=1).
+;             Non positive values are replaced by 1.
 ;
 ;	PREVIEW : if set, there is a preview of the GIF, JPG, PDF, PostScript,
 ;	         PNG file being produced  
@@ -502,6 +530,13 @@ pro mollview, file_in, select_in, $
 ;                   ** orthview only **
 ;
 ;       SILENT: if set, the code runs silently
+;
+;       SILHOUETTE: if set to a scalar or 2-element vector with silhouette[0] !=  0,
+;          a silhouette is drawn around the map.
+;          Its thickness is proportional to abs(silhouette[0])
+;           (and also depends in a device-dependent manner on !P.THICK)
+;          Its color is determined by abs(silhouette[1]) in [0,255] (defaulting to 0 = FG_COLOR)
+;             ** mollview and orthview only **
 ;
 ;       STAGGER: scalar or 2 element vector.
 ;            - if stagger[0] is in ]0,2], 
@@ -607,6 +642,8 @@ pro mollview, file_in, select_in, $
 ;       Jan-12: added STAGGER to orthview; created azeqview; added JPEG to all
 ;       Sep-13: added BAD_COLOR, BG_COLOR, FG_COLOR
 ;       2015:   added PDF, LATEX and PFONTS
+;       2017-05: addition of CUSTOMIZE, DEFAULT_SETTINGS, 
+;                improvement of GLSIZE and IGLSIZE
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -709,7 +746,7 @@ proj2out, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
   IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick, $
   JPEG=jpeg, BAD_COLOR=bad_color, BG_COLOR=bg_color, FG_COLOR=fg_color, PDF=pdf, $
-  LATEX=latex, PFONTS=pfonts
+  LATEX=latex, PFONTS=pfonts, CUSTOMIZE=CUSTOMIZE, DEFAULT_SETTINGS=default_settings, SILHOUETTE = silhouette
 
 
 w_num = !d.window

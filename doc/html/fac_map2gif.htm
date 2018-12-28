@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>map2gif</TITLE>
+<META NAME="description" CONTENT="map2gif">
+<META NAME="keywords" CONTENT="facilities">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="facilities.css">
+
+<LINK REL="next" HREF="fac_median_filter.htm">
+<LINK REL="previous" HREF="fac_hotspot.htm">
+<LINK REL="up" HREF="fac_HEALPix_F90_facilities.htm">
+<LINK REL="next" HREF="fac_median_filter.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html194"
+  HREF="fac_hotspot.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html200"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html204"
+  HREF="fac_median_filter.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html202"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html195"
+  HREF="fac_hotspot.htm">hotspot</A>
+
+<B>Up:</B> <A NAME="tex2html201"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html205"
+  HREF="fac_median_filter.htm">median_filter</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION800"></A>
+<A NAME="fac:map2gif"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">map2gif</FONT></font></b><hr>
+<H3>This Fortran facility provides a means to generate a
+gif image from an input <b>HEALPix</b> sky map. It is intended to allow some
+primitive visualisation for those with limited or no access to IDL or python. 
+It is also useful for image generation in a pipeline environment.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/map2gif/map2gif.f90"><b>src/f90/map2gif/map2gif.f90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h3>%
+map2gif 
+<A HREF="#fac:map2gif:inp">-inp</A> FITS_file 
+<A HREF="#fac:map2gif:out">-out</A> GIF_file [options]
+</h3></blockquote>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>-inp FITS_file</B>
+<DD><A NAME="fac:map2gif:inp"></A> 
+The file name of the input FITS sky map <b> (default : none)</b>.
+<BR>
+In <FONT COLOR="#CC0000">map2gif</FONT> (and <FONT COLOR="#CC0000">map2gif</FONT> only) it may be necessary to put the file name between quotes if it contains symbols
+such as <TT>&amp;</TT>, <TT>[</TT>, <TT>]</TT>, <TT>?</TT>, <TT>=</TT>  or blanks
+<DT>
+<B>-out GIF_file</B>
+<DD><A NAME="fac:map2gif:out"></A> 
+The file name of the output gif image <b> (default : none)</b>.
+<BR>
+Prepending the output file name with <TT><SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN>!</TT> 
+(see <A HREF="#fac:map2gif:example">example below</A>) will allow the overwriting of the
+file if it already exists
+<DT>
+<B>-add offset</B>
+<DD><A NAME="fac:map2gif:add"></A> 
+Real value to add to the signal before performing any
+      other operation to it (like taking the logarithm etc.)
+      <b>default:</b>0.0
+<DT>
+<B>-ash flag</B>
+<DD><A NAME="fac:map2gif:ash"></A> 
+Logical to use the hyperbolic arc sine of the signal when
+      plotting. Cannot be true when <A HREF="#fac:map2gif:log"><TT>-log</TT></A> is true.
+      <b>default:</b>.false.
+<DT>
+<B>-bar flag</B>
+<DD><A NAME="fac:map2gif:bar"></A> Logical which determines whether a color bar is
+      displayed <b>default:</b>.false.. 
+<DT>
+<B>-col table</B>
+<DD><A NAME="fac:map2gif:col"></A> 
+The number of the color table to utilise (in [1,5]) <b>default:</b>5.
+<DT>
+<B>-hlp</B>
+<DD><A NAME="fac:map2gif:hlp"></A> Print on-line help for the facility.
+<DT>
+<B>-lat lat0</B>
+<DD><A NAME="fac:map2gif:lat"></A> Latitude (Deg) of central point <b>default:</b>0
+<DT>
+<B>-log flag</B>
+<DD><A NAME="fac:map2gif:log"></A> Logical to use the log of the signal when plotting 
+      <b>default:</b>.false.
+<DT>
+<B>-lon lon0</B>
+<DD><A NAME="fac:map2gif:lon"></A> Longitude (Deg) of central point <b>default:</b>0
+<DT>
+<B>-max maxval</B>
+<DD><A NAME="fac:map2gif:max"></A> Set the maximum value for the plotted signal
+      <b>default:</b>is to use the actual signal maximum.
+<DT>
+<B>-min minval</B>
+<DD><A NAME="fac:map2gif:min"></A> Set the minimum value for the plotted signal
+     <b>default:</b>is to use the actual signal minimum.
+<DT>
+<B>-mul factor</B>
+<DD><A NAME="fac:map2gif:mul"></A> Real value to multiply the signal with directly after
+      adding the offset (see above).
+      <b>default:</b>1.0
+<DT>
+<B>-pro projection</B>
+<DD><A NAME="fac:map2gif:pro"></A> Select the projection scheme 
+	(among <TT>mol</TT> or <TT>MOL</TT> for Mollweide and <TT>gno</TT> or <TT>GNO</TT> for gnomic)
+	<b>default:</b>MOL.
+<DT>
+<B>-res reso</B>
+<DD><A NAME="fac:map2gif:res"></A> Resolution in projected plan in arcmin (only for gnomic projection) <b>default:</b>2
+<DT>
+<B>-sig number</B>
+<DD><A NAME="fac:map2gif:sig"></A> The identifier of the signal to plot: for a
+      polarisation map, then the mapping is 1 = I; 2 = Q; 3 = U
+      <b>default:</b>1.
+<DT>
+<B>-ttl title</B>
+<DD><A NAME="fac:map2gif:ttl"></A> A string specifying the title for the plot (see note on quotes for 
+<A HREF="#fac:map2gif:inp"><TT>-inp</TT></A>) <b> (default : none)</b>.
+<DT>
+<B>-xsz xsize</B>
+<DD><A NAME="fac:map2gif:xsz"></A> The x-dimension of the image in pixels <b>default:</b>800.
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+map2gif reads in a <b>HEALPix</b> sky map in FITS format and generates an
+image in GIF format. map2gif allows the selection of the projection
+scheme (Mollweide for the full sky or Gnomonic for small patches of the sky), color
+table, color bar inclusion, linear or log scaling, maximum and 
+minimum range for the plot and plot-title. 
+Flagged, undefined and NaN-valued input pixels will take a grey color on output. 
+The facility utilises a command-line interface.
+</blockquote>
+
+<P>
+<hr><H1>DATASETS</H1>
+<h3>The following datasets are involved in the <b><FONT COLOR="#CC0000">map2gif</FONT></b>
+ processing.</h3>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">Dataset</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+None required</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+<hr><H1>SUPPORT    </H1><H3>This section lists those routines and facilities (including those <i>external</i> to the <b>HEALPix</b> distribution) which can assist in the utilisation of <b><FONT COLOR="#CC0000">map2gif</FONT></b>.</H3>
+  <DL COMPACT><DT>
+<B>display, open</B>
+<DD>a facility is required to view the
+            gif image generated by map2gif (a browser can also 
+            be used).
+  <DT>
+<B><A HREF="fac_synfast.htm#fac:synfast">synfast</A></B>
+<DD>This <b>HEALPix</b> facility will generate the FITS format 
+            sky map to be input to map2gif.
+  </DL>
+
+<P>
+<hr><H1>EXAMPLE # 1:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><A NAME="fac:map2gif:example"></A>map2gif</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:inp">-inp</A> planck100GHZ-LFI.fits <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:out">-out</A> <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN>!planck100GHZ-LFI.gif <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:bar">-bar</A> .true. <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:min">-min</A> -100 <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:max">-max</A> 100 <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img27.png"
+ ALT="$\backslash$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><A HREF="#fac:map2gif:ttl">-ttl</A> 'Simulated Planck LFI Sky Map at 100GHz'</TD>
+</TR>
+</TABLE></tt>
+<blockquote>map2gif reads in the map 'planck100GHZ-LFI.fits' and outputs
+its Mollweide projection in a gif image with name 'planck100GHZ-LFI.gif' (overwriting it if
+necessary) in which
+the temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img28.png"
+ ALT="$\pm$"></SPAN> 100 (<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img29.png"
+ ALT="$\mu$"></SPAN>K), 
+a color bar has been drawn and the title 'Simulated Planck
+LFI Sky Map at 100GHz' appended to the image.
+</blockquote>
+
+<P>
+<hr><H1>RELEASE NOTES</H1><blockquote>
+  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="blueball.png" ALT="*">
+ Initial release (<b>HEALPix</b> 1.00)
+</DL>
+</blockquote>
+
+<P>
+<hr><H1>MESSAGES</H1><h3>This section describes error messages generated by <b><FONT COLOR="#CC0000">map2gif</FONT></b>
+</h3>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=125><SPAN  CLASS="textbf">Message</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">Severity</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">Text</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+None at present</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html194"
+  HREF="fac_hotspot.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html200"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html204"
+  HREF="fac_median_filter.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html202"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html195"
+  HREF="fac_hotspot.htm">hotspot</A>
+
+<B>Up:</B> <A NAME="tex2html201"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html205"
+  HREF="fac_median_filter.htm">median_filter</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

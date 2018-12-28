@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>nside2npweights</TITLE>
+<META NAME="description" CONTENT="nside2npweights">
+<META NAME="keywords" CONTENT="subroutines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="subroutines.css">
+
+<LINK REL="next" HREF="sub_nside2ntemplates.htm">
+<LINK REL="previous" HREF="sub_nside2npix.htm">
+<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
+<LINK REL="next" HREF="sub_nside2ntemplates.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html1106"
+  HREF="sub_nside2npix.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1112"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1116"
+  HREF="sub_nside2ntemplates.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1114"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1107"
+  HREF="sub_nside2npix.htm">nside2npix</A>
+
+<B>Up:</B> <A NAME="tex2html1113"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1117"
+  HREF="sub_nside2ntemplates.htm">nside2ntemplates</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION6800"></A>
+<A NAME="sub:nside2npweights"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">nside2npweights</FONT></font></b><hr>
+<H3>Function to return the number of pixel-based weights (in compact form) for a given Nside:
+<BR><P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<!-- MATH
+ \begin{displaymath}
+N_w=\frac{(N_\mathrm{side}+1)(3N_\mathrm{side}+1)}{4} \simeq \frac{N_\mathrm{pix}}{16}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="262" HEIGHT="42" BORDER="0"
+ SRC="sub_img93.png"
+ ALT="\begin{displaymath}N_w=\frac{(N_\mathrm{side}+1)(3N_\mathrm{side}+1)}{4} \simeq \frac{N_\mathrm{pix}}{16}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P> 
+</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>var=<FONT COLOR="#CC0000">nside2npweights</FONT>(
+<A HREF="#sub:nside2npweights:nside">nside</A>
+)</h3>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+nside<A NAME="sub:nside2npweights:nside"></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <!-- MATH
+ $N_\mathrm{side}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><I>side</I></SPAN> parameter.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the number of template pixels <SPAN CLASS="MATH"><I>N</I><SUB><I>w</I></SUB></SPAN>.</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt>use <A HREF="sub_healpix_modules_module.htm#sub:healpix_modules">healpix_modules</A> 
+<BR>
+integer(<A HREF="sub_healpix_types_module.htm#sub:healpix_types">I8B</A>) :: nw8 
+<BR>
+nw8 = nside2npweights(256)  
+<BR></tt>
+<blockquote>
+Returns in <TT>nw8</TT> the number of non-redundant <b>HEALPix</b> pixel-based weights (49408) for the resolution
+parameter 256.
+</blockquote>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2npweights</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B><A HREF="sub_unfold_weightsfile.htm#sub:unfold_weightsfile">unfold_weightsfile</A></B>
+<DD>reads of FITS file containing a list ring-based or pixel-based weights into a full sky map
+  </DL>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1106"
+  HREF="sub_nside2npix.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1112"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1116"
+  HREF="sub_nside2ntemplates.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1114"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1107"
+  HREF="sub_nside2npix.htm">nside2npix</A>
+
+<B>Up:</B> <A NAME="tex2html1113"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1117"
+  HREF="sub_nside2ntemplates.htm">nside2ntemplates</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

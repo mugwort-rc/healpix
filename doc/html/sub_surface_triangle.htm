@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>surface_triangle</TITLE>
+<META NAME="description" CONTENT="surface_triangle">
+<META NAME="keywords" CONTENT="subroutines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="subroutines.css">
+
+<LINK REL="next" HREF="sub_template_pixel_nest_templat.htm">
+<LINK REL="previous" HREF="sub_string_strlowcase_strupcase.htm">
+<LINK REL="up" HREF="sub_HEALPix_F90_subroutines.htm">
+<LINK REL="next" HREF="sub_template_pixel_nest_templat.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html1490"
+  HREF="sub_string_strlowcase_strupcase.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1496"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1500"
+  HREF="sub_template_pixel_nest_templat.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1498"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1491"
+  HREF="sub_string_strlowcase_strupcase.htm">string, strlowcase, strupcase</A>
+
+<B>Up:</B> <A NAME="tex2html1497"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1501"
+  HREF="sub_template_pixel_nest_templat.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION10000"></A>
+<A NAME="sub:surface_triangle"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">surface_triangle</FONT></font></b><hr>
+<H3>Returns the surface in steradians of the spherical triangle described by its
+three vertices</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">surface_triangle</FONT>(
+<A HREF="#sub:surface_triangle:v1">v1</A>, <A HREF="#sub:surface_triangle:v2">v2</A>, <A HREF="#sub:surface_triangle:v3">v3</A>, <A HREF="#sub:surface_triangle:surface">surface</A>
+)</h3></blockquote>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=125><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+v1<A NAME="sub:surface_triangle:v1"></A>(3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle first vertex.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>v2<A NAME="sub:surface_triangle:v2"></A>(3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle second vertex.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>v3<A NAME="sub:surface_triangle:v3"></A>(3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at the triangle third vertex.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>surface<A NAME="sub:surface_triangle:surface"></A></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>surface of the triangle in steradians.</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt>use healpix_types 
+<BR>
+use pix_tools,    only : surface_triangle 
+<BR>
+real(DP) :: surface, one = 1.0_dp 
+<BR>
+call surface_triangle((/1,0,0/)*one, (/0,1,0/)*one, (/0,0,1/)*one, surface)  
+<BR>
+print*, surface</tt>
+<blockquote>
+Returns the surface in steradians of the triangle defined by the octant (<SPAN CLASS="MATH"><I>x</I>,<I>y</I>,<I>z</I>&gt;0</SPAN>) : 1.5707963267948966
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">surface_triangle</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B><A HREF="sub_pix2xxx_ang2xxx_vec2xxx_nes.htm#sub:pix_tools">pix2ang</A>, <A HREF="sub_pix2xxx_ang2xxx_vec2xxx_nes.htm#sub:pix_tools">ang2pix</A></B>
+<DD>convert between angle and pixel number.
+  <DT>
+<B><A HREF="sub_pix2xxx_ang2xxx_vec2xxx_nes.htm#sub:pix_tools">pix2vec</A>, <A HREF="sub_pix2xxx_ang2xxx_vec2xxx_nes.htm#sub:pix_tools">vec2pix</A></B>
+<DD>convert between a cartesian vector and pixel number.
+  <DT>
+<B><A HREF="sub_query_disc.htm#sub:query_disc">query_disc</A>, <A HREF="sub_query_polygon.htm#sub:query_polygon">query_polygon</A>,</B>
+<DD><DT>
+<B><A HREF="sub_query_strip.htm#sub:query_strip">query_strip</A>, <A HREF="sub_query_triangle.htm#sub:query_triangle">query_triangle</A></B>
+<DD>render the list of pixels enclosed
+  respectively in a given disc, polygon, latitude strip and triangle
+
+<P>
+</DL>
+
+<P>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1490"
+  HREF="sub_string_strlowcase_strupcase.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1496"
+  HREF="sub_HEALPix_F90_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1500"
+  HREF="sub_template_pixel_nest_templat.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1498"
+  HREF="sub_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1491"
+  HREF="sub_string_strlowcase_strupcase.htm">string, strlowcase, strupcase</A>
+
+<B>Up:</B> <A NAME="tex2html1497"
+  HREF="sub_HEALPix_F90_subroutines.htm">HEALPix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1501"
+  HREF="sub_template_pixel_nest_templat.htm">template_pixel_nest, template_pixel_ring</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

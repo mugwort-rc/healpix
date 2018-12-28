@@ -42,6 +42,7 @@
 # 2016-04-28: tentatively added MINGW for Windows
 # 2016-06-02: debugged gcc detection in IdentifyCCompiler
 # 2016-08-10: 1st attempt to better detect python version
+# 2017-06-21: deal with FL (Fawlty Language) IDL clone (generateConfFlFile)
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -91,7 +92,7 @@ echoLn () {
 }
 #-------------
 findFITSLib () {
-    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ /softs/cfitsio/3.3*/lib /softs/cfitsio/3.2*/lib /usr/common/usg/cfitsio/3.3*/lib ; do
+    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ /softs/cfitsio/3.4*/lib /softs/cfitsio/3.3*/lib /softs/cfitsio/3.2*/lib /usr/common/usg/cfitsio/3.4*/lib /usr/common/usg/cfitsio/3.3*/lib ; do
 	if [ -r "${dir}/lib${LIBFITS}.a" -o -r "${dir}/lib${LIBFITS}.so" -o -r "${dir}/lib${LIBFITS}.dylib" ] ; then
 	    FITSDIR=$dir
 	    break
@@ -100,7 +101,7 @@ findFITSLib () {
 }
 #-------------
 findFITSInclude () {
-    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ /softs/cfitsio/3.3*/include /softs/cfitsio/3.2*/include /usr/common/usg/cfitsio/3.3*/include /usr/common/usg/cfitsio/3.2*/include ; do
+    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ /softs/cfitsio/3.4*/include /softs/cfitsio/3.3*/include /softs/cfitsio/3.2*/include /usr/common/usg/cfitsio/3.4*/include /usr/common/usg/cfitsio/3.3*/include /usr/common/usg/cfitsio/3.2*/include ; do
 	if [ -r "${dir}/fitsio.h" ] ; then
 	    FITSINC=$dir
 	    break
@@ -160,9 +161,17 @@ crashAndBurn () {
     echo
     exit -1
 }
-
+#-------------
+whereisCmd () {
+    for d in $*; do
+	CMD=`${WHEREIS} $d`
+	if [ "x${CMD}" != "x" ] ; then
+	    break
+	fi
+    done
+}
 #=====================================
-#=========== C pakage ===========
+#=========== C package ===========
 #=====================================
 # setCDefaults
 # add64bitCFlags
@@ -253,6 +262,8 @@ askCUserMisc () {
 	    echo "error: fits library $lib not found"
 	    crashAndBurn
 	fi
+	checkFitsioCurl $lib
+
 	guess1=${FITSDIR}
 	guess2=`${DIRNAME} ${guess1}`
 	guess3="${guess2}/include"
@@ -311,6 +322,7 @@ editCMakefile () {
 	${SED} "s|^C_WITHOUT_CFITSIO.*$|C_WITHOUT_CFITSIO = $C_WITHOUT_CFITSIO|" |\
 	${SED} "s|^C_CFITSIO_INCDIR.*$|C_CFITSIO_INCDIR = $FITSINC|" |\
 	${SED} "s|^C_CFITSIO_LIBDIR.*$|C_CFITSIO_LIBDIR = $FITSDIR|" |\
+	${SED} "s|^C_EXTRA_LIB.*$|C_EXTRA_LIB = $CFITSIOCURL|" |\
 	${SED} "s|^C_WLRPATH.*$|C_WLRPATH = $WLRPATH|" |\
 	${SED} "s|^C_ALL.*|C_ALL     = ${clibtypes}|" |\
 	${SED} "s|^ALL\(.*\) c-void \(.*\)|ALL\1 c-all \2|" |\
@@ -422,10 +434,14 @@ editCppMakefile () {
 
     echoLn "edit top Makefile for C++ ..."
 
+    CPPWLRPATH="-Wl,-R"
+    [ "${OS}" = "Darwin" ]  && CPPWLRPATH="-Wl,-rpath "
+
+
     mv -f Makefile Makefile_tmp
     ${CAT} Makefile_tmp |\
 	${SED} "s|^HEALPIX_TARGET\(.*\)|HEALPIX_TARGET = ${HEALPIX_TARGET}|" |\
-	${SED} "s|^CFITSIO_EXT_LIB\(.*\)|CFITSIO_EXT_LIB = -L${FITSDIR} -l${LIBFITS}|" |\
+	${SED} "s|^CFITSIO_EXT_LIB\(.*\)|CFITSIO_EXT_LIB = -L${FITSDIR} -l${LIBFITS} ${CFITSIOCURL} ${CPPWLRPATH}${FITSDIR}|" |\
 	${SED} "s|^CFITSIO_EXT_INC\(.*\)|CFITSIO_EXT_INC = -I${FITSINC}|" |\
 	${SED} "s|^ALL\(.*\) cpp-void \(.*\)|ALL\1 cpp-all \2|" |\
 	${SED} "s|^TESTS\(.*\) cpp-void \(.*\)|TESTS\1 cpp-test \2|" |\
@@ -481,6 +497,8 @@ Cpp_config () {
     guess1=${FITSDIR}
     guess2=`${DIRNAME} ${guess1}`
     guess3="${guess2}/include"
+
+    checkFitsioCurl "${FITSDIR}/lib${LIBFITS}.*"
 
     findFITSInclude $INCDIR ${guess1} ${guess2} ${guess3} $FITSINC
     echoLn "enter location of cfitsio header fitsio.h ($FITSINC): "
@@ -635,7 +653,7 @@ editHealpyMakefile () {
 
 }
 #=====================================
-#=========== IDL pakage ===========
+#=========== IDL package ===========
 #=====================================
 #-------------
 askPaperSize () {
@@ -796,7 +814,7 @@ generateConfGdlFile () {
     echo "containing:"
 
 
-    echo "# IDL configuration for HEALPix `date`" > $HPX_CONF_GDL
+    echo "# GDL configuration for HEALPix `date`" > $HPX_CONF_GDL
 
     case $SHELL in
     csh|tcsh)
@@ -845,6 +863,79 @@ EOF
     echo
 }
 #-------------
+generateConfFlFile () {
+    echo
+    echo "* Generating $HPX_CONF_FL"
+    echo "containing:"
+
+    echo "# FL configuration for HEALPix `date`" > $HPX_CONF_FL
+
+    if [ "x$FL_DIR" != "x" ] ; then
+	if [ "${OS}" = "Darwin" ]; then
+	    fl_path="\${FL_DIR}/Contents/MacOS/fl64_cmd"
+	    flde_path="\${FL_DIR}/Contents/MacOS/fl64_gui"
+	else
+	    fl_path=`ls ${FL_DIR}/bin/fl??_cmd`
+	    flde_path=`ls ${FL_DIR}/bin/fl??_gui`
+	fi
+    else
+	whereisCmd fl64_cmd fl32_cmd
+	fl_path=${CMD}
+	whereisCmd fl64_gui fl32_gui
+	flde_path=${CMD}
+	if [ "${OS}" = "Darwin" -a "x${fl_path}" = "x" ]; then
+	    fl_path='/Applications/fl.app/Contents/MacOS/fl64_cmd'
+	    flde_path='/Applications/fl.app/Contents/MacOS/fl64_gui'
+	fi
+    fi
+
+    case $SHELL in
+    csh|tcsh)
+	${CAT} <<EOF >>$HPX_CONF_FL
+# back up original FL config, or give default value
+if (\$?IDL_PATH) then
+    setenv OFL_PATH    "\${IDL_PATH}"
+else
+    setenv OFL_PATH
+endif
+if (\$?IDL_STARTUP) then
+    setenv OFL_STARTUP "\${IDL_STARTUP}"
+else
+    setenv OFL_STARTUP
+endif
+# create Healpix FL config, and return to original config after running Healpix-enhanced FL
+setenv HFL_PATH  "+\${HEALPIX}/src/idl:\${OFL_PATH}"
+setenv HFL_STARTUP \${HEALPIX}/src/idl/HEALPix_startup
+alias  hfl    'setenv IDL_PATH \${HFL_PATH} ; setenv IDL_STARTUP \${HFL_STARTUP} ; ${fl_path}   ; setenv IDL_PATH \${OFL_PATH} ; setenv IDL_STARTUP \${OFL_STARTUP}'
+alias  hflde  'setenv IDL_PATH \${HFL_PATH} ; setenv IDL_STARTUP \${HFL_STARTUP} ; ${flde_path} ; setenv IDL_PATH \${OFL_PATH} ; setenv IDL_STARTUP \${OFL_STARTUP}'
+EOF
+	;;
+    sh|ksh|bash|zsh)
+	${CAT} <<EOF >>$HPX_CONF_FL
+# make sure FL related variables are global
+export FL_PATH FL_STARTUP
+# back up original FL config, or give default value
+OFL_PATH="\${FL_PATH-<FL_DEFAULT>}"
+OFL_STARTUP="\${FL_STARTUP}"
+# create Healpix FL config, and return to original config after running Healpix-enhanced FL
+HFL_PATH="+\${HEALPIX}/src/idl:\${OFL_PATH}"
+HFL_STARTUP="\${HEALPIX}/src/idl/HEALPix_startup"
+alias hfl="FL_PATH=\"\${HFL_PATH}\"   ; FL_STARTUP=\${HFL_STARTUP} ; ${fl_path}   ; FL_PATH=\"\${OFL_PATH}\" ; FL_STARTUP=\${OFL_STARTUP} "
+alias hfde="FL_PATH=\"\${HFL_PATH}\" ; FL_STARTUP=\${HFL_STARTUP} ; {flde_path} ; FL_PATH=\"\${OFL_PATH}\" ; FL_STARTUP=\${OFL_STARTUP} "
+EOF
+	;;
+    *)
+	echo "Shell $SHELL not supported yet."
+	${RM} $HPX_CONF_FL
+	crashAndBurn
+	;;
+    esac
+
+    ${CAT} $HPX_CONF_FL
+    echo
+    echo
+}
+#-------------
 setIdlDefaults () {
 
     papersize="letter"
@@ -872,6 +963,7 @@ idl_config () {
 
     HPX_CONF_IDL=$1
     HPX_CONF_GDL=$2
+    HPX_CONF_FL=$3
     setIdlDefaults
     askPaperSize
     askPS
@@ -880,18 +972,20 @@ idl_config () {
     generateProIdlFile
     generateConfIdlFile
     generateConfGdlFile
+    generateConfFlFile
     [ $NOPROFILEYET = 1 ] && installProfile
 }
 
 #=====================================
-#=========== F90 pakage ===========
+#=========== F90 package ===========
 #=====================================
 #
 #   setF90Defaults: set default values of variables
 #   sun_modules : test weither the Sun compiler creates modules ending with .M or .mod
 #   ifc_modules : test weither the IFC compiler creates .d or .mod (version7) modules
-#   checkF90Fitsio: check that CFITSIO library contains Fortran wrapper
-#   checkF90FitsioLink: check that CFITSIO library links to Fortran test code
+#   checkF90Fitsio:        check that CFITSIO library contains Fortran wrapper
+#   checkFitsioCurl:       check if   CFITSIO library is linked to libcurl
+#   checkF90FitsioLink:    check that CFITSIO library links to Fortran test code
 #   checkF90FitsioVersion: check that CFITSIO library is recent enough
 #   checkCParall: check that C compiler supports OpenMP
 #   GuessF90Compiler: tries to guess compiler from operating system
@@ -1043,6 +1137,22 @@ checkF90Fitsio () {
     fi
 
 }
+#----------
+checkFitsioCurl () {
+    cfitsiolib=$1
+    if [ -z ${CFITSIOCURL} ] ; then
+	CFITSIOCURL=" "
+	sanity=`${NM} ${cfitsiolib} 2> ${DEVNULL} | ${GREP} read | ${GREP} T | ${WC} -l` # make sure that nm, grep and wc are understood
+	if [ $sanity -gt 0 ] ; then
+	    check=`${NM} ${cfitsiolib} 2> ${DEVNULL} | ${GREP} curl_ | ${WC} -l` # count curl calls
+	    if [ $check -gt 0 ] ; then
+		CFITSIOCURL="-lcurl"
+		# adding -lcurl is necessary if the cfitsio library is static
+		#echo "WARNING: his version of CFITSIO must be linked with libcurl (flag -lcurl will be added)"
+	    fi
+	fi
+    fi
+}
 # ----------------
 checkF90FitsioLink () {
 # check that F90 routines can link with F90-fitsio wrappers
@@ -1057,7 +1167,7 @@ cat > ${tmpfile}${suffix} << EOF
     end program needs_fitsio
 EOF
     # compile and link
-    ${FC} ${FFLAGS}  ${tmpfile}${suffix} -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} #${WLRPATH}
+    ${FC} ${FFLAGS}  ${tmpfile}${suffix} -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} ${CFITSIOCURL} #${WLRPATH}
 
     # test
     if [ ! -s ${tmpfile}.x ]; then
@@ -1090,15 +1200,17 @@ cat > ${tmpfile}${suffix} << EOF
     end program date_fitsio
 EOF
     # compile and link
-    ${FC} ${FFLAGS}  ${tmpfile}${suffix} -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} ${WLRPATH_}
+    ${FC} ${FFLAGS}  ${tmpfile}${suffix} -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} ${CFITSIOCURL} ${WLRPATH_}
 
     #CFITSIOVREQ="3.14"            # required  version of CFITSIO (in Healpix 3.00)
     CFITSIOVREQ="3.20"            # required  version of CFITSIO (in Healpix 3.30)
+    CFITSIOVREC="3.44"            # recommended  version of CFITSIO (according to NASA)
     # run if executable
     if [ -x ${tmpfile}.x ]; then
 	CFITSIOVERSION=`${tmpfile}.x` # available version of CFITSIO 
 	v1=`echo ${CFITSIOVERSION} | ${AWK} '{print $1*1000}'` # multiply by 1000 to get integer
 	v2=`echo ${CFITSIOVREQ}    | ${AWK} '{print $1*1000}'`
+	v3=`echo ${CFITSIOVREC}    | ${AWK} '{print $1*1000}'`
 	${RM} ${tmpfile}.*
 	if [ $v1 -lt $v2 ]; then
 	    echo 
@@ -1106,6 +1218,12 @@ EOF
 	    echo "CFITSIO >= ${CFITSIOVREQ} is expected for Healpix-F90"
 	    echo
 	    crashAndBurn
+	fi
+	if [ $v1 -lt $v3 ]; then
+	    echo 
+	    echo "WARNING: CFITSIO version in ${FITSDIR}/lib${LIBFITS}.a  is  $CFITSIOVERSION "
+	    echo "         CFITSIO >= ${CFITSIOVREC} is recommended by NASA security team"
+	    echo
 	fi
     else
 	echo "Warning: unable to check that CFITSIO is recent enough (>= ${CFITSIOVREQ})"
@@ -1479,15 +1597,18 @@ IdentifyF90Compiler () {
         elif [ $nifc != 0 ] ; then 
 		ifc_modules
                 FCNAME="Intel Fortran Compiler"
-#                 FFLAGS="$IFCINC -Vaxlib -cm -w -vec_report0" # June 2007
-                FFLAGS="$IFCINC -cm -w -vec_report0 -sox"
+		junk=`$FC -v 2>&1 | grep -i version | sed "s|[ifort,version,Version, ]||g"`
+		intelversion=`echo $junk | awk -F. '{print $1}'`
+		if [ $intelversion -le 17 ] ; then # old syntax, supported up to version 17 included
+		    FFLAGS="$IFCINC -cm -w -sox -vec_report0"
+		    PRFLAGS="-openmp -openmp_report0" # Open MP enabled # June 2007
+		else # new syntax, supported since version 15, required in 18
+		    FFLAGS="$IFCINC -cm -w -sox -qopt-report=0"
+		    PRFLAGS="-qopenmp" # Open MP enabled # Sept 2017
+		fi
 		MOD="$IFCMOD"
 		FTYPE="$IFCVERSION"
-#  		OFLAGS="-O3 -tpp7 -xW" # pentium 4
   		OFLAGS="-O3"
-#		OFLAGS="-O3 -axiMKW" # generates optimized code for each Pentium platform
-# 		PRFLAGS="-openmp" # Open MP enabled
-		PRFLAGS="-openmp -openmp_report0" # Open MP enabled # June 2007
 		FI8FLAG="-i8" # change default INTEGER to 64 bits
 ##		FI8FLAG="-integer-size 64" # change default INTEGER to 64 bits
 		CFLAGS="$CFLAGS -DINTEL_COMPILER" # to combine C and F90
@@ -1837,7 +1958,9 @@ askUserMisc () {
 	LDFLAGS="${LDFLAGS} ${WLRPATH}"
     fi
 
-    checkF90Fitsio ${lib}
+    checkF90Fitsio  ${lib}
+    checkFitsioCurl ${lib}
+    LDFLAGS="$LDFLAGS $CFITSIOCURL"
     checkF90FitsioLink
     checkF90FitsioVersion
 
@@ -1899,7 +2022,7 @@ editF90Makefile () {
 ####	${SED} "s|^F90_PARALL.*$|F90_PARALL	= $PARALL|" |\
 	${SED} "s|^F90_MODDIR[[:space:]=].*$|F90_MODDIR	= \"$MODDIR\"|" |\
 	${SED} "s|^F90_MOD[[:space:]=].*$|F90_MOD	= $MOD|" |\
-	${SED} "s|^F90_FTYPE.*$|F90_FTYPE	= $FTYPE|" |\
+###	${SED} "s|^F90_FTYPE.*$|F90_FTYPE	= $FTYPE|" |\
 	${SED} "s|^F90_PPFLAGS.*$|F90_PPFLAGS	= $PPFLAGS|" |\
 	${SED} "s|^F90_PGFLAG.*$|F90_PGFLAG  = $PGFLAG|" |\
 	${SED} "s|^F90_PGLIBS.*$|F90_PGLIBS  = $PGLIBS|" |\
@@ -2112,7 +2235,8 @@ mainMenu () {
 	x1) 
 	  eval idlconffile=$HPX_CONF_IDL
 	  eval gdlconffile=$HPX_CONF_GDL
-          idl_config $idlconffile $gdlconffile;;
+	  eval flconffile=$HPX_CONF_FL
+          idl_config $idlconffile $gdlconffile $flconffile;;
         x2)
            C_config;;
 	x3)
@@ -2199,6 +2323,7 @@ HEALPIX=${HEALPIX} ; export HEALPIX
 HPX_CONF_DIR=${HPX_CONF_DIR}
 if [ -r ${HPX_CONF_IDL} ] ; then . ${HPX_CONF_IDL} ; fi
 if [ -r ${HPX_CONF_GDL} ] ; then . ${HPX_CONF_GDL} ; fi
+if [ -r ${HPX_CONF_FL} ]  ; then . ${HPX_CONF_FL}  ; fi
 if [ -r ${HPX_CONF_F90} ] ; then . ${HPX_CONF_F90} ; fi
 if [ -r ${HPX_CONF_CPP} ] ; then . ${HPX_CONF_CPP} ; fi
 if [ -r ${HPX_CONF_C} ] ;   then . ${HPX_CONF_C} ;   fi
@@ -2211,6 +2336,7 @@ setenv HEALPIX $HEALPIX
 setenv HPX_CONF_DIR ${HPX_CONF_DIR}
 if ( -e ${HPX_CONF_IDL} ) source ${HPX_CONF_IDL}
 if ( -e ${HPX_CONF_GDL} ) source ${HPX_CONF_GDL}
+if ( -e ${HPX_CONF_FL}  ) source ${HPX_CONF_FL}
 if ( -e ${HPX_CONF_F90} ) source ${HPX_CONF_F90}
 if ( -e ${HPX_CONF_CPP} ) source ${HPX_CONF_CPP}
 if ( -e ${HPX_CONF_C} )   source ${HPX_CONF_C}
@@ -2246,7 +2372,7 @@ restartFromScratch () {
     echo "Removing Main Makefile"
     ${RM} Makefile
     echo "Removing configuration files in " ${HPX_CONF_DIR}
-    for hfile in ${HPX_CONF_MAIN} ${HPX_CONF_IDL} ${HPX_CONF_GDL} ${HPX_CONF_F90} ${HPX_CONF_CPP} ${HPX_CONF_C} ; do
+    for hfile in ${HPX_CONF_MAIN} ${HPX_CONF_IDL} ${HPX_CONF_GDL} ${HPX_CONF_FL} ${HPX_CONF_F90} ${HPX_CONF_CPP} ${HPX_CONF_C} ; do
 	eval thisfile=${hfile}
         ${RM} ${thisfile}
     done
@@ -2277,6 +2403,7 @@ setTopDefaults() {
     SED="sed"
     WC="wc"
     OS=`uname -s`
+    WHEREIS="whereis"
 
     HEALPIX=`${PWD}`
     #echo "HEALPIX ${HEALPIX}"
@@ -2313,6 +2440,7 @@ setConfDir () {
     HPX_CONF_MAIN=$HPX_CONF_DIR/config
     HPX_CONF_IDL=\${HPX_CONF_DIR}/idl.${suffix}
     HPX_CONF_GDL=\${HPX_CONF_DIR}/gdl.${suffix}
+    HPX_CONF_FL=\${HPX_CONF_DIR}/fl.${suffix}
     HPX_CONF_F90=\${HPX_CONF_DIR}/f90.${suffix}
     HPX_CONF_CPP=\${HPX_CONF_DIR}/cpp.${suffix}
     HPX_CONF_C=\${HPX_CONF_DIR}/c.${suffix}

@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>help_st</TITLE>
+<META NAME="description" CONTENT="help_st">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_hpx2dm.htm">
+<LINK REL="previous" HREF="idl_healpixwindow.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_hpx2dm.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html631"
+  HREF="idl_healpixwindow.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html637"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html641"
+  HREF="idl_hpx2dm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html639"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html632"
+  HREF="idl_healpixwindow.htm">healpixwindow</A>
+
+<B>Up:</B> <A NAME="tex2html638"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html642"
+  HREF="idl_hpx2dm.htm">hpx2dm</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION3100"></A>
+<A NAME="idl:help_st"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">help_st</FONT></font></b><hr>
+<H3>This IDL facility provides some HELP-like information on any IDL variable,
+and especially on sub-structures.</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/misc/help_st.pro"><b>src/idl/misc/help_st.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+<FONT COLOR="#CC0000">help_st</FONT>,
+<A HREF="#idl:help_st:var">Var</A>
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>Var</B>
+<DD><A NAME="idl:help_st:var"></A>IDL variable, of any kind
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+If <A HREF="#idl:help_st:var"><TT>Var</TT></A> is an IDL structure, <FONT COLOR="#CC0000">help_st</FONT> does a recursive <TT>HELP,/STRUCTURES</TT> on <TT>Var</TT> and each of its substructure, otherwise it does the equivalent of <TT>HELP, Var</TT> (see respectively 
+Examples 
+<A HREF="#idl:help_st:example1">#1</A> and 
+<A HREF="#idl:help_st:example2">#2</A> below)
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">help_st</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">help_st</FONT>.
+  </DL>
+
+<P>
+<hr><H1>EXAMPLE # 1:</H1> 
+<tt><A NAME="idl:help_st:example1"></A><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><A HREF="idl_init_healpix_healpix_system.htm#idl:init_healpix">init_healpix</A> ; make sure that <TT>!healpix</TT> is defined</TD>
+</TR>
+<TR><TD ALIGN="LEFT">help, /structure, !healpix</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">help_st</FONT>, !healpix</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+<TABLE  WIDTH="100%">
+<TR><TD>
+the example above compares the output of <TT>help,/structures</TT> which only describes the top structure: 
+
+<BR>
+<BR><SMALL CLASS="SCRIPTSIZE"><TT> ** Structure &lt;151cef8&gt;, 7 tags, length=528, data length=524, refs=2:    
+<BR></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">
+   VERSION      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  '3.40'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   DATE         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  '2018-01-01'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   DIRECTORY    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  '/home/user/Healpix'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   PATH         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   STRUCT  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  -&gt; &lt;Anonymous&gt; Array[1]   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   NSIDE        </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   LONG    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  Array[30]   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   BAD_VALUE   </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   FLOAT   </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   -1.63750e+30   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+   COMMENT      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">  Array[15]   
+</SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="SCRIPTSIZE"></TT></SMALL>
+
+<BR>
+<P>
+and <TT><FONT COLOR="#CC0000">help_st</FONT></TT>, which describes each sub-structure:
+
+<BR><SMALL CLASS="SCRIPTSIZE"><TT> ** Structure &lt;151cef8&gt;, 7 tags, length=528, data length=524, refs=2:   
+<BR></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">
+  .VERSION           </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '3.40'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .DATE              </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '2018-01-01'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .DIRECTORY         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.BIN.CXX      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/src/cxx/generic_gcc/bin/'</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.BIN.F90      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/bin/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.DATA         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/data/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.DOC.HTML     </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/doc/html/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.DOC.PDF      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/doc/pdf/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.SRC          </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/src/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .PATH.TEST         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   '/home/user/Healpix/test/'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .NSIDE             </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     LONG    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   Array[30]   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .BAD_VALUE        </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     FLOAT   </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">    -1.63750e+30   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE"> 
+  .COMMENT           </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">     STRING  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SCRIPTSIZE">   Array[15]   
+</SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="SCRIPTSIZE"></TT></SMALL>
+</TD></TR>
+</TABLE>
+</blockquote>
+
+<P>
+<hr><H1>EXAMPLE # 2:</H1> 
+<tt><A NAME="idl:help_st:example2"></A><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">a=0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">help,a+1</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">help_st</FONT>, a+1</TD>
+</TR>
+</TABLE></tt>
+<blockquote><IMG
+ WIDTH="248" HEIGHT="69" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img47.png"
+ ALT="$\textstyle \parbox{\hsize}{
+will print out
+\\
+{\scriptsize{\texttt{
+&lt;Expressi...
+...} = \hspace{3em} 1 \\
+A+1 \hspace{3em} INT \hspace{3em} = \hspace{3em} 1
+}}}
+}$"></blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html631"
+  HREF="idl_healpixwindow.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html637"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html641"
+  HREF="idl_hpx2dm.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html639"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html632"
+  HREF="idl_healpixwindow.htm">healpixwindow</A>
+
+<B>Up:</B> <A NAME="tex2html638"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html642"
+  HREF="idl_hpx2dm.htm">hpx2dm</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

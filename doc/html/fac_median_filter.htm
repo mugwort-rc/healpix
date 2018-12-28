@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>median_filter</TITLE>
+<META NAME="description" CONTENT="median_filter">
+<META NAME="keywords" CONTENT="facilities">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="facilities.css">
+
+<LINK REL="next" HREF="fac_plmgen.htm">
+<LINK REL="previous" HREF="fac_map2gif.htm">
+<LINK REL="up" HREF="fac_HEALPix_F90_facilities.htm">
+<LINK REL="next" HREF="fac_plmgen.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html206"
+  HREF="fac_map2gif.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html212"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html216"
+  HREF="fac_plmgen.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html214"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html207"
+  HREF="fac_map2gif.htm">map2gif</A>
+
+<B>Up:</B> <A NAME="tex2html213"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html217"
+  HREF="fac_plmgen.htm">plmgen</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION900"></A>
+<A NAME="fac:median_filter"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">median_filter</FONT></font></b><hr>
+<H3>This program produces the median filtered map of an input <b>HEALPix</b> map
+  (polarised or unpolarised). The
+  neighborhood on the which the median is computed is defined as a disk of
+  user-defined radius</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/f90/median_filter/median_filter.f90"><b>src/f90/median_filter/median_filter.f90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h3>%
+median_filter [options] [parameter_file]
+</h3></blockquote>
+
+<P>
+<hr><H1>COMMAND LINE OPTIONS</H1> 
+  <DL COMPACT><DT>
+<B><TT>-d</TT></B>
+<DD><DT>
+<B><TT>--double</TT></B>
+<DD>double precision mode (see 
+  <A HREF="fac_Using_HEALPix_Fortran_90_fa.htm#fac:subsec:ioprec">Notes on double/single precision modes</A>)
+    <DT>
+<B><TT>-s</TT></B>
+<DD><DT>
+<B><TT>--single</TT></B>
+<DD>single precision mode (default)
+  </DL>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>simul_type = </B>
+<DD><A NAME="fac:median_filter:simul_type"></A>Either 1 or 2. If set to 1, only the temperature component of the
+      input map will be filtered. If set to 2, all the Stokes components available
+      in the input file will be filtered (default = 1)
+<DT>
+<B>infile = </B>
+<DD><A NAME="fac:median_filter:infile"></A>Name of the FITS file containing the map to be filtered
+      (default = '', no default input file).
+<DT>
+<B>mf_radius_arcmin = </B>
+<DD><A NAME="fac:median_filter:mf_radius_arcmin"></A>Radius in arcmin of the disk over which the
+      median is computed (default = <!-- MATH
+ $3\theta_{\mathrm{pix}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img30.png"
+ ALT="$3\theta_{\mathrm{pix}}$"></SPAN> where <!-- MATH
+ $\theta_{\mathrm{pix}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="fac_img31.png"
+ ALT="$\theta_{\mathrm{pix}}$"></SPAN>
+      is the input map pixel size).
+<DT>
+<B>fill_holes = </B>
+<DD><A NAME="fac:median_filter:fill_holes"></A>If set to true, flagged pixels take for value the median of
+      the valid pixels surrounding them (if any). Otherwise they are left
+      unchanged.
+      (default = .false.). Note that <TT>y, yes,t, true, .true.</TT> and 1 are
+      interpreted as <EM>true</EM>, while <TT>n, no, f, false, .false.</TT> and 0 stand
+      for <EM>false</EM>.
+<DT>
+<B>mffile = </B>
+<DD><A NAME="fac:median_filter:mffile"></A>Name of the FITS file containing the median filtered map
+</DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+Median_Filter produces a median filtered map in which the value of each pixel
+is the median of the input map valid pixels found within a disk of given
+  radius centered on that pixel. A pixel flagged as 'non-valid' in the input map
+  can either be left unchanged or 'filled in' with the same scheme, if at
+  least one valid pixel is found among its neighbors. 
+<BR>
+If the map is polarized, each of the three Stokes components is filtered separately.
+
+</blockquote>
+
+<P>
+<hr><H1>SUPPORT    </H1><H3>This section lists those routines and facilities (including those <i>external</i> to the <b>HEALPix</b> distribution) which can assist in the utilisation of <b><FONT COLOR="#CC0000">median_filter</FONT></b>.</H3>
+  <DL COMPACT><DT>
+<B><A HREF="fac_anafast.htm#fac:anafast">anafast</A></B>
+<DD>This <b>HEALPix</b> Fortran facility can
+     	       analyse a <b>HEALPix</b> map.
+  <DT>
+<B><A HREF="fac_synfast.htm#fac:synfast">synfast</A></B>
+<DD>This <b>HEALPix</b> facility can generate a
+  <b>HEALPix</b> map from a power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>.
+
+<P>
+</DL>
+
+<P>
+<hr><H1>EXAMPLE # 1:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">median_filter  [option]</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+Median_Filter runs in interactive mode, self-explanatory.
+</blockquote>
+
+<P>
+<hr><H1>EXAMPLE # 2:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">median_filter  [option] filename</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>When 'filename' is present, median_filter enters the non-interactive mode and parses
+its inputs from the file 'filename'. This has the following
+structure: the first entry is a qualifier which announces to the parser
+which input immediately follows. If this input is omitted in the
+input file, the parser assumes the default value.
+If the equality sign is omitted, then the parser ignores the entry.
+In this way comments may also be included in the file.
+In this example, the file contains the following qualifiers:
+<BR>
+<tt><A HREF="#fac:median_filter:simul_type">simul_type</A>= 1</tt><br>
+<tt><A HREF="#fac:median_filter:infile">infile</A>= map.fits</tt><br>
+<tt><A HREF="#fac:median_filter:mf_radius_arcmin">mf_radius_arcmin</A>= 20.0</tt><br>
+<tt><A HREF="#fac:median_filter:mffile">mffile</A>= med.fits</tt><br>
+
+<P>
+Median_Filter reads the sky map from 'map.fits'. Since <BR>
+<tt><A HREF="#fac:median_filter:fill_holes">fill_holes</A></tt><br>
+has its default value, ..., The median will be computed on a disk of 20 arcmin
+in radius, and the result will be written in 'med.fits'.
+</blockquote>
+
+<P>
+<hr><H1>RELEASE NOTES</H1><blockquote>
+  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="blueball.png" ALT="*">
+ Initial release (<b>HEALPix</b> 2.00)
+  </DL>
+</blockquote>
+
+<P>
+<hr><H1>MESSAGES</H1><h3>This section describes error messages generated by <b><FONT COLOR="#CC0000">median_filter</FONT></b>
+</h3>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=125><SPAN  CLASS="textbf">Message</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">Severity</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">Text</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+can not allocate memory for array xxx</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>Fatal</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>You do not have
+                   sufficient system resources to run this
+                   facility at the map resolution you required. 
+  Try a lower map resolution.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+
+<P>
+this is not a binary table</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
+of the proper format</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+there are undefined values in the table!</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
+of the proper format</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+the header in xxx is too long</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
+of the proper format</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+XXX-keyword not found</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
+of the proper format</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+found xxx in the file, expected:yyyy</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the specified fitsfile does not
+contain the proper amount of data.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
+
+<P></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html206"
+  HREF="fac_map2gif.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html212"
+  HREF="fac_HEALPix_F90_facilities.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html216"
+  HREF="fac_plmgen.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html214"
+  HREF="fac_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html207"
+  HREF="fac_map2gif.htm">map2gif</A>
+
+<B>Up:</B> <A NAME="tex2html213"
+  HREF="fac_HEALPix_F90_facilities.htm">HEALPix/F90 facilities</A>
+
+<B> Next:</B> <A NAME="tex2html217"
+  HREF="fac_plmgen.htm">plmgen</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

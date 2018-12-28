@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A Comment on the Random Number Generator</TITLE>
+<META NAME="description" CONTENT="A Comment on the Random Number Generator">
+<META NAME="keywords" CONTENT="intro">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+   <link rel='apple-touch-icon' sizes='180x180' href='images/favicons/apple-touch-icon.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='32x32' href='images/favicons/favicon-32x32.png?v=2017'>
+   <link rel='icon' type='image/png' sizes='16x16' href='images/favicons/favicon-16x16.png?v=2017'>
+   <link rel='manifest' href='images/favicons/manifest.json?v=2017'>
+   <link rel='mask-icon' href='images/favicons/safari-pinned-tab.svg?v=2017' color='#5bbad5'>
+   <link rel='shortcut icon' href='images/favicons/favicon.ico?v=2017'>
+   <meta name='apple-mobile-web-app-title' content='HEALPix'>
+   <meta name='application-name' content='HEALPix'>
+   <meta name='msapplication-config' content='images/favicons/browserconfig.xml?v=2017'>
+   <meta name='theme-color' content='#ffffff'>
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro.css">
+
+<LINK REL="next" HREF="intro_Bibliography.htm">
+<LINK REL="previous" HREF="intro_Pixel_window_functions.htm">
+<LINK REL="up" HREF="intro_Introduction_HEALPix.htm">
+<LINK REL="next" HREF="intro_Bibliography.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html188"
+  HREF="intro_Pixel_window_functions.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html194"
+  HREF="intro_Introduction_HEALPix.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html198"
+  HREF="intro_Bibliography.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html196"
+  HREF="intro_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html189"
+  HREF="intro_Pixel_window_functions.htm">Pixel window functions</A>
+
+<B>Up:</B> <A NAME="tex2html195"
+  HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
+
+<B> Next:</B> <A NAME="tex2html199"
+  HREF="intro_Bibliography.htm">Bibliography</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION800">
+A Comment on the Random Number Generator</A>
+</H1>
+
+<P>
+We provide a new random number generator (RNG) with this package, available both
+in Fortran90 and C++. 
+It resides in 
+<A NAME="tex2html19"
+  HREF="https://sourceforge.net/p/healpix/code/HEAD/tree/trunk/src/f90/mod/rngmod.f90"><TT>src/f90/mod/rngmod.f90</TT></A>
+and 
+<A NAME="tex2html20"
+  HREF="https://sourceforge.net/p/healpix/code/HEAD/tree/trunk/src/cxx/cxxsupport/planck_rng.h"><TT>src/cxx/cxxsupport/planck_rng.h</TT></A>
+and supersedes the previous RNG (which is still available at 
+<A NAME="tex2html21"
+  HREF="https://sourceforge.net/p/healpix/code/HEAD/tree/trunk/src/f90/mod/ran_tools_dist.f90"><TT>src/f90/mod/ran_tools_dist.f90</TT></A>). 
+
+<P>
+It produces double precision real numbers <SPAN CLASS="MATH"><I>x</I></SPAN> with <SPAN CLASS="MATH"><IMG
+ WIDTH="64" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="intro_img178.png"
+ ALT="$x\in]0,1[$"></SPAN> and is based 
+on a xorshift method described by Marsaglia in 
+Journal of Statistical Software 2003, vol 8
+(cf. <A NAME="tex2html22"
+  HREF="https://www.cs.hku.hk/"><TT>https://www.cs.hku.hk/</TT></A>).
+It accepts up to four different seeds simultaneously, allowing each sequence to
+have a
+theoretical period of <!-- MATH
+ $2^{128}-1 \approx 3.4 10^{38}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="134" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="intro_img179.png"
+ ALT="$2^{128}-1 \approx 3.4 10^{38}$"></SPAN>. A Gaussian deviate RNG is
+also provided. See the respective routines documentation for details on their usage.
+Please note that we have not extensively tested this generator 
+-- it did not represent the main drive of this project.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html188"
+  HREF="intro_Pixel_window_functions.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html194"
+  HREF="intro_Introduction_HEALPix.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html198"
+  HREF="intro_Bibliography.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html196"
+  HREF="intro_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html189"
+  HREF="intro_Pixel_window_functions.htm">Pixel window functions</A>
+
+<B>Up:</B> <A NAME="tex2html195"
+  HREF="intro_Introduction_HEALPix.htm">Introduction to HEALPix</A>
+
+<B> Next:</B> <A NAME="tex2html199"
+  HREF="intro_Bibliography.htm">Bibliography</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>uniq2nest</TITLE>
+<META NAME="description" CONTENT="uniq2nest">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idl_vec2ang.htm">
+<LINK REL="previous" HREF="idl_unfold_weights.htm">
+<LINK REL="up" HREF="idl_HEALPix_IDL_subroutines.htm">
+<LINK REL="next" HREF="idl_vec2ang.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html1111"
+  HREF="idl_unfold_weights.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1117"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1121"
+  HREF="idl_vec2ang.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1119"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1112"
+  HREF="idl_unfold_weights.htm">unfold_weights</A>
+
+<B>Up:</B> <A NAME="tex2html1118"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1122"
+  HREF="idl_vec2ang.htm">vec2ang</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION7100"></A>
+<A NAME="idl:uniq2nest"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">uniq2nest</FONT></font></b><hr>
+<H3>This IDL facility turns the Unique Identifier into the corresponding <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> and (NESTED) pixel index. 
+</H3>
+Location in HEALPix directory tree: <a href="https://sourceforge.net/p/healpix/code/945/tree/trunk/src/idl/toolkit/uniq2nest.pro"><b>src/idl/toolkit/uniq2nest.pro</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><h3>IDL>
+uniq2nest, 
+<A HREF="#idl:uniq2nest:puniq">Puniq</A>, 
+<A HREF="#idl:uniq2nest:nside">Nside</A>, 
+<A HREF="#idl:uniq2nest:pnest">Pnest</A> [,<A HREF="#idl:uniq2nest:help">/HELP</A>]
+</h3>
+
+<P>
+<hr>
+<H1>QUALIFIERS</H1>
+ 
+  <DL COMPACT><DT>
+<B>Puniq</B>
+<DD><A NAME="idl:uniq2nest:puniq"></A> (IN, scalar or vector Integer) The <b>HEALPix</b> Unique pixel identifier(s). Must be <SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="idl_img90.png"
+ ALT="$\ge 4$"></SPAN>.
+<DT>
+<B>Nside</B>
+<DD><A NAME="idl:uniq2nest:nside"></A> (OUT, same size as <A HREF="#idl:uniq2nest:puniq"><TT>Puniq</TT></A>) The <b>HEALPix</b> <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> parameter(s)
+<DT>
+<B>Pnest</B>
+<DD><A NAME="idl:uniq2nest:pnest"></A> (OUT, same size as <A HREF="#idl:uniq2nest:puniq"><TT>Puniq</TT></A>) (NESTED scheme) pixel identification number(s) over the range {0,<!-- MATH
+ $12N_{\mathrm{side}}^2-1$
+ -->
+<SPAN CLASS="MATH">12<I>N</I><SUB>side</SUB><SUP>2</SUP>-1</SPAN>}.
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+
+  <DL COMPACT><DT>
+<B>/HELP</B>
+<DD><A NAME="idl:uniq2nest:help"></A> If set, a documentation header is printed out, and the routine exits
+  </DL>
+
+<P>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
+<FONT COLOR="#CC0000">uniq2nest</FONT> turns the Unique ID number <!-- MATH
+ $u = p + 4 N_{\mathrm{side}}^2$
+ -->
+<SPAN CLASS="MATH"><I>u</I> = <I>p</I> + 4 <I>N</I><SUB>side</SUB><SUP>2</SUP></SPAN>, into the parameter <!-- MATH
+ $N_{\mathrm{side}}$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB></SPAN> (a power of 2) and the pixel index <SPAN CLASS="MATH"><I>p</I></SPAN>. See <A HREF="./intro_Geometric_Algebraic_Propert.htm#intro:unique">''The Unique Identifier scheme''</A> section in 
+<A NAME="tex2html75"
+  HREF="intro.htm">''<b>HEALPix</b> Introduction Document''</A>
+for more details.
+
+</blockquote>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">uniq2nest, [4,16, 64], nside, pnest</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">print, nside, pnest</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE></tt>
+<blockquote>
+<TABLE  WIDTH="441">
+<TR><TD>
+returns  
+<BR>
+1 2 4 
+<BR>
+0 0 0 
+<BR>
+since the pixels with Unique ID numbers 4, 16 and 64 are the first pixels (<SPAN CLASS="MATH"><I>p</I>=0</SPAN>) at <!-- MATH
+ $N_{\mathrm{side}}=$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB>side</SUB>=</SPAN> 1, 2 and 4 respectively.
+</TD></TR>
+</TABLE>
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">uniq2nest</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B><A HREF="idl_nest2uniq.htm#idl:nest2uniq">nest2uniq</A></B>
+<DD>Transforms Nside and Nested pixel number into Unique <b>HEALPix</b> pixel ID number
+  <DT>
+<B><A HREF="idl_pix2xxx_ang2xxx_vec2xxx_nes.htm#idl:pix_tools">pix2xxx, ...</A></B>
+<DD>to turn NESTED pixel index into sky coordinates and back
+  </DL>
+
+<P>
+
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1111"
+  HREF="idl_unfold_weights.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1117"
+  HREF="idl_HEALPix_IDL_subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1121"
+  HREF="idl_vec2ang.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1119"
+  HREF="idl_TABLE_CONTENTS.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1112"
+  HREF="idl_unfold_weights.htm">unfold_weights</A>
+
+<B>Up:</B> <A NAME="tex2html1118"
+  HREF="idl_HEALPix_IDL_subroutines.htm">HEALPix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1122"
+  HREF="idl_vec2ang.htm">vec2ang</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Version 3.40, 2018-06-22
+</ADDRESS>
+</BODY>
+</HTML>
