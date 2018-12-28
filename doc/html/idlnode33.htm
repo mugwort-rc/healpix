@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html525"
+<A NAME="tex2html527"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html531"
+<A NAME="tex2html533"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html535"
+<A NAME="tex2html537"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html533"
+<A NAME="tex2html535"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html526"
+<B> Previous:</B> <A NAME="tex2html528"
   HREF="idlnode32.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html532"
+<B>Up:</B> <A NAME="tex2html534"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html536"
+<B> Next:</B> <A NAME="tex2html538"
   HREF="idlnode34.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -80,7 +80,8 @@ src/idl/visu/mollview.pro
 </SMALL>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-MOLLVIEW, <A HREF="#idl:mollview:file">File</A>, 
+MOLLVIEW, </SMALL>
+<A HREF="#idl:mollview:file">File</A>, 
 [ <A HREF="#idl:mollview:select">Select</A>, ]
 [ <A HREF="#idl:mollview:asinh">/ASINH</A>, 
 <A HREF="#idl:mollview:charsize">CHARSIZE=</A>, 
@@ -135,11 +136,11 @@ MOLLVIEW, <A HREF="#idl:mollview:file">File</A>,
 <A HREF="#idl:mollview:window">WINDOW=</A>, 
 <A HREF="#idl:mollview:xpos">XPOS=</A>, 
 <A HREF="#idl:mollview:ypos">YPOS=</A>]
-
+<SMALL CLASS="FOOTNOTESIZE">
 </h2>
 <P>
-<SMALL CLASS="FOOTNOTESIZE">Several visualization routines have a similar interface. Their qualifiers and
-keywords are all listed here, and the routines to which they apply are coded
+<SMALL CLASS="FOOTNOTESIZE">Several visualization routines have a similar interface. Their <B>qualifiers</B> and
+<B>keywords</B> are all listed here, and the routines to which they apply are coded
 in the 'routine' column as: 
 <BR>
 C: <A HREF="idlnode10.htm#idl:cartview">cartview</A>,
@@ -305,10 +306,18 @@ When used with TRUECOLORS, FACTOR can be a 3-element vector. <BR><i>see also:</i
 mollweide</EM>, or  </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>orthographic</EM> depending on the projection in use;
 <BR>- if set to a file name  : output the plot in that file.  <BR><b>default:</b>0: no .FITS done
 <BR>
-In the case of Orthographic projection, <A HREF="#idl:mollview:half_sky">HALF_SKY</A> must be set.
+In the case of Orthographic projection,
+<A HREF="#idl:mollview:half_sky">HALF_SKY</A> must be set.
 <BR>
+Except for the color mapping, all the keywords and options apply to the
+projected map, ie: its size is determined by
+<A HREF="#idl:mollview:pxsize">PXSIZE</A> (and <A HREF="#idl:mollview:pysize">PYSIZE</A>
+when applicable), its angular resolution by <A HREF="#idl:mollview:reso_arcmin">RESO_ARCMIN</A>
+when applicable, its orientation and coordinates by 
+<A HREF="#idl:mollview:rot">ROT</A> and 
+<A HREF="#idl:mollview:coord">COORD</A> respectively, ... <BR>
 For compatibility with standard FITS viewers (including 
-<A NAME="tex2html12"
+<A NAME="tex2html13"
   HREF="http://www.astromatic.net/category/softwareposts/stiff">STIFF</A>), unobserved pixels, and
 pixels outside the sphere, take the value </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>NaN</TT> (ie </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!values.f_nan</TT> in IDL).
 The resulting FITS file can be read in IDL with eg. map=</SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>readfits</TT>(</SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>filename</EM>). 
@@ -470,6 +479,14 @@ The automatic labeling of the graticule is controlled by </SMALL><SMALL CLASS="F
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
 	variable that will contain the projected map on output.
+<BR>
+Except for the color mapping, all the keywords and options apply to the
+projected map, ie: its size is determined by
+<A HREF="#idl:mollview:pxsize">PXSIZE</A> (and <A HREF="#idl:mollview:pysize">PYSIZE</A>
+when applicable), its angular resolution by <A HREF="#idl:mollview:reso_arcmin">RESO_ARCMIN</A>
+when applicable, its orientation and coordinates by 
+<A HREF="#idl:mollview:rot">ROT</A> and 
+<A HREF="#idl:mollview:coord">COORD</A> respectively, ... <BR>
 Unobserved pixels, and pixels outside the sphere, take value <A HREF="idlnode29.htm#idl:init_healpix"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!healpix.bad_value</TT></A> (<!-- MATH
  $=-1.6375\,10^{30}$
  -->
@@ -478,17 +495,6 @@ Unobserved pixels, and pixels outside the sphere, take value <A HREF="idlnode29.
  SRC="idlimg36.png"
  ALT="$=-1.6375\,10^{30}$"></SPAN>).
 <BR><i>see also:</i><A HREF="#idl:mollview:fits">Fits</A></SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MAX=<A NAME="idl:mollview:max"></A>  </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
-	Set the maximum value for the plotted signal <BR><b>default:</b>is to use the actual signal
-	maximum.</SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MIN=<A NAME="idl:mollview:min"></A>  </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
-	Set the minimum value for the plotted signal <BR><b>default:</b>is to use the actual signal minimum.</SMALL></TD>
 </TR>
 <TR><TD></TD>
 <TD></TD>
@@ -502,6 +508,18 @@ Unobserved pixels, and pixels outside the sphere, take value <A HREF="idlnode29.
 <SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+MAX=<A NAME="idl:mollview:max"></A>  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	Set the maximum value for the plotted signal <BR><b>default:</b>is to use the actual signal
+	maximum.</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MIN=<A NAME="idl:mollview:min"></A>  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	Set the minimum value for the plotted signal <BR><b>default:</b>is to use the actual signal minimum.</SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NESTED<A NAME="idl:mollview:nested"></A>  </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
@@ -570,7 +588,7 @@ When used with TRUECOLORS, OFFSET can be a 3-element vector. <BR><i>see also:</i
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">OUTLINE=<A NAME="idl:mollview:outline"></A> </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
-	IDL (meta-)structure, or array of structures, 
+	IDL structure, structure of structures, or array of structures, 
        containing the description of one (or several) outline(s) to
       be overplotted on the final map.
 <BR>
@@ -580,11 +598,21 @@ For each contour or point list, the corresponding (sub)structure should
 <BR>- 'LINE[STYLE]' (optional, scalar) </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>+2</B>: black dashes, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>+1</B>: black dots, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>0</B>: black solid (default), </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>-1</B>: black dots on white background, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>-2</B>: black dashes on
 	white background
 <BR>- 'PSY[M]' (optional, scalar) symbol used to represent vertices (same meaning as
-	    standard PSYM in IDL). If <SPAN CLASS="MATH"><IMG
- WIDTH="34" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+	    standard PSYM in IDL. If <!-- MATH
+ $9\leq|\rm{psym}|\leq 46$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="137" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg37.png"
+ ALT="$9\leq\vert\rm{psym}\vert\leq 46$"></SPAN>, D. Fanning's 
+<A NAME="tex2html14"
+  HREF="http://www.dfanning.com/programs/symcat.pro"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>SYMCAT.PRO</TT></A>
+symbols 
+                     definition will be used; for example, psym=9 is an open circle). If <SPAN CLASS="MATH"><IMG
+ WIDTH="34" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg38.png"
  ALT="$\leq 0$"></SPAN>, the vertices are represented with the chosen symbols, and
-                        connected, by arcs of geodesics;
+                        connected by arcs of geodesics;
                     if <SPAN CLASS="MATH">&gt;0</SPAN>, only the vertices are shown
                     <b>default:</b>0 <BR>- 'SYM[SIZE]' (optional, scalar) vertice symbol size (same meaning as SYMSIZE in IDL)
 </SMALL>
@@ -644,7 +672,7 @@ the AMPLITUDE <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="142" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg38.png"
+ SRC="idlimg39.png"
  ALT="$P = \sqrt{\left(U^2 + Q^2\right)}$"></SPAN> of the polarisation is plotted 
 	(as long as the input data contains polarisation information
              (ie, Stokes parameter Q and U for each pixel)) 
@@ -655,7 +683,7 @@ the ANGLE <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="157" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg39.png"
+ SRC="idlimg40.png"
  ALT="$\phi = \tan^{-1}(U/Q) /2$"></SPAN> of the polarisation is plotted <BR>
 Note: the angles are color coded with a fixed color table (independent of Colt)
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -694,14 +722,15 @@ if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
 		set the number of horizontal screen_pixels or postscript_color_dots of the plot
-    		(useful for high definition color printer)
+    		(useful for high definition color printer) or elements of the
+output map
 <BR><b>default:</b>800 (Mollview and full sky Orthview), 600 (half sky
-		Orthview), 500 (Cartview and Gnomonic) </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">PYSIZE=<A NAME="idl:mollview:pysize"></A>  </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> CG-   </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
-		set the number of vertical screen_pixels or postscript_color_dots of the plot <BR><b>default:</b>Pxsize </SMALL></TD>
+		Orthview), 500 (Cartview and Gnomonic) <BR><i>see also:</i>
+<A HREF="#idl:mollview:fits">FITS</A>, 
+<A HREF="#idl:mollview:gif">GIF</A>, 
+<A HREF="#idl:mollview:map_out">MAP_OUT</A>, 
+<A HREF="#idl:mollview:png">PNG</A>, 
+<A HREF="#idl:mollview:ps">PS</A>.</SMALL></TD>
 </TR>
 <TR><TD></TD>
 <TD></TD>
@@ -717,10 +746,21 @@ if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
-RESO_ARCMIN=<A NAME="idl:mollview:reso_arcmin"></A> </SMALL></TD>
+PYSIZE=<A NAME="idl:mollview:pysize"></A>  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> CG-   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		set the number of vertical screen_pixels or postscript_color_dots of the plot <BR><b>default:</b><A HREF="#idl:mollview:pxsize">Pxsize</A>.</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">RESO_ARCMIN=<A NAME="idl:mollview:reso_arcmin"></A> </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> CG- </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
-		size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5 </SMALL></TD>
+		size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5
+<BR><i>see also:</i>
+<A HREF="#idl:mollview:fits">FITS</A>, 
+<A HREF="#idl:mollview:gif">GIF</A>, 
+<A HREF="#idl:mollview:map_out">MAP_OUT</A>, 
+<A HREF="#idl:mollview:png">PNG</A>, 
+<A HREF="#idl:mollview:ps">PS</A>.</SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">RETAIN=<A NAME="idl:mollview:retain"></A> </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
@@ -741,8 +781,7 @@ lat0 : latitude of the point to be put at the center of the plot
  		      <b>default:</b>0 <BR>
 rot0 : anti clockwise rotation to apply to the sky around the
                      center (lon0, lat0) before projecting
-                     <b>default:</b>0 <BR>
-</SMALL></TD>
+                     <b>default:</b>0 </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/SAVE<A NAME="idl:mollview:save"></A>  </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
@@ -943,13 +982,13 @@ triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg40.png"
+ SRC="idlimg41.png"
  ALT="$\quad\quad$"></SPAN>	  <A HREF="#idl:mollview:titleplot">title</A>='Mollweide projection',<A HREF="#idl:mollview:subtitle">subtitle</A>='mollview', $ </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg40.png"
+ SRC="idlimg41.png"
  ALT="$\quad\quad$"></SPAN> <A HREF="#idl:mollview:outline">outline</A>=triangle </SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
@@ -957,14 +996,14 @@ triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD
 page&nbsp;<A HREF="idlnode33.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary <A HREF="#idl:mollview:graticule">rotation</A>, with a <A HREF="#idl:mollview:graticule">graticule</A> grid
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary
 (triangular) <A HREF="#idl:mollview:outline">outline</A></blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="5554"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="6037"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Figures produced by <A HREF="idlnode10.htm#idl:cartview">cartview</A>,
 <A HREF="idlnode21.htm#idl:gnomview">gnomview</A>, <A HREF="#idl:mollview">mollview</A> and <A HREF="idlnode40.htm#idl:orthview">orthview</A>, see respective
 routine documentation for details.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par16777" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par17373" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_visu_large.png"
@@ -988,13 +1027,13 @@ mycommand = 'x=findgen(64)/10. &amp; ' + $ </SMALL></TD>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg40.png"
+ SRC="idlimg41.png"
  ALT="$\quad\quad$"></SPAN>	'plot,x,sin(x),pos=[0.8,0.8,0.99,0.99],/noerase &amp;' +$ </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg40.png"
+ SRC="idlimg41.png"
  ALT="$\quad\quad$"></SPAN>	'xyouts,0.5,0.5,''Hello World !'',/normal,charsize=2,align=0.5'  </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
@@ -1003,7 +1042,7 @@ mycommand = 'x=findgen(64)/10. &amp; ' + $ </SMALL></TD>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg40.png"
+ SRC="idlimg41.png"
  ALT="$\quad\quad$"></SPAN>	<A HREF="#idl:mollview:graticule">/graticule</A>,<A HREF="#idl:mollview:glsize">/glsize</A> </SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
@@ -1011,12 +1050,12 @@ mycommand = 'x=findgen(64)/10. &amp; ' + $ </SMALL></TD>
 with labeled graticules, a simple sine wave in the
 upper right corner, and some greetings, as shown on Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="5559"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="6042"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
 Figure produced by example #3.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par16790" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par17386" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
  SRC="./plot_example_execute.png"
@@ -1072,12 +1111,12 @@ pixels is observed</blockquote><hr><H1>EXAMPLE # 5:</H1><tt><FONT SIZE=+1>
 various color scales: linear, Inverse
 Hyperbolic Sine, Histogram Equalized, and Log. See Figure&nbsp;<A HREF="#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode33.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="5565"></A>
+<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="6048"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
 Illustration (generated by example&nbsp;#5) of the various color scales available.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par16804" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par17400" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_wmapKband.png"
@@ -1123,32 +1162,32 @@ and the <A HREF="#idl:mollview:titleplot">title</A> 'Simulated Planck LFI Sky Ma
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html525"
+<A NAME="tex2html527"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html531"
+<A NAME="tex2html533"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html535"
+<A NAME="tex2html537"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html533"
+<A NAME="tex2html535"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html526"
+<B> Previous:</B> <A NAME="tex2html528"
   HREF="idlnode32.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html532"
+<B>Up:</B> <A NAME="tex2html534"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html536"
+<B> Next:</B> <A NAME="tex2html538"
   HREF="idlnode34.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

@@ -24,6 +24,11 @@
 # 2009-10-21: removed bashisms: 
 #               replaced ' == ' tests with ' = ' or ' -eq '
 #               got rid of arrays in pickCppCompilation
+# 2010-06-22: supports zsh (M. Tomasi)
+# 2010-12-09: added IdentifyCParallCompiler to compile C libpsht with OpenMP
+# 2011-01-28: C++ configuration ask for preinstalled cfitsio library
+# 2011-01-31: keep track of previous choice of FITSDIR and FITSINC (within same session)
+#           : propose OpenMP by default
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -73,7 +78,7 @@ echoLn () {
 }
 #-------------
 findFITSLib () {
-    for dir in $1 /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
+    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
 	if [ -r "${dir}/lib${LIBFITS}.a" ] ; then
 	    FITSDIR=$dir
 	    break
@@ -202,7 +207,7 @@ askCUserMisc () {
     read answer
     [ "x$answer" != "x" ] && LIBFITS=`${BASENAME} $answer ".a" | ${SED} "s/^lib//"`
 
-    findFITSLib $LIBDIR
+    findFITSLib $LIBDIR $FITSDIR
     echoLn "enter location of cfitsio library ($FITSDIR): "
     read answer
     [ "x$answer" != "x" ] && FITSDIR=$answer
@@ -219,7 +224,7 @@ askCUserMisc () {
     guess2=`${DIRNAME} ${guess1}`
     guess3="${guess2}/include"
 
-    findFITSInclude $INCDIR ${guess1} ${guess2} ${guess3}
+    findFITSInclude $INCDIR ${guess1} ${guess2} ${guess3} $FITSINC
     echoLn "enter location of cfitsio header fitsio.h ($FITSINC): "
     read answer
     [ "x$answer" != "x" ] && FITSINC=$answer
@@ -294,62 +299,14 @@ C_config () {
 
 
 #=====================================
-#=========== C++ pakage ===========
+#=========== C++ package ===========
 #=====================================
 #   setCppDefaults: defaults variables for C++
-#   getFitsTarFile: find .tar.gz cfitsio file
 #-------------
 setCppDefaults () {
 
     CXXDIR=${HEALPIX}/src/cxx
     CXXCONFDIR=${CXXDIR}/config
-    CXXFITSDIR=${CXXDIR}/libcfitsio
-}
-#-------------
-getFitsTarFile () {
-
-    #echo $CXXFITSDIR
-	# if no cfitsio package found, ask for one
-    check=`${LS} $CXXFITSDIR | ${GREP} cfitsio | ${GREP} tar.gz | ${WC} -l`
-    if [ $check -eq 0 ]; then
-        echoLn "enter the name of the cfitsio .tar.gz package (with full path): "
-	read answer
-	FULLTARFITS=`${DIRNAME} $answer`
-	fullPath FULLTARFITS
-	FULLTARFITS=${FULLTARFITS}/`${BASENAME} $answer`
-	while [ ! -r $FULLTARFITS ]  ; do
-	    echo "$FULLTARFITS was not found, or can not be read"
-            echoLn "enter the name of the cfitsio .tar.gz package (with full path): "
-	    read answer
-	    FULLTARFITS=`${DIRNAME} $answer`
-	    fullPath FULLTARFITS
-	    FULLTARFITS=${FULLTARFITS}/`${BASENAME} $answer`
-	done
-	${CP} $FULLTARFITS $CXXFITSDIR
-	TARFITS=`${BASENAME} $FULLTARFITS`
-    else
-	cd $CXXFITSDIR
-#	list=`${LS} -r | ${GREP} cfitsio | ${GREP} tar.gz`   # modified 2008-11-21
-#	TARFITS=`${BASENAME} ${list[0]}`
-	list=`${LS} -r | ${GREP} cfitsio | ${GREP} tar.gz | ${HEAD} -1`
-	TARFITS=`${BASENAME} ${list}`
-	cd $HEALPIX 
-    fi
-}
-#-------------
-updateCppFitsMake () {
-    
-    cd $CXXFITSDIR
-    #echo $TARFITS
-# if package does not match the one expected by planck.make, edit planck.make
-    check=`${GREP} ${TARFITS} planck.make | ${WC} -l`
-    if [ $check -eq 0 ]; then
-	echo "editing $CXXFITSDIR/planck.make to use correct CFITSIO package"
-	newpack="PACKAGE = \$(SRCROOT)/libcfitsio/${TARFITS}"
-	mv planck.make planck.make-bk
-	${CAT} planck.make-bk | ${SED} "s|PACKAGE =.*$|$newpack|" > planck.make
-    fi
-    cd $HEALPIX
 }
 #-------------
 pickCppCompilation() {
@@ -402,6 +359,8 @@ editCppMakefile () {
     mv -f Makefile Makefile_tmp
     ${CAT} Makefile_tmp |\
 	${SED} "s|^HEALPIX_TARGET\(.*\)|HEALPIX_TARGET = ${HEALPIX_TARGET}|" |\
+	${SED} "s|^CFITSIO_EXT_LIB\(.*\)|CFITSIO_EXT_LIB = ${FITSDIR}/lib${LIBFITS}.a|" |\
+	${SED} "s|^CFITSIO_EXT_INC\(.*\)|CFITSIO_EXT_INC = ${FITSINC}|" |\
 	${SED} "s|^ALL\(.*\) cpp-void \(.*\)|ALL\1 cpp-all \2|" |\
 	${SED} "s|^TESTS\(.*\) cpp-void \(.*\)|TESTS\1 cpp-test \2|" |\
 	${SED} "s|^CLEAN\(.*\) cpp-void \(.*\)|CLEAN\1 cpp-clean \2|" |\
@@ -425,7 +384,7 @@ setenv HEALPIX_TARGET ${HEALPIX_TARGET}
 setenv PATH \${HEALPIX}/src/cxx/\${HEALPIX_TARGET}/bin:\${PATH}
 EOF
 	;;
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
 	${CAT} <<EOF >>$HPX_CONF_CPP
 HEALPIX_TARGET=${HEALPIX_TARGET}
 PATH="\${HEALPIX}/src/cxx/\${HEALPIX_TARGET}/bin:\${PATH}"
@@ -444,8 +403,33 @@ Cpp_config () {
 
     HPX_CONF_CPP=$1
     setCppDefaults
-    getFitsTarFile
-    updateCppFitsMake
+
+    echoLn "enter full name of cfitsio library (lib${LIBFITS}.a): "
+    read answer
+    [ "x$answer" != "x" ] && LIBFITS=`${BASENAME} $answer ".a" | ${SED} "s/^lib//"`
+
+    findFITSLib $LIBDIR $FITSDIR
+    echoLn "enter location of cfitsio library ($FITSDIR): "
+    read answer
+    [ "x$answer" != "x" ] && FITSDIR=$answer
+
+    fullPath FITSDIR
+    guess1=${FITSDIR}
+    guess2=`${DIRNAME} ${guess1}`
+    guess3="${guess2}/include"
+
+    findFITSInclude $INCDIR ${guess1} ${guess2} ${guess3} $FITSINC
+    echoLn "enter location of cfitsio header fitsio.h ($FITSINC): "
+    read answer
+    [ "x$answer" != "x" ] && FITSINC=$answer
+    fullPath FITSINC
+
+    inc="${FITSINC}/fitsio.h"
+    if [ ! -r $inc ]; then
+	echo "error: cfitsio include file $inc not found"
+	crashAndBurn
+    fi
+
     pickCppCompilation
     if  [ ${target_chosen} = 1 ];    then
 	generateConfCppFile
@@ -572,7 +556,7 @@ EOF
 #export HIDL_PATH
 #EOF
 #	;;
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
 	${CAT} <<EOF >>$HPX_CONF_IDL
 # make sure IDL related variables are global
 export IDL_PATH IDL_STARTUP
@@ -660,6 +644,7 @@ setF90Defaults () {
     CC="cc"
     FFLAGS="-I\$(F90_INCDIR)"
     CFLAGS="-O"
+    #LDFLAGS="-L\$(F90_LIBDIR) -L\$(FITSDIR) -lhealpix -lhpxgif -lpsht_healpix_f -l\$(LIBFITS)"
     LDFLAGS="-L\$(F90_LIBDIR) -L\$(FITSDIR) -lhealpix -lhpxgif -l\$(LIBFITS)"
     F90_BINDIR="./bin"
     F90_INCDIR="./include"
@@ -808,16 +793,6 @@ GuessCompiler () {
     case $OS in
 	AIX)
 	    IdentifyCompiler;;
-# 	    FTYPE="xlf"
-#	    FFLAGS="$FFLAGS -qsuffix=f=f90:cpp=F90"
-#	    OFLAGS="-O"
-#	    CFLAGS="$CFLAGS $FPP""RS6000"
-#	    FPP="-WF,-D"
-#	    PRFLAGS="-qsmp=omp"
-#	    AR="ar -rsv" # archive with index table
-#	    FF64="-q64"
-#	    CF64="-q64"
-#	    AR64="-X64";;
 	SunOS)
 	    sun_modules
 	    FFLAGS=`echo $FFLAGS | ${SED} "s/-I/-M/g"`
@@ -895,25 +870,36 @@ GuessCompiler () {
 # -----------------------------------------------------------------
 
 askOpenMP () {
-    OpenMP="0"
-    echo " The Spherical Harmonics Transform routines used by synfast/anafast/smoothing/plmgen"
+    OpenMP="1"
+    echo " The Spherical Harmonics Transform (C and F90) routines used by "
+    echo "synfast/anafast/smoothing/plmgen"
     echo "and some routines used by ud_grade and alteralm respectively"
     echo "have a parallel implementation (based on OpenMP)."
-    echo " It has currently been tested on IBM/xlf, Linux/ifort & Linux/gcc systems/compilers"
+#     echo " It has been successfully tested on xlf (IBM), "
+#     echo "gcc and ifort (Linux and/or MacOSX) compilers (systems)"
     echo "Do you want to use :"
     echo " 0) the standard serial implementation ?"
-    echo " 1) the parallel implementation (slightly slower in single CPU usage with some compilers)"
+    echo " 1) the parallel implementation "
     echoLn "Enter choice                                      ($OpenMP): "
     read answer
     [ "x$answer" != "x" ] && OpenMP="$answer"
     if [ $OpenMP = 1 ] ; then
+	# deal with C flags
+	IdentifyCParallCompiler
+	if [ "x$PRCFLAGS" != "x" ] ; then
+	    CFLAGS="$CFLAGS $PRCFLAGS"
+	else
+	    echo "C routines won't be compiled with OpenMP"
+	fi
+
+	# deal with F90 flags
 	if [ "x$PRFLAGS" != "x" ] ; then
 	    # update FFLAGS
 	    FFLAGS="$FFLAGS $PRFLAGS"
 ##	    PARALL="_omp" # no need for a different source file
 	else
 	    echo "Healpix+OpenMP not tested for  \"$FCNAME\" under \"$OS\" "
-	    echo "Contact healpix@jpl.nasa.gov if you already used OpenMP in this configuration."
+	    echo "Contact healpix at jpl.nasa.gov if you already used OpenMP in this configuration."
 	    echo "Will perform serial implementation instead"
 	    #crashAndBurn
 	fi 
@@ -974,6 +960,22 @@ EOF
    ${RM}  ${tmpfile}.*
 
 
+}
+# -----------------------------------------------------------------
+IdentifyCParallCompiler () {
+    nicc=`$CC -V 2>&1 | ${GREP} -i intel    | ${WC} -l`
+    ngcc=`$CC --version 2>&1 | ${GREP} 'GCC' | ${WC} -l`
+    PRCFLAGS=""
+    if [ $nicc != 0 ] ; then
+	PRCFLAGS='-openmp' # -openmp-report0
+    elif [ $ngcc != 0 ] ; then
+	PRCFLAGS='-fopenmp'
+    else
+	echo "$CC: Unknown C compiler"
+	echo "Enter flags for C compilation with OpenMP"
+	read answer
+	[ "x$answer" != "x" ] && PRCFLAGS="$answer"
+    fi
 }
 # -----------------------------------------------------------------
 
@@ -1308,7 +1310,7 @@ askUserMisc () {
     read answer
     [ "x$answer" != "x" ] && LIBFITS=`${BASENAME} $answer ".a" | ${SED} "s/^lib//"`
 
-    findFITSLib $LIBDIR
+    findFITSLib $LIBDIR $FITSDIR
     echoLn "enter location of cfitsio library ($FITSDIR): "
     read answer
     [ "x$answer" != "x" ] && FITSDIR=$answer
@@ -1429,7 +1431,7 @@ setenv HEXE    ${F90_BINDIR_SHORT}
 setenv PATH    \${HEXE}:\${PATH}
 EOF
 	;;
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
 	${CAT} <<EOF >>$HPX_CONF_F90
 HEXE=${F90_BINDIR_SHORT}
 PATH="\${HEXE}:\${PATH}"
@@ -1552,7 +1554,7 @@ installProfile () {
     # will modity user's configuration file to invoke Healpix configuration
 
     case $SHELL in
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
 	prof="${HOME}/.profile"
 	comd="[ -r ${HPX_CONF_MAIN} ] && . ${HPX_CONF_MAIN}";;
     csh)
@@ -1601,7 +1603,7 @@ makeTopConf(){
     mkdir -p ${HPX_CONF_DIR}
 
     case $SHELL in
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
 	cat<<EOF >| ${HPX_CONF_MAIN}
 # configuration for Healpix $HPXVERSION
 HEALPIX=${HEALPIX} ; export HEALPIX 
@@ -1694,6 +1696,7 @@ setTopDefaults() {
 
     LIBFITS="cfitsio"
     FITSDIR="/usr/local/lib"
+    FITSINC="/usr/local/include"
 
     edited_makefile=0
 
@@ -1707,7 +1710,7 @@ setTopDefaults() {
 setConfDir () {
 
     case $SHELL in
-    sh|ksh|bash)
+    sh|ksh|bash|zsh)
         suffix=sh;;
     csh|tcsh)
 	suffix=csh;;

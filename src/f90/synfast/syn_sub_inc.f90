@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -55,12 +55,13 @@
   !               Sep 2002 : implement new parser
   !               2004-2005: v 2.0
   !               2006-2007: v 2.1
+  !               Jun 2010 : supports large maps
   !
   !  FEEDBACK:
-  !     for any questions : efh@ipac.caltech.edu
+  !     for any questions : hivon@iap.fr
   !
   !=======================================================================
-  !     version 2.1.1
+  !     version 2.2.0
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file synfast.f90 by the command  include
@@ -80,13 +81,14 @@
   integer(I4B) :: status
 
   integer(I4B) l, m         !, alms
-  integer(I4B) npixtot
+  integer(I8B) npixtot
   integer(I4B) i, j, junk
   integer(I4B) iseed, ioriginseed
   integer(I4B) simul_type
   integer(I4B) polar
   integer(I4B) nlheader, nalms, extnum_alms
-  integer(I4B) :: n_plm, plm_nside, plm_lmax, plm_pol, plm_mmax
+  integer(I8B) :: n_plm
+  integer(I4B) :: plm_nside, plm_lmax, plm_pol, plm_mmax
 
   REAL(KALM) :: fwhm_arcmin, fwhm_deg, pix_size_arcmin
   REAL(SP) :: clock_time, time0, time1
@@ -227,7 +229,7 @@
   fwhm_deg = fwhm_arcmin/60.
 
   !     --- check for pixel-window-files ---
-  windowname="pixel_window_n"//trim(string(nsmax,"(i4.4)"))//".fits"
+  windowname = get_healpix_pixel_window_file(nsmax)
 
   def_file = trim(windowname)
   def_dir  = get_healpix_data_dir()
@@ -319,7 +321,7 @@
         if (handle%interactive) goto 40
         call fatal_error(code)
      endif
-     n_plm = (nmmax+1)*(2*nlmax+2-nmmax)*nsmax
+     n_plm = (nmmax + 1_i8b)*(2*nlmax + 2_i8b - nmmax)*nsmax
      print *," "
   endif
 
@@ -371,6 +373,7 @@
 
   ALLOCATE(units_alm(1:n_pols),units_map(1:n_maps),stat = status)
   call assert_alloc(status,code,"units_alm & units_map")
+  units_alm(:)=''
 
   ALLOCATE(alm_TGC(1:n_pols, 0:nlmax, 0:nmmax),stat = status)
   call assert_alloc(status,code,"alm_TGC")

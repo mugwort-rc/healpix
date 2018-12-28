@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -29,13 +29,14 @@ module anamod
 
   USE healpix_types
   USE alm_tools,  only: map2alm_iterative, alm2cl
-  USE fitstools,  only: getsize_fits, input_map, read_par, read_dbintab, write_asctab, dump_alms
+  USE fitstools,  only: getsize_fits, input_map, read_par, read_bintab, write_asctab, dump_alms
   USE head_fits,  only: add_card, write_minimal_header
   use misc_utils, only: assert_alloc, fatal_error, wall_clock_time, brag_openmp, string
   USE pix_tools,  only: convert_nest2ring, convert_ring2nest, nside2npix, npix2nside, remove_dipole, vec2ang
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
          parse_string, parse_double, parse_summarize, parse_check_unused, &
-         parse_finish, concatnl, scan_directories, get_healpix_data_dir, get_healpix_test_dir
+         parse_finish, concatnl, scan_directories, get_healpix_data_dir, get_healpix_test_dir, &
+         get_healpix_ring_weight_file
   use udgrade_nr, only: udgrade_nest, udgrade_ring
   implicit none
 

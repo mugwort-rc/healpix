@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -27,16 +27,16 @@
 !-----------------------------------------------------------------------------
 ! template for routine SP/DP overloading for module fitstools
 !
-!    subroutine input_map_KLOAD
-!    subroutine read_bintab_KLOAD
-!    subroutine read_conbintab_KLOAD
-!    subroutine write_bintab_KLOAD
-!    subroutine write_asctab_KLOAD
-!    subroutine dump_alms_KLOAD
-!    subroutine write_alms_KLOAD
-!    subroutine read_alms_KLOAD
-!    subroutine read_bintod_KLOAD
-!    subroutine write_bintabh_KLOAD
+!    subroutine input_map_KLOAD            (4/8)
+!    subroutine read_bintab_KLOAD          (4/8)
+!    subroutine read_conbintab_KLOAD           NotYet
+!    subroutine write_bintab_KLOAD         (4/8)
+!    subroutine write_asctab_KLOAD          NA
+!    subroutine dump_alms_KLOAD                NotYet
+!    subroutine write_alms_KLOAD               NotYet
+!    subroutine read_alms_KLOAD                NotYet
+!    subroutine read_bintod_KLOAD           (8)
+!    subroutine write_bintabh_KLOAD         (8)
 !
 !
 ! K M A P   : map kind                 either SP or DP
@@ -51,37 +51,61 @@
 !  do not write TTYPE# and TFORM# in excess of # of fields in the file
 ! 2008-10-14: corrected bug introduced in write_asctab
 !
-  !=======================================================================
-  subroutine input_map_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
-    !=======================================================================
-    !     reads fits file
-    !     filename = fits file (input)
-    !     map      = data read from the file (ouput) = real*4 array of size (npixtot,nmaps)
-    !     npixtot  = length of the map (input)
-    !     nmaps     = number of maps
-    !     fmissval  = OPTIONAL argument (input) with the value to be given to missing
-    !             pixels, its default value is 0
-    !     header    = OPTIONAL (output) contains extension header
-    !     units     = OPTIONAL (output) contains the maps units
-    !     extno     = OPTIONAL (input)  contains the unit number to read from (0 based)
-    !
-    !     modified Feb 03 for units argument to run with Sun compiler
+!=======================================================================
+! input_map
+!     reads fits file
+!     filename = fits file (input)
+!     map      = data read from the file (ouput) = real*4 array of size (npixtot,nmaps)
+!     npixtot  = length of the map (input)
+!     nmaps     = number of maps
+!     fmissval  = OPTIONAL argument (input) with the value to be given to missing
+!             pixels, its default value is 0
+!     header    = OPTIONAL (output) contains extension header
+!     units     = OPTIONAL (output) contains the maps units
+!     extno     = OPTIONAL (input)  contains the unit number to read from (0 based)
+!
+!     modified Feb 03 for units argument to run with Sun compiler
+!=======================================================================
+#ifndef NO64BITS
+subroutine input_map4_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
     !=======================================================================
 
-    INTEGER(I4B),     INTENT(IN)           :: npixtot, nmaps
-    REAL(KMAP),       INTENT(OUT), dimension(0:,1:) :: map
-    CHARACTER(LEN=*), INTENT(IN)           :: filename
-    REAL(KMAP),       INTENT(IN), OPTIONAL :: fmissval
+    INTEGER(I4B),     INTENT(IN)                           :: npixtot
+    INTEGER(I4B),     INTENT(IN)                           :: nmaps
+    REAL(KMAP),       INTENT(OUT), dimension(0:,1:)        :: map
+    CHARACTER(LEN=*), INTENT(IN)                           :: filename
+    REAL(KMAP),       INTENT(IN),                 OPTIONAL :: fmissval
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: header
     CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: units
-    INTEGER(I4B)                   , optional,  INTENT(IN) :: extno
+    INTEGER(I4B),     INTENT(IN)                , optional :: extno
+    integer(i8b) :: npixtot8
 
-    INTEGER(I4B) :: i,imap
+    npixtot8 = npixtot
+    call input_map8_KLOAD(filename, map, npixtot8, nmaps, fmissval, header, units, extno)
+
+    return
+  end subroutine input_map4_KLOAD
+#endif
+
+!=======================================================================
+subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, units, extno)
+    !=======================================================================
+
+    INTEGER(I8B),     INTENT(IN)                           :: npixtot
+    INTEGER(I4B),     INTENT(IN)                           :: nmaps
+    REAL(KMAP),       INTENT(OUT), dimension(0:,1:)        :: map
+    CHARACTER(LEN=*), INTENT(IN)                           :: filename
+    REAL(KMAP),       INTENT(IN),                 OPTIONAL :: fmissval
+    CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: header
+    CHARACTER(LEN=*), INTENT(OUT), dimension(1:), OPTIONAL :: units
+    INTEGER(I4B),     INTENT(IN)                , optional :: extno
+
+    INTEGER(I8B) :: i, imissing, obs_npix, maxpix, minpix
     REAL(KMAP)     :: fmissing, fmiss_effct
-    INTEGER(I8B) :: imissing, obs_npix, maxpix, minpix
-    integer(I4B) :: nlheader
+    integer(I4B) :: imap, nlheader
 
     LOGICAL(LGT) :: anynull
+    ! Note : read_fits_cut4 still SP and I4B only
     integer(I4B), dimension(:), allocatable :: pixel
 !     real(KMAP),     dimension(:), allocatable :: signal
     real(SP),     dimension(:), allocatable :: signal
@@ -176,17 +200,38 @@
 !    deallocate(unitsm)
 
     RETURN
-  END subroutine input_map_KLOAD
+  END subroutine input_map8_KLOAD
   !=======================================================================
-  subroutine read_bintab_KLOAD(filename, map, npixtot, nmaps, nullval, anynull, header, units, extno)
+  !     Read a FITS file
+  !     This routine is used for reading MAPS by anafast.
+  !     modified Feb 03 for units argument to run with Sun compiler
+  !     Jan 2005, EH, improved for faster writing
   !=======================================================================
-    !     Read a FITS file
-    !     This routine is used for reading MAPS by anafast.
-    !     modified Feb 03 for units argument to run with Sun compiler
-    !     Jan 2005, EH, improved for faster writing
-    !=======================================================================
+#ifndef NO64BITS
+  subroutine read_bintab4_KLOAD(filename, map, npixtot, nmaps, nullval, anynull, header, units, extno)
     character(len=*),                          intent(IN)  :: filename
-    integer(I4B),                              intent(IN)  :: npixtot, nmaps
+    integer(I4B),                              intent(IN)  :: npixtot
+    integer(I4B),                              intent(IN)  :: nmaps
+    real(KMAP),      dimension(0:,1:),         intent(OUT) :: map
+    real(KMAP),                                intent(OUT) :: nullval
+    logical(LGT),                              intent(OUT) :: anynull
+    character(LEN=*), dimension(1:), optional, intent(OUT) :: header
+    character(LEN=*), dimension(1:), optional, intent(OUT) :: units
+    integer(I4B)                   , optional, intent(IN) :: extno
+
+    integer(i8b)::  npixtot8
+
+    npixtot8 = int(npixtot,kind=i8b)
+    call read_bintab8_KLOAD(filename, map, npixtot8, nmaps, nullval, anynull, header, units, extno)
+    return
+
+  end subroutine read_bintab4_KLOAD
+#endif
+  subroutine read_bintab8_KLOAD(filename, map, npixtot, nmaps, nullval, anynull, header, units, extno)
+  !=======================================================================
+    character(len=*),                          intent(IN)  :: filename
+    integer(I8B),                              intent(IN)  :: npixtot
+    integer(I4B),                              intent(IN)  :: nmaps
     real(KMAP),      dimension(0:,1:),         intent(OUT) :: map
     real(KMAP),                                intent(OUT) :: nullval
     logical(LGT),                              intent(OUT) :: anynull
@@ -196,7 +241,7 @@
 
     integer(I4B) :: nl_header, len_header, nl_units, len_units
     integer(I4B) :: status,unit,readwrite,blocksize,naxes(2),nfound, naxis
-    integer(I4B) :: group, firstpix, i, npix_old
+    integer(I4B) :: group, firstpix, i, npix32
     real(KMAP)   :: blank, testval
     real(DP)     :: bscale,bzero
     character(len=80) :: comment
@@ -207,13 +252,16 @@
     LOGICAL(LGT) ::  anynull_i
 
     integer(I4B),     parameter            :: maxdim = 40 !number of columns in the extension
-    integer(i4b), dimension(1:maxdim) :: npix, repeat
+    integer(i8b)                      :: npix_old
+    integer(i8b), dimension(1:maxdim) :: npix
     integer(i8b), dimension(1:maxdim) :: i0, i1
+    integer(i4b), dimension(1:maxdim) :: repeat
     integer(i4b)                      :: nrow2read, nelem
 
     integer(I4B)                           :: nrows, tfields, varidat
     character(len=20), dimension(1:maxdim) :: ttype, tform, tunit
     character(len=20)                      :: extname
+    character(len=*), parameter            :: code='read_bintab'
     !-----------------------------------------------------------------------
     status=0
 
@@ -226,6 +274,11 @@
     bzero = 0.0d0
     blank = -2.e25
     nullval = bscale*blank + bzero
+    comment=''
+    ttype=''
+    tform=''
+    tunit=''
+    extname=''
 
     nl_header = 0
     if (present(header)) then
@@ -306,7 +359,8 @@
 
        group=1
        firstpix = 1
-       call f90ftgpv_(unit, group, firstpix, npix(1), nullval, map(0:npix(1)-1,1), anynull, status)
+       npix32 = npix(1)
+       call f90ftgpv_(unit, group, firstpix, npix32, nullval, map(0:npix(1)-1,1), anynull, status)
        ! if there are any NaN pixels, (real data)
        ! or BLANK pixels (integer data) they will take nullval value
        ! and anynull will switch to .true.
@@ -339,12 +393,6 @@
        endif
 
        !        finds the bad data value
-!        if (KMAP == SP) then
-!           call ftgkye(unit, 'BAD_DATA', sdummy, comment, status) ; nullval = sdummy
-!        endif
-!        if (KMAP == DP) then
-!           call ftgkyd(unit, 'BAD_DATA', ddummy, comment, status) ; nullval = ddummy
-!        endif
        call f90ftgky_(unit, 'BAD_DATA', nullval, comment, status)
        if (status == 202) then ! bad_data not found
           if (KMAP == SP) nullval = s_bad_value ! default value
@@ -373,7 +421,7 @@
        do imap = 1, nmaps
           !parse TFORM keyword to find out the length of the column vector
           call ftbnfm(tform(imap), datacode, repeat(imap), width, status)
-          npix(imap) = nrows * repeat(imap)
+          npix(imap) = int(nrows,i8b) * repeat(imap)
           if (npix(imap) /= npixtot .and. npix_old /= npix(imap)) then
              print *,'WARNING: found ',npix(imap),' pixels in '//trim(filename)//', column ',imap
              print *,'         expected ',npixtot,' or ',npix_old
@@ -383,13 +431,14 @@
           endif
        enddo
 
+
        call ftgrsz(unit, nrow2read, status)
        nrow2read = max(nrow2read, 1)
        firstpix  = 1  ! starting position in FITS within row, 1 based
        i0(:) = 0_i8b  ! starting element in array, 0 based
        do frow = 1, nrows, nrow2read
           do imap = 1, nmaps
-             i1(imap) = min(i0(imap) + nrow2read * repeat(imap), int(npix(imap),i8b)) - 1_i8b
+             i1(imap) = min(i0(imap) + int(nrow2read,i8b) * repeat(imap), npix(imap)) - 1_i8b
              nelem = i1(imap) - i0(imap) + 1
              call f90ftgcv_(unit, imap, frow, firstpix, nelem, &
                   & nullval, map(i0(imap):i1(imap),imap), anynull_i, status)
@@ -414,7 +463,7 @@
     if (status > 0) call printerror(status)
 
     return
-  end subroutine read_bintab_KLOAD
+  end subroutine read_bintab8_KLOAD
 
   !=======================================================================
   subroutine read_conbintab_KLOAD(filename, alms, nalms, units, extno)
@@ -467,6 +516,11 @@
     anynull = .false.
     alms=0.  ! set output to 0.
     readwrite=0
+    comment=''
+    ttype=''
+    tform=''
+    tunit=''
+    extname=''
     call ftopen(unit,filename,readwrite,blocksize,status)
     if (status > 0) call printerror(status)
     !     -----------------------------------------
@@ -644,8 +698,28 @@
     return
   end subroutine read_conbintab_KLOAD
 
+#ifndef NO64BITS
+  subroutine write_bintab4_KLOAD(map, npix, nmap, header, nlheader, filename, extno)
   !=======================================================================
-  subroutine write_bintab_KLOAD(map, npix, nmap, header, nlheader, filename, extno)
+    INTEGER(I4B),     INTENT(IN) :: npix, nmap, nlheader
+    REAL(KMAP),       INTENT(IN), DIMENSION(0:npix-1,1:nmap) :: map
+    CHARACTER(LEN=*), INTENT(IN), DIMENSION(1:nlheader)      :: header
+    CHARACTER(LEN=*), INTENT(IN)           :: filename
+    INTEGER(I4B)    , INTENT(IN), optional :: extno
+
+    integer(i8b) :: npix8
+
+    npix8 = npix
+    if (present(extno)) then
+       call write_bintab8_KLOAD(map, npix8, nmap, header, nlheader, filename, extno)
+    else
+       call write_bintab8_KLOAD(map, npix8, nmap, header, nlheader, filename)
+    endif
+    return
+  end subroutine write_bintab4_KLOAD
+#endif
+
+  subroutine write_bintab8_KLOAD(map, npix, nmap, header, nlheader, filename, extno)
     !=======================================================================
     !     Create a FITS file containing a binary table extension with 
     !     the temperature map in the first column
@@ -660,8 +734,11 @@
     !
     !     July 21, 2004: SP version
     !     Jan 2005, EH, improved for faster writing
+    !     2009-02-25: EH, accepts I4B and I8B npix
     !=======================================================================
-    INTEGER(I4B),     INTENT(IN) :: npix, nmap, nlheader
+    use pix_tools, only: npix2nside
+    INTEGER(I8B),     INTENT(IN) :: npix
+    INTEGER(I4B),     INTENT(IN) :: nmap, nlheader
 !     REAL(KMAP),       INTENT(IN), DIMENSION(0:npix-1,1:nmap), target :: map
     REAL(KMAP),       INTENT(IN), DIMENSION(0:npix-1,1:nmap) :: map
     CHARACTER(LEN=*), INTENT(IN), DIMENSION(1:nlheader)      :: header
@@ -669,9 +746,9 @@
     INTEGER(I4B)    , INTENT(IN), optional :: extno
 
     INTEGER(I4B) ::  status,unit,blocksize,bitpix,naxis,naxes(1)
-    INTEGER(I4B) ::  i
+    INTEGER(I4B) ::  i, nside
     LOGICAL(LGT) ::  simple,extend
-    CHARACTER(LEN=80) :: comment
+    CHARACTER(LEN=80) :: comment, ch
 
     INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
     INTEGER(I4B) :: nrows, tfields, varidat
@@ -747,12 +824,14 @@
     !     writes required keywords
     tfields  = nmap
     repeat   = 1024
-    tform(1:nmap) = '1024'//pform
-    if (npix < 1024) then ! for nside <= 8
-       repeat = 1
-       tform(1:nmap) = '1'//pform
-    endif
+    if (npix < 1024) repeat = 1 ! for nside <= 8
+    ! for large npix increase repeat so that nrows < 2^31-1
+    nside = npix2nside(npix)
+    if (nside > 1024*256) repeat = nside/256
     nrows    = npix / repeat ! naxis1
+    ch = string(repeat, format='(i8)')
+    ch = trim(adjustl(ch))//pform
+    tform(1:nmap) = ch
     ttype(1:nmap) = 'simulation'   ! will be updated
     tunit(1:nmap) = ''      ! optional, will not appear
     extname  = ''      ! optional, will not appear
@@ -790,7 +869,7 @@
     felem  = 1  ! starting position in FITS (element), 1 based
     i0 = 0_i8b  ! starting element in array, 0 based
     do frow = 1, nrows, nrow2write
-       i1 = min(i0 + nrow2write * repeat, int(npix,i8b)) - 1_i8b
+       i1 = min(i0 + nrow2write * repeat, npix) - 1_i8b
        nelem = i1 - i0 + 1
        do colnum = 1, nmap
           call f90ftpcl_(unit, colnum, frow, felem, nelem, map(i0:i1, colnum), status)
@@ -813,7 +892,7 @@
     if (status > 0) call printerror(status)
 
     return
-  end subroutine write_bintab_KLOAD
+  end subroutine write_bintab8_KLOAD
   !=======================================================================
   subroutine write_asctab_KLOAD &
        &  (clout, lmax, ncl, header, nlheader, filename)
@@ -910,6 +989,7 @@
 
     !     write the header literally, putting TFORM1 at the desired place
     comment = ''
+    card_tbcol=''
     do i=1,nlheader
        card = header(i)
        if (card(1:5) == 'TTYPE') then ! if TTYPE1 is explicitely given
@@ -984,8 +1064,9 @@
     LOGICAL(LGT) ::  simple,extend, found_lmax, found_mmax
     CHARACTER(LEN=80) :: comment
 
+    integer(i8b) :: npix
     INTEGER(I4B), PARAMETER :: maxdim = 40 !number of columns in the extension
-    INTEGER(I4B) :: nrows, npix, tfields, varidat
+    INTEGER(I4B) :: nrows, tfields, varidat
     INTEGER(I4B) :: frow,  felem
     CHARACTER(LEN=20) :: ttype(maxdim), tform(maxdim), tunit(maxdim), extname
     CHARACTER(LEN=10) ::  card
@@ -993,6 +1074,7 @@
     INTEGER(I4B) :: itn
     character(len=filenamelen) sfilename
     character(len=1) :: pform
+    character(len=*), parameter :: code = 'dump_alms'
     !-----------------------------------------------------------------------
 
     if (KMAP == SP) pform = 'E'
@@ -1001,7 +1083,12 @@
     nmmax = size(alms,2) - 1
     if (nmmax < 0 .or. nmmax > nlmax) call fatal_error('inconsistent Lmax and Mmax in dump_alms')
 !!    npix=((nlmax+1)*(nlmax+2))/2
-    npix = ((nmmax+1)*(2*nlmax-nmmax+2))/2
+    npix = ((nmmax+1_i8b)*(2_i8b*nlmax-nmmax+2))/2
+    if (npix > MAX_I4B .or. nlmax >= int(sqrt(real(MAX_I4B,kind=dp)))) then
+       print*,code//'> Index of a_lm too large for current file format,'
+       print*,code//'> '//trim(filename)//' not written.'
+       call fatal_error
+    endif
 
     status=0
     unit = 141
@@ -1362,6 +1449,11 @@
     !-----------------------------------------------------------------------
     status=0
     header=''
+    comment=''
+    ttype=''
+    tform=''
+    tunit=''
+    extname=''
     unit = 139
     naxes(1) = 1
     naxes(2) = 1

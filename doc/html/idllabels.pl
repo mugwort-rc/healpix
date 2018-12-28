@@ -18,6 +18,10 @@ $key = q/idl:mollview:noposition/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:silent/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:query_disc/;
 $external_labels{$key} = "$URL/" . q|idlnode42.htm|; 
 $noresave{$key} = "$nosave";
@@ -66,6 +70,10 @@ $key = q/idl:mollview:nolabels/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:reso_arcmin/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:map_out/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
@@ -74,8 +82,20 @@ $key = q/idl:mollview:hist_equal/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:cl_array/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:asinh/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:select/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:other_keywords/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:healpixwindow/;
@@ -98,16 +118,20 @@ $key = q/idl:lm2index/;
 $external_labels{$key} = "$URL/" . q|idlnode30.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:fitsfile/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:bl2fits/;
 $external_labels{$key} = "$URL/" . q|idlnode8.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:remove_dipole/;
-$external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/page:example_hires_cutsky/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:remove_dipole/;
+$external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:factor/;
@@ -138,6 +162,10 @@ $key = q/idl:query_polygon/;
 $external_labels{$key} = "$URL/" . q|idlnode43.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:subtitle/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:nside2npix/;
 $external_labels{$key} = "$URL/" . q|idlnode37.htm|; 
 $noresave{$key} = "$nosave";
@@ -154,6 +182,10 @@ $key = q/idl:query_strip/;
 $external_labels{$key} = "$URL/" . q|idlnode44.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:xhdr/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:template_pixel_xxx/;
 $external_labels{$key} = "$URL/" . q|idlnode54.htm|; 
 $noresave{$key} = "$nosave";
@@ -166,8 +198,20 @@ $key = q/idl:euler_matrix_new/;
 $external_labels{$key} = "$URL/" . q|idlnode14.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:wmap5/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:file/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:rshow/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:llfactor/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:hpx2gs/;
@@ -198,6 +242,14 @@ $key = q/page:plot_example_execute/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:multipoles/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:help/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:fits2cl/;
 $external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
@@ -222,16 +274,20 @@ $key = q/idl:mollview:nested/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:ud_grade/;
-$external_labels{$key} = "$URL/" . q|idlnode55.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:change_polcconv/;
 $external_labels{$key} = "$URL/" . q|idlnode11.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:ud_grade/;
+$external_labels{$key} = "$URL/" . q|idlnode55.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:min/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:help/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:max/;
@@ -246,16 +302,20 @@ $key = q/idl:mollview:polarization/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:kml/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:neighbours_ring/;
 $external_labels{$key} = "$URL/" . q|idlnode35.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/fig:plot_visu/;
-$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:bin_llcl/;
 $external_labels{$key} = "$URL/" . q|idlnode7.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:plot_visu/;
+$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:ang2vec/;
@@ -268,6 +328,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:remove_dipole:dipole/;
 $external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:wmap1/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:orthview/;
@@ -286,12 +350,12 @@ $key = q/idl:mollview:shaded/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:gnomcursor/;
-$external_labels{$key} = "$URL/" . q|idlnode20.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:monopole/;
 $external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:gnomcursor/;
+$external_labels{$key} = "$URL/" . q|idlnode20.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:query_triangle/;
@@ -320,6 +384,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:index2lm/;
 $external_labels{$key} = "$URL/" . q|idlnode28.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:png/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:alm2fits/;
@@ -374,6 +442,10 @@ $key = q/idl:remove_dipole:units/;
 $external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:hdr/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:subtitle/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
@@ -386,16 +458,24 @@ $key = q/idl:mollcursor/;
 $external_labels{$key} = "$URL/" . q|idlnode32.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:isynfast/;
-$external_labels{$key} = "$URL/" . q|idlnode27.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:noremove/;
 $external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:isynfast/;
+$external_labels{$key} = "$URL/" . q|idlnode27.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:titleplot/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:pix_tools/;
 $external_labels{$key} = "$URL/" . q|idlnode41.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:file/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:plot_example_execute/;
@@ -418,12 +498,12 @@ $key = q/idl:mollview:xpos/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:offset/;
-$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:read_tqu/;
 $external_labels{$key} = "$URL/" . q|idlnode49.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:mollview:offset/;
+$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:write_tqu/;
@@ -435,6 +515,14 @@ $external_labels{$key} = "$URL/" . q|idlnode33.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:fits/;
+$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:coord_in/;
+$external_labels{$key} = "$URL/" . q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:mollview:png/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -450,10 +538,6 @@ $key = q/idl:mollview/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:png/;
-$external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:onlymonopole/;
 $external_labels{$key} = "$URL/" . q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
@@ -464,6 +548,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:titleplot/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:show/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:remove_dipole:weight/;
@@ -510,11 +598,11 @@ $key = q/idl:mollview:TOP/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:select/;
+$key = q/idl:mollview:hbound/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:hbound/;
+$key = q/idl:mollview:select/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -524,6 +612,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:half_sky/;
 $external_labels{$key} = "$URL/" . q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:interactive/;
+$external_labels{$key} = "$URL/" . q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:rotate_coord/;

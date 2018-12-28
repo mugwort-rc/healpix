@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</TITLE>
-<META NAME="description" CONTENT="pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest">
+<TITLE>parse_xxx</TITLE>
+<META NAME="description" CONTENT="parse_xxx">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,119 +28,121 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1041"
+<A NAME="tex2html1047"
   HREF="subroutinesnode68.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1047"
+<A NAME="tex2html1053"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1051"
+<A NAME="tex2html1057"
   HREF="subroutinesnode70.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1049"
+<A NAME="tex2html1055"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1042"
-  HREF="subroutinesnode68.htm">pixel_window</A>
+<B> Previous:</B> <A NAME="tex2html1048"
+  HREF="subroutinesnode68.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1048"
+<B>Up:</B> <A NAME="tex2html1054"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1052"
-  HREF="subroutinesnode70.htm">planck_rng derived type</A>
+<B> Next:</B> <A NAME="tex2html1058"
+  HREF="subroutinesnode70.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000690000000000000000"></A>
-<A NAME="sub:pix_tools"></A>
+<A NAME="sub:parse_xxx"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</FONT></font></b><hr><H2>The Fortran90 module pix_tools contains some subroutines to convert between pixel number in the <b>HEALPix</b> map and <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg34.png"
- ALT="$(\theta,\phi) $"></SPAN> or <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> coordinates on the sphere. Some of these routines are listed here.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/pix_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">parse_xxx</FONT></font></b><hr><H2>The Fortran90 module paramfile_io contains functions to obtain
+parameters from parameter files or interactively</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/paramfile_io.F90
 </b>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=135><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>
-nside</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg9.png"
- ALT="${N_{\rm side}}$"></SPAN> parameter for the <b>HEALPix</b> map.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+fname</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>file containing the simulation parameters.
+                   If empty, parameters are obtained interactively.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>ipnest</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel identification number in NESTED scheme over the range {0,<!-- MATH
- ${N_{\rm pix}}-1$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="71" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg93.png"
- ALT="${N_{\rm pix}}-1$"></SPAN>}.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>handle</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>PMF</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>Object of type (paramfile_handle) used to store parameter information</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>ipring</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>pixel identification number in RING scheme over the range {0,<!-- MATH
- ${N_{\rm pix}}-1$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="71" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg93.png"
- ALT="${N_{\rm pix}}-1$"></SPAN>}.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>keyname</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>name of the required parameter</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>theta</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>colatitude in radians measured southward from north pole in {0,<SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg2.png"
- ALT="$\pi$"></SPAN>}.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>default</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the default value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>phi</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>longitude in radians, measured eastward in <SPAN CLASS="MATH"><IMG
- WIDTH="60" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg39.png"
- ALT="$[0,\ 2\pi] $"></SPAN>.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmin</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the minimum value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>vector(3)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>three dimensional cartesian position vector
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN>. The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN>. An output vector is normalised to unity.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>vmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing the maximum value for
+                     a given simulation parameter; must be of
+                     appropriate type.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=135>vertex(3,4) OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>three dimensional cartesian position vectors
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> (normalised to unity) pointing to the 4 vertices of a given pixel. The four vertices are listed in the order North, West, South, East.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>descr</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument containing a description of the
+                   required simulation parameter</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>filestatus</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. If present, the parameter
+                   must be a valid filename. If filestatus=='new',
+                   the file must not exist; if filestatus=='old',
+                   the file must exist.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>code</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. Contains the name of the executable.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>silent</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>optional argument. If set to <TT>.true.</TT> the parsing
+routines will run silently in non-interactive mode (except for warning or error
+messages, which will always appear). This is mainly intended for MPI usage where
+many processors parse the same parameter file: <TT>silent</TT> can be set to
+<TT>.true.</TT> on all CPUs except one.</TD>
 </TR>
 </TABLE>
 
@@ -148,136 +150,116 @@ nside</TD>
 
 <BIG CLASS="LARGE"><SPAN  CLASS="textbf">ROUTINES: </SPAN></BIG>
 <BR>
-<TT>call pix2ang_ring(nside, ipring, theta, phi)</TT> 
+<TT>handle = parse_init (fname [,silent])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders <EM>theta</EM> and <EM>phi</EM> coordinates of the nominal pixel center given the pixel number <EM>ipring</EM> and a map resolution parameter <EM>nside</EM>.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call pix2vec_ring(nside, ipring, vector [,vertex])</TT> 
+&nbsp;&nbsp;&nbsp;&nbsp;initializes the parser to work on the file fname, or interactively, if fname is empty
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders cartesian vector coordinates of the nominal pixel center given the pixel number <EM>ipring</EM> and a map resolution parameter <EM>nside</EM>. Optionally renders cartesian vector coordinates of the considered pixel four vertices.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call ang2pix_ring(nside, theta, phi, ipring)</TT> 
+<TT>intval = parse_int (handle, keyname [, default, vmin, vmax, descr])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders the pixel number <EM>ipring</EM> for a pixel which, given the map resolution parameter <EM>nside</EM>, contains the point on the sphere at angular coordinates <EM>theta</EM> and <EM>phi</EM>.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call vec2pix_ring(nside, vector, ipring)</TT> 
+<TT>longval = parse_long (handle, keyname [, default, vmin, vmax, descr])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders the pixel number <EM>ipring</EM> for a pixel which, given the map resolution parameter <EM>nside</EM>, contains the point on the sphere at cartesian coordinates <EM>vector</EM>.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR>
-<P>
-<TT>call pix2ang_nest(nside, ipnest, theta, phi)</TT> 
+<TT>realval = parse_real (handle, keyname [, default, vmin, vmax, descr])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders <EM>theta</EM> and <EM>phi</EM> coordinates of the nominal pixel center given the pixel number <EM>ipnest</EM> and a map resolution parameter <EM>nside</EM>.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call pix2vec_nest(nside, ipnest, vector [,vertex])</TT> 
+<TT>doubleval = parse_double (handle, keyname [, default, vmin, vmax, descr])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders cartesian vector coordinates of the nominal pixel center given the pixel number <EM>ipnest</EM> and a map resolution parameter <EM>nside</EM>. Optionally renders cartesian vector coordinates of the considered pixel four vertices.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call ang2pix_nest(nside, theta, phi, ipnest)</TT> 
+<TT>stringval = parse_string (handle, keyname [, default, descr, filestatus])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders the pixel number <EM>ipnest</EM> for a pixel which, given the map resolution parameter <EM>nside</EM>, contains the point on the sphere at angular coordinates <EM>theta</EM> and <EM>phi</EM>.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call vec2pix_nest(nside, vector, ipnest)</TT> 
+<TT>logicval = parse_lgt (handle, keyname [, default, descr])</TT> 
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>renders the pixel number
-                        <EM>ipnest</EM> for a pixel which, given the map
-                        resolution parameter <EM>nside</EM>, contains the
-                        point on the sphere at cartesian coordinates
-                        <EM>vector</EM> .</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
+&nbsp;&nbsp;&nbsp;&nbsp;These routines obtain integer(i4b), integer(i8b), real(sp), real(dp), character(len=*) and logical values,
+respectively. 
 <BR>
-<BR>
-<P>
-<TT>call nest2ring(nside, ipnest, ipring)</TT> 
+Note: <TT>parse_string</TT> will expand all environment variables of
+the form ${XXX} (eg: ${HOME}). It will also replace a <EM>leading</EM> 
+<code>~</code><SPAN CLASS="MATH"><IMG
+ WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg11.png"
+ ALT="$\!$"></SPAN><TT>/</TT>
+by the user's home directory.
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>performs conversion from NESTED to RING pixel number.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR><TT>call ring2nest(nside, ipring, ipnest)</TT> 
+<TT>call parse_summarize (handle [, code])</TT>
 
 <P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>performs conversion from RING to NESTED pixel number. </TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR>
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</FONT>.</h2>
-  <DL COMPACT><DT>
-<B>mk_pix2xy, mk_xy2pix</B>
-<DD>routines used in the conversion between pixel values and ``cartesian'' coordinates on the Healpix face.
-  </DL>
+&nbsp;&nbsp;&nbsp;&nbsp;if the parameters were set interactively, this routine will print out a 
+parameter file performing the same settings.
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">pix2xxx,ang2xxx,vec2xxx, nest2ring,ring2nest</FONT></b></h3>
+<TT>call parse_check_unused (handle [, code])</TT>
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;if a parameter file was read, this routine will print out all the parameters
+found in the file but not used by the code. Intended at detecting typos in
+parameter names.
+
+<P>
+<TT>call parse_finish (handle)</TT>
+
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;frees the memory
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+program who_r_u 
+<BR>
+use healpix_types 
+<BR>
+use paramfile_io 
+<BR>
+use extension 
+<BR>
+<BR>
+implicit none 
+<BR>
+type(paramfile_handle) :: handle 
+<BR>
+character(len=256) :: parafile, name 
+<BR>
+real(DP) :: age 
+<BR>
+<BR>
+parafile = ''  
+<BR>
+if (<A HREF="subroutinesnode62.htm#sub:narguments">nArguments()</A> == 1) call <A HREF="subroutinesnode36.htm#sub:getargument">getArgument</A>(1, parafile)  
+<BR>
+handle = parse_init(parafile)  
+<BR>
+name  = parse_string(handle, 'name',descr='Enter your last name: ')  
+<BR>
+age   = parse_double(handle, 'age', descr='Enter your age in years: ', &amp;   
+<BR>   &amp; default=18.d0,vmin=0.d0)  
+<BR>
+call parse_summarize(handle, 'who_r_u')  
+<BR>
+end program who_r_u 
+</font></tt>
+<BR><blockquote>If a file is provided as command line argument when running the executable <TT>who_r_u</TT>, that file
+  will be parsed in search of the lines starting with 'name =' and 'age =',
+  otherwise the same questions will be asked interactively.
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">parse_xxx</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode61.htm#sub:neighbours_nest">neighbours_nest</A></B>
-<DD>find neighbouring pixels.
+<B><A HREF="subroutinesnode22.htm#sub:concatnl">concatnl</A></B>
+<DD>generates from a set of strings the
+  multi-line description
   <DT>
-<B><A HREF="subroutinesnode15.htm#sub:ang2vec">ang2vec</A></B>
-<DD>convert <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg34.png"
- ALT="$(\theta,\phi) $"></SPAN> spherical coordinates into <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> cartesian coordinates.
+<B><A HREF="subroutinesnode62.htm#sub:narguments">nArguments</A></B>
+<DD>returns the number of
+  command line arguments
   <DT>
-<B><A HREF="subroutinesnode98.htm#sub:vec2ang">vec2ang</A></B>
-<DD>convert <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> cartesian coordinates into <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg34.png"
- ALT="$(\theta,\phi) $"></SPAN> spherical coordinates.
-  <DT>
-<B><A HREF="subroutinesnode22.htm#sub:convert_inplace">convert_inplace</A></B>
-<DD>in-place conversion  between RING and NESTED for integer/real/double maps.
-  <DT>
-<B><A HREF="subroutinesnode23.htm#sub:convert_nest2ring">convert_nest2ring</A></B>
-<DD>convert from NESTED to RING scheme using a temporary array.
+<B><A HREF="#sub:getArgument">getArgument</A></B>
+<DD>returns the list of command line arguments
   </DL>
 
 <P>
@@ -291,32 +273,32 @@ nside</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1041"
+<A NAME="tex2html1047"
   HREF="subroutinesnode68.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1047"
+<A NAME="tex2html1053"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1051"
+<A NAME="tex2html1057"
   HREF="subroutinesnode70.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1049"
+<A NAME="tex2html1055"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1042"
-  HREF="subroutinesnode68.htm">pixel_window</A>
+<B> Previous:</B> <A NAME="tex2html1048"
+  HREF="subroutinesnode68.htm">output_map*</A>
 
-<B>Up:</B> <A NAME="tex2html1048"
+<B>Up:</B> <A NAME="tex2html1054"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1052"
-  HREF="subroutinesnode70.htm">planck_rng derived type</A>
+<B> Next:</B> <A NAME="tex2html1058"
+  HREF="subroutinesnode70.htm">pixel_window</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

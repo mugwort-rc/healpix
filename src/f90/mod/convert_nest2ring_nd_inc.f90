@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -29,15 +29,17 @@
 !
 ! generic body of the subroutines convert_nest2ring_*_nd 
 ! to be inserted as is in pix_tools.f90
-!
+!    edited 2009-04-03 to accept Nside>8192
 !--------------------------------------------------------------
     !=======================================================================
     !     makes the conversion NEST to RING
     !=======================================================================
     integer(kind=I4B), intent(in) :: nside
     integer(kind=I4B) :: nd, j
-    integer(kind=I4B) :: npix, ipn, ipr
-    integer(kind=I4B),  dimension(:), allocatable :: mapping
+    integer(kind=I4B) :: ipn4, ipr4
+    integer(kind=I8B) :: ipn8, ipr8, npix
+    integer(kind=I4B),  dimension(:), allocatable :: mapping4
+    integer(kind=I8B),  dimension(:), allocatable :: mapping8
     !=======================================================================
 
     npix = nside2npix(nside)
@@ -53,29 +55,58 @@
     endif
 
     allocate(map_tmp(0:npix-1))
-    allocate(mapping(0:npix-1))
+
+    if (nside <= ns_max4) then
+       allocate(mapping4(0:npix-1))
 
     ! do N->R mapping only once
 !$OMP parallel default(none) &
-!$OMP   shared(mapping, npix, nside) &
-!$OMP   private(ipr, ipn)
+!$OMP   shared(mapping4, npix, nside) private(ipr4, ipn4)
 !$OMP do schedule(dynamic,64)
-    do ipn = 0, npix-1
-       call nest2ring(nside, ipn, ipr)
-       mapping(ipn) = ipr
-    enddo
+       do ipn4 = 0_i4b, npix-1
+          call nest2ring(nside, ipn4, ipr4)
+          mapping4(ipn4) = ipr4
+       enddo
 !$OMP end do
 !$OMP end parallel
 
-    ! convert maps one by one
-    do j = 1, nd
-       do ipn = 0, npix-1
-          map_tmp(mapping(ipn)) = map(ipn,j)
+       ! convert maps one by one
+       do j = 1, nd
+          do ipn4 = 0_i4b, npix-1
+             map_tmp(mapping4(ipn4)) = map(ipn4,j)
+          enddo
+          map(0:npix-1, j) = map_tmp(0:npix-1)
        enddo
-       map(0:npix-1, j) = map_tmp(0:npix-1)
-    enddo
+
+       deallocate(mapping4)
+
+    else
+
+       allocate(mapping8(0:npix-1))
+
+    ! do N->R mapping only once
+!$OMP parallel default(none) &
+!$OMP   shared(mapping8, npix, nside) private(ipr8, ipn8)
+!$OMP do schedule(dynamic,64)
+       do ipn8 = 0_i8b, npix-1
+          call nest2ring(nside, ipn8, ipr8)
+          mapping8(ipn8) = ipr8
+       enddo
+!$OMP end do
+!$OMP end parallel
+
+       ! convert maps one by one
+       do j = 1, nd
+          do ipn8 = 0_i8b, npix-1
+             map_tmp(mapping8(ipn8)) = map(ipn8,j)
+          enddo
+          map(0:npix-1, j) = map_tmp(0:npix-1)
+       enddo
+
+       deallocate(mapping8)
+
+    endif
 
     deallocate(map_tmp)
-    deallocate(mapping)
 
     return

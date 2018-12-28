@@ -4,6 +4,7 @@ healpix.core.base.set
 healpix.core.base.set.test
 healpix.core.base.test
 healpix.core.dm
+healpix.core.dm.test
 healpix.core.dm.util
 healpix.core.test
 healpix.fits

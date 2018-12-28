@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -33,13 +33,13 @@
 !! Copyright 1997 by Eric Hivon and Krzysztof M. Gorski.
 !!  All rights reserved.
 !!
-!! author Eric Hivon (efh@ipac.caltech.edu)
+!! author Eric Hivon (hivon@iap.fr)
 !!
 !  RELATED LITTERATURE:
 !     about HEALPIX   : see Gorski et al, 2005, ApJ, 622, 759
 !-----------------------------------------------------------------------
   !=======================================================================
-  !     version 2.1.1
+  !     version 2.2
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file ud_grade.f90 by the command  include
@@ -50,7 +50,8 @@
   REAL(KMAP),     DIMENSION(:,:),   ALLOCATABLE :: map_out
   INTEGER(I4B)  status
 
-  INTEGER(I4B) npix_in, npix_out, nmaps, type
+  INTEGER(I8B) npix_in, npix_out
+  INTEGER(I4B) nmaps, type
   INTEGER(I4B) j, polar_fits
 
   CHARACTER(LEN=filenamelen)          ::  outfile, infile

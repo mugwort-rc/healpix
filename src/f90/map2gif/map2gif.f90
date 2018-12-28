@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -110,19 +110,22 @@ PROGRAM MAP2GIF
    !    November 2004, Eric Hivon,      IPAC (upgraded for WMAP polarized maps)
    !    Jan 2005,      EH               IPAC (edited to reduce stack consomption)
    !
+  ! note: explicit loop on pixels instead of where structure because the latter requires large stack size
+  !   for large maps
    !-------------------------------------------------------------------
 
    USE healpix_types
    USE misc_utils
    USE fitstools
+   use pix_tools, only: npix2nside
    USE gifmod
 
    IMPLICIT NONE
 
+   INTEGER(I8B) :: npixtot, i
    INTEGER(I4B) :: nsmax
-   INTEGER(I4B) :: npixtot, nmaps
+   INTEGER(I4B) :: nmaps
    INTEGER(I4B) :: ordering
-   INTEGER(I4B) :: i
 
    REAL(SP),     DIMENSION(:,:),   ALLOCATABLE :: map_IQU
    REAL(SP),     DIMENSION(:),     ALLOCATABLE :: map
@@ -137,8 +140,9 @@ PROGRAM MAP2GIF
    LOGICAL(LGT), DIMENSION(:),     ALLOCATABLE :: observed
 
    REAL(SP)     :: mindata, maxdata, Tmin, Tmax
+   REAL(SP)     :: fmissval
 
-   INTEGER(I4B) :: status
+   INTEGER(I4B) :: status, chunk
 
    CHARACTER(LEN=7), PARAMETER :: code = 'MAP2GIF'
    character(len=*), parameter :: VERSION = HEALPIX_VERSION
@@ -157,13 +161,15 @@ PROGRAM MAP2GIF
    INTEGER(I4B)       :: xsize  = 800
    LOGICAL(LGT)       :: logflg = .false.
    LOGICAL(LGT)       :: bar = .false.
-   LOGICAL(LGT)       :: ashflag = .false.
+   LOGICAL(LGT)       :: ashflg = .false.
    REAL(SP)           :: offset = 0.0
    REAL(SP)           :: factor = 1.0
+   logical            :: anynull 
 
    integer(i4b)       :: n_ext, i_ext, nmaps_sum, icolumn
+!   real(sp) :: time0, time1, time2, time3, time4, time5, time6, time11, time12, time13
    !-------------------------------------------------------------------
-
+!   call wall_clock_time(time0)
    !--- acquire input parameters ---
    call parseOptions()
 
@@ -185,8 +191,12 @@ PROGRAM MAP2GIF
       call fatal_error
    end if
 
-   nsmax = NINT(SQRT( npixtot / 12.) )
-   call assert(npixtot == 12*nsmax*nsmax,'wrong number of pixels')
+!    nsmax = NINT(SQRT( npixtot / 12.) )
+!    call assert(npixtot == 12*nsmax*nsmax,'wrong number of pixels')
+   nsmax = npix2nside(npixtot)
+   call assert(nsmax > 1, 'wrong number of pixels')
+   chunk = 1024*512
+   if (nsmax <= 256) chunk = 2
 
    !--- allocate space for arrays ---
    ALLOCATE(map(0:npixtot-1),stat = status)
@@ -195,7 +205,10 @@ PROGRAM MAP2GIF
    call assert_alloc(status,'map2gif','map_IQU') 
 
    !--- read in the FITS file ---
-   call input_map(input_file, map_IQU, npixtot, nmaps, fmissval=-1.6375e30_sp, extno=i_ext)
+!   call input_map(input_file, map_IQU, npixtot, nmaps, fmissval=HPX_SBADVAL, extno=i_ext)
+   call read_bintab(input_file, map_IQU, npixtot, nmaps, fmissval, anynull, extno=i_ext) ! leave flagged pixels unchanged
+!    call wall_clock_time(time1)
+!    print*,'file read:', time1-time0
 
    !--- select correct signal to plot ---
    map(:) = map_IQU(:,icolumn)
@@ -205,12 +218,29 @@ PROGRAM MAP2GIF
    call assert_alloc(status,'map2gif','observed') 
 
    !--- Test for unobserved pixels ---
-   observed = map > -1.6375e30
-   !!where (observed) map = (map+offset)*factor ! << requires large stack size for large maps
+!$OMP PARALLEL DEFAULT(NONE) SHARED(chunk,observed, map, npixtot) PRIVATE(i)
+!$OMP DO schedule(dynamic, chunk)
    do i = 0, npixtot-1
-      if (observed(i)) map(i) = (map(i)+offset)*factor
+      observed(i) = map(i) > HPX_SBADVAL
    enddo
-   if (ashflag) then
+!$OMP END DO
+!$OMP END PARALLEL
+!    call wall_clock_time(time11)
+!    print*,'obs:', time11-time1
+
+   if (offset /= 0. .or. factor /= 1.0) then
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED(chunk,observed, map, npixtot, offset, factor) PRIVATE(i)
+!$OMP DO schedule(dynamic, chunk)
+      do i = 0, npixtot-1
+         if (observed(i)) map(i) = (map(i)+offset)*factor
+      enddo
+!$OMP END DO
+!$OMP END PARALLEL
+   endif
+   if (ashflg) then
+!$OMP PARALLEL DEFAULT(NONE) SHARED(chunk,observed, map, npixtot) PRIVATE(i)
+!$OMP DO schedule(dynamic, chunk)
       do i=0,npixtot-1
         if (observed(i)) then
           if (map(i)>=0) then
@@ -220,24 +250,35 @@ PROGRAM MAP2GIF
           endif
         endif
       end do
+!$OMP END DO
+!$OMP END PARALLEL
    endif
    IF( logflg )THEN
-      observed = map > 0.
-!       where(observed)
-!         map=log10(map)
-!       elsewhere
-!         map=-1.6375e30
-!       endwhere
+!$OMP PARALLEL DEFAULT(NONE) SHARED(chunk,observed, map, npixtot) PRIVATE(i)
+!$OMP DO schedule(dynamic, chunk)
       do i=0, npixtot - 1
+         observed(i) = (map(i) > 0.)
          if (observed(i)) then
             map(i) = log10(map(i))
          else
-            map(i) = -1.6375e30
+            map(i) = HPX_SBADVAL
          endif
       enddo
+!$OMP END DO
+!$OMP END PARALLEL
    END IF
+!    call wall_clock_time(time12)
+!    print*,'loops:', time12-time11
+!$OMP PARALLEL SHARED(chunk,mindata, maxdata, observed)
+!$OMP SECTIONS
+!$OMP SECTION
    mindata = minval(map, mask = observed)
+!$OMP SECTION
    maxdata = maxval(map, mask = observed)
+!$OMP END SECTIONS
+!$OMP END PARALLEL
+!    call wall_clock_time(time13)
+!    print*,'minmax:', time13-time12
 
    if (mindata==maxdata) then
      print *,"Warning: map contains completely uniform values!"
@@ -259,11 +300,18 @@ PROGRAM MAP2GIF
    if (usermin > -1.1e30) Tmin = usermin
 
    !--- adjust 'offscale' temperatures ---
-   !! WHERE(observed) map = max(min(map,Tmax),Tmin) ! << requires large stack size for large maps
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED(chunk,observed, map, npixtot, Tmin, Tmax) &
+!$OMP PRIVATE(i)
+!$OMP DO schedule(dynamic, chunk)
    do i = 0, npixtot - 1
       if (observed(i)) map(i) = max(min(map(i), Tmax), Tmin)
    enddo
+!$OMP END DO
+!$OMP END PARALLEL
    deallocate(observed)
+!    call wall_clock_time(time2)
+!    print*,'cut:', time2-time13
 
    !--- create the projection ---
    select case (projection)
@@ -275,12 +323,13 @@ PROGRAM MAP2GIF
       call assert_alloc(status,'map2gif','mask') 
 
       !--- create the mollweide projection ---
-      call proj_mollw(&
+      call proj_mollw_new(&
            map,      &
            nsmax,    &
            ordering, &
            xsize,    &
            lon0,     &
+           lat0,     &
            image,    &
            mask      &
            )
@@ -307,12 +356,15 @@ PROGRAM MAP2GIF
       print '(" unknown projection type: ",a3)', projection
       call fatal_error
    end select
+!    call wall_clock_time(time3)
+!    print*,'project:', time3-time2
 
    !--- load the color table ---
    call setcol( color_table )
 
    !--- scale image ---
-   allocate(imgint(size(image,1),size(image,2)))
+   allocate(imgint(size(image,1),size(image,2)), stat = status)
+   call assert_alloc(status,'map2gif','imgint (image)') 
    call imgscl(&
         image,  &
         imgint, &
@@ -327,7 +379,8 @@ PROGRAM MAP2GIF
            imgbar  &
            )
       deallocate(imgint)
-      allocate(imgint(size(imgbar,1),size(imgbar,2)))
+      allocate(imgint(size(imgbar,1),size(imgbar,2)), stat = status)
+      call assert_alloc(status,'map2gif','imgint (bar)') 
       imgint = imgbar
       deallocate(imgbar)
    end if
@@ -340,7 +393,8 @@ PROGRAM MAP2GIF
            title   &
            )
       deallocate(imgint)
-      allocate(imgint(size(imgttl,1),size(imgttl,2)))
+      allocate(imgint(size(imgttl,1),size(imgttl,2)), stat = status)
+      call assert_alloc(status,'map2gif','imgint (title)') 
       imgint = imgttl
       deallocate(imgttl)
    end if
@@ -354,10 +408,430 @@ PROGRAM MAP2GIF
    !--- deallocate memory for arrays ---
    DEALLOCATE(map,stat = status)
    DEALLOCATE(mask,stat = status)
+!    call wall_clock_time(time4)
+!    print*,'finish:', time4-time3
 
    !--- Exit, stage left ...
 
 contains
+
+
+
+SUBROUTINE PROJ_MOLLW_New(&
+     map,      &
+     nside,    &
+     ordering, &
+     xsize,    &
+     lon0,     &
+     lat0,     &
+     image,    &
+     mask      &
+     )
+   ! --------------------------------------------------------------
+   ! This subroutine takes an input HEALPIX sky map array and
+   ! generates the (u,v) position on a mollweide projection.
+   !
+   ! INPUTS:
+   !       map     = array containing pixel temperatures
+   !       nside   = defines number of pixels on the sky
+   !       ordering= whether input map is in RING or NESTED format
+   !       xsize   = x-dimension of output image array
+   !       lon0    = longitude (in degrees) of the center of the plot
+   !       image   = output mollweide projection image
+   !       mask    = logical array defining usable pixels in output image array
+   !
+   ! PROCEDURES USED:
+   !            ang_pix, ang_nest_pix
+   !
+   !  RELATED LITERATURE:
+   !  see the web site http://www.tac.dk/~healpix
+   !
+   ! MODIFICATION HISTORY:
+   !    October 1997, Eric Hivon, TAC (original IDL code)
+   !       December 1998, A.J. Banday MPA (conversion to F90)
+   !    Nov 2010, E.H., IAP (implement lat0 rotation)
+   !
+   ! --------------------------------------------------------------
+
+   USE healpix_types
+   USE pix_tools
+   use misc_utils
+
+   IMPLICIT NONE
+
+   REAL(SP), DIMENSION(0:), intent(in) :: map
+   INTEGER(I4B),            intent(in) :: ordering, nside, xsize
+   REAL(SP),     DIMENSION(0:xsize-1,0:xsize/2-1), intent(out) :: image
+   LOGICAL(LGT), DIMENSION(0:xsize-1,0:xsize/2-1), intent(out) :: mask
+   REAL(SP), intent(in) :: lon0, lat0
+
+   INTEGER(I4B) :: ysize,I,J
+   INTEGER(I4B) :: xc, dx, yc, dy
+   INTEGER(I8B) :: id_pix
+
+   REAL(DP) :: lon0rad, lat0rad
+   !REAL(DP) :: DtoR = PI/180.0_dp
+
+   REAL(DP), DIMENSION(:,:), ALLOCATABLE :: u, v
+   real(DP), dimension(1:3) :: vector
+   real(DP), dimension(3,3) :: matrix
+   real(DP) :: s_tmp, sz_tmp, z_tmp, phi_tmp, uu, vv
+
+   INTEGER(I4B) :: status
+   ! --------------------------------------------------------------
+
+   ! --- define rotation matrix ---
+   lon0rad = lon0 * DEG2RAD
+   lat0rad = lat0 * DEG2RAD
+   ! euler matrix: ZYX convention (itype=1)
+   ! the minus sign on the second angle is because we work on latitude
+   ! while the Euler matrix works on co-latitude
+   call euler_matrix_new(-lon0rad, lat0rad, 0.0_dp, matrix, 1_i4b)
+
+   !--- generates the (u,v) position on the mollweide map ---
+   image(:,:) = 1.                         ! white background ???
+   mask(:,:)  = .false.  ! unobserved
+
+   ysize = xsize/2
+   xc = (xsize-1)/2
+   dx = xc
+   yc = (ysize-1)/2
+   dy = yc
+
+   !--- allocate memory for arrays ---
+   ALLOCATE(u(0:xsize-1,0:ysize-1),stat = status)
+   call assert_alloc(status,'map2gif','u')
+   do i = 0,xsize-1
+      u(i,:) = real(i,dp)
+   end do
+   ALLOCATE(v(0:xsize-1,0:ysize-1),stat = status)
+   call assert_alloc(status,'map2gif','v')
+   do i = 0,ysize-1
+      v(:,i) = real(i,dp)
+   end do
+
+   u =  2._dp*(u - real(xc,dp))/(real(dx,dp)/1.02_dp)   ! 1.02 : fudge factor in [-2,2]*1.02
+   v =        (v - real(yc,dp))/(real(dy,dp)/1.02_dp)   ! in [-1,1] * 1.02
+
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED(u,v,xsize,ysize,mask,matrix,nside,ordering,image,map) &
+!$OMP PRIVATE(i,j,uu,vv,s_tmp,z_tmp,sz_tmp,phi_tmp,vector,id_pix)
+!$OMP DO schedule(dynamic, 1000)
+   DO J = 0,ysize-1
+      DO I = 0,xsize-1
+         uu = u(i,j)
+         vv = v(i,j)
+         if ((uu*uu*0.25_dp + vv*vv) <= 1._dp) then
+            !--- for each point on the mollweide map looks for the corresponding
+            !    vector position on the sphere ---
+            mask(i,j) = .true.
+            s_tmp  = sqrt( (1._dp-vv)*(1._dp+vv) )
+            z_tmp  = (asin(vv) + vv*s_tmp) / HALFPI
+            sz_tmp = SQRT( (1._dp - z_tmp)*(1._dp + z_tmp) )
+
+            phi_tmp   = - HALFPI * uu / s_tmp
+            vector(1) = sz_tmp * cos(phi_tmp)
+            vector(2) = sz_tmp * sin(phi_tmp)
+            vector(3) = z_tmp
+            ! rotate position
+            vector = matmul(matrix, vector)
+            ! read out input map
+            if (ordering == 2) then
+               call vec2pix_nest( nside, vector, id_pix )
+            else ! default
+               call vec2pix_ring( nside, vector, id_pix )
+            end if
+            image(I,J) = map(id_pix)
+         endif
+      enddo
+   enddo
+!$OMP END DO
+!$OMP END PARALLEL
+
+   !--- deallocate memory for arrays ---
+   deallocate( u )
+   deallocate( v )
+
+END SUBROUTINE PROJ_MOLLW_New
+
+
+
+SUBROUTINE PROJ_GNOMIC(&
+     map,      &
+     nside,    &
+     ordering, &
+     xsize,    &
+     lon0,     &
+     lat0,     &
+     resgrid,  &
+     image,    &
+     mask      &
+     )
+
+   ! --------------------------------------------------------------
+   ! This subroutine takes an input HEALPIX sky map array and
+   ! generates the gnomic (tangential) projection on a rectangular grid.
+   !
+   ! INPUTS:
+   !       map     = array containing pixel temperatures
+   !       nside   = defines number of pixels on the sky
+   !       ordering= whether input map is in RING or NESTED format
+   !       xsize   = x-dimension of output image array
+   !       lon0    = longitude (in degrees) of the center of the plot
+   !       lat0    = latitude (in degrees) of the center of the plot
+   !       gridresn= resolution of the grid elements in ARCMINUTES
+   !       image   = output gnomic projection image
+   !       mask    = logical array defining usable pixels in output
+   !                 image array
+   !
+   ! PROCEDURES USED:
+   !            ang_pix, ang_nest_pix, euler_matrix_new
+   !
+   !  RELATED LITERATURE:
+   !  see the web site http://www.tac.dk/~healpix
+   !
+   ! MODIFICATION HISTORY:
+   !    October 1997, Eric Hivon, TAC (original IDL code)
+   !    January 1999, A.J. Banday MPA (conversion to F90)
+   !    March   1999, EH Caltech (consistent with new IDL version,
+   !                       fixed a bug on rotation)
+   !
+   ! --------------------------------------------------------------
+
+   USE healpix_types
+   USE pix_tools
+   use misc_utils
+
+   IMPLICIT NONE
+
+   INTEGER(I4B) :: I,J
+   INTEGER(I8B) :: id_pix
+   INTEGER(I4B) :: ordering
+   INTEGER(I4B) :: nside
+
+   INTEGER(I4B) :: xsize
+
+!   REAL(SP), DIMENSION(0:12*nside**2-1) :: map
+   REAL(SP), DIMENSION(0:) :: map
+
+   REAL(SP),     DIMENSION(0:xsize-1,0:xsize-1) :: image
+   LOGICAL(LGT), DIMENSION(0:xsize-1,0:xsize-1) :: mask
+
+   REAL(SP) :: lon0, lat0, resgrid
+   REAL(DP) :: lon0rad, lat0rad, resgrid_rad
+   REAL(DP) :: DtoR = PI/180.0_dp
+
+   REAL(DP), DIMENSION(:,:), ALLOCATABLE :: xg, yg, zg, rg
+   REAL(DP), DIMENSION(3,3)              :: matrix
+   REAL(DP), DIMENSION(3)                :: nvs
+
+   INTEGER(I4B) :: status
+
+   ! --------------------------------------------------------------
+
+   !-- some basic variable manipulations --
+   resgrid_rad = (real(resgrid,dp)/60.0_dp) * DtoR !/ real(xsize-1,dp)
+   lon0rad = real(lon0,dp) * DtoR
+   lat0rad = real(lat0,dp) * DtoR
+!   theta0  = halfpi - lat0rad
+!   phi0    = lon0rad
+
+   !-- generates the projection around the chosen contact point
+   !   on the planar grid  (1,Y,Z) --
+   image(:,:) = 1.0
+   mask(:,:)  = .true.
+
+   !--- allocate memory for arrays ---
+   ALLOCATE(xg(0:xsize-1,0:xsize-1),stat = status)
+   call assert_alloc(status,'map2gif','xg')
+   xg = 1.0_dp
+   ALLOCATE(yg(0:xsize-1,0:xsize-1),stat = status)
+   call assert_alloc(status,'map2gif','yg')
+   do i = 0,xsize-1
+      yg(i,:) = -(real(i,dp) - 0.5_dp*real(xsize,dp) + 0.5_dp) *&
+           & resgrid_rad  ! minus sign = astro convention
+   end do
+   ALLOCATE(zg(0:xsize-1,0:xsize-1),stat = status)
+   call assert_alloc(status,'map2gif','zg')
+   do i = 0,xsize-1
+      zg(:,i) = (real(i,dp) - 0.5_dp*real(xsize,dp) + 0.5_dp) *&
+           & resgrid_rad
+   end do
+   ALLOCATE(rg(0:xsize-1,0:xsize-1),stat = status)
+   call assert_alloc(status,'map2gif','rg')
+   rg = sqrt(1.0_dp + yg**2 + zg**2)
+
+   !-- the contact point is rotated by theta0 around y (=colatitude)
+   !   and phi0 around z (=azimut) --
+   ! euler matrix: ZYX convention (itype=1)
+   ! the minus sign on the second angle is because we work on latitude
+   ! while the Euler matrix works on co-latitude
+   call euler_matrix_new(-lon0rad, lat0rad, 0.0_dp, matrix, 1_i4b)
+
+   xg = 1.0_dp / rg
+   yg = yg / rg
+   zg = zg / rg
+
+
+   !--- converts the position on the sphere into pixel number and project the
+   !    corresponding data value on the map ---
+!$OMP PARALLEL DEFAULT(NONE) &
+!$OMP SHARED(xsize, matrix, nside, ordering, image, map, xg, yg, zg) &
+!$OMP PRIVATE(i, j, nvs, id_pix)
+!$OMP DO schedule(dynamic, 1000)
+   DO I = 0,xsize-1
+      DO J = 0,xsize-1
+         !-- rotated positions --
+         nvs = matmul(matrix,(/ xg(i,j), yg(i,j), zg(i,j) /))
+         if (ordering .eq. 2) then
+            call vec2pix_nest( nside, nvs, id_pix )
+            ! id_pix in [0,12*nside^2-1]
+         else ! default
+            call vec2pix_ring( nside, nvs, id_pix )
+            ! id_pix in [0,12*nside^2-1]
+         end if
+         image(I,J) = map(id_pix)
+      END DO
+   END DO
+!$OMP END DO
+!$OMP END PARALLEL
+
+   !--- deallocate memory for arrays ---
+   deallocate( xg )
+   deallocate( yg )
+   deallocate( zg )
+
+END SUBROUTINE PROJ_GNOMIC
+
+   subroutine parseOptions ()
+
+     USE extension, ONLY : getArgument, nArguments
+      implicit none
+
+      integer(I4B)       :: i,n
+      character(len=4)   :: opt
+      character(len=filenamelen) :: arg
+
+      n = nArguments()
+
+      if (n < 4) then
+         print *, 'usage: MAP2GIF -inp input_file -out output_file'
+         print *, '               [-max usermax] [-min usermin]'
+         print *, '               [-add offset] [-mul factor]'
+         print *, '               [-pro projection] [-res gridresn]'
+         print *, '               [-lon lon0] [-lat lat0]'
+         print *, '               [-col color_table] [-sig signal]'
+         print *, '               [-xsz xsize] [-log logflg]'
+         print *, '               [-ash ashflg]'
+         print *, '               [-bar add color bar] [-ttl title]'
+         print *, '               [-hlp]'
+      end if
+
+
+      do i = 1,n,2
+         call getArgument(i,opt)
+         if (opt == '-hlp') then
+            print 1, trim(input_file),trim(output_file),color_table,usermax,usermin,&
+                 & offset, factor, trim(projection), lon0, lat0, gridresn, &
+                 & signal,xsize,logflg,ashflg,bar,trim(title)
+            stop
+         end if
+         if (i == n) then
+            print '("option ",a2," has no argument")', opt
+            call fatal_error
+         end if
+         call getArgument(i+1,arg)
+         select case (opt)
+         case ('-inp')
+            input_file = trim(arg)
+         case ('-out')
+            output_file = trim(arg)
+         case ('-col')
+            read (arg,*) color_table
+         case('-sig')
+            read (arg,*) signal
+         case ('-xsz')
+            read (arg,*) xsize
+         case ('-log')
+            read (arg,*) logflg
+         case ('-ash')
+            read (arg,*) ashflg
+         case ('-bar')
+            read (arg,*) bar
+         case ('-ttl')
+            title = trim(arg)
+         case ('-max')
+            read (arg,*) usermax
+         case ('-min')
+            read (arg,*) usermin
+         case ('-add')
+            read (arg,*) offset
+         case ('-mul')
+            read (arg,*) factor
+         case ('-pro')
+            projection = trim(arg)
+         case ('-lat')
+            read (arg,*) lat0
+         case ('-lon')
+            read (arg,*) lon0
+         case ('-res')
+            read (arg,*) gridresn
+         case default
+            print '("unknown option ",a4," ignored")', opt
+         end select
+      end do
+      if (n < 4) then
+         call fatal_error('Not enough arguments')
+      endif
+
+      call assert_present(input_file)
+      if (output_file(1:1) /= '!') then
+         call assert_not_present(output_file)
+      else
+         output_file = output_file(2:len(output_file))
+      endif
+
+      if (usermax == usermin) then
+         print *, 'it is silly to set the maximum and the minimum'
+         print *, 'to the same value, is it not?'
+         call fatal_error
+      end if
+
+      if (ashflg .and. logflg) then
+         print *, '-log and -ash cannot both be true!'
+         call fatal_error
+      end if
+
+1     format(/,&
+           & " -inp [Req] ",A,/,&
+           & " -out [Req] ",A/,&
+           & " -col [Opt] ",I1,/,&
+           & " -max [Opt] ",g10.2,/,&
+           & " -min [Opt] ",g10.2,/,&
+           & " -add [Opt] ",g10.2,/,&
+           & " -mul [Opt] ",g10.2,/,&
+           & " -pro [Opt] ",A,/,&
+           & " -lon [Opt] ",g10.2,/,&
+           & " -lat [Opt] ",g10.2,/,&
+           & " -res [Opt] ",g10.2,/,&
+           & " -sig [Opt] ",I1,/,&
+           & " -xsz [Opt] ",I6,/,&
+           & " -log [Opt] ",L1,/,&
+           & " -ash [Opt] ",L1,/,&
+           & " -bar [Opt] ",L1,/,&
+           & " -ttl [Opt] ",A,/)
+
+   end subroutine parseOptions
+
+!********************************************************************
+!********************************************************************
+!********************************************************************
+!********************************************************************
+!                   O B S O L E T E
+!********************************************************************
+!********************************************************************
+!********************************************************************
+!********************************************************************
 
 subroutine euler_matrix(       &
                         a1,    &
@@ -469,17 +943,19 @@ SUBROUTINE PROJ_MOLLW(&
 
    USE healpix_types
    USE pix_tools
+   use misc_utils
 
    IMPLICIT NONE
 
    INTEGER(I4B) :: I,J
-   INTEGER(I4B) :: id_pix
+   INTEGER(I8B) :: id_pix
    INTEGER(I4B) :: ordering
    INTEGER(I4B) :: nside
 
    INTEGER(I4B) :: xsize, ysize
 
-   REAL(SP), DIMENSION(0:12*nside**2-1) :: map
+!   REAL(SP), DIMENSION(0:12*nside**2-1) :: map
+   REAL(SP), DIMENSION(0:) :: map
 
    REAL(SP),     DIMENSION(0:xsize-1,0:xsize/2-1) :: image
    LOGICAL(LGT), DIMENSION(0:xsize-1,0:xsize/2-1) :: mask
@@ -569,272 +1045,7 @@ SUBROUTINE PROJ_MOLLW(&
    deallocate( out_lon )
 
 END SUBROUTINE PROJ_MOLLW
-
-SUBROUTINE PROJ_GNOMIC(&
-     map,      &
-     nside,    &
-     ordering, &
-     xsize,    &
-     lon0,     &
-     lat0,     &
-     resgrid,  &
-     image,    &
-     mask      &
-     )
-
-   ! --------------------------------------------------------------
-   ! This subroutine takes an input HEALPIX sky map array and
-   ! generates the gnomic (tangential) projection on a rectangular grid.
-   !
-   ! INPUTS:
-   !       map     = array containing pixel temperatures
-   !       nside   = defines number of pixels on the sky
-   !       ordering= whether input map is in RING or NESTED format
-   !       xsize   = x-dimension of output image array
-   !       lon0    = longitude (in degrees) of the center of the plot
-   !       lat0    = latitude (in degrees) of the center of the plot
-   !       gridresn= resolution of the grid elements in ARCMINUTES
-   !       image   = output gnomic projection image
-   !       mask    = logical array defining usable pixels in output
-   !                 image array
-   !
-   ! PROCEDURES USED:
-   !            ang_pix, ang_nest_pix, euler_matrix
-   !
-   !  RELATED LITERATURE:
-   !  see the web site http://www.tac.dk/~healpix
-   !
-   ! MODIFICATION HISTORY:
-   !    October 1997, Eric Hivon, TAC (original IDL code)
-   !    January 1999, A.J. Banday MPA (conversion to F90)
-   !    March   1999, EH Caltech (consistent with new IDL version,
-   !                       fixed a bug on rotation)
-   !
-   ! --------------------------------------------------------------
-
-   USE healpix_types
-   USE pix_tools
-
-   IMPLICIT NONE
-
-   INTEGER(I4B) :: I,J
-   INTEGER(I4B) :: id_pix
-   INTEGER(I4B) :: ordering
-   INTEGER(I4B) :: nside
-
-   INTEGER(I4B) :: xsize
-
-   REAL(SP), DIMENSION(0:12*nside**2-1) :: map
-
-   REAL(SP),     DIMENSION(0:xsize-1,0:xsize-1) :: image
-   LOGICAL(LGT), DIMENSION(0:xsize-1,0:xsize-1) :: mask
-
-   REAL(SP) :: lon0, lat0, resgrid
-   REAL(DP) :: lon0rad, lat0rad, resgrid_rad
-   REAL(DP) :: DtoR = PI/180.0_dp
-
-   REAL(DP), DIMENSION(:,:), ALLOCATABLE :: xg, yg, zg, rg
-   REAL(DP), DIMENSION(3,3)              :: mm
-   REAL(DP), DIMENSION(3)                :: nvs
-
-   INTEGER(I4B) :: status
-
-   ! --------------------------------------------------------------
-
-   !-- some basic variable manipulations --
-   resgrid_rad = (real(resgrid,dp)/60.0_dp) * DtoR !/ real(xsize-1,dp)
-   lon0rad = real(lon0,dp) * DtoR
-   lat0rad = real(lat0,dp) * DtoR
-!   theta0  = halfpi - lat0rad
-!   phi0    = lon0rad
-
-   !-- generates the projection around the chosen contact point
-   !   on the planar grid  (1,Y,Z) --
-   image(:,:) = 1.0
-   mask(:,:)  = .true.
-
-   !--- allocate memory for arrays ---
-   ALLOCATE(xg(0:xsize-1,0:xsize-1),stat = status)
-   call assert_alloc(status,'map2gif','xg')
-   xg = 1.0_dp
-   ALLOCATE(yg(0:xsize-1,0:xsize-1),stat = status)
-   call assert_alloc(status,'map2gif','yg')
-   do i = 0,xsize-1
-      yg(i,:) = -(real(i,dp) - 0.5_dp*real(xsize,dp) + 0.5_dp) *&
-           & resgrid_rad  ! minus sign = astro convention
-   end do
-   ALLOCATE(zg(0:xsize-1,0:xsize-1),stat = status)
-   call assert_alloc(status,'map2gif','zg')
-   do i = 0,xsize-1
-      zg(:,i) = (real(i,dp) - 0.5_dp*real(xsize,dp) + 0.5_dp) *&
-           & resgrid_rad
-   end do
-   ALLOCATE(rg(0:xsize-1,0:xsize-1),stat = status)
-   call assert_alloc(status,'map2gif','rg')
-   rg = sqrt(1.0_dp + yg**2 + zg**2)
-
-   !-- the contact point is rotated by theta0 around y (=colatitude)
-   !   and phi0 around z (=azimut) --
-!   call euler_matrix(0.0_dp,theta0,phi0,mm) ! /y option used in IDL here
-   call euler_matrix(lon0rad,lat0rad,0.0_dp,mm) ! /z option used in IDL here
-
-   xg = 1.0_dp / rg
-   yg = yg / rg
-   zg = zg / rg
-
-
-   !--- converts the position on the sphere into pixel number and project the
-   !    corresponding data value on the map ---
-   DO I = 0,xsize-1
-      DO J = 0,xsize-1
-         !-- rotated positions --
-         nvs = matmul(mm,(/ xg(i,j), yg(i,j), zg(i,j) /))
-         if (ordering .eq. 2) then
-            call vec2pix_nest( nside, nvs, id_pix )
-            ! id_pix in [0,12*nside^2-1]
-         else ! default
-            call vec2pix_ring( nside, nvs, id_pix )
-            ! id_pix in [0,12*nside^2-1]
-         end if
-         image(I,J) = map(id_pix)
-      END DO
-   END DO
-
-!   print*,mm
-!   print*,matmul(mm,(/ 1, 0, 0 /))
-!   print*,matmul(mm,(/ 0, 1, 0 /))
-!   print*,matmul(mm,(/ 0, 0, 1 /))
-
-!   call euler_matrix(1.0_dp,0.0_dp,0.0_dp,mm) ! /z option used in IDL here
-!   print*,mm
-!   print*,matmul(mm,(/ 1, 0, 0 /))
-!   print*,matmul(mm,(/ 0, 1, 0 /))
-!   print*,matmul(mm,(/ 0, 0, 1 /))
-
-
-   !--- deallocate memory for arrays ---
-   deallocate( xg )
-   deallocate( yg )
-   deallocate( zg )
-
-END SUBROUTINE PROJ_GNOMIC
-
-   subroutine parseOptions ()
-
-     USE extension, ONLY : getArgument, nArguments
-      implicit none
-
-      integer(I4B)       :: i,n
-      character(len=4)   :: opt
-      character(len=filenamelen) :: arg
-
-      n = nArguments()
-
-      if (n < 4) then
-         print *, 'usage: MAP2GIF [-inp input_file] [-out output_file]'
-         print *, '               [-max usermax] [-min usermin]'
-         print *, '               [-add offset] [-mul factor]'
-         print *, '               [-pro projection] [-res gridresn]'
-         print *, '               [-lon lon0] [-lat lat0]'
-         print *, '               [-col color_table] [-sig signal]'
-         print *, '               [-xsz xsize] [-log logflg]'
-         print *, '               [-ash ashflg]'
-         print *, '               [-bar add color bar] [-ttl title]'
-         print *, '               [-hlp]'
-         call fatal_error
-      end if
-
-
-      do i = 1,n,2
-         call getArgument(i,opt)
-         if (opt == '-hlp') then
-            print 1, input_file,output_file,color_table,usermax,usermin,&
-                 & signal,xsize,logflg,bar,title
-            stop
-         end if
-         if (i == n) then
-            print '("option ",a2," has no argument")', opt
-            call fatal_error
-         end if
-         call getArgument(i+1,arg)
-         select case (opt)
-         case ('-inp')
-            input_file = trim(arg)
-         case ('-out')
-            output_file = trim(arg)
-         case ('-col')
-            read (arg,*) color_table
-         case('-sig')
-            read (arg,*) signal
-         case ('-xsz')
-            read (arg,*) xsize
-         case ('-log')
-            read (arg,*) logflg
-         case ('-ash')
-            read (arg,*) ashflag
-         case ('-bar')
-            read (arg,*) bar
-         case ('-ttl')
-            title = trim(arg)
-         case ('-max')
-            read (arg,*) usermax
-         case ('-min')
-            read (arg,*) usermin
-         case ('-add')
-            read (arg,*) offset
-         case ('-mul')
-            read (arg,*) factor
-         case ('-pro')
-            projection = trim(arg)
-         case ('-lat')
-            read (arg,*) lat0
-         case ('-lon')
-            read (arg,*) lon0
-         case ('-res')
-            read (arg,*) gridresn
-         case default
-            print '("unknown option ",a4," ignored")', opt
-         end select
-      end do
-
-
-      call assert_present(input_file)
-      if (output_file(1:1) /= '!') then
-         call assert_not_present(output_file)
-      else
-         output_file = output_file(2:len(output_file))
-      endif
-
-      if (usermax == usermin) then
-         print *, 'it is silly to set the maximum and the minimum'
-         print *, 'to the same value, is it not?'
-         call fatal_error
-      end if
-
-      if (ashflag .and. logflg) then
-         print *, '-log and -ash cannot both be true!'
-         call fatal_error
-      end if
-
-1     format(/,&
-           & " -inp [] ",A,/,&
-           & " -out [] ",A/,&
-           & " -col [] ",I1,/,&
-           & " -max [] ",e10.2,/,&
-           & " -min [] ",e10.2,/,&
-           & " -add [] ",e10.2,/,&
-           & " -mul [] ",e10.2,/,&
-           & " -pro [] ",A,/,&
-           & " -lon [] ",e10.2,/,&
-           & " -lat [] ",e10.2,/,&
-           & " -res [] ",e10.2,/,&
-           & " -sig [] ",I1,/,&
-           & " -xsz [] ",I6,/,&
-           & " -log [] ",L1,/,&
-           & " -ash [] ",L1,/,&
-           & " -bar [] ",L1,/,&
-           & " -ttl [] ",A,/)
-
-   end subroutine parseOptions
+!********************************************************************
+!********************************************************************
 
 END PROGRAM MAP2GIF

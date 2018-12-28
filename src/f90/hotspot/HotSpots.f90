@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -32,6 +32,7 @@ program HotSpots
   !     Uses file "param.dat" for inputs
   !
   ! Benjamin D. Wandelt October 1997
+  ! 2010-11-23, E. Hivon: accept maps with Nside > 8192
   !======================================================================
   use healpix_types
   use maxima_tools, ONLY : find_maxima
@@ -41,10 +42,12 @@ program HotSpots
   use misc_utils, ONLY : assert_alloc, fatal_error
   USE extension,  ONLY : getArgument, nArguments
   use paramfile_io, ONLY : paramfile_handle, parse_init, parse_string
+  use long_intrinsic, only: long_count
 
   implicit none
-  integer(i4b) :: nside,npix,nmin,nmax
-  integer(i4b) :: i,face_num
+  integer(i4b) :: npix, nmin, nmax, i
+  integer(i4b) :: nside
+  integer(i4b) :: face_num
 
   real(sp), pointer ::  map(:)
   real(sp), allocatable :: inmap(:,:)
@@ -216,9 +219,9 @@ program HotSpots
   open(15,file=outfile_min,status="unknown")
   write(*,*) 'Output: Writing '//trim(outfile_max)//' and '//trim(outfile_min)//'.'
 
-  nmax=count(peak>0)
+  nmax=long_count(peak>0)
   write(*,*) "Found ",nmax," Maxima"
-  nmin=count(peak<0)
+  nmin=long_count(peak<0)
   write(*,*) "Found ",nmin," Minima"
 
   do i=0,npix-1

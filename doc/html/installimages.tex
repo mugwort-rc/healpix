@@ -6,14 +6,13 @@
 
 
 \usepackage{healpix,graphicx,html,makeidx}%
-\providecommand{\hpxversion}{2.15a}%
+\providecommand{\hpxversion}{2.20}%
 \providecommand{\idlversion}{6.1 }%
 \providecommand{\gdlversion}{0.9rc3 } 
-\hypersetup{%
-	pdftitle={HEALPix Installation Guidelines},%
-	pdfauthor={E. Hivon et al},%
-	pdfkeywords={HEALPix, Installation},%
-	colorlinks=true}%
+
+%
+\providecommand{\nside}{{N_{\rm side}}}%
+\providecommand{\npix}{{N_{\rm pix}}}%
 \providecommand{\healpixwebpage}{http://healpix.jpl.nasa.gov} 
 %
 \renewcommand{\contentsname}{{TABLE OF CONTENTS}}
@@ -161,7 +160,7 @@
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline933}%
+\lthtmlinlinemathA{tex2html_wrap_inline982}%
 $2^{128}-1 \approx 3.4\ 10^{38}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -170,13 +169,13 @@ $2^{128}-1 \approx 3.4\ 10^{38}$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline935}%
+\lthtmlinlinemathA{tex2html_wrap_inline984}%
 $\langle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline937}%
+\lthtmlinlinemathA{tex2html_wrap_inline986}%
 $\rangle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -188,13 +187,13 @@ $\rangle$%
 \stepcounter{subsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline943}%
+\lthtmlinlinemathA{tex2html_wrap_inline992}%
 $(\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline947}%
+\lthtmlinlinemathA{tex2html_wrap_inline996}%
 $\Lambda$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -205,7 +204,7 @@ $\Lambda$%
 \stepcounter{section}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline953}%
+\lthtmlinlinemathA{tex2html_wrap_inline1002}%
 $\tilde{}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -213,7 +212,7 @@ $\tilde{}$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline955}%
+\lthtmlinlinemathA{tex2html_wrap_inline1004}%
 $\ldots$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -229,7 +228,7 @@ $\ldots$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline957}%
+\lthtmlinlinemathA{tex2html_wrap_inline1006}%
 $^\dagger$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -239,28 +238,45 @@ $^\dagger$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1014}%
+${N_{\rm side}}> 8192$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline965}%
+\lthtmlinlinemathA{tex2html_wrap_inline1016}%
 $\partial X/\partial\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline967}%
+\lthtmlinlinemathA{tex2html_wrap_inline1018}%
 $\partial^2 X/(\partial\theta\partial\phi\sin\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline969}%
+\lthtmlinlinemathA{tex2html_wrap_inline1020}%
 $\partial^2 X/\partial \theta^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1026}%
+${N_{\rm side}}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
@@ -291,14 +307,14 @@ $\partial^2 X/\partial \theta^2$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline985}%
+\lthtmlinlinemathA{tex2html_wrap_inline1040}%
 $\!$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline991}%
+\lthtmlinlinemathA{tex2html_wrap_inline1048}%
 $3.46\ 10^{18}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -306,7 +322,7 @@ $3.46\ 10^{18}$%
 \stepcounter{subsubsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline999}%
+\lthtmlinlinemathA{tex2html_wrap_inline1056}%
 $N_{\rm side} \le 8192$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}

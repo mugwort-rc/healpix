@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html477"
+<A NAME="tex2html479"
   HREF="idlnode28.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html483"
+<A NAME="tex2html485"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html487"
+<A NAME="tex2html489"
   HREF="idlnode30.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html485"
+<A NAME="tex2html487"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html478"
+<B> Previous:</B> <A NAME="tex2html480"
   HREF="idlnode28.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html484"
+<B>Up:</B> <A NAME="tex2html486"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html488"
+<B> Next:</B> <A NAME="tex2html490"
   HREF="idlnode30.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -104,8 +104,38 @@ resolution parameters Nside, full path to package directory, package version...
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote><FONT COLOR="#CC0000">init_healpix</FONT>  will create the system variable !Healpix, and give a short
-description of the tags available.
-</blockquote><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
+description of the tags available, as shown below
+</SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><TT><SMALL CLASS="FOOTNOTESIZE">Initializing !HEALPIX system variable <BR>
+This system variable contains some information on Healpix : <BR>
+!HEALPIX.VERSION   = current version number,
+<BR>
+!HEALPIX.DATE      = date of release,
+<BR>
+!HEALPIX.DIRECTORY = directory containing Healpix package,
+<BR>
+!HEALPIX.PATH      = structure containing:
+<BR>
+!HEALPIX.PATH.BIN  = structure containing binary path :
+<BR>
+!HEALPIX.PATH.BIN.CXX  =     C++
+<BR>
+!HEALPIX.PATH.BIN.F90  =     Fortran90
+<BR>
+!HEALPIX.PATH.DATA = path to data subdirectory,
+<BR>
+!HEALPIX.PATH.DOC  = path to doc subdirectories (.html, .pdf),
+<BR>
+!HEALPIX.PATH.TEST = path to test subdirectory,
+<BR>
+!HEALPIX.NSIDE     = list of all valid values of Nside parameter,
+<BR>
+!HEALPIX.BAD_VALUE = value of flag given to missing pixels in FITS files,
+<BR>
+!HEALPIX.COMMENT   = this description.
+</SMALL></TT>
+</blockquote><SMALL CLASS="FOOTNOTESIZE"></SMALL><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 help, !healpix, /structure
@@ -123,32 +153,32 @@ help, !healpix, /structure
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html477"
+<A NAME="tex2html479"
   HREF="idlnode28.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html483"
+<A NAME="tex2html485"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html487"
+<A NAME="tex2html489"
   HREF="idlnode30.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html485"
+<A NAME="tex2html487"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html478"
+<B> Previous:</B> <A NAME="tex2html480"
   HREF="idlnode28.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html484"
+<B>Up:</B> <A NAME="tex2html486"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html488"
+<B> Next:</B> <A NAME="tex2html490"
   HREF="idlnode30.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

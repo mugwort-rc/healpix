@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -32,6 +32,7 @@ module maxima_tools
    !                      to find the neighbours of a pixel on the border
    !                      of the face.
    ! Benjamin D. Wandelt October 1997
+   ! 2010-11-23, E. Hivon: accept maps with Nside > 8192
    !
    use healpix_types
    use pix_tools, only : npix2nside, xy2pix_nest, neighbours_nest
@@ -51,6 +52,7 @@ contains
       !               were found.
       !
       !     Benjamin D. Wandelt October 1997
+      ! 2010-11-23, E. Hivon: accept maps with Nside > 8192
       !====================================================================
       use bit_manipulation
       implicit none
@@ -59,10 +61,12 @@ contains
       integer(i4b), intent(in):: face_num
       integer(i4b), intent(out)::peak(0:)
 
-      integer(i4b) :: nside,npix,nsidesq,nn
-      integer(i4b) :: ix,iy,ixp,iyp,iym,origin
-      integer(i4b) :: ipix0m,ipix00,ipix0p,ipixpm,ipixp0,ipixpp
-      integer(i4b) :: neighb(8)
+      integer(i8b) :: npix, nsidesq, origin
+      integer(i8b) :: ipix0m,ipix00,ipix0p,ipixpm,ipixp0,ipixpp
+      integer(i8b) :: neighb(8)
+
+      integer(i4b) :: nside, nn
+      integer(i4b) :: ix,iy,ixp,iyp,iym
       real(sp) :: pixval0m,pixval00,pixval0p, &
            &     pixvalpm,pixvalp0,pixvalpp, &
            &     pixvalmm,pixvalm0,pixvalmp

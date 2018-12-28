@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -31,6 +31,10 @@
 
 #ifndef __CHEALPIX_H__
 #define __CHEALPIX_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* -------------------- */
 /* Constant Definitions */
@@ -76,9 +80,9 @@ void pix2vec_ring(long nside, long ipix, double *vec);
 
 void printerror (int) ;
 
-float *read_healpix_map (char *, long *, char *, char *) ;
+float *read_healpix_map (const char *, long *, char *, char *) ;
 
-int write_healpix_map( float *, long , char *, char ,char *) ;
+int write_healpix_map( float *, long , const char *, char ,char *) ;
 
 long get_fits_size(char *, long *, char * ) ;
 
@@ -86,6 +90,10 @@ long get_fits_size(char *, long *, char * ) ;
 /* ------------------ */
 /* end of header file */
 /* ------------------ */
+
+#ifdef __cplusplus
+} /* closing brace for extern "C" */
+#endif
 
 #endif /* __CHEALPIX_H__ */
 

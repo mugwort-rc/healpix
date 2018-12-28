@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -54,12 +54,13 @@
   !               Aug 2000 : CMBFAST convention for polarisation
   !               Sep 2002 : implement new parser
   !               May 2007 : can cross-correlate 2 maps, introduced map2alm_iterative
+  !               Jun 2010 : supports large maps
   !
   !  FEEDBACK:
-  !     for any questions : efh@ipac.caltech.edu
+  !     for any questions : hivon@iap.fr
   !
   !=======================================================================
-  !     version 2.1.1
+  !     version 2.2
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file anafast.f90 by the command  include
@@ -83,8 +84,8 @@
 
   integer(kind=I4B) :: mlpol, mlpol2
   integer(kind=I4B), dimension(1:2) :: order_map
-  integer(kind=I4B) :: l, n_plm, plm_nside, plm_lmax, plm_pol, plm_mmax
-  integer(kind=I4B) :: npixtot,npixtot2
+  integer(kind=I4B) :: l, plm_nside, plm_lmax, plm_pol, plm_mmax
+  integer(kind=I8B) :: npixtot, npixtot2, ipix, n_plm
   integer(kind=I4B) :: i, j
   integer(kind=I4B) :: iter_order, polar, n_pols, n_maps
   integer(kind=I4B) :: simul_type
@@ -283,7 +284,7 @@
         if (handle%interactive) goto 40
         call fatal_error(code)
      endif
-     n_plm = (nmmax+1)*(2*nlmax+2-nmmax)*nsmax
+     n_plm = (nmmax + 1_i8b)*(2*nlmax + 2_i8b - nmmax)*nsmax
      print *," "
   endif
 
@@ -336,7 +337,7 @@
   if (won.eq.1) then
 
      ! default weight file name
-     w8name="weight_ring_n"//trim(string(nsmax,"(i5.5)"))//".fits"
+     w8name = get_healpix_ring_weight_file(nsmax)
 
      def_file = trim(w8name)
      def_dir  = get_healpix_data_dir()
@@ -553,12 +554,12 @@
 
      if (fmissval /= 0.0) then
         do j=1,n_pols
-           do i=0, npixtot-1
-              if (abs(map_TQU(i,j)-fmissval) <= abs(1.e-6*fmissval)) map_TQU(i,j) = 0.0_kmap
+           do ipix=0, npixtot-1
+              if (abs(map_TQU(ipix,j)-fmissval) <= abs(1.e-6*fmissval)) map_TQU(ipix,j) = 0.0_kmap
            enddo
            if (twomaps) then
-              do i=0, npixtot-1
-                 if (abs(map_TQU2(i,j)-fmissval) <= abs(1.e-6*fmissval)) map_TQU2(i,j) = 0.0_kmap
+              do ipix=0, npixtot-1
+                 if (abs(map_TQU2(ipix,j)-fmissval) <= abs(1.e-6*fmissval)) map_TQU2(ipix,j) = 0.0_kmap
               enddo
            endif
         enddo
@@ -610,7 +611,8 @@
      else
         PRINT*,"      "//code//"> Reading precomputed tensor P_lms "
      endif
-     call read_dbintab(infile_plm,plm,n_plm,plm_pol,nullval,anynull=bad)
+     !call read_dbintab(infile_plm,plm,n_plm,plm_pol,nullval,anynull=bad) ! replaced 2010-11-24
+     call read_bintab(infile_plm, plm, n_plm, plm_pol, nullval, anynull=bad)
      if (bad) call fatal_error("Missing points in P_lm-file!")
   endif
 
@@ -623,14 +625,24 @@
   call assert_alloc(status,code,"alm_TGC")
 
   PRINT *,"      "//code//"> Analyse map "
-  call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
-       &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm, mask=pmask)
+  if (n_plm/=0) then
+     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm, mask=pmask)
+  else
+     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU, mask=pmask)
+  endif
 
   if (twomaps) then
      allocate(alm_TGC2(1:n_pols, 0:nlmax, 0:nmmax),stat = status)
      call assert_alloc(status,code,"alm_TGC2")
-     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU2, alm_TGC2, &
-       &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm, mask=pmask)
+     if (n_plm/=0) then
+        call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU2, alm_TGC2, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm, mask=pmask)
+     else
+        call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU2, alm_TGC2, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU, mask=pmask)
+     endif
      deallocate( map_TQU2 )
   endif
 

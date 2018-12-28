@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -54,12 +54,13 @@
   !               Sep 2002 : implement new parser
   !               Feb 2003 : output correct ORDERING keyword
   !               May 2007 : calls map2alm_iterative
+  !               Jun 2010 : supports large maps
   !
   !  FEEDBACK:
-  !     for any questions : efh@ipac.caltech.edu
+  !     for any questions : hivon@iap.fr
   !
   !=======================================================================
-  !     version 2.1.1
+  !     version 2.2
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file smoothing.f90 by the command  include
@@ -78,9 +79,10 @@
   real(kind=DP),       DIMENSION(:,:),   ALLOCATABLE :: plm
   integer(kind=I4B) :: status
 
+  integer(kind=I8B) :: npixtot, n_plm, ipix
   integer(kind=I4B) :: mlpol, polar_fits
-  integer(kind=I4B) :: n_plm, plm_nside, plm_lmax, plm_pol, plm_mmax
-  integer(kind=I4B) :: npixtot, nmaps
+  integer(kind=I4B) :: plm_nside, plm_lmax, plm_pol, plm_mmax
+  integer(kind=I4B) :: nmaps
   integer(kind=I4B) :: i, j
   integer(kind=I4B) :: nlheader
   integer(kind=I4B) :: ordering, order_type, type
@@ -113,7 +115,6 @@
   character(len=filenamelen)          :: description
   character(len=100)                  :: chline,chline1
   character(LEN=80), DIMENSION(1:180) :: header
-  character(LEN=5)                    :: sstr
   LOGICAL(kind=LGT) :: bad, ok, polarisation
 !   character(LEN=*), PARAMETER :: code = 'SMOOTHING'
   character(len=*), parameter :: VERSION = HEALPIX_VERSION
@@ -284,7 +285,7 @@
         if (handle%interactive) goto 40
         call fatal_error(code)
      endif
-     n_plm = (nmmax+1)*(2*nlmax+2-nmmax)*nsmax
+     n_plm = (nmmax + 1_i8b)*(2*nlmax + 2_i8b -nmmax)*nsmax
      print *," "
   endif
 
@@ -329,9 +330,7 @@
   if (won.eq.1) then
 
      ! default weight file name
-     write (sstr,"(I5.5)") nsmax
-     w8name="weight_ring_n"//trim(sstr)//".fits"
-
+     w8name = get_healpix_ring_weight_file(nsmax)
      def_file = trim(w8name)
      def_dir  = get_healpix_data_dir()
 
@@ -414,10 +413,10 @@
 
      if (fmissval /= 0.0) then
         do j=1,n_pols
-           do i=0, npixtot-1
+           do ipix=0, npixtot-1
 !               if (abs(map_TQU(i,j)/fmissval-1.0) < 1.e-6*fmissval) then
-              if (abs(map_TQU(i,j)-fmissval) <= abs(1.e-6*fmissval)) then
-                 map_TQU(i,j) = 0.0_sp
+              if (abs(map_TQU(ipix,j)-fmissval) <= abs(1.e-6*fmissval)) then
+                 map_TQU(ipix,j) = 0.0_sp
               endif
            enddo
         enddo
@@ -476,7 +475,8 @@
      else
         print*,"      "//code//"> Reading precomputed tensor P_lms "
      endif
-     call read_dbintab(infile_plm,plm,n_plm,plm_pol,nullval,anynull=bad)
+     !call read_dbintab(infile_plm,plm,n_plm,plm_pol,nullval,anynull=bad) ! replaced 2010-11-24
+     call read_bintab(infile_plm, plm, n_plm, plm_pol, nullval, anynull=bad)
      if (bad) call fatal_error ("Missing points in P_lm-file!")
   endif
 
@@ -489,8 +489,13 @@
 
   PRINT *,"      "//code//"> Analyse map "
 
-  call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
-       &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm)
+  if (n_plm/=0) then
+     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU, plm=plm)
+  else
+     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
+          &                 zbounds=zbounds, w8ring=w8ring_TQU)
+  endif
 
   !-----------------------------------------------------------------------
   !                    smoothing of the alm

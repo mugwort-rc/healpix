@@ -18,6 +18,10 @@ $key = q/idl:mollview:noposition/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:silent/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:query_disc/;
 $ref_files{$key} = "$dir".q|idlnode42.htm|; 
 $noresave{$key} = "$nosave";
@@ -66,6 +70,10 @@ $key = q/idl:mollview:nolabels/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:reso_arcmin/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:map_out/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
@@ -74,8 +82,20 @@ $key = q/idl:mollview:hist_equal/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:cl_array/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:asinh/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:select/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:other_keywords/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:healpixwindow/;
@@ -98,16 +118,20 @@ $key = q/idl:lm2index/;
 $ref_files{$key} = "$dir".q|idlnode30.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:fitsfile/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:bl2fits/;
 $ref_files{$key} = "$dir".q|idlnode8.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:remove_dipole/;
-$ref_files{$key} = "$dir".q|idlnode50.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/page:example_hires_cutsky/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:remove_dipole/;
+$ref_files{$key} = "$dir".q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:factor/;
@@ -138,6 +162,10 @@ $key = q/idl:query_polygon/;
 $ref_files{$key} = "$dir".q|idlnode43.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:subtitle/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:nside2npix/;
 $ref_files{$key} = "$dir".q|idlnode37.htm|; 
 $noresave{$key} = "$nosave";
@@ -154,6 +182,10 @@ $key = q/idl:query_strip/;
 $ref_files{$key} = "$dir".q|idlnode44.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:xhdr/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:template_pixel_xxx/;
 $ref_files{$key} = "$dir".q|idlnode54.htm|; 
 $noresave{$key} = "$nosave";
@@ -166,8 +198,20 @@ $key = q/idl:euler_matrix_new/;
 $ref_files{$key} = "$dir".q|idlnode14.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:wmap5/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:file/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:rshow/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:llfactor/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:hpx2gs/;
@@ -198,6 +242,14 @@ $key = q/page:plot_example_execute/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:multipoles/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:help/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:fits2cl/;
 $ref_files{$key} = "$dir".q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
@@ -222,16 +274,20 @@ $key = q/idl:mollview:nested/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:ud_grade/;
-$ref_files{$key} = "$dir".q|idlnode55.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:change_polcconv/;
 $ref_files{$key} = "$dir".q|idlnode11.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:ud_grade/;
+$ref_files{$key} = "$dir".q|idlnode55.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:min/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:help/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:max/;
@@ -246,16 +302,20 @@ $key = q/idl:mollview:polarization/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:hpx2gs:kml/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:neighbours_ring/;
 $ref_files{$key} = "$dir".q|idlnode35.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/fig:plot_visu/;
-$ref_files{$key} = "$dir".q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:bin_llcl/;
 $ref_files{$key} = "$dir".q|idlnode7.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/fig:plot_visu/;
+$ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:ang2vec/;
@@ -268,6 +328,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:remove_dipole:dipole/;
 $ref_files{$key} = "$dir".q|idlnode50.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:wmap1/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:orthview/;
@@ -286,12 +350,12 @@ $key = q/idl:mollview:shaded/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:gnomcursor/;
-$ref_files{$key} = "$dir".q|idlnode20.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:monopole/;
 $ref_files{$key} = "$dir".q|idlnode50.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:gnomcursor/;
+$ref_files{$key} = "$dir".q|idlnode20.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:query_triangle/;
@@ -320,6 +384,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:index2lm/;
 $ref_files{$key} = "$dir".q|idlnode28.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:png/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:alm2fits/;
@@ -374,6 +442,10 @@ $key = q/idl:remove_dipole:units/;
 $ref_files{$key} = "$dir".q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:fits2cl_idl:hdr/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:mollview:subtitle/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
@@ -386,16 +458,24 @@ $key = q/idl:mollcursor/;
 $ref_files{$key} = "$dir".q|idlnode32.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:isynfast/;
-$ref_files{$key} = "$dir".q|idlnode27.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:noremove/;
 $ref_files{$key} = "$dir".q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/idl:isynfast/;
+$ref_files{$key} = "$dir".q|idlnode27.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:titleplot/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/idl:pix_tools/;
 $ref_files{$key} = "$dir".q|idlnode41.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:file/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:plot_example_execute/;
@@ -418,12 +498,12 @@ $key = q/idl:mollview:xpos/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:offset/;
-$ref_files{$key} = "$dir".q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:read_tqu/;
 $ref_files{$key} = "$dir".q|idlnode49.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:mollview:offset/;
+$ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:write_tqu/;
@@ -435,6 +515,14 @@ $ref_files{$key} = "$dir".q|idlnode33.htm|;
 $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:fits/;
+$ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:hpx2gs:coord_in/;
+$ref_files{$key} = "$dir".q|idlnode24.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:mollview:png/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -450,10 +538,6 @@ $key = q/idl:mollview/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:png/;
-$ref_files{$key} = "$dir".q|idlnode33.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/idl:remove_dipole:onlymonopole/;
 $ref_files{$key} = "$dir".q|idlnode50.htm|; 
 $noresave{$key} = "$nosave";
@@ -464,6 +548,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:titleplot/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:show/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:remove_dipole:weight/;
@@ -510,11 +598,11 @@ $key = q/idl:mollview:TOP/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:select/;
+$key = q/idl:mollview:hbound/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/idl:mollview:hbound/;
+$key = q/idl:mollview:select/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -524,6 +612,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/idl:mollview:half_sky/;
 $ref_files{$key} = "$dir".q|idlnode33.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/idl:fits2cl_idl:interactive/;
+$ref_files{$key} = "$dir".q|idlnode16.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/idl:rotate_coord/;

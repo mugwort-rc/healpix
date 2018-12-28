@@ -2,30 +2,9 @@
 
 VPATH	= $(BINDIR)
 exec	= $(BINDIR)/map2gif
-src	= map2gif.f90
-obj 	= map2gif.o
+src	= euler_matrix_new.f90 map2gif.f90
+obj 	= euler_matrix_new.o   map2gif.o
 
-# %.o: %.F90
-# 	case $(OS) in \
-# 	AIX ) \
-# 	ln -s -f $< $*.F; \
-# 	$(FC) $(FFLAGS) -c $*.F -o $@; \
-# 	rm $*.F;; \
-# 	OSF ) \
-# 	ln -s -f $< $*.f90; \
-# 	$(FC) $(FFLAGS) -cpp -c $(basename $<).f90 -o $@;; \
-# 	* ) \
-# 	$(FC) $(FFLAGS) -c $< -o $@;; \
-# 	esac
-# %.o: %.f90
-# 	case $(OS) in \
-# 	AIX ) \
-# 	ln -s -f $< $*.f; \
-# 	$(FC) $(FFLAGS) -c $*.f -o $@; \
-# 	rm $*.f;; \
-# 	* ) \
-# 	$(FC) $(FFLAGS) -c $< -o $@;; \
-# 	esac
 %.o: %.f90
 	$(FC) $(FFLAGS) -c $< -o $@
 

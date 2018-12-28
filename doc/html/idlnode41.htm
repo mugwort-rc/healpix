@@ -30,26 +30,26 @@ ang2xxx, vec2xxx, nest2ring,ring2nest">
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html623"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html629"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html633"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html631"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
+<B> Previous:</B> <A NAME="tex2html624"
   HREF="idlnode40.htm">orthview</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html630"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
+<B> Next:</B> <A NAME="tex2html634"
   HREF="idlnode42.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -91,19 +91,37 @@ src/idl/toolkit/
 nside </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> scalar integer </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SMALL CLASS="FOOTNOTESIZE"> IN </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> parameter for the <b>HEALPix</b> map. </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg23.png"
+ ALT="${N_{\rm side}}$"></SPAN> parameter for the <b>HEALPix</b> map. </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> 
 ipnest(n) </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> vector integer </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SMALL CLASS="FOOTNOTESIZE"> -- </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> pixel identification number in NESTED scheme over the range {0,<SPAN CLASS="MATH"><I>N</I><SUB><I>pix</I></SUB>-1</SPAN>}. </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> pixel identification number in NESTED scheme over the range {0,<!-- MATH
+ ${N_{\rm pix}}-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="71" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg47.png"
+ ALT="${N_{\rm pix}}-1$"></SPAN>}. </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> 
 ipring(n) </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> vector integer </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SMALL CLASS="FOOTNOTESIZE"> -- </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> pixel identification number in RING scheme over the range {0,<SPAN CLASS="MATH"><I>N</I><SUB><I>pix</I></SUB>-1</SPAN>}. </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SMALL CLASS="FOOTNOTESIZE"> pixel identification number in RING scheme over the range {0,<!-- MATH
+ ${N_{\rm pix}}-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="71" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg47.png"
+ ALT="${N_{\rm pix}}-1$"></SPAN>}. </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75><SMALL CLASS="FOOTNOTESIZE"> 
 theta(n) </SMALL></TD>
@@ -154,7 +172,7 @@ vertex(n,3,4) </SMALL></TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="540" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg46.png"
+ SRC="idlimg48.png"
  ALT="$x_N(0),\ldots,x_N(n-1),\ y_N(0),\ldots,y_N(n-1),\ z_N(0),\ldots,z_N(n-1)$"></SPAN>,
                    <!-- MATH
  $x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
@@ -162,7 +180,7 @@ vertex(n,3,4) </SMALL></TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="556" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg47.png"
+ SRC="idlimg49.png"
  ALT="$x_W(0),\ldots,x_W(n-1),\ y_W(0),\ldots,y_W(n-1),\
 z_W(0),\ldots,z_W(n-1)$"></SPAN>,
 			and so on with South and East vertices
@@ -290,11 +308,20 @@ z_W(0),\ldots,z_W(n-1)$"></SPAN>,
 <DD>version 6.1 or more is necessary to run pix2xxx, ang2xxx,... .	
     <DT>
 <B><A HREF="idlnode36.htm#idl:npix2nside">npix2nside</A></B>
-<DD>computes Nside (resolution) corresponding to Npix (total
+<DD>computes <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg23.png"
+ ALT="${N_{\rm side}}$"></SPAN> (resolution) corresponding to Npix (total
     pixel number)
     <DT>
 <B><A HREF="idlnode37.htm#idl:nside2npix">nside2npix</A></B>
-<DD>computes Npix corresponding to Nside
+<DD>computes <SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg50.png"
+ ALT="${N_{\rm pix}}$"></SPAN> corresponding to Nside
     <DT>
 <B><A HREF="idlnode6.htm#idl:ang2vec">ang2vec</A>, <A HREF="idlnode56.htm#idl:vec2ang">vec2ang</A></B>
 <DD>geometrical conversion between position angles and position vector
@@ -336,32 +363,32 @@ position of 2 pixels 17 and 1000 in the RING scheme with parameter 256.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html623"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html629"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html633"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html631"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
+<B> Previous:</B> <A NAME="tex2html624"
   HREF="idlnode40.htm">orthview</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html630"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
+<B> Next:</B> <A NAME="tex2html634"
   HREF="idlnode42.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

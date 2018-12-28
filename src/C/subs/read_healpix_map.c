@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -42,7 +42,7 @@
    Feb 2003, EH, added coordsys and ordering
 */
 
-float *read_healpix_map(char *infile, long *nside, char *coordsys, char *ordering) {
+float *read_healpix_map(const char *infile, long *nside, char *coordsys, char *ordering) {
   
   /* Local Declarations */
   long     naxes, *naxis, npix, npercol, irow;

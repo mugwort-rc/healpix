@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -37,7 +37,8 @@
 !       2008-03-25: expand environment variables (${XXX}) in parse_string
 ! v1.4: 2008-10-15, avoid over-running keylist in parse_summarize
 ! v1.5: 2009-09-07, introduces get_healpix_main_dir, get_healpix_data_dir, get_healpix_test_dir
-! 
+! v1.6: 2009-11-26: bug correction in get_healpix_*_dir
+! v1.7: 2011-01-03: addition of get_healpix_pixel_window_file & get_healpix_ring_weight_file
 module paramfile_io
   use healpix_types
   use extension
@@ -52,6 +53,8 @@ module paramfile_io
   public concatnl, scan_directories
 
   public get_healpix_main_dir, get_healpix_data_dir, get_healpix_test_dir
+
+  public get_healpix_pixel_window_file, get_healpix_ring_weight_file
 
   type paramfile_handle
     character(len=filenamelen) filename
@@ -964,5 +967,41 @@ end function scan_directories
     return
   end function get_healpix_test_dir
 
+
+  !-----------------------------------------------------------
+  ! file = get_healpix_pixel_window_file(nside)
+  ! returns default file name of Healpix pixel window
+  !-----------------------------------------------------------
+  function get_healpix_pixel_window_file(nside) result(filename)
+    integer(i4b),              intent(in) :: nside
+    character(len=FILENAMELEN)            :: filename
+    character(len=6) :: sstr
+
+    if (nside <= 8192) then
+       sstr = adjustl(string(nside,'(i4.4)'))
+    else
+       sstr = adjustl(string(nside,'(i6.6)'))
+    endif
+    filename = "pixel_window_n"//trim(sstr)//".fits"
+    
+  end function get_healpix_pixel_window_file
+
+  !-----------------------------------------------------------
+  ! file = get_healpix_ring_weight_file(nside)
+  ! returns default file name of Healpix ring weights
+  !-----------------------------------------------------------
+  function get_healpix_ring_weight_file(nside) result (filename)
+    integer(i4b),              intent(in) :: nside
+    character(len=FILENAMELEN)            :: filename
+    character(len=6) :: sstr
+
+    if (nside <= 8192) then
+       sstr = adjustl(string(nside,'(i5.5)'))
+    else
+       sstr = adjustl(string(nside,'(i6.6)'))
+    endif
+    filename = "weight_ring_n"//trim(sstr)//".fits"
+
+  end function get_healpix_ring_weight_file
 
 end module paramfile_io

@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -48,10 +48,11 @@
   !     April 2005, Eric Hivon, IPAC
   !
   !  FEEDBACK:
-  !     for any questions : efh@ipac.caltech.edu
+  !     for any questions : hivon@iap.fr
+  !               Jun 2010 : supports large maps
   !
   !=======================================================================
-  !     version 2.1.1
+  !     version 2.2
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file median_filter.f90 by the command  include
@@ -65,7 +66,8 @@
   real(kind=KMAP),     DIMENSION(:,:),   ALLOCATABLE :: map_mf
   integer(kind=I4B) :: status
 
-  integer(kind=I4B) :: npixtot, nmaps, n_pols
+  integer(kind=I8B) :: npixtot
+  integer(kind=I4B) :: nmaps, n_pols
   integer(kind=I4B) :: ordering, order_type
   integer(kind=I4B) :: i
   integer(kind=I4B) :: simul_type, polar_fits, polar

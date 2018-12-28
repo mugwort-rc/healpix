@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -25,6 +25,7 @@
 !  For more information about HEALPix see http://healpix.jpl.nasa.gov
 !
 !-----------------------------------------------------------------------------
+
 subroutine euler_matrix_new(       &
                             a1,    &
                             a2,    &
@@ -38,18 +39,18 @@ subroutine euler_matrix_new(       &
   ! this subroutine computes the Euler matrix for different prescription
   !          X: +0, Y: +1, Z: +2
   !
-  !     1 :     rotation a1 around original Z
+  !itype=1 :    rotation a1 around original Z
   !             rotation a2 around interm   Y   (+1)
   !             rotation a3 around final    X   (+0)
   !     aeronautics convention                   =1
   !
-  !     2 :     rotation a1 around original Z
+  !itype=2 :    rotation a1 around original Z
   !             rotation a2 around interm   X   (+0)
   !             rotation a3 around final    Z   (+2)
   !     classical mechanics convention           =2
   !
   !
-  !     3 :     rotation a1 around original Z
+  !itype=3 :    rotation a1 around original Z
   !             rotation a2 around interm   Y   (+1)
   !             rotation a3 around final    Z   (+2)
   !     quantum mechanics convention             =3
@@ -155,6 +156,8 @@ subroutine euler_matrix_new(       &
    case default
 
       print*,'Unknow rotation prescription in '//code
+      print*,'Must be in [1,2,3]'
+      print*,'is ',itype
       stop
 
    end select

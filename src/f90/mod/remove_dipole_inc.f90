@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -31,9 +31,12 @@
 ! to be inserted as is in pix_tools.f90
 !
 ! 2008-02-03: added weights; check that ordering is in [1,2]
+! 2008-06-15: accepts Nside>8192
 ! 2010-04-21: removed unnecessary warnings on mask and weight by 
 !    raising threshold from 1 to 11
+!
 !--------------------------------------------------------------
+    integer(i4b), parameter :: MKD = I8B
     ! dummy
     integer(kind=i4b),                  intent(in)    :: nside
     integer(kind=i4b),                  intent(in)    :: ordering, degree
@@ -46,7 +49,7 @@
     real   (kind=KMAP), dimension(0:),  intent(in), optional :: weights
     ! local
     real   (kind=KMAP)                :: fmiss_effct
-    integer(kind=i4b)                 :: ipix, npix, n_mult, n_mult1
+    integer(kind=i4b)                 :: n_mult, n_mult1
     integer(kind=i4b)                 :: i
     logical(lgt)                      :: dodipole, do_mask, do_weights
     real(kind=dp)                     :: flag, temp, wmin
@@ -55,8 +58,11 @@
     real(kind=dp), dimension(0:3,0:3) :: mat, umat, vmat, imat
     real(kind=dp), dimension(0:3)     :: dmultipoles, tmpvec
     real(kind=dp)                     :: theta1, theta2
-    integer(kind=i4b)                 :: ncpix, ncp, nbad
-    integer(kind=i4b), dimension(:), allocatable :: cut_pixel
+    integer(kind=MKD)                 :: ipix, npix, ncpix, nbad
+    integer(kind=MKD)                 :: ncp8
+    integer(kind=MKD), dimension(:), allocatable :: cut_pixel8
+    integer(kind=I4B)                 :: ncp4
+    integer(kind=I4B), dimension(:), allocatable :: cut_pixel4
     !============================================================
 
     npix = nside2npix(nside)
@@ -120,18 +126,24 @@
     else ! remove 2 strips
        ncpix = npix * (2.0 + zbounds(1)-zbounds(2))/2 * 1.1 + 10*nside
     endif
-    allocate(cut_pixel(0:ncpix))
     theta1 = acos(zbounds(1)) ; theta2 = acos(zbounds(2))
-    call query_strip(nside, theta1, theta2, cut_pixel, ncp, nest=ordering-1, inclusive=0)
-    map(cut_pixel(0:ncp-1)) = fmiss_effct
-    deallocate(cut_pixel)
-
+    if (nside <= ns_max4) then
+       allocate(cut_pixel4(0:ncpix))
+       call query_strip(nside, theta1, theta2, cut_pixel4, ncp4, nest=ordering-1, inclusive=0)
+       map(cut_pixel4(0:ncp4-1)) = fmiss_effct
+       deallocate(cut_pixel4)
+    else
+       allocate(cut_pixel8(0:ncpix))
+       call query_strip(nside, theta1, theta2, cut_pixel8, ncp8, nest=ordering-1, inclusive=0)
+       map(cut_pixel8(0:ncp8-1)) = fmiss_effct
+       deallocate(cut_pixel8)
+    endif
     !----------------------------------------------
     ! generate least square linear system
     !----------------------------------------------
     mat = 0.0_dp
     b   = 0.0_dp
-    nbad = 0
+    nbad = 0_MKD
     do ipix = 0, npix-1
 
        ! flag = 1 for good values
@@ -140,12 +152,12 @@
        if (do_weights) flag = flag * weights(ipix)
 
        if ( abs(map(ipix) - fmiss_effct) <= abs(1.e-5*fmiss_effct) ) then
-          nbad = nbad + 1
+          nbad = nbad + 1_MKD
           goto 20
        endif
        if (do_mask) then
           if (abs(mask(ipix)) <= 1.e-10) then
-             nbad = nbad + 1
+             nbad = nbad + 1_MKD
              goto 20
           endif
        endif

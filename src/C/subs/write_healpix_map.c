@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------------------------
  *
- *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+ *  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
  *                          Benjamin D. Wandelt, Anthony J. Banday, 
  *                          Matthias Bartelmann, 
  *                          Reza Ansari & Kenneth M. Ganga 
@@ -54,7 +54,8 @@
 void setCoordSysHP(char *,char *);
 
 
-int write_healpix_map( float *signal, long nside, char *filename, char nest, char *coordsys) {
+int write_healpix_map( float *signal, long nside,
+		       const char *filename, char nest, char *coordsys) {
 
   /*******************************************************************/
   /* Create a binary table extension                                 */
@@ -151,7 +152,7 @@ int write_healpix_map( float *signal, long nside, char *filename, char nest, cha
     fprintf(stderr, "%s (%d): Could not close file.\n", 
 	    __FILE__, __LINE__);
   
-  return 0;
+  return status;
 }
 
 

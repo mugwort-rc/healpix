@@ -37,11 +37,13 @@
 ;       W_l), and will return the raw field (B_l or W_l).
 ;
 ; CALLING SEQUENCE:
-;       FITS2CL, cl_array, fitsfile, [HELP=, SILENT =, SHOW=, RSHOW= $
-;                                     HDR =, MULTIPOLES=, LLFACTOR=, XHDR =, INTERACTIVE= ]
+;       FITS2CL, cl_array, [fitsfile, HELP=, SILENT =, SHOW=, RSHOW= $
+;                                     HDR =, MULTIPOLES=, LLFACTOR=, XHDR =, 
+;                                     INTERACTIVE=, WMAP1=, WMAP5= ]
 ; 
 ; INPUTS:
-;       fitsfile = String containing the name of the file to be read     
+;       fitsfile = String containing the name of the file to be read  
+;          if not provided, then /WMAP1 or /WMAP5 must be set.   
 ;
 ; OPTIONAL INPUTS:
 ;       HELP = if set, this header is printed out, no file is read
@@ -57,6 +59,16 @@
 ;           are produced using iPlot routine, allowing 
 ;           for interactive cropping, zooming and annotation of the plots. This
 ;           requires IDL 6.4 or newer to work properly.
+;
+;       WMAP1 = if set, and fitsfile is not provided, then one WMAP-1yr best fit
+;          model (!healpix.path.test+'wmap_lcdm_pl_model_yr1_v1.fits') 
+;          defined up to l=3000, is read
+;          See !healpix.path.test+'README' for details
+;
+;       WMAP5 = if set, and fitsfile is not provided, then one WMAP-5yr best fit
+;          model (!healpix.path.test+'wmap_lcdm_sz_lens_wmap5_cl_v3.fits') 
+;          defined up to l=2000, is read
+;          See !healpix.path.test+'README' for details
 ;
 ; OUTPUTS:
 ;       cl_array = real/double array of Cl coefficients read from the file.
@@ -108,6 +120,7 @@
 ;       Jan 2008, EH, addition of /interactive
 ;       Jan 2009: calls init_astrolib
 ;       Nov 2009: EH, added LLFACTOR keyword
+;       Sep 2010: EH, added WMAP1 and WMAP5 keywords
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -150,39 +163,58 @@ end
 ;***************************************************************************
 
 PRO FITS2CL, cl_array, fitsfile, HDR = hdr, HELP = help, MULTIPOLES=multipoles, SILENT=silent, $
-             SHOW=show, RSHOW=rshow, XHDR = xhdr, INTERACTIVE=interactive, LLFACTOR=llfactor
+             SHOW=show, RSHOW=rshow, XHDR = xhdr, INTERACTIVE=interactive, LLFACTOR=llfactor, $
+             WMAP1=wmap1, WMAP5=wmap5
 
 code = 'FITS2CL'
 syntax = ['Syntax : '+code+', cl_array, fitsfile, [/HELP, /SILENT, /SHOW, /RSHOW, ',$
-          '                                       HDR=, LLFACTOR=, MULTIPOLES=, XHDR=, /INTERACTIVE]' ]
+          '                                       HDR=, LLFACTOR=, MULTIPOLES=, XHDR=, /INTERACTIVE,', $
+          '                                       /WMAP1, /WMAP5]' ]
 
 if keyword_set(help) then begin
       doc_library,code
       return
 endif
 
-if N_params() NE 2  then begin
+read_wmap1 = keyword_set(wmap1)
+read_wmap5 = keyword_set(wmap5)
+read_internal = (read_wmap1 || read_wmap5)
+
+if ((defined(fitsfile) && read_internal) || (read_wmap1 && read_wmap5)) then begin
+    print,syntax,form='(a)'
+    print,'  choose either an external FITSfile *or* /WMAP1 *or* /WMAP5'
+    print,'   file NOT read '
+    goto, Exit
+endif
+
+if (~read_internal && N_params() NE 2)  then begin
       print,syntax,form='(a)'
       print,'   for more details: '+code+',/help'
       print,'   file NOT read '
       goto, Exit
 endif
 
-if datatype(cl_array) eq 'STR' or datatype(fitsfile) ne 'STR' then begin
+init_healpix ; define !healpix
+myfitsfile = ''
+if (read_wmap1) then myfitsfile = !healpix.path.test+'wmap_lcdm_pl_model_yr1_v1.fits'
+if (read_wmap5) then myfitsfile = !healpix.path.test+'wmap_lcdm_sz_lens_wmap5_cl_v3.fits'
+if (myfitsfile eq '') then myfitsfile = fitsfile
+
+if (datatype(cl_array) eq 'STR' or datatype(myfitsfile) ne 'STR') then begin
       print,syntax,form='(a)'
       print,'   the array comes first, then the file name '
       print,'   file NOT read '
       goto, Exit
 endif
 
-if (not file_test(fitsfile)) then message,'file '+fitsfile+' not found'
+if (~file_test(myfitsfile)) then message,'file '+myfitsfile+' not found'
 
 ; run astrolib routine to set up non-standard system variables
 init_astrolib
 
-hdr  = HEADFITS(fitsfile)
-xhdr = HEADFITS(fitsfile,EXTEN=1)
-fits_info, fitsfile, /silent, n_ext=n_ext
+hdr  = HEADFITS(myfitsfile)
+xhdr = HEADFITS(myfitsfile,EXTEN=1)
+fits_info, myfitsfile, /silent, n_ext=n_ext
 
 ttype1 = sxpar(xhdr,'TTYPE1',count=nttype1)
 
@@ -202,11 +234,11 @@ if (read_cl) then begin
         if (strupcase(ttype1) eq 'L') then nextra = 1
     endif
     
-    if ( (not keyword_set(silent) and (nextra eq 1))) then print,'Info : C(l) file '+fitsfile+' has Planck format'
+    if ( (not keyword_set(silent) and (nextra eq 1))) then print,'Info : C(l) file '+myfitsfile+' has Planck format'
 ; -------- extension -----------
 
 ; simply read the extension from the FITS file
-    tmpout = MRDFITS(fitsfile,1,/use_colnum,silent=silent)
+    tmpout = MRDFITS(myfitsfile,1,/use_colnum,silent=silent)
 
 ; get the dimensions of the input array
     info  = size(tmpout)
@@ -267,7 +299,7 @@ endif else begin
 
     type = ['T','E','B']
     for i=0,n_ext-1 do begin
-        fits2alm, index, alm_array, fitsfile, type[i]
+        fits2alm, index, alm_array, myfitsfile, type[i]
 
         index2lm, index, l, m
         lmax = max(l)
@@ -354,16 +386,16 @@ if (keyword_set(show) or keyword_set(rshow)) then begin
         endif
         view_grid = grid
         icol=0
-        iplot,l,fl2*cl_array[*,icol], dimension=[xs,ys], title=fitsfile, $ 
+        iplot,l,fl2*cl_array[*,icol], dimension=[xs,ys], title=myfitsfile, $ 
               xtitle=xtitle,ytitle=ytitle+units[icol+nextra],view_title='!6'+names[icol+nextra], $
               view_grid=view_grid,view_zoom=1.0, anisotropic_scale_2d=1.0
         for icol=1,ncols-1 do begin
-            iplot,l,fl2*cl_array[*,icol], dimension=[xs,ys], title=fitsfile, view_number = (icol+1), $ 
+            iplot,l,fl2*cl_array[*,icol], dimension=[xs,ys], title=myfitsfile, view_number = (icol+1), $ 
                   xtitle=xtitle,ytitle=ytitle+units[icol+nextra],view_title='!6'+names[icol+nextra], $
                   view_grid=view_grid,view_zoom=1.0, anisotropic_scale_2d=1.0
         endfor
     endif else begin
-        window, /free, title=fitsfile, xs=xs, ys=ys
+        window, /free, title=myfitsfile, xs=xs, ys=ys
         !p.multi=[0, grid]
         for icol=0,ncols-1 do begin
             plot,l,fl2*cl_array[*,icol], $

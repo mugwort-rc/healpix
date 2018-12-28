@@ -179,11 +179,13 @@ pro mollview, file_in, select_in, $
 ;	      if set to 1            : output the plot in plot_XXX.fits
 ;                with XXX = cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;         Unobserved pixels, and pixels outside the sphere take 
-;       value !healpix.bad_value=-1.6375e30.
-;         In the case of orthographic projection, HALF_SKY must be set.
+;	   * For compatibility with standard FITS viewers (including STIFF), 
+;        unobserved pixels, and pixels outside the sphere, take the value {\tt
+;        NaN} (ie {\tt !values.f\_nan} in IDL).
+;          * The resulting FITS file can be read in IDL with eg. map=readfits(filename). 
+;          * In the case of orthographic projection, HALF_SKY must be set.
 ;
-;       FLIP : if set the longitude increase to the right, whereas by
+;       FLIP : if set, the longitude increases to the right, whereas by
 ;               default (astro convention) it increases towards the left
 ;
 ;       GAL_CUT: (positive float) specifies the symmetric galactic cut in degree
@@ -311,7 +313,9 @@ pro mollview, file_in, select_in, $
 ;                           -1 : black dots on white background
 ;                           -2 : black dashes on white background
 ;           - 'PSY[M]' symbol used to represent vertices of outline
-;                    (same meaning as standard PSYM in IDL)
+;                    (same meaning as standard PSYM in IDL,
+;                     if 9<=abs(psym)<=46, D. Fanning's SYMCAT symbols 
+;                     definition will be used, for example psym=9 is an open circle)
 ;                    if <=0, the vertices are represented with the chosen symbols, and
 ;                        connected, by arcs of geodesics.
 ;                    if >0, only the vertices are shown

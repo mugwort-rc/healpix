@@ -2,25 +2,26 @@
 # Associate images original text with physical files.
 
 
+$key = q/displaystyleleft(array{{c}Q'<row_mark>U'array{right)=left(array{{cc}cos2psi<col_right)left(array{{c}Q<row_mark>Uarray{right),<comment_mark>71;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="331" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|introimg100.png"
+ ALT="$\displaystyle \left(\begin{array}{c}
+Q'\  U'
+\end{array}\right) =
+\left(\be...
+...array} \right)
+\left(\begin{array}{c}
+Q\  U
+\end{array} \right),%\nonumber
+$">|; 
+
 $key = q/displaystyle(1-x^2)frac{d^2}{dx^2}P_{lm}-2xfrac{d}{dx}P_{lm}+left(l(l+1)-frac{m^2}{1-x^2}right)P_{lm};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="445" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|introimg135.png"
  ALT="$\displaystyle (1-x^2)\frac{d^2}{dx^2}P_{lm} - 2x \frac{d}{dx}P_{lm}
 + \left(l(l+1) - \frac{m^2}{1-x^2}\right) P_{lm}$">|; 
-
-$key = q/displaystyleleft(array{{c}a_{E,lm}'<row_mark>a_{B,lm}'array{right)=left(array{{cay{{c}a_{E,lm}<row_mark>a_{B,lm}array{right).<comment_mark>71;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="380" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|introimg101.png"
- ALT="$\displaystyle \left(\begin{array}{c}
-a_{E,lm}'\  a_{B,lm}'
-\end{array}\right...
-...
-\left(\begin{array}{c}
-a_{E,lm}\  a_{B,lm}
-\end{array} \right).%\nonumber
-$">|; 
 
 $key = q/displaystylecos2psiQ+sin2psiU;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -234,20 +235,6 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="37" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|introimg138.png"
  ALT="${\Omega_{\rm pix}}$">|; 
-
-$key = q/displaystyleleft(array{{c}Q'<row_mark>U'array{right)=left(array{{cc}cos2psi<col_right)left(array{{c}Q<row_mark>Uarray{right),<comment_mark>70;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="331" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|introimg100.png"
- ALT="$\displaystyle \left(\begin{array}{c}
-Q'\  U'
-\end{array}\right) =
-\left(\be...
-...array} \right)
-\left(\begin{array}{c}
-Q\  U
-\end{array} \right),%\nonumber
-$">|; 
 
 $key = q/displaystylelangleU_{r}(1)U_{r}(2)rangle;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -492,6 +479,19 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="152" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|introimg143.png"
  ALT="$\displaystyle \int d\u w_p(\u ) Y_{lm}(\u ),$">|; 
+
+$key = q/displaystyleleft(array{{c}a_{E,lm}'<row_mark>a_{B,lm}'array{right)=left(array{{cay{{c}a_{E,lm}<row_mark>a_{B,lm}array{right).<comment_mark>72;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="380" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|introimg101.png"
+ ALT="$\displaystyle \left(\begin{array}{c}
+a_{E,lm}'\  a_{B,lm}'
+\end{array}\right...
+...
+\left(\begin{array}{c}
+a_{E,lm}\  a_{B,lm}
+\end{array} \right).%\nonumber
+$">|; 
 
 $key = q/pm2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG

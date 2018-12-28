@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mpi_alm_tools*</TITLE>
-<META NAME="description" CONTENT="mpi_alm_tools*">
+<TITLE>median*</TITLE>
+<META NAME="description" CONTENT="median*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,93 +28,122 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html825"
+<A NAME="tex2html831"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html837"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html841"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html839"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html826"
-  HREF="subroutinesnode50.htm">merge_headers</A>
+<B> Previous:</B> <A NAME="tex2html832"
+  HREF="subroutinesnode50.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html832"
+<B>Up:</B> <A NAME="tex2html838"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html836"
-  HREF="subroutinesnode52.htm">mpi_alm2map*</A>
+<B> Next:</B> <A NAME="tex2html842"
+  HREF="subroutinesnode52.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000510000000000000000"></A>
-<A NAME="sub:mpi_alm_tools"></A>
+<A NAME="sub:median"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mpi_alm_tools*</FONT></font></b><hr><H2>This module implements MPI parallelization of the alm2map and map2alm routines. 
-It is not compiled by default during installation, but rather intended for
-users who need massive parallelization in their own programming. Typical
-applications are Monte Carlo simulations and Markov chain type
-analyses.
-
-<P>
-The routines can be called in two modes, either simple or
-advanced. The former mimics the interface of the standard routines,
-but with an additional MPI handle as a first argument, and is intended
-for applications which requires only one or a few transforms. The
-latter interface provides both more flexibility (in particular the
-option of pre-computation of the Legendre polynomials) and a simpler
-interface when multiple transforms are required. This interface is
-particularly well suited for Monte Carlo simulations and Markov chain
-type analyses.  </H2><br>Location in HEALPix directory tree: <b> 
-src/f90/mod/mpi_alm_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">median*</FONT></font></b><hr><H2>This function computes the median of a data set</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/statistics.f90
 </b>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1> 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Simple one-line interfaces:
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm_simple
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map_simple
-</DL>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">median*</FONT>(
+data [,&nbsp;badval, even]
+)</h2>
 
 <P>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Three-step advanced interfaces:
+<hr><H1>ARGUMENTS</H1>
 
-<OL>
-<LI>Initialization: 
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>median of the data set, defined as the middle number (or
+                   the average of the 2 middle numbers) once the valid data points are
+                   sorted in monotonous order</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>data(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>data set</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>badval (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to bad data points. Data points with this
+                   value will be ignored during calculation of the median. If
+                   not set, all points will be considered. <B>Do not set to 0!</B>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>even (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to <TT>.true.</TT> and the number of
+                   valid data points is even, will output the average of the 2
+                   middle points (which doubles the calculation time). If the
+                   number of points is odd, the single middle point is output
+                   and this keyword is ignored.</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+use statistics, only: median 
+<BR>... 
 <BR>
-mpi_initialize_alm_tools
-</LI>
-<LI>Execution of spherical harmonics transforms
-   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm (root processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map (root processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm_slave (slave processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map_slave (slave processor)
-    </DL>
-</LI>
-<LI>Finalizing: 
-<BR>
-mpi_cleanup_alm_tools
-</LI>
-</OL></DL>
-</font></tt>
-<BR>
+med = median(map, even=.true.)  
+<BR></font></tt>
+<BR><blockquote>
+Outputs in <TT>med</TT> the median of <TT>map</TT>
+</blockquote>
+
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">median*</FONT>.</h2>
+  <DL COMPACT><DT>
+<B><SPAN  CLASS="textbf">m_indmed</SPAN></B>
+<DD>module of the Orderpack 2.0 package, written by:
+  Michel Olagnon,  <A NAME="tex2html8"
+  HREF="http://www.fortran-2000.com/rank/">http://www.fortran-2000.com/rank/</A>
+<DT>
+<B>indmed</B>
+<DD>routine to output rank of median
+  </DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">median*</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode21.htm#sub:compute_statistics">compute_statistics</A></B>
+<DD>routine min, max,
+  absolute deviation, and first four order moments of a data set
+  </DL>
 
 <P>
 
@@ -127,32 +156,32 @@ mpi_cleanup_alm_tools
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html825"
+<A NAME="tex2html831"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html837"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html841"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html839"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html826"
-  HREF="subroutinesnode50.htm">merge_headers</A>
+<B> Previous:</B> <A NAME="tex2html832"
+  HREF="subroutinesnode50.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html832"
+<B>Up:</B> <A NAME="tex2html838"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html836"
-  HREF="subroutinesnode52.htm">mpi_alm2map*</A>
+<B> Next:</B> <A NAME="tex2html842"
+  HREF="subroutinesnode52.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>alm2map_spin*</TITLE>
-<META NAME="description" CONTENT="alm2map_spin*">
+<TITLE>alm2map_der*</TITLE>
+<META NAME="description" CONTENT="alm2map_der*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,193 +28,57 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html357"
+<A NAME="tex2html363"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html363"
+<A NAME="tex2html369"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html373"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html371"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html358"
-  HREF="subroutinesnode11.htm">alm2map_der*</A>
+<B> Previous:</B> <A NAME="tex2html364"
+  HREF="subroutinesnode11.htm">alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html364"
+<B>Up:</B> <A NAME="tex2html370"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html368"
-  HREF="subroutinesnode13.htm">alms2fits*</A>
+<B> Next:</B> <A NAME="tex2html374"
+  HREF="subroutinesnode13.htm">alm2map_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000120000000000000000"></A>
-<A NAME="sub:alm2map_spin"></A>
+<A NAME="sub:alm2map_der"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">alm2map_spin*</FONT></font></b><hr><H2>This routine produces the maps of arbitrary spin <SPAN CLASS="MATH"><I>s</I></SPAN> and <SPAN CLASS="MATH">-<I>s</I></SPAN> given their alm
-coefficients.
-A (complex) map <SPAN CLASS="MATH"><I>S</I></SPAN> of spin <SPAN CLASS="MATH"><I>s</I></SPAN> is a linear combination of the spin weighted harmonics <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>Y</I><SUB><I>lm</I></SUB></SPAN>
-<BR>
-<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<b><font size=+6><FONT COLOR="#CC0000">alm2map_der*</FONT></font></b><hr><H2>This routine is a wrapper to four other routines that synthesize a <b>HEALPix</b> 
+  temperature (and polarisation) map(s), its (their) first derivatives, and optionally
+  its (their) second derivatives.
+The routines accept both single and double precision arrays for alm, map, der1 and
+der2. The precision of these arrays should match. All maps produced are RING
+ordered.
 
-<!-- MATH
- \begin{equation}
-{_s}S(p) = \sum_{lm} {_s}a_{lm}\ \ {_s}Y_{lm}(p)
-\end{equation}
- -->
-<TABLE WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="198" HEIGHT="49" BORDER="0"
- SRC="subroutinesimg22.png"
- ALT="\begin{displaymath}
-{_s}S(p) = \sum_{lm} {_s}a_{lm}\ \ {_s}Y_{lm}(p)
-\end{displaymath}"></TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
-</TABLE>
-<BR CLEAR="ALL"></DIV><P></P>
-for <!-- MATH
- $l \ge |m|, l \ge |s|$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="122" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg23.png"
- ALT="$l \ge \vert m\vert, l \ge \vert s\vert$"></SPAN>,
-and is such that <!-- MATH
- ${_s}S^* = {_{-s}}S$
- -->
-<SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>S</I><SUP>*</SUP> = <SUB>-<I>s</I></SUB><I>S</I></SPAN>.
-<BR><FONT COLOR="#CC0000">alm2map_spin*</FONT> expects the alm coefficients to be provided as
-<BR>
-<DIV ALIGN="CENTER">
-
-<!-- MATH
- \begin{eqnarray}
-%typo correction on spin sign of second term of RHS, 2009-09-03
-	{_{|s|}}a^{+}_{lm} &\myequal& - ( {_{|s|}}a_{lm} + (-1)^s {_{-|s|}}a_{lm} )/2 \\
-	{_{|s|}}a^{-}_{lm} &\myequal& - ( {_{|s|}}a_{lm} - (-1)^s {_{-|s|}}a_{lm} )/(2i)
-\end{eqnarray}
- -->
-<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><tex2<I>html</I><SUB><I>c</I></SUB><I>omment</I><SUB><I>m</I></SUB><I>ark</I>>57
-<SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>lm</I></SUB></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> + (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/2</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> - (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/(2<I>i</I>)</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-for <SPAN CLASS="MATH"><IMG
- WIDTH="56" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg25.png"
- ALT="$m\ge 0$"></SPAN>, knowing that, just as for spin 0 maps, the
-coefficients for <SPAN CLASS="MATH"><I>m</I>&lt;0</SPAN> are given by 
-<BR>
-<DIV ALIGN="CENTER">
-
-<!-- MATH
- \begin{eqnarray}
-{_{|s|}}a^{+}_{l-m} &\myequal& (-1)^m {_{|s|}}a^{+*}_{lm}, \\
-{_{|s|}}a^{-}_{l-m} &\myequal& (-1)^m {_{|s|}}a^{-*}_{lm}.
-\end{eqnarray}
- -->
-<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>l</I>-<I>m</I></SUB></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>+*</SUP><SUB><I>lm</I></SUB>,</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">4</SPAN>)</TD></TR>
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>l</I>-<I>m</I></SUB></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(-1)<SUP><I>m</I></SUP> <SUB>|s|</SUB><I>a</I><SUP>-*</SUP><SUB><I>lm</I></SUB>.</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">5</SPAN>)</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-The two (real) maps produced by <FONT COLOR="#CC0000">alm2map_spin*</FONT> are  defined respectively as
-<BR>
-<DIV ALIGN="CENTER">
-
-<!-- MATH
- \begin{eqnarray}
-{_{|s|}}S^+ &\myequal& ({_{|s|}}S + {_{-|s|}}S)/2 \\
-	{_{|s|}}S^- &\myequal& ({_{|s|}}S - {_{-|s|}}S)/(2i).
-\end{eqnarray}
- -->
-<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>S</I><SUP>+</SUP></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> + <SUB>-|s|</SUB><I>S</I>)/2</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">6</SPAN>)</TD></TR>
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>S</I><SUP>-</SUP></TD>
-<TD ALIGN="CENTER" NOWRAP><IMG
- WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg24.png"
- ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>(<SUB>|s|</SUB><I>S</I> - <SUB>-|s|</SUB><I>S</I>)/(2<I>i</I>).</TD>
-<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">7</SPAN>)</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-With these definitions, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>+</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>a</I><SUP>-</SUP></SPAN>, <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>+</SUP></SPAN> and <SPAN CLASS="MATH"><SUB>2</SUB><I>S</I><SUP>-</SUP></SPAN>
-match <b>HEALPix</b> polarization <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP>, <I>a</I><SUP><I>B</I></SUP>, <I>Q</I></SPAN> and <SPAN CLASS="MATH"><I>U</I></SPAN> respectively. However, for
-<SPAN CLASS="MATH"><I>s</I>=0</SPAN>, <!-- MATH
- $\ _{0}a^+_{lm} = -a^T_{lm}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="112" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg26.png"
- ALT="$\ _{0}a^+_{lm} = -a^T_{lm}$"></SPAN>, <!-- MATH
- $\ _{0}a^-_{lm} = 0$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="80" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg27.png"
- ALT="$\ _{0}a^-_{lm} = 0$"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="81" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg28.png"
- ALT="$\ {_0}S^+ = T$"></SPAN>, <!-- MATH
- $\ {_0}S^- = 0.$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="82" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg29.png"
- ALT="$\ {_0}S^- = 0.$"></SPAN></H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/alm_tools.f90
+<P>
+See <A NAME="tex2html4"
+  HREF="facilities.htm">''Fortran
+Facilities''</A>
+Appendix for a note on a bug
+affecting the calculation of polarisation derivatives on past versions of this routine.
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/alm_tools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">alm2map_spin*</FONT>(
-nsmax, nlmax, nmmax, spin, alm, map
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">alm2map_der*</FONT>(
+nsmax, nlmax, nmmax, alm, map, der1 [, der2]
 )</h2></blockquote>
 
 <P>
@@ -247,28 +111,79 @@ nsmax</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>spin</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>spin <SPAN CLASS="MATH"><I>s</I></SPAN> of the maps to be generated (only its absolute value
-is relevant).</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm(1:2, 0:nlmax, 0:nmmax)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm(1:p, 0:nlmax, 0:nmmax)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <!-- MATH
- ${_{|s|}}a^+_{lm}$
- -->
-<SPAN CLASS="MATH"><SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>lm</I></SUB></SPAN> and <!-- MATH
- ${_{|s|}}a^-_{lm}$
- -->
-<SPAN CLASS="MATH"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></SPAN> values to make the map
-                   from.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values to make the map
+                   from. p is either 1 (temperature only) or 3 (temperature+polarisation).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map(0:12*nsmax**2-1, 1:2)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>map(0:12*nsmax**2-1) <EM>or  </EM>(0:12*nsmax**2-1,1:3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN CLASS="MATH"><SUB>|s|</SUB><I>S</I><SUP>+</SUP></SPAN> and <SPAN CLASS="MATH"><SUB>|s|</SUB><I>S</I><SUP>-</SUP></SPAN> output maps</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>temperature
+map <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN> or temperature + polarisation maps <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>Q</I>(<I>p</I>)</SPAN>, <SPAN CLASS="MATH"><I>U</I>(<I>p</I>)</SPAN> to be synthesized.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der1(0:12*nsmax**2-1, 1:2*p)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>contains on output the first
+derivatives of T: <!-- MATH
+ $\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="185" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg18.png"
+ ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
+$"></SPAN> or the interleaved derivatives of T, Q, and U: <!-- MATH
+ $\left({\partial T}/{\partial
+  \theta}, {\partial Q}/{\partial \theta}, {\partial U}/{\partial \theta};\right.$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="203" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg19.png"
+ ALT="$\left({\partial T}/{\partial
+\theta}, {\partial Q}/{\partial \theta}, {\partial U}/{\partial \theta};\right. $"></SPAN>
+<!-- MATH
+ $\left.{\partial T}/{\partial \phi}/\sin\theta, \ldots \right)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="148" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg20.png"
+ ALT="$\left.{\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
+$"></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>der2(0:12*nsmax**2-1,1:3*p), OPTIONAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>If this optional
+matrix is passed with this rank, it will contain on output the second derivatives
+<!-- MATH
+ $\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
+  \theta\partial\phi}/\sin\theta,\right.$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="231" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg21.png"
+ ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
+\theta\partial\phi}/\sin\theta,\right. $"></SPAN> 
+<!-- MATH
+ $\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="142" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg22.png"
+ ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $"></SPAN> or
+<!-- MATH
+ $\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 Q}/{\partial \theta^2},
+{\partial^2 Q}/{\partial \theta^2}, \ldots \right)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="276" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg23.png"
+ ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 Q}/{\partial \theta^2},
+{\partial^2 Q}/{\partial \theta^2}, \ldots \right) $"></SPAN> 
+
+<P></TD>
 </TR>
 </TABLE>
 
@@ -278,43 +193,50 @@ use healpix_types
 <BR>
 use pix_tools, only : nside2npix 
 <BR>
-use alm_tools, only : alm2map_spin 
+use alm_tools, only : alm2map_der 
 <BR>
-integer(I4B) :: nside, lmax, mmax, npix, spin
+integer(I4B) :: nside, lmax, mmax, npix, n_plm
 <BR>
-real(SP), dimension(:,:), allocatable :: map 
+real(SP), dimension(:), allocatable :: map 
+<BR>
+real(SP), dimension(:,:), allocatable :: der1, der2 
 <BR>
 complex(SPC), dimension(:,:,:), allocatable :: alm 
 <BR>...
 <BR>
-nside=256 ; lmax=512 ; mmax=lmax ; spin=4
+nside=256 ; lmax=512 ; mmax=lmax
 <BR>
 npix=nside2npix(nside)
 <BR>
-allocate(alm(1:2,0:lmax,0:mmax))
+allocate(alm(1:1,0:lmax,0:mmax))
 <BR>
-allocate(map(0:npix-1,1:2))
+allocate(map(0:npix-1))
+<BR>
+allocate(der1(0:npix-1,1:2), der2(0:npix-1,1:3))
 <BR>...
 <BR>
-call alm2map_spin(nside, lmax, mmax, spin, alm, map)  
+call alm2map_der(nside, lmax, mmax, alm, map, der1, der2)  
 <BR></font></tt>
 <BR><blockquote>
-Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> passed in alm. The maps have <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> of 256, and are constructed from <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values up to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
+Make temperature maps and its derivatives from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> passed in alm. The maps have <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> of 256, and are constructed from <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values up to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map_spin*</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map_der*</FONT>.</h2>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode89.htm#sub:ring_synthesis">ring_synthesis</A></B>
+<B><A HREF="subroutinesnode91.htm#sub:ring_synthesis">ring_synthesis</A></B>
 <DD>Performs FFT over <SPAN CLASS="MATH"><I>m</I></SPAN> for synthesis of the rings.
   <DT>
 <B>compute_lam_mm, get_pixel_layout, </B>
 <DD><DT>
-<B>gen_lamfac_der, gen_mfac, gen_mfac_spin, do_lam_lm_spin, </B>
+<B>gen_lamfac_der, gen_mfac,  </B>
 <DD><DT>
-<B>gen_recfac, gen_recfac_spin, init_rescale, l_min_ylm</B>
+<B>gen_recfac, init_rescale, l_min_ylm</B>
 <DD>Ancillary routines used
-  for <SPAN CLASS="MATH"><I>Y</I><SUB><I>lm</I></SUB></SPAN> recursion
+  for <SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg24.png"
+ ALT="$\ {_s}Y_{lm}$"></SPAN> recursion
   <DT>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
 <DD>module, containing:
@@ -325,22 +247,21 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2map_spin*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2map_der*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode10.htm#sub:alm2map">alm2map</A></B>
+<B><A HREF="subroutinesnode11.htm#sub:alm2map">alm2map</A></B>
 <DD>routine generating maps of temperature
    and polarisation from their  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
    <DT>
-<B><A HREF="subroutinesnode11.htm#sub:alm2map_der">alm2map_der</A></B>
-<DD>routine generating maps of temperature
-   and polarisation, and their spatial derivatives, from their  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-   <DT>
-<B><A HREF="subroutinesnode47.htm#sub:map2alm_spin">map2alm_spin</A></B>
-<DD>routine performing the inverse transform
-   of alm2map.
-  <DT>
-<B><A HREF="subroutinesnode26.htm#sub:create_alm">create_alm</A></B>
+<B><A HREF="subroutinesnode13.htm#sub:alm2map_spin">alm2map_spin</A></B>
+<DD>routine generating maps of
+arbitrary spin from their  <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>a</I><SUB><I>lm</I></SUB></SPAN>
+<DT>
+<B>synfast</B>
+<DD>executable using <FONT COLOR="#CC0000">alm2map_der*</FONT> to synthesize maps.
+<DT>
+<B><A HREF="subroutinesnode27.htm#sub:create_alm">create_alm</A></B>
 <DD>routine to generate randomly
   distributed <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients according to a given power spectrum
   </DL>
@@ -350,38 +271,34 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 <P>
 
 
-<P>
-
-<P>
-
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html357"
+<A NAME="tex2html363"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html363"
+<A NAME="tex2html369"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html373"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html371"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html358"
-  HREF="subroutinesnode11.htm">alm2map_der*</A>
+<B> Previous:</B> <A NAME="tex2html364"
+  HREF="subroutinesnode11.htm">alm2map*</A>
 
-<B>Up:</B> <A NAME="tex2html364"
+<B>Up:</B> <A NAME="tex2html370"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html368"
-  HREF="subroutinesnode13.htm">alms2fits*</A>
+<B> Next:</B> <A NAME="tex2html374"
+  HREF="subroutinesnode13.htm">alm2map_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

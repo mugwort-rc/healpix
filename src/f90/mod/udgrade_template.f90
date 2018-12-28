@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -26,6 +26,7 @@
 !
 !-----------------------------------------------------------------------------
 ! template for routine SP/DP overloading for module udgrade_nr
+! 2010-06-25: support large maps (Nside > 8192)
 
 ! K M A P   : map kind                 either SP or DP
 !
@@ -54,6 +55,8 @@
     !     version 1.0 : Eric Hivon, TAC, September 1997
     !     version 1.1 : Dec 1997, correction of a bug in the map indices
     !     version 1.2 : Dec 2001, addition of pessimistic and non-pessimistic behaviors
+    !     version 1.3:  Jun 2010: more realistic detection of bad_pixels, replace sum() and count()
+    !            by explicit loop to better control accuracy and deal with large array
     !=======================================================================
     USE pix_tools, only : nside2npix
     INTEGER(I4B), INTENT(IN) :: nside_in, nside_out
@@ -62,22 +65,21 @@
     REAL(KMAP),     INTENT(IN), OPTIONAL :: fmissval
     LOGICAL(LGT), INTENT(IN), OPTIONAL :: pessimistic
 
-    INTEGER(I4B) :: npix_in, npix_out, npratio
-    INTEGER(I4B) :: iu, ip, id
-    LOGICAL(LGT), ALLOCATABLE, DIMENSION(:) :: good
-    integer(I4B) :: nobs
-    LOGICAL(LGT) :: do_pessimistic = .false.
-    REAL(KMAP) :: bad_value
-    REAL(KMAP), DIMENSION(:), POINTER :: p_in
+    INTEGER(I8B) :: npix_in, npix_out, npratio, nobs
+    INTEGER(I8B) :: iu, ip, id
+    LOGICAL(LGT) :: do_pessimistic
+    REAL(KMAP)   :: bad_value, threshold, value
+    real(DP)     :: total
     !-----------------------------------------------------------------------
 
+    do_pessimistic = .false.
     npix_out = nside2npix(nside_out)
     npix_in  = nside2npix(nside_in)
 
-    bad_value = -1.6375e30_KMAP
-    if (present(fmissval)) then
-       bad_value = fmissval
-    endif
+    if (KMAP == SP) bad_value = HPX_SBADVAL
+    if (KMAP == DP) bad_value = HPX_DBADVAL
+    if (present(fmissval)) bad_value = fmissval
+    threshold = abs(1.e-6_KMAP * bad_value)
 
     do ip=0, npix_out-1
        map_out(ip) = bad_value
@@ -91,27 +93,26 @@
        npratio = npix_in  / npix_out
 
 !$OMP parallel default(none) &
-!$OMP   shared(map_in, map_out, npix_out, npratio, do_pessimistic, bad_value) &
-!$OMP   private(good, id, p_in, nobs)
-       allocate(good(0:npratio-1))
+!$OMP   shared(map_in, map_out, npix_out, npratio, do_pessimistic, bad_value, threshold) &
+!$OMP   private(id, nobs, total, ip, value)
 !$OMP do schedule(dynamic,64)
        do id=0,npix_out-1
-          p_in => map_in(id*npratio:(id+1)*npratio-1)
-          good = (p_in /= bad_value)
-          nobs = count(good)
-
+          nobs  = 0
+          total = 0.0_DP ! always DP
+          do ip=0, npratio-1
+             value = map_in(id*npratio + ip)
+             if (abs(value-bad_value) > threshold) then
+                nobs  = nobs  + 1
+                total = total + value
+             endif
+          enddo
           if (do_pessimistic) then
-             if (nobs == npratio) then
-                map_out(id) = sum(p_in) / nobs
-             endif
+             if (nobs == npratio) map_out(id) = total/nobs
           else
-             if (nobs > 0) then
-                map_out(id) = sum(p_in, mask=good) / nobs
-             endif
+             if (nobs > 0) map_out(id) = total/nobs
           endif
        enddo
 !$OMP end do
-       deallocate(good)
 !$OMP end parallel
 
     else ! upgrade
@@ -172,7 +173,7 @@
     REAL(KMAP), INTENT(IN), OPTIONAL :: fmissval
     LOGICAL(LGT) , INTENT(IN), OPTIONAL :: pessimistic
 
-    INTEGER(I4B) :: npix_in, npix_out
+    INTEGER(I8B) :: npix_in, npix_out
     !-----------------------------------------------------------------------
 
     !     checks that the 2 nside are valid
@@ -199,6 +200,7 @@
     !=======================================================================
     !    N dim implementation
     !=======================================================================
+    use long_intrinsic, only: long_size
     USE pix_tools, only : nside2npix, ring2nest, convert_ring2nest, convert_nest2ring
     INTEGER(I4B), INTENT(IN) :: nside_in, nside_out
     REAL(KMAP), INTENT(INOUT), dimension(0:,1:), target :: map_in
@@ -206,14 +208,14 @@
     REAL(KMAP), INTENT(IN), OPTIONAL :: fmissval
     LOGICAL(LGT) , INTENT(IN), OPTIONAL :: pessimistic
 
-    INTEGER(I4B) :: npix_in, npix_out
+    INTEGER(I8B) :: npix_in, npix_out
     INTEGER(I4B) :: nd_in, nd_out, id
     real(KMAP), dimension(:), pointer :: p_in, p_out
     !-----------------------------------------------------------------------
 
     !    checks that the 2nd dimensions match
-    nd_in  = size(map_in, 2)
-    nd_out = size(map_out,2)
+    nd_in  = long_size(map_in, 2)
+    nd_out = long_size(map_out,2)
     if (nd_in /= nd_out) then
        print*,"UDGRADE_NEST: unconsistent dimension of input and output maps",nd_in,nd_out
        call fatal_error
@@ -277,7 +279,7 @@
     REAL(KMAP), INTENT(IN), OPTIONAL :: fmissval
     LOGICAL(LGT) , INTENT(IN), OPTIONAL :: pessimistic
 
-    INTEGER(I4B) :: npix_in, npix_out
+    INTEGER(I8B) :: npix_in, npix_out
     !-----------------------------------------------------------------------
 
     !     checks that the 2 nside are valid
@@ -301,6 +303,7 @@
     !=======================================================================
     !  N dim. implementation
     !=======================================================================
+    use long_intrinsic, only: long_size
     USE pix_tools, only : nside2npix
     INTEGER(I4B), INTENT(IN) :: nside_in, nside_out
     REAL(KMAP), INTENT(IN),  dimension(0:,1:), target :: map_in
@@ -308,14 +311,14 @@
     REAL(KMAP), INTENT(IN), OPTIONAL :: fmissval
     LOGICAL(LGT) , INTENT(IN), OPTIONAL :: pessimistic
 
-    INTEGER(I4B) :: npix_in, npix_out
+    INTEGER(I8B) :: npix_in, npix_out
     INTEGER(I4B) :: nd_in, nd_out, id
     real(KMAP), dimension(:), pointer :: p_in, p_out
     !-----------------------------------------------------------------------
 
     !    checks that the 2nd dimensions match
-    nd_in  = size(map_in, 2)
-    nd_out = size(map_out,2)
+    nd_in  = long_size(map_in, 2)
+    nd_out = long_size(map_out,2)
     if (nd_in /= nd_out) then
        print*,"UDGRADE_NEST: unconsistent dimension of input and output maps",nd_in,nd_out
        call fatal_error

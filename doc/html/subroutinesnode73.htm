@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>query_polygon</TITLE>
-<META NAME="description" CONTENT="query_polygon">
+<TITLE>plm_gen</TITLE>
+<META NAME="description" CONTENT="plm_gen">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,156 +28,243 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1089"
+<A NAME="tex2html1095"
   HREF="subroutinesnode72.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1095"
+<A NAME="tex2html1101"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1099"
+<A NAME="tex2html1105"
   HREF="subroutinesnode74.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1097"
+<A NAME="tex2html1103"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1090"
-  HREF="subroutinesnode72.htm">query_disc</A>
+<B> Previous:</B> <A NAME="tex2html1096"
+  HREF="subroutinesnode72.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1096"
+<B>Up:</B> <A NAME="tex2html1102"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1100"
-  HREF="subroutinesnode74.htm">query_strip</A>
+<B> Next:</B> <A NAME="tex2html1106"
+  HREF="subroutinesnode74.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000730000000000000000"></A>
-<A NAME="sub:query_polygon"></A>
+<A NAME="sub:plm_gen"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">query_polygon</FONT></font></b><hr><H2>Routine to find the index of all pixels enclosed in a polygon. The polygon should be convex, 
-or have only one concave vertex. The edges should not intersect each other. 
-The output indices can be either in the RING or NESTED scheme</H2><br>Location in HEALPix directory tree: <b> 
-src/f90/mod/pix_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">plm_gen</FONT></font></b><hr><H2>This routine computes the latitude dependent part <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> of the
+  spherical harmonics (<!-- MATH
+ $Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="186" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg102.png"
+ ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
+  (see <b>HEALPix</b> primer)
+  used to synthetize or analyze <b>HEALPix</b> maps of temperature and polarisation.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/alm_tools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">query_polygon</FONT>(
-nside, vlist, nv, listpix, nlist [, nest, inclusive]
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">plm_gen</FONT>(
+nsmax, nlmax, nmmax, plm
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=125><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-nside</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+nsmax</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> parameter of the map.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg12.png"
+ ALT="${N_{\rm side}}$"></SPAN> value for which to compute the <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>vlist(1:3,0:*)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><I>l</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1, 1:p)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>cartesian vector pointing at polygon
-                   respective vertices.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>nv</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of vertices, should be equal to 3 or larger.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>listpix(0:*)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>the index for all pixels enclosed in the triangle. Make sure that the size of the array is big enough to contain all pixels.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>nlist</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>The number of pixels listed in <SPAN CLASS="MATH"><I>listpix</I></SPAN>.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>nest  (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>The pixel indices are in the NESTED numbering scheme if nest=1, and in RING scheme otherwise.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>inclusive  (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>If set to 1, all the pixels overlapping
-                   (even partially)
-                   with the polygon are listed, otherwise only those whose
-                   center lies within the polygon are listed.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> values, either for temperature only
+                   (<SPAN CLASS="MATH"><I>p</I>=1</SPAN>) or temperature and polarisation (<SPAN CLASS="MATH"><I>p</I>=3</SPAN>). The number
+                    of <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> is n_plm =
+                    nsmax*(nmmax+1)*(2*nlmax-nmmax+2). They are stored in the
+                    order of increasing order <SPAN CLASS="MATH"><I>l</I></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
+                    all the <b>HEALPix</b> ring colatitudes <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg57.png"
+ ALT="$\theta$"></SPAN> from North Pole to Equator, ie
+ 		   <!-- MATH
+ $\lambda_{00}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg103.png"
+ ALT="$\lambda_{00}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{10}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg104.png"
+ ALT="$\lambda_{10}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{20}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg105.png"
+ ALT="$\lambda_{20}(\theta_1)$"></SPAN>,
+                    ..., <!-- MATH
+ $\lambda_{11}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg106.png"
+ ALT="$\lambda_{11}(\theta_1)$"></SPAN>, <!-- MATH
+ $\lambda_{21}(\theta_1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg107.png"
+ ALT="$\lambda_{21}(\theta_1)$"></SPAN>;
+                    ...,  <!-- MATH
+ $\lambda_{00}(\theta_2)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg108.png"
+ ALT="$\lambda_{00}(\theta_2)$"></SPAN> ...</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-real(dp), dimension(1:3,0:9) :: vertices 
+use healpix_types 
 <BR>
-vertices(:,0) = (/0.,0.,1./)  ! +z 
+use alm_tools, only : plm_gen 
 <BR>
-vertices(:,1) = (/1.,0.,0./)  ! +x 
+integer(I4B) :: nside, lmax, mmax, n_plm
 <BR>
-vertices(:,2) = (/1.,1.,-1./) ! x+y-z 
+real(DP), dimension(:,:), allocatable :: plm 
+<BR>...
 <BR>
-vertices(:,3) = (/0.,1.,0./)  ! +y 
-<BR> 
+nside=256 ; lmax=512 ; mmax=lmax
 <BR>
-call query_polygon(256,vertices,4,listpix,nlist,nest=0)  
+npix=nside2npix(nside)
+<BR>
+n_plm=nside*(mmax+1)*(2*lmax-mmax+2)
+<BR>
+allocate(plm(0:n_plm-1,1:3))
+<BR>...
+<BR>
+call <FONT COLOR="#CC0000">plm_gen</FONT>(nside, lmax, mmax, plm)  
 <BR></font></tt>
 <BR><blockquote>
-Returns the RING pixel index of all pixels in the polygon with vertices of
-cartesian coordinates (0,0,1), (1,0,0), (1,1,-1) and (0,1,0) in a <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=256</SPAN> map.
+Computes the spherical harmonics for temperature and polarisation for <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>= 256</SPAN>, up to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>.
 </blockquote>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">query_polygon</FONT>.</h2>
+
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">plm_gen</FONT>.</h2>
   <DL COMPACT><DT>
-<B>isort</B>
-<DD>routine to sort integer number
- <DT>
-<B><A HREF="subroutinesnode75.htm#sub:query_triangle">query_triangle</A></B>
-<DD>render the list of pixels enclosed
-  in a given triangle
- <DT>
-<B><A HREF="subroutinesnode94.htm#sub:surface_triangle">surface_triangle</A></B>
-<DD>computes the surface of a spherical triangle defined by 3 vertices
- <DT>
-<B><A HREF="subroutinesnode99.htm#sub:vect_prod">vect_prod</A></B>
-<DD>routine to compute the vectorial product of two 3D vectors
+<B>compute_lam_mm, get_pixel_layout, </B>
+<DD><DT>
+<B>gen_lamfac,gen_mfac, gen_normpol, </B>
+<DD><DT>
+<B>gen_recfac, init_rescale, l_min_ylm</B>
+<DD>Ancillary routines used
+  for <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> recursion
+  <DT>
+<B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
+<DD>module, containing:
+  <DT>
+<B>assert_alloc</B>
+<DD>routine to print error message, when an array can not be
+  allocated properly
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_polygon</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">plm_gen</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode69.htm#sub:pix_tools">pix2ang</A>, <A HREF="subroutinesnode69.htm#sub:pix_tools">ang2pix</A></B>
-<DD>convert between angle and pixel number.
+<B><A HREF="subroutinesnode11.htm#sub:alm2map">alm2map</A></B>
+<DD>routine generating maps of temperature
+   and polarisation from their <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> that can use precomputed <!-- MATH
+ $\lambda_{l
+   m}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
+   <DT>
+<B><A HREF="subroutinesnode47.htm#sub:map2alm">map2alm</A></B>
+<DD>routine analysing maps of temperature
+   and polarisation that can use precomputed <!-- MATH
+ $\lambda_{l
+   m}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
   <DT>
-<B><A HREF="subroutinesnode69.htm#sub:pix_tools">pix2vec</A>, <A HREF="subroutinesnode69.htm#sub:pix_tools">vec2pix</A></B>
-<DD>convert between a cartesian vector and pixel number.
-  <DT>
-<B><A HREF="subroutinesnode72.htm#sub:query_disc">query_disc</A>, query_polygon,</B>
-<DD><DT>
-<B><A HREF="subroutinesnode74.htm#sub:query_strip">query_strip</A>, <A HREF="subroutinesnode75.htm#sub:query_triangle">query_triangle</A></B>
-<DD>render the list of pixels enclosed
-  respectively in a given disc, polygon, latitude strip and triangle
-
-<P>
+<B>plmgen</B>
+<DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg101.png"
+ ALT="$\lambda_{lm}$"></SPAN> and
+  writting them on disc 
 </DL>
 
 <P>
@@ -191,32 +278,32 @@ cartesian coordinates (0,0,1), (1,0,0), (1,1,-1) and (0,1,0) in a <SPAN CLASS="M
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1089"
+<A NAME="tex2html1095"
   HREF="subroutinesnode72.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1095"
+<A NAME="tex2html1101"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1099"
+<A NAME="tex2html1105"
   HREF="subroutinesnode74.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1097"
+<A NAME="tex2html1103"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1090"
-  HREF="subroutinesnode72.htm">query_disc</A>
+<B> Previous:</B> <A NAME="tex2html1096"
+  HREF="subroutinesnode72.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1096"
+<B>Up:</B> <A NAME="tex2html1102"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1100"
-  HREF="subroutinesnode74.htm">query_strip</A>
+<B> Next:</B> <A NAME="tex2html1106"
+  HREF="subroutinesnode74.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.13</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.13">
+<TITLE>Changes between releases 2.13 and 2.14</TITLE>
+<META NAME="description" CONTENT="Changes between releases 2.13 and 2.14">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,112 +28,92 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html261"
+<A NAME="tex2html267"
   HREF="subroutinesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html267"
+<A NAME="tex2html273"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html271"
+<A NAME="tex2html277"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html269"
+<A NAME="tex2html275"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html262"
-  HREF="subroutinesnode3.htm">Changes between release 2.13</A>
+<B> Previous:</B> <A NAME="tex2html268"
+  HREF="subroutinesnode3.htm">Changes between releases 2.14</A>
 
-<B>Up:</B> <A NAME="tex2html268"
+<B>Up:</B> <A NAME="tex2html274"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html272"
-  HREF="subroutinesnode5.htm">Changes between release 1.2</A>
+<B> Next:</B> <A NAME="tex2html278"
+  HREF="subroutinesnode5.htm">Changes between releases 2.0</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00040000000000000000">
-Changes between release 2.0 and 2.13</A>
+Changes between releases 2.13 and 2.14</A>
 </H1>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New functions in version 2.13: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode34.htm#sub:get_healpix_xxx_dir">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir </A> return full path to <b>HEALPix</b> directories.
-</DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.10: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode12.htm#sub:alm2map_spin">alm2map_spin</A>: synthesis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode46.htm#sub:map2alm_iterative">map2alm_iterative</A>: iterative analysis of map
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode47.htm#sub:map2alm_spin">map2alm_spin</A>: analysis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode40.htm#sub:healpix_modules">healpix_modules</A>: meta-module
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode105.htm#sub:write_minimal_header">write_minimal_header</A>: routine
-to write minimal FITS header
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode67.htm#sub:parse_xxx">parse_check_unused</A>: prints out
-parameters present in parameter file but not used by the code.
-</DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Improved routines:
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode74.htm#sub:query_strip">query_strip</A>: the <TT>inclusive</TT> option now
-returns <EM>all</EM> (and only) the pixels overlapping, even partially, with the
-strip
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode72.htm#sub:query_disc">query_disc</A>: when the disc center is on one of
-the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode86.htm#sub:remove_dipole">remove_dipole</A>: can now deal with non-uniform
-pixel weights.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode67.htm#sub:parse_xxx">parse_init</A>: silent mode
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode67.htm#sub:parse_xxx">parse_string</A>: can expand environment variables
-(${XXX}) and leading <code>~</code><SPAN CLASS="MATH"><IMG
- WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ In <A HREF="subroutinesnode12.htm#sub:alm2map_der">alm2map_der</A> routine, a numerical bug affecting the accuracy of the Stokes parameter derivatives 
+<!-- MATH
+ $\partial X/\partial\theta$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="60" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="subroutinesimg8.png"
- ALT="$\!$"></SPAN><TT>/</TT>
-</DL>
-
-<P>
+ ALT="$\partial X/\partial\theta$"></SPAN>, 
+<!-- MATH
+ $\partial^2 X/(\partial\theta\partial\phi\sin\theta)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="143" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg9.png"
+ ALT="$\partial^2 X/(\partial\theta\partial\phi\sin\theta)$"></SPAN>, 
+<!-- MATH
+ $\partial^2 X/\partial \theta^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="76" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg10.png"
+ ALT="$\partial^2 X/\partial \theta^2$"></SPAN>, 
+for <SPAN CLASS="MATH"><I>X</I>=<I>Q</I>,<I>U</I></SPAN> has been corrected. See <A NAME="tex2html3"
+  HREF="facilities.htm">''Fortran
+Facilities''</A>
+Appendix for details.
 </DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html261"
+<A NAME="tex2html267"
   HREF="subroutinesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html267"
+<A NAME="tex2html273"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html271"
+<A NAME="tex2html277"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html269"
+<A NAME="tex2html275"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html262"
-  HREF="subroutinesnode3.htm">Changes between release 2.13</A>
+<B> Previous:</B> <A NAME="tex2html268"
+  HREF="subroutinesnode3.htm">Changes between releases 2.14</A>
 
-<B>Up:</B> <A NAME="tex2html268"
+<B>Up:</B> <A NAME="tex2html274"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html272"
-  HREF="subroutinesnode5.htm">Changes between release 1.2</A>
+<B> Next:</B> <A NAME="tex2html278"
+  HREF="subroutinesnode5.htm">Changes between releases 2.0</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2010-06-18
+2011-02-04
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -34,10 +34,13 @@ module statistics
   !
   ! EH, IPAC, 2005-04-25
   ! EH, IAP, 2008-11-05: initialize eps and absdev to 0 in comp_stats_*
+  ! EH, IAP, 2010-06-25: tstats, compute_statistics and print_statistics now
+  !        support I8B variables, but median does not
   !---------------------------------
   use healpix_types
   use misc_utils, only: assert
   use m_indmed, only: indmed
+  use long_intrinsic, only: long_size
   implicit none
 
   private
@@ -54,7 +57,7 @@ module statistics
   end interface
 
   type tstats
-     integer(i4b) :: ntot, nvalid
+     integer(i8b) :: ntot, nvalid
      real(dp)     :: mind, maxd
      real(dp)     :: average, absdev
      real(dp)     :: rms, var
@@ -78,7 +81,7 @@ contains
     real(KMAP),     optional,  intent(in)  :: badval
     !
     real(KMAP)   :: sentinel, precis
-    integer(i4b) :: nvalid, i, n
+    integer(i8b) :: nvalid, i, n
     real(dp)     :: mind, maxd
     real(dp)     :: average, absdev
     real(dp)     :: rms, var
@@ -92,7 +95,7 @@ contains
        call assert(sentinel /= 0, code//': BadValue should not be set to 0.0')
     endif
 
-    n       = size(data)
+    n       = long_size(data)
     nvalid  = 0
     mind    =   huge(ONE)
     maxd    = - huge(ONE)
@@ -184,7 +187,7 @@ contains
     real(KMAP),     optional,  intent(in)  :: badval
     !
     real(KMAP)   :: sentinel, precis
-    integer(i4b) :: nvalid, i, n
+    integer(i8b) :: nvalid, i, n
     real(dp)     :: mind, maxd
     real(dp)     :: average, absdev
     real(dp)     :: rms, var
@@ -198,7 +201,7 @@ contains
        call assert(sentinel /= 0, code//': BadValue should not be set to 0.0')
     endif
 
-    n       = size(data)
+    n       = long_size(data)
     nvalid  = 0
     mind    =   huge(ONE)
     maxd    = - huge(ONE)
@@ -285,7 +288,7 @@ contains
   subroutine print_statistics(stats)
 
     type(tstats),        intent(in) :: stats
-    integer(i4b) :: nmiss
+    integer(i8b) :: nmiss
 
     nmiss = stats%ntot-stats%nvalid
     print*,'Pixels  = ', stats%nvalid,' / ',stats%ntot
@@ -300,7 +303,7 @@ contains
     write(*,9010) 'Kurtosis= ',stats%kurt
     print*,'   '
 
-9000 format(1x,a,i12,', (',f8.4,'  %)')
+9000 format(1x,a,i15,', (',f8.4,'  %)')
 9010 format(1x,a,1pe14.6)
   end subroutine print_statistics
 
@@ -322,7 +325,8 @@ contains
     real(KMAP), dimension(:), pointer :: gdata
     real(KMAP)                        :: precis
     logical(LGT)                      :: do_even, do_bad
-    integer(I4B)                      :: ndata, ngood, j, k, i, count
+    integer(I8B)                      :: ndata
+    integer(I4B)                      :: ngood, j, k, i, count
     !---------------------------------------------------------------------------
     precis = 10*epsilon(ONE)
 
@@ -332,7 +336,8 @@ contains
     if (present(even)) do_even = even
     
     ! select valid data
-    ndata = size(data)
+    ndata = long_size(data)
+    call assert(ndata < MAX_I4B, code//': data set too large')
     if (do_bad) then
     ! MR 2006-02-08: use explicit loops to work around a pgf90 problem
 !       ngood = count(abs(data/badval-ONE) > precis)
@@ -383,7 +388,8 @@ contains
     real(KMAP), dimension(:), pointer :: gdata
     real(KMAP)                        :: precis
     logical(LGT)                      :: do_even, do_bad
-    integer(I4B)                      :: ndata, ngood, j, k, i, count
+    integer(I8B)                      :: ndata
+    integer(I4B)                      :: ngood, j, k, i, count
     !---------------------------------------------------------------------------
     precis = 10*epsilon(ONE)
 
@@ -393,7 +399,8 @@ contains
     if (present(even)) do_even = even
     
     ! select valid data
-    ndata = size(data)
+    ndata = long_size(data)
+    call assert(ndata < MAX_I4B, code//': data set too large')
     if (do_bad) then
     ! MR 2006-02-08: use explicit loops to work around a pgf90 problem
 !       ngood = count(abs(data/badval-ONE) > precis)

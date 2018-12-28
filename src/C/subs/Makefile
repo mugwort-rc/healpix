@@ -117,11 +117,11 @@ install :  chealpix.h
 
 test_chealpix2 : test_chealpix2.c
 	$(CC) $(OPT) -c -o test_chealpix2.o $<
-	$(CC) $(OPT)    -o $@    test_chealpix2.o -L. -lchealpix -L$(CFITSIO_LIBDIR) -lcfitsio -lm
+	$(CC) $(OPT)    -o $@    test_chealpix2.o -L. -lchealpix -L$(CFITSIO_LIBDIR) $(WLRPATH) -lcfitsio -lm
 
 test_cio : test_cio.c
 	$(CC) $(OPT) -c -o test_cio.o $<          -I$(CFITSIO_INCDIR)
-	$(CC) $(OPT)    -o $@         test_cio.o  -L. -lchealpix -L$(CFITSIO_LIBDIR) -lcfitsio -lm
+	$(CC) $(OPT)    -o $@         test_cio.o  -L. -lchealpix -L$(CFITSIO_LIBDIR) $(WLRPATH) -lcfitsio -lm
 
 tests : test_chealpix2 test_cio
 	./test_cio

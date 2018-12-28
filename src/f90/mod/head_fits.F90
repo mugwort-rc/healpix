@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -163,6 +163,7 @@ contains
 
     st_value   = ''
     st_comment = ''
+    long_strn=.false.
     actual = (trim(kwd) /= "COMMENT" .and. trim(kwd) /= "HISTORY" .and. trim(kwd) /= "CONTINUE")
     if (present(value)  ) then
        write(st_value,'(a)')   value
@@ -235,6 +236,9 @@ contains
     character (LEN=20)  :: kwd2, this_kwd
     logical(LGT)        :: do_update, do_long_strn
     !=====================================================================
+
+    fullcard=''
+    oldline=''
 
     do_update = .false.
     if (present(update)) do_update = update
@@ -345,6 +349,7 @@ contains
     character (LEN=10)  :: pad10 = '    '
     logical(LGT)        :: do_long_strn
     !=====================================================================
+    tmpline=''
     do_long_strn = .false.
     if (present(long_strn)) do_long_strn = long_strn
 
@@ -973,7 +978,7 @@ contains
        call add_card(header,"NSIDE"   ,nside,   "Resolution parameter for HEALPIX")
        if (do_full) then
           call add_card(header,"FIRSTPIX",0,"First pixel # (0 based)")
-          call add_card(header,"LASTPIX",12*nside*nside-1,"Last pixel # (0 based)")
+          call add_card(header,"LASTPIX",(12_i8b*nside)*nside-1,"Last pixel # (0 based)")
        endif
        call add_card(header,"COORDSYS",trim(my_coordsys),"Pixelisation coordinate system")
        call add_card(header,"COMMENT","G = Galactic, E = ecliptic, C = celestial = equatorial")
