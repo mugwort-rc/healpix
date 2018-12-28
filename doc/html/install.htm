@@ -44,7 +44,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 This document describes the installation for the <b>HEALPix</b> facilities.</DIV>
 <P ALIGN=CENTER><STRONG>Eric Hivon, Anthony J.&nbsp;Banday, Matthias Bartelmann, Benjamin D.&nbsp;Wandelt,
 Frode K.&nbsp;Hansen and Krzysztof M.&nbsp;G&#243;rski</STRONG></P>
-<BR><P ALIGN=CENTER><I>Revision: </I>Version 2.20; February 4, 2011</P>
+<BR><P ALIGN=CENTER><I>Revision: </I>Version 2.20a; February 9, 2011</P>
 
 <BR>
 
@@ -131,7 +131,7 @@ the supplied files</A>
   HREF="install.htm#SECTION00080000000000000000">Appendix I: Recent Changes and New Features</A>
 <UL>
 <LI><A NAME="tex2html169"
-  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 2.20</A>
+  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Versions 2.20 and 2.20a</A>
 <UL>
 <LI><A NAME="tex2html170"
   HREF="install.htm#SECTION00081100000000000000">C++</A>
@@ -261,17 +261,17 @@ A set of C subroutines and functions is also provided.
 <P>
 The distribution can be downloaded as a gzipped and tarred file,
 which can be unpacked by executing the commands <BR>
-<TT>% gunzip Healpix_2.20.tar.gz</TT>
-<BR><TT>% tar -xpf Healpix_2.20.tar</TT>
+<TT>% gunzip Healpix_2.20a.tar.gz</TT>
+<BR><TT>% tar -xpf Healpix_2.20a.tar</TT>
 <BR>
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="852"></A>
+<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="853"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 The directory structure for the <b>HEALPix</b> distribution. </CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3222" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par3227" ALIGN="CENTER">
 <IMG
   WIDTH="562" HEIGHT="478" ALIGN="BOTTOM" BORDER="0"
  SRC="./dir_tree.png"
@@ -319,7 +319,7 @@ also available in <SPAN  CLASS="textbf">C</SPAN>.
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="855"></A>
+<DIV ALIGN="CENTER"><A NAME="856"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
   Documentation on the installation and usage of the different packages</CAPTION>
@@ -501,8 +501,8 @@ Astronomy User's Library (<A NAME="tex2html13"
 or the COBE (IDL) Analysis Software (<A NAME="tex2html14"
   HREF="http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm"><TT>http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm</TT></A>),
 although we do recommend these packages to the user.
-The 100-odd routines required for version 2.20 are contained in the
-subdirectory <TT>Healpix_2.20/src/idl/zzz_external</TT>.
+The 100-odd routines required for version 2.20a are contained in the
+subdirectory <TT>Healpix_2.20a/src/idl/zzz_external</TT>.
 These procedures are included in the <b>HEALPix</b> package unchanged and 
 solely for the purpose of making it self contained. In this way,
 we remove the burden of installation of additional libraries from 
@@ -659,7 +659,7 @@ The <TT>./configure</TT> script will
 ask for the full path to an installed <TT>cfitsio</TT> library to link to, and then provide a choice of
 predefined targets corresponding to different combinations of C++ compilers and
 options. Each of those targets is defined in a configuration file located in
-<TT>Healpix_2.20/src/cxx/config/config.</TT><EM>target</EM>.
+<TT>Healpix_2.20a/src/cxx/config/config.</TT><EM>target</EM>.
 The user can therefore add new targets or edit existing ones, and the
 <TT>./configure</TT> script will update its menu accordingly.
 If a fairly recent version
@@ -688,7 +688,7 @@ We have not attempted to provide the best optimisation flags for all
 operating systems. The configure
 script will have a guess at optimisation options for some systems, but it
 is up to the user to figure out an optimal set<A NAME="tex2html15"
-  HREF="installfootnode.htm#foot867"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>. From our experience,
+  HREF="installfootnode.htm#foot868"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>. From our experience,
 we have not found significant accumulation of numerical error even
 when using the most aggressive optimisation level available. 
 <BR>
@@ -767,13 +767,13 @@ reference files.
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="869"></A>
+<DIV ALIGN="CENTER"><A NAME="870"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 
  Data files and images produced by the Fortran codes during the tests,
 and the respective reference files to which they can be compared. All the files listed
-are located or produced in the <TT>Healpix_2.20/test</TT> directory. The GIF images of full sky maps were
+are located or produced in the <TT>Healpix_2.20a/test</TT> directory. The GIF images of full sky maps were
 produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the data set is not a sky map</CAPTION>
 <TR><TD><TABLE CELLPADDING=3 BORDER="1">
 <TR><TD ALIGN="LEFT"><B>code</B>    &amp; parameter file</TD>
@@ -857,7 +857,7 @@ produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the da
 <P>
 <B>Notes:</B> 
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the input power spectrum (in <TT>Healpix_2.20/test/cl.fits</TT>) used to generate the Fortran90 test maps
+ the input power spectrum (in <TT>Healpix_2.20a/test/cl.fits</TT>) used to generate the Fortran90 test maps
 is currently the WMAP 1yr best fit, in <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg4.png"
@@ -867,7 +867,7 @@ See <A NAME="tex2html17"
   HREF="http://lambda.gsfc.nasa.gov/"><TT>http://lambda.gsfc.nasa.gov/</TT></A>
 for details on WMAP and its data products.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the file  <TT>Healpix_2.20/test/wmap_lcdm_sz_lens_wmap5_cl_v3.fits</TT>
+ the file  <TT>Healpix_2.20a/test/wmap_lcdm_sz_lens_wmap5_cl_v3.fits</TT>
  was added for convenience, even though
  it is currently *NOT* used for any of the simulated test maps.
 
@@ -1195,7 +1195,7 @@ the user to access the <b>HEALPix</b> IDL procedures simply by invoking
 IDL. For example, in the typical installation documented
 above for a user running the tcsh shell, the command 
 <BR><TT>setenv IDL_STARTUP
-/disk1/user1/HEALPix_2.20/src/idl/HEALPix_startup</TT>
+/disk1/user1/HEALPix_2.20a/src/idl/HEALPix_startup</TT>
 
 <BR>
 should be issued (or added to the user's shell profile).
@@ -1249,7 +1249,7 @@ Both the source code and precompiled executables for various platforms are avail
 <P>
 When used to run IDL-Healpix routines, GDL 0.9rc3 or more gives
 satisfactory results<A NAME="tex2html27"
-  HREF="installfootnode.htm#foot887"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. The calculations agree with those done under IDL, with
+  HREF="installfootnode.htm#foot888"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. The calculations agree with those done under IDL, with
 comparable computation times, but a few features are missing in the production
 of Postscript, GIF and PNG files, as described below.
 
@@ -1332,7 +1332,7 @@ Appendix I: Recent Changes and New Features
 </H1>
 
 <H2><A NAME="SECTION00081000000000000000">
-Bug corrections and Improvements in Version 2.20</A>
+Bug corrections and Improvements in Versions 2.20 and 2.20a</A>
 </H2> 
 <P>
 
@@ -1388,8 +1388,11 @@ C++</A>
   HREF="idl.htm">IDL</A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>fits2cl</TT>: addition of the WMAP1 and WMAP5 keywords to read
+	best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to WMAP 1st and 5yr data respectively,
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
   <TT>cartview, gnomview, mollview, orthview</TT>:
-	larger choice of supported symbols in OUTLINE option
+	larger choice of supported symbols in OUTLINE option.
 </DL>
 
 <P>
@@ -2329,7 +2332,7 @@ Mathematics Department, Macquarie University, Sydney.
 The command line arguments were: <BR>
  <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html/ -up_url main.htm -up_title 'Main Page' -math -html_version 4.0 -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -split 3 -prefix install -t 'Installing Healpix' install</TT>
 <P>
-The translation was initiated by Eric Hivon on 2011-02-04
+The translation was initiated by Eric Hivon on 2011-02-09
 <BR><HR>
 <!--Table of Child-Links-->
 <A NAME="CHILD_LINKS"></A>
@@ -2412,7 +2415,7 @@ the supplied files</A>
   HREF="install.htm#SECTION00080000000000000000">Appendix I: Recent Changes and New Features</A>
 <UL>
 <LI><A NAME="tex2html91"
-  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 2.20</A>
+  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Versions 2.20 and 2.20a</A>
 <UL>
 <LI><A NAME="tex2html92"
   HREF="install.htm#SECTION00081100000000000000">C++</A>
@@ -2544,7 +2547,7 @@ the supplied files</A>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-04
+2011-02-09
 </ADDRESS>
 </BODY>
 </HTML>
