@@ -6,7 +6,7 @@ import healpix.core.dm.HealpixMap;
  * Interface to read fits file into healpix map
  * 
  * @author ejoliet
- * @version $Id: Fits2HealpixMap.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Fits2HealpixMap.java 26342 2007-07-02 12:29:08Z ejoliet $
  */
 public interface Fits2HealpixMap {
 

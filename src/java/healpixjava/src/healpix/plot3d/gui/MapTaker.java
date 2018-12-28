@@ -23,9 +23,21 @@ import healpix.core.dm.HealpixMap;
 
 /**
  * @author ejoliet
- * @version $Id: MapTaker.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: MapTaker.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public interface MapTaker {
+    
+    /**
+     * Sets the map.
+     * 
+     * @param m the new map
+     */
     void setMap(HealpixMap m);
+    
+    /**
+     * Gets the map.
+     * 
+     * @return the map
+     */
     HealpixMap getMap();
 }

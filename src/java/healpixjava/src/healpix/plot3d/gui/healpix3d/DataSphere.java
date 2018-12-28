@@ -34,18 +34,23 @@ import javax.vecmath.Point3d;
  * to indicate a data value for each pixel. DataSphere deals with different map
  * inside a HealpixMap object - e.g. read from fits file-.
  * 
- * @version $Id: DataSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: DataSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class DataSphere extends HealSphere {
 
+	/** The face. */
 	protected int face; // = 0, default initialization.
 
+	/** The imap. */
 	protected int imap = 0;
 
+	/** The ch. */
 	protected HealpixMap ch;
 
+	/** The max. */
 	protected double min, max;
 
+	/** The trans. */
 	SineColorTransform trans;
 
 	/** Default constructor. */
@@ -78,6 +83,12 @@ public class DataSphere extends HealSphere {
 		this.setGeometry(createGeometry());
 	}
 
+	/**
+	 * Instantiates a new data sphere.
+	 * 
+	 * @param face the face
+	 * @param ch the ch
+	 */
 	public DataSphere(int face, HealpixMap ch) {
 		super(ch.nside());
 		System.out.println("********** Face#=" + face);
@@ -107,6 +118,15 @@ public class DataSphere extends HealSphere {
 		this.setGeometry(createGeometry());
 	}
 
+	/**
+	 * Instantiates a new data sphere.
+	 * 
+	 * @param face the face
+	 * @param ch the ch
+	 * @param imap the imap
+	 * @param min the min
+	 * @param max the max
+	 */
 	public DataSphere(int face, HealpixMap ch, int imap, double min, double max) {
 		super(ch.nside());
 		this.imap = imap;
@@ -118,6 +138,16 @@ public class DataSphere extends HealSphere {
 		this.setGeometry(createGeometry());
 	}
 
+	/**
+	 * Instantiates a new data sphere.
+	 * 
+	 * @param face the face
+	 * @param ch the ch
+	 * @param imap the imap
+	 * @param min the min
+	 * @param max the max
+	 * @param index the index
+	 */
 	public DataSphere(int face, HealpixMap ch, int imap, double min, double max,
 			HealpixIndex index) {
 		super(index);
@@ -176,6 +206,11 @@ public class DataSphere extends HealSphere {
 		return quads;
 	}
 
+	/**
+	 * Gets the face num.
+	 * 
+	 * @return the face num
+	 */
 	public int getFaceNum() {
 		return this.face;
 	}

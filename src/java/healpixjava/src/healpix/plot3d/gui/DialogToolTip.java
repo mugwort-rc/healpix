@@ -33,13 +33,17 @@ import javax.swing.border.EmptyBorder;
  * Construct the tooltip dialog window for the {@link ToolTipBehavior}.
  * 
  * @author ejoliet
- * @version $Id: DialogToolTip.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: DialogToolTip.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class DialogToolTip extends JDialog {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The tip. */
 	static DialogToolTip tip = new DialogToolTip();
 
+	/** The label. */
 	static JLabel label = new JLabel("", JLabel.CENTER);
 	static {
 		tip.setUndecorated(true);

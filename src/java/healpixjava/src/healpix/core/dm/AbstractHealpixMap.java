@@ -24,11 +24,19 @@ import java.io.Serializable;
 /**
  * This represent a generalized multi data map.
  * @author ejoliet
- * @version $Id: AbstractHealpixMap.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: AbstractHealpixMap.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public interface AbstractHealpixMap extends Serializable {
+	
+	/**
+	 * The Enum Scheme.
+	 */
 	public enum Scheme {
-		RING, NEST
+		
+		/** The RING. */
+		RING, 
+ /** The NEST. */
+ NEST
 	};
 
 	/**

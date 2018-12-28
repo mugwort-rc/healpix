@@ -48,6 +48,8 @@ import javax.vecmath.Point3f;
  *          ulammers $
  */
 public class Group3DCapturingCanvas3D extends Canvas3D {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -74,6 +76,9 @@ public class Group3DCapturingCanvas3D extends Canvas3D {
 		postSwapCount = 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.j3d.Canvas3D#postSwap()
+	 */
 	public void postSwap() {
 		if (writeJPEG) {
 			System.out.println("Writing JPEG");

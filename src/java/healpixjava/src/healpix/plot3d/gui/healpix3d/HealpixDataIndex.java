@@ -27,7 +27,7 @@ import healpix.core.HealpixIndex;
  * 
  * @see QuadArrayExt
  * @author ejoliet
- * @version $Id: HealpixDataIndex.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixDataIndex.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class HealpixDataIndex extends HealpixIndex {
 	/**
@@ -35,10 +35,13 @@ public class HealpixDataIndex extends HealpixIndex {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The angle. */
 	AngularPosition angle;
 
+	/** The ipix. */
 	int ipix;
 
+	/** The value. */
 	double value;
 
 	/**

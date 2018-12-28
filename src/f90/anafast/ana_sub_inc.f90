@@ -121,7 +121,7 @@
 !  character(len=5)                    :: sstr
   LOGICAL(kind=LGT) :: bad, ok, polarisation, bcoupling, do_mask, twomaps
 !   character(len=*), PARAMETER :: code = "ANAFAST"
-  character(len=*), PARAMETER :: version = "2.1.1"
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
   character(len=80), dimension(1:3,1:2)   :: units_map
   character(len=80), dimension(1:3)       :: units_pow
 

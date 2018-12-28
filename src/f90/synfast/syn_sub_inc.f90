@@ -111,7 +111,7 @@
 !  character(len=4)                    :: sstr
   LOGICAL(LGT) :: ok, bad, polarisation, input_cl, input_alms, do_map, output_alms, apply_windows
 !   character(len=*), PARAMETER :: code = "SYNFAST"
-  character(len=*), PARAMETER :: version = "2.1.1"
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
   character(len=80), allocatable, dimension(:) :: units_alm, units_map
 
   type(paramfile_handle) :: handle

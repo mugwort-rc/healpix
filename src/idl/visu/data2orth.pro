@@ -29,7 +29,8 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
                PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,$
                NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS = units, DATA_PLOT = data_plot, $
-               GAL_CUT=gal_cut, POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
+               GAL_CUT=gal_cut, POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+               DO_SHADE=shade, SHADEMAP = shademap
 ;+
 ;==============================================================================================
 ;     DATA2ORTH
@@ -41,24 +42,28 @@ pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          planmap, Tmax, Tmin, color_bar, planvec, vector_scale,
 ;          pxsize=, log=, hist_equal=, max=, min=, flip=, no_dipole=,
 ;          no_monopole=, units=, data_plot=, gal_cut=,
-;          polarization=, half_sky, silent=, pixel_list, asinh=
+;          polarization=, half_sky, silent=, pixel_list, asinh=,
+;          do_shade=, shademap=
 ;
 ; IN :
 ;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
 ; OUT :
-;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale
+;      planmap, Tmax, Tmin, color_bar, planvec, vector_scale, shademap
 ; KEYWORDS
-;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units, polarization, half_sky
+;      pxsize, log, hist_equal, max, min, flip, no_dipole, no_monopole, units,
+;      polarization, half_sky, do_shade
 ;
 ;  called by mollview
 ;  HISTORY
 ; Sep 2007: added /silent
 ; April 2008: added pixel_list
 ; July 2008: added asinh
+; May 2009: added do_shade, shademap
+;           can deal with map without any valid pixel
 ;==============================================================================================
 ;-
 
-
+do_shade = keyword_set(shade)
 if keyword_set(half_sky) then do_fullsky = 0 else do_fullsky = 1
 
 if (do_fullsky) then begin
@@ -76,6 +81,9 @@ if undefined(polarization) then polarization=0
 do_polamplitude = (polarization eq 1)
 do_poldirection = (polarization eq 2)
 do_polvector    = (polarization eq 3)
+;vec_shine = [1,1,1]/sqrt(3.)
+vec_shine = [0.5,-1*flipconv,1] ; light source position (do_shade option)
+vec_shine = vec_shine / sqrt(total(vec_shine^2))
 
 
 !P.BACKGROUND = 1               ; white background
@@ -156,7 +164,12 @@ if (small_file) then begin
     mindata = MIN(data[*,0],MAX=maxdata)
     IF( mindata LE (bad_data*.9) or (1-finite(total(data[*,0])))) THEN BEGIN
         Obs    = WHERE( data GT (bad_data*.9) AND finite(data[*,0]), N_Obs )
-        mindata = MIN(data[Obs,0],MAX=maxdata)
+        if (N_obs gt 0) then mindata = MIN(data[Obs,0],MAX=maxdata)
+;         if (N_Obs eq 0) then begin
+;             mindata = -1.0 & maxdata = 1.0
+;         endif else begin
+;             mindata = MIN(data[Obs,0],MAX=maxdata)
+;         endelse
     ENDIF ELSE begin 
         if defined(Obs) then begin
             Obs = -1.
@@ -176,10 +189,11 @@ endif else begin ; large file
     plan_off = 0L
 endelse
 if do_polvector then planvec = MAKE_ARRAY(/FLOAT,xsize,ysize, 2, Value = bad_data) 
+if do_shade then shademap = MAKE_ARRAY(/FLOAT,xsize,ysize, Value = 1.0) 
 
 ; -------------------------------------------------
 ; make the projection
-;  we split the projection to avoid dealing with to big an array
+;  we split the projection to avoid dealing with too big an array
 ; -------------------------------------------------
 if (~keyword_set(silent)) then print,'... making the projection ...'
 ; -------------------------------------------------
@@ -234,6 +248,22 @@ for ystart = 0, ysize - 1, yband do begin
             xs = sqrt(1.-ys*ys-v1*v1)
             vector = [[xs],[ys],[v1]] ; normalized vector
         endelse
+        if (do_shade) then begin
+            ; sphere shading (Phong model)
+            ; ambiant light = 50%, specular light = 90%, diffuse light = ( 1 - ambiant)
+            ambiant = 0.5 ;0.5
+            spec_frac = 0.9
+            ; specular: (r.v) = (2 (n.i) n - i). v
+            ; i = incident light direction
+            ; r = reflected light direction, |r| = 1
+            ; n = normal to surface
+            ; v = observer (here at (+/-Inf, 0, 0) )
+            cos_in = vec_shine ## vector
+            spec = (2 * cos_in * vector[*,0] - vec_shine[0])
+            spec = spec * ( cos_in gt 0) ; no specular highlight accros the sphere
+            shade = (ambiant + (1.0 - ambiant) * cos_in + spec_frac* abs(spec)^16) > 0.
+            spec = 0 & cos_in = 0.
+        endif
 
         u1 = 0 & v1 = 0 & sign = 0 & xs = 0 & ys = 0
         ; --------------------------------
@@ -289,8 +319,9 @@ for ystart = 0, ysize - 1, yband do begin
                 planmap[ystart*xsize+disc]      = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value) ; temperature
             endelse
         endelse
+        if (do_shade) then shademap[ystart*xsize+disc] = shade
     endif
-    disc = 0 & id_pix = 0
+    disc = 0 & id_pix = 0 & shade = 0
 endfor
 
 if (small_file) then begin
@@ -303,7 +334,12 @@ endif else begin
     mindata = MIN(planmap,MAX=maxdata)
     if (mindata LE (bad_data*.9) or (1-finite(total(planmap)))) then begin
         Obs    = WHERE(planmap GT (bad_data*.9) AND finite(planmap), N_Obs )
-        mindata = MIN(planmap[Obs],MAX=maxdata)
+        if (N_Obs gt 0) then mindata = MIN(planmap[Obs],MAX=maxdata)
+;         if (N_Obs eq 0) then begin
+;             mindata = -1. & maxdata = 1.
+;         endif else begin
+;             mindata = MIN(planmap[Obs],MAX=maxdata)
+;         endelse
     endif else begin
         if defined(Obs) then begin
             Obs = 0

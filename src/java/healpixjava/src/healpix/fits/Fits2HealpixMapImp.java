@@ -42,22 +42,30 @@ import net.ivoa.util.ColumnTable;
  * Converts fits file into healpix map. Read the fits and create the
  * {@link HealpixMap} object.
  * 
- * @version $Id: Fits2HealpixMapImp.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Fits2HealpixMapImp.java 49444 2008-05-07 10:23:02Z ejoliet $
  * @author ejoliet
  */
 public class Fits2HealpixMapImp implements Fits2HealpixMap {
+	
+	/** The nrow. */
 	private int nrow;
 
+	/** The ncol. */
 	private int ncol;
 
+	/** The map. */
 	private static HealpixMap map;
 
+	/** The scheme fits. */
 	private String schemeFits;
 
+	/** The names. */
 	public String[] names;
 
+	/** The obj data. */
 	private ColumnTable objData;
 
+	/** The data. */
 	private static double[][] data;
 
 	/**
@@ -181,6 +189,13 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 		return array;
 	}
 
+	/**
+	 * Gets the dimension.
+	 * 
+	 * @param ftype the ftype
+	 * 
+	 * @return the dimension
+	 */
 	public int getDimension(String ftype) {
 
 		if ( ftype.length() == 1 ) // No multiplicity present, value is a
@@ -203,6 +218,13 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 		return 0;
 	}
 
+	/**
+	 * Gets the data type.
+	 * 
+	 * @param ftype the ftype
+	 * 
+	 * @return the data type
+	 */
 	public char getDataType(String ftype) {
 
 		if ( ftype.indexOf("J") >= 0 )

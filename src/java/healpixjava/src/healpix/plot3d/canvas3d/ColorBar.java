@@ -34,13 +34,20 @@ import javax.swing.JComponent;
  * max values.
  * 
  * @author ejoliet
- * @version $Id: ColorBar.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ColorBar.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ColorBar extends JComponent {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The formatter. */
 	Format formatter = new DecimalFormat("0.000E0");
+	
+	/** The ctrans. */
 	ColorTransform ctrans;
 
+	/** The scale color. */
 	double scaleColor;
 
 	/**
@@ -64,10 +71,16 @@ public class ColorBar extends JComponent {
 		setMinimumSize(new Dimension(10, 20));
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#getPreferredSize()
+	 */
 	public Dimension getPreferredSize() {
 		return new Dimension(10, 40);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		try {
 			super.paintComponent(g);
@@ -97,6 +110,13 @@ public class ColorBar extends JComponent {
 		}
 	}
 
+	/**
+	 * Gets the contrast.
+	 * 
+	 * @param color the color
+	 * 
+	 * @return the contrast
+	 */
 	public static Color getContrast(Color color) {
 		double r = ((double) color.getRed() / 255);
 		double g = ((double) color.getGreen() / 255);
@@ -111,6 +131,11 @@ public class ColorBar extends JComponent {
 		}
 	}
 
+	/**
+	 * Update.
+	 * 
+	 * @param ct the ct
+	 */
 	public void update(ColorTransform ct) {
 		this.ctrans = ct;
 		repaint();

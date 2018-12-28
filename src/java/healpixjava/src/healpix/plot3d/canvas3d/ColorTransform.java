@@ -26,7 +26,7 @@ import java.awt.Color;
  * Interface that deals with color transformations
  * 
  * @author ejoliet
- * @version $Id: ColorTransform.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ColorTransform.java 30580 2007-09-05 15:02:18Z nbach $
  */
 public interface ColorTransform {
 	/**

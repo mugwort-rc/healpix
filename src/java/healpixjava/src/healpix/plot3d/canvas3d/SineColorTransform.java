@@ -27,35 +27,50 @@ import javax.vecmath.Color3f;
  * A Sine color transform. WOM originally coded.
  * 
  * @author ejoliet
- * @version $Id: SineColorTransform.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: SineColorTransform.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class SineColorTransform implements ColorTransform {
+	
+	/** The min. */
 	double min;
 
+	/** The max. */
 	double max;
 
+	/** The a. */
 	double a; // ax + b
 
+	/** The b. */
 	double b; // ax + b
 
+	/** The scale color. */
 	public double scaleColor;
 
+	/** The blue. */
 	float blue;
 
+	/** The red. */
 	float red;
 
+	/** The green. */
 	float green;
 
+	/** The bc. */
 	double bc;
 
+	/** The gc. */
 	double gc;
 
+	/** The rc. */
 	double rc;
 
+	/** The bof. */
 	double bof;
 
+	/** The gof. */
 	double gof;
 
+	/** The rof. */
 	double rof;
 
 	/**

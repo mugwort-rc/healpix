@@ -22,6 +22,7 @@ package healpix.core.test;
 import healpix.core.AngularPosition;
 import healpix.core.HealpixIndex;
 import healpix.core.base.BitManipulation;
+import healpix.tools.Constants;
 import healpix.tools.SpatialVector;
 
 import java.util.ArrayList;
@@ -35,6 +36,10 @@ import junit.framework.TestCase;
  */
 
 public class HealpixTest extends TestCase {
+	public static final double RADIAN_ARCSECOND = 1/Constants.ARCSECOND_RADIAN;//2.06264806247096e+5;
+	/**
+	 * Test modulo.
+	 */
 	public void testMODULO() {
 		BitManipulation bm = new BitManipulation();
 		double A = 8.;
@@ -56,6 +61,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test MODULO is done");
 	}
 
+	/**
+	 * Test ang dist.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testAngDist() throws Exception {
 		SpatialVector v1 = new SpatialVector(1.0, 0., 0.);
 		SpatialVector v2 = new SpatialVector(0., 1., 0.);
@@ -89,6 +99,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test of AngDist is done");
 	}
 
+	/**
+	 * Test surface triangle.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testSurfaceTriangle() throws Exception {
 		SpatialVector v1 = new SpatialVector(1.0, 0.0, 0.0);
 		SpatialVector v2 = new SpatialVector(0.0, 1.0, 0.0);
@@ -101,6 +116,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test of SurfaceTriangle is done");
 	}
 
+	/**
+	 * Test nside2 npix.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testNside2Npix() throws Exception {
 		int nside = 1;
 		int npix = 0;
@@ -113,6 +133,11 @@ public class HealpixTest extends TestCase {
 		assertEquals("Npix=" + npix, 48, npix, 1e-10);
 	}
 
+	/**
+	 * Test npix2 nside.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testNpix2Nside() throws Exception {
 		int npix = 48;
 		int nside = 2;
@@ -122,6 +147,9 @@ public class HealpixTest extends TestCase {
 
 	}
 
+	/**
+	 * Test vec2 ang.
+	 */
 	public void testVec2Ang() {
 		double PI = Math.PI;
 		SpatialVector v = new SpatialVector(0.0, 1.0, 0.0);
@@ -138,6 +166,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test Vect2Ang is done");
 	}
 
+	/**
+	 * Test ang2 pix.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testAng2Pix() throws Exception {
 		System.out.println(" Test ang2pix_ring ___________________");
 		double PI = Math.PI;
@@ -166,6 +199,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test Ang2Pix is done");
 	}
 
+	/**
+	 * Test ang2 vect.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testAng2Vect() throws Exception {
 		System.out.println(" Start test Ang2Vect----------------");
 		double PI = Math.PI;
@@ -180,6 +218,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test Ang2Vect is done");
 	}
 
+	/**
+	 * Test ring num.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testRingNum() throws Exception {
 		double z = 0.25;
 		int nside = 1;
@@ -273,6 +316,11 @@ public class HealpixTest extends TestCase {
 		System.out.println("End test RingNum");
 	}
 
+	/**
+	 * Test nest2 ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testNest2Ring() throws Exception {
 		int ipnest = 3;
 		int nside = 2;
@@ -299,6 +347,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test Nest2Ring is done");
 	}
 
+	/**
+	 * Test ring2 nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testRing2Nest() throws Exception {
 		System.out.println(" start test Ring2Nest !!!!!!!!!!!!!!!!!!!!!!");
 		int ipring = 0;
@@ -331,7 +384,11 @@ public class HealpixTest extends TestCase {
 		ipnest = (int) pt.ring2nest(0);
 		System.out.println(" ipnest (64,0)=" + ipnest);
 	}
-
+	/**
+	 * Test next_ in_ line_ nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testNext_In_Line_Nest() throws Exception {
 		int ipix = 0;
 		int nside = 2;
@@ -361,6 +418,12 @@ public class HealpixTest extends TestCase {
 		assertEquals("ipnext = " + ipnext, 117, ipnext, 1e-10);
 		System.out.println(" test next_in_line_nest is done");
 	}
+	
+	/**
+	 * Test in ring cxx.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testInRingCxx() throws Exception {
 		System.out.println(" Start test InRing !!!!!!!!!!!!!!!!!!!!!!!!!");
 		int[] nestComp = { 19, 0, 23, 4, 27, 8, 31, 12 };
@@ -404,6 +467,12 @@ public class HealpixTest extends TestCase {
 		// }
 		System.out.println(" test InRing is done");
 	}
+	
+	/**
+	 * Test in ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testInRing() throws Exception {
 		System.out.println(" Start test InRing !!!!!!!!!!!!!!!!!!!!!!!!!");
 		int[] nestComp = { 19, 0, 23, 4, 27, 8, 31, 12 };
@@ -448,6 +517,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test InRing is done");
 	}
 
+	/**
+	 * Test intrs_ intrv.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testIntrs_Intrv() throws Exception {
 		System.out.println(" test intrs_intrv !!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		HealpixIndex pt = new HealpixIndex();
@@ -484,6 +558,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test intrs_intrv is done");
 	}
 
+	/**
+	 * Test pix2 vect_ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testPix2Vect_ring() throws Exception {
 		System.out.println("Start test pix2vec_ring !!!!!!!!!!!!!!!!!!!");
 		double TWOPI = 2.0 * Math.PI;
@@ -527,6 +606,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test pix2vec_ring is done");
 	}
 
+	/**
+	 * Test pix2 vect_nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testPix2Vect_nest() throws Exception {
 		double TWOPI = 2.0 * Math.PI;
 		int nside = 2;
@@ -573,6 +657,11 @@ public class HealpixTest extends TestCase {
 		System.out.println("-------------------------------------------");
 	}
 
+	/**
+	 * Test vect2 pix_ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testVect2Pix_ring() throws Exception {
 		System.out.println("Start test Vect2Pix_ring !!!!!!!!!!!!!!!!!!!");
 		int nside = 4;
@@ -587,6 +676,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test vec2pix_ring is done");
 	}
 
+	/**
+	 * Test vect2 pix_nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testVect2Pix_nest() throws Exception {
 		System.out.println("Start test Vect2Pix_nest !!!!!!!!!!!!!!!!!!!");
 		int nside = 4;
@@ -602,6 +696,11 @@ public class HealpixTest extends TestCase {
 		System.out.println(" test vec2pix_nest is done");
 	}
 
+	/**
+	 * Test query_ strip.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testQuery_Strip() throws Exception {
 		System.out.println(" Start test query Strip !!!!!!!!!!!!!!!!");
 		int[] pixel1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
@@ -625,8 +724,32 @@ public class HealpixTest extends TestCase {
 
 	}
 
-	
-	  public void testQuery_Disc() throws Exception {
+    /**
+     * Converts radians to arcsecs.
+     * 
+     * @param rad
+     *            radians
+     * @return arcseconds
+     */
+    public double radToAs(final double rad) {
+        return rad * RADIAN_ARCSECOND;
+    }
+    /**
+     * Converts radians to arcmin.
+     * 
+     * @param rad
+     *            radians
+     * @return arcmin
+     */
+    public double radToAm(final double rad) {
+        return rad * RADIAN_ARCSECOND/60.;
+    }
+	  /**
+  	 * Test query_ disc.
+  	 * 
+  	 * @throws Exception the exception
+  	 */
+  	public void testQuery_Disc() throws Exception {
 		System.out.println(" Start test query_disc !!!!!!!!!!!!!!!!!!!!!");
 		int nside = 4;
 		HealpixIndex pt = new HealpixIndex(nside);
@@ -666,8 +789,24 @@ public class HealpixTest extends TestCase {
 			assertEquals("pixel = " + ipix, pixel2[i], ipix, 1e-10);
 		}
 		System.out.println(" test query_disc is done");
+		
+		pt = new HealpixIndex(4096);
+		v = pt.pix2vec_nest( 175 );
+		//1 arcmin
+		radius = 1*Constants.ARCSECOND_RADIAN;
+		pixlist = pt.query_disc(4096, v, radius, nest, inclusive);
+		nlist = pixlist.size();
+		for ( int i = 0; i < nlist; i++ ) {
+			ipix = ( (Long) pixlist.get(i) ).longValue();
+			System.out.println(" i=" + i + " pixel=" + ipix);
+		}
 	}
 	 
+	/**
+	 * Test query_ triangle360 nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testQuery_Triangle360Nest() throws Exception {
 		int nside = 2;
 		HealpixIndex pt = new HealpixIndex(nside);
@@ -727,6 +866,11 @@ public class HealpixTest extends TestCase {
 		
 	}
 
+	/**
+	 * Test query_ triangle360 ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testQuery_Triangle360Ring() throws Exception {
 		int nside = 2;
 		HealpixIndex pt = new HealpixIndex(nside);
@@ -785,6 +929,12 @@ public class HealpixTest extends TestCase {
 		}
 		System.out.println(" test query_triangle is done");
 	}
+	
+	/**
+	 * Test query_ triangle not crossing360 ring.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testQuery_TriangleNotCrossing360Ring() throws Exception {
 		int nside = 4;
 		int triang[] = { 44, 46, 77 }; //not crossing 360
@@ -821,6 +971,12 @@ public class HealpixTest extends TestCase {
 		}
 		System.out.println(" test query_triangle is done");
 	}
+	
+	/**
+	 * Test query_ triangle not crossing360 nest.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testQuery_TriangleNotCrossing360Nest() throws Exception {
 		int nside = 4;
 		int nest = 1;
@@ -857,6 +1013,12 @@ public class HealpixTest extends TestCase {
 		}
 		System.out.println(" test query_triangle is done");
 	}
+	
+	/**
+	 * Test query_ polygon.
+	 * 
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("unchecked")
 	public void testQuery_Polygon() throws Exception {
 		long nside = 4;
@@ -966,6 +1128,11 @@ public class HealpixTest extends TestCase {
 
 	}
 
+	/**
+	 * Test max resolution.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testMaxResolution() throws Exception {
 		System.out.println(" Start test MaxRes !!!!!!!!!!!!!!!!!!!!!");
 
@@ -1001,17 +1168,25 @@ public class HealpixTest extends TestCase {
 	 * System.out.println(" test query disc Hi Res is done
 	 * -------------------"); }
 	 */
+	/**
+	 * Test get nside.
+	 */
 	public void testGetNside() {
 		System.out.println(" Start test GetNside !!!!!!!!!!!!!!!!!!!!!");
 
 		double pixsize = 25;
 		HealpixIndex pt = new HealpixIndex();
-		long nside = pt.getNSide(pixsize);
+		long nside = HealpixIndex.calculateNSide(pixsize);
 		System.out.println("Required nside is " + nside);
 		assertEquals("nside = " + nside, 8192, nside, 1e-1);
 		System.out.println(" End of GetNSide test _______________________");
 	}
 
+	/**
+	 * Prints the vec.
+	 * 
+	 * @param vec the vec
+	 */
 	public void printVec(double[] vec) {
 		System.out.print("[");
 		for ( int i = 0; i < vec.length; i++ ) {
@@ -1020,6 +1195,11 @@ public class HealpixTest extends TestCase {
 		System.out.println("]");
 	}
 
+	/**
+	 * Test keith cover.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testKeithCover() throws Exception {
 		SpatialVector galUnitVec = new SpatialVector(-0.8359528269,
 				-0.4237775489, -0.3487055694);
@@ -1101,6 +1281,11 @@ public class HealpixTest extends TestCase {
 			assertEquals("ip = " + ( (Long) npixList.get(i) ).longValue(),
 					test3[i], ( (Long) npixList.get(i) ).longValue(), 1e-10);
 		}
+		pt = new HealpixIndex(4096);
+		npixList = pt.neighbours_nest(4096, 175);
+		for ( int i = 0; i < npixList.size(); i++ ) {
+			System.err.println("ip = " + npixList.get(i));
+		}
 		System.out.println(" test NeighboursNest is done");
 	}
 	/** run through angles ang vectors converting back and forth * */
@@ -1114,4 +1299,36 @@ public class HealpixTest extends TestCase {
 	 * heal.Vect2Ang(vec); assertEquals("Ang theta is incorrect",theta,ang[0] );
 	 * assertEquals("Ang phi is incorrect",phi,ang[1] ); } } }
 	 */
+	
+	public void testGetParentAt(int childnside, int requirednside) throws Exception {
+		HealpixIndex c = new HealpixIndex(childnside);
+		HealpixIndex p = new HealpixIndex(requirednside);
+		
+		for (double theta =0.1;  theta < 3.16; theta+=0.2){
+			for (double phi=0.1; phi < 6.28 ; phi+=0.2){
+				long child = c.ang2pix_nest(theta, phi);
+				long ppix = p.ang2pix_nest(theta, phi);	
+				long tppix = HealpixIndex.parentAt(child, childnside, requirednside);
+				
+				assertEquals("Parent is not as expexted",tppix,ppix) ;
+	   }}
+	}
+	
+	public void testGetParentAt() throws Exception{
+		testGetParentAt(4,2);
+		testGetParentAt(8,2);
+		testGetParentAt(1024,128);
+		
+	}
+	
+	
+	public void testGetChildrenAt() throws Exception {
+		long[] pix = HealpixIndex.getChildrenAt(2, 1, 4);
+		assertEquals("Incorrect number of pixels ",4, pix.length);
+		int fpix = 4 ; // see the primer
+		for (int i=0; i < pix.length; i++){
+			assertEquals("Incorrect pixel number", fpix+i, pix[i]);
+		}
+	
+	}
 }

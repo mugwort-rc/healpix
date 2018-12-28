@@ -86,7 +86,7 @@ if (error ne 0) then return,0
 init_healpix
 bad_value = !healpix.bad_value ;  -1.63750e+30
 
-help,header
+;;;;help,header
 junk = getsize_fits(header,/header,type = fits_type, nside = nside_head, tags=tag_names(stc))
 ; coverage = strtrim(strupcase(sxpar(header,'OBJECT',Count=flag_cov)),2)
 ; nside_head = long(sxpar(header,'NSIDE',Count=flag_nside))

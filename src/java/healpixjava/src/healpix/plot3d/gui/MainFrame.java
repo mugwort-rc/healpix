@@ -100,40 +100,79 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame implements Runnable, AppletStub,
 		AppletContext, ActionListener {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The args. */
 	private String[] args = null;
 
+	/** The instances. */
 	private static int instances = 0;
 
+	/** The name. */
 	private String name;
 
+	/** The barebones. */
 	private boolean barebones = false;
 
+	/** The applet. */
 	private Applet applet;
 
+	/** The label. */
 	private Label label = null;
 
+	/** The applet size. */
 	private Dimension appletSize;
 
+	/** The Constant PARAM_PROP_PREFIX. */
 	private static final String PARAM_PROP_PREFIX = "parameter.";
 
 	// Constructor with everything specified.
+	/**
+	 * Instantiates a new main frame.
+	 * 
+	 * @param applet the applet
+	 * @param args the args
+	 * @param width the width
+	 * @param height the height
+	 */
 	public MainFrame(Applet applet, String[] args, int width, int height) {
 		build(applet, args, width, height);
 	}
 
 	// Constructor with no default width/height.
+	/**
+	 * Instantiates a new main frame.
+	 * 
+	 * @param applet the applet
+	 * @param args the args
+	 */
 	public MainFrame(Applet applet, String[] args) {
 		build(applet, args, -1, -1);
 	}
 
 	// Constructor with no arg parsing.
+	/**
+	 * Instantiates a new main frame.
+	 * 
+	 * @param applet the applet
+	 * @param width the width
+	 * @param height the height
+	 */
 	public MainFrame(Applet applet, int width, int height) {
 		build(applet, null, width, height);
 	}
 
 	// Internal constructor routine.
+	/**
+	 * Builds the.
+	 * 
+	 * @param applet the applet
+	 * @param args the args
+	 * @param width the width
+	 * @param height the height
+	 */
 	private void build(Applet applet, String[] args, int width, int height) {
 		++instances;
 		this.applet = applet;
@@ -206,6 +245,12 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 
 	// Turn command-line arguments into Applet parameters, by way of the
 	// properties list.
+	/**
+	 * Parses the args.
+	 * 
+	 * @param args the args
+	 * @param props the props
+	 */
 	private static void parseArgs(String[] args, Properties props) {
 		for (int i = 0; i < args.length; ++i) {
 			String arg = args[i];
@@ -222,6 +267,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 	// Methods from Runnable.
 
 	// Separate thread to call the applet's init() and start() methods.
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		showStatus(name + " initializing...");
 		applet.init();
@@ -233,10 +281,16 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 	}
 
 	// Methods from AppletStub.
+	/* (non-Javadoc)
+	 * @see java.awt.Window#isActive()
+	 */
 	public boolean isActive() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletStub#getDocumentBase()
+	 */
 	public URL getDocumentBase() {
 		// Returns the current directory.
 		String dir = System.getProperty("user.dir");
@@ -248,6 +302,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletStub#getCodeBase()
+	 */
 	public URL getCodeBase() {
 		// Hack: loop through each item in CLASSPATH, checking if
 		// the appropriately named .class file exists there. But
@@ -270,11 +327,17 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletStub#getParameter(java.lang.String)
+	 */
 	public String getParameter(String name) {
 		// Return a parameter via the munged names in the properties list.
 		return System.getProperty(PARAM_PROP_PREFIX + name.toLowerCase());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletStub#appletResize(int, int)
+	 */
 	public void appletResize(int width, int height) {
 		// Change the frame's size by the same amount that the applet's
 		// size is changing.
@@ -285,12 +348,18 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		appletSize = applet.getSize();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletStub#getAppletContext()
+	 */
 	public AppletContext getAppletContext() {
 		return this;
 	}
 
 	// Methods from AppletContext.
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#getAudioClip(java.net.URL)
+	 */
 	public AudioClip getAudioClip(URL url) {
 		// This is an internal undocumented routine. However, it
 		// also provides needed functionality not otherwise available.
@@ -300,6 +369,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		return new sun.applet.AppletAudioClip(url);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#getImage(java.net.URL)
+	 */
 	public Image getImage(URL url) {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		try {
@@ -310,6 +382,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#getApplet(java.lang.String)
+	 */
 	public Applet getApplet(String name) {
 		// Returns this Applet or nothing.
 		if (name.equals(this.name))
@@ -317,14 +392,23 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#showDocument(java.net.URL)
+	 */
 	public void showDocument(URL url) {
 		// Ignore.
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#showDocument(java.net.URL, java.lang.String)
+	 */
 	public void showDocument(URL url, String target) {
 		// Ignore.
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#showStatus(java.lang.String)
+	 */
 	public void showStatus(String status) {
 		if (label != null)
 			label.setText(status);
@@ -354,6 +438,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getActionCommand().equals("Restart")) {
 			applet.stop();
@@ -385,6 +472,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.applet.AppletContext#getApplets()
+	 */
 	public Enumeration<Applet> getApplets() {
 		// Just yields this applet.
 		Vector<Applet> v = new Vector<Applet>();

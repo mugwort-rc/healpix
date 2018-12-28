@@ -24,13 +24,16 @@ package healpix.core.base;
  * of a number. Java bit manipulation class derived from Healpix fortran90
  * program.
  * 
- * @version $Id: BitManipulation.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: BitManipulation.java 49444 2008-05-07 10:23:02Z ejoliet $
  * @author Benjamin D. Wandelt October 1997, edited by E. Hivon, October 2001 to
  *         be 'F' compatible
  */
 public class BitManipulation {
+	
+	/** The magic1. */
 	public static long magic1 = 89478485; // 101010101010101010101010101 LSB
 
+	/** The magic2. */
 	public static long magic2 = 178956970; // 1010101010101010101010101010 MSB
 
 	/**

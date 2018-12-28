@@ -89,6 +89,7 @@
 ;     query_disc
 ;     2008-03-30: fixed bug appearing when disc centered on either pole
 ;                 use 'work' array instead of expanding output array piece by piece
+;     2009-04-08: actually returns -1 if nlist = 0
 ;-
 
 function phi_range_at_z, z, x0, y0, z0, cosang, a, cosphi0
@@ -232,7 +233,11 @@ for iz = irmin, irmax do begin
     endif
 endfor
 
-listpix = work[0:nlist-1]
+if (nlist gt 0) then begin
+    listpix = work[0:nlist-1]
+endif else begin
+    listpix = -1L
+endelse
 
 return
 end

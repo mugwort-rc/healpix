@@ -32,9 +32,17 @@ import java.io.File;
  * [filename]
  * 
  * @author ejoliet
- * @version $Id: Healpix3DMapViewer.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Healpix3DMapViewer.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class Healpix3DMapViewer {
+	
+	/**
+	 * The main method.
+	 * 
+	 * @param args the arguments
+	 * 
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		String name = "data/test/test_nsl_64.ds";
 		if (args.length < 1) {

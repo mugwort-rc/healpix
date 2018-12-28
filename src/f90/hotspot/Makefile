@@ -33,3 +33,7 @@ default: $(exec)
 
 $(exec): $(obj) $(LIBDIR)/libhealpix.a
 	$(FC) $(FFLAGS) -o $(exec) $(obj) $(LDFLAGS)
+
+# spell out dependencies to allow parallel compilation (make -j)
+HotSpots.o: maxima_tools.o
+

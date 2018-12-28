@@ -32,30 +32,41 @@ import javax.vecmath.Point3d;
  * to indicate a data value for each pixel. DataSphere deals with different map
  * inside a HealpixMap object - e.g. read from fits file-.
  * 
- * @version $Id: HealpixPixelDataSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixPixelDataSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class HealpixPixelDataSphere extends HealSphere {
 
+	/** The Constant BASE_BLUE_FACTOR. */
 	private static final double BASE_BLUE_FACTOR = 0.19f;
 
+	/** The Constant BASE_GREEN_FACTOR. */
 	private static final double BASE_GREEN_FACTOR = 0.29f;
 
+	/** The Constant BASE_RED_FACTOR. */
 	private static final double BASE_RED_FACTOR = 0.36f;
 
+	/** The Constant BASE_BLUE_OFFSET. */
 	private static final double BASE_BLUE_OFFSET = 0.029f;
 
+	/** The Constant BASE_GREEN_OFFSET. */
 	private static final double BASE_GREEN_OFFSET = -0.18f;
 
+	/** The Constant BASE_RED_OFFSET. */
 	private static final double BASE_RED_OFFSET = -0.46f;
 
+	/** The face. */
 	protected int face; // = 0, default initialization.
 
+	/** The imap. */
 	protected int imap;
 
+	/** The q. */
 	int q;
 
+	/** The ch. */
 	protected HealpixMap ch;
 
+	/** The max. */
 	protected double min, max;
 
 	// --------------------------------------------------------------------------
@@ -86,6 +97,9 @@ public class HealpixPixelDataSphere extends HealSphere {
 		this.setGeometry(createGeometry());
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
+	 */
 	protected Geometry createGeometry() {
 		int ppq = 4; // points per quad
 		// QuadArrayExt[] quads2 = new QuadArrayExt[nQuads];

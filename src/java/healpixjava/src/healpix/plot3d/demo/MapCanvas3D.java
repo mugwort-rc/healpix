@@ -63,57 +63,79 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * Gaia
  * 
  * @author ejoliet
- * @version $Id: MapCanvas3D.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: MapCanvas3D.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 
 public class MapCanvas3D extends Canvas3D implements RotateAble {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** If nside of map less than this use it. Otherwise use this. */
 	public static final int MAX_LONE_FACE_NSIDE = 512;
 
+	/** The Constant FIELD_OF_VIEW_RADIANS. */
 	private static final double FIELD_OF_VIEW_RADIANS = 1.2f;
 
+	/** The Constant FRONT_CLIP_DISTANCE. */
 	private static final double FRONT_CLIP_DISTANCE = 0.01f;
 
+	/** The Constant EQUATOR_RADIUS. */
 	private static final double EQUATOR_RADIUS = 1.1f;
 
+	/** The Constant EQUATOR_RES. */
 	private static final int EQUATOR_RES = 40;
 
+	/** The Constant BOUNDINGSPHERE_RADIUS. */
 	private static final double BOUNDINGSPHERE_RADIUS = 100.0f;
 
+	/** The Constant ALPHA_INC_DURATION. */
 	private static final long ALPHA_INC_DURATION = 4000; // Milliseconds ??
 
+	/** The obj trans. */
 	protected TransformGroup objTrans;
 
+	/** The obj scale. */
 	protected TransformGroup objScale;
 
+	/** The scene. */
 	protected BranchGroup scene;
 
+	/** The grid group. */
 	protected BranchGroup axisGroup, equatorGroup, gridGroup; // Optional
 
 	// Items
 
 	// Groups for the modelling of a single face and of the entire sphere.
 	// A single face can be shown at higher res without burdening the machine.
+	/** The all group. */
 	protected BranchGroup loneFaceGroup, allGroup;
 
+	/** The uni. */
 	protected SimpleUniverse uni; // = null by default initialization.
 
+	/** The zoom. */
 	protected MouseZoom zoom;
 
+	/** The rotator. */
 	protected RotationInterpolator rotator;
 
+	/** The equator view. */
 	protected boolean axisView = true, equatorView = true;
 
+	/** The all view. */
 	protected boolean loneFaceView = false, allView = true;
 
+	/** The nside. */
 	protected int nside = 64;
 
+	/** The face no. */
 	protected int faceNo; // = 0 by default initialization.
 
+	/** The map. */
 	protected HealpixMap theMap;
 
+	/** The show grid. */
 	private boolean showGrid = true;
 
 	/**
@@ -467,6 +489,11 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 		this.showGrid = showGrid1;
 	}
 
+	/**
+	 * Sets the appearance.
+	 * 
+	 * @param shape the new appearance
+	 */
 	private void setAppearance(Shape3D shape) {
 		Appearance sphereApp = new Appearance();
 		TransparencyAttributes sphereTrans = new TransparencyAttributes();

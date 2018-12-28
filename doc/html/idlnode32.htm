@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html507"
+<A NAME="tex2html508"
   HREF="idlnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html513"
+<A NAME="tex2html514"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html517"
+<A NAME="tex2html518"
   HREF="idlnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html515"
+<A NAME="tex2html516"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html508"
+<B> Previous:</B> <A NAME="tex2html509"
   HREF="idlnode31.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html514"
+<B>Up:</B> <A NAME="tex2html515"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html518"
+<B> Next:</B> <A NAME="tex2html519"
   HREF="idlnode33.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -113,13 +113,13 @@ structure) containing the <b>HEALPix</b>  map (See note below);
 <BR>
 if Save is set   :    name of an IDL saveset file containing
                the <b>HEALPix</b>  map stored under the variable  <TT>data</TT> <BR><b> (default : none)</b>
-<BR><SPAN ID="txt3494">Note on online data</SPAN>: in order to preserve the integrity of the input data, 
+<BR><SPAN ID="txt3591">Note on online data</SPAN>: in order to preserve the integrity of the input data, 
 		the content of the array or structure <TT>File</TT> is replicated
 before being possibly altered by the map making process. 
 Therefore plotting online data will require more memory than reading the data from disc directly, and is not recommended
 		to visualize data sets of size comparable to that of the
 computer memory.
-<BR><SPAN ID="txt3496">Note on high resolution cut sky data</SPAN>: cut sky data (in which less
+<BR><SPAN ID="txt3593">Note on high resolution cut sky data</SPAN>: cut sky data (in which less
 than 50% of the sky is observed), can be processed with a minimal memory
 foot-print, by not allocating fake full map. In the current release, two
 restrictions apply: the input data set must be read from a FITS file in 'cut4'
@@ -530,6 +530,12 @@ if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>CG-</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5</TD>
 </TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>RETAIN=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>specifies the type of
+backing store to use for direct graphics windows in {0,1,2}.
+<b>default:</b>2. See IDL documentation for details.</TD>
+</TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>ROT=</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>vector with 1, 2 or 3 elements specifing the rotation angles in DEGREES
@@ -551,7 +557,13 @@ rot0 : anti clockwise rotation to apply to the sky around the
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>
 <P>
-/SILENT</TD>
+/SHADED</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--O</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the orthographic sphere is shaded, using a Phong model, to emulate 3D viewing.
+              The sphere is illuminated by isotropic ambiant light plus a single light source.
+                 Can NOT be used with GIF.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/SILENT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the program runs silently</TD>
 </TR>
@@ -580,21 +592,23 @@ Active only in conjunction with /CROP and PNG</TD>
 		if any
 <BR><i>see also:</i>Nobar, Nolabels</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>WINDOW=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>IDL window index (integer)
-<BR>- if WINDOW <SPAN CLASS="MATH">&lt; 0</SPAN>: virtual window: no visible window opened. Can
-                 be used with PNG or GIF, in particular is those files are
-larger than the screen. <BR>- if WINDOW in <SPAN CLASS="MATH">[0,31]</SPAN>: the specified IDL window with index WINDOW is used
-               (or reused). Can be used to have a sequence of images appear
-in the same window <BR>- if WINDOW <SPAN CLASS="MATH">&gt; 31</SPAN>: a free (<SPAN CLASS="MATH">=</SPAN>unused) window with a random index <SPAN CLASS="MATH">&gt; 31</SPAN> will be
-               created and used. <BR><b>default:</b>32</TD>
-</TR>
 </TABLE>
 <TABLE CELLPADDING=3 BORDER="1">
 <TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>WINDOW=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>IDL window index (integer)
+<BR>- if WINDOW <SPAN CLASS="MATH">&lt; 0</SPAN>: virtual window: no visible window opened. Can
+                 be used with PNG or GIF, in particular is those files are
+larger than the screen. <B>Note:</B> The Z buffer will be used instead of the X server,
+allowing much faster production of the image over a slow network
+<BR>- if WINDOW in <SPAN CLASS="MATH">[0,31]</SPAN>: the specified IDL window with index WINDOW is used
+               (or reused). Can be used to have a sequence of images appear
+in the same window <BR>- if WINDOW <SPAN CLASS="MATH">&gt; 31</SPAN>: a free (<SPAN CLASS="MATH">=</SPAN>unused) window with a random index <SPAN CLASS="MATH">&gt; 31</SPAN> will be
+               created and used. <BR><b>default:</b>32</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>XPOS=</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
@@ -700,14 +714,14 @@ page&nbsp;<A HREF="idlnode32.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary
 triangular outline</blockquote>
 
-<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="3881"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="3986"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Figures produced by <A HREF="idlnode10.htm#idl:cartview">cartview</A>,
 <A HREF="idlnode21.htm#idl:gnomview">gnomview</A>, <A HREF="#idl:mollview">mollview</A> and <A HREF="idlnode39.htm#idl:orthview">orthview</A>, see respective
 routine documentation for details.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par13664" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par13786" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_visu_large.png"
@@ -750,12 +764,12 @@ with labeled graticules, a simple sine wave in the
 upper right corner, and some greetings, as shown on Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode32.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
 
-<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="3886"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="3991"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
 Figure produced by example #3.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par13677" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par13799" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
  SRC="./plot_example_execute.png"
@@ -805,12 +819,12 @@ various color scales: linear, Inverse
 Hyperbolic Sine, Histogram Equalized, and Log. See Figure&nbsp;<A HREF="#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode32.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
 
-<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="3892"></A>
+<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="3997"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
 Illustration (generated by example&nbsp;#5) of the various color scales available.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par13691" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par13813" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_wmapKband.png"
@@ -853,32 +867,32 @@ and the title 'Simulated Planck LFI Sky Map at 100GHz' appended to the image.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html507"
+<A NAME="tex2html508"
   HREF="idlnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html513"
+<A NAME="tex2html514"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html517"
+<A NAME="tex2html518"
   HREF="idlnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html515"
+<A NAME="tex2html516"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html508"
+<B> Previous:</B> <A NAME="tex2html509"
   HREF="idlnode31.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html514"
+<B>Up:</B> <A NAME="tex2html515"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html518"
+<B> Next:</B> <A NAME="tex2html519"
   HREF="idlnode33.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-02-19
+2009-07-31
 </ADDRESS>
 </BODY>
 </HTML>

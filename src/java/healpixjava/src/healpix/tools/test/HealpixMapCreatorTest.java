@@ -26,16 +26,26 @@ import healpix.plot3d.gui.view.MapView3d;
 import healpix.tools.HealpixMapCreator;
 import junit.framework.TestCase;
 
+/**
+ * The Class HealpixMapCreatorTest.
+ */
 public class HealpixMapCreatorTest extends TestCase {
 
+	/** The map. */
 	HealpixMap map;
 
+	/**
+	 * View map.
+	 */
 	private void viewMap() {
 		MapView3d mview = new MapView3d();
 		mview.setMap(getMap());
 		mview.setVisible(true);
 	}
 
+	/**
+	 * Test generate map from fits.
+	 */
 	public void testGenerateMapFromFits() {
 		Fits2HealpixMap fmap = new Fits2HealpixMapImp();
 		try {
@@ -48,6 +58,9 @@ public class HealpixMapCreatorTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Test generate map creator.
+	 */
 	public void testGenerateMapCreator() {
 		HealpixMapCreator cr = new HealpixMapCreator(2);
 		assertEquals(" Checks the nSide : ", cr.getMap().nside(), 2);
@@ -68,10 +81,21 @@ public class HealpixMapCreatorTest extends TestCase {
 		assertEquals(" Checks ipix val : ", cr2.getMap().get(0,ipix2test), val2test);
 		
 	}
+	
+	/**
+	 * Gets the map.
+	 * 
+	 * @return the map
+	 */
 	public HealpixMap getMap() {
 		return map;
 	}
 
+	/**
+	 * Sets the map.
+	 * 
+	 * @param m the new map
+	 */
 	protected void setMap(HealpixMap m) {
 		map = m;
 	}

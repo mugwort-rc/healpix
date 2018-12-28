@@ -22,8 +22,16 @@ package healpix.core.test;
 import healpix.core.HealpixIndex;
 import junit.framework.TestCase;
 
+/**
+ * The Class CornersTest.
+ */
 public class CornersTest extends TestCase {
 
+   /**
+    * Test boundaries.
+    * 
+    * @throws Exception the exception
+    */
    public  void testBoundaries() throws Exception{
 
     	HealpixIndex ind = new HealpixIndex(1024);

@@ -28,7 +28,7 @@ import healpix.core.dm.AbstractHealpixMap.Scheme;
  * like comparing maps, combine maps,etc.
  * 
  * @author ejoliet
- * @version $Id: HealpixTool.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixTool.java 36036 2007-10-31 15:26:52Z ejoliet $
  */
 public class HealpixTool {
 	/**

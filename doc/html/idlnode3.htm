@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.1</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.1">
+<TITLE>Changes between release 2.0 and 2.12</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.12">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,32 +28,32 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html159"
+<A NAME="tex2html160"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html165"
+<A NAME="tex2html166"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html169"
+<A NAME="tex2html170"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html167"
+<A NAME="tex2html168"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html160"
+<B> Previous:</B> <A NAME="tex2html161"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html166"
+<B>Up:</B> <A NAME="tex2html167"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html170"
+<B> Next:</B> <A NAME="tex2html171"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 2.0 and 2.1</A>
+Changes between release 2.0 and 2.12</A>
 </H1>
 Several routines have been added or improved since version 2.0, as listed below.
 Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
@@ -72,7 +72,57 @@ pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.1 include
+ Recent editions (versions 2.11 and 2.12)
+   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode24.htm#idl:ianafast"><TT>ianafast</TT></A>, 
+              <A HREF="idlnode25.htm#idl:ismoothing"><TT>ismoothing</TT></A>, 
+              <A HREF="idlnode26.htm#idl:isynfast"><TT>isynfast</TT></A>: the <TT>TMPDIR</TT> keyword now works properly, and <TT>$IDL_TMPDIR</TT> is used as the
+default temporary directory ; more stable behaviour of these routines
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode54.htm#idl:ud_grade"><TT>ud_grade</TT></A>: 
+	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ correctly flags bad output pixels with <TT>bad_data</TT>
+value when upgrading maps
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ cut sky map: improved, faster routine, now works for Nside <SPAN CLASS="MATH">&gt;</SPAN>
+8192
+	</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode32.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+        <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ using a virtual window (ie, setting <TT>WINDOW</TT> to a
+negative value) now allows faster generation of GIF and PNG files (especially useful over remote connexions); 
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <TT>/RETAIN</TT> keyword; 
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ deals correctly with user provided  <TT>MIN</TT> and <TT>MAX</TT> in
+<TT>LOG</TT> and <TT>ASINH</TT> modes
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ polarization norm map can be offset (<TT>POLARIZATION=1</TT> mode)
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ original color table and plot settings are restored when
+leaving these routines
+	</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode32.htm#idl:mollview"><TT>orthview</TT></A>: addition of 
+              <TT>/SHADED</TT>
+	keyword for 3D rendering
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ issues warning when non-integer pixel indexes are fed to <A HREF="idlnode40.htm#idl:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*,</TT></A>   ...
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>ximview</TT>:
+		<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ fixed problem with cut-sky FITS files
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ color scale bar added to PNG output
+		</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ cosmetic editions to <TT>remove_dipole</TT>
+   </DL>
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New routines in version 2.10 include
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>ximview</TT>: visualisation routine developed by J. P. Leahy intended for quick-look inspection of HEALPix images 
 (as well as ordinary 2-D images) at the level of individual pixels. Features
@@ -99,7 +149,7 @@ FITS file
  <A HREF="idlnode33.htm#idl:neighbours_nest"><TT>neighbours_nest</TT></A>, <A HREF="idlnode34.htm#idl:neighbours_ring"><TT>neighbours_ring</TT></A>: find immediate neighbours of a given pixel
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode43.htm#idl:query_strip"><TT>query_strip</TT></A>: find pixels lying within a colatitude strip
-</DL>
+</DL>	
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Routines with extended/improved user interface or new functionalities include
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -155,32 +205,32 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html159"
+<A NAME="tex2html160"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html165"
+<A NAME="tex2html166"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html169"
+<A NAME="tex2html170"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html167"
+<A NAME="tex2html168"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html160"
+<B> Previous:</B> <A NAME="tex2html161"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html166"
+<B>Up:</B> <A NAME="tex2html167"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html170"
+<B> Next:</B> <A NAME="tex2html171"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-02-19
+2009-07-31
 </ADDRESS>
 </BODY>
 </HTML>

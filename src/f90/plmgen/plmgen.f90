@@ -60,7 +60,7 @@ program plmgen
   CHARACTER(LEN=filenamelen)        :: outfile
   CHARACTER(LEN=80), DIMENSION(160) :: header
   CHARACTER(LEN=*), PARAMETER :: code = 'PLMGEN'
-  CHARACTER(LEN=*), PARAMETER :: version = '2.1.1'
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
 
   INTEGER(I4B) :: n_plm
   integer(i8b) :: n_plm_8

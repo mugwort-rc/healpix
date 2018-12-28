@@ -141,7 +141,7 @@ PROGRAM MAP2GIF
    INTEGER(I4B) :: status
 
    CHARACTER(LEN=7), PARAMETER :: code = 'MAP2GIF'
-   CHARACTER(LEN=5), PARAMETER :: version = '1.0.0'
+   character(len=*), parameter :: VERSION = HEALPIX_VERSION
 
    CHARACTER(LEN=filenamelen) :: input_file = ''
    CHARACTER(LEN=filenamelen) :: output_file = ''

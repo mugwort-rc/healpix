@@ -6,12 +6,15 @@
 
 
 \usepackage{healpix,graphicx,html,makeidx}%
-\providecommand{\hpxversion}{2.11c}%
+\providecommand{\hpxversion}{2.12}%
 \providecommand{\idlversion}{6.0 }%
 \providecommand{\healpixwebpage}{http://healpix.jpl.nasa.gov} 
 %
-\renewcommand{\contentsname}{{TABLE OF CONTENTS}}%
-\providecommand{\mycode}[1]{\noindent\parbox[t]{5cm}{{\hskip 1cm {\tt{#1}} }} } 
+\renewcommand{\contentsname}{{TABLE OF CONTENTS}}
+
+%
+\providecommand{\linklatexhtml}[3]{% \linklatexhtml{name}{latex_target}{html_target}
+\htmladdnormallink{#1}{#3}} 
 
 
 \sloppy
@@ -152,7 +155,7 @@
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline711}%
+\lthtmlinlinemathA{tex2html_wrap_inline752}%
 $2^{128}-1 \approx 3.4\ 10^{38}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -161,13 +164,13 @@ $2^{128}-1 \approx 3.4\ 10^{38}$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline713}%
+\lthtmlinlinemathA{tex2html_wrap_inline754}%
 $\langle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline715}%
+\lthtmlinlinemathA{tex2html_wrap_inline756}%
 $\rangle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -177,21 +180,15 @@ $\rangle$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsection}
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2392}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{make}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline721}%
+\lthtmlinlinemathA{tex2html_wrap_inline762}%
 $(\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline725}%
+\lthtmlinlinemathA{tex2html_wrap_inline766}%
 $\Lambda$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -204,50 +201,15 @@ $\Lambda$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline731}%
+\lthtmlinlinemathA{tex2html_wrap_inline772}%
 $\ldots$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2470}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{rm config.cache}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2471}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{setenv FC {\bf ifort}}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2472}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{export FC={\bf ifort}}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2473}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{./configure}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2475}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{make install}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2478}%
-$\textstyle \parbox{5cm}{{\hskip 1cm {\tt{make test}} }}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
+\stepcounter{subsection}
 \stepcounter{subsection}
 \stepcounter{subsection}
 \stepcounter{subsection}
@@ -265,6 +227,12 @@ $\textstyle \parbox{5cm}{{\hskip 1cm {\tt{make test}} }}$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsection}
 \stepcounter{subsubsection}
@@ -272,14 +240,14 @@ $\textstyle \parbox{5cm}{{\hskip 1cm {\tt{make test}} }}$%
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline735}%
+\lthtmlinlinemathA{tex2html_wrap_inline780}%
 $\!$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline741}%
+\lthtmlinlinemathA{tex2html_wrap_inline786}%
 $3.46\ 10^{18}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -288,7 +256,7 @@ $3.46\ 10^{18}$%
 \stepcounter{section}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline749}%
+\lthtmlinlinemathA{tex2html_wrap_inline794}%
 $N_{\rm side} \le 8192$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}

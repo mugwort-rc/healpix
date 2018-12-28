@@ -67,7 +67,7 @@ import javax.swing.UIManager;
  * (columns/names). See HealpixMap data model interface.
  * 
  * @author ejoliet
- * @version $Id: MapView3d.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: MapView3d.java 56224 2008-07-30 07:30:00Z ejoliet $
  */
 public class MapView3d extends JFrame implements ActionListener, MapTaker {
 
@@ -91,7 +91,8 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 	 */
 	private static final int FRAME_HEIGHT = 800;
 
-	SimplePanel hpan;
+	/** The hpan. */
+	public SimplePanel hpan;
 
 	/**
 	 * Flag indicating if the application has been launched as an applet.
@@ -103,24 +104,34 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 	 */
 	private boolean isDone = false;
 
+	/** The sky. */
 	private MapCanvas theSky;
 
+	/** The info1. */
 	public JLabel info1;
 
+	/** The rot panel. */
 	protected RotatePanel rotPanel;
 
+	/** The box dlg. */
 	protected ExtractBoxDialog boxDlg;
 
+	/** The displayer. */
 	protected ExtBoxDisplayer displayer;
 
+	/** The jf. */
 	JFrame jf;
 
+	/** The map. */
 	protected HealpixMap theMap;
 
+	/** The fits file filter. */
 	protected javax.swing.filechooser.FileFilter fitsFileFilter;
 
+	/** The fch. */
 	private JFileChooser fch;
 
+	/** The color bar. */
 	private ColorBar colorBar;
 
 	/**
@@ -128,9 +139,24 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 	 */
 	public MapView3d(boolean isApplet) {
 		super(FRAME_TITLE);
+		createCanvas();
 		this.isApplet = isApplet;
 		setupFrame();
 		start();
+	}
+
+	/**
+	 * 
+	 */
+	private void createCanvas() {
+		theSky = new MapCanvas();
+	}
+
+	/**
+	 * 
+	 */
+	private void createCanvas(boolean tooltip, float transp) {
+		theSky = new MapCanvas(tooltip, transp);
 	}
 
 	/**
@@ -138,6 +164,22 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 	 */
 	public MapView3d() {
 		this(true);
+	}
+
+	/**
+	 * Set up the frame to interact with 3d sphere.
+	 */
+	public MapView3d(boolean isApplet, boolean toolTipBehaviour,
+			float transpValue) {
+		super(FRAME_TITLE);
+		createCanvas(toolTipBehaviour, transpValue);
+		this.isApplet = isApplet;
+		setupFrame();
+		start();
+	}
+
+	public MapView3d(boolean toolTipBehaviour, float transpValue) {
+		this(true, toolTipBehaviour, transpValue);
 	}
 
 	/**
@@ -150,37 +192,66 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 
 	/** set the map dat */
 	public void setMap(HealpixMap map) {
+		setMap(map, 0);
+	}
+
+	/**
+	 * set the map dat with ith imap map
+	 * 
+	 * @param map
+	 * @param imap
+	 */
+	public void setMap(HealpixMap map, int imap) {
 		theMap = map;
-		colorBar.update(new SineColorTransform(theMap.getMin(0), theMap
-				.getMax(0)));
-		if (this.isShowing()) {
-			theSky.setMap(theMap);
+		colorBar.update(new SineColorTransform(theMap.getMin(imap), theMap
+				.getMax(imap)));
+		if ( this.isShowing() ) {
+			theSky.setMap(theMap, imap);
 			theSky.setColorBar(colorBar);
 			theSky.setToolTip(false);
 			setNameFromMap();
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see healpix.plot3d.gui.MapTaker#getMap()
+	 */
 	public HealpixMap getMap() {
 		return theMap;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.Component#setVisible(boolean)
+	 */
 	public void setVisible(boolean b) {
-		if (b && theMap != null) {
+		if ( b && theMap != null ) {
 			theSky.setMap(theMap);
-			if (getMap().getName() != null) {
+			if ( getMap().getName() != null ) {
 				setNameFromMap();
 			}
 		}
 		super.setVisible(b);
 	}
 
+	/**
+	 * Sets the name from map.
+	 */
 	private void setNameFromMap() {
 		JComboBox jc = new JComboBox(getMap().getName());
 		DefaultComboBoxModel aModel = (DefaultComboBoxModel) jc.getModel();
 		hpan.colname.setModel(aModel);
 	}
 
+	/**
+	 * Sets the menubar.
+	 * 
+	 * @param mb
+	 *            the new menubar
+	 */
 	protected void setMenubar(JMenuBar mb) {
 		setJMenuBar(mb);
 	}
@@ -203,7 +274,6 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		displayer = new BoxDisplay();
 		// Plotting area - create our own sky class
 		// theSky = new GaiaMapCanvas3D(null);
-		theSky = new MapCanvas();
 		JPanel jpCanvas = new JPanel();
 		jpCanvas.setLayout(new BorderLayout());
 		jpCanvas.setOpaque(true);
@@ -254,8 +324,7 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		cons.ipadx = 0;
 		cons.ipady = 10;
 
-		hpan = new SimplePanel();
-		hpan.setCanvas(theSky);
+		hpan = new SimplePanel(theSky);
 		gridbag.setConstraints(hpan, cons);
 		rp.add(hpan);
 		// Create control panel for rotations
@@ -278,6 +347,11 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 
 	};
 
+	/**
+	 * Gets the menubar.
+	 * 
+	 * @return the menubar
+	 */
 	private JMenuBar getMenubar() {
 		JMenuBar mb = new JMenuBar();
 		JMenu menu = new JMenu("File");
@@ -287,16 +361,19 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		it.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					if (fch.getSelectedFile() != null) {
-						try{
+				if ( fch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ) {
+					if ( fch.getSelectedFile() != null ) {
+						try {
 							HealpixMapCreator cr = new HealpixMapCreator(fch
-								.getSelectedFile().getAbsolutePath());
-						setMap(cr.getMap());
-						info1.setText(fch.getSelectedFile().getAbsolutePath()
-								+ " [Nside=" + getMap().nside() + "]");
-						}catch (Exception ex){
-							JOptionPane.showMessageDialog(getContentPane(), "Format couldn't be read, not implemented!");
+									.getSelectedFile().getAbsolutePath());
+							setMap(cr.getMap());
+							info1.setText(fch.getSelectedFile()
+									.getAbsolutePath()
+									+ " [Nside=" + getMap().nside() + "]");
+						} catch ( Exception ex ) {
+							JOptionPane
+									.showMessageDialog(getContentPane(),
+											"Format couldn't be read, not implemented!");
 						}
 					}
 				}
@@ -309,15 +386,15 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		it.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (fch.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-					if (fch.getSelectedFile() != null) {
+				if ( fch.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ) {
+					if ( fch.getSelectedFile() != null ) {
 						// info1.setText(fch.getSelectedFile().getAbsolutePath());
 						info1.setText(fch.getSelectedFile().getAbsolutePath()
 								+ " [Nside=" + getMap().nside() + "]");
 						try {
 							getMap().toDataSet(
 									fch.getSelectedFile().getAbsolutePath());
-						} catch (Exception e1) {
+						} catch ( Exception e1 ) {
 							e1.printStackTrace();
 							JOptionPane.showMessageDialog(getContentPane(), e1
 									.getMessage());
@@ -337,11 +414,11 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String label = e.getActionCommand();
-		if (label.equals("Close")) {
+		if ( label.equals("Close") ) {
 			setVisible(false);
 			return;
-		} else if (label.equals("Mollweide Proj.")) {
-			if (boxDlg == null) {
+		} else if ( label.equals("Mollweide Proj.") ) {
+			if ( boxDlg == null ) {
 				boxDlg = new ExtractBoxDialog(displayer);
 			}
 			boxDlg.setMap(getMap());
@@ -351,6 +428,21 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		}
 	}
 
+	/**
+	 * Gets the the sky.
+	 * 
+	 * @return the the sky
+	 */
+	public MapCanvas getTheSky() {
+		return this.theSky;
+	}
+
+	/**
+	 * Sets the path.
+	 * 
+	 * @param name
+	 *            the new path
+	 */
 	public void setPath(String name) {
 		fch.setCurrentDirectory(new File(name));
 	}
@@ -363,7 +455,7 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		// Set cross-platform Java L&F (also called "Metal")
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-		} catch (Exception e) {
+		} catch ( Exception e ) {
 			new Exception("Failed to set Metal Look and Feel" + e);
 		}
 
@@ -379,18 +471,17 @@ public class MapView3d extends JFrame implements ActionListener, MapTaker {
 		int frameWidth = Math.min(FRAME_WIDTH, width - 100);
 		int frameHeight = Math.min(FRAME_HEIGHT, height - 100);
 		setSize(new Dimension(frameWidth, frameHeight));
-		setLocation((width - frameWidth) / 2, ((height - frameHeight) / 2));
+		setLocation(( width - frameWidth ) / 2, ( ( height - frameHeight ) / 2 ));
 	}
 
 	/**
 	 * Method to exit the application, set the isDone flag to true.
-	 * 
 	 */
 	private void exitApplication() {
 
 		setVisible(false);
 		isDone = true;
-		if (!isApplet) {
+		if ( !isApplet ) {
 			System.exit(0);
 		}
 	}

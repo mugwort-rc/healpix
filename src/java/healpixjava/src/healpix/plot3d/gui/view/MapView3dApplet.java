@@ -30,7 +30,7 @@ import javax.swing.JTextArea;
  * instantiates the MapView3d Frame, this however doesn't work as any VM prior to 1.5
  * will complain about the class version being 49.0
  * 
- * @version $Id: MapView3dApplet.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: MapView3dApplet.java 49444 2008-05-07 10:23:02Z ejoliet $
  * @author mtlinden
  */
 public class MapView3dApplet extends JApplet {
@@ -44,6 +44,7 @@ public class MapView3dApplet extends JApplet {
 	 */
 	private final JTextArea textArea = new JTextArea();
 
+	/** The frame. */
 	private MapView3d frame;
 
 	/**
@@ -81,10 +82,20 @@ public class MapView3dApplet extends JApplet {
 		new Thread(frameThread).start();
 	}
 
+	/**
+	 * Sets the frame.
+	 * 
+	 * @param frame the new frame
+	 */
 	protected void setFrame(MapView3d frame) {
 		this.frame = frame;
 	}
 
+	/**
+	 * Gets the frame.
+	 * 
+	 * @return the frame
+	 */
 	public MapView3d getFrame() {
 		return this.frame;
 	}

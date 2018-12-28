@@ -135,7 +135,8 @@ if nside_out gt nside_in then begin ; upgrade resolution (more, smaller pixels)
 
     map_out = reform(replicate(ratio,rat2)#map_in[*],npix_out,nmaps)
 
-    bad = where(map_out eq !values.f_nan, nbad)
+;;    bad = where(map_out eq !values.f_nan, nbad)
+    bad = where( finite(map_out, /nan), nbad)  ; corrected 2009-05-07
     if nbad gt 0 then map_out[bad] = bad_data
 endif else begin ; degrade resolution (fewer, larger pixels)
     rat2 = npix_in/npix_out
@@ -236,6 +237,8 @@ pro ud_grade, map_in, map_out, nside_out=nside_out, order_in=order_in, order_out
 ;    2000-01-08, Eric Hivon, Caltech
 ;    2000-11   : deal with cut sky format files, added pessimistic
 ;    2006-11-20: check for validity of order_in and order_out
+;    2009-05-07: correctly flags bad output pixels with bad_data value when
+;               upgrading maps
 ;-
 
 routine = 'UD_GRADE'

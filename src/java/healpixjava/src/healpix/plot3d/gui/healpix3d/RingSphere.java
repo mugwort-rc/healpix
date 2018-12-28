@@ -33,10 +33,11 @@ import javax.media.j3d.LineArray;
  * Creates a Ring Healpix tesselasition
  * 
  * @author ejoliet
- * @version $Id: RingSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: RingSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class RingSphere extends HealSphere {
 
+	/** The ring. */
 	protected int ring = 6;
 
 	/**
@@ -48,6 +49,12 @@ public class RingSphere extends HealSphere {
 		this.setAppearance(createAppearance());
 	}
 
+	/**
+	 * Instantiates a new ring sphere.
+	 * 
+	 * @param nside the nside
+	 * @param ring the ring
+	 */
 	public RingSphere(int nside, int ring) {
 		super(nside);
 		this.ring = ring;
@@ -55,6 +62,9 @@ public class RingSphere extends HealSphere {
 		this.setAppearance(createAppearance());
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
+	 */
 	protected Geometry createGeometry() {
 		double nms[], theta_center, phi_center;
 		// double thn, ths;
@@ -105,6 +115,9 @@ public class RingSphere extends HealSphere {
 		return quads;
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createAppearance()
+	 */
 	protected Appearance createAppearance() {
 		Appearance app;
 		app = new Appearance();

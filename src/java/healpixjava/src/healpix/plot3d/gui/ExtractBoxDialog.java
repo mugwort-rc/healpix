@@ -34,19 +34,26 @@ import java.awt.event.ActionListener;
  * Extract map dialog.
  * 
  * @author ejoliet
- * @version $Id: ExtractBoxDialog.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ExtractBoxDialog.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ExtractBoxDialog extends Frame implements ActionListener {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The map. */
 	protected HealpixMap map;
 
+	/** The lat. */
 	protected TextField lat;
 
+	/** The lon. */
 	protected TextField lon;
 
+	/** The width. */
 	protected TextField width;
 
+	/** The displayer. */
 	protected ExtBoxDisplayer displayer;
 
 	/**
@@ -88,6 +95,9 @@ public class ExtractBoxDialog extends Frame implements ActionListener {
 		add("South", p);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd == "Close") {
@@ -120,6 +130,11 @@ public class ExtractBoxDialog extends Frame implements ActionListener {
 
 	}
 
+	/**
+	 * Sets the map.
+	 * 
+	 * @param m the new map
+	 */
 	public void setMap(HealpixMap m) {
 		this.map = m;
 	}

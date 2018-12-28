@@ -43,40 +43,102 @@ import com.sun.j3d.utils.behaviors.mouse.MouseZoom;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 
+/**
+ * The Class HealCanvas.
+ */
 public class HealCanvas extends Canvas3D implements RotateAble {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+    
+    /** The obj trans. */
     protected TransformGroup objTrans;
+    
+    /** The obj scale. */
     protected TransformGroup objScale;
+    
+    /** The scene. */
     protected BranchGroup	scene;
+    
+    /** The axis group. */
     protected BranchGroup	axisGroup;
+    
+    /** The equator group. */
     protected BranchGroup	equatorGroup;
+    
+    /** The zone group. */
     protected BranchGroup	zoneGroup;
+    
+    /** The ring group. */
     protected BranchGroup	ringGroup;
+    
+    /** The rings group. */
     protected BranchGroup	ringsGroup;
+    
+    /** The solid face group. */
     protected BranchGroup	solidFaceGroup;
+    
+    /** The nest group. */
     protected BranchGroup	nestGroup;
+    
+    /** The face group. */
     protected BranchGroup	faceGroup;
+    
+    /** The uni. */
     protected SimpleUniverse uni=null;
+    
+    /** The zoom. */
     protected MouseZoom zoom;
+    
+    /** The rotator. */
     protected RotationInterpolator rotator;
+    
+    /** The zone view. */
     protected boolean zoneView=true;
+    
+    /** The nest view. */
     protected boolean nestView=true;
+    
+    /** The face view. */
     protected boolean faceView=false;
+    
+    /** The rings view. */
     protected boolean ringsView=false;
+    
+    /** The ring view. */
     protected boolean ringView=true;
+    
+    /** The axis view. */
     protected boolean axisView=true;
+    
+    /** The solid face view. */
     protected boolean solidFaceView = false;
+    
+    /** The nside. */
     protected int nside = 8;
+    
+    /** The zone no. */
     protected int zoneNo = 3;
+    
+    /** The face no. */
     protected int faceNo = 0;
+    
+    /** The ring no. */
     protected int ringNo = 5;
     
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.RotateAble#getRotationInterpolator()
+	 */
 	public RotationInterpolator getRotationInterpolator (){
 		return rotator;
 	}
 	
+    /**
+     * Creates the scene graph.
+     * 
+     * @return the branch group
+     */
     public BranchGroup createSceneGraph() {
 
 	// Create the root of the branch graph
@@ -185,6 +247,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 	return objRoot;
     }
 
+	/**
+	 * Make grids.
+	 * 
+	 * @param nside the nside
+	 */
 	protected void makeGrids(int nside) {
 		if (zoneView) setZone(zoneNo); else zoneGroup=null;
 		if (nestView) setFace(faceNo); else nestGroup=null;
@@ -194,10 +261,16 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (solidFaceView) setSolidFace(); else solidFaceGroup=null;
 	}
 
+    /**
+     * Instantiates a new heal canvas.
+     */
     public HealCanvas() {
 		super(SimpleUniverse.getPreferredConfiguration());
     }
 
+	/**
+	 * Setup scene.
+	 */
 	public void setupScene() {
 	    if (scene != null) {
 			scene.detach();
@@ -207,6 +280,9 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (uni == null) uni = new SimpleUniverse(this);
 	}
 
+	/**
+	 * Show scene.
+	 */
 	public void showScene() {
         scene.compile();
 		uni.addBranchGraph(scene);
@@ -217,11 +293,21 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		uni.getViewer().getView().setFrontClipDistance(0.01);
 	}
 
+	/**
+	 * Sets the nside.
+	 * 
+	 * @param nside the new nside
+	 */
 	public void setNside(int nside) {
 			this.nside = nside;
 			makeGrids(nside);
 	}
 
+	/**
+	 * Sets the view axis.
+	 * 
+	 * @param b the new view axis
+	 */
 	public void setViewAxis(boolean b) {
 		if (b) {
 			if (!axisView) objTrans.addChild(axisGroup);
@@ -230,6 +316,12 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		}
 		axisView=b;
 	}
+	
+	/**
+	 * Sets the view zone.
+	 * 
+	 * @param b the new view zone
+	 */
 	public void setViewZone(boolean b) {
 		if (b) {
 			if (zoneGroup==null) setZone(zoneNo);	
@@ -240,6 +332,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		zoneView=b;
 	}
 
+	/**
+	 * Sets the view rings.
+	 * 
+	 * @param b the new view rings
+	 */
 	public void setViewRings(boolean b) {
 		if (b) {
 			if (ringsGroup==null) setRings();	
@@ -250,6 +347,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		ringsView=b;
 	}
     
+        /**
+         * Sets the view solid face.
+         * 
+         * @param b the new view solid face
+         */
         public void setViewSolidFace(boolean b) {
 		if (b) {
 			if (solidFaceGroup==null) setSolidFace();	
@@ -260,6 +362,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		solidFaceView=b;
 	}
 
+	/**
+	 * Sets the view faces.
+	 * 
+	 * @param b the new view faces
+	 */
 	public void setViewFaces(boolean b) {
 		if (b) {
 			if (faceGroup==null) setFaces();	
@@ -270,6 +377,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		faceView=b;
 	}
 
+	/**
+	 * Sets the view nest.
+	 * 
+	 * @param b the new view nest
+	 */
 	public void setViewNest(boolean b) {
 		if (b) {
 			if (nestGroup==null) setFace(faceNo);	
@@ -280,6 +392,12 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		nestView=b;
 		
 	}
+	
+	/**
+	 * Sets the view ring.
+	 * 
+	 * @param b the new view ring
+	 */
 	public void setViewRing(boolean b) {
 		if (b) {
 			if (ringGroup==null) setRing(ringNo);	
@@ -290,6 +408,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		ringView=b;
 	}
 
+	/**
+	 * Sets the zone.
+	 * 
+	 * @param z the new zone
+	 */
 	public void setZone(int z) {
 		zoneNo = z;
 		if (zoneView && zoneGroup!=null) zoneGroup.detach();
@@ -301,6 +424,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (!zoneView) zoneGroup.detach();
 	}
 
+	/**
+	 * Sets the face.
+	 * 
+	 * @param f the new face
+	 */
 	public void setFace(int f) {
 		faceNo = f;
 		if (nestView && nestGroup!=null) nestGroup.detach();
@@ -312,6 +440,11 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (!nestView) nestGroup.detach();
 	}
 
+	/**
+	 * Sets the ring.
+	 * 
+	 * @param r the new ring
+	 */
 	public void setRing(int r) {
 		ringNo = r;
 		if (ringView && ringGroup!=null) ringGroup.detach();
@@ -323,6 +456,9 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (!ringView) ringGroup.detach();
 	}
  
+	/**
+	 * Sets the faces.
+	 */
 	public void setFaces() {
 		if (faceView&& faceGroup!=null) faceGroup.detach();
 		faceGroup = new BranchGroup();        // Show one zone
@@ -341,6 +477,9 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 		if (!faceView) faceGroup.detach();
 	}
 
+	/**
+	 * Sets the rings.
+	 */
 	public void setRings() {
 	    if (ringsView&& ringsGroup!=null) ringsGroup.detach();
 	    ringsGroup = new BranchGroup();        // Show one zone
@@ -358,6 +497,9 @@ public class HealCanvas extends Canvas3D implements RotateAble {
 	}
 
 
+    /**
+     * Sets the solid face.
+     */
     public void setSolidFace() {
 
 	if (solidFaceView && solidFaceGroup !=null) solidFaceGroup.detach();

@@ -31,26 +31,34 @@ import java.util.ArrayList;
  * Krzysztof M. Gorski. Healpix.core.Healpixmap does this for a fixed nside This
  * code written by William O'Mullane
  * 
- * @version $Id: Healpix.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Healpix.java 54692 2008-07-09 08:57:08Z womullan $
  * @author womullan
  * 
  */
 public final class Healpix {
 
+	/** The Constant ns_max. */
 	public static final int ns_max = 8192;
 
+	/** The Constant x2pix. */
 	private static final int x2pix[] = new int[128];
 
+	/** The Constant y2pix. */
 	private static final int y2pix[] = new int[128];
 
+	/** The Constant pix2x. */
 	private static final int pix2x[] = new int[1024];
 
+	/** The Constant pix2y. */
 	private static final int pix2y[] = new int[1024];
 
+	/** The ix. */
 	private static int ix;
 
+	/** The iy. */
 	private static int iy;
 
+	/** The face_num. */
 	private static int face_num;
 
 	/**
@@ -117,10 +125,9 @@ public final class Healpix {
 	 * @param nside
 	 *            resolution parameter
 	 * @param theta
-	 *            theta angle
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            phi angle
-	 * @return pixel index nested
+	 *            angle (along parallel), in [0,2*Pi]	 * @return pixel index nested
 	 * @throws Exception
 	 */
 	public static final int ang2pix_nest(int nside, double theta, double phi)
@@ -422,9 +429,9 @@ public final class Healpix {
 	 * @param nside
 	 *            resolution parameter
 	 * @param theta
-	 *            theta angle
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            phi angle
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return pixel index in ring scheme
 	 * @throws Exception
 	 */

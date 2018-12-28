@@ -41,17 +41,34 @@ import javax.swing.JPanel;
 import javax.vecmath.AxisAngle4f;
 
 
+/**
+ * The Class RotatePanel.
+ */
 public class RotatePanel extends JPanel implements ItemListener, ActionListener {
   /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+/** The scene. */
 protected RotateAble  scene; 
+  
+  /** The rot but. */
   protected JButton rotBut;
+  
+  /** The alpha. */
   protected Alpha alpha;
+  
+  /** The choice. */
   protected JComboBox choice;
+  
+  /** The x. */
   JCheckBox x;
+
+/** The y. */
 JCheckBox y;
+
+/** The z. */
 protected JCheckBox z;
   
   /** initialiser */ 
@@ -157,6 +174,10 @@ protected JCheckBox z;
 	protected void setSpeed(int factor) {
 		alpha = new Alpha(-1,factor*1000);	
 	}
+  
+  /**
+   * Instantiates a new rotate panel.
+   */
   public RotatePanel () {
 	init();
   }
@@ -173,10 +194,17 @@ protected JCheckBox z;
          }
 	}
 
+	/**
+	 * Start.
+	 */
 	public void start() {
 		rotBut.setText("Stop");
 		scene.getRotationInterpolator().setAlpha(alpha);
 	}
+	
+	/**
+	 * Stop.
+	 */
 	public void stop() {
 		rotBut.setText("Rotate");
 		scene.getRotationInterpolator().setAlpha(null);

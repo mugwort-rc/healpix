@@ -56,6 +56,7 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ; Sep 2007: added /silent
 ; April 2008: added pixel_list
 ; July 2008: added asinh
+; May 2009: can deal with maps without any valid pixel
 ;==============================================================================================
 ;-
 
@@ -148,7 +149,12 @@ if (small_file) then begin
     mindata = MIN(data[*,0],MAX=maxdata)
     IF( mindata LE (bad_data*.9) or (1-finite(total(data[*,0])))) THEN BEGIN
         Obs    = WHERE( data GT (bad_data*.9) AND finite(data[*,0]), N_Obs )
-        mindata = MIN(data[Obs,0],MAX=maxdata)
+        if (N_obs gt 0) then mindata = MIN(data[Obs,0],MAX=maxdata)
+;         if (N_Obs eq 0) then begin
+;             mindata = -1.0 & maxdata = 1.0
+;         endif else begin
+;             mindata = MIN(data[Obs,0],MAX=maxdata)
+;         endelse
     ENDIF ELSE begin 
         if defined(Obs) then begin
             Obs = -1.
@@ -280,11 +286,12 @@ endif else begin
     mindata = MIN(planmap,MAX=maxdata)
     if (mindata LE (bad_data*.9) or (1-finite(total(planmap)))) then begin
         Obs    = WHERE(planmap GT (bad_data*.9) AND finite(planmap), N_Obs )
-        if (N_Obs eq 0) then begin
-            mindata = -1. & maxdata = 1.
-        endif else begin
-            mindata = MIN(planmap[Obs],MAX=maxdata)
-        endelse
+;         if (N_Obs eq 0) then begin
+;             mindata = -1. & maxdata = 1.
+;         endif else begin
+;             mindata = MIN(planmap[Obs],MAX=maxdata)
+;         endelse
+        if (N_Obs gt 0) then mindata = MIN(planmap[Obs],MAX=maxdata)
     endif else begin
         if defined(Obs) then begin
             Obs = 0

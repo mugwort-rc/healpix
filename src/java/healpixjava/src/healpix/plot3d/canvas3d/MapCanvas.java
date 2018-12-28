@@ -53,76 +53,107 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * Create Canvas 3D with tooltip behaviour and Color bar min/max displayed.
  * Tooltip behaviour added to actually get info from a data sphere face.
  * Transparency feature is present to give more interaction to the scene.
- * 
  * Extends the code originally from G. Giardino. That itself claims to be a
  * "Rehash" of Hipparcos Sky3d. Added features like tooltip and transparency
  * function.
  * 
  * @author ejoliet
- * @version $Id: MapCanvas.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: MapCanvas.java 56226 2008-07-30 07:32:24Z ejoliet $
  */
 public class MapCanvas extends Canvas3D implements RotateAble {
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The tool tip behavior. */
 	ToolTipBehavior toolTipBehavior;
 
+	/** The obj trans. */
 	protected TransformGroup objTrans;
 
+	/** The obj scale. */
 	protected TransformGroup objScale;
 
+	/** The bounds. */
 	BoundingSphere bounds;
 
+	/** The scene. */
 	protected BranchGroup scene;
 
+	/** The colorbargroup. */
 	protected BranchGroup colorbargroup;
 
+	/** The axis group. */
 	protected BranchGroup axisGroup; // axis
 
+	/** The equator group. */
 	protected BranchGroup equatorGroup; // equator
 
+	/** The grid group. */
 	protected BranchGroup gridGroup; // equator
 
+	/** The all group. */
 	protected BranchGroup allGroup; // all healpix sphere
 
+	/** The nest group. */
 	protected BranchGroup nestGroup; // a face of the healpix sphere - bad
 
 	// name
+	/** The uni. */
 	protected SimpleUniverse uni = null;
 
+	/** The zoom. */
 	protected MouseZoom zoom;
 
+	/** The rotator. */
 	protected RotationInterpolator rotator;
 
+	/** The nest view. */
 	protected boolean nestView = false;
 
+	/** The axis view. */
 	protected boolean axisView = true;
 
+	/** The equator view. */
 	protected boolean equatorView = true;
 
+	/** The all view. */
 	protected boolean allView = true;
 
+	/** The nside. */
 	protected int nside = 64;
 
+	/** The zone no. */
 	protected int zoneNo = 3;
 
+	/** The face no. */
 	protected int faceNo = 0;
 
+	/** The map. */
 	public HealpixMap theMap;
 
+	/** The imap. */
 	private int imap = 0; // default map
 
+	/** The colname sel. */
 	private String colnameSel;
 
+	/** The colorbar. */
 	private ColorBar colorbar;
 
+	/** The show tooltip. */
 	private boolean showTooltip = false;
 
+	/** The show grid. */
 	private boolean showGrid = true;
 
-	private float transparencyValue = 0.6f;
+	/** The transparency value. */
+	private float transparencyValue = 0.2f;
 
+	/** The face. */
 	private HealSphere[] face;
 
+	/** The sphere app. */
 	private Appearance sphereApp;
 
 	/**
@@ -131,6 +162,16 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	public MapCanvas() {
 		super(SimpleUniverse.getPreferredConfiguration());
 		// Apperance for Stars
+	}
+
+	/**
+	 * @param tooltip
+	 * @param transp
+	 */
+	public MapCanvas(boolean tooltip, float transp) {
+		super(SimpleUniverse.getPreferredConfiguration());
+		this.showTooltip = tooltip;
+		this.transparencyValue = transp;
 	}
 
 	/*
@@ -142,6 +183,11 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		return rotator;
 	}
 
+	/**
+	 * Creates the scene graph.
+	 * 
+	 * @return the branch group
+	 */
 	@SuppressWarnings("deprecation")
 	public BranchGroup createSceneGraph() {
 		// Create the root of the branch graph
@@ -248,7 +294,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 
 		Transform3D axis = new Transform3D();
 		axis.set(new AxisAngle4f(1, 0, 0, 0));
-        rotator.setTransformAxis(axis);
+		rotator.setTransformAxis(axis);
 
 		return objRoot;
 	}
@@ -262,13 +308,13 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	protected void makeMap(int nside) {
 		this.nside = nside;
 
-		if (nestView) {
+		if ( nestView ) {
 			setFace(faceNo);
 		} else {
 			nestGroup = null;
 		}
 
-		if (allView) {
+		if ( allView ) {
 			setAll();
 		} else {
 			allGroup = null;
@@ -279,7 +325,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 * Set the scene if not before
 	 */
 	public void setupScene() {
-		if (scene != null) {
+		if ( scene != null ) {
 			scene.detach();
 			scene = null;
 		}
@@ -290,7 +336,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		toolTipBehavior.setCanShowToolTips(false);
 		addColorBar();
 
-		if (uni == null) {
+		if ( uni == null ) {
 			uni = new SimpleUniverse(this);
 		}
 	}
@@ -299,7 +345,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 * Add the color bar to the viewer
 	 */
 	private void addColorBar() {
-		if (scene != null) {
+		if ( scene != null ) {
 			colorbargroup = new BranchGroup();
 
 			scene.addChild(colorbargroup);
@@ -340,6 +386,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		this.imap = ithmap;
 		makeMap(theMap.nside());
 	}
+
 	/**
 	 * Set the displayed {@link HealpixMap}
 	 * 
@@ -347,8 +394,9 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            {@link HealpixMap}
 	 */
 	public void setMap(HealpixMap map) {
-		setMap(map,0);
+		setMap(map, 0);
 	}
+
 	/**
 	 * Set the color bar to be displayed
 	 * 
@@ -375,12 +423,12 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            axis is displayed if true
 	 */
 	public void setViewAxis(boolean b) {
-		if (b) {
-			if (!axisView) {
+		if ( b ) {
+			if ( !axisView ) {
 				objTrans.addChild(axisGroup);
 			}
 		} else {
-			if (axisView) {
+			if ( axisView ) {
 				axisGroup.detach();
 			}
 		}
@@ -395,12 +443,12 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            whether visible.
 	 */
 	public void setViewGrid(boolean b) {
-		if (b) {
-			if (!showGrid) {
+		if ( b ) {
+			if ( !showGrid ) {
 				objTrans.addChild(gridGroup);
 			}
 		} else {
-			if (showGrid) {
+			if ( showGrid ) {
 				gridGroup.detach();
 			}
 		}
@@ -415,12 +463,12 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            equator is shown if true
 	 */
 	public void setViewEquator(boolean b) {
-		if (b) {
-			if (!equatorView) {
+		if ( b ) {
+			if ( !equatorView ) {
 				objTrans.addChild(equatorGroup);
 			}
 		} else {
-			if (equatorView) {
+			if ( equatorView ) {
 				equatorGroup.detach();
 			}
 		}
@@ -435,16 +483,16 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            scene is shown if true
 	 */
 	public void setViewAll(boolean b) {
-		if (b) {
-			if (allGroup == null) {
+		if ( b ) {
+			if ( allGroup == null ) {
 				setAll();
 			}
 
-			if (!allView) {
+			if ( !allView ) {
 				objTrans.addChild(allGroup);
 			}
 		} else {
-			if ((allGroup != null) && allView) {
+			if ( ( allGroup != null ) && allView ) {
 				allGroup.detach();
 			}
 		}
@@ -459,17 +507,17 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 *            face displayed only if true
 	 */
 	public void setViewNest(boolean b) {
-		if (b) {
-			if (nestGroup == null) {
+		if ( b ) {
+			if ( nestGroup == null ) {
 				setFace(faceNo);
 			}
 
-			if (!nestView) {
+			if ( !nestView ) {
 				setFace(faceNo);
 				objTrans.addChild(nestGroup);
 			}
 		} else {
-			if (nestView && (nestGroup != null)) {
+			if ( nestView && ( nestGroup != null ) ) {
 				nestGroup.detach();
 			}
 		}
@@ -486,7 +534,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	public void setFace(int f) {
 		faceNo = f;
 
-		if (nestView && (nestGroup != null)) {
+		if ( nestView && ( nestGroup != null ) ) {
 			nestGroup.detach();
 		}
 
@@ -496,27 +544,27 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		try {
 			// rch = (Fchannel) ch.regrade(nside);
 			theMap = theMap.regrade(nside);
-		} catch (Exception e) {
+		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
 
-//		double max = Double.MIN_VALUE;
-//		double min = Double.MAX_VALUE;
-//		int start = faceNo * nside * nside;
-//		int end = start + (nside * nside);
+		// double max = Double.MIN_VALUE;
+		// double min = Double.MAX_VALUE;
+		// int start = faceNo * nside * nside;
+		// int end = start + (nside * nside);
 
-//		for (int i = start; i < end; i++) {
-//			// double val = rch.getPixel(i);
-//			double val = (double) theMap.get(this.imap, i);
-//
-//			if (val < min) {
-//				min = val;
-//			}
-//
-//			if (val > max) {
-//				max = val;
-//			}
-//		}
+		// for (int i = start; i < end; i++) {
+		// // double val = rch.getPixel(i);
+		// double val = (double) theMap.get(this.imap, i);
+		//
+		// if (val < min) {
+		// min = val;
+		// }
+		//
+		// if (val > max) {
+		// max = val;
+		// }
+		// }
 
 		System.out.println("Face, MapCanvas Imap:" + this.imap);
 
@@ -526,7 +574,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		nestGroup.setCapability(BranchGroup.ALLOW_DETACH);
 		objTrans.addChild(nestGroup);
 
-		if (!nestView) {
+		if ( !nestView ) {
 			nestGroup.detach();
 		}
 	}
@@ -546,7 +594,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 * Set the scene
 	 */
 	public void setAll() {
-		if (allView && (allGroup != null)) {
+		if ( allView && ( allGroup != null ) ) {
 			allGroup.detach();
 		}
 
@@ -557,35 +605,35 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 
 		try {
 			theMap = theMap.regrade(nside);
-		} catch (Exception e) {
+		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
 
 		// finding channel min and max
-//		double max = Double.MIN_VALUE;
-//		double min = Double.MAX_VALUE;
-//		int npix = 12 * nside * nside;
+		// double max = Double.MIN_VALUE;
+		// double min = Double.MAX_VALUE;
+		// int npix = 12 * nside * nside;
 		System.out.println("MapCanvas Imap:" + imap);
 		System.out.println("MapCanvas Nside:" + nside);
 
-//		for (int i = 0; i < npix; i++) {
-//			// double val = rch.getPixel(i);
-//			double val = (double) theMap.get(imap, i);
-//
-//			if (val < min) {
-//				min = val;
-//			}
-//
-//			if (val > max) {
-//				max = val;
-//			}
-//		}
-//
-//		System.out.println("MapCanvas Min/Max:" + min + "/" + max);
+		// for (int i = 0; i < npix; i++) {
+		// // double val = rch.getPixel(i);
+		// double val = (double) theMap.get(imap, i);
+		//
+		// if (val < min) {
+		// min = val;
+		// }
+		//
+		// if (val > max) {
+		// max = val;
+		// }
+		// }
+		//
+		// System.out.println("MapCanvas Min/Max:" + min + "/" + max);
 		System.out.println("MapCanvas Min/Max:" + theMap.getMin(imap) + "/"
 				+ theMap.getMax(imap));
 
-		for (int f = 0; f < nfaces; f++) {
+		for ( int f = 0; f < nfaces; f++ ) {
 			this.face[f] = new DataSphere(f, theMap, imap); // last
 
 			this.face[f].setAppearance(getFaceAppearance());
@@ -610,7 +658,7 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		toolTipBehavior.setEnable(true);
 		toolTipBehavior.setCanShowToolTips(showTooltip);
 
-		if (!allView) {
+		if ( !allView ) {
 			allGroup.detach();
 		}
 	}
@@ -648,11 +696,20 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	public void setToolTip(boolean isTrue) {
 		showTooltip = isTrue;
 
-		for (int f = 0; f < 12; f++) {
-			face[f].setAppearance(getFaceAppearance());
-		}
+		// for ( int f = 0; f < 12; f++ ) {
+		// face[f].setAppearance(getFaceAppearance());
+		// }
 
 		toolTipBehavior.setCanShowToolTips(isTrue);
+	}
+
+	/**
+	 * Gets the state of tootlip behaviour
+	 * 
+	 * @return true if tooltip has been enabled
+	 */
+	public boolean isToolTipEnabled() {
+		return this.showTooltip;
 	}
 
 	/**
@@ -706,12 +763,28 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 	 * @param val
 	 *            percent value of transparency (0.->1.)
 	 */
-	public void setTransparency(double val) {
-		this.transparencyValue = (float)(val);
+	public void setTransparency(float val) {
+		this.transparencyValue = val;
+	}
 
-		for (int f = 0; f < face.length; f++) {
-			face[f].setAppearance(new Appearance());
-			face[f].setAppearance(getFaceAppearance());
+	/**
+	 * Gets tranparency value
+	 * 
+	 * @return tranparency (%) value
+	 */
+	public float getTransparency() {
+		return this.transparencyValue;
+	}
+
+	/**
+	 * Update faces.
+	 */
+	public void updateFaces() {
+		if ( face != null ) {
+			for ( int f = 0; f < face.length; f++ ) {
+				face[f].setAppearance(new Appearance());
+				face[f].setAppearance(getFaceAppearance());
+			}
 		}
 	}
 }

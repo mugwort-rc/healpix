@@ -25,18 +25,32 @@ import javax.media.j3d.GeometryArray;
 import javax.media.j3d.LineArray;
 
 
+/**
+ * The Class NestSphere.
+ */
 public class NestSphere extends HealSphere{
 
+    /** The face. */
     protected int face = 0;
 
     ////////////////////////////////////////////
     //
     // create sphere visual object
     //
+    /**
+     * Instantiates a new nest sphere.
+     */
     public NestSphere() {
 		super();
 
     }
+    
+    /**
+     * Instantiates a new nest sphere.
+     * 
+     * @param nside the nside
+     * @param face the face
+     */
     public NestSphere(int nside,int face) {
 		super(nside);
 		this.face=face;	
@@ -47,7 +61,10 @@ public class NestSphere extends HealSphere{
 
 
 /*  Render the given face to given resolution */
-    protected Geometry createGeometry(){
+    /* (non-Javadoc)
+ * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
+ */
+protected Geometry createGeometry(){
 	int nQuads = (int) Math.pow(nside,2);// one face
 	int ppq =(step*2 + 2)*2; // points per quad
 	int nPoints = nQuads* ppq ;

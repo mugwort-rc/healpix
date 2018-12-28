@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
  * to interact with Healpix sphere.
  * 
  * @author ejoliet
- * @version $Id: SimplePanel.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: SimplePanel.java 56224 2008-07-30 07:30:00Z ejoliet $
  */
 public class SimplePanel extends JPanel implements ItemListener {
 	/**
@@ -56,24 +56,35 @@ public class SimplePanel extends JPanel implements ItemListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The canvas. */
 	protected MapCanvas canvas;
 
+	/** The colname. */
 	public JComboBox colname;
 
+	/** The nside. */
 	JComboBox nside;
 
 	// protected GaiaMapCanvas3D canvas;
+	/** The nchoice. */
 	protected Choice nchoice;
 
+	/** The equat. */
 	protected Checkbox nest, axis, all, equat;
 
+	/** The colname sel. */
 	protected String colnameSel;
 
+	/** The jl title. */
 	private JLabel jlTitle;
 
-	private JCheckBox tooltip;
+	/** The tooltip. */
+	public JCheckBox tooltip;
 
+	/** The grid. */
 	private JCheckBox grid;
+
+	private float initialTransparency = 0;
 
 	/** initialiser */
 	protected void init() {
@@ -141,7 +152,7 @@ public class SimplePanel extends JPanel implements ItemListener {
 		grid.setForeground(Color.red);
 		grid.addItemListener(this);
 		gr.add(grid);
-		JSlider sliderTransp = new JSlider(JSlider.HORIZONTAL,0,10,6);
+		JSlider sliderTransp = new JSlider(JSlider.HORIZONTAL,0,10,Math.round(canvas.getTransparency()*10));
 		sliderTransp.setMajorTickSpacing(1);
 		sliderTransp.setPaintLabels(true);
 		sliderTransp.setPaintTicks(true);
@@ -150,7 +161,6 @@ public class SimplePanel extends JPanel implements ItemListener {
 
 			public void stateChanged(ChangeEvent e) {
 				JSlider js = (JSlider) e.getSource();
-				//System.out.println("Selected value=" + js.getValue());
 				setAppearance(js.getValue()/10.0f);				
 			}
 			
@@ -184,6 +194,7 @@ public class SimplePanel extends JPanel implements ItemListener {
 		JPanel ptooltip = new JPanel();
 		ptooltip.setLayout(new GridLayout(1, 1));
 		tooltip = new JCheckBox("Tooltip enabled?");
+		tooltip.setSelected(this.canvas.isToolTipEnabled());
 		tooltip.setForeground(Color.black);
 		tooltip.addItemListener(this);
 		ptooltip.add(tooltip);
@@ -201,26 +212,49 @@ public class SimplePanel extends JPanel implements ItemListener {
 		// setBackground(Color.white);
 	}
 
+	/**
+	 * Sets the selected col.
+	 * 
+	 * @param tmp the new selected col
+	 */
 	protected void setSelectedCol(String tmp) {
 		canvas.setColname(tmp);
 		colnameSel = tmp;
 
 	}
-	protected void setAppearance(double val) {
+	
+	/**
+	 * Sets the appearance.
+	 * 
+	 * @param val the new appearance
+	 */
+	protected void setAppearance(float val) {
 		//System.out.println("Selected val=" + val);
 		canvas.setTransparency(val);
+		canvas.updateFaces();
 
 	}
+	
+	/**
+	 * Gets the colname.
+	 * 
+	 * @return the colname
+	 */
 	public String getColname() {
 		return colnameSel;
 	}
 
 	/** Set canvas */
-	public void setCanvas(MapCanvas canvas) {
+	private void setCanvas(MapCanvas canvas) {
 		this.canvas = canvas;
+		this.initialTransparency = canvas.getTransparency()*10;
 	}
 
-	public SimplePanel() {
+	/**
+	 * Instantiates a new simple panel.
+	 */
+	public SimplePanel(MapCanvas sky) {
+		setCanvas(sky);
 		init();
 	}
 
@@ -272,6 +306,7 @@ public class SimplePanel extends JPanel implements ItemListener {
 			if (is instanceof JCheckBox) {
 				if ((JCheckBox) is == tooltip) {
 					canvas.setToolTip(((JCheckBox) is).isSelected());
+					canvas.updateFaces();
 					return;
 				}
 				if ((JCheckBox) is == grid) {
@@ -283,9 +318,19 @@ public class SimplePanel extends JPanel implements ItemListener {
 
 	}
 
+	/**
+	 * Key pressed.
+	 * 
+	 * @param e the e
+	 */
 	public void keyPressed(KeyEvent e) {
 	};
 
+	/**
+	 * Key released.
+	 * 
+	 * @param e the e
+	 */
 	public void keyReleased(KeyEvent e) {
 	};
 

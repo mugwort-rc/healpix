@@ -39,7 +39,7 @@ NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole,
 OFFSET = offset, ONLINE = online, OUTLINE=outline, $
 PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
 QUADCUBE = quadcube, $
-ROT = rot, $
+RETAIN = retain, ROT = rot, $
 SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
 TITLEPLOT = titleplot, $
 UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
@@ -69,7 +69,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;                       QUADCUBE= , $
 ;                       NO_DIPOLE=, NO_MONOPOLE=, $
 ;                       RESO_ARCMIN= , ROT=, $
-;                       SAVE=, SILENT=, SUBTITLE=, $
+;                       SAVE=, SHADED=, SILENT=, SUBTITLE=, $
 ;                       TITLEPLOT=, $
 ; 	                UNITS=, WINDOW=, XPOS=, YPOS=]
 ;                        
@@ -314,6 +314,8 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;    		(useful for high definition color printer)
 ;                ** gnomview only **
 ;
+;       RETAIN: backing store for graphics windows in {0,1,2}. Default=2
+;
 ;       RESO_ARCMIN: resolution of the gnomic map in arcmin
 ;       (default=1.5)
 ;                ** gnomview only **
@@ -335,6 +337,11 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;    		the variable saved should be DATA 
 ;                 ** can not be used with /ONLINE **
 ;
+;       SHADED: if set, the orthographic sphere is shaded, using a Phong model, to emulate 3D viewing.
+;              The sphere is illuminated by isotropic ambiant light plus a single light source.
+;                 ** Can NOT be used with GIF. **
+;                   ** orthview only **
+;
 ;       SILENT: if set, the code runs silently
 ;
 ; 	SUBTITLE : String containing the subtitle to the plot (see TITLEPLOT)
@@ -346,10 +353,12 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;		side of the color bar (see : NOBAR)
 ;
 ;       WINDOW: IDL window index (integer)
-;               if WINDOW < 0: virtual window: no visible window opened. Can be used with PNG or GIF
-;               if WINDOW in [0,31]: the specified IDL window with index WINDOW is used
+;                 if WINDOW < 0: virtual window: no visible window opened. Can be
+;               used with PNG or GIF. The Z buffer will be used instead of the 
+;               X server, allowing much faster production of the image over a slow network
+;                 if WINDOW in [0,31]: the specified IDL window with index WINDOW is used
 ;               (or reused)
-;               if WINDOW > 31: a free (=unused) window with a random index > 31 will be
+;                 if WINDOW > 31: a free (=unused) window with a random index > 31 will be
 ;               created and used : default
 
 ;	XPOS : The X position on the screen of the lower left corner
@@ -410,6 +419,8 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;       Mar-08:  added GLSIZE and IGLSIZE
 ;       Apr-08:  can deal with cut sky data set without creating full sky map
 ;       Nov-08:  restore original color table and plot settings when exiting
+;       May-09:  added /SHADED to orthview, implemented EXECUTE in orthview, fix
+;              Min-Max for LOG, use Z buffer when window<0, added RETAIN keyword
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -451,7 +462,7 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              ROT=, SAVE=, SILENT=, '
+    print,'              RETAIN=, ROT=, SAVE=, SILENT=, '
     print,'              SUBTITLE=, TITLEPLOT=, '
     print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
@@ -502,7 +513,8 @@ proj2out, $
   HXSIZE=hxsize, NOBAR = nobar, NOLABELS = nolabels, PNG = png, PREVIEW = preview, PS=ps, PXSIZE=pxsize, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
-  HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
+  HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
+  IGLSIZE=iglsize, RETAIN=retain
 
 
 w_num = !d.window

@@ -42,21 +42,29 @@ import javax.vecmath.Vector3f;
  * their 'arrow'.
  * 
  * @author ejoliet
- * @version $Id: Group3DAxis.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Group3DAxis.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class Group3DAxis extends BranchGroup {
+	
+	/** The axis width. */
 	private float axisWidth = 0.02f;
 
+	/** The axis height. */
 	private float axisHeight = 2.4f;
 
+	/** The cone width. */
 	private float coneWidth = 0.04f;
 
+	/** The cone height. */
 	private float coneHeight = 0.1f;
 
+	/** The axis cone shift. */
 	private float axisConeShift = 1.25f;
 
+	/** The text shift. */
 	private float textShift = 1.35f;
 
+	/** The text size. */
 	private int textSize = 24;
 
 	/**
@@ -78,6 +86,13 @@ public class Group3DAxis extends BranchGroup {
 		addChild(allAxis);
 	}
 
+	/**
+	 * Builds the shared axis.
+	 * 
+	 * @param color the color
+	 * 
+	 * @return the shared group
+	 */
 	private SharedGroup buildSharedAxis(Color3f color) {
 		// set material color
 		Color3f black = new Color3f(0.0f, 0.0f, 0.0f);
@@ -106,6 +121,14 @@ public class Group3DAxis extends BranchGroup {
 		return axis;
 	}
 
+	/**
+	 * Builds the all axis.
+	 * 
+	 * @param axis the axis
+	 * @param color the color
+	 * 
+	 * @return the group
+	 */
 	private Group buildAllAxis(SharedGroup axis, Color3f color) {
 		// Using the sharedgroup axis, build 3 axes, with 3 labels
 		Group allAxis = new Group();

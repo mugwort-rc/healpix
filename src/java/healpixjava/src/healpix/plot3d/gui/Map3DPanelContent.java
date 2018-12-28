@@ -34,9 +34,11 @@ import javax.swing.JPanel;
  * GUI.
  * 
  * @author ejoliet
- * @version $Id: Map3DPanelContent.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Map3DPanelContent.java 56224 2008-07-30 07:30:00Z ejoliet $
  */
-public class Map3DPanelContent extends JPanel implements ActionListener {
+public class Map3DPanelContent extends JPanel implements ActionListener, MapTaker {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -58,6 +60,9 @@ public class Map3DPanelContent extends JPanel implements ActionListener {
 		start();
 	}
 
+	/**
+	 * Start.
+	 */
 	public void start() {
 		setLayout(new BorderLayout());
 		// canvas3Dmap = createSimpleUniverse();
@@ -70,12 +75,17 @@ public class Map3DPanelContent extends JPanel implements ActionListener {
 	 * @return tha map canvas
 	 */
 	public MapCanvas createSimpleUniverse() {
-		canvas3Dmap = new MapCanvas();
+		canvas3Dmap = new MapCanvas(false,0.2f);
 		canvas3Dmap.setupScene();
 		canvas3Dmap.showScene();
 		return canvas3Dmap;
 	}
 
+	/**
+	 * Adds the canvas.
+	 * 
+	 * @param m the m
+	 */
 	private void addCanvas(MapCanvas m) {
 		add(m, BorderLayout.CENTER);
 	}
@@ -125,6 +135,9 @@ public class Map3DPanelContent extends JPanel implements ActionListener {
 		map = m;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 	}
 }

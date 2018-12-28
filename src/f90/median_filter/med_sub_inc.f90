@@ -85,7 +85,7 @@
   character(len=FILENAMELEN)          :: description
   character(len=100)                  :: chline, sstr
   LOGICAL(kind=LGT) :: polarisation, fill_holes
-  character(len=*), PARAMETER :: version = "2.1.1"
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
 
   type(paramfile_handle) :: handle
 

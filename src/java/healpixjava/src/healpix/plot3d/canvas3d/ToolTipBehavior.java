@@ -56,13 +56,17 @@ import com.sun.j3d.utils.picking.behaviors.PickMouseBehavior;
  * console.Using swings default (ToolTipManager) initialDelay constant.
  * 
  * @author ejoliet
- * @version $Id: ToolTipBehavior.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ToolTipBehavior.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ToolTipBehavior extends PickMouseBehavior {
+	
+	/** The canvas. */
 	Canvas3D canvas;
 
+	/** The jt. */
 	JTextArea jt = new JTextArea(50, 40);
 
+	/** The jf. */
 	JFrame jf = new JFrame();
 
 	/**
@@ -90,6 +94,7 @@ public class ToolTipBehavior extends PickMouseBehavior {
 		timer.setRepeats(false);
 	}
 
+	/** The time up no movement. */
 	ActionListener timeUpNoMovement = new ActionListener() {
 		public void actionPerformed(ActionEvent value0) {
 			showing = true;
@@ -105,10 +110,13 @@ public class ToolTipBehavior extends PickMouseBehavior {
 		}
 	};
 
+	/** The my wakeup condition. */
 	WakeupCondition myWakeupCondition;
 
+	/** The timer. */
 	javax.swing.Timer timer;
 
+	/** The last point. */
 	Point lastPoint = null;
 
 	/**
@@ -125,8 +133,10 @@ public class ToolTipBehavior extends PickMouseBehavior {
 		wakeupOn(myWakeupCondition);
 	}
 
+	/** The showing. */
 	boolean showing = false;
 
+	/** The can show. */
 	boolean canShow = false;
 
 	/**
@@ -195,6 +205,7 @@ public class ToolTipBehavior extends PickMouseBehavior {
 		wakeupOn(myWakeupCondition);
 	}
 
+	/** The Constant CURSOR_SKIP. */
 	static final int CURSOR_SKIP = 20;
 
 	/* (non-Javadoc)

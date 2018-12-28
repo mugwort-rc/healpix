@@ -21,37 +21,63 @@ package healpix.tools;
 
 import healpix.core.AngularPosition;
 
+/**
+ * The Class CoordTransform.
+ */
 public final class CoordTransform {
 
+    /** The Constant pi. */
     protected static final double pi = 3.14159265;
+    
+    /** The Constant twoPi. */
     protected static final double twoPi=2.0*pi;
+    
+    /** The Constant fourPi. */
     protected static final double fourPi=4.0*pi;
+    
+    /** The Constant degToRad. */
     protected static final double degToRad=180.0/pi;
 
+    /** The Constant psi. */
     protected static final double[][] psi = {
 	{0.57595865315,4.92619181360,0.00000000000,0.00000000000,0.11129056012,4.70053728340},
 	{0.57477043300,4.93682924650,0.00000000000,0.00000000000,0.11142137093,4.71279419371}
     };
+    
+    /** The Constant stheta. */
     protected static final double[][] stheta = {
 	{0.88781538514,-0.88781538514, 0.39788119938,-0.39788119938, 0.86766174755,-0.86766174755},
 	{0.88998808748,-0.88998808748, 0.39777715593,-0.39777715593, 0.86766622025,-0.86766622025}
     };
 
+    /** The Constant ctheta. */
     protected static final double[][] ctheta = {
 	{0.46019978478,0.46019978478,0.91743694670,0.91743694670,0.49715499774,0.49715499774},
 	{0.45598377618,0.45598377618,0.91748206207,0.91748206207,0.49714719172,0.49714719172}
     };
 
+    /** The Constant phi. */
     protected static final double[][] phi = {
 	{4.92619181360,0.57595865315,0.00000000000,0.00000000000,4.70053728340,0.11129056012},
 	{4.93682924650,0.57477043300,0.00000000000,0.00000000000,4.71279419371,0.11142137093}
     };
     
+    /** The Constant EQ2GAL. */
     public static final int EQ2GAL = 0; //RA-Dec (2000) -> Galactic
+    
+    /** The Constant GAL2EQ. */
     public static final int GAL2EQ = 1; //Galactic      -> RA-Dec
+    
+    /** The Constant EQ2ECL. */
     public static final int EQ2ECL = 2; //RA-Dec        -> Ecliptic
+    
+    /** The Constant ECL2EQ. */
     public static final int ECL2EQ = 3; //Ecliptic      -> RA-Dec
+    
+    /** The Constant ECL2GAL. */
     public static final int ECL2GAL = 4; //Ecliptic      -> Galactic
+    
+    /** The Constant GAL2ECL. */
     public static final int GAL2ECL = 5; //Galactic      -> Ecliptic  
 
     /**Transforms an angular position in radians in a given coordinate system to a position

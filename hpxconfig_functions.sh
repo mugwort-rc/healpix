@@ -15,7 +15,11 @@
 # 2008-11-21: solved potential problem with multiple cfitio*.tar.gz for C++
 #             introduced ${HEAD}
 #             replaced ~ with ${HOME}
-#
+# 2009-02-25: added Fortran compilation flag for 64 bit INTEGER
+#            still unknown for Fujitsu, Lahey, Portland, Absoft
+# 2009-06-18: added WLRPATH so that F90 codes can be linked to shared cfitsio library
+# 2009-06-26: replace echoLn with printf
+# 2009-07-10: debugging on MacOS, libgif -> libhpxgif
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -56,15 +60,16 @@ checkDir () {
 }    
 #-------------
 echoLn () {
-    if [ "${OS}" = "Linux" -o "${OS}" = "Darwin" ]; then
-	echo -n "$*"
-    else
-	echo "$*\c"
-    fi
+#     if [ "${OS}" = "Linux" -o "${OS}" = "Darwin" ]; then
+# 	echo -n "$*"
+#     else
+# 	echo "$*\c"
+#     fi
+    ${PRINTF} "$*"
 }
 #-------------
 findFITSLib () {
-    for dir in $1 /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
+    for dir in $1 /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
 	if [ -r "${dir}/lib${LIBFITS}.a" ] ; then
 	    FITSDIR=$dir
 	    break
@@ -73,7 +78,7 @@ findFITSLib () {
 }
 #-------------
 findFITSInclude () {
-    for dir in $1 /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ ; do
+    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ ; do
 	if [ -r "${dir}/fitsio.h" ] ; then
 	    FITSINC=$dir
 	    break
@@ -134,6 +139,7 @@ setCDefaults () {
     OPT="-O2 -Wall"
     AR="ar -rsv"
     PIC="-fPIC"
+    WLRPATH=""
 
     case $OS in
         AIX)
@@ -142,6 +148,10 @@ setCDefaults () {
 	    PIC="-G"
             CF64="-q64"
             AR64="-X64"
+	;;
+	Linux)
+	    WLRPATH="-Wl,-R"
+	;;
     esac	    
 
     LIBDIR=$HEALPIX/lib
@@ -194,13 +204,18 @@ askCUserMisc () {
     [ "x$answer" != "x" ] && FITSDIR=$answer
     fullPath FITSDIR
 
+    [ "x$WLRPATH" != "x" ] && WLRPATH="${WLRPATH}${FITSDIR}"
+
     lib="${FITSDIR}/lib${LIBFITS}.a"
     if [ ! -r $lib ]; then
 	echo "error: fits library $lib not found"
 	crashAndBurn
     fi
+    guess1=${FITSDIR}
+    guess2=`${DIRNAME} ${guess1}`
+    guess3="${guess2}/include"
 
-    findFITSInclude $INCDIR
+    findFITSInclude $INCDIR ${guess1} ${guess2} ${guess3}
     echoLn "enter location of cfitsio header fitsio.h ($FITSINC): "
     read answer
     [ "x$answer" != "x" ] && FITSINC=$answer
@@ -250,6 +265,7 @@ editCMakefile () {
 	${SED} "s|^C_AR.*$|C_AR        = $AR|"   |\
 	${SED} "s|^C_CFITSIO_INCDIR.*$|C_CFITSIO_INCDIR = $FITSINC|" |\
 	${SED} "s|^C_CFITSIO_LIBDIR.*$|C_CFITSIO_LIBDIR = $FITSDIR|" |\
+	${SED} "s|^C_WLRPATH.*$|C_WLRPATH = $WLRPATH|" |\
 	${SED} "s|^C_ALL.*|C_ALL     = ${clibtypes}|" |\
 	${SED} "s|^ALL\(.*\) c-void \(.*\)|ALL\1 c-all \2|" |\
 	${SED} "s|^TESTS\(.*\) c-void \(.*\)|TESTS\1 c-test \2|" |\
@@ -637,7 +653,7 @@ setF90Defaults () {
     CC="cc"
     FFLAGS="-I\$(F90_INCDIR)"
     CFLAGS="-O"
-    LDFLAGS="-L\$(F90_LIBDIR) -L\$(FITSDIR) -lhealpix -lgif -l\$(LIBFITS)"
+    LDFLAGS="-L\$(F90_LIBDIR) -L\$(FITSDIR) -lhealpix -lhpxgif -l\$(LIBFITS)"
     F90_BINDIR="./bin"
     F90_INCDIR="./include"
     F90_LIBDIR="./lib"
@@ -660,6 +676,7 @@ setF90Defaults () {
     PGFLAG=""
     PGLIBS=""
     PGLIBSDEF="-L/usr/local/pgplot -lpgplot -L/usr/X11R6/lib -lX11"
+    WLRPATH="" # to add a directory to the (linker) runtime library search path
 
     echo "you seem to be running $OS"
 
@@ -759,12 +776,12 @@ cat > ${tmpfile}.f90 << EOF
     end program needs_fitsio
 EOF
     # compile and link
-    ${FC} ${FFLAGS}  ${tmpfile}.f90 -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} 
+    ${FC} ${FFLAGS}  ${tmpfile}.f90 -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} #${WLRPATH}
 
     # test
     if [ ! -s ${tmpfile}.x ]; then
 	echo
-	echo "F90 codes do not link correctly with ${FITSDIR}/lib${LIBFITS}."
+	echo "F90 codes do not link correctly with ${FITSDIR}/lib${LIBFITS}.a"
 	echo "Check that in the cfitsio library:"
 	echo " - the Fortran wrappers were correctly compiled, and"
 	echo " - the library (C routines and F90 wrappers) was compiled "
@@ -985,6 +1002,7 @@ IdentifyCompiler () {
 #                FFLAGS="$FFLAGS -DNAG -strict95 -g -gline -C=all -u -colour"
 # standard flags
                 FFLAGS="$FFLAGS -DNAG -strict95"
+		FI8FLAG="-double" # change default INTEGER and FLOAT to 64 bits
         elif [ $nifc != 0 ] ; then 
 		ifc_modules
                 FCNAME="Intel Fortran Compiler"
@@ -997,6 +1015,9 @@ IdentifyCompiler () {
 #		OFLAGS="-O3 -axiMKW" # generates optimized code for each Pentium platform
 # 		PRFLAGS="-openmp" # Open MP enabled
 		PRFLAGS="-openmp -openmp_report0" # Open MP enabled # June 2007
+		FI8FLAG="-i8" # change default INTEGER to 64 bits
+##		FI8FLAG="-integer-size 64" # change default INTEGER to 64 bits
+		[ $OS == Linux ] && WLRPATH="-Wl,-R"
         elif [ $npgf != 0 ] ; then
                 FCNAME="Portland Group Compiler"
 		PRFLAGS="-mp" # Open MP enabled, to be tested
@@ -1032,6 +1053,7 @@ IdentifyCompiler () {
 		#### FPP="-WF,-D"
 		PRFLAGS="-qsmp=omp" # Open MP enabled
 	    fi
+	    FI8FLAG="-qintsize=8" # change default INTEGER to 64 bits
 	elif [ $nabs != 0 ] ; then
 	        FCNAME="Absoft Pro Compiler"
 		FFLAGS=`echo $FFLAGS | ${SED} "s/-I/-p/g"`
@@ -1044,18 +1066,23 @@ IdentifyCompiler () {
 		FFLAGS="$FFLAGS -DGFORTRAN"
 		OFLAGS="-O3"
 		CC="gcc"
+		FI8FLAG="-i8" # change default INTEGER to 64 bits
 	elif [ $ngfortran != 0 ] ; then
 	        FCNAME="gfortran compiler"
 		FFLAGS="$FFLAGS -DGFORTRAN -fno-second-underscore"
 		OFLAGS="-O3"
 		PRFLAGS="-fopenmp" # Open MP enabled
 		CC="gcc"
+		FI8FLAG="-fdefault-integer-8" # change default INTEGER to 64 bits
+		[ $OS == Linux ] && WLRPATH="-Wl,-R"
 	elif [ $npath != 0 ] ; then
 	        FCNAME="PathScale EKOPath compiler"
 		FFLAGS="$FFLAGS"
 		OFLAGS="-O"
 		CC="pathcc"	    
 		PRFLAGS="-mp" # Open MP enabled
+		FI8FLAG="-i8" # change default INTEGER to 64 bits
+		#FI8FLAG="-default64" # change default INTEGER and FLOAT to 64 bits
         else
 	    nvas=`$FC | ${GREP} -i sierra | ${WC} -l`
             if [ $nvas != 0 ] ; then
@@ -1287,6 +1314,12 @@ askUserMisc () {
 	crashAndBurn
     fi
 
+    # add option on where to search runtime libraries, on compilers supporting it
+    if [ "x$WLRPATH" != "x" ] ; then
+	WLRPATH="${WLRPATH}\$(FITSDIR)"
+	LDFLAGS="${LDFLAGS} ${WLRPATH}"
+    fi
+
     checkF90Fitsio ${lib}
     checkF90FitsioLink
 
@@ -1351,6 +1384,7 @@ editF90Makefile () {
 	${SED} "s|^F90_PGFLAG.*$|F90_PGFLAG  = $PGFLAG|" |\
 	${SED} "s|^F90_PGLIBS.*$|F90_PGLIBS  = $PGLIBS|" |\
 	${SED} "s|^F90_OS.*$|F90_OS	= $OS|" |\
+	${SED} "s|^F90_I8FLAG.*$|F90_I8FLAG  = $FI8FLAG|" |\
 	${SED} "s|^ALL\(.*\) f90-void\(.*\)|ALL\1 f90-all\2|" |\
 	${SED} "s|^TESTS\(.*\) f90-void\(.*\)|TESTS\1 f90-test\2|" |\
 	${SED} "s|^CLEAN\(.*\) f90-void\(.*\)|CLEAN\1 f90-clean\2|" |\
@@ -1634,6 +1668,7 @@ setTopDefaults() {
     LS="ls"
     MAKE="make"
     NM="nm"
+    PRINTF="printf"
     PWD="pwd"
     RM="/bin/rm -f"
     RMDIR="rmdir"

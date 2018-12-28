@@ -112,7 +112,8 @@ pro ismoothing, map_in, map_out $
 ;
 ;   theta_cut_deg: cut around the equatorial plane 
 ;
-;   tmpdir:      directory in which are written temporary files [default: /tmp]
+;   tmpdir=:      directory in which are written temporary files 
+;         [default: IDL_TMPDIR (see IDL documentation about IDL_TMPDIR)]
 ;
 ;   /won:     if set, a weighting scheme is used to improve the quadrature
 ;       [default: apply weighting]
@@ -174,7 +175,7 @@ endif
 solve_kw_conflict,'lmax',   'nlmax',         k1=lmax,    k2=nlmax,    kout=lmax, /defined
 
 ;-------------------
-hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local
+hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local, tmpdir=tmpdir
 
 NoFile = " '' "
 ;;; if (~arg_present(map_out)) then map_out = NoFile

@@ -17,11 +17,15 @@ allobj	= $(libobj) $(gifobj) $(modobj)
 %.o: %.f90
 	$(FC) $(FFLAGS) -c $< -o $@
 
-default: libgif.a
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-libgif.a: $(allobj)
-	$(AR) libgif.a $(allobj)
-	@cp -p libgif.a $(LIBDIR)/
+default: libhpxgif.a
+
+libhpxgif.a: $(allobj)
+	$(AR) libhpxgif.a $(allobj)
+	@cp -p libhpxgif.a $(LIBDIR)/
+	@cp -p libhpxgif.a $(LIBDIR)/libgif.a
 	@for p in *.$(MOD); do \
 	cp $$p $(INCDIR)/; \
 	done

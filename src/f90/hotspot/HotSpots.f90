@@ -64,7 +64,8 @@ program HotSpots
   type(paramfile_handle) :: handle
 
   CHARACTER(LEN=*), PARAMETER :: code    = 'HOTSPOTS'
-  CHARACTER(LEN=*), PARAMETER :: version = '0.8.6'
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
+
   !--------------------------------------------------------------------------
 100 FORMAT(A)
 

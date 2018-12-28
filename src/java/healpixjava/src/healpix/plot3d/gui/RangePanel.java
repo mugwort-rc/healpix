@@ -30,13 +30,17 @@ import java.awt.event.TextListener;
  * Set the range for the map to be displayed
  * 
  * @author ejoliet
- * @version $Id: RangePanel.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: RangePanel.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class RangePanel extends Panel implements TextListener {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The low. */
 	protected TextField low;
 
+	/** The high. */
 	protected TextField high;
 
 	/**
@@ -62,9 +66,19 @@ public class RangePanel extends Panel implements TextListener {
 		critInit(get, attrib, cls);
 	}
 
+	/**
+	 * Crit init.
+	 * 
+	 * @param get the get
+	 * @param attrib the attrib
+	 * @param cls the cls
+	 */
 	protected void critInit(String get, String attrib, String cls) {
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.TextListener#textValueChanged(java.awt.event.TextEvent)
+	 */
 	public void textValueChanged(TextEvent e) {
 	}
 }

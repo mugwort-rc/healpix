@@ -42,16 +42,20 @@ import java.awt.event.ActionListener;
  * feature.
  * 
  * @author ejoliet
- * @version $Id: HealView.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealView.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class HealView extends Frame implements ActionListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+	/** The sky. */
 	private HealCanvas theSky;
 
+	/** The info1. */
 	private Label info1;
 
+	/** The rot panel. */
 	protected RotatePanel rotPanel;
 
 	/** Default constructor - Sets name */

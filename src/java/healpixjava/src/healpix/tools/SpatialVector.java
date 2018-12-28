@@ -47,16 +47,14 @@ public class SpatialVector extends Vector3d {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	double x_;
 
-	double y_;
-
-	double z_;
-
+	/** The ra_. */
 	double ra_;
 
+	/** The dec_. */
 	double dec_;
 
+	/** The ok ra dec_. */
 	boolean okRaDec_;
 
 	/**
@@ -64,9 +62,6 @@ public class SpatialVector extends Vector3d {
 	 */
 	public SpatialVector() {
 		super(1, 0, 0);
-		x_ = 1;
-		y_ = 0;
-		z_ = 0;
 		ra_ = 0;
 		dec_ = 0;
 		okRaDec_ = true;
@@ -81,19 +76,18 @@ public class SpatialVector extends Vector3d {
 	 */
 	public SpatialVector(double x, double y, double z) {
 		super(x, y, z);
-		x_ = x;
-		y_ = y;
-		z_ = z;
 		ra_ = 0;
 		dec_ = 0;
 		okRaDec_ = false;
 	}
 
 	/**
-	 * Construct from ra/dec
+	 * Construct from ra/dec in degrees
 	 * 
 	 * @param ra
+	 *            RA in degrees
 	 * @param dec
+	 *            DEC in degrees
 	 */
 	public SpatialVector(double ra, double dec) {
 		ra_ = ra;
@@ -115,12 +109,12 @@ public class SpatialVector extends Vector3d {
 	}
 
 	/**
-	 * Sets the ra and dec angles
+	 * Sets the ra and dec angles in degrees
 	 * 
 	 * @param ra
-	 *            right ascension angle
+	 *            right ascension angle in degrees
 	 * @param dec
-	 *            declination angle
+	 *            declination angle in degrees
 	 * 
 	 */
 	public void set(double ra, double dec) {
@@ -137,25 +131,28 @@ public class SpatialVector extends Vector3d {
 	 */
 	public double[] get() {
 		double ret[] = new double[3];
-		ret[0] = getX();
-		ret[1] = getY();
-		ret[2] = getZ();
+		ret[0] = x;
+		ret[1] = y;
+		ret[2] = x;
 		return ret;
 	}
-
+	
+	
 	/** return x (only as rvalue) */
 	public double x() {
-		return getX();
+		return x;
 	}
+	
 
 	/** return y (only as rvalue) */
 	public double y() {
-		return getY();
+		return y;
 	}
+
 
 	/** return z (only as rvalue) */
 	public double z() {
-		return getZ();
+		return z;
 	}
 
 	/*
@@ -164,7 +161,7 @@ public class SpatialVector extends Vector3d {
 	 * @see javax.vecmath.Tuple3d#toString()
 	 */
 	public String toString() {
-		return "" + getX() + " " + getY() + " " + getZ();
+		return "" + x() + " " + y() + " " + z();
 	}
 
 	/**
@@ -225,7 +222,7 @@ public class SpatialVector extends Vector3d {
 	}
 
 	/**
-	 * Get the dec angle in radian
+	 * Get the dec angle in degrees
 	 * 
 	 * @return declination angle
 	 */
@@ -238,7 +235,7 @@ public class SpatialVector extends Vector3d {
 	}
 
 	/**
-	 * Get the ra angle in radians
+	 * Get the ra angle in degrees
 	 * 
 	 * @return right ascension
 	 */
@@ -255,10 +252,10 @@ public class SpatialVector extends Vector3d {
 	 */
 	protected void updateXYZ() {
 		double cd = Math.cos(dec_ * Constants.cPr);
-		x_ = Math.cos(ra_ * Constants.cPr) * cd;
-		y_ = Math.sin(ra_ * Constants.cPr) * cd;
-		z_ = Math.sin(dec_ * Constants.cPr);
-		set(x_, y_, z_);
+		x = Math.cos(ra_ * Constants.cPr) * cd;
+		y = Math.sin(ra_ * Constants.cPr) * cd;
+		z = Math.sin(dec_ * Constants.cPr);
+		set(x, y, z);
 	}
 
 	/**

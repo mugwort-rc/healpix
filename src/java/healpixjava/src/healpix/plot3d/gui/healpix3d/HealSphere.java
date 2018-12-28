@@ -37,6 +37,7 @@ import javax.vecmath.Point3d;
  */
 public abstract class HealSphere extends Shape3D {
 
+	/** The nside. */
 	protected int nside = 2;
 
 	/**
@@ -82,6 +83,11 @@ public abstract class HealSphere extends Shape3D {
 		}
 	}
 
+	/**
+	 * Instantiates a new heal sphere.
+	 * 
+	 * @param ind the ind
+	 */
 	public HealSphere(HealpixIndex ind) {
 		if (ind != null) {
 			this.index = ind;

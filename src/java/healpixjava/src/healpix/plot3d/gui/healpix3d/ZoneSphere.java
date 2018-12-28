@@ -35,10 +35,11 @@ import javax.media.j3d.LineArray;
  * Part of the {@link HealSphere}
  * 
  * @author ejoliet
- * @version $Id: ZoneSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ZoneSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ZoneSphere extends HealSphere {
 
+	/** The i_zone. */
 	protected int i_zone = 0;
 
 	/**
@@ -50,6 +51,12 @@ public class ZoneSphere extends HealSphere {
 		this.setAppearance(createAppearance());
 	}
 
+	/**
+	 * Instantiates a new zone sphere.
+	 * 
+	 * @param nside the nside
+	 * @param zone the zone
+	 */
 	public ZoneSphere(int nside, int zone) {
 		super(nside);
 		this.i_zone = zone;
@@ -58,6 +65,9 @@ public class ZoneSphere extends HealSphere {
 		this.setAppearance(createAppearance());
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
+	 */
 	protected Geometry createGeometry() {
 		double nms[], theta_center, phi_center;
 		// double thn, ths;
@@ -112,6 +122,9 @@ public class ZoneSphere extends HealSphere {
 		return quads;
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createAppearance()
+	 */
 	protected Appearance createAppearance() {
 		Appearance app;
 		app = new Appearance();

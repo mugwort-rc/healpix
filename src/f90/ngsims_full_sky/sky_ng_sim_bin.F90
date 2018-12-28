@@ -99,7 +99,8 @@ Program sky_ng_sim_bin
   CHARACTER(LEN=80), DIMENSION(1:180) :: header, header_PS
   Character(Len=4) :: sstr
   CHARACTER(LEN=*), PARAMETER :: code = "sky_ng_sim_bin"
-  CHARACTER(LEN=*), PARAMETER :: version = "1.0.1"
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
+
   character(len=80), dimension(1:1) :: units_power, units_map
   CHARACTER(LEN=20)                            ::  string_quad
   REAL(SP) ::  quadrupole

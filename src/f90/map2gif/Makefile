@@ -31,5 +31,5 @@ obj 	= map2gif.o
 
 default: $(exec)
 
-$(exec): $(obj) $(LIBDIR)/libhealpix.a $(LIBDIR)/libgif.a
+$(exec): $(obj) $(LIBDIR)/libhealpix.a $(LIBDIR)/libhpxgif.a
 	$(FC) $(FFLAGS) -o $(exec) $(obj) $(LDFLAGS)

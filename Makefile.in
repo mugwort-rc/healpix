@@ -32,6 +32,7 @@ F90_CFLAGS	=
 F90_LDFLAGS	=
 F90_AR      = 
 F90_PPFLAGS =
+F90_I8FLAG  = 
 
 F90_PGFLAG  =
 F90_PGLIBS  =
@@ -40,11 +41,11 @@ F90_MOD	=
 
 F90_OS	=
 
-F90_MKFLAGS	= FC=$(F90_FC) FFLAGS="$(F90_FFLAGS)" LDFLAGS="$(F90_LDFLAGS)" \
-	CC=$(F90_CC) CFLAGS="$(F90_CFLAGS)" MOD=$(F90_MOD) OS=$(F90_OS) HEALPIX=$(HEALPIX) \
+F90_MKFLAGS	= FC="$(F90_FC)" FFLAGS="$(F90_FFLAGS)" LDFLAGS="$(F90_LDFLAGS)" \
+	CC="$(F90_CC)" CFLAGS="$(F90_CFLAGS)" MOD="$(F90_MOD)" OS="$(F90_OS)" HEALPIX=$(HEALPIX) \
 	LIBDIR=$(F90_LIBDIR) INCDIR=$(F90_INCDIR) BINDIR=$(F90_BINDIR) \
-	FFTSRC=$(F90_FFTSRC) ADDUS=$(F90_ADDUS) PARALL=$(F90_PARALL) AR="$(F90_AR)" \
-	PPFLAGS="$(F90_PPFLAGS)" PGFLAG="$(F90_PGFLAG)" PGLIBS="$(F90_PGLIBS)"
+	FFTSRC=$(F90_FFTSRC) ADDUS="$(F90_ADDUS)" PARALL="$(F90_PARALL)" AR="$(F90_AR)" \
+	PPFLAGS="$(F90_PPFLAGS)" PGFLAG="$(F90_PGFLAG)" PGLIBS="$(F90_PGLIBS)" FI8FLAG="$(F90_I8FLAG)"
 
 
 # ------------------------------ variables for C --------------------------
@@ -62,12 +63,13 @@ C_AR     =
 # Where you have the cfitsio installation
 C_CFITSIO_INCDIR = 
 C_CFITSIO_LIBDIR = 
+C_WLRPATH = 
 #
 # Libraries to install (static, shared, dynamic)
 C_ALL =
 
 C_MKFLAGS = CC="$(C_CC)" PIC="$(C_PIC)" OPT="$(C_OPT)" LIBDIR="$(C_LIBDIR)" INCDIR="$(C_INCDIR)" AR="$(C_AR)" \
-	CFITSIO_INCDIR="$(C_CFITSIO_INCDIR)" CFITSIO_LIBDIR="$(C_CFITSIO_LIBDIR)" RM="$(RM)"
+	CFITSIO_INCDIR="$(C_CFITSIO_INCDIR)" CFITSIO_LIBDIR="$(C_CFITSIO_LIBDIR)" RM="$(RM)" WLRPATH="$(C_WLRPATH)"
 
 # ------------------------------ variables for C++ --------------------------
 
@@ -98,18 +100,44 @@ distclean: $(DISTCLEAN)
 
 f90-prog	= anafast map2gif smoothing synfast ud_grade hotspot plmgen alteralm median_filter ngsims_full_sky
 
-f90-all: f90-modules f90-library
-	@for p in $(f90-prog); do \
-	cd src/f90/$$p; \
-	$(MAKE) $(F90_MKFLAGS); \
-	cd ../../..; \
-	done
+f90-all: f90-modules f90-library $(f90-prog)
 
 f90-modules:
 	@cd src/f90/mod; $(MAKE) $(F90_MKFLAGS)
 
-f90-library:
+# itemized list instead of loop to allow parallel compiling
+f90-library: f90-modules
 	@cd src/f90/lib; $(MAKE) $(F90_MKFLAGS)
+
+anafast: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+map2gif: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+smoothing: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+synfast: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+ud_grade: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+hotspot: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+plmgen: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+alteralm: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+median_filter: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
+ngsims_full_sky: f90-modules f90-library
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
 
 f90-test: f90-all
 	@cd test; \
@@ -128,7 +156,8 @@ f90-test: f90-all
 	$(F90_BINDIR)/map2gif -inp test_mf.fits -out test_mf.gif -bar t -ttl 'Median Filtered Map'; \
 	$(F90_BINDIR)/sky_ng_sim ngfs.par ; \
 	$(F90_BINDIR)/map2gif -inp test_ngfs.fits -out test_ngfs.gif -bar t -ttl 'Non-Gaussian Map'; \
-	echo "Healpix F90 tests done"
+	echo "Healpix F90 tests done" ; \
+	echo "success rate: `ls -1 test*fits | wc -l`/9"
 
 f90-clean:
 	for p in $(f90-prog) lib mod; do \

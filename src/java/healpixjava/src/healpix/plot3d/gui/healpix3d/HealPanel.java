@@ -35,20 +35,28 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The Class HealPanel.
+ */
 public class HealPanel extends Panel implements ItemListener, KeyListener {
 	/**
 	 * Default serial version
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The canvas. */
 	protected HealCanvas canvas;
 
+	/** The nside. */
 	protected Choice nside;
 
+	/** The solidface. */
 	protected Checkbox zone, nest, ring, axis, face, rings, solidface;
 
+	/** The nchoice. */
 	protected Choice zchoice, nchoice;
 
+	/** The ring field. */
 	protected TextField ringField;
 
 	/** initialiser */
@@ -168,6 +176,9 @@ public class HealPanel extends Panel implements ItemListener, KeyListener {
 		this.canvas = canvas;
 	}
 
+	/**
+	 * Instantiates a new heal panel.
+	 */
 	public HealPanel() {
 		init();
 	}
@@ -229,12 +240,21 @@ public class HealPanel extends Panel implements ItemListener, KeyListener {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	public void keyPressed(KeyEvent e) {
 	};
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	public void keyReleased(KeyEvent e) {
 	};
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
 		if (c == '\n' || c == '\r') {

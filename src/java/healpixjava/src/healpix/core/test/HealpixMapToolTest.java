@@ -24,7 +24,14 @@ import healpix.core.dm.util.HealpixTool;
 import healpix.tools.HealpixMapCreator;
 import junit.framework.TestCase;
 
+/**
+ * The Class HealpixMapToolTest.
+ */
 public class HealpixMapToolTest extends TestCase {
+	
+	/**
+	 * Test degrade.
+	 */
 	public void testDegrade() {
 		int nside_in = 4;
 		int nside_out = 2;
@@ -49,6 +56,9 @@ public class HealpixMapToolTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Test upgrade.
+	 */
 	public void testUpgrade() {
 		HealpixMapCreator cr = new HealpixMapCreator(1);
 		HealpixMap map = cr.getMap();

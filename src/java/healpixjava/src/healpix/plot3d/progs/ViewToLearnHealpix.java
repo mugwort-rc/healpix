@@ -27,9 +27,15 @@ import healpix.plot3d.gui.view.HealView;
  * 
  * Usage: java -cp jhealpix.jar healpix.plot3d.progs.ViewToLearnHealpix
  * @author ejoliet
- * @version $Id: ViewToLearnHealpix.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ViewToLearnHealpix.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ViewToLearnHealpix {
+	
+	/**
+	 * The main method.
+	 * 
+	 * @param argv the arguments
+	 */
 	public static void main(String argv[]) {
 		HealView ap = new HealView();
 		ap.init();

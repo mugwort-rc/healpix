@@ -141,7 +141,8 @@ pro ianafast, map1_in, cl_out $
 ;
 ;    theta_cut_deg=: cut around the equatorial plane 
 ;
-;    tmpdir=:      directory in which are written temporary files [default: /tmp]
+;    tmpdir=:      directory in which are written temporary files 
+;         [default: IDL_TMPDIR (see IDL documentation about IDL_TMPDIR)]
 ;
 ;    /weighted:     same as won
 ;       [default: apply weighting]
@@ -184,6 +185,8 @@ pro ianafast, map1_in, cl_out $
 ;       Oct  2007, v1.1.2: addition of /show_cl
 ;       July 2008, v1.2:   output Cl file really optional
 ;       2008-08-27: cosmetics (a closing quote was missing)
+;       2009-04-30: tmpdir= is not ignored anymore, and IDL_TMPDIR is now used
+;       as default temporary directory.
 ;
 ;-
 local = {routine: 'ianafast', exe: 'anafast', exe_cxx: 'anafast_cxx', double: keyword_set(double)}
@@ -219,7 +222,7 @@ if (undefined(sim_final)) then sim_final = 1 else sim_final = defined(polarisati
 pol_bool = (['false','true'])[(sim_final-1)<1>0]
 
 ;-------------------
-hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local, cxx=cxx
+hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local, cxx=cxx, tmpdir=tmpdir
 
 
 NoFile = keyword_set(cxx) ? " " : " '' "

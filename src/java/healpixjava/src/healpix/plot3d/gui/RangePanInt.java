@@ -24,9 +24,11 @@ import java.awt.event.TextListener;
 
 /**
  * @author ejoliet
- * @version $Id: RangePanInt.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: RangePanInt.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class RangePanInt extends RangePanel implements TextListener {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -37,9 +39,15 @@ public class RangePanInt extends RangePanel implements TextListener {
         critInit(get, attrib, cls);
     }
 
+    /* (non-Javadoc)
+     * @see healpix.plot3d.gui.RangePanel#critInit(java.lang.String, java.lang.String, java.lang.String)
+     */
     protected void critInit(String get, String attrib, String cls) {
     }
 
+    /* (non-Javadoc)
+     * @see healpix.plot3d.gui.RangePanel#textValueChanged(java.awt.event.TextEvent)
+     */
     public void textValueChanged(TextEvent e) {
     }
 }

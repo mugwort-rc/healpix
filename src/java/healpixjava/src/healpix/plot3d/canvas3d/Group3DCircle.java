@@ -31,11 +31,14 @@ import javax.vecmath.Point3d;
  * Radius and number of points that make up the circle may be set
  * 
  * @author ejoliet
- * @version $Id: Group3DCircle.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Group3DCircle.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class Group3DCircle extends Shape3D {
+	
+	/** The resolution. */
 	private int resolution = 24; // default res
 
+	/** The radius0. */
 	private double radius0 = 1.0;
 
 	/**
@@ -76,6 +79,11 @@ public class Group3DCircle extends Shape3D {
 		this.setAppearance(createAppearance());
 	}
 
+	/**
+	 * Creates the geometry.
+	 * 
+	 * @return the geometry
+	 */
 	private Geometry createGeometry() {
 		// create line for X axis
 		int nVertex = resolution;
@@ -110,6 +118,11 @@ public class Group3DCircle extends Shape3D {
 		return circle;
 	}
 
+	/**
+	 * Creates the appearance.
+	 * 
+	 * @return the appearance
+	 */
 	private Appearance createAppearance() {
 		Appearance app = new Appearance();
 

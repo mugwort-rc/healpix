@@ -39,8 +39,8 @@ NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole,
 OFFSET=offset, ONLINE = online, OUTLINE=outline, $
 PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
 QUADCUBE = quadcube, $
-ROT = rot, $
-SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
+RETAIN = retain, ROT = rot, $
+SAVE = save, SHADED = shaded, SILENT = silent, SUBTITLE = subtitle, $
 TITLEPLOT = titleplot, $
 UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 
@@ -87,7 +87,7 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              PNG=,'
     print,'              POLARIZATION=polarization, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              ROT=, SAVE=, SILENT=, '
+    print,'              RETAIN=, ROT=, SAVE=, SHADED=, SILENT=, '
     print,'              SUBTITLE=, TITLEPLOT=, '
     print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
@@ -116,7 +116,8 @@ endif
 polar_type = 0
 if keyword_set(polarization) then polar_type = polarization
 
-do_fullsky = 1 - keyword_set(half_sky)
+do_fullsky = ~keyword_set(half_sky)
+do_shade = keyword_set(shaded) && ~keyword_set(gif)
 
 loaddata_healpix, $
   file_in, select_in,$
@@ -131,7 +132,7 @@ data2orth, $
   planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
-  POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
+  POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, DO_SHADE=do_shade, SHADEMAP=shademap
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -140,7 +141,8 @@ proj2out, $
   HXSIZE=hxsize, NOBAR = nobar, NOLABELS = nolabels, PNG = png, PREVIEW = preview, PS=ps, PXSIZE=pxsize, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /ORTH, FLIP=flip, HALF_SKY=half_sky, COORD_IN=coord_in, $
-  IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
+  IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
+  SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

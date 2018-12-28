@@ -31,22 +31,38 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
 
+/**
+ * The Class MapDialog.
+ */
 public class MapDialog extends JFrame implements ActionListener, ItemListener {
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     // protected Criteria crit;
+    /** The fwhm. */
     protected RangePanel fwhm;
 
+    /** The nside. */
     protected RangePanel nside;
 
+    /** The maplist. */
     protected java.awt.List maplist;
 
+    /** The map take. */
     protected MapTaker mapTake;
 
+    /** The ignore. */
     protected Checkbox ignore;
 
+    /** The sel. */
     protected Button sel;
 
+    /**
+     * Instantiates a new map dialog.
+     * 
+     * @param mapTake the map take
+     */
     public MapDialog(MapTaker mapTake) {
         super("Map Filter");
         this.mapTake = mapTake;
@@ -80,6 +96,9 @@ public class MapDialog extends JFrame implements ActionListener, ItemListener {
         add("South", p);
     }
 
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         if (cmd == "Close") {
@@ -115,6 +134,9 @@ public class MapDialog extends JFrame implements ActionListener, ItemListener {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+     */
     public void itemStateChanged(ItemEvent e) {
         ItemSelectable cb = e.getItemSelectable();
         if (cb == ignore) {

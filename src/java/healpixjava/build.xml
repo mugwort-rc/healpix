@@ -3,12 +3,15 @@
 	
 	<property name="logdir" value="logs"/>
 	<property name="lib" value="${basedir}/lib"/>
-	<property name="classes" value="${basedir}/classes"/>
+	<property name="classes" value="${basedir}/build"/>
 	<property name="dist" value="${basedir}/dist"/>
 	<property name="conf" value="${basedir}/conf"/>
 	<property name="src" value="${basedir}/src"/>
 	<property name="docs" value="${basedir}/healpixdocs"/>
-	<property name="junit.reports" value="${basedir}/buildreport"/>
+	<property name="junit.reports" value="${basedir}/reports/junit"/>
+	<property name="version" value="$Id: build.xml 56839 2008-08-08 07:40:56Z ejoliet $" />
+	<property name="author" value="$Author: ejoliet $" />    
+	<property name="project-description" value="Java Healpix Library"/>
 	<path id="classpath">
 		<pathelement location="${classes}"/>
 		<fileset dir="${lib}">
@@ -23,7 +26,6 @@
 	<target name="init" description="Initialize the build">
 		<mkdir dir="${classes}"/>
 		<mkdir dir="${dist}"/>
-		<mkdir dir="${docs}"/>
 	</target>
 	<target name="svnrevision" description="determine the subversion revision number">
 	   <exec executable="svnversion" outputproperty="svn.revision" />
@@ -42,7 +44,7 @@
 		<delete dir="${junit.reports}"/>
 		<mkdir dir="${junit.reports}"/>
 		<junit errorProperty="junit.failed"
-		failureProperty="junit.failed" fork="yes" maxmemory="1g" printsummary="yes">
+		failureProperty="junit.failed" fork="yes" maxmemory="1g" printsummary="withOutAndErr" showoutput="yes">
 			<classpath refid="classpath" />
 			<formatter type="xml" usefile="true" />
 			<batchtest todir="${junit.reports}">
@@ -58,9 +60,9 @@
 		<fail message="Test Cases Failed" if="junit.failed"/>
 	</target>
 
-	<target name="docs" depends="" description="Create the Javadocs">
+	<target name="docs" depends="svnrevision" description="Create the Javadocs">
 		<javadoc 
-			destdir="${docs}" 
+			destdir="${docs}" failonerror="true" use="true"
 			sourcepath="${src}" 
 			additionalparam='-breakiterator -public -quiet -tag todo:a:"To Do:\" -link http://java.sun.com/j2se/1.5.0/docs/api -link http://download.java.net/media/java3d/javadoc/1.4.0' 
 			classpathref="classpath">
@@ -69,72 +71,71 @@
 				<exclude name="**/doc-files/**" />
 				<exclude name="**/test/**" />
 			</packageset>
-			<!-- <footer>"Built from revision ${svn.revision}"</footer> -->
+			<footer>"Built from revision ${svn.revision}"</footer>
 		</javadoc>
 	</target>
 
-	<target name="dist" depends="svnrevision,test,distonly,distsrc,docs" description="Create the distributable jar file">
+	<target name="dist" depends="distcomplete" description="Complete: create the distributable jar file">
 	</target>
 
 	<target name="clean" depends="" description="Clean the build">
 		<delete dir="${classes}"/>
+		<delete dir="${junit.reports}"/>
 		<delete dir="${docs}"/>
 	</target>
 	
-	<target name="distwithdoc" depends="distonly,docs"
+	<target name="distwithdoc" depends="docs,distonly"
 	        description="generate the distribution" >
 	</target>
 	
-	<target name="distonly" depends="svnrevision,compile" description="Compile, run test and build the ONE JAR file containing classes,source,lib and docs">
+	<target name="distonly" depends="clean,svnrevision,compile" description="Build the JAR file containing only classes">
 		<jar destfile="${dist}/jhealpix.jar">
+            <fileset dir="${classes}">
+                <exclude name="**/doc-files/**" />
+            </fileset>
+            <fileset dir="${src}">
+                <exclude name="**/doc-files/**" />
+            </fileset>
+			<!--
 			<fileset dir="${basedir}">
-				<exclude name="buildreport/**" />
+				<exclude name="${junit.reports}/**" />
 				<exclude name="dist/**" />
 				<exclude name="magicdraw/**" />
 				<exclude name="classes/**" />
+				<exclude name="${classes}/**" />
 				<exclude name="tmp/**" />
+				<exclude name="lib/**" />
+				<exclude name="bin/**" />
+				<exclude name="${src}/**" />
+				<include name="lib/net-ivoa-fits.jar" />
 			</fileset>
 			<fileset dir="${classes}">
 				<exclude name="**/doc-files/**" />
+				<exclude name="**Test" />
 			</fileset>
-			<zipfileset src="${lib}/net-ivoa-fits.jar"/>
-			<zipfileset src="${lib}/vecmath.jar"/>
-			<zipfileset src="${lib}/j3dcore.jar"/>
-			<zipfileset src="${lib}/j3dutils.jar"/>			
+			-->	
 		<manifest>
+			<attribute name="Class-Path" value=".:lib"/>
+			<attribute name="Specification-Title"        value="${project-description}"/>
+			<attribute name="Specification-Version"      value="${version}"/>
+			<attribute name="Specification-Vendor"       value="${author}"/>
+			<attribute name="Implementation-Title"       value="${project-description}"/>
+			<attribute name="Implementation-Version"     value="${version}"/>
+			<attribute name="Implementation-Vendor"      value="${author}"/>
+			<attribute name="Author"                     value="${author}" />
 			<attribute name="Svn-Revision" value="${svn.revision}"/>
 		</manifest>
 		</jar>
 	</target>
-	<target name="distcomplete" depends="svnrevision,test,docs" description="Compile, run test and build the ONE JAR file containing classes,source,lib and docs">
-		<jar destfile="${dist}/jhealpix.jar">
-			<fileset dir="${basedir}">
-				<exclude name="buildreport/**" />
-				<exclude name="dist/**" />
-				<exclude name="magicdraw/**" />
-				<exclude name="classes/**" />
-				<exclude name="tmp/**" />
-			</fileset>
-			<fileset dir="${classes}">
-				<exclude name="**/doc-files/**" />
-			</fileset>
-			<zipfileset src="${lib}/net-ivoa-fits.jar"/>
-			<zipfileset src="${lib}/vecmath.jar"/>
-			<zipfileset src="${lib}/j3dcore.jar"/>
-			<zipfileset src="${lib}/j3dutils.jar"/>			
-		<manifest>
-			<attribute name="Svn-Revision" value="${svn.revision}"/>
-		</manifest>
-		</jar>
+	<target name="distcomplete" depends="clean,test,docs,distonly,distsrc" description="Compile, run test and build the jar files containing classes,source,lib and docs">
 	</target>
-	<target name="distsrc" depends="svnrevision" description="Build the source JAR file">
+	<target name="distsrc" depends="svnrevision,extrajars" description="Build the source JAR file">
 		<jar destfile="${dist}/jhealpix_src.jar">
 			<fileset dir="${basedir}">
 				<exclude name="dist/**" />
 				<exclude name="classes/**" />
-				<exclude name="data/**" />
 				<exclude name="magicdraw/**" />
-				<exclude name="buildreport/**" />
+				<exclude name="${junit.reports}/**" />
 				<exclude name="tmp/**" />
 			</fileset>
 			<manifest>
@@ -142,5 +143,12 @@
 			</manifest>
 		</jar>
 	</target>
-	
+	<target name="extrajars" depends="init" description="Build a JAR file containing external libraries">
+	        <jar destfile="${dist}/jhealpixExternalLibs.jar">
+				<fileset file="${lib}/net-ivoa-fits.jar"/>
+				<fileset file="${lib}/vecmath.jar"/>
+				<fileset file="${lib}/j3dcore.jar"/>
+				<fileset file="${lib}/j3dutils.jar"/>		
+	        </jar>
+	    </target>
 </project>

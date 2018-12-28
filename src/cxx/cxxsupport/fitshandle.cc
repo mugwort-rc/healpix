@@ -838,8 +838,12 @@ class cfitsio_checker
       float fitsversion;
       planck_assert(fits_get_version(&fitsversion),
         "error calling fits_get_version()");
-      planck_assert (approx<double>(CFITSIO_VERSION,fitsversion),
-        "mismatch between CFITSIO header and library");
+      int v_header  = nearest<int>(1000.*CFITSIO_VERSION),
+          v_library = nearest<int>(1000.*fitsversion);
+      if (v_header!=v_library)
+        cerr << endl << "WARNING: version mismatch between CFITSIO header (v"
+             << dataToString(v_header*0.001) << ") and linked library (v"
+             << dataToString(v_library*0.001) << ")." << endl << endl;
       }
   };
 

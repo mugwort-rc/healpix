@@ -37,7 +37,9 @@ MODULE healpix_types
   !            Jan 2005, explicit form of max_i1b because of ifc 8.1.021
   !            June 2005, redefine i8b as 16 digit integer because of Nec f90 compiler
   !            Mars 2008: i8b same as i4b on machines not supporting 64 bits (NO64BITS flag set)
+  !            Feb  2009: introduce healpix_version
   !
+  character(len=*), PARAMETER, public :: healpix_version = '2.12'
   INTEGER, PARAMETER, public :: i4b = SELECTED_INT_KIND(9)
 #ifdef NO64BITS
   INTEGER, PARAMETER, public :: i8b = i4b
@@ -79,21 +81,21 @@ MODULE healpix_types
   integer, parameter :: filenamelen = 1024
 
 
-  ! ---- Normalisation and convention ----
-  ! normalisation of spin weighted functions
-  real(kind=dp), parameter, public ::  KvS = 1.0_dp ! 1.0 : CMBFAST (Healpix 1.2)
-  ! sign of Q
-  real(kind=dp), parameter, public :: sgQ = -1.0_dp ! -1 : CMBFAST (Healpix 1.2)
-  ! sign of spin weighted function !
-  real(kind=dp), parameter, public :: SW1 = -1.0_dp ! -1 : Healpix 1.2, bug correction
+!   ! ---- Normalisation and convention ----
+   ! normalisation of spin weighted functions
+   real(kind=dp), parameter, public ::  KvS = 1.0_dp ! 1.0 : CMBFAST (Healpix 1.2)
+!   ! sign of Q
+!   real(kind=dp), parameter, public :: sgQ = -1.0_dp ! -1 : CMBFAST (Healpix 1.2)
+!   ! sign of spin weighted function !
+!   real(kind=dp), parameter, public :: SW1 = -1.0_dp ! -1 : Healpix 1.2, bug correction
 
-!  ! normalisation of spin weighted functions
-!  real(kind=dp), parameter, public ::  KvS = 2.0_dp ! 2.0 : KKS  (Healpix 1.1)
-!  ! sign of Q
-!  real(kind=dp), parameter, public :: sgQ = +1.0_dp ! +1 : KKS (Healpix 1.1)
-!  ! sign of spin weighted function !
-!  real(kind=dp), parameter, public :: SW1 = +1.0_dp ! +1 : Healpix 1.1
+! !  ! normalisation of spin weighted functions
+! !  real(kind=dp), parameter, public ::  KvS = 2.0_dp ! 2.0 : KKS  (Healpix 1.1)
+! !  ! sign of Q
+! !  real(kind=dp), parameter, public :: sgQ = +1.0_dp ! +1 : KKS (Healpix 1.1)
+! !  ! sign of spin weighted function !
+! !  real(kind=dp), parameter, public :: SW1 = +1.0_dp ! +1 : Healpix 1.1
 
-  real(kind=dp), parameter, public :: iKvS = 1.0_dp / KvS  ! inverse of KvS
+!   real(kind=dp), parameter, public :: iKvS = 1.0_dp / KvS  ! inverse of KvS
 
 END MODULE healpix_types

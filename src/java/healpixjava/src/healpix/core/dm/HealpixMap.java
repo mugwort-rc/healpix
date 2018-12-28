@@ -24,7 +24,7 @@ import healpix.core.AngularPosition;
 /**
  * Healpix map data model interface.
  * 
- * @version $Id: HealpixMap.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixMap.java 54692 2008-07-09 08:57:08Z womullan $
  * @author ejoliet
  * 
  */
@@ -34,9 +34,9 @@ public interface HealpixMap extends AbstractHealpixMap {
 	 * Returns the index healpix pixel from an angular position
 	 * 
 	 * @param theta
-	 *            the theta angle
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            the phi angle
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return integer index pixel
 	 * @throws Exception
 	 */

@@ -45,48 +45,69 @@ import javax.swing.JApplet;
  * Allow map selection and eventually display it and allow zoom.
  * 
  * @author ejoliet
- * @version $Id: ViewMaps.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ViewMaps.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class ViewMaps extends JApplet implements ActionListener, TextListener,
 		ItemListener, MapTaker {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The stoped. */
 	protected boolean stoped = true;
 
+	/** The started. */
 	protected boolean started = false;
 
+	/** The view3dfailed. */
 	protected boolean view3dfailed = false;
 
+	/** The view area. */
 	protected Panel viewArea;
 
+	/** The info. */
 	protected Panel info;
 
+	/** The info2. */
 	protected Label info2;
 
+	/** The width. */
 	protected Label width;
 
+	/** The threshold. */
 	protected Label threshold;
 
+	/** The ra field. */
 	protected TextField raField;
 
+	/** The dec field. */
 	protected TextField decField;
 
+	/** The info3. */
 	protected Label info3;
 
+	/** The map. */
 	protected HealpixMap theMap;
 
+	/** The map dlg. */
 	protected MapDialog mapDlg;
 
+	/** The box dlg. */
 	protected ExtractBoxDialog boxDlg;
 
+	/** The displayer. */
 	protected ExtBoxDisplayer displayer;
 
+	/** The map pan. */
 	protected MapPanel mapPan;
 
+	/** The view3d. */
 	protected MapTaker view3d;
 
+	/** The show3d. */
 	protected Button extractBox, show3d;
 
+	/** The cr. */
 	static HealpixMapCreator cr;
 
 	/**
@@ -171,6 +192,9 @@ public class ViewMaps extends JApplet implements ActionListener, TextListener,
 		add("South", info);
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.MapTaker#setMap(healpix.core.dm.HealpixMap)
+	 */
 	public void setMap(HealpixMap map) {
 		// Update the MapPanel and the rest
 		theMap = map;
@@ -241,6 +265,9 @@ public class ViewMaps extends JApplet implements ActionListener, TextListener,
 		info2.setText(" ");
 	}
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.MapTaker#getMap()
+	 */
 	public HealpixMap getMap() {
 		return theMap;
 	}

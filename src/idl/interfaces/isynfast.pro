@@ -119,7 +119,8 @@ pro isynfast, cl_in, map_out $
 ;
 ;    /silent:    if set, works silently
 ;
-;    tmpdir=:      directory in which are written temporary files [default: /tmp]
+;    tmpdir=:      directory in which are written temporary files 
+;         [default: IDL_TMPDIR (see IDL documentation about IDL_TMPDIR)]
 ;
 ;    windowfile=:    FITS file containing pixel window 
 ;        [default: determined automatically by back-end routine].
@@ -188,7 +189,7 @@ solve_kw_conflict,'lmax',   'nlmax',         k1=lmax,    k2=nlmax,    kout=lmax,
 solve_kw_conflict,'nside',  'nsmax',         k1=nside,   k2=nsmax,    kout=nside, /defined
 
 ;-------------------
-hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local
+hpx_xface_generic, fullpath, tmp_par_file, binpath, init=local, tmpdir=tmpdir
 
 NoFile = " '' "
 ;if (~arg_present(map_out)) then map_out = NoFile

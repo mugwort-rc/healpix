@@ -71,7 +71,7 @@
   character(len=20) :: coordsys
 
 !   CHARACTER(LEN=*), PARAMETER :: code = 'UD_GRADE'
-  CHARACTER(LEN=*), PARAMETER :: version = '2.1.1'
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
 
   type(paramfile_handle) :: handle
 

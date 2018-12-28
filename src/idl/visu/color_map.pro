@@ -52,7 +52,9 @@ function color_map, data, mindata, maxdata, Obs, $
 ;
 ; Sep 2007: added /silent
 ; July 2008: added Asinh mode
-; Oct 2008: make sure that MIN and MAX are properly taken into account in Asinh mode
+; Oct 2008: make sure that MIN and MAX are properly taken into account in Asinh
+; mode
+; 2009-04-30: make sure that MINSET and MAXSET are taken into account in Log mode
 ;-
 
 if undefined (mode) then mode = 0
@@ -111,6 +113,13 @@ IF (do_log) THEN BEGIN
         data[Obs] = ALOG10(data[Obs] > 1.e-6*abs(maxdata))
         mindata = MIN(data[Obs],MAX=maxdata)
     endelse
+    ; use user-defined range if provided
+    if defined(min_set) then begin
+        if (min_set gt 0) then mindata = alog10(min_set)
+    endif
+    if defined(max_set) then begin
+        if (max_set gt 0) then maxdata = alog10(max_set)
+    endif
 ENDIF
 
 ; IF (do_asinh) THEN BEGIN

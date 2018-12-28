@@ -31,13 +31,17 @@ import javax.vecmath.Point3d;
  * The radius of the sphere may also be given.
  * 
  * @author ejoliet
- * @version $Id: Group3DSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Group3DSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class Group3DSphere extends Shape3D {
+	
+	/** The long res. */
 	private int longRes = 12;
 
+	/** The lat res. */
 	private int latRes = 24;
 
+	/** The radius. */
 	private double radius = 1.0;
 
 	/**
@@ -82,6 +86,11 @@ public class Group3DSphere extends Shape3D {
 		this.setAppearance(createAppearance());
 	}
 
+	/**
+	 * Creates the geometry.
+	 * 
+	 * @return the geometry
+	 */
 	private Geometry createGeometry() {
 		// create line for X axis
 		int nVertex = (longRes * (latRes - 2)) + 2;
@@ -161,6 +170,11 @@ public class Group3DSphere extends Shape3D {
 		return longitudes;
 	}
 
+	/**
+	 * Creates the appearance.
+	 * 
+	 * @return the appearance
+	 */
 	private Appearance createAppearance() {
 		Appearance app;
 		app = new Appearance();

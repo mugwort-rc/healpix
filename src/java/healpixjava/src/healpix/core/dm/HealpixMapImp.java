@@ -40,7 +40,7 @@ import net.ivoa.util.BufferedDataOutputStream;
  * with e.g. visualisation/analysis tools in the HEALPix distribution.
  * 
  * @author ejoliet
- * @version $Id: HealpixMapImp.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixMapImp.java 93882 2009-06-24 14:45:25Z womullan $
  */
 public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		Serializable, Cloneable {
@@ -61,8 +61,10 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		 */
 		private static final long serialVersionUID = 1L;
 
+		/** The val. */
 		private double val = 0.; // value
 
+		/** The n. */
 		private int n = 0; // counter
 
 		/**
@@ -128,28 +130,37 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 
 	// HEALPix encoding scheme
 
+	/** The scheme. */
 	private Scheme scheme;
 
 	/* Number of maps. */
+	/** The n maps. */
 	private short nMaps = 0;
 
 	/* Array of string names of the maps. */
+	/** The map names. */
 	private String[] mapNames = null;
 
 	/* Map elements. */
+	/** The map. */
 	private MapItem[][] map = null;
 
 	/* Number of elements accumulated in each map. */
+	/** The N. */
 	private int N[] = null;
 
 	/* Minimum value accumulated in each map. */
+	/** The min val. */
 	private double[] minVal = null;
 
 	/* Maximum value accumulated in each map. */
+	/** The max val. */
 	private double[] maxVal = null;
 
+	/** The colname. */
 	private String[] colname;
 
+	/** The imap. */
 	private int imap = 0;
 
 	/**
@@ -586,6 +597,13 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		return (double) max;
 	}
 
+	/**
+	 * Gets the max map item.
+	 * 
+	 * @param i the i
+	 * 
+	 * @return the max map item
+	 */
 	public double getMaxMapItem(int i) {
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;
@@ -621,6 +639,13 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		return (double) min;
 	}
 
+	/**
+	 * Gets the min map item.
+	 * 
+	 * @param i the i
+	 * 
+	 * @return the min map item
+	 */
 	public double getMinMapItem(int i) {
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;
@@ -683,11 +708,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see healpix.core.dm.HealpixMap#ang2pix(double, double)
-	 */
+	
 	public int ang2pix(double theta, double phi) throws Exception {
 		int pix = 0;
 		if (this.scheme.equals(Scheme.NEST)) {
@@ -965,6 +986,11 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		return sum / total;
 	}
 
+	/**
+	 * Shallow clone.
+	 * 
+	 * @return the object
+	 */
 	public Object shallowClone() {
 		try {
 			return super.clone();

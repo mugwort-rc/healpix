@@ -75,8 +75,8 @@
   character(len=FILENAMELEN)          :: infile_alms,    outfile_alms
   character(len=FILENAMELEN)          :: beam_file_in,   beam_file_out, beam_file_def
   character(len=80), dimension(:,:), allocatable :: header
-!  character(len=*),         parameter :: CODE = 'ALTERALM'
-  character(len=*),         parameter :: VERSION = '2.1.1'
+ !  character(len=*),         parameter :: CODE = 'ALTERALM'
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
   character(len=10)                   :: sstr
   real     (SP) :: clock_time, time0, time1
   real     (SP) :: ptime, ptime0, ptime1

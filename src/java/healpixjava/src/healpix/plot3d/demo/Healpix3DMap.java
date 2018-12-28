@@ -39,7 +39,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * mouse buttons.
  * 
  * @author ejoliet
- * @version $Id: Healpix3DMap.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Healpix3DMap.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class Healpix3DMap extends JFrame {
 	/**
@@ -102,6 +102,9 @@ public class Healpix3DMap extends JFrame {
 		this(false);
 	}
 
+	/**
+	 * Setup frame.
+	 */
 	private void setupFrame() {
 		// Set cross-platform Java L&F (also called "Metal")
 		try {
@@ -216,6 +219,11 @@ public class Healpix3DMap extends JFrame {
 		}
 	}
 
+	/**
+	 * Checks if is done.
+	 * 
+	 * @return true, if is done
+	 */
 	public boolean isDone() {
 		return isDone;
 	}

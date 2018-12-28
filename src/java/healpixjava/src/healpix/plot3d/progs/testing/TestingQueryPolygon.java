@@ -34,27 +34,49 @@ import java.util.ArrayList;
  * Usage: java -cp jhealpix.jar healpix.plot3d.progs.testing.TestingQueryPolygon
  * 
  * @author ejoliet
- * @version $Id: TestingQueryPolygon.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Healpix3DMapViewer.java 26131 2007-06-27 16:02:03Z ejoliet $
  */
 public class TestingQueryPolygon {
+
+	/** The vlist. */
 	private static ArrayList<Object> vlist;
 
+	/**
+	 * The main method.
+	 * 
+	 * @param args
+	 *            the arguments
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		try {
 			MapView3d mview = new MapView3d(false);
 			vlist = new ArrayList<Object>();
-			HealpixMap map = getMap3PixelsRing();// getMapWithPixRingTriangle();
-													// // getMap();
+			// HealpixMap map = getMapWithPixRingTriangle();
+//			HealpixMap map = getMapWithPixNest();
+			// HealpixMap map = getMap3PixelsRing();
+			 HealpixMap map = getMapNeighbours();
+			// // getMap();
 			mview.setMap(map);
 			System.out.println("Map min/max: " + map.getMin(0) + "/"
 					+ map.getMax(0));
 			mview.setSize(800, 800);
 			mview.setVisible(true);
-		} catch ( Exception e ) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Gets the map.
+	 * 
+	 * @return the map
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static HealpixMap getMap() throws Exception {
 		int nside = 4;
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
@@ -65,17 +87,17 @@ public class TestingQueryPolygon {
 		double offsetra = 0.0;
 		double offsetdec = 0.0;
 		// make left polygon
-		vec1.set(( 345.0 + offsetra ), 10.0 + offsetdec);// north
+		vec1.set((345.0 + offsetra), 10.0 + offsetdec);// north
 		SpatialVector vec2 = new SpatialVector();
 		System.out.println("1:" + hi.vec2pix_nest(vec1));
-		vec2.set(( 350.0 + offsetra ), -20.0 + offsetdec);// south
+		vec2.set((350.0 + offsetra), -20.0 + offsetdec);// south
 		System.out.println("2:" + hi.vec2pix_nest(vec2));
 		// hemisphere
 		SpatialVector vec3 = new SpatialVector();
-		vec3.set(( 20.0 + offsetra ), -20.0 + offsetdec);// South hemisphere
+		vec3.set((20.0 + offsetra), -20.0 + offsetdec);// South hemisphere
 		System.out.println("3:" + hi.vec2pix_nest(vec3));
 		SpatialVector vec4 = new SpatialVector();
-		vec4.set(( 20.0 + offsetra ), 10.0 + offsetdec);
+		vec4.set((20.0 + offsetra), 10.0 + offsetdec);
 		System.out.println("4:" + hi.vec2pix_nest(vec4));
 
 		vlist.add(vec1);
@@ -88,8 +110,8 @@ public class TestingQueryPolygon {
 		pixlist = new HealpixIndex(map.nside()).query_triangle(map.nside(),
 				vec1, vec2, vec3, 1, 0);
 		int nlist = pixlist.size();
-		for ( int i = 0; i < nlist; i++ ) {
-			long ip = (int) ( (Long) pixlist.get(i) ).longValue();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
 			map.setValueCell((int) ip, 0.5);
 			// System.out.println(ip);
 		}
@@ -101,6 +123,14 @@ public class TestingQueryPolygon {
 		return map;
 	}
 
+	/**
+	 * Gets the map with pix ring triangle.
+	 * 
+	 * @return the map with pix ring triangle
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static HealpixMap getMapWithPixRingTriangle() throws Exception {
 		int nside = 4;
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
@@ -121,7 +151,7 @@ public class TestingQueryPolygon {
 		System.out.println("Start test Query Triangle");
 		SpatialVector v[] = new SpatialVector[3];
 
-		for ( int vi = 0; vi < v.length; vi++ ) {
+		for (int vi = 0; vi < v.length; vi++) {
 			map.add((int) triang[vi], 10);
 			v[vi] = pt.pix2vec_ring(triang[vi]);
 
@@ -131,8 +161,8 @@ public class TestingQueryPolygon {
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], nest, inclusive);
 
 		int nlist = pixlist.size();
-		for ( int i = 0; i < nlist; i++ ) {
-			long ip = (int) ( (Long) pixlist.get(i) ).longValue();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
 			map.add((int) pt.ring2nest((int) ip), 5);
 			System.out.println(ip);
 		}
@@ -141,6 +171,14 @@ public class TestingQueryPolygon {
 
 	}
 
+	/**
+	 * Gets the map3 pixels ring.
+	 * 
+	 * @return the map3 pixels ring
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static HealpixMap getMap3PixelsRing() throws Exception {
 		int nside = 4;
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
@@ -152,7 +190,7 @@ public class TestingQueryPolygon {
 		HealpixIndex pt = new HealpixIndex(nside);
 		System.out.println("Start test Query Triangle");
 		SpatialVector v[] = new SpatialVector[3];
-		for ( int i = 0; i < ipringtest.length; i++ ) {
+		for (int i = 0; i < ipringtest.length; i++) {
 			int iptest = (int) pt.ring2nest(ipringtest[i]);
 			v[i] = pt.pix2vec_ring(ipringtest[i]);
 			double[] ang = pt.pix2ang_nest(iptest);
@@ -164,14 +202,22 @@ public class TestingQueryPolygon {
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], 0, 0);
 
 		int nlist = pixlist.size();
-		for ( int i = 0; i < nlist; i++ ) {
-			long ip = (int) ( (Long) pixlist.get(i) ).longValue();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
 			map.add((int) pt.ring2nest((int) ip), 5);
 			System.out.println(ip);
 		}
 		return map;
 	}
 
+	/**
+	 * Gets the map with pix ring.
+	 * 
+	 * @return the map with pix ring
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static HealpixMap getMapWithPixRing() throws Exception {
 		int nside = 4;
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
@@ -204,8 +250,8 @@ public class TestingQueryPolygon {
 
 		ArrayList pixlist = pt.query_polygon(nside, vlist1, 0, 0);
 		int nlist = pixlist.size();
-		for ( int i = 0; i < nlist; i++ ) {
-			long ip = (int) ( (Long) pixlist.get(i) ).longValue();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
 			map.add((int) ip, 0.5);
 			System.out.println(ip);
 		}
@@ -214,6 +260,59 @@ public class TestingQueryPolygon {
 
 	}
 
+	/**
+	 * Gets the map with pix nest.
+	 * 
+	 * @return the map with pix nest
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
+	@SuppressWarnings("unchecked")
+	public static HealpixMap getMapNeighbours() throws Exception {
+		int nside = 32;
+		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
+		HealpixMap map = cr.getMap();
+		map.setScheme(Scheme.NEST);
+
+		ArrayList vlist1 = new ArrayList();
+		SpatialVector v = null;
+		HealpixIndex pt = new HealpixIndex(nside);
+
+		double pv = 3;
+		int[] arr = new int[] { 4444, 4446, 4468, 4469, 32, 10, 8, 4445 };
+//		int[] arr = new int[] { 4444, 4446, 4468, 4469, 1056, 1034, 1032, 4445 };
+
+		for (int i = 0; i < arr.length; i++) {
+			v = pt.pix2vec_nest(arr[i]);
+			vlist1.add((Object) v);			
+			addVec(nside,v, map, pv);
+			map.setValueCell(arr[i], pv);
+		}
+		v = pt.pix2vec_nest(4447);
+		vlist1.add((Object) v);
+		map.setValueCell(4447, pv);
+		addVec(nside,v, map, pv*2);
+		ArrayList pixlist = pt.neighbours_nest(nside, 4447);
+		int nlist = pixlist.size();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
+			//map.add((int) ip, 0.5);
+			System.out.println(ip);
+		}
+
+		return map;
+
+	}
+
+	/**
+	 * Gets the map with pix nest.
+	 * 
+	 * @return the map with pix nest
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static HealpixMap getMapWithPixNest() throws Exception {
 		int nside = 4;
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
@@ -245,8 +344,8 @@ public class TestingQueryPolygon {
 		addVec(v, map, pv++);
 		ArrayList pixlist = pt.query_polygon(nside, vlist1, 1, 0);
 		int nlist = pixlist.size();
-		for ( int i = 0; i < nlist; i++ ) {
-			long ip = (int) ( (Long) pixlist.get(i) ).longValue();
+		for (int i = 0; i < nlist; i++) {
+			long ip = (int) ((Long) pixlist.get(i)).longValue();
 			map.add((int) ip, 0.5);
 			System.out.println(ip);
 		}
@@ -262,16 +361,44 @@ public class TestingQueryPolygon {
 	 */
 	private static double[] diffVec(SpatialVector vec1, SpatialVector vec2) {
 		double x, y, z;
-		x = -vec1.getX() + vec2.getX();
-		y = -vec1.getY() + vec2.getY();
-		z = -vec1.getZ() + vec2.getZ();
+		x = -vec1.x() + vec2.x();
+		y = -vec1.y() + vec2.y();
+		z = -vec1.z() + vec2.z();
 		return new double[] { x, y, z };
 	}
 
-	public static void addVec(SpatialVector vec, HealpixMap map, double v)
-			throws Exception {
+	/**
+	 * Adds the vec.
+	 * 
+	 * @param vec
+	 *            the vec
+	 * @param map
+	 *            the map
+	 * @param v
+	 *            the v
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
+	public static void addVec(SpatialVector vec, HealpixMap map,
+			double v) throws Exception {
 
-		HealpixIndex hi = new HealpixIndex(4);
+		int nside = 4;
+		HealpixIndex hi = new HealpixIndex(nside);
+
+		// double angs[] = HealpixIndex.ang(vec);
+		double angs[] = hi.Vect2Ang(vec);
+
+		AngularPosition ang2 = new AngularPosition(angs[0], angs[1]);
+
+		map.add(ang2, v);
+
+	}
+
+	public static void addVec(int nside, SpatialVector vec, HealpixMap map,
+			double v) throws Exception {
+
+		HealpixIndex hi = new HealpixIndex(nside);
 
 		// double angs[] = HealpixIndex.ang(vec);
 		double angs[] = hi.Vect2Ang(vec);

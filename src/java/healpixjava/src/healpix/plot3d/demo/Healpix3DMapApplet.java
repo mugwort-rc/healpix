@@ -33,7 +33,7 @@ import javax.swing.JTextArea;
  * instantiates the Healpix3DMap, this however doesn't work as any VM prior to 1.5
  * will complain about the class version being 49.0
  * 
- * @version $Id: Healpix3DMapApplet.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: Healpix3DMapApplet.java 26131 2007-06-27 16:02:03Z ejoliet $
  * @author mtlinden
  */
 public class Healpix3DMapApplet extends JApplet {

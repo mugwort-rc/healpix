@@ -23,7 +23,7 @@ package healpix.core.base;
  * handles exceptions from this package
  * 
  * @author ejoliet
- * @version $Id: HealpixException.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixException.java 26101 2007-06-27 12:40:13Z ejoliet $
  */
 public class HealpixException extends Exception {
 	/**

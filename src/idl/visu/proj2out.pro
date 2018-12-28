@@ -37,7 +37,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               PROJECTION=projection, MOLLWEIDE=mollweide, GNOMIC=gnomic, CARTESIAN=cartesian, $
               ORTHOGRAPHIC=orthographic, FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, $
               IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
-              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize
+              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain
 
 ;===============================================================================
 ;+
@@ -62,6 +62,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;              ORTHOGRAPHIC=orthographic, $
 ;              FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, IGRATICULE=,
 ;              HBOUND=, DIAMONDS =, WINDOW =, TRANSPARENT=, EXECUTE=, SILENT=
+;              GLSIZE=, IGLSIZE=, SHADEMAP=
 ;
 ;   for more information, see Gnomview.pro Mollview.pro
 ;
@@ -75,6 +76,10 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;   Jan 2007, EH, added window keyword
 ;   Sep 2007, EH, the /CROP-ped image now include graticules, ...,
 ;   added /TRANSPARENT, EXECUTE=, /SILENT
+;   May 2009, EH, added SHADEMAP (shade for orthographic PNG output)
+;                 a single call to tvrd()
+;                 uses Z buffer when window<0
+;                 introduce RETAIN
 ;-
 ;===============================================================================
 
@@ -356,6 +361,8 @@ do_polamplitude = (polarization eq 1)
 do_poldirection = (polarization eq 2)
 do_polvector    = (polarization eq 3)
 if defined(charsize) then charsfactor = charsize else charsfactor = 1.0
+;do_shade = (do_png && do_orth && defined(shademap))
+do_shade = (do_orth && defined(shademap))
 
 
 ; alter the color table
@@ -383,6 +390,7 @@ TVLCT,red,green,blue
 ; ---------------------
 ; open the device
 ; ---------------------
+old_device=!d.name
 my_background = !p.background
 my_color = !p.color
 if (~keyword_set(silent)) then print,'... here it is.'
@@ -391,7 +399,6 @@ back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
 if (do_ps) then begin
     if DEFINED(hxsize) then hxsize = (hxsize > 3) < 200 else hxsize = hxsize_def
     if ((size(ps))(1) ne 7) then file_ps = 'plot_'+proj_small+'.ps' else file_ps = ps
-    old_device = !d.name
     SET_plot,'ps'
     do_portrait = 0
     do_landscape = 0
@@ -412,22 +419,24 @@ if (do_ps) then begin
     TVLCT,red,green,blue
     thick_dev = 2. ; device dependent thickness factor
 endif else begin
-    if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility
-    to_patch = ((!d.n_colors GT 256) && do_image  && not keyword_set(crop))
-    if (to_patch) then device, decomp = 1 else device, decomp = 0
     idl_window = defined(window_user) ? window_user : 32 ; idl_window = 32 or window_user
     free_window    =  (idl_window gt 31) ; random  window if idl_window > 31
     virtual_window =  (idl_window lt 0)  ; virtual window if idl_window < 0
     reuse_window   =  (~free_window && ~virtual_window && !d.window eq idl_window && !d.x_size eq long(xsize) && !d.y_size eq long(ysize*w_dx_dy))
+    use_z_buffer   = (virtual_window && do_image)
+    window_retain  = defined(retain) ? retain : 2
+    if (use_z_buffer) then begin
+        character_size = [!d.x_ch_size,!d.y_ch_size]
+        set_plot,'z'
+        device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buff=1
+    endif
+    if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility
+    to_patch = ((!d.n_colors GT 256) && do_image  && ~keyword_set(crop))
+    device, decomp = to_patch
     if (reuse_window) then begin
         wset, idl_window
     endif else begin
-        WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XPOS=xpos, YPOS=ypos
-;         if (UNDEFINED(xpos) or UNDEFINED(ypos)) then begin
-;             WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow
-;         endif else begin
-;             WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XP=xpos, YP=ypos
-;         endelse
+        if (~use_z_buffer) then WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XPOS=xpos, YPOS=ypos, RETAIN=window_retain
         if (~virtual_window && (!d.x_size lt long(xsize) || !d.y_size lt long(ysize*w_dx_dy))) then begin
             message,level=-1,/info,'==========================================================='
             message,level=-1,/info,'WARNING: Because of screen and window manager limitations,'
@@ -451,7 +460,19 @@ myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur]
 plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
 ; ---------- projection independent ------------------
 ; map itself
-TV, planmap,w_xll,w_yll,/normal,xsize=1.
+if (do_shade && ~do_image) then begin
+    ; shaded for X or PS
+    image = planmap
+    image3d  =   make_array(/uint, xsize, ysize, 3)
+    image3d[*,*,0] = uint( (256. * red  [image] * shademap) < 65535.)
+    image3d[*,*,1] = uint( (256. * green[image] * shademap) < 65535.)
+    image3d[*,*,2] = uint( (256. * blue [image] * shademap) < 65535.)
+    if (do_ps) then loadct,0,/silent ; must be in grey-scale for TrueColor PS output
+    TV, bytscl(image3d),w_xll,w_yll,/normal,xsize=1.,true=3
+    if (do_ps) then tvlct,red,green,blue ; revert to custom color table
+endif else begin
+    TV, planmap,w_xll,w_yll,/normal,xsize=1.
+endelse
 
 hpxv11 = 0
 
@@ -598,31 +619,54 @@ if do_image then begin
         if (DATATYPE(gif) ne 'STR') then file_image = 'plot_'+proj_small+'.gif' else file_image = gif
     endif else begin
         if (DATATYPE(png) ne 'STR') then file_image = 'plot_'+proj_small+'.png' else file_image = png
-    endelse        
+    endelse
+    image = tvrd() ; a single call to tvrd()
+    if (do_shade) then begin
+        image3d  =   make_array(/uint, 3,!d.x_size,!d.y_size)
+        allshade =   make_array(/float,  !d.x_size,!d.y_size,value=1.0)
+        allshade[w_xll*!d.x_size,w_yll*!d.y_size] = shademap
+        shademap = 0
+        image3d[0,*,*] = uint( (256. * red  [image] * allshade) < 65535.)
+        image3d[1,*,*] = uint( (256. * green[image] * allshade) < 65535.)
+        image3d[2,*,*] = uint( (256. * blue [image] * allshade) < 65535.)
+        allshade = 0
+    endif
     if keyword_set(crop) then begin
-;        if do_gif then write_gif,file_image,planmap,red,green,blue
-;        if do_png then write_png,file_image,planmap,red,green,blue
-        y_crop_low = round(w_yll * n_elements((tvrd())[0,*])) & y_crop_hi  = y_crop_low + ysize - 1
-        cropped = (tvrd())[*,y_crop_low:y_crop_hi]
+        y_crop_low = round(w_yll * n_elements(image[0,*])) & y_crop_hi  = y_crop_low + ysize - 1
+        cropped = image[*,y_crop_low:y_crop_hi]
         if do_gif then write_gif,file_image,cropped,red,green,blue
         if do_png then begin
-            if (keyword_set(transparent)) then begin
-                transp_colors = replicate(255B, 256) ; all colors are opaque
-                transp_colors[idx_grey] = 0B         ; turn grey into transparent
-                write_png,file_image,cropped,red,green,blue, transparent=transp_colors
+            if (do_shade) then begin
+                write_png, file_image, image3d[*,*,y_crop_low:y_crop_hi]
             endif else begin
-                write_png,file_image,cropped,red,green,blue
+                if (keyword_set(transparent)) then begin
+                    transp_colors = replicate(255B, 256) ; all colors are opaque
+                    transp_colors[idx_grey] = 0B ; turn grey into transparent
+                    write_png,file_image,cropped,red,green,blue, transparent=transp_colors
+                endif else begin
+                    write_png,file_image,cropped,red,green,blue
+                endelse
             endelse
-            
         endif
     endif else begin
-        if do_gif then write_gif,file_image,tvrd(),red,green,blue
-        if do_png then write_png,file_image,tvrd(),red,green,blue
-        if (to_patch) then begin 
-            device,decomp=0 ; put back colors on X window
-            tv,tvrd()
+        if do_gif then write_gif,file_image, image,red,green,blue
+        if do_png then begin
+            if (do_shade) then begin
+                write_png, file_image, image3d
+            endif else begin
+                write_png,file_image, image,red,green,blue
+            endelse
+        endif
+        if (to_patch && ~use_z_buffer) then begin 
+            device,decomp=0 ; put back colors on X window and redo color image
+            if (do_shade) then begin
+                tv, bytscl(image3d),0,0,/normal,xsize=1.,true=1
+            endif else begin
+                tv, image
+            endelse
         endif
     endelse
+    image = 0
     if (~keyword_set(silent)) then print,'IMAGE file is in '+file_image
     if (keyword_set(preview)) then begin
         test_preview, found_preview ;, /crash
@@ -632,6 +676,11 @@ if do_image then begin
             if do_png then preview_file, file_image, /png
         endif
     endif
+endif
+
+if (use_z_buffer) then begin
+    device,/close ;,decomp=~to_patch
+    set_plot,old_device
 endif
 
 if (do_ps) then begin

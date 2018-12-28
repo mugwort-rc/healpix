@@ -21,8 +21,14 @@ package healpix.plot3d.gui;
 
 /**
  * @author ejoliet
- * @version $Id: ExtBoxDisplayer.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: ExtBoxDisplayer.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public interface ExtBoxDisplayer {
+    
+    /**
+     * Sets the pix box.
+     * 
+     * @param pix the new pix box
+     */
     void setPixBox(double[][] pix);
 }

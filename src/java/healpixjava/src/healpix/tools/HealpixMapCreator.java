@@ -30,18 +30,25 @@ import java.io.File;
  * load a map from a fits file.
  * 
  * @author ejoliet
- * @version $Id: HealpixMapCreator.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixMapCreator.java 56224 2008-07-30 07:30:00Z ejoliet $
  */
 public class HealpixMapCreator {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The colname. */
 	public String[] colname;
 
+	/** The imap. */
 	int imap = 0;
 
+	/** The map. */
 	HealpixMap map;
 
+	/**
+	 * Instantiates a new healpix map creator.
+	 */
 	public HealpixMapCreator() {
 		try {
 			generateMap(1);
@@ -118,6 +125,13 @@ public class HealpixMapCreator {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Instantiates a new healpix map creator.
+	 * 
+	 * @param nside the nside
+	 * @param isEmpty the is empty
+	 */
 	public HealpixMapCreator(int nside, boolean isEmpty) {
 		int depth = (int) (Math.log(nside) / Math.log(2));
 		if (Constants.verbose > 0) {
@@ -161,14 +175,24 @@ public class HealpixMapCreator {
 		System.out.println("Nside:" + map.getNside());
 		System.out.println("Npixels:" + map.nPixel());
 		map.setValueCell(0, 0, 1);
-		map.setValueCell(1, 1, 1);
+		map.setValueCell(1, 1, 2);
 		setMap(map);
 	}
 
+	/**
+	 * Gets the map.
+	 * 
+	 * @return the map
+	 */
 	public HealpixMap getMap() {
 		return map;
 	}
 
+	/**
+	 * Sets the map.
+	 * 
+	 * @param m the new map
+	 */
 	public void setMap(HealpixMap m) {
 		map = m;
 	}

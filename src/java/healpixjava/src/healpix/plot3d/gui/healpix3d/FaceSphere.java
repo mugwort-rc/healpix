@@ -29,10 +29,11 @@ import javax.vecmath.Point3d;
  * Creates a Healpix Face tesselasition
  * 
  * @author ejoliet
- * @version $Id: FaceSphere.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: FaceSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class FaceSphere extends HealSphere {
 
+	/** The face. */
 	protected int face = 0;
 
 	/**
@@ -43,6 +44,12 @@ public class FaceSphere extends HealSphere {
 
 	}
 
+	/**
+	 * Instantiates a new face sphere.
+	 * 
+	 * @param nside the nside
+	 * @param face the face
+	 */
 	public FaceSphere(int nside, int face) {
 		super(nside);
 		this.face = face;
@@ -51,6 +58,9 @@ public class FaceSphere extends HealSphere {
 	}
 
 	/* Render the given face to given resolution */
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
+	 */
 	protected Geometry createGeometry() {
 		int nQuads = (int) Math.pow(nside, 2);// one face
 		int ppq = 4;// points per quad

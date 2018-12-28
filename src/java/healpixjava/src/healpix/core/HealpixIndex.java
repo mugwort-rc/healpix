@@ -40,7 +40,7 @@ import javax.vecmath.Vector3d;
  * Emmanuel Joliet with some methods added from pix_tools F90 code port to Java.
  * 
  * @author William O'Mullane, extended by Emmanuel Joliet
- * @version $Id: HealpixIndex.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: HealpixIndex.java 93882 2009-06-24 14:45:25Z womullan $
  */
 
 public class HealpixIndex implements Serializable {
@@ -48,31 +48,52 @@ public class HealpixIndex implements Serializable {
 	 * Default serial version
 	 */
 	private static final long serialVersionUID = 1L;
-
+    public static final String REVISION =
+        "$Id: HealpixIndex.java 93882 2009-06-24 14:45:25Z womullan $";
+	/** The Constant ns_max. */
 	public static final int ns_max = 8192;
+	
+	public static long[] nsidelist = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048,
+			4096, 8192, 16384, 32768, 65563, 131072, 262144, 524288,
+			1048576 };
 
+
+	/** The Constant z0. */
 	public static final double z0 = Constants.twothird; // 2/3
 
+	/** The Constant x2pix. */
 	private static final int x2pix[] = new int[128];
 
+	/** The Constant y2pix. */
 	private static final int y2pix[] = new int[128];
 
+	/** The Constant pix2x. */
 	private static final int pix2x[] = new int[1024];
 
+	/** The Constant pix2y. */
 	private static final int pix2y[] = new int[1024];
 
+	/** The ix. */
 	private static int ix;
 
+	/** The iy. */
 	private static int iy;
 
+	/** The nside. */
 	public int nside = 1024;
 
+	/** The ncap. */
 	public int nl2, nl3, nl4, npface, npix, ncap;
 
+	/** The fact2. */
 	public double fact1, fact2;
 
+	/** The bm. */
 	transient private BitManipulation bm = new BitManipulation();
 
+	/**
+	 * Inits the.
+	 */
 	protected void init() {
 		if ( pix2x[1023] <= 0 )
 			mkpix2xy();
@@ -171,9 +192,9 @@ public class HealpixIndex implements Serializable {
 	 * treatement of round-off will be consistent for every resolution
 	 * 
 	 * @param theta
-	 *            theta angle ]0,pi[
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            phi angle ]0,2*pi]
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return pixel index number
 	 * @throws Exception
 	 */
@@ -444,9 +465,9 @@ public class HealpixIndex implements Serializable {
 	 * of round-off will be consistent for every resolution
 	 * 
 	 * @param theta
-	 *            theta angle
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            phi angle
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return pixel index number
 	 * @throws Exception
 	 */
@@ -1009,9 +1030,9 @@ public class HealpixIndex implements Serializable {
 	 * Construct a {@link SpatialVector} from the angle (theta,phi)
 	 * 
 	 * @param theta
-	 *            angle theta [rad]
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            angle phi [rad]
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return vector {@link SpatialVector}
 	 */
 	public SpatialVector vector(double theta, double phi) {
@@ -1031,7 +1052,7 @@ public class HealpixIndex implements Serializable {
 	 * @throws Exception
 	 */
 	public int vec2pix_nest(SpatialVector vec) throws Exception {
-		double[] angs = Vect2Ang(vec);
+		double[] angs = Vect2Ang(vec);//ang(vec);
 		return ang2pix_nest(angs[0], angs[1]);
 	}
 
@@ -1166,7 +1187,7 @@ public class HealpixIndex implements Serializable {
 	 * @param nside
 	 * @return double resolution in arcsec
 	 */
-	public double getPixRes(long nside) {
+	static public double getPixRes(long nside) {
 		double res = 0.;
 		double degrad = Math.toDegrees(1.0);
 		double skyArea = 4. * Constants.PI * degrad * degrad; // 4PI steredian
@@ -1186,10 +1207,7 @@ public class HealpixIndex implements Serializable {
 	 *            in arcsec
 	 * @return long nside parameter
 	 */
-	public long getNSide(double pixsize) {
-		long[] nsidelist = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048,
-				4096, 8192, 16384, 32768, 65563, 131072, 262144, 524288,
-				1048576 };
+	static public long calculateNSide(double pixsize) {
 		long res = 0;
 		double pixelArea = pixsize * pixsize;
 		double degrad = Math.toDegrees(1.);
@@ -1222,9 +1240,9 @@ public class HealpixIndex implements Serializable {
 	 * [0,2pi] radians) North pole is (x,y,z) = (0, 0, 1)
 	 * 
 	 * @param theta
-	 *            double
+	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
 	 * @param phi
-	 *            double
+	 *            angle (along parallel), in [0,2*Pi]
 	 * @return SpatialVector
 	 * @throws IllegalArgumentException
 	 */
@@ -1747,17 +1765,21 @@ public class HealpixIndex implements Serializable {
 			if ( do_ring ) {
 				long ind = 0;
 				for ( long i = ipix1; i <= ipix2; i++ ) {
-					res.add((int) ind, new Long(i));
-					ind++;
+					if(i>-1) {
+						res.add((int) ind, new Long(i));					
+						ind++;
+					}
 				}
 			} else {
 				try {
 					in = ring2nest((int) ipix1);
-					res.add(0, new Long(in));
+					if(in>-1)
+						res.add(0, new Long(in));
 					for ( int i = 1; i < nir; i++ ) {
 						inext = next_in_line_nest(nside, in);
 						in = inext;
-						res.add(i, new Long(in));
+						if(in>-1)
+							res.add(i, new Long(in));
 					}
 				} catch ( Exception e ) {
 					e.printStackTrace();
@@ -1808,13 +1830,17 @@ public class HealpixIndex implements Serializable {
 			if ( do_ring ) {
 				int ind = 0;
 				for ( long i = ip_low; i <= ipix2; i++ ) {
-					res.add(ind, new Long(i));
-					ind++;
+					if(i>-1) {
+						res.add(ind, new Long(i));
+						ind++;
+					}
 				}
 				// ind = nir1;
 				for ( long i = ipix1; i <= ip_hi; i++ ) {
-					res.add(ind, new Long(i));
-					ind++;
+					if(i>-1) {
+						res.add(ind, new Long(i));
+						ind++;
+					}					
 				}
 			} else {
 				try {
@@ -1823,7 +1849,8 @@ public class HealpixIndex implements Serializable {
 					for ( long i = 1; i <= nir - 1; i++ ) {
 						inext = next_in_line_nest(nside, in);
 						in = inext;
-						res.add((int) i, new Long(in));
+						if(i>-1)
+							res.add((int) i, new Long(in));
 					}
 				} catch ( Exception e ) {
 					e.printStackTrace();
@@ -1834,8 +1861,10 @@ public class HealpixIndex implements Serializable {
 			if ( do_ring ) {
 				int ind = 0;
 				for ( long i = ip_low; i <= ip_hi; i++ ) {
-					res.add(ind, new Long(i));
-					ind++;
+					if(i>-1) {
+						res.add(ind, new Long(i));					
+						ind++;
+					}
 				}
 			} else {
 				try {
@@ -1844,7 +1873,8 @@ public class HealpixIndex implements Serializable {
 					for ( int i = 1; i <= nir - 1; i++ ) {
 						inext = next_in_line_nest(nside, in);
 						in = inext;
-						res.add(i, new Long(in));
+						if(i>-1)
+							res.add(i, new Long(in));
 					}
 				} catch ( Exception e ) {
 					e.printStackTrace();
@@ -1931,7 +1961,6 @@ public class HealpixIndex implements Serializable {
 					listirnest.add(ipnest);
 					i++;
 				} catch ( Exception ex ) {
-					// TODO Auto-generated catch block
 					ex.printStackTrace();
 					break;// Very bad!
 				}
@@ -2272,6 +2301,12 @@ public class HealpixIndex implements Serializable {
 
 		return res;
 	}
+	
+	/**
+	 * Prints the vec.
+	 * 
+	 * @param vec the vec
+	 */
 	public void printVec(double[] vec) {
 		System.out.print("[");
 		for ( int i = 0; i < vec.length; i++ ) {
@@ -2729,7 +2764,7 @@ public class HealpixIndex implements Serializable {
 	 * @param theta1
 	 *            lower edge of the colatitude
 	 * @param theta2
-	 *            upper adge of the colatitude
+	 *            upper edge of the colatitude
 	 * @param nest
 	 *            long if = 1 result is in NESTED scheme
 	 * @return ArrayList of pixel numbers (long)
@@ -2785,6 +2820,13 @@ public class HealpixIndex implements Serializable {
 		return res;
 	}
 
+	/**
+	 * Spatial vector2 vector3d.
+	 * 
+	 * @param vec the vec
+	 * 
+	 * @return the vector3d
+	 */
 	Vector3d SpatialVector2Vector3d(SpatialVector vec) {
 		Vector3d res = new Vector3d();
 		res.set(new double[] { vec.x(), vec.y(), vec.z() });
@@ -2804,9 +2846,9 @@ public class HealpixIndex implements Serializable {
 	 * @throws Exception 
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList neighbours_nest(int nside, long ipix) throws Exception  {
-		ArrayList res = new ArrayList();
-		int npix, ipf, ipo, ix, ixm, ixp, iy, iym, iyp, ixo, iyo;
+	public ArrayList<Long> neighbours_nest(int nside, long ipix) throws Exception  {
+		ArrayList<Long> res = new ArrayList<Long>(8);
+		int ipf, ipo, ix, ixm, ixp, iy, iym, iyp, ixo, iyo;
 		int face_num, other_face;
 		int ia, ib, ibp, ibm, ib2,  nsidesq;
         int icase;
@@ -2814,7 +2856,6 @@ public class HealpixIndex implements Serializable {
 		long arb_const = 0;
 		Point ixiy = new Point();
 		Point ixoiyo = new Point();
-		String SID = "neighbours_nest:";
 		/* fill the pixel list with 0 */
 		res.add(0, new Long(0));
 		res.add(1, new Long(0));
@@ -2826,7 +2867,6 @@ public class HealpixIndex implements Serializable {
 		res.add(7, new Long(0));
 		icase = 0;
 		nsidesq = nside * nside;
-		npix = 12 * nsidesq; // total number of pixels
 		
 		local_magic1 = (nsidesq - 1) / 3;
 		local_magic2 = 2 * local_magic1;
@@ -2863,16 +2903,17 @@ public class HealpixIndex implements Serializable {
 		if ((ipf & local_magic2) == 0 && icase == 0)
 			icase = 4; // SouthEast
 
-		/* iside a face */
+		/* inside a face */
 		if (icase == 0) {
-			res.add(0, new Long( xy2pix_nest(ixm, iym, face_num)));
-			res.add(1, new Long( xy2pix_nest(ixm, iy, face_num)));
-			res.add(2, new Long( xy2pix_nest(ixm, iyp, face_num)));
-			res.add(3, new Long( xy2pix_nest(ix, iyp, face_num)));
-			res.add(4, new Long( xy2pix_nest(ixp, iyp, face_num)));
-			res.add(5, new Long( xy2pix_nest(ixp, iy, face_num)));
-			res.add(6, new Long( xy2pix_nest(ixp, iym, face_num)));
-			res.add(7, new Long( xy2pix_nest(ix, iym, face_num)));
+			res.set(0, new Long( xy2pix_nest(ixm, iym, face_num)));
+			res.set(1, new Long( xy2pix_nest(ixm, iy, face_num)));
+			res.set(2, new Long( xy2pix_nest(ixm, iyp, face_num)));
+			res.set(3, new Long( xy2pix_nest(ix, iyp, face_num)));
+			res.set(4, new Long( xy2pix_nest(ixp, iyp, face_num)));
+			res.set(5, new Long( xy2pix_nest(ixp, iy, face_num)));
+			res.set(6, new Long( xy2pix_nest(ixp, iym, face_num)));
+			res.set(7, new Long( xy2pix_nest(ix, iym, face_num)));
+			return res;
 		}
 		/*                 */
 		ia = face_num / 4; // in [0,2]
@@ -3013,7 +3054,7 @@ public class HealpixIndex implements Serializable {
 		} else if (ia == 1) { // Equatorial region
 			switch (icase) {
 			case 1: // north-east edge
-				other_face = 0 + ibp;
+				other_face = 0 + ib;
 				res.set(0, new Long( xy2pix_nest( ixm, iym, face_num)));
 				res.set(1, new Long( xy2pix_nest(  ixm, iy, face_num)));
 				res.set(2, new Long( xy2pix_nest(  ixm, iyp, face_num)));
@@ -3270,5 +3311,92 @@ public class HealpixIndex implements Serializable {
 			}
 		}
 		return res;
+	}
+
+	/*
+	 * return the parent PIXEL of a given pixel at some higher NSIDE. 
+	 * One must also provide the nsode of the given pixel as otherwise it
+	 * can not be known.
+	 * 
+	 * This only makes sense for Nested Scheme.
+	 * This is basically a simple bit shift in the difference
+	 * of number of bits between the two NSIDEs. 
+	 * 
+	 * @param child  the pixel 
+	 * @param childnside nside of the pixel
+	 * @param requirednside nside to upgrade to
+	 * 
+	 * @return the new pixel number
+ 	 */
+	static public long parentAt(long child, int childnside, int requirednside) throws Exception{
+	    // nside is the number of bits .. 
+		if (childnside < requirednside) {
+			throw new Exception ("Parent ("+requirednside+
+					") should have smaller NSIDE than Child("+childnside+")");
+		}
+		long ppix =0;
+		
+		// number of bits in aid depdens on the depth of the nside
+
+		int bitdiff = bitdiff(requirednside, childnside); 
+	    ppix = child >> bitdiff;
+    	return ppix;	 		
+	}
+
+	/**
+	 * return difference of number of bits in pixels of two nsides.
+	 * @param nside1
+	 * @param nside2
+	 * @return  number of bits difference between the pixel ids.
+	 */
+	public static int bitdiff(int nside1, int nside2){
+		int pbits = 2;
+		int childnside=nside2;
+		int parentnside=nside1;
+		if (nside1>=nside2){
+			childnside=nside1;
+			parentnside=nside2;
+		}
+		int tnside = 2;
+		while (tnside < parentnside) {
+			pbits+=2;
+			tnside=tnside<<1 ;// next power of 2
+		}
+		// child is deeper 
+		int cbits = pbits;
+		while (tnside < childnside) {
+			cbits+=2;
+			tnside=tnside<<1 ;// next power of 2
+		}
+		return (cbits- pbits);//  
+		
+	}
+	/**
+	 * for a given pixel list all children pixels for it. 
+	 * This is simply a matter of shifting the pixel number left by
+	 * the difference in NSIDE bits and then listing all numbers 
+	 * which fill the empty bits. 
+	 * 
+	 * BEWARE - not chcking you ar enot trying to go too DEEP. 
+	 * 
+	 * @param nside  nside of pix
+	 * @param pix  the pixel 
+	 * @param requiredNside  the nside you want the children at
+	 * @return
+	 */
+	public static long[] getChildrenAt(int nside, long pix, int requiredNside) throws Exception{
+	 
+		if (nside >= requiredNside){
+			throw new Exception("The requirend NSIDE should be greater than the pix NSIDE");
+		}
+		int bitdiff=bitdiff(nside,requiredNside);
+		int numpix = bitdiff<<1;// square num bits is count of pix
+		long[] pixlist= new long[numpix];
+		long ppix=pix<<bitdiff; // shift the current pix over
+		// nopw just keep adding to it ..
+		for (int i=0;i < numpix; i++){
+			pixlist[i]=ppix+i;
+		}
+		return pixlist;
 	}
 }

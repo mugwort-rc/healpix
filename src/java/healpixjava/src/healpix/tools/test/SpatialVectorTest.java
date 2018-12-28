@@ -7,8 +7,14 @@ import javax.vecmath.Vector3d;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class SpatialVectorTest.
+ */
 public class SpatialVectorTest extends TestCase {
 
+	/**
+	 * Test dot product.
+	 */
 	public void testDotProduct() {
 		SpatialVector v1 = new SpatialVector(1, 0, 0);
 		SpatialVector v2 = new SpatialVector(0, 1, 0);
@@ -28,6 +34,9 @@ public class SpatialVectorTest extends TestCase {
 
 	}
 
+	/**
+	 * Test length.
+	 */
 	public void testLength() {
 		SpatialVector v1 = new SpatialVector(1, 1, 1);
 		assertEquals(v1.length(), Math.sqrt(3.d));
@@ -37,6 +46,9 @@ public class SpatialVectorTest extends TestCase {
 		assertEquals(v1.length(), 2.d);
 	}
 
+	/**
+	 * Test norm.
+	 */
 	public void testNorm() {
 		SpatialVector v1 = new SpatialVector(2, 1, 1);
 		Vector3d v2 = new Vector3d(2,1,1);
@@ -49,6 +61,9 @@ public class SpatialVectorTest extends TestCase {
 		System.out.println("Vector3d after norm:"+v2.toString());
 	}
 
+	/**
+	 * Test me.
+	 */
 	public void testMe() {
 		SpatialVector v = new SpatialVector(0.9998476951563913,
 				-0.01745240643728351, 6.123233995736766E-17);

@@ -27,7 +27,7 @@ import javax.swing.filechooser.FileFilter;
  * Filter to select FITS files.
  *
  * @author ejoliet
- * @version $Id: FitsFileFilter.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: FitsFileFilter.java 26046 2007-06-27 08:38:02Z mterlind $
  */
 public class FitsFileFilter extends FileFilter {
 

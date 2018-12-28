@@ -116,7 +116,7 @@
   character(LEN=5)                    :: sstr
   LOGICAL(kind=LGT) :: bad, ok, polarisation
 !   character(LEN=*), PARAMETER :: code = 'SMOOTHING'
-  character(LEN=*), PARAMETER :: version = '2.1.1'
+  character(len=*), parameter :: VERSION = HEALPIX_VERSION
   integer(kind=i4b), parameter :: nm_max = 5
   character(len=80), dimension(1:nm_max)   :: units_map
   character(len=20)                        :: coordsys

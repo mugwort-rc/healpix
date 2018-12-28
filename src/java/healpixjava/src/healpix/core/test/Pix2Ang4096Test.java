@@ -9,8 +9,16 @@ import javax.vecmath.Vector3d;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class Pix2Ang4096Test.
+ */
 public class Pix2Ang4096Test extends TestCase {
 
+	/**
+	 * Test pix2 ang.
+	 * 
+	 * @throws Exception the exception
+	 */
 	public void testPix2Ang() throws Exception {
 		System.out.println(" Test starts... ");
 		double PI = Math.PI;
@@ -57,6 +65,12 @@ public class Pix2Ang4096Test extends TestCase {
 		long pix4 = pt.vec2pix_nest(vec2);
 		assertEquals(pix4, pix);
 	}
+	
+	/**
+	 * Query_ polygon.
+	 * 
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("unchecked")
 	public void Query_Polygon() throws Exception {
 		double PI = Math.PI;

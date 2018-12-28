@@ -35,8 +35,11 @@ function ring_num, nside, z, shift=ishift
 ;
 ; 2008-03-28: accepts scalar and vector z
 ;             added shift
+;
+; 2009-04-30: returns long integers (32 bits) instead of 16-bit integers
 ;-
 twothird = 2.d0 /3.d0
+long = 1
 
 shift = 0.d0
 if (keyword_set(ishift)) then begin
@@ -45,12 +48,12 @@ if (keyword_set(ishift)) then begin
 endif
 
 ;     ----- equatorial regime ---------
-iring = NINT( nside*(2.d0-1.500d0*z) + shift)
+iring = NINT( nside*(2.d0-1.500d0*z) + shift, long=long)
 
 ;     ----- north cap ------
 kn = where(z gt twothird, nkn)
 if (nkn gt 0) then begin
-    my_iring = NINT( nside* SQRT(3.d0*(1.d0-z[kn]))  + shift )
+    my_iring = NINT( nside* SQRT(3.d0*(1.d0-z[kn]))  + shift, long=long )
     iring[kn] = my_iring > 1
 endif
 
@@ -58,9 +61,9 @@ endif
 ks = where (z lt -twothird, nks)
 if (nks gt 0) then begin
     ; beware that we do a -shift in the south cap
-    my_iring = NINT( nside* SQRT(3.d0*(1.d0+z[ks]))  - shift)
+    my_iring = NINT( nside* SQRT(3.d0*(1.d0+z[ks]))  - shift, long=long)
     my_iring = my_iring > 1
-    iring[ks] = 4*nside - my_iring
+    iring[ks] = 4L*nside - my_iring
 endif
 
 if (n_elements(z) eq 1) then begin

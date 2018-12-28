@@ -33,23 +33,34 @@ import java.awt.image.BufferedImage;
  * an HealpixMap. It implements ExtBoxDisplayer.
  * 
  * @author ejoliet
- * @version $Id: BoxDisplay.java,v 1.1 2008/04/25 14:44:51 healpix Exp $
+ * @version $Id: BoxDisplay.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class BoxDisplay extends Canvas implements ExtBoxDisplayer {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The pix. */
 	protected double[][] pix;
 
+	/** The scalex. */
 	protected double scalex = 0;
 
+	/** The scaley. */
 	protected double scaley = 0;
 
+	/** The image. */
 	protected BufferedImage theImage;
 
+	/** The scaled image. */
 	protected Image theScaledImage;
 
+	/** The newbox. */
 	protected boolean newbox;
 
+	/* (non-Javadoc)
+	 * @see healpix.plot3d.gui.ExtBoxDisplayer#setPixBox(double[][])
+	 */
 	public void setPixBox(double[][] pix) {
 		System.out.println("setting the box..");
 		this.pix = pix;
@@ -88,10 +99,16 @@ public class BoxDisplay extends Canvas implements ExtBoxDisplayer {
 		paint(this.getGraphics());
 	}
 
+	/**
+	 * Instantiates a new box display.
+	 */
 	public BoxDisplay() {
 		setBackground(Color.black);
 	}
 
+	/**
+	 * Rescale.
+	 */
 	public void rescale() {
 		setBackground(Color.black);
 		boolean newImage = false;
@@ -112,6 +129,9 @@ public class BoxDisplay extends Canvas implements ExtBoxDisplayer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.Canvas#paint(java.awt.Graphics)
+	 */
 	public void paint(Graphics g) {
 		this.setBackground(Color.black);
 		if (pix != null) {
@@ -123,10 +143,20 @@ public class BoxDisplay extends Canvas implements ExtBoxDisplayer {
 	}
 
 	// Properties
+	/**
+	 * Gets the pix box.
+	 * 
+	 * @return the pix box
+	 */
 	public double[][] getPixBox() {
 		return pix;
 	}
 
+	/**
+	 * Gets the prefered size.
+	 * 
+	 * @return the prefered size
+	 */
 	public Dimension getPreferedSize() {
 		return new Dimension(100, 100);
 	}

@@ -25,8 +25,11 @@ import java.text.DecimalFormat;
  * An angular position theta phi
  */
 public class AngularPosition {
+	
+	/** The theta. */
 	protected double theta = 0;
 
+	/** The phi. */
 	protected double phi = 0;
 
 	/**
@@ -44,29 +47,58 @@ public class AngularPosition {
 		this.phi = phi;
 	}
 
+	/**
+	 * Theta.
+	 * 
+	 * @return the double
+	 */
 	public double theta() {
 		return theta;
 	}
 
+	/**
+	 * Phi.
+	 * 
+	 * @return the double
+	 */
 	public double phi() {
 		return phi;
 	}
 
+	/**
+	 * Sets the theta.
+	 * 
+	 * @param val the new theta
+	 */
 	public void setTheta(double val) {
 		this.theta = val;
 	}
 
+	/**
+	 * Sets the phi.
+	 * 
+	 * @param val the new phi
+	 */
 	public void setPhi(double val) {
 		this.phi = val;
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		DecimalFormat form = new DecimalFormat(" 0.000");
 		return ("theta:" + form.format(theta) + " phi:" + form.format(phi));
 
 	}
 
+	/**
+	 * Inits the.
+	 * 
+	 * @param t the t
+	 * @param phi the phi
+	 */
 	public void init(double t, double phi) {
 	}
 }
