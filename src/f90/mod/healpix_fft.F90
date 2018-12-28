@@ -33,6 +33,7 @@ module healpix_fft
 
   ! module for FFT operations
   ! edited for compatibility with Absoft Pro, G95 and GFORTRAN
+  ! edited Sept 6, 2005 for GFORTRAN
   !
   public real_fft2, complex_fft2, make_fft2_plan, destroy_fft2_plan, &
        & planck_fft2_plan, init_fft2_plan, complex_fft, real_fft
@@ -743,15 +744,25 @@ subroutine complex_fft_orig (data, backward, onlyreal)
 
   real(dp) data2(2*size(data))
   logical or, bw
+  integer :: i, lb
+
   or = .false.
   if (present(onlyreal)) or=onlyreal
   bw = .false.
   if (present(backward)) bw=backward
 
-  data2 = transfer (data, data2, size=size(data2))
+  lb = lbound(data,   dim = 1)
+!  data2 = transfer (data, data2, size=size(data2))
+  do i=1,size(data)
+     data2(2*i-1) = real (data(i+lb-1), kind=dp)
+     data2(2*i  ) = aimag(data(i+lb-1))
+  enddo
   call fft_gpd (data2,(/size(data)/),bw,or)
-  data = transfer (data2, data, size=size(data))
-end subroutine
+!  data = transfer (data2, data, size=size(data))
+  do i=1,size(data)
+     data(i+lb-1) = cmplx(data2(2*i-1), data2(2*i), kind=dp)
+  enddo
+end subroutine complex_fft_orig
 
 subroutine complex_fft_alt (data, backward, onlyreal)
   real(dp), intent(inout) :: data(:)
@@ -765,7 +776,7 @@ subroutine complex_fft_alt (data, backward, onlyreal)
   if (present(backward)) bw=backward
 
   call fft_gpd (data,(/size(data)/2/),bw,or)
-end subroutine
+end subroutine complex_fft_alt
 
 subroutine d_real_fft (data, backward)
   real(dp), intent(inout) :: data(:)
@@ -796,7 +807,7 @@ subroutine d_real_fft (data, backward)
     call fft_gpd (data2, (/n/),bw,.false.)
     data = data2(1:2*n-1:2)
   endif
-end subroutine
+end subroutine d_real_fft
 
 subroutine s_real_fft (data, backward)
   real(sp), intent(inout) :: data(:)
@@ -827,6 +838,6 @@ subroutine s_real_fft (data, backward)
     call fft_gpd (data2, (/n/),bw,.false.)
     data = data2(1:2*n-1:2)
   endif
-end subroutine
+end subroutine s_real_fft
 !==================================================================
 end module healpix_fft

@@ -423,7 +423,7 @@ IdentifyCompiler () {
 	elif [ $nxlf != 0 ] ; then
 		FC="xlf90"
 		FCNAME="IBM XL Fortran for Mac OS"
-		FFLAGS="$FFLAGS -qfree=f90 -qsuffix=f=f90:cpp=f90"
+		FFLAGS="$FFLAGS -qfree=f90 -qsuffix=f=f90:cpp=F90"
 		OFLAGS="-O"
 		CC="gcc"
 		CFLAGS="$CFLAGS -DRS6000" #### 

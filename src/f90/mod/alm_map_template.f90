@@ -2282,7 +2282,7 @@
 !$OMP      lchk, uchk, b_d1, b_d2, &
 !$OMP      nph, startpix, kphi0, map_TQU, der1, der2, do_d2) &
 !$OMP  private(ithl, nphl, istart_north, istart_south, &
-!$OMP      ith, ring, bline, status)
+!$OMP      ith, ring, bline, status, k0, di)
 
        if (do_openmp()) then
           allocate(ring(0:nphmx-1), stat = status)

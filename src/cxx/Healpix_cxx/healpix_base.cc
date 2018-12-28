@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2003, 2004 Max-Planck-Society
+ *  Copyright (C) 2003, 2004, 2005 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -582,10 +582,10 @@ void Healpix_Base::neighbors (int pix, fix_arr<int,8> &result) const
     {
     if (scheme_==RING)
       for (int m=0; m<8; ++m)
-        result[m] = xyf2ring(ix+xoffset[m],iy+xoffset[m],face_num);
+        result[m] = xyf2ring(ix+xoffset[m],iy+yoffset[m],face_num);
     else
       for (int m=0; m<8; ++m)
-        result[m] = xyf2nest(ix+xoffset[m],iy+xoffset[m],face_num);
+        result[m] = xyf2nest(ix+xoffset[m],iy+yoffset[m],face_num);
     }
   else
     {

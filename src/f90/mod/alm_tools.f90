@@ -150,12 +150,14 @@ module alm_tools
           &           map2alm_pol_d, map2alm_pol_pre1_d, map2alm_pol_pre2_d
   end interface
 
-  private :: do_openmp
-  private :: l_min_ylm
-  private :: get_pixel_layout
-  private :: init_rescale
-  private :: gen_recfac, gen_lamfac, gen_lamfac_der, gen_mfac, compute_lam_mm, gen_normpol
-  private :: do_lam_lm, do_lam_lm_pol
+  ! make routines public as most of them are called by mpi_alm* routines
+  public :: do_openmp
+  public :: init_rescale
+  public :: do_lam_lm, do_lam_lm_pol
+  ! needed by mpi_alm*
+  public :: l_min_ylm
+  public :: get_pixel_layout
+  public :: gen_recfac, gen_lamfac, gen_lamfac_der, gen_mfac, compute_lam_mm, gen_normpol
   !=========================================================
 
   !
@@ -197,6 +199,9 @@ module alm_tools
   !  does not improve the speed of map2alm though, so stick to former code for those
   ! May 2005: pixel window returns 1. if nside = 0 (interpreted as infinitely small pixel)
   ! Aug 2005: added alm2map_pol_der
+  ! ------post 2.00
+  ! Sep-Oct 2005: made internal subroutines public so they can be called by mpi_alm, 
+  !              corrected OpenMP+SGI bug in alm2map_pol_der
   ! =====================================================
   ! about the F90 compilers 'features'
   ! - Intel compiler (ifc) (and maybe the other compilers as well)

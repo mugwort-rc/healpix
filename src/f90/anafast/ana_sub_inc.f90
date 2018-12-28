@@ -58,7 +58,7 @@
   !     for any questions : efh@ipac.caltech.edu
   !
   !=======================================================================
-  !     version 2.0.0
+  !     version 2.0.1
   !=======================================================================
   ! this file can not be compiled on its own.
   ! It must be inserted into the file synfast.f90 by the command  include
@@ -124,7 +124,7 @@
 !  character(len=5)                    :: sstr
   LOGICAL(kind=LGT) :: bad, ok, polarisation, bcoupling, do_mask
 !   character(len=*), PARAMETER :: code = "ANAFAST"
-  character(len=*), PARAMETER :: version = "2.0.0"
+  character(len=*), PARAMETER :: version = "2.0.1"
   character(len=80), dimension(1:3)   :: units_map, units_pow
 
   type(paramfile_handle) :: handle
@@ -672,6 +672,11 @@
      end select
 
      ! map = map_2 - map : residual map
+     if (do_mask) then ! multiply synthetised MAP by MASK, version 2.0.1
+        do i=1,n_pols
+           map_TQU(:,i) = map_TQU(:,i) * pmask
+        enddo
+     endif
      map_TQU = map_TQU2 - map_TQU
 
      do i=1,n_pols

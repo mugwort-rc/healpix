@@ -3249,6 +3249,7 @@ contains
     !
     !   Benjamin D. Wandelt October 1997
     !   Added to pix_tools in March 1999
+    !   added 'return' for case nside=1, EH, Oct 2005
     !====================================================================
     use bit_manipulation
     integer(kind=i4b), intent(in)::nside, ipix
@@ -3282,6 +3283,7 @@ contains
        if (ipix==9 ) n(1:6) = (/11, 8, 5, 1, 5,10 /)
        if (ipix==10) n(1:6) = (/ 8, 9, 6, 2, 7,11 /)
        if (ipix==11) n(1:6) = (/ 9,10, 6, 3, 4, 8 /)
+       return
     endif
 
     !     initiates array for (x,y)-> pixel number -> (x,y) mapping
