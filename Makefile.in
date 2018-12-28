@@ -1,0 +1,88 @@
+# input Makefile
+# DO NOT EDIT!
+# Run ./configure to produce the Makefile instead.
+
+HEALPIX	=
+
+BINDIR	=
+INCDIR	=
+LIBDIR	=
+FITSDIR	= 
+LIBFITS	= 
+
+FFTSRC  = 
+ADDUS   = 
+
+PARALL  =
+
+FC	= 
+FFLAGS	= 
+CC	= 
+CFLAGS	= 
+LDFLAGS	=
+AR      = 
+PPFLAGS =
+
+MOD	=
+
+OS	=
+
+RM	= rm -f
+MKFLAGS	= FC=$(FC) FFLAGS="$(FFLAGS)" LDFLAGS="$(LDFLAGS)" \
+	CC=$(CC) CFLAGS="$(CFLAGS)" MOD=$(MOD) OS=$(OS) HEALPIX=$(HEALPIX) \
+	LIBDIR=$(LIBDIR) INCDIR=$(INCDIR) BINDIR=$(BINDIR) \
+	FFTSRC=$(FFTSRC) ADDUS=$(ADDUS) PARALL=$(PARALL) AR="$(AR)" \
+	PPFLAGS="$(PPFLAGS)"
+
+prog	= anafast map2gif smoothing synfast ud_grade hotspot plmgen alteralm median_filter
+
+all: prof modules library
+	@for p in $(prog); do \
+	cd src/f90/$$p; \
+	$(MAKE) $(MKFLAGS); \
+	cd ../../..; \
+	done
+
+prof:
+	if [ -r profile ]; then cp profile $(BINDIR)/profile.HEALPix; fi
+
+modules:
+	@cd src/f90/mod; $(MAKE) $(MKFLAGS)
+
+library:
+	@cd src/f90/lib; $(MAKE) $(MKFLAGS)
+
+test: all
+	@cd test; \
+	$(RM) test*; \
+	$(BINDIR)/synfast syn.par; \
+	$(BINDIR)/map2gif -inp test_map.fits -out test_map.gif -bar t -ttl 'CMB Map'; \
+	$(BINDIR)/smoothing smo.par; \
+	$(BINDIR)/map2gif -inp test_sm.fits -out test_sm.gif -bar t -ttl 'Smoothed CMB Map'; \
+	$(BINDIR)/ud_grade udg.par ; \
+	$(BINDIR)/map2gif -inp test_LOres.fits -out test_LOres.gif -bar t -ttl 'Degraded Map'; \
+	$(BINDIR)/hotspot hot.par ; \
+	$(BINDIR)/map2gif -inp test_ext.fits -out test_ext.gif -bar t -ttl 'Extrema Only Map'; \
+	$(BINDIR)/anafast ana.par; \
+	$(BINDIR)/alteralm alt.par; \
+	$(BINDIR)/median_filter med.par ; \
+	$(BINDIR)/map2gif -inp test_mf.fits -out test_mf.gif -bar t -ttl 'Median Filtered Map'; \
+	echo "done"
+
+clean:
+	for p in $(prog) lib mod; do \
+	$(RM) src/f90/$$p/*.o src/f90/$$p/*.$(MOD) src/f90/$$p/lib*.a src/f90/$$p/*.pc src/f90/$$p/*.pcl src/f90/$$p/*.il ; \
+	done
+	$(RM) profile
+
+vclean: clean
+	for p in $(prog); do \
+	$(RM) $(BINDIR)/$$p; \
+	done
+	$(RM) $(INCDIR)/*.$(MOD)
+	$(RM) $(INCDIR)/*.pc $(INCDIR)/*.pcl
+	$(RM) $(LIBDIR)/*.a
+
+tidy: vclean
+	$(RM) $(BINDIR)/profile.HEALPix; \
+	$(RM) Makefile.bak Makefile test/test*

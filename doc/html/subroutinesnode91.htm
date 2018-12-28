@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>write_bintab*</TITLE>
+<META NAME="description" CONTENT="write_bintab*">
+<META NAME="keywords" CONTENT="subroutines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="subroutines.css">
+
+<LINK REL="next" HREF="subroutinesnode92.htm">
+<LINK REL="previous" HREF="subroutinesnode90.htm">
+<LINK REL="up" HREF="subroutines.htm">
+<LINK REL="next" HREF="subroutinesnode92.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html1281"
+  HREF="subroutinesnode90.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1287"
+  HREF="subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1291"
+  HREF="subroutinesnode92.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1289"
+  HREF="subroutinesnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1282"
+  HREF="subroutinesnode90.htm">write_asctab*</A>
+
+<B>Up:</B> <A NAME="tex2html1288"
+  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1292"
+  HREF="subroutinesnode92.htm">write_bintabh</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION000910000000000000000"></A>
+<A NAME="sub:write_bintab"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">write_bintab*</FONT></font></b><hr><H2>This routine creates a binary FITS-file from a <b>HEALPix</b> map. The routine can save a temperature map or both temperature and polarisation maps (T,Q,U) to the file.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/fitstools.f90
+</b>
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">write_bintab*</FONT>(
+map, npix, nmap, header, nlheader, filename [,extno]
+)</h2></blockquote>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+map(0:npix-1,1:nmap)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the map to write to the FITS-file.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>npix</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of pixels in the map.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmap</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of maps to be written, 1 for temperature only, and 3 for (T,Q,U).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80) (1:nlheader)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The header for the FITS-file.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of header lines to write to the file.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename(LEN=<tt>filenamelen</tt>)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the map(s) is (are) written to a FITS-file with this filename.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>extno OPTIONAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>extension number in which to write the data (0
+                   based).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><b>default:</b>0</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+call write_bintab (map,12*32**2,3,header,120,'map.fits')  
+<BR></font></tt>
+<BR><blockquote>
+Makes a binary FITS-file called `map.fits' from the <b>HEALPix</b> maps (T,Q,U) in the array map(0:12*32**2-1,1:3). The number of pixels 12*32**2 corresponds to the number of pixels in a <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=32</SPAN> <b>HEALPix</b> map. The header for the FITS-file is given in the string array header and the number of lines in the header is 120. 
+</blockquote>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">write_bintab*</FONT>.</h2>
+  <DL COMPACT><DT>
+<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
+<DD>module, containing:
+  <DT>
+<B>printerror</B>
+<DD>routine for printing FITS error messages.
+  <DT>
+<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
+<DD>library for FITS file handling.		
+  </DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_bintab*</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode37.htm#sub:input_map">input_map</A>, <A HREF="subroutinesnode70.htm#sub:read_bintab">read_bintab</A></B>
+<DD>routines which read a file created by <FONT COLOR="#CC0000">write_bintab*</FONT>. 
+  <DT>
+<B><A HREF="subroutinesnode39.htm#sub:map2alm">map2alm</A></B>
+<DD>subroutine which analyse a map and returns the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coeffecients.
+  <DT>
+<B><A HREF="subroutinesnode57.htm#sub:output_map">output_map</A></B>
+<DD>subroutine which calls <FONT COLOR="#CC0000">write_bintab*</FONT>
+  <DT>
+<B><A HREF="subroutinesnode92.htm#sub:write_bintabh">write_bintabh</A></B>
+<DD>subroutine to write a large
+  array into a FITS file piece by piece
+  <DT>
+<B><A HREF="subroutinesnode38.htm#sub:input_tod">input_tod*</A></B>
+<DD>subroutine to read an arbitrary subsection of
+  a large binary table
+  </DL>
+
+<P>
+
+<P>
+
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1281"
+  HREF="subroutinesnode90.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1287"
+  HREF="subroutines.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1291"
+  HREF="subroutinesnode92.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1289"
+  HREF="subroutinesnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html1282"
+  HREF="subroutinesnode90.htm">write_asctab*</A>
+
+<B>Up:</B> <A NAME="tex2html1288"
+  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html1292"
+  HREF="subroutinesnode92.htm">write_bintabh</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

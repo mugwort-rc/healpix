@@ -1,0 +1,92 @@
+Healpix 2.00 Installation
+=========================
+
+Every effort has been made to make the installation and usage of Healpix easy and straightforward.
+However we highly recommend the user to read the documentation, even before everything else fails.
+(see   doc/html/main.htm   or   http://healpix.jpl.nasa.gov/healpixSoftwareDocumentation.shtml)
+
+Installing the F90 package
+--------------------------
+See 
+   doc/html/install.htm  
+or  
+   doc/pdf/install.pdf 
+for a detailled description of the installation procedure 
+and the list of requirements.
+
+If those requirements are met, simply running
+   ./configure
+   make
+   make test
+should be enough to install and test the package.
+
+More information on the F90 package can be found at
+  doc/pdf/facilities.pdf
+  doc/pdf/subroutines.pdf
+or
+  doc/html/facilities.htm
+  doc/html/subroutines.htm
+
+
+Installing the IDL package
+--------------------------
+
+The IDL routines are readily available.
+However the 
+   ./config_preview 
+script can be run to select the softwares used 
+to visualize the images (Postscript and Png) created
+by the Healpix IDL routines.
+
+For more information on the IDL package see
+  doc/html/idl.htm
+  doc/pdf/idl.pdf
+
+
+Installing the C package
+------------------------
+
+See src/C/README
+
+For more information on the C package see
+  doc/html/csub.htm
+  doc/pdf/csub.pdf
+
+
+Installing the C++ package
+--------------------------
+
+See src/cxx/README.compilation
+
+For more information on the C++ package see
+  doc/html/index_cxx.htm (always available)
+or
+  src/cxx/doc/index.html (available when package installed)
+
+
+Installing the java package
+---------------------------
+
+See src/java/README
+
+For more information on the C++ package see
+  doc/html/java/index.html (always available)
+or 
+  src/java/healpixjava/healpixdocs/index.html (available when package installed)
+
+=========================================
+
+
+For background information on healpix see
+   http://healpix.jpl.nasa.gov
+or
+   doc/pdf/intro.pdf
+or
+   doc/html/intro.htm
+
+
+For questions/comments/suggestions on Healpix: 
+  healpix@jpl.nasa.gov
+
+
+

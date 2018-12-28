@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Installation Requirements</TITLE>
+<META NAME="description" CONTENT="Installation Requirements">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode4.htm">
+<LINK REL="previous" HREF="installnode2.htm">
+<LINK REL="up" HREF="install.htm">
+<LINK REL="next" HREF="installnode4.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html97"
+  HREF="installnode2.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html103"
+  HREF="install.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html107"
+  HREF="installnode4.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html105"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html98"
+  HREF="installnode2.htm">Introduction</A>
+
+<B>Up:</B> <A NAME="tex2html104"
+  HREF="install.htm">Installing Healpix</A>
+
+<B> Next:</B> <A NAME="tex2html108"
+  HREF="installnode4.htm">The Installation Procedure</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000"></A>
+<A NAME="section:requirements"></A>
+<BR>
+Installation Requirements
+</H1>
+The major part of the <b>HEALPix</b> distribution is written in both <SPAN  CLASS="textbf">Fortran 90</SPAN> and <SPAN  CLASS="textbf">C++</SPAN> and
+so the appropriate compilers must be present (Linux and Darwin users should look
+at Section&nbsp;<A HREF="installnode19.htm#section:newfeatures">7</A> about free F90 compilers). Many visualisation tools and map
+manipulation routines are provided in <SPAN  CLASS="textbf">IDL</SPAN> (please note 
+that at least version 5.0 is required). Some of the <b>HEALPix</b> routines are now
+also available in C (for further details on these routines and their
+installation, please report to the document <A NAME="tex2html4"
+  HREF="csub.htm">''C Subroutines
+  Overview''</A>
+and to <TT>src/C/README</TT>).
+
+<P>
+<EM>This section and the next focus on the compilation and installation of the
+  <SPAN  CLASS="textbf">Fortran&nbsp;90</SPAN> routines. For more information on the <SPAN  CLASS="textbf">C++</SPAN> routines and their
+installation see <TT>src/cxx/README.compilation</TT>.</EM>
+
+<P>
+The configure script is written in the Bourne shell. The script
+attempts to generate a <TT>Makefile</TT> which is tailored to one of 
+the above Operating Systems (OS's) and using 
+<TT>Makefile.in</TT> as a template for non-system
+specific statements. 
+Only the basic UNIX make facility is required to build the software, although we do
+still recommend the GNU make facility (<A NAME="tex2html5"
+  HREF="ftp://ftp.gnu.org/gnu/make/"><TT>ftp://ftp.gnu.org/gnu/make/</TT></A>).
+In addition, a system Profile and IDL startup file are
+generated/included in the distribution. These automatically establish
+various environment variables and aliases to make the use of the
+<b>HEALPix</b> package simpler. 
+
+<P>
+The <b>HEALPix</b> <SPAN  CLASS="textbf">Fortran 90</SPAN>, <SPAN  CLASS="textbf">C++</SPAN> and <SPAN  CLASS="textbf">C</SPAN> distributions also require the publicly available CFTISIO
+library:
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">Software Package</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=300><SPAN  CLASS="textbf">Source</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+CFITSIO V 2.xx library</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html2"
+  HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/"><TT>http://heasarc.gsfc.nasa.gov/docs/software/fitsio/</TT></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+And finally, the <SPAN  CLASS="textbf">IDL</SPAN> visualization software is commercially
+available at
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">Software Package</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=300><SPAN  CLASS="textbf">Source</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+IDL V 5.x or 6.x</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html3"
+  HREF="http://www.rsinc.com/"><TT>http://www.rsinc.com/</TT></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300>&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+(versions 5.3 to 6.2 have been extensively used during the development
+of the <b>HEALPix</b> IDL codes).
+
+<P>
+As it was already the case in version 1.20, users no longer need to acquire the IDL
+Astronomy User's Library (<A NAME="tex2html6"
+  HREF="<TT>http://idlastro.gsfc.nasa.gov/homepage.html</TT>"><TT>http://idlastro.gsfc.nasa.gov/homepage.html</TT></A>)
+or the COBE (IDL) Analysis Software (<A NAME="tex2html7"
+  HREF="http://www.gsfc.nasa.gov/astro/cobe/cgis.html"><TT>http://www.gsfc.nasa.gov/astro/cobe/cgis.html</TT></A>),
+although we do recommend these packages to the user.
+The few routines required for version 2.00 are contained in a new
+subdirectory <TT>Healpix_2.00/src/idl/zzz_external</TT>.
+These procedures are included in the <b>HEALPix</b> package unchanged and 
+solely for the purpose of making it self contained. In this way,
+we remove the burden of installation of additional libraries from 
+the end user.
+
+<P>
+A parallel implementation (based on OpenMP, for shared memory architectures) of the Spherical Harmonics
+Transforms involved in <TT>synfast, anafast, smoothing, plmgen</TT> and <TT>alteralm</TT> is now
+available by default and can be readily compiled and used with the standard installation script. 
+
+<P>
+A set of routines with MPI parallelization (for distributed memory architectures)
+ is also available for Spherical Harmonics Transform, thanks to the work of H.K. Eriksen
+ (h.k.k.eriksen@astro.uio.no) and Snorre Boasson (ITEA, NTNU). See the F90
+ subroutines documentation for more information on how to use those routines in
+ your code.
+
+<P>
+We found that it was remarkably difficult to find 
+random number generators in the public
+domain which are simple yet
+powerful and easy to use. 
+We are providing one (both in C++ and F90) which is an adaptation of an xorshift generator described
+ in Marsaglia (Journal of Statistical Software 2003, vol 8). It has a theoretical period of <!-- MATH
+ $2^{128}-1 \approx 3.4\ 10^{38}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="153" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg2.png"
+ ALT="$2^{128}-1 \approx 3.4\ 10^{38}$"></SPAN>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html97"
+  HREF="installnode2.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html103"
+  HREF="install.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html107"
+  HREF="installnode4.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html105"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html98"
+  HREF="installnode2.htm">Introduction</A>
+
+<B>Up:</B> <A NAME="tex2html104"
+  HREF="install.htm">Installing Healpix</A>
+
+<B> Next:</B> <A NAME="tex2html108"
+  HREF="installnode4.htm">The Installation Procedure</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

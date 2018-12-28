@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Appendix Ia: Changes and New Features in Version 1.20</TITLE>
+<META NAME="description" CONTENT="Appendix Ia: Changes and New Features in Version 1.20">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode21.htm">
+<LINK REL="previous" HREF="installnode19.htm">
+<LINK REL="up" HREF="install.htm">
+<LINK REL="next" HREF="installnode21.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html308"
+  HREF="installnode19.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html314"
+  HREF="install.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html318"
+  HREF="installnode21.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html316"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html309"
+  HREF="installnode19.htm">Appendix I: Changes and</A>
+
+<B>Up:</B> <A NAME="tex2html315"
+  HREF="install.htm">Installing Healpix</A>
+
+<B> Next:</B> <A NAME="tex2html319"
+  HREF="installnode21.htm">Appendix Ib: Changes and</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00090000000000000000">
+Appendix Ia: Changes and New Features in Version 1.20</A>
+</H1>
+ 
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ An extensive HTML documentation is included in the package (in <TT>   [HEALPix]/doc/html/main.htm</TT>). It is also available at the web page
+   <A NAME="tex2html19"
+  HREF="http://healpix.jpl.nasa.gov"><TT>   http://healpix.jpl.nasa.gov</TT></A>,
+
+as well as the PostScript documention.
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The convention used for the normalisation of the polarization power
+   spectra has been changed to match that of CMBFAST. This subject and its
+   implications are described in details in the <A NAME="tex2html20"
+  HREF="intro.htm"><b>HEALPix</b> 
+   Primer</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The pixel window functions are now provided for both temperature and
+     polarization. Recalculation of the temperature window for <!-- MATH
+ $N_{side} > 128$
+ -->
+<SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB> &gt; 128</SPAN>
+     induce a slight change of these functions (see the <A NAME="tex2html21"
+  HREF="intro.htm">``<b>HEALPix</b> 
+   Primer''</A>
+for details).
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Because of its obsolete F66 features that limited its portability with
+     current f90/f95 compilers, the FFTPACK module used in
+     version 1.10 is no longer in use. <b>HEALPix</b> 1.2 can either use a different
+     self contained FFT module shipped with the package, or
+     use the freely available <B>FFTW</B> library (see section&nbsp;<A HREF="installnode3.htm#section:requirements">2</A>). The script file asks which FFT the user wants
+     to use. If selected, FFTW must be correctly installed (in double
+     precision) before installing Healpix.
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ It is now possible to use an OpenMP parallelisation of the Spherical
+   Harmonics Transforms (see &#167;&nbsp;<A HREF="installnode3.htm#section:requirements">2</A>).
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The compilers now supported under <SPAN  CLASS="textbf">Linux</SPAN> systems are
+     <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Intel Fortran Compiler, available for <B>free</B> 
+<BR> 	<A NAME="tex2html15"
+  HREF="http://www.intel.com/software/products/compilers/downloads/forlin.htm"><TT>http://www.intel.com/software/products/compilers/downloads/forlin.htm</TT></A>
+(tested for version 5.01, 6.01 and 7.0)
+ 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Lahey/Fujitsu Compiler, both <B>free</B> trial and
+     commercial versions 
+<BR><A NAME="tex2html16"
+  HREF="http://www.lahey.com/linux.htm"><TT>http://www.lahey.com/linux.htm</TT></A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ NAGWare f95, commercial <A NAME="tex2html17"
+  HREF="<TT>http://www.nag.co.uk/nagware/NP.asp</TT>"><TT>http://www.nag.co.uk/nagware/NP.asp</TT></A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Portland Group Compiler, commercial <A NAME="tex2html18"
+  HREF="http://www.pgroup.com/"><TT>http://www.pgroup.com/</TT></A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Fujitsu Compiler, commercial
+     </DL>	
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The <SPAN  CLASS="textbf">Mac</SPAN> Operating System <SPAN  CLASS="textbf">Darwin</SPAN> is now supported. To
+     this date (Jan 2003) it has only been tested with NAGWare f95 <A NAME="tex2html22"
+  HREF="<TT>http://www.nag.co.uk/nagware/NP.asp</TT>"><TT>http://www.nag.co.uk/nagware/NP.asp</TT></A>.
+
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ A small subset of routines for the pixel to sky coordinate conversion
+     is now available in C (see the documentation <A NAME="tex2html23"
+  HREF="csub.htm">''C Subroutines Overview''</A>).
+
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New Fortran subroutines have been added or upgraded (see the documentation
+   <A NAME="tex2html24"
+  HREF="subroutines.htm">''Fortran90 Subroutines Overview''</A>) and
+
+most of the Fortran facilities have been upgraded (see the documentation
+   <A NAME="tex2html25"
+  HREF="facilities.htm">''Fortran90 Facilities User Guidelines''</A>)
+
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ several Fortran routines have been renamed and merged.
+ 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The module <TT>wrap_fits</TT> has been renamed <TT>head_fits</TT> to reflect its
+     extended capabilities,
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ some routines no longer in use have been moved to <TT>obsolete</TT> module
+ 	</DL>
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New IDL routines have been added, and several routines have been renamed
+   or merged. See the documentation <A NAME="tex2html26"
+  HREF="idl.htm">''IDL Facilities
+   Overview''</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The configure script automatically creates a (system specific)
+     profile defining useful environment variables and aliases. <EM>In
+     particular, the system variable <TT>HEALPIX</TT> must be correctly
+     defined (as the full path to the <b>HEALPix</b> directory) prior to running the pipeline.</EM>
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ All legacy f77 or f66 codes have been removed or replaced in
+     order to improve the portability
+   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The script file has been improved to, among other things, get rid of problems
+     appearing under SunOS
+ </DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html308"
+  HREF="installnode19.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html314"
+  HREF="install.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html318"
+  HREF="installnode21.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html316"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html309"
+  HREF="installnode19.htm">Appendix I: Changes and</A>
+
+<B>Up:</B> <A NAME="tex2html315"
+  HREF="install.htm">Installing Healpix</A>
+
+<B> Next:</B> <A NAME="tex2html319"
+  HREF="installnode21.htm">Appendix Ib: Changes and</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

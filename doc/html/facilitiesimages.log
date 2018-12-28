@@ -1,0 +1,481 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2005.5.17)  31 AUG 2005 16:46
+**./facilitiesimages.tex
+(./facilitiesimages.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, i
+talian, nohyphenation, loaded.
+
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size12.clo
+File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (/tmp/H2/Healpix_2.00/doc/TeX/healpix.sty
+Package: healpix 
+Package: healpix macros (A.J. Banday, M. Bartelmann)
+Document format
+(/usr/share/texmf/tex/latex/misc/a4wide.sty
+Package: a4wide 1994/08/30
+(/usr/share/texmf/tex/latex/ntgclass/a4.sty
+Package: a4 1999/03/03 v1.2f A4 based page layout
+)) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (/usr/share/texmf/tex/latex/psnfss/mathptm.sty
+Package: mathptm 2001/06/04 PSNFSS-v8.2 Times w/ Math (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+) (/usr/share/texmf/tex/latex/fancyheadings/fancyheadings.sty
+\headrulewidth=\dimen105
+\footrulewidth=\dimen106
+\plainheadrulewidth=\dimen107
+\plainfootrulewidth=\dimen108
+\headwidth=\dimen109
+\footruleskip=\dimen110
+)
+\bigicon=\skip43
+\smallicon=\skip44
+\blocksize=\skip45
+\c@creq=\count87
+\c@savecreq=\count88
+) (/usr/share/texmf/tex/latex/html/html.sty
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+\c@lpart=\count89
+\c@lchapter=\count90
+\c@chapter=\count91
+\c@lsection=\count92
+\c@lsubsection=\count93
+\c@lsubsubsection=\count94
+\c@lparagraph=\count95
+\c@lsubparagraph=\count96
+\c@lsubsubparagraph=\count97
+\ptrfile=\write3
+) (/usr/share/texmf/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+) (/usr/share/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/usr/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvips.def on input line 125.
+(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2001/07/10 v0.99a Input encoding file 
+))
+\sizebox=\box26
+\lthtmlwrite=\write4
+(facilitiesimages.aux (/tmp/H2/Healpix_2.00/doc/TeX/alteralm.aux) (/tmp/H2/Heal
+pix_2.00/doc/TeX/anafast.aux) (/tmp/H2/Healpix_2.00/doc/TeX/hotspot.aux) (/tmp/
+H2/Healpix_2.00/doc/TeX/map2gif.aux) (/tmp/H2/Healpix_2.00/doc/TeX/median_filte
+r.aux) (/tmp/H2/Healpix_2.00/doc/TeX/plmgen.aux) (/tmp/H2/Healpix_2.00/doc/TeX/
+smoothing.aux) (/tmp/H2/Healpix_2.00/doc/TeX/synfast.aux) (/tmp/H2/Healpix_2.00
+/doc/TeX/ud_grade.aux))
+\openout1 = `facilitiesimages.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 130.
+
+(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+\big@size=\dimen111
+
+latex2htmlLength hsize=349.0pt
+
+latex2htmlLength vsize=688.0pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=3.875pt plus 1.03331pt minus 0.5167pt
+
+latex2htmlLength oddsidemargin=0.0pt
+
+latex2htmlLength evensidemargin=0.0pt
+
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 15
+9.
+(/usr/share/texmf/tex/latex/psnfss/ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 15
+9.
+(/usr/share/texmf/tex/latex/psnfss/omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 15
+9.
+(/usr/share/texmf/tex/latex/psnfss/omspzccm.fd
+File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
+)
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 15
+9.
+(/usr/share/texmf/tex/latex/psnfss/omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 159.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 159.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 159.
+l2hSize :displaymath134:30.73267pt::0.0pt::349.0pt.
+[1
+
+
+
+]
+l2hSize :tex2html_wrap_inline333:8.59999pt::8.59999pt::23.30267pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline632:13.65514pt::13.65514pt::41.52748pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline644:8.59999pt::8.59999pt::13.89218pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline646:8.76193pt::8.76193pt::6.85199pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_inline648:8.59999pt::8.59999pt::6.85199pt.
+[6
+
+
+]
+l2hSize :tex2html_wrap_inline650:8.09999pt::0.0pt::6.60004pt.
+[7
+
+
+]
+l2hSize :tex2html_wrap_inline662:8.76193pt::8.76193pt::77.46663pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline666:8.76193pt::8.76193pt::62.55768pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline670:8.76193pt::8.76193pt::96.12378pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline674:9.43394pt::9.43394pt::53.47147pt.
+[11
+
+
+]
+l2hSize :tex2html_wrap_inline676:8.59999pt::8.59999pt::35.84889pt.
+[12
+
+
+]
+l2hSize :tex2html_wrap_inline682:8.76193pt::8.76193pt::154.13368pt.
+[13
+
+
+]
+l2hSize :tex2html_wrap_inline686:8.76193pt::8.76193pt::81.21483pt.
+[14
+
+
+]
+l2hSize :tex2html_wrap_inline696:8.78879pt::8.78879pt::11.60004pt.
+[15
+
+
+]
+l2hSize :tex2html_wrap_inline726:9.5pt::9.5pt::32.25444pt.
+[16
+
+
+]
+l2hSize :tex2html_wrap_inline732:8.09999pt::0.0pt::4.596pt.
+[17
+
+
+]
+l2hSize :tex2html_wrap_inline936:8.59999pt::8.59999pt::44.4277pt.
+[18
+
+
+]
+l2hSize :tex2html_wrap_inline1079:8.59999pt::8.59999pt::9.9239pt.
+[19
+
+
+]
+l2hSize :tex2html_wrap_inline1081:8.59999pt::8.59999pt::6.60004pt.
+[20
+
+
+]
+l2hSize :tex2html_wrap_inline1208:8.76193pt::8.76193pt::24.8539pt.
+[21
+
+
+]
+l2hSize :tex2html_wrap_inline1210:8.76193pt::8.76193pt::18.8539pt.
+[22
+
+
+]
+l2hSize :tex2html_wrap_inline1555:8.09999pt::0.0pt::5.92796pt.
+[23
+
+
+]
+l2hSize :tex2html_wrap_inline1875:8.59999pt::8.59999pt::43.95282pt.
+[24
+
+
+]
+l2hSize :tex2html_wrap_inline1909:9.5pt::9.5pt::108.09843pt.
+[25
+
+
+]
+l2hSize :tex2html_wrap_inline1911:10.8768pt::10.8768pt::137.31973pt.
+[26
+
+
+]
+l2hSize :tex2html_wrap_inline1913:11.24283pt::11.24283pt::83.52191pt.
+[27
+
+
+]
+l2hSize :tex2html_wrap_inline1921:9.5pt::9.5pt::200.77962pt.
+[28
+
+
+]
+l2hSize :tex2html_wrap_inline1923:10.8768pt::10.8768pt::174.6012pt.
+[29
+
+
+]
+l2hSize :tex2html_wrap_inline1925:11.24283pt::11.24283pt::97.49345pt.
+[30
+
+
+]
+
+! LaTeX Error: Environment sulistwide undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.353 \begin{sulistwide}
+                        {} %
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.354 \item[\htmlref{map2gif}{fac:map2gif}]
+                                            This \healpix Fortran facility c...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 354
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.356   \item[mollview]
+                        This \healpix IDL facility can be used to visualise the
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 356
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.358   \item[\htmlref{alteralm}{fac:alteralm}]
+                                                This \healpix Fortran facili...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 358
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.361   \item[\htmlref{anafast}{fac:anafast}]
+                                              This \healpix Fortran facility...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 361
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.363   \item[\htmlref{plmgen}{fac:plmgen}]
+                                            This \healpix Fortran facility c...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 363
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{sulistwide}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.365 \end{sulistwide}
+                      %
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+l2hSize :sulistwide1784:154.14294pt::2.5979pt::349.0pt.
+[31
+
+
+] (facilitiesimages.aux) ) 
+Here is how much of TeX's memory you used:
+ 1429 strings out of 20880
+ 17429 string characters out of 197306
+ 68942 words of memory out of 350001
+ 4373 multiletter control sequences out of 10000+15000
+ 12636 words of font info for 35 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 10000
+ 32i,5n,23p,252b,227s stack positions out of 3000i,100n,1500p,50000b,4000s
+
+Output written on facilitiesimages.dvi (31 pages, 8460 bytes).

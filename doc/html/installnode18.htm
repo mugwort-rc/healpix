@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>hidl usage</TITLE>
+<META NAME="description" CONTENT="hidl usage">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="previous" HREF="installnode17.htm">
+<LINK REL="up" HREF="installnode11.htm">
+<LINK REL="next" HREF="installnode19.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html286"
+  HREF="installnode17.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html290"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html294"
+  HREF="installnode19.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html292"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html287"
+  HREF="installnode17.htm">Try unlimit</A>
+
+<B>Up:</B> <A NAME="tex2html291"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html295"
+  HREF="installnode19.htm">Appendix I: Changes and</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00077000000000000000">
+<TT>hidl</TT> usage</A>
+</H2>
+
+<P>
+We have found that in very rare cases the alias <TT>hidl</TT>
+is not recognised by the user's system. Usually, this is related
+to the local system's IDL script. A quick-fix is achieved
+by setting the environment variable <TT>IDL_STARTUP</TT> to be
+equal to the <b>HEALPix</b> startup file <TT>HEALPix_startup</TT>
+<B>including</B> the directory path to the file. This enables
+the user to access the <b>HEALPix</b> IDL procedures simply by invoking
+IDL. For example, in the typical installation documented
+above for a user running the tcsh shell, the command
+<PRE>
+setenv IDL_STARTUP /disk1/user1/HEALPix_2.00/src/idl/HEALPix_startup
+</PRE>
+should be issued (or added to the user's shell profile).
+
+<P>
+If the user already has an IDL startup file, then
+this should be merged with <TT>HEALPix_startup</TT>. This temporary
+solution does mean that the <b>HEALPix</b> IDL procedures are available
+in the <TT>IDL_PATH</TT> at all times, which may lead to conflicts with
+user-defined procedures. The <TT>hidl</TT> invocation was intended 
+to circumvent these issues, allowing <b>HEALPix</b> IDL procedures to
+be available only when desired.
+
+<P>
+A proper fix requires the user to ask the local system
+administrator to adjust the local IDL script.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html286"
+  HREF="installnode17.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html290"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html294"
+  HREF="installnode19.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html292"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html287"
+  HREF="installnode17.htm">Try unlimit</A>
+
+<B>Up:</B> <A NAME="tex2html291"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html295"
+  HREF="installnode19.htm">Appendix I: Changes and</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

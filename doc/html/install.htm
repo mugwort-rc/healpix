@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Installing Healpix</TITLE>
+<META NAME="description" CONTENT="Installing Healpix">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode1.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html27"
+  HREF="main.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html31"
+  HREF="installnode1.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html29"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B>Up:</B> <A NAME="tex2html28"
+  HREF="main.htm">Main Page</A>
+
+<B> Next:</B> <A NAME="tex2html32"
+  HREF="installnode1.htm">Contents</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+<H1 ALIGN=CENTER><b>HEALPix</b> Facility Installation Guidelines</H1>
+<DIV>
+This document describes the installation for the <b>HEALPix</b> facilities.</DIV>
+<P ALIGN=CENTER><STRONG>Anthony J.&nbsp;Banday, Matthias Bartelmann, Eric Hivon, Benjamin D.&nbsp;Wandelt,
+Frode K.&nbsp;Hansen and Krzysztof M.&nbsp;G&#243;rski</STRONG></P>
+<BR><P ALIGN=CENTER><I>Date:</I> August 31, 2005</P>
+
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html33"
+  HREF="installnode1.htm">Contents</A>
+<LI><A NAME="tex2html34"
+  HREF="installnode2.htm">Introduction</A>
+<LI><A NAME="tex2html35"
+  HREF="installnode3.htm">Installation Requirements</A>
+<LI><A NAME="tex2html36"
+  HREF="installnode4.htm">The Installation Procedure</A>
+<UL>
+<LI><A NAME="tex2html37"
+  HREF="installnode5.htm">./configure</A>
+<LI><A NAME="tex2html38"
+  HREF="installnode6.htm">make</A>
+<LI><A NAME="tex2html39"
+  HREF="installnode7.htm">Testing the installation</A>
+<LI><A NAME="tex2html40"
+  HREF="installnode8.htm">config_preview</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html41"
+  HREF="installnode9.htm">Upgrading from 1.2 to 2.0</A>
+<LI><A NAME="tex2html42"
+  HREF="installnode10.htm">A Note on <I>Re</I>-installation</A>
+<LI><A NAME="tex2html43"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+<UL>
+<LI><A NAME="tex2html44"
+  HREF="installnode12.htm">CFITSIO linking problems</A>
+<LI><A NAME="tex2html45"
+  HREF="installnode13.htm">CFTISIO and Debian/Linux</A>
+<LI><A NAME="tex2html46"
+  HREF="installnode14.htm">CFITSIO problems on systems with 64 bit architecture</A>
+<LI><A NAME="tex2html47"
+  HREF="installnode15.htm"><TT>diff</TT> shows that the test files are different from
+the supplied files</A>
+<LI><A NAME="tex2html48"
+  HREF="installnode16.htm">MIPSPro Compilers on SGI machines</A>
+<LI><A NAME="tex2html49"
+  HREF="installnode17.htm">Try <TT>unlimit</TT></A>
+<LI><A NAME="tex2html50"
+  HREF="installnode18.htm"><TT>hidl</TT> usage</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html51"
+  HREF="installnode19.htm">Appendix I: Changes and New Features in Version 2.00</A>
+<LI><A NAME="tex2html52"
+  HREF="installnode20.htm">Appendix Ia: Changes and New Features in Version 1.20</A>
+<LI><A NAME="tex2html53"
+  HREF="installnode21.htm">Appendix Ib: Changes and New Features in Version 1.10</A>
+<LI><A NAME="tex2html54"
+  HREF="installnode22.htm">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html27"
+  HREF="main.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html31"
+  HREF="installnode1.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html29"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B>Up:</B> <A NAME="tex2html28"
+  HREF="main.htm">Main Page</A>
+
+<B> Next:</B> <A NAME="tex2html32"
+  HREF="installnode1.htm">Contents</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

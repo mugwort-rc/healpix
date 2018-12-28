@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CFITSIO linking problems</TITLE>
+<META NAME="description" CONTENT="CFITSIO linking problems">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode13.htm">
+<LINK REL="previous" HREF="installnode11.htm">
+<LINK REL="up" HREF="installnode11.htm">
+<LINK REL="next" HREF="installnode13.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html214"
+  HREF="installnode11.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html220"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html224"
+  HREF="installnode13.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html222"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html215"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B>Up:</B> <A NAME="tex2html221"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html225"
+  HREF="installnode13.htm">CFTISIO and Debian/Linux</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00071000000000000000">
+CFITSIO linking problems</A>
+</H2>
+
+<P>
+A particular problem encountered with the CFITSIO Version 2.0 release relates
+to the inclusion of various libraries within the system release for a given
+machine. This led to some modifications to the Makefile to include the specific
+library links <TT>-lm -lnsl -lsocket</TT> on SunOS, but only <TT>-lm</TT> for IRIX64.
+If your OS is not completely supported by the distribution, you may find this
+as one source of errors. The CFITSIO developers recommend compilation of the
+<TT>testprog</TT> routine. Inspection of the libraries linked after executing the
+<TT>make testprog</TT> statement will reveal those you need to include in the
+Makefile.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html214"
+  HREF="installnode11.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html220"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html224"
+  HREF="installnode13.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html222"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html215"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B>Up:</B> <A NAME="tex2html221"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html225"
+  HREF="installnode13.htm">CFTISIO and Debian/Linux</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

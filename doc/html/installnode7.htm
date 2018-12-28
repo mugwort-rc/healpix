@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Testing the installation</TITLE>
+<META NAME="description" CONTENT="Testing the installation">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode8.htm">
+<LINK REL="previous" HREF="installnode6.htm">
+<LINK REL="up" HREF="installnode4.htm">
+<LINK REL="next" HREF="installnode8.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html149"
+  HREF="installnode6.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html155"
+  HREF="installnode4.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html159"
+  HREF="installnode8.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html157"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html150"
+  HREF="installnode6.htm">make</A>
+
+<B>Up:</B> <A NAME="tex2html156"
+  HREF="installnode4.htm">The Installation Procedure</A>
+
+<B> Next:</B> <A NAME="tex2html160"
+  HREF="installnode8.htm">config_preview</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00043000000000000000">
+Testing the installation</A>
+</H2>
+
+<P>
+In order to test the success of the installation, one should run the test
+script as outlined above (ie, <TT>make <EM>[-f make_file_name ]</EM> test</TT>). This proceeds as follows:
+
+<P>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ moves to <TT>test/</TT> subdirectory 
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>synfast</TT> (with parameter file <TT>syn.par</TT>) to produce the polarised sky map file <TT>  test_map.fits</TT> and the corresponding <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>  test_alm.fits</TT>; one can then compare this to <TT>map.fits</TT> and <TT>alm.fits</TT>
+(supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>map2gif</TT> to make the image <TT>test_map.gif</TT>; one can then compare this to <TT>map.gif</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>smoothing</TT> (with parameter file <TT>smo.par</TT>) to make <TT>test_sm.fits</TT>; compare this to <TT>map_sm.fits</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>map2gif</TT> to make the image <TT>test_sm.gif</TT>; compare this to <TT>map_sm.gif</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>ud_grade</TT> (with parameter file <TT>udg.par</TT>) to degrade the map <TT>test.fits</TT> to
+<SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=4</SPAN>. The output is <TT>test_LOres.fits</TT>; compare this to 
+<TT>map_LOres.fits</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>map2gif</TT> to make the image <TT>test_LOres.gif</TT>; compare this to <TT>map_LOres.gif</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>hotspot</TT> (with parameter file <TT>hot.par</TT>) to produce a map of the local extrema in <TT>test_LOres.fits</TT>. The outputs are <TT>test_ext.fits</TT>, <TT>test_min.asc</TT> and <TT>test_max.asc</TT>. Compare this to <TT>map_ext.fits</TT>, <TT>min.asc</TT> and <TT>max.asc</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>map2gif</TT> to make the image <TT>test_ext.gif</TT>; compare this to <TT>map_ext.gif</TT> 
+(supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>anafast</TT> (with parameter file <TT>ana.par</TT>) to compute the power spectrum of the sky map <TT>test.fits</TT>. The output is <TT>test_cl.fits</TT>; compare this to <TT>cl_out.fits</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>alteralm</TT> (with parameter file <TT>alt.par</TT>) to modify the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients read from <TT>alm.fits</TT>
+  into <TT>test_almdec.fits</TT>; compare this to <TT>almdec.fits</TT> (supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>median_filter</TT> (with parameter file <TT>med.par</TT>) to produce in <TT>test_mf.fits</TT> the median
+  filtered map of <TT>map.fits</TT> ; the former can be compared to <TT>  map_mf.fits</TT> (supplied).
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ runs <TT>map2gif</TT> to make the image <TT>test_mf.gif</TT>; compare this to <TT>map_mf.gif</TT> 
+(supplied)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ comes back to main <b>HEALPix</b> directory
+</DL>
+
+<P>
+The supplied data and parameter files are present in the <TT>/Healpix_2.00/test</TT> directory, and this is 
+also where the results files are created. 
+
+<P>
+<B>Note:</B> the input power spectrum (in <TT>cl.fits</TT>) used to generate the test maps
+is currently the WMAP 1yr best fit, in <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="installimg3.png"
+ ALT="$(\mu$"></SPAN>K<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN>, and is therefore different from the one
+included in previous releases (that can still be found in <TT>cl_old.fits</TT>).
+See <A NAME="tex2html9"
+  HREF="http://lambda.gsfc.nasa.gov/"><TT>http://lambda.gsfc.nasa.gov/</TT></A>
+for details on WMAP and its data products.
+
+<P>
+In order to test the new <b>HEALPix</b> profile set-up one can then attempt
+to run any F90 facility from any directory on your system. Similarly,
+IDL should be tested by invoking <TT>hidl</TT> or <TT>hidlde</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html149"
+  HREF="installnode6.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html155"
+  HREF="installnode4.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html159"
+  HREF="installnode8.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html157"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html150"
+  HREF="installnode6.htm">make</A>
+
+<B>Up:</B> <A NAME="tex2html156"
+  HREF="installnode4.htm">The Installation Procedure</A>
+
+<B> Next:</B> <A NAME="tex2html160"
+  HREF="installnode8.htm">config_preview</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

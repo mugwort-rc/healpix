@@ -1,0 +1,508 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2005.5.17)  31 AUG 2005 16:47
+**./idlimages.tex
+(./idlimages.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, i
+talian, nohyphenation, loaded.
+
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size12.clo
+File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (/tmp/H2/Healpix_2.00/doc/TeX/healpix.sty
+Package: healpix 
+Package: healpix macros (A.J. Banday, M. Bartelmann)
+Document format
+(/usr/share/texmf/tex/latex/misc/a4wide.sty
+Package: a4wide 1994/08/30
+(/usr/share/texmf/tex/latex/ntgclass/a4.sty
+Package: a4 1999/03/03 v1.2f A4 based page layout
+)) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (/usr/share/texmf/tex/latex/psnfss/mathptm.sty
+Package: mathptm 2001/06/04 PSNFSS-v8.2 Times w/ Math (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+) (/usr/share/texmf/tex/latex/fancyheadings/fancyheadings.sty
+\headrulewidth=\dimen105
+\footrulewidth=\dimen106
+\plainheadrulewidth=\dimen107
+\plainfootrulewidth=\dimen108
+\headwidth=\dimen109
+\footruleskip=\dimen110
+)
+\bigicon=\skip43
+\smallicon=\skip44
+\blocksize=\skip45
+\c@creq=\count87
+\c@savecreq=\count88
+) (/usr/share/texmf/tex/generic/misc/psfig.sty
+\@unused=\write3
+\ps@stream=\read1
+\p@intvaluex=\dimen111
+\p@intvaluey=\dimen112
+psfig/tex 1.10-dvips
+) (/usr/share/texmf/tex/latex/html/html.sty
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+\c@lpart=\count89
+\c@lchapter=\count90
+\c@chapter=\count91
+\c@lsection=\count92
+\c@lsubsection=\count93
+\c@lsubsubsection=\count94
+\c@lparagraph=\count95
+\c@lsubparagraph=\count96
+\c@lsubsubparagraph=\count97
+\ptrfile=\write4
+) (/usr/share/texmf/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+) (/usr/share/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/usr/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvips.def on input line 125.
+(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2001/07/10 v0.99a Input encoding file 
+))
+\sizebox=\box26
+\lthtmlwrite=\write5
+(idlimages.aux (/tmp/H2/Healpix_2.00/doc/TeX/alm2fits_idl.aux) (/tmp/H2/Healpix
+_2.00/doc/TeX/ang2vec_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/cartcursor_idl.aux
+) (/tmp/H2/Healpix_2.00/doc/TeX/cartview_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX
+/change_polcconv_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/cl2fits_idl.aux) (/tmp/
+H2/Healpix_2.00/doc/TeX/convert_oldhpx2cmbfast_idl.aux) (/tmp/H2/Healpix_2.00/d
+oc/TeX/euler_matrix_new_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/fits2alm_idl.aux
+) (/tmp/H2/Healpix_2.00/doc/TeX/fits2cl_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/
+gaussbeam_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/getdisc_ring_idl.aux) (/tmp/H2
+/Healpix_2.00/doc/TeX/getsize_fits_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/gnomc
+ursor_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/gnomview_idl.aux) (/tmp/H2/Healpix
+_2.00/doc/TeX/healpixwindow_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/index2lm_idl
+.aux) (/tmp/H2/Healpix_2.00/doc/TeX/init_healpix_idl.aux) (/tmp/H2/Healpix_2.00
+/doc/TeX/lm2index_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/median_filter_idl.aux)
+(/tmp/H2/Healpix_2.00/doc/TeX/mollcursor_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX
+/mollview_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/npix2nside_idl.aux) (/tmp/H2/H
+ealpix_2.00/doc/TeX/nside2npix_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/nside2nte
+mplates_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/orthcursor_idl.aux) (/tmp/H2/Hea
+lpix_2.00/doc/TeX/orthview_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/pix_tools_idl
+.aux) (/tmp/H2/Healpix_2.00/doc/TeX/query_disc_idl.aux) (/tmp/H2/Healpix_2.00/d
+oc/TeX/query_polygon_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/query_triangle_idl.
+aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_fits_cut4_idl.aux) (/tmp/H2/Healpix_2.0
+0/doc/TeX/read_fits_map_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_fits_s_idl.
+aux) (/tmp/H2/Healpix_2.00/doc/TeX/read_tqu_idl.aux) (/tmp/H2/Healpix_2.00/doc/
+TeX/remove_dipole_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/reorder_idl.aux) (/tmp
+/H2/Healpix_2.00/doc/TeX/rotate_coord_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/sa
+me_shape_pixels_xxx_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/template_pixel_xxx_i
+dl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/ud_grade_idl.aux) (/tmp/H2/Healpix_2.00/d
+oc/TeX/vec2ang_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/write_fits_cut4_idl.aux) 
+(/tmp/H2/Healpix_2.00/doc/TeX/write_fits_map_idl.aux) (/tmp/H2/Healpix_2.00/doc
+/TeX/write_fits_sb_idl.aux) (/tmp/H2/Healpix_2.00/doc/TeX/write_tqu_idl.aux))
+\openout1 = `idlimages.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 132.
+
+(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+\big@size=\dimen113
+
+latex2htmlLength hsize=349.0pt
+
+latex2htmlLength vsize=688.0pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=3.875pt plus 1.03331pt minus 0.5167pt
+
+latex2htmlLength oddsidemargin=0.0pt
+
+latex2htmlLength evensidemargin=0.0pt
+
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 16
+6.
+(/usr/share/texmf/tex/latex/psnfss/ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 16
+6.
+(/usr/share/texmf/tex/latex/psnfss/omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 16
+6.
+(/usr/share/texmf/tex/latex/psnfss/omspzccm.fd
+File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
+)
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 16
+6.
+(/usr/share/texmf/tex/latex/psnfss/omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 166.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 166.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 166.
+l2hSize :tex2html_wrap_inline334:8.59999pt::8.59999pt::7.18802pt.
+[1
+
+
+
+]
+l2hSize :tex2html_wrap_inline336:8.59999pt::8.59999pt::13.18802pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline342:9.5pt::9.5pt::264.33301pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline344:9.5pt::9.5pt::27.07283pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline348:8.76193pt::8.76193pt::67.12436pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_inline350:8.76193pt::8.76193pt::65.09644pt.
+[6
+
+
+]
+l2hSize :tex2html_wrap_inline352:8.76193pt::8.76193pt::43.5061pt.
+[7
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 237--237
+
+ []
+
+l2hSize :tex2html_wrap_inline10399:104.19257pt::104.19257pt::349.60004pt.
+
+Overfull \hbox (4.04005pt too wide) in paragraph at lines 238--239
+[]|[] 
+ []
+
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline1149:9.5pt::9.5pt::128.90573pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline1163:9.5pt::9.5pt::75.97966pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline1253:8.59999pt::8.59999pt::18.59053pt.
+[11
+
+
+]
+l2hSize :tex2html_wrap_inline1255:8.59999pt::8.59999pt::18.59053pt.
+[12
+
+
+]
+l2hSize :tex2html_wrap_inline1261:10.8768pt::10.8768pt::101.69789pt.
+[13
+
+
+]
+l2hSize :tex2html_wrap_inline1419:8.59999pt::8.59999pt::23.30267pt.
+[14
+
+
+]
+l2hSize :tex2html_wrap_inline1423:10.8768pt::10.8768pt::52.29317pt.
+[15
+
+
+]
+l2hSize :tex2html_wrap_inline1427:10.8768pt::10.8768pt::52.29317pt.
+[16
+
+
+]
+l2hSize :tex2html_wrap_inline10493:37.89088pt::37.89088pt::349.60004pt.
+
+Overfull \hbox (4.04005pt too wide) in paragraph at lines 317--318
+[]|[] 
+ []
+
+[17
+
+
+]
+l2hSize :tex2html_wrap_inline1612:8.09999pt::0.0pt::4.596pt.
+[18
+
+
+]
+l2hSize :tex2html_wrap_inline1616:8.59999pt::8.59999pt::9.9239pt.
+[19
+
+
+]
+l2hSize :tex2html_wrap_inline1618:8.59999pt::8.59999pt::6.60004pt.
+[20
+
+
+]
+l2hSize :tex2html_wrap_inline1718:11.69566pt::11.69566pt::93.20236pt.
+[21
+
+
+]
+l2hSize :tex2html_wrap_inline1722:10.8768pt::10.8768pt::98.24504pt.
+[22
+
+
+]
+l2hSize :tex2html_wrap_inline1849:9.43994pt::9.43994pt::55.1737pt.
+[23
+
+
+]
+l2hSize :tex2html_wrap_inline2681:8.09999pt::0.0pt::9.9239pt.
+[24
+
+
+]
+l2hSize :tex2html_wrap_inline2695:8.59999pt::8.59999pt::18.59053pt.
+[25
+
+
+]
+l2hSize :tex2html_wrap_inline2699:11.69566pt::11.69566pt::84.40181pt.
+[26
+
+
+]
+l2hSize :tex2html_wrap_inline2701:10.8768pt::10.8768pt::93.32135pt.
+[27
+
+
+]
+
+LaTeX Warning: File `fig/merge_visu.ps' not found on input line 432.
+
+File: fig/merge_visu.ps Graphic file (type eps)
+<fig/merge_visu.ps>
+l2hSize :figure2582:482.02493pt::0.0pt::349.0pt.
+[28
+
+
+]
+l2hSize :tex2html_wrap_inline3020:10.8768pt::10.8768pt::69.66559pt.
+[29
+
+
+]
+l2hSize :tex2html_wrap_inline3022:8.59999pt::8.59999pt::23.30267pt.
+[30
+
+
+]
+l2hSize :tex2html_wrap_inline3024:9.43994pt::9.43994pt::65.88594pt.
+[31
+
+
+]
+l2hSize :displaymath3274:26.35587pt::0.0pt::349.0pt.
+[32
+
+
+]
+l2hSize :tex2html_wrap_inline3642:9.5pt::9.5pt::306.51862pt.
+[33
+
+
+]
+l2hSize :tex2html_wrap_inline3644:9.5pt::9.5pt::316.18484pt.
+[34
+
+
+]
+l2hSize :tex2html_wrap_inline4099:11.52464pt::11.52464pt::60.80635pt.
+[35
+
+
+]
+l2hSize :tex2html_wrap_inline4227:8.59999pt::8.59999pt::18.59053pt.
+[36
+
+
+]
+l2hSize :tex2html_wrap_inline4471:8.59999pt::8.59999pt::20.30583pt.
+[37
+
+
+]
+l2hSize :tex2html_wrap_inline4475:8.59999pt::8.59999pt::9.9239pt.
+[38
+
+
+]
+l2hSize :tex2html_wrap_inline4577:10.8768pt::10.8768pt::79.73827pt.
+[39
+
+
+]
+l2hSize :eqnarray4813:45.8235pt::0.0pt::349.0pt.
+[40
+
+
+]
+l2hSize :tex2html_wrap_inline4891:8.59999pt::8.59999pt::6.85199pt.
+[41
+
+
+]
+l2hSize :tex2html_wrap_inline4901:8.69586pt::8.69586pt::55.9598pt.
+[42
+
+
+]
+l2hSize :eqnarray4968:45.8235pt::0.0pt::349.0pt.
+[43
+
+
+]
+l2hSize :tex2html_wrap_inline5034:10.8768pt::10.8768pt::58.95982pt.
+[44
+
+
+]
+l2hSize :tex2html_wrap_inline11137:52.19891pt::52.19891pt::175.10004pt.
+[45
+
+
+]
+l2hSize :tex2html_wrap_inline5409:8.59999pt::8.59999pt::49.9598pt.
+[46
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 675--675
+
+ []
+
+l2hSize :tex2html_wrap_inline11211:101.92587pt::101.92587pt::349.60004pt.
+
+Overfull \hbox (4.04005pt too wide) in paragraph at lines 676--677
+[]|[] 
+ []
+
+[47
+
+
+]
+l2hSize :tex2html_wrap_inline5893:8.59999pt::8.59999pt::9.9239pt.
+[48
+
+
+] (idlimages.aux) ) 
+Here is how much of TeX's memory you used:
+ 1811 strings out of 20880
+ 23640 string characters out of 197306
+ 92167 words of memory out of 350001
+ 4675 multiletter control sequences out of 10000+15000
+ 12636 words of font info for 35 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 10000
+ 32i,9n,23p,360b,307s stack positions out of 3000i,100n,1500p,50000b,4000s
+
+Output written on idlimages.dvi (48 pages, 14512 bytes).

@@ -1,0 +1,27 @@
+
+test data for Healpix 2.0
+
+used by 'make test'
+
+*.par: input parameter file of each code
+
+*.fits: input data and reference for comparison of output
+
+   --  cl.fits: input power spectrum 
+        WMAP 1yr best fit, Spergel et al, 2003; with B modes = 0
+        see  http://lambda.gsfc.nasa.gov/
+   --  cl_old.fits: input power spectrum of previous Healpix releases
+
+*.gif: GIF image of the reference maps
+
+
+
+test*.fits: output data of runs
+
+test*.gif: output figures of runs
+
+
+
+see Installation Document for details
+
+

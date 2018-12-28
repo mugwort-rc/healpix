@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>orthview</TITLE>
+<META NAME="description" CONTENT="orthview">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idlnode31.htm">
+<LINK REL="previous" HREF="idlnode29.htm">
+<LINK REL="up" HREF="idl.htm">
+<LINK REL="next" HREF="idlnode31.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html453"
+  HREF="idlnode29.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html459"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html463"
+  HREF="idlnode31.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html461"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html454"
+  HREF="idlnode29.htm">orthcursor</A>
+
+<B>Up:</B> <A NAME="tex2html460"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html464"
+  HREF="idlnode31.htm">pix2xxx, ang2xxx, vec2xxx, nest2ring,ring2nest</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION000300000000000000000"></A>
+<A NAME="idl:orthview"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">orthview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a full sky or half sky orthographic projection 
+(projection onto a tangent plane from a point located at infinity) of
+<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
+generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/orthview.pro
+</b>
+
+<P>
+<hr><h1>FORMAT </h1><h2>IDL>
+ORTHVIEW, File, [Select, ] [COLT=, ... 
+            ... UNITS=, XPOS=, YPOS= ]
+
+</h2>
+
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<DD>For a full list of qualifiers see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<DD>For a full list of keywords see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
+  </DL>
+
+<P>
+<hr><H1>DESCRIPTION</H1>
+<BR> <blockquote>
+orthview reads in a <b>HEALPix</b> sky map in FITS format and generates an
+orthographic projection of it, that can be visualized on the screen or
+exported in a GIF, PNG, Postscript or FITS file. orthview allows the selection of
+the coordinate system, point of projection, map size, color table, color bar inclusion,
+linear or log scaling, histogram equalised
+color scaling, maximum and 
+minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
+polarization field. 
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">orthview</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<DD>see <A HREF="idlnode25.htm#idl:mollview">mollview</A>
+  </DL>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+
+<P>
+map</TD>
+<TD ALIGN="LEFT">= findgen(48)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">triangle</TD>
+<TD ALIGN="LEFT">= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+</TR>
+<TR><TD ALIGN="LEFT">orthview,</TD>
+<TD ALIGN="LEFT">map,/online,res=25,graticule=[45,30],rot=[10,20,30],$</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">title='Orthographic projection',subtitle='orthview' $</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">outline=triangle</TD>
+</TR>
+</TABLE>
+</font></tt>
+<BR><blockquote>makes an orthographic projection of map (see Figure 1d on
+page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
+(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html453"
+  HREF="idlnode29.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html459"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html463"
+  HREF="idlnode31.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html461"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html454"
+  HREF="idlnode29.htm">orthcursor</A>
+
+<B>Up:</B> <A NAME="tex2html460"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html464"
+  HREF="idlnode31.htm">pix2xxx, ang2xxx, vec2xxx, nest2ring,ring2nest</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

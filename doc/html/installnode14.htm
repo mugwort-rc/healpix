@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CFITSIO problems on systems with 64 bit architecture</TITLE>
+<META NAME="description" CONTENT="CFITSIO problems on systems with 64 bit architecture">
+<META NAME="keywords" CONTENT="install">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="install.css">
+
+<LINK REL="next" HREF="installnode15.htm">
+<LINK REL="previous" HREF="installnode13.htm">
+<LINK REL="up" HREF="installnode11.htm">
+<LINK REL="next" HREF="installnode15.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html238"
+  HREF="installnode13.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html244"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html248"
+  HREF="installnode15.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html246"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html239"
+  HREF="installnode13.htm">CFTISIO and Debian/Linux</A>
+
+<B>Up:</B> <A NAME="tex2html245"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html249"
+  HREF="installnode15.htm">diff shows that the</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00073000000000000000">
+CFITSIO problems on systems with 64 bit architecture</A>
+</H2>
+
+<P>
+On a 64-bit architecture such as IRIX64, CFITSIO will have to be
+compiled in the same  binary format as the <b>HEALPix</b> codes.
+This can be achieved by typing the
+following on the
+command line in the CFITSIO directory:
+
+<P>
+<PRE>
+  rm config.cache    
+  setenv CC 'cc -n32'
+  ./configure
+  make
+</PRE>
+
+<P>
+Alternatively you can replace the <TT>-n32</TT> with <TT>-64</TT>. You can
+then force compilation to the same binary format by entering either
+<TT>-n32</TT> or <TT>-64</TT> when asked for the optimisation options in the
+<b>HEALPix</b> configure script.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html238"
+  HREF="installnode13.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html244"
+  HREF="installnode11.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html248"
+  HREF="installnode15.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html246"
+  HREF="installnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html239"
+  HREF="installnode13.htm">CFTISIO and Debian/Linux</A>
+
+<B>Up:</B> <A NAME="tex2html245"
+  HREF="installnode11.htm">Troubleshooting and further information</A>
+
+<B> Next:</B> <A NAME="tex2html249"
+  HREF="installnode15.htm">diff shows that the</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

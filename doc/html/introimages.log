@@ -1,0 +1,1191 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2005.5.17)  31 AUG 2005 16:45
+**./introimages.tex
+(./introimages.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, i
+talian, nohyphenation, loaded.
+
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size12.clo
+File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (/tmp/H2/Healpix_2.00/doc/TeX/healpix.sty
+Package: healpix 
+Package: healpix macros (A.J. Banday, M. Bartelmann)
+Document format
+(/usr/share/texmf/tex/latex/misc/a4wide.sty
+Package: a4wide 1994/08/30
+(/usr/share/texmf/tex/latex/ntgclass/a4.sty
+Package: a4 1999/03/03 v1.2f A4 based page layout
+)) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (/usr/share/texmf/tex/latex/psnfss/mathptm.sty
+Package: mathptm 2001/06/04 PSNFSS-v8.2 Times w/ Math (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+) (/usr/share/texmf/tex/latex/fancyheadings/fancyheadings.sty
+\headrulewidth=\dimen105
+\footrulewidth=\dimen106
+\plainheadrulewidth=\dimen107
+\plainfootrulewidth=\dimen108
+\headwidth=\dimen109
+\footruleskip=\dimen110
+)
+\bigicon=\skip43
+\smallicon=\skip44
+\blocksize=\skip45
+\c@creq=\count87
+\c@savecreq=\count88
+) (/usr/share/texmf/tex/latex/html/html.sty
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+\c@lpart=\count89
+\c@lchapter=\count90
+\c@chapter=\count91
+\c@lsection=\count92
+\c@lsubsection=\count93
+\c@lsubsubsection=\count94
+\c@lparagraph=\count95
+\c@lsubparagraph=\count96
+\c@lsubsubparagraph=\count97
+\ptrfile=\write3
+) (/usr/share/texmf/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+) (/usr/share/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/usr/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvips.def on input line 125.
+(/usr/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)) (/usr/share/texmf/tex/latex/misc/apalike.sty
+\bibhang=\skip46
+) (/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2001/07/10 v0.99a Input encoding file 
+))
+\sizebox=\box26
+\lthtmlwrite=\write4
+(introimages.aux)
+\openout1 = `introimages.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 115.
+
+(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+\big@size=\dimen111
+
+latex2htmlLength hsize=349.0pt
+
+latex2htmlLength vsize=688.0pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=3.875pt plus 1.03331pt minus 0.5167pt
+
+latex2htmlLength oddsidemargin=0.0pt
+
+latex2htmlLength evensidemargin=0.0pt
+
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 14
+0.
+(/usr/share/texmf/tex/latex/psnfss/ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 14
+0.
+(/usr/share/texmf/tex/latex/psnfss/omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 14
+0.
+(/usr/share/texmf/tex/latex/psnfss/omspzccm.fd
+File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
+)
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 14
+0.
+(/usr/share/texmf/tex/latex/psnfss/omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 140.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 140.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 140.
+l2hSize :tex2html_wrap_inline1113:11.00275pt::11.00275pt::29.59053pt.
+[1
+
+
+
+]
+l2hSize :tex2html_wrap_inline1115:8.09999pt::0.0pt::4.596pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline1117:8.78879pt::8.78879pt::11.60004pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline1119:9.77876pt::9.77876pt::27.56552pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline1121:8.59999pt::8.59999pt::32.49416pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_inline1123:11.00275pt::11.00275pt::43.58109pt.
+[6
+
+
+]
+File: fig/quad_tree.eps Graphic file (type eps)
+<fig/quad_tree.eps>
+l2hSize :figure30:122.44936pt::0.0pt::349.0pt.
+[7
+
+
+]
+l2hSize :tex2html_wrap_inline1127:8.59999pt::8.59999pt::81.7325pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline1129:10.8768pt::10.8768pt::176.9504pt.
+[9
+
+
+]
+File: fig/introf1.ps Graphic file (type eps)
+<fig/introf1.ps>
+l2hSize :figure51:310.3652pt::0.0pt::349.0pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline1139:8.76193pt::8.76193pt::76.40448pt.
+[11
+
+
+]
+l2hSize :tex2html_wrap_inline1141:10.8768pt::10.8768pt::80.74733pt.
+[12
+
+
+]
+l2hSize :tex2html_wrap_inline1143:10.8768pt::10.8768pt::121.30417pt.
+[13
+
+
+]
+File: fig/introf2.ps Graphic file (type eps)
+<fig/introf2.ps>
+l2hSize :figure70:618.39877pt::0.0pt::349.0pt.
+[14
+
+
+]
+l2hSize :eqnarray109:35.53896pt::0.0pt::349.0pt.
+[15
+
+
+]
+l2hSize :tex2html_wrap_inline1159:8.59999pt::8.59999pt::5.53203pt.
+[16
+
+
+]
+l2hSize :tex2html_wrap_inline1161:9.5pt::9.5pt::44.07002pt.
+[17
+
+
+]
+l2hSize :tex2html_wrap_inline1163:9.5pt::9.5pt::51.40201pt.
+[18
+
+
+]
+l2hSize :tex2html_wrap_inline1179:9.5pt::9.5pt::21.73155pt.
+[19
+
+
+]
+l2hSize :tex2html_wrap_inline1181:8.59999pt::8.59999pt::20.30583pt.
+[20
+
+
+]
+l2hSize :tex2html_wrap_inline1183:8.59999pt::8.59999pt::11.20702pt.
+[21
+
+
+]
+l2hSize :tex2html_wrap_inline1185:9.5pt::9.5pt::76.49303pt.
+[22
+
+
+]
+l2hSize :eqnarray131:38.6004pt::0.0pt::349.0pt.
+[23
+
+
+]
+l2hSize :tex2html_wrap_inline1191:8.59999pt::8.59999pt::16.5588pt.
+[24
+
+
+]
+l2hSize :tex2html_wrap_inline1193:11.19182pt::11.19182pt::11.16473pt.
+[25
+
+
+]
+l2hSize :eqnarray148:30.07266pt::0.0pt::349.0pt.
+[26
+
+
+]
+l2hSize :tex2html_wrap_inline1197:9.5pt::9.5pt::27.40654pt.
+[27
+
+
+]
+l2hSize :tex2html_wrap_inline1207:11.4077pt::11.4077pt::50.31549pt.
+[28
+
+
+]
+l2hSize :tex2html_wrap_inline1213:9.5pt::9.5pt::34.49973pt.
+[29
+
+
+]
+l2hSize :tex2html_wrap_inline1215:9.5pt::9.5pt::21.73155pt.
+[30
+
+
+]
+l2hSize :tex2html_wrap_inline1217:8.59999pt::8.59999pt::13.18802pt.
+[31
+
+
+]
+l2hSize :tex2html_wrap_inline1233:9.43394pt::9.43394pt::30.33563pt.
+[32
+
+
+]
+l2hSize :tex2html_wrap_inline1235:8.19586pt::0.0pt::16.13983pt.
+[33
+
+
+]
+l2hSize :tex2html_wrap_inline1237:8.59999pt::8.59999pt::15.26384pt.
+[34
+
+
+]
+l2hSize :eqnarray174:30.94473pt::0.0pt::349.0pt.
+[35
+
+
+]
+File: fig/plot_orthpol2.ps Graphic file (type eps)
+<fig/plot_orthpol2.ps>
+l2hSize :figure230:429.28206pt::0.0pt::349.0pt.
+[36
+
+
+]
+l2hSize :tex2html_wrap_inline1255:8.59999pt::8.59999pt::27.92381pt.
+[37
+
+
+]
+l2hSize :tex2html_wrap_inline1275:8.09999pt::0.0pt::7.27196pt.
+[38
+
+
+]
+l2hSize :tex2html_wrap_inline1277:9.5pt::9.5pt::35.22478pt.
+[39
+
+
+]
+l2hSize :tex2html_wrap_inline1285:8.59999pt::8.59999pt::8.83202pt.
+[40
+
+
+]
+l2hSize :tex2html_wrap_inline1287:9.77876pt::9.77876pt::117.00322pt.
+[41
+
+
+]
+l2hSize :tex2html_wrap_inline1289:9.77876pt::9.77876pt::127.6604pt.
+[42
+
+
+]
+l2hSize :eqnarray264:34.70593pt::0.0pt::349.0pt.
+[43
+
+
+]
+l2hSize :tex2html_wrap_inline1291:8.59999pt::8.59999pt::34.43689pt.
+[44
+
+
+]
+l2hSize :tex2html_wrap_inline1293:8.59999pt::8.59999pt::15.9239pt.
+[45
+
+
+]
+l2hSize :tex2html_wrap_inline1295:8.76625pt::8.76625pt::28.52003pt.
+[46
+
+
+]
+l2hSize :eqnarray275:85.1074pt::0.0pt::349.0pt.
+[47
+
+
+]
+l2hSize :tex2html_wrap_inline1301:9.5pt::9.5pt::84.88457pt.
+[48
+
+
+]
+l2hSize :tex2html_wrap_inline1303:8.59999pt::8.59999pt::11.11693pt.
+[49
+
+
+]
+l2hSize :tex2html_wrap_inline1305:8.59999pt::8.59999pt::11.11693pt.
+[50
+
+
+]
+l2hSize :tex2html_wrap_inline1307:8.59999pt::8.59999pt::28.55171pt.
+[51
+
+
+]
+l2hSize :eqnarray299:35.7377pt::0.0pt::349.0pt.
+[52
+
+
+]
+l2hSize :eqnarray309:19.40604pt::0.0pt::349.0pt.
+[53
+
+
+]
+l2hSize :tex2html_wrap_inline1331:9.43994pt::9.43994pt::22.54997pt.
+[54
+
+
+]
+l2hSize :tex2html_wrap_inline1333:9.43394pt::9.43394pt::16.09966pt.
+[55
+
+
+]
+l2hSize :eqnarray325:85.1074pt::0.0pt::349.0pt.
+[56
+
+
+]
+l2hSize :tex2html_wrap_inline1335:9.5pt::9.5pt::142.38084pt.
+[57
+
+
+]
+l2hSize :tex2html_wrap_inline1337:9.5pt::9.5pt::142.38084pt.
+[58
+
+
+]
+l2hSize :tex2html_wrap_inline1357:9.5pt::9.5pt::40.56732pt.
+[59
+
+
+]
+l2hSize :tex2html_wrap_inline1359:9.5pt::9.5pt::40.56732pt.
+[60
+
+
+]
+l2hSize :tex2html_wrap_inline1361:11.69566pt::11.69566pt::184.8931pt.
+[61
+
+
+]
+l2hSize :tex2html_wrap_inline1363:11.69566pt::11.69566pt::184.8931pt.
+[62
+
+
+]
+l2hSize :tex2html_wrap_inline1365:9.5pt::9.5pt::53.22401pt.
+[63
+
+
+]
+Overfull \hbox (48.62086pt too wide) in alignment at lines 635--644
+ [][][] []
+ []
+
+l2hSize :eqnarray390:57.85866pt::0.0pt::349.0pt.
+[64
+
+
+]
+l2hSize :eqnarray404:37.45573pt::0.0pt::349.0pt.
+[65
+
+
+]
+l2hSize :tex2html_wrap_inline1367:9.5pt::9.5pt::59.90446pt.
+[66
+
+
+]
+l2hSize :tex2html_wrap_inline1371:9.43394pt::9.43394pt::7.18802pt.
+[67
+
+
+]
+l2hSize :tex2html_wrap_inline1373:8.59999pt::8.59999pt::10.92796pt.
+[68
+
+
+]
+l2hSize :tex2html_wrap_inline1375:8.59999pt::8.59999pt::10.92796pt.
+[69
+
+
+]
+l2hSize :eqnarray414:33.88847pt::0.0pt::349.0pt.
+[70
+
+
+]
+l2hSize :eqnarray429:150.22803pt::0.0pt::349.0pt.
+[71
+
+
+]
+l2hSize :eqnarray456:81.55396pt::0.0pt::349.0pt.
+[72
+
+
+]
+l2hSize :tex2html_wrap_inline1393:8.59999pt::8.59999pt::9.9239pt.
+[73
+
+
+]
+l2hSize :tex2html_wrap_inline1395:8.59999pt::8.59999pt::9.9239pt.
+[74
+
+
+]
+l2hSize :tex2html_wrap_inline1397:10.8768pt::10.8768pt::32.77069pt.
+[75
+
+
+]
+l2hSize :tex2html_wrap_inline1399:8.59999pt::8.59999pt::18.69772pt.
+[76
+
+
+]
+l2hSize :tex2html_wrap_inline1401:10.8768pt::10.8768pt::14.26688pt.
+[77
+
+
+]
+l2hSize :tex2html_wrap_inline1405:10.8768pt::10.8768pt::34.26474pt.
+[78
+
+
+]
+l2hSize :tex2html_wrap_inline1407:8.59999pt::8.59999pt::18.69772pt.
+[79
+
+
+]
+l2hSize :tex2html_wrap_inline1409:10.8768pt::10.8768pt::21.26587pt.
+[80
+
+
+]
+l2hSize :tex2html_wrap_inline1411:10.8768pt::10.8768pt::40.26474pt.
+[81
+
+
+]
+l2hSize :tex2html_wrap_inline1413:10.8768pt::10.8768pt::32.7707pt.
+[82
+
+
+]
+l2hSize :tex2html_wrap_inline1415:8.59999pt::8.59999pt::19.20168pt.
+[83
+
+
+]
+l2hSize :tex2html_wrap_inline1417:10.8768pt::10.8768pt::20.77083pt.
+[84
+
+
+]
+l2hSize :tex2html_wrap_inline1419:10.8768pt::10.8768pt::38.7707pt.
+[85
+
+
+]
+l2hSize :tex2html_wrap_inline1421:14.72636pt::14.72636pt::46.75662pt.
+[86
+
+
+]
+l2hSize :tex2html_wrap_inline1423:8.59999pt::8.59999pt::19.20168pt.
+[87
+
+
+]
+l2hSize :tex2html_wrap_inline1425:11.50964pt::11.50964pt::25.91986pt.
+[88
+
+
+]
+l2hSize :tex2html_wrap_inline1427:10.8768pt::10.8768pt::20.76485pt.
+[89
+
+
+]
+l2hSize :tex2html_wrap_inline1429:11.50964pt::11.50964pt::62.75258pt.
+[90
+
+
+]
+l2hSize :eqnarray501:29.99997pt::0.0pt::349.0pt.
+[91
+
+
+]
+l2hSize :eqnarray514:46.52454pt::0.0pt::349.0pt.
+[92
+
+
+]
+l2hSize :eqnarray525:46.52454pt::0.0pt::349.0pt.
+[93
+
+
+]
+l2hSize :eqnarray537:46.52454pt::0.0pt::349.0pt.
+[94
+
+
+]
+File: fig/merge_reftqu.ps Graphic file (type eps)
+<fig/merge_reftqu.ps>
+l2hSize :figure553:299.38092pt::0.0pt::349.0pt.
+[95
+
+
+]
+l2hSize :eqnarray578:17.5pt::0.0pt::349.0pt.
+[96
+
+
+]
+l2hSize :eqnarray586:70.95573pt::0.0pt::349.0pt.
+[97
+
+
+]
+l2hSize :tex2html_wrap_inline1479:8.76193pt::8.76193pt::44.20203pt.
+[98
+
+
+]
+l2hSize :eqnarray603:30.8946pt::0.0pt::349.0pt.
+[99
+
+
+]
+l2hSize :eqnarray616:25.75401pt::0.0pt::349.0pt.
+[100
+
+
+]
+l2hSize :eqnarray625:28.15196pt::0.0pt::349.0pt.
+[101
+
+
+]
+l2hSize :tex2html_wrap_inline1495:8.69586pt::8.69586pt::21.81786pt.
+[102
+
+
+]
+l2hSize :eqnarray646:24.98798pt::0.0pt::349.0pt.
+[103
+
+
+]
+l2hSize :tex2html_wrap_inline1499:9.43394pt::9.43394pt::33.81786pt.
+[104
+
+
+]
+l2hSize :tex2html_wrap_inline1501:9.5pt::9.5pt::72.92868pt.
+[105
+
+
+]
+l2hSize :eqnarray650:35.53896pt::0.0pt::349.0pt.
+[106
+
+
+]
+l2hSize :eqnarray658:24.98798pt::0.0pt::349.0pt.
+[107
+
+
+]
+l2hSize :eqnarray666:17.5pt::0.0pt::349.0pt.
+[108
+
+
+]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1030 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1030 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1030 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing \cr inserted.
+<inserted text> 
+                \cr 
+l.1030 
+       
+I'm guessing that you meant to end an alignment here.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.1030 
+       
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1030 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $$ inserted.
+<to be read again> 
+                   \par 
+l.1030 
+       
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+
+! Misplaced alignment tab character &.
+\reserved@a ->&
+               
+l.1031 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced \cr.
+\@@eqncr ...l \@eqnswtrue \global \@eqcnt \z@ \cr 
+                                                  
+l.1031 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+or \cr or \span just now. If something like a right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Extra }, or forgotten \endgroup.
+\endeqnarray ->\@@eqncr \egroup 
+                                \global \advance \c@equation \m@ne $$\@ignor...
+l.1031 \end{eqnarray}
+                     %
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1031 \end{eqnarray}
+                     %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1031 \end{eqnarray}
+                     %
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+l2hSize :eqnarray671:74.27318pt::0.0pt::349.0pt.
+[109
+
+
+]
+l2hSize :tex2html_wrap_inline1509:12.8pt::12.8pt::20.2698pt.
+[110
+
+
+]
+l2hSize :tex2html_wrap_inline1511:12.8pt::12.8pt::29.2698pt.
+[111
+
+
+]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1051 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1051 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1051 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing \cr inserted.
+<inserted text> 
+                \cr 
+l.1051 
+       
+I'm guessing that you meant to end an alignment here.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.1051 
+       
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1051 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $$ inserted.
+<to be read again> 
+                   \par 
+l.1051 
+       
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+
+! Misplaced alignment tab character &.
+\reserved@a ->&
+               
+l.1052 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced \cr.
+\@@eqncr ...l \@eqnswtrue \global \@eqcnt \z@ \cr 
+                                                  
+l.1052 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+or \cr or \span just now. If something like a right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Extra }, or forgotten \endgroup.
+\endeqnarray ->\@@eqncr \egroup 
+                                \global \advance \c@equation \m@ne $$\@ignor...
+l.1052 \end{eqnarray}
+                     %
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1052 \end{eqnarray}
+                     %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1052 \end{eqnarray}
+                     %
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+l2hSize :eqnarray686:53.875pt::0.0pt::349.0pt.
+[112
+
+
+]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1060 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1060 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.1060 
+       
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing \cr inserted.
+<inserted text> 
+                \cr 
+l.1060 
+       
+I'm guessing that you meant to end an alignment here.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.1060 
+       
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1060 
+       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $$ inserted.
+<to be read again> 
+                   \par 
+l.1060 
+       
+Displays can use special alignments (like \eqalignno)
+only if nothing but the alignment itself is between $$'s.
+
+! Misplaced alignment tab character &.
+\reserved@a ->&
+               
+l.1061 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced \cr.
+\@@eqncr ...l \@eqnswtrue \global \@eqcnt \z@ \cr 
+                                                  
+l.1061 \end{eqnarray}
+                     %
+I can't figure out why you would want to use a tab mark
+or \cr or \span just now. If something like a right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Extra }, or forgotten \endgroup.
+\endeqnarray ->\@@eqncr \egroup 
+                                \global \advance \c@equation \m@ne $$\@ignor...
+l.1061 \end{eqnarray}
+                     %
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1061 \end{eqnarray}
+                     %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.1061 \end{eqnarray}
+                     %
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+l2hSize :eqnarray696:75.88573pt::0.0pt::349.0pt.
+[113
+
+
+]
+l2hSize :tex2html_wrap_inline1515:8.76193pt::8.76193pt::47.90753pt.
+[114
+
+
+]
+l2hSize :tex2html_wrap_inline1517:8.59999pt::8.59999pt::23.30267pt.
+[115
+
+
+]
+l2hSize :tex2html_wrap_inline1519:8.59999pt::8.59999pt::55.9598pt.
+[116
+
+
+]
+l2hSize :tex2html_wrap_inline1521:8.59999pt::8.59999pt::55.9598pt.
+[117
+
+
+]
+l2hSize :tex2html_wrap_inline1525:8.59999pt::8.59999pt::55.9598pt.
+[118
+
+
+]
+l2hSize :tex2html_wrap_inline1539:10.8768pt::10.8768pt::77.60187pt.
+[119
+
+
+]
+l2hSize :tex2html_wrap_inline1541:8.76193pt::8.76193pt::47.90753pt.
+[120
+
+
+]
+l2hSize :tex2html_wrap_inline1543:10.8768pt::10.8768pt::86.92574pt.
+[121
+
+
+]
+l2hSize :tex2html_wrap_inline1545:8.76193pt::8.76193pt::47.90753pt.
+[122
+
+
+]
+l2hSize :tex2html_wrap_inline1549:9.5pt::9.5pt::39.92726pt.
+[123
+
+
+]
+l2hSize :tex2html_wrap_inline1551:10.8768pt::10.8768pt::90.73817pt.
+[124
+
+
+]
+l2hSize :tex2html_wrap_inline1553:8.59999pt::8.59999pt::5.92796pt.
+[125
+
+
+] (introimages.aux) ) 
+Here is how much of TeX's memory you used:
+ 1476 strings out of 20880
+ 17564 string characters out of 197306
+ 67420 words of memory out of 350001
+ 4428 multiletter control sequences out of 10000+15000
+ 12467 words of font info for 34 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 10000
+ 32i,15n,23p,796b,316s stack positions out of 3000i,100n,1500p,50000b,4000s
+
+Output written on introimages.dvi (125 pages, 37236 bytes).

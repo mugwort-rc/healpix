@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>remove_dipole</TITLE>
+<META NAME="description" CONTENT="remove_dipole">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idlnode40.htm">
+<LINK REL="previous" HREF="idlnode38.htm">
+<LINK REL="up" HREF="idl.htm">
+<LINK REL="next" HREF="idlnode40.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html561"
+  HREF="idlnode38.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html567"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html571"
+  HREF="idlnode40.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html569"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html562"
+  HREF="idlnode38.htm">read_tqu</A>
+
+<B>Up:</B> <A NAME="tex2html568"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html572"
+  HREF="idlnode40.htm">reorder</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION000390000000000000000"></A>
+<A NAME="idl:remove_dipole"></A>
+<BR>
+ 
+</H1>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">remove_dipole</FONT></font></b><hr><H2>This IDL facility provides a means to fit and remove the dipole and monopole
+from a <b>HEALPix</b> map.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/misc/remove_dipole.pro
+</b>
+
+<P>
+<hr><h1>FORMAT </h1><h2>IDL>
+REMOVE_DIPOLE, Map [,Weight, BAD_DATA=, GAL_CUT=, COORD_IN=, COORD_OUT=, Dipole=, Monopole=,
+      NOREMOVE=, NSIDE=, ONLYMONOPOLE=, ORDERING=, PIXEL=, UNITS=]
+</h2>
+
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>Map</B>
+<DD>input and output, vector
+<BR>
+map from which monopole and dipole are to be removed
+      (also used for output).
+      Assumed to be a full sky data set, unless PIXEL is set and has the same
+      size as map
+    <DT>
+<B>Weight</B>
+<DD>input, vector, optional
+<BR>
+same size as map,
+     describe weighting scheme to apply to each pixel for the fit 
+<BR>	<b>default:</b>uniform weight
+    <DT>
+<B>BAD_DATA =</B>
+<DD>scalar float, value given on input to bad
+    pixels 
+<BR>          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
+ $\equiv -1.6375\ 10^{30}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="131" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg39.png"
+ ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
+    <DT>
+<B>GAL_CUT=</B>
+<DD>if set to a value larger than 0, the pixels with galactic
+    latitude <SPAN CLASS="MATH">|b|&lt;</SPAN>gal_cut degrees are not considered in the
+      fit. 
+<BR><B>NB:</B>
+      the cut is <EM>really</EM> done in Galactic coordinates. If the input
+      coordinates are different (see Coord_In), the map is rotated into galactic
+      before applying the cut.
+    <DT>
+<B>COORD_IN =</B>
+<DD>string, coordinate system (either 'Q' or 'C': equatorial,
+    'G': galactic or 'E': ecliptic)
+<BR>         <b>default:</b>'G' (galactic)
+    <DT>
+<B>COORD_OUT =</B>
+<DD>string, coordinate system (see above) in which
+    to output dipole vector in variable Dipole 
+<BR>         <b>default:</b>same as coord_in
+    <DT>
+<B>Dipole=</B>
+<DD>OUTPUT, scalar float, 
+<BR>
+value found for the best fit dipole (done simultaneously with monopole)
+    <DT>
+<B>Monopole=</B>
+<DD>OUTPUT, scalar float, 
+<BR>
+value found for the best fit monopole (done simultaneously with dipole)
+    <DT>
+<B>NSIDE=</B>
+<DD>scalar integer, healpix resolution parameter
+    <DT>
+<B>ORDERING=</B>
+<DD>string, ordering scheme (either 'RING' or 'NESTED')
+    <DT>
+<B>PIXEL=</B>
+<DD>input, vector, gives the Healpix index of the pixels
+        whose temperature is actually given in map (for cut sky
+    maps). If present, must match Map in size. If absent, it is
+    assumed that the map covers the whole sky.
+  </DL>
+
+<P>
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  <DL COMPACT><DT>
+<B>NOREMOVE=</B>
+<DD>if set, the best fit dipole and monopole are computed but not
+    removed (ie, Map is unchanged)
+    <DT>
+<B>ONLYMONOPOLE=</B>
+<DD>if set, fit (and remove) only the monopole
+  </DL>
+
+<P>
+<hr><H1>DESCRIPTION</H1>
+<BR> <blockquote>
+remove_dipolemakes a simultaneous least square fit of the monopole and dipole on all the valid
+pixels of Map (those with a value different from BAD_DATA) with a galactic
+latitude larger in magnitude than GAL_CUT (in degrees). The position of the pixels
+on the sky is reconstructed from NSIDE and ORDERING.
+If Map does not cover the full sky, the actual indices of the concerned pixels should be given in PIXEL
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">remove_dipole</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 5.0 or more is necessary to run remove_dipole.
+  </DL>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html561"
+  HREF="idlnode38.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html567"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html571"
+  HREF="idlnode40.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html569"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html562"
+  HREF="idlnode38.htm">read_tqu</A>
+
+<B>Up:</B> <A NAME="tex2html568"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html572"
+  HREF="idlnode40.htm">reorder</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

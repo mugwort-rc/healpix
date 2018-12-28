@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Spherical harmonic conventions</TITLE>
+<META NAME="description" CONTENT="Spherical harmonic conventions">
+<META NAME="keywords" CONTENT="intro">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro.css">
+
+<LINK REL="previous" HREF="intronode9.htm">
+<LINK REL="up" HREF="intronode6.htm">
+<LINK REL="next" HREF="intronode14.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html206"
+  HREF="intronode12.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html210"
+  HREF="intronode6.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html214"
+  HREF="intronode14.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html212"
+  HREF="intronode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html207"
+  HREF="intronode12.htm">Relation with IAU convention</A>
+
+<B>Up:</B> <A NAME="tex2html211"
+  HREF="intronode6.htm">HEALPix conventions</A>
+
+<B> Next:</B> <A NAME="tex2html215"
+  HREF="intronode14.htm">Pixel window functions</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00064000000000000000"></A>
+<A NAME="sphericalstuff"></A>
+<BR>
+Spherical harmonic conventions
+</H2>
+
+<P>
+The Spherical Harmonics are defined as
+<P></P>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray}
+Y_{lm}(\theta,\phi) &=& \lambda_{lm}(\cos\theta) {\rm { e}}^{{i}
+	m\phi}\htmlimage{}
+\end{eqnarray}
+ -->
+<A NAME="eq:ylm_def"></A><IMG
+ WIDTH="557" HEIGHT="33" ALIGN="LEFT"
+ SRC="introimg96.png"
+ ALT="\begin{eqnarray}
+Y_{lm}(\theta,\phi) &amp;=&amp; \lambda_{lm}(\cos\theta) {\rm { e}}^{{i}
+m\phi}
+\end{eqnarray}"></DIV>
+<BR CLEAR="ALL"><P></P>
+<BR CLEAR="ALL"><P></P>
+where the 
+<P></P>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray}
+\lambda_{lm}(x) &=& \sqrt{ \frac{2l+1}{4\pi}
+	\frac{(l-m)!}{(l+m)!} } P_{lm}(x), \quad{\rm for~}
+	m\ge 0\\
+\lambda_{lm} &=& (-1)^m \lambda_{l|m|}, \quad{\rm for~}
+	m <  0, \nonumber \\
+\lambda_{lm} &=& 0, \quad{\rm for}\, |m| > l.\nonumber
+	\htmlimage{}
+\end{eqnarray}
+ -->
+<A NAME="eq:lam_def"></A><IMG
+ WIDTH="557" HEIGHT="118" ALIGN="LEFT"
+ SRC="introimg97.png"
+ ALT="\begin{eqnarray}
+\lambda_{lm}(x) &amp;=&amp; \sqrt{ \frac{2l+1}{4\pi}
+\frac{(l-m)!}{(l...
+...
+\lambda_{lm} &amp;=&amp; 0, \quad{\rm for}\, \vert m\vert &gt; l.\nonumber
+\end{eqnarray}"></DIV>
+<BR CLEAR="ALL"><P></P>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+Introducing <!-- MATH
+ $x\equiv\cos\theta$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg98.png"
+ ALT="$x\equiv\cos\theta$"></SPAN>, the associated Legendre Polynomials <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> 
+solve the differential equation
+<P></P>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray}
+(1-x^2)\frac{d^2}{dx^2}P_{lm} - 2x \frac{d}{dx}P_{lm}
+	+ \left(l(l+1) - \frac{m^2}{1-x^2}\right) P_{lm} &=& 0.
+	\htmlimage{}
+\end{eqnarray}
+ -->
+<A NAME="eq:diff_eq"></A><IMG
+ WIDTH="557" HEIGHT="54" ALIGN="LEFT"
+ SRC="introimg99.png"
+ ALT="\begin{eqnarray}
+(1-x^2)\frac{d^2}{dx^2}P_{lm} - 2x \frac{d}{dx}P_{lm}
++ \left(l(l+1) - \frac{m^2}{1-x^2}\right) P_{lm} &amp;=&amp; 0.
+\end{eqnarray}"></DIV>
+<BR CLEAR="ALL"><P></P>
+<BR CLEAR="ALL"><P></P>
+They are related to the ordinary Legendre Polynomials <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I></SUB></SPAN> by
+<P></P>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray}
+P_{lm} &=& (-1)^m (1-x^2)^{m/2} \frac{d^m}{dx^m} P_{l}(x),
+	\htmlimage{}
+\end{eqnarray}
+ -->
+<A NAME="eq:legendreass"></A><IMG
+ WIDTH="557" HEIGHT="46" ALIGN="LEFT"
+ SRC="introimg100.png"
+ ALT="\begin{eqnarray}
+P_{lm} &amp;=&amp; (-1)^m (1-x^2)^{m/2} \frac{d^m}{dx^m} P_{l}(x),
+\end{eqnarray}"></DIV>
+<BR CLEAR="ALL"><P></P>
+<BR CLEAR="ALL"><P></P>
+which are given by the Rodrigues formula
+<P></P>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray}
+P_{l}(x) &=& \frac{1}{2^ll!}\frac{d^l}{dx^l} (x^2-1)^l.
+	\htmlimage{}
+\end{eqnarray}
+ -->
+<A NAME="eq:rodrigues"></A><IMG
+ WIDTH="557" HEIGHT="50" ALIGN="LEFT"
+ SRC="introimg101.png"
+ ALT="\begin{eqnarray}
+P_{l}(x) &amp;=&amp; \frac{1}{2^ll!}\frac{d^l}{dx^l} (x^2-1)^l.
+\end{eqnarray}"></DIV>
+<BR CLEAR="ALL"><P></P>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+Note our <SPAN CLASS="MATH"><I>Y</I><SUB><I>lm</I></SUB></SPAN> are identical to those of [<A
+ HREF="intronode16.htm#edmonds">Edmonds, 1957</A>],
+even though our definition of the <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> differ by a factor <SPAN CLASS="MATH">(-1)<SUP><I>m</I></SUP></SPAN> from his.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html206"
+  HREF="intronode12.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html210"
+  HREF="intronode6.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html214"
+  HREF="intronode14.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html212"
+  HREF="intronode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html207"
+  HREF="intronode12.htm">Relation with IAU convention</A>
+
+<B>Up:</B> <A NAME="tex2html211"
+  HREF="intronode6.htm">HEALPix conventions</A>
+
+<B> Next:</B> <A NAME="tex2html215"
+  HREF="intronode14.htm">Pixel window functions</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

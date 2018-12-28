@@ -1,0 +1,149 @@
+; -----------------------------------------------------------------------------
+;
+;  Copyright (C) 1997-2005  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;
+;
+;
+;
+;
+;  This file is part of HEALPix.
+;
+;  HEALPix is free software; you can redistribute it and/or modify
+;  it under the terms of the GNU General Public License as published by
+;  the Free Software Foundation; either version 2 of the License, or
+;  (at your option) any later version.
+;
+;  HEALPix is distributed in the hope that it will be useful,
+;  but WITHOUT ANY WARRANTY; without even the implied warranty of
+;  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;  GNU General Public License for more details.
+;
+;  You should have received a copy of the GNU General Public License
+;  along with HEALPix; if not, write to the Free Software
+;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+;
+;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;
+; -----------------------------------------------------------------------------
+pro test_tk, nside, upix, random=random
+;+
+; test_tk [,nside ,upix, random= ]
+;
+;  by default, all pixels in 0, Npix-1 are tested (Npix=12*nside*nside)
+;  unless upix or random are defined
+;
+;  OPTIONAL INPUT
+;   nside (default = 32)
+;   upix , integer scalar or vector, list of hand-picked pixels
+;
+;  KEYWORD
+;   random : float scalar, some pixels (Npix * random + 1) are picked randomly in [0, Npix-1]
+;
+;-
+
+if undefined(nside) then nside = 32
+lnside = long(nside)
+
+npix = nside2npix(lnside,err=err_nside)
+snpix = strtrim(string(npix,form='(i12)'),2)
+snpix1 = strtrim(string(npix-1,form='(i12)'),2)
+snside = strtrim(string(nside,form='(i5)'),2)
+
+if (err_nside ne 0) then begin
+    print,'Invalid Nside'
+    return
+endif
+
+if defined(random) then begin
+    nr = min([npix, long(npix*random)+1])
+    print,'Nside = '+snside
+    print,nr,' pixels are picked randomly in [0, '+snpix1+']'
+    pixel =long( randomu(seed,nr) * npix )
+    print,min(pixel),max(pixel)
+endif
+if defined(upix) then begin
+    if min(upix) ge 0 and max(upix) lt npix then begin
+        pixel = upix
+        print,'Nside = '+snside
+        print,'test selected pixels in ',min(upix), max(upix)
+    endif else begin
+        print,'invalid choice of pixels'
+        return
+    endelse
+endif
+if undefined(pixel) then begin
+    pixel = lindgen(npix)
+    print,'Nside = '+snside
+    print,'test all pixels in [0, '+snpix1+']'
+endif
+
+error = 0
+
+;--------------------------
+pix2ang_ring, nside, pixel, theta, phi
+ang2pix_ring, nside, theta, phi, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error pix <-> ang ring', nside
+    error = error + 1
+endif
+
+pix2ang_nest, nside, pixel, theta, phi
+ang2pix_nest, nside, theta, phi, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error pix <-> ang nest', nside
+    error = error + 1
+endif
+;---------------------
+
+pix2vec_ring, nside, pixel, vec
+vec2pix_ring, nside, vec, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error pix <-> vec ring', nside
+    error = error + 1
+endif
+
+pix2vec_nest, nside, pixel, vec
+vec2pix_nest, nside, vec, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error pix <-> vec nest', nside
+    error = error + 1
+endif
+;---------------------
+
+ring2nest, nside, pixel, pix_n
+nest2ring, nside, pix_n, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error nest <-> ring', nside
+    error = error + 1
+endif
+;---------------------
+
+
+pix2ang_ring, nside, pixel, theta, phi
+ang2vec,             theta, phi, vec
+vec2pix_nest, nside, vec, pixel1
+nest2ring,    nside, pixel1, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error loop1', nside
+    error = error + 1
+endif
+;---------------------
+
+pix2vec_ring, nside, pixel, vec
+vec2ang,             vec, theta, phi
+ang2pix_nest, nside, theta, phi, pixel1
+nest2ring,    nside, pixel1, pixel2
+if total(abs(pixel2-pixel)) ne 0 then begin
+    print,'error loop2', nside
+    error = error + 1
+endif
+;---------------------
+
+if (error eq 0) then begin
+    print, ' -----------------'
+    print, '   TEST PASSED'
+    print, ' -----------------'
+endif
+
+return
+end

@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Healpix/IDL subroutines</TITLE>
+<META NAME="description" CONTENT="Healpix/IDL subroutines">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idlnode1.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html3"
+  HREF="main.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html7"
+  HREF="idlnode1.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B>Up:</B> <A NAME="tex2html4"
+  HREF="main.htm">Main Page</A>
+
+<B> Next:</B> <A NAME="tex2html8"
+  HREF="idlnode1.htm">Contents</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<A NAME="idl:idlxxx"></A>
+
+<H1 ALIGN=CENTER><b>HEALPix</b> IDL Facilities Overview</H1>
+<DIV>
+This document is an overview of the <b>HEALPix</b> IDL facilities.</DIV>
+<P ALIGN=CENTER><STRONG>Eric Hivon, Anthony J.&nbsp;Banday, Benjamin D.&nbsp;Wandelt, Frode
+K.&nbsp;Hansen and Krzysztof M.&nbsp;G&#243;rski</STRONG></P>
+<BR><P ALIGN=CENTER><I>Date:</I> August 31, 2005</P>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html9"
+  HREF="idlnode1.htm">Contents</A>
+<LI><A NAME="tex2html10"
+  HREF="idlnode2.htm">Using the <b>HEALPix</b> IDL facilities</A>
+<LI><A NAME="tex2html11"
+  HREF="idlnode3.htm">Changes between release 1.2 and 2.0</A>
+<LI><A NAME="tex2html12"
+  HREF="idlnode4.htm">alm2fits</A>
+<LI><A NAME="tex2html13"
+  HREF="idlnode5.htm">ang2vec </A>
+<LI><A NAME="tex2html14"
+  HREF="idlnode6.htm">cartcursor</A>
+<LI><A NAME="tex2html15"
+  HREF="idlnode7.htm">cartview</A>
+<LI><A NAME="tex2html16"
+  HREF="idlnode8.htm">change_polcconv </A>
+<LI><A NAME="tex2html17"
+  HREF="idlnode9.htm">cl2fits</A>
+<LI><A NAME="tex2html18"
+  HREF="idlnode10.htm">convert_oldhpx2cmbfast</A>
+<LI><A NAME="tex2html19"
+  HREF="idlnode11.htm">euler_matrix_new</A>
+<LI><A NAME="tex2html20"
+  HREF="idlnode12.htm">fits2alm</A>
+<LI><A NAME="tex2html21"
+  HREF="idlnode13.htm">fits2cl</A>
+<LI><A NAME="tex2html22"
+  HREF="idlnode14.htm">gaussbeam </A>
+<LI><A NAME="tex2html23"
+  HREF="idlnode15.htm">getdisc_ring </A>
+<LI><A NAME="tex2html24"
+  HREF="idlnode16.htm">getsize_fits </A>
+<LI><A NAME="tex2html25"
+  HREF="idlnode17.htm">gnomcursor</A>
+<LI><A NAME="tex2html26"
+  HREF="idlnode18.htm">gnomview</A>
+<LI><A NAME="tex2html27"
+  HREF="idlnode19.htm">healpixwindow </A>
+<LI><A NAME="tex2html28"
+  HREF="idlnode20.htm">index2lm</A>
+<LI><A NAME="tex2html29"
+  HREF="idlnode21.htm">init_healpix and !healpix system variable</A>
+<LI><A NAME="tex2html30"
+  HREF="idlnode22.htm">lm2index</A>
+<LI><A NAME="tex2html31"
+  HREF="idlnode23.htm">median_filter </A>
+<LI><A NAME="tex2html32"
+  HREF="idlnode24.htm">mollcursor</A>
+<LI><A NAME="tex2html33"
+  HREF="idlnode25.htm">mollview</A>
+<LI><A NAME="tex2html34"
+  HREF="idlnode26.htm">npix2nside </A>
+<LI><A NAME="tex2html35"
+  HREF="idlnode27.htm">nside2npix</A>
+<LI><A NAME="tex2html36"
+  HREF="idlnode28.htm">nside2ntemplates</A>
+<LI><A NAME="tex2html37"
+  HREF="idlnode29.htm">orthcursor</A>
+<LI><A NAME="tex2html38"
+  HREF="idlnode30.htm">orthview</A>
+<LI><A NAME="tex2html39"
+  HREF="idlnode31.htm">pix2xxx,
+ang2xxx, vec2xxx, nest2ring,ring2nest</A>
+<LI><A NAME="tex2html40"
+  HREF="idlnode32.htm">query_disc </A>
+<LI><A NAME="tex2html41"
+  HREF="idlnode33.htm">query_polygon </A>
+<LI><A NAME="tex2html42"
+  HREF="idlnode34.htm">query_triangle </A>
+<LI><A NAME="tex2html43"
+  HREF="idlnode35.htm">read_fits_cut4 </A>
+<LI><A NAME="tex2html44"
+  HREF="idlnode36.htm">read_fits_map</A>
+<LI><A NAME="tex2html45"
+  HREF="idlnode37.htm">read_fits_s </A>
+<LI><A NAME="tex2html46"
+  HREF="idlnode38.htm">read_tqu</A>
+<LI><A NAME="tex2html47"
+  HREF="idlnode39.htm">remove_dipole</A>
+<LI><A NAME="tex2html48"
+  HREF="idlnode40.htm">reorder </A>
+<LI><A NAME="tex2html49"
+  HREF="idlnode41.htm">rotate_coord</A>
+<LI><A NAME="tex2html50"
+  HREF="idlnode42.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
+<LI><A NAME="tex2html51"
+  HREF="idlnode43.htm">template_pixel_nest, template_pixel_ring</A>
+<LI><A NAME="tex2html52"
+  HREF="idlnode44.htm">ud_grade</A>
+<LI><A NAME="tex2html53"
+  HREF="idlnode45.htm">vec2ang </A>
+<LI><A NAME="tex2html54"
+  HREF="idlnode46.htm">write_fits_cut4 </A>
+<LI><A NAME="tex2html55"
+  HREF="idlnode47.htm">write_fits_map </A>
+<LI><A NAME="tex2html56"
+  HREF="idlnode48.htm">write_fits_sb</A>
+<LI><A NAME="tex2html57"
+  HREF="idlnode49.htm">write_tqu</A>
+<LI><A NAME="tex2html58"
+  HREF="idlnode50.htm">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html3"
+  HREF="main.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html7"
+  HREF="idlnode1.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B>Up:</B> <A NAME="tex2html4"
+  HREF="main.htm">Main Page</A>
+
+<B> Next:</B> <A NAME="tex2html8"
+  HREF="idlnode1.htm">Contents</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

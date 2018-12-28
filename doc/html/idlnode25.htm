@@ -1,0 +1,706 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>mollview</TITLE>
+<META NAME="description" CONTENT="mollview">
+<META NAME="keywords" CONTENT="idl">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="idl.css">
+
+<LINK REL="next" HREF="idlnode26.htm">
+<LINK REL="previous" HREF="idlnode24.htm">
+<LINK REL="up" HREF="idl.htm">
+<LINK REL="next" HREF="idlnode26.htm">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
+<!--Navigation Panel-->
+<A NAME="tex2html393"
+  HREF="idlnode24.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html399"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html403"
+  HREF="idlnode26.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html401"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="idlnode24.htm">mollcursor</A>
+
+<B>Up:</B> <A NAME="tex2html400"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="idlnode26.htm">npix2nside</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION000250000000000000000"></A>
+<A NAME="idl:mollview"></A>
+<BR>
+ 
+</H1>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">mollview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a full sky Mollweide projection of
+<b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. It also offers the possibility to
+generate gif and postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/mollview.pro
+</b>
+
+<P>
+<hr><h1>FORMAT </h1><h2>IDL>
+MOLLVIEW, File, [Select, ] [CHARSIZE=, COLT=, ... 
+            ... UNITS=, XPOS=, YPOS= ]
+
+</h2>
+
+<P>
+Several visualization routines have a similar interface. Their qualifiers and
+keywords are all listed here, and the routines to which they apply are coded
+in the 'routine' column as: 
+<BR>
+C: <A HREF="idlnode7.htm#idl:cartview">cartview</A>,
+G: <A HREF="idlnode18.htm#idl:gnomview">gnomview</A>, 
+M: <A HREF="#idl:mollview">mollview</A>,
+O: <A HREF="idlnode30.htm#idl:orthview">orthview</A> and all: all of them
+<P>
+<B>Qualifiers</B> should appear in the order indicated. They can take a range of values, and some of them are optional.
+<BR><B>Keywords</B> are optional, and can appear in any order. They take the form <TT>keyword=value</TT> and can be abbreviated to a non ambiguous form
+(ie, <TT>factor=10.0</TT> can be replaced by <TT>fac = 10.0</TT>). They generally can take a range of values, but
+some of them (noted as <TT>/keyword</TT> below) are boolean switches: they are either present (or set to 1) or absent (or set
+to 0).
+
+<P>
+
+<H2>QUALIFIERS</H2>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>File</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Required
+<BR>
+by default :          name of a FITS file containing 
+               the healpix map in an extension or in the image field <BR>
+if Online is set :    name of a variable containing
+               the healpix map <BR>
+if Save is set   :    name of an IDL saveset file containing
+               the healpix map stored under the variable  <TT>data</TT> <BR><b> (default : none)</b></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>Select</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Optional
+<BR>
+column of the BIN FITS table to be plotted, can be either  <BR>- a name : value given in TTYPEi of the FITS file <BR>
+NOT case sensitive and can be truncated, <BR>(only letters, digits and underscore are valid) <BR>- an integer        : number i of the column
+                            containing the data, starting with 1 <BR><b>default:</b>1
+               (see the Examples below)</TD>
+</TR>
+</TABLE>
+
+<P>
+<H2>KEYWORDS</H2>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>CHARSIZE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>overall multiplicative factor applied to the size of
+               all;
+               characters appearing on the plot
+        	<b>default:</b>1.0</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>COLT=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>color table number, in [-40,40]. If colt<SPAN CLASS="MATH">&lt;0</SPAN>, the IDL color
+        	table abs(colt) is used, but the scale is
+               reversed (ie a red to blue scale becomes a blue to red
+        	scale). Note: -0.1 can be used as negative 0.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><b>default:</b>33 (Blue-Red)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>COORD=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>vector with 1 or 2 elements describing the coordinate system of the map;
+                either
+<BR>- 'C' or 'Q' : Celestial2000 = eQuatorial, <BR>- 'E'        : Ecliptic, <BR>- 'G'        : Galactic  <BR>
+if coord = ['x','y'] the map is rotated from system 'x' to system 'y' <BR>
+if coord = ['y'] the map is rotated to coordinate system 'y' (with the
+               original system assumed to be Galactic unless indicated otherwise in the
+                input file) <BR><i>see also:</i>Rot</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/CROP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set the GIF/PNG file only contains the map and
+               no title, color bar, ... <BR><i>see also:</i>Gif, Png</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>FACTOR=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>multiplicative factor to be applied to the
+	valid data <BR>
+the data plotted is of the form Factor*(data + Offset) <BR>
+This does not affect the flagged pixels <BR>
+Can be used together with LOG <BR><i>see also:</i>: Offset, LOG <BR><b>default:</b>1.0</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>FITS=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of an output fits file with
+        the rectangular map in the primary image <BR>
+if set to 1            : output the plot in
+        plot_gnomonic.fits <BR>
+if set to a file name  : output the plot in that file  <BR><b>default:</b>0: no .FITS done</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/FLIP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set the longitude increases to the right, whereas by
+                default (astronomical convention) it increases towards the left</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GAL_CUT=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-M-</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>(positive float) specifies the symmetric galactic cut in degrees
+              outside of which the monopole and/or dipole fitting is done
+	<b>default:</b>0: monopole and dipole fit done on the whole sky
+              (<i>see also:</i>: No_dipole, No_monopole)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GIF=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of a .GIF output <BR>
+if set to 1            : output the plot in plot_[projection].gif <BR>
+if set to a file name  : output the plot in that file <BR>
+Please note that the resulting GIF image might not always look
+	      as excpected. The reason for this is problems with
+	      'backing store' in the IDL-routine TVRD. Please read the IDL
+	      documentation for more information. <BR><b>default:</b>no .GIF done <BR><i>see also:</i>Crop, Png, Ps and Preview</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GRATICULE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, puts a graticule (ie, longitude and latitude grid) 
+	in the <EM>output</EM> astrophysical coordinates
+	with delta_long = delta_lat = gdef
+         degrees <BR>
+if set to a scalar <SPAN CLASS="MATH"><I>x</I>&gt;</SPAN> gmin then delta_long = delta_lat = <SPAN CLASS="MATH"><I>x</I></SPAN> <BR>
+if set to [x,y] with <SPAN CLASS="MATH"><I>x</I>,<I>y</I> &gt;</SPAN> gmin then delta_long = <SPAN CLASS="MATH"><I>x</I></SPAN> and delta_lat = <SPAN CLASS="MATH"><I>y</I></SPAN> <BR>
+cartview : gdef = 45, gmin =  0 <BR>
+gnomview : gdef =  5, gmin =  0 <BR>
+mollview : gdef = 45, gmin = 10 <BR>
+orthview : gdef = 45, gmin = 10 <BR>
+Note that the graticule will rotate with the sphere is Rot is set.
+	To outline only the equator set graticule=[360,90].
+<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Igraticule, Rot, Coord</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HALF_SKY</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--O</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, only shows only one half of the sky 
+   (centered on (0,0) or on the location parametrized by Rot) instead of the full sky</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>HBOUND=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to a valid <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg14.png"
+ ALT="${N_{\rm side}}$"></SPAN>, will overplot the <b>HEALPix</b>  pixel
+boundaries corresponding to that <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg14.png"
+ ALT="${N_{\rm side}}$"></SPAN>
+on top of the map.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HELP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the routine header is printed (by doc_library)
+      and nothing else is done</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HIST_EQUAL</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set,     uses a histogram equalized color mapping
+			(useful for non gaussian data field)
+		<b>default:</b>uses linear color mapping and 
+                     		puts the level 0 in the middle
+                     		of the color scale (ie, green for Blue-Red)
+				unless Min and Max are not symmetric
+<BR><i>see also:</i>Log</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>HXSIZE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>horizontal dimension (in cm) of the Postscript printout <BR><b>default:</b>26 cm <SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg24.png"
+ ALT="$\simeq$"></SPAN> 10 in <BR><i>see also:</i>Pxsize</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>IGRATICULE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, puts a graticule (ie, longitude and latitude grid) 
+	in the <EM>input</EM> astrophysical coordinates.
+	See Graticule for conventions and details.
+	If both Graticule and Igraticule are set, the latter will
+	be represented with dashes.
+<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Graticule, Rot, Coord</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/LOG</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>display the log of map. This is intended for
+ 	application to positive definite maps only, eg. Galactic foreground emission templates <BR><i>see also:</i>Hist_Equal, Offset</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>MAX=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Set the maximum value for the plotted signal <BR><b>default:</b>is to use the actual signal
+	maximum.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>MIN=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Set the minimum value for the plotted signal <BR><b>default:</b>is to use the actual signal minimum.</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NESTED</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>specify that the online file is ordered in the nested scheme</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NO_DIPOLE</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-MO</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set  (and Gal_cut is not set) 
+                the best fit monopole *and* dipole over all valid pixels are
+                removed; <BR>
+if Gal_cut is set to <SPAN CLASS="MATH"><I>b</I>&gt;0</SPAN>, the best monopole and dipole fit is performed on all valid
+                pixels with <SPAN CLASS="MATH">|</SPAN>galactic latitude<SPAN CLASS="MATH">|&gt;<I>b</I></SPAN> (in deg) and is removed from
+                all valid pixels <BR><b>default:</b>0 (no monopole or dipole removal)
+<BR>
+can NOT be used together with No_monopole <BR><i>see also:</i>Gal_cut, No_monopole</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NO_MONOPOLE</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-MO</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set (and Gal_cut is not set) 
+                the best fit monopole over all valid pixels is
+                removed; <BR>
+if Gal_cut is set to <SPAN CLASS="MATH"><I>b</I>&gt;0</SPAN>, the best monopole fit is performed on all valid
+                pixels with <SPAN CLASS="MATH">|</SPAN>galactic latitude<SPAN CLASS="MATH">|&gt;<I>b</I></SPAN> (in deg) and is removed from
+                all valid pixels <BR><b>default:</b>0 (no monopole removal)
+<BR>
+can NOT be used together with No_dipole <BR><i>see also:</i>Gal_cut, No_dipole</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOBAR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, color bar is not present</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOLABELS</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, color bar labels (min and max) are not present, <b>default:</b>
+	labels are present</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOPOSITION</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the astronomical location of the map
+        central point is not indicated</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>OFFSET=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>additive factor to be applied to the valid data <BR>
+the data plotted is of the form Factor*(data + Offset) <BR>
+This does not affect the flagged pixels <BR>
+can be used together with LOG <BR>
+see also : Offset, LOG <BR><b>default:</b>0.0</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/ONLINE</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the argument File can be either an array containing a <b>HEALPix</b> map,
+		or an IDL structure describing a <b>HEALPix</b> map, instead of an external filename 
+		(useful when the data to be plotted are already
+    		available in memory)
+		Note: in order to preserve the integrity of the input data, 
+		the content of File is replicated before being possibly altered by the map making process, 
+		therefore this option will requires more memory than reading the data from directly disc, and is not recommended
+		to visualize data sets of size comparable to that of the computer memory. <BR>
+can not be used with /SAVE</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>OUTLINE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>structure containing the description of one (or several) outline(s) to
+      be overplot on the final map.
+<BR>
+For each contour, the corresponding (sub)structure should
+	contain the following fields :  <BR>- 'COORD' coordinate system (either, 'C', 'G', or 'E') of the contour
+<BR>- 'RA' RA/longitude coordinates of the contour vertices (array) <BR>- 'DEC' Dec/latitude coordinates of the contour vertices (array)
+<BR>- 'LINE[STYLE]' (optional) +2 : black dashes, +1 : black dots, 0 :
+	black solid (default), -1 : black dots on white bg, -2 : black dashes on
+	white bg
+<BR>- 'PSY[M]' symbol used to represent vertices (same meaning as
+	    standard PSYM in IDL). If <SPAN CLASS="MATH"><IMG
+ WIDTH="33" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg25.png"
+ ALT="$\leq 0$"></SPAN>, the vertices are represented with the chosen symbols, and
+                        connected, by arcs of geodesics;
+                    if <SPAN CLASS="MATH">&gt;0</SPAN>, only the vertices are shown
+                    <b>default:</b>0 <BR>- 'SYM[SIZE]' vertice symbol size (same meaning as SYMSIZE in IDL)
+
+<P>
+Notes: when applicable, the vertices are connected by segments of geodesics. To
+	obtain a better looking outline, increase the number of vertices
+	provided. The outline does not have to be closed. The procedure will NOT
+	attempt to close the outline.
+<BR><i>see also:</i>Coord, Graticule</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PNG=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of a .PNG output <BR>
+if set to 1            : output the plot in plot_[projection].png <BR>
+if set to a file name  : output the plot in that file <BR>
+Please note that the resulting PNG image might not always look
+	      as excpected. The reason for this is problems with
+	      'backing store' in the IDL-routine TVRD. Please read the IDL
+	      documentation for more information. <BR><b>default:</b>no .PNG done <BR><i>see also:</i>Crop, Gif, Ps and Preview</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>POLARIZATION=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to
+	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+<B>0</B>
+no polarization information is plotted. 
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+<B>1</B>
+the AMPLITUDE <!-- MATH
+ $P = \sqrt( U^2 + Q^2 )$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="138" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg26.png"
+ ALT="$P = \sqrt( U^2 + Q^2 )$"></SPAN> of the polarisation is plotted 
+	(as long as the input data contains polarisation information
+             (ie, Stokes parameter Q and U for each pixel)) 
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+<B>2</B>
+the ANGLE <!-- MATH
+ $\phi = \tan^{-1}(U/Q) /2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="152" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg27.png"
+ ALT="$\phi = \tan^{-1}(U/Q) /2$"></SPAN> of the polarisation is plotted <BR>
+Note: the angles are color coded with a fixed color table (independent of Colt)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+<B>3</B>
+-the temperature is color coded (with a color table defined by Colt)
+<BR>-and the polarisation is overplot as headless VECTORS
+	</DL>
+	<b>default:</b>0 <BR><SPAN  CLASS="textbf">Note:</SPAN> The representation of the polarization direction (options 2 and 3 above),
+        include the effects of the rotations and/or changes or astronomical coordinates
+      (controlled by ROT and COORD respectively) but do not include the effects
+      of the distortions induced by the projection from the sphere to the plan.
+      Because the polarization usually has more power at small scales, it must
+      generally be represented on maps of small patches of the sky to remain
+      legible, in which case the projection-induced distortions are small.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/PREVIEW</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, there is a 'ghostview' preview of the
+	        postscript file or a 'xv' preview of the gif file
+<BR><i>see also:</i>Gif, Png and Ps</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PS=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to 0            : no postscript output <BR>
+if set to 1            : output the plot in plot_cartesian, plot_gnomic.ps,
+	      plot_mollweide.ps or plot_orthographic respectively <BR>
+if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><i>see also:</i>Preview, Gif, Png</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PXSIZE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>set the number of horizontal screen_pixels or postscript_color_dots of the plot
+    		(useful for high definition color printer)
+<BR><b>default:</b>800 (Mollview and full sky Orthview), 600 (half sky
+		Orthview), 500 (Cartview and Gnomonic)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PYSIZE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>CG-</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>set the number of vertical screen_pixels or postscript_color_dots of the plot <BR><b>default:</b>Pxsize</TD>
+</TR>
+</TABLE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>RESO_ARCMIN=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>ROT=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>vector with 1, 2 or 3 elements specifing the rotation angles in DEGREES
+               to apply to the map in the 'output' coordinate system (see Coord)
+             = ( lon0, [lat0, rat0])  <BR>
+lon0 : longitude of the point to be put at the center of the plot
+		       the longitude increases Eastward, ie to the left of the plot
+ 		      <b>default:</b>0 <BR>
+lat0 : latitude of the point to be put at the center of the plot
+ 		      <b>default:</b>0 <BR>
+rot0 : anti clockwise rotation to apply to the sky around the
+                     center (lon0, lat0) before projecting
+                     <b>default:</b>0</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/SAVE</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, assumes that File is in IDL saveset format, 
+    		the variable saved should be DATA <BR>
+can not be used with /ONLINE</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>SUBTITLE=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the subtitle to the plot
+<BR><i>see also:</i>Titleplot</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>TITLEPLOT=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the title of the plot, 
+     		if not set the title will be File
+<BR><i>see also:</i>Subtitle</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>UNITS=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the units, to be put on the right
+		hand side of the color bar, overrides the value read from the input file,
+		if any
+<BR><i>see also:</i>Nobar, Nolabels</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>XPOS=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>The X position on the screen of the lower left corner
+	        of the window, in device coordinate</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>YPOS=</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>The Y position on the screen of the lower left corner 
+               of the window, in device coordinate
+
+<P></TD>
+</TR>
+</TABLE>
+
+<P>
+<hr><H1>DESCRIPTION</H1>
+<BR> <blockquote>
+mollview reads in a <b>HEALPix</b> sky map in FITS format and generates a
+Mollweide projection of it, that can be visualized on the screen or
+exported in a GIF or Postscript file. mollview allows the selection of
+the coordinate system, map size, color table, color bar inclusion,
+linear or log scaling, histogram equalised
+color scaling, maximum and 
+minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
+polarization field. 
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mollview</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B>idl</B>
+<DD>version 5.0 or more is necessary to run <FONT COLOR="#CC0000">mollview</FONT>
+  <DT>
+<B>ghostview</B>
+<DD>ghostview or a similar facility is required to view
+	  the Postscript image generated by <FONT COLOR="#CC0000">mollview</FONT>.
+  <DT>
+<B>xv</B>
+<DD>xv or a similar facility is required to view the
+            GIF/PNG image generated by <FONT COLOR="#CC0000">mollview</FONT>(a browser can also 
+            be used).
+  <DT>
+<B>synfast</B>
+<DD>This <b>HEALPix</b> facility will generate the FITS format 
+            sky map to be input to <FONT COLOR="#CC0000">mollview</FONT>.
+  <DT>
+<B><A HREF="idlnode7.htm#idl:cartview">cartview</A></B>
+<DD>IDL facility to generate a Cartesian projection of
+  	a <b>HEALPix</b> map.
+  <DT>
+<B><A HREF="idlnode6.htm#idl:cartcursor">cartcursor</A></B>
+<DD>interactive cursor to be used with cartview
+  <DT>
+<B><A HREF="idlnode18.htm#idl:gnomview">gnomview</A></B>
+<DD>IDL facility to generate a gnomonic projection of
+  	a <b>HEALPix</b> map.
+  <DT>
+<B><A HREF="idlnode17.htm#idl:gnomcursor">gnomcursor</A></B>
+<DD>interactive cursor to be used with gnomview
+  <DT>
+<B><A HREF="#idl:mollview">mollview</A></B>
+<DD>IDL facility to generate a Mollweide projection of
+  	a <b>HEALPix</b> map.
+  <DT>
+<B><A HREF="idlnode24.htm#idl:mollcursor">mollcursor</A></B>
+<DD>interactive cursor to be used with mollview
+  <DT>
+<B><A HREF="idlnode30.htm#idl:orthview">orthview</A></B>
+<DD>IDL facility to generate an orthographic projection of
+  	a <b>HEALPix</b> map.
+  <DT>
+<B><A HREF="idlnode29.htm#idl:orthcursor">orthcursor</A></B>
+<DD>interactive cursor to be used with orthview
+  </DL>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="2651"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Figures produced by <A HREF="idlnode7.htm#idl:cartview">cartview</A>,
+<A HREF="idlnode18.htm#idl:gnomview">gnomview</A>, <A HREF="#idl:mollview">mollview</A> and <A HREF="idlnode30.htm#idl:orthview">orthview</A>, see respective
+routine documentation for details.</CAPTION>
+<TR><TD></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+mollview,</TD>
+<TD ALIGN="LEFT">'planck100GHZ-LFI.fits', min=-100, max=100, /graticule, $</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">title='Simulated Planck LFI Sky Map at 100GHz'</TD>
+</TR>
+</TABLE>
+</font></tt><br><blockquote>mollview reads in the map 'planck100GHZ-LFI.fits' and generates
+an output image in which
+the temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg19.png"
+ ALT="$\pm$"></SPAN> 100 (<SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg20.png"
+ ALT="$\mu$"></SPAN>K),
+a graticule with a 45 degree step in longitude and latitude is drawn,
+and the title 'Simulated Planck LFI Sky Map at 100GHz' appended to the image.
+</blockquote>
+
+<P>
+<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+
+<P>
+map</TD>
+<TD ALIGN="LEFT">= findgen(48)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">triangle</TD>
+<TD ALIGN="LEFT">= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+</TR>
+<TR><TD ALIGN="LEFT">mollview,</TD>
+<TD ALIGN="LEFT">map,/online,res=25,graticule=[45,30],rot=[10,20,30],$</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">title='Mollweide projection',subtitle='mollview', $</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">outline=triangle</TD>
+</TR>
+</TABLE>
+</font></tt><br><blockquote>makes a Mollweide projection of map (see Figure 1c on
+page&nbsp;<A HREF="idlnode25.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
+(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html393"
+  HREF="idlnode24.htm">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html399"
+  HREF="idl.htm">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html403"
+  HREF="idlnode26.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html401"
+  HREF="idlnode1.htm">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="idlnode24.htm">mollcursor</A>
+
+<B>Up:</B> <A NAME="tex2html400"
+  HREF="idl.htm">Healpix/IDL subroutines</A>
+
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="idlnode26.htm">npix2nside</A>
+<B> Top:</B> <a href="main.htm">Main Page</a></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Eric Hivon
+2005-08-31
+</ADDRESS>
+</BODY>
+</HTML>

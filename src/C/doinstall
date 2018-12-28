@@ -1,0 +1,136 @@
+#!/bin/sh
+
+# -----------------------------------------------------------------
+# C HEALPix 1.2 configuration+installation script
+# Eric Hivon, Feb 2003
+# adapted from main configuration script
+# -----------------------------------------------------------------
+# auxiliary functions:
+#   fullPath: convert relative to absolute directory names
+#   checkDir: search for installation directories and create them
+#             is necessary
+#   setDefaults: set default values of variables
+# -----------------------------------------------------------------
+
+echoLn () {
+    if [ "`uname -s`" = "Linux" -o "`uname -s`" = "Darwin" ]; then
+	echo -n "$*"
+    else
+	echo "$*\c"
+    fi
+}
+
+# -----------------------------------------------------------------
+
+findFITS () {
+    for dir in /usr/lib /usr/local/lib $1; do
+	[ -r "${dir}/lib${LIBFITS}.a" ] && FITSDIR=$dir
+    done
+}
+
+# -----------------------------------------------------------------
+
+setDefaults () {
+    TRY="../.."
+    BASE=`cd $TRY; pwd`
+    LIBDIR=$BASE/lib
+    INCDIR=$BASE/include
+
+    LIBFITS="cfitsio"
+    FITSDIR="/usr/local/lib"
+    FITSINC="/usr/local/include"
+}
+
+# -----------------------------------------------------------------
+
+fullPath () {
+    t='TEMP=`cd $TEMP; pwd`'
+    for d in $*; do
+	eval `echo $t | sed 's/TEMP/'$d'/g'`
+    done
+}
+
+# -----------------------------------------------------------------
+
+checkDir () {
+    l=""
+    for d in $*; do
+	[ ! -d $d ] && l="$l $d"
+    done
+    if [ "x$l" != "x" ]; then
+	echo "Warning: The following directories could not be found:"
+	for d in $l; do
+	    echo "$d"
+	done
+	echoLn "Should I attempt to create these directories (Y|n)? "
+	read answer
+	if [ "x$answer" != "xn" ]; then
+	    for d in $l; do
+		mkdir $d 1>/dev/null 2>&1
+		if [ $? -gt 0 ]; then
+		    echo "Error: Could not create directory $d"
+		    exit 1
+		fi
+	    done
+	else
+	    echo "Create installation directories first."
+	    exit 1
+	fi
+    fi
+}    
+
+# -----------------------------------------------------------------
+
+askUserMisc () {
+
+    checkDir $INCDIR $LIBDIR
+    fullPath INCDIR LIBDIR
+
+    echoLn "enter full name of cfitsio library (lib${LIBFITS}.a): "
+    read answer
+    [ "x$answer" != "x" ] && LIBFITS=`basename $answer ".a" | sed "s/^lib//"`
+
+    findFITS $LIBDIR
+    echoLn "enter location of cfitsio library ($FITSDIR): "
+    read answer
+    [ "x$answer" != "x" ] && FITSDIR=$answer
+
+    lib="${FITSDIR}/lib${LIBFITS}.a"
+    if [ ! -r $lib ]; then
+	echo "error: fits library $lib not found"
+	exit -1
+    fi
+
+    echoLn "enter location of cfitsio header cfitsio.h ($FITSINC): "
+    read answer
+    [ "x$answer" != "x" ] && FITSINC=$answer
+
+}
+
+# -----------------------------------------------------------------
+
+makeInstall () {
+	HERE=`pwd`
+	echo " "
+	cd subs
+	echo "Now trying compilation"
+	echo "make CFITSIO_INCDIR=$FITSINC CFITSIO_LIBDIR=$FITSDIR"
+	make CFITSIO_INCDIR=$FITSINC CFITSIO_LIBDIR=$FITSDIR
+	echo " "
+	echo "Will install the library (libchealpix.a) in $LIBDIR"
+	echo " and the header file (chealpix.h) in $INCDIR"
+	echo "make install INCDIR=$INCDIR LIBDIR=$LIBDIR"
+	make install INCDIR=$INCDIR LIBDIR=$LIBDIR
+	cd $HERE
+	echo " "
+}
+# -----------------------------------------------------------------
+
+setDefaults
+askUserMisc
+makeInstall
+
+# -----------------------------------------------------------------
+
+exit 0
+
