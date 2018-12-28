@@ -37,7 +37,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               PROJECTION=projection, MOLLWEIDE=mollweide, GNOMIC=gnomic, CARTESIAN=cartesian, $
               ORTHOGRAPHIC=orthographic, FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, $
               IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
-              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain
+              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors
 
 ;===============================================================================
 ;+
@@ -80,6 +80,10 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;                 a single call to tvrd()
 ;                 uses Z buffer when window<0
 ;                 introduce RETAIN
+;   Sep 2009, EH, TRANSPARENT can now be in {0,1,2,3}
+;   Nov 2009, EH, retrofitting for GDL. 
+;                 Everything works as in IDL except PS outputs and
+;                 transparent pixels in PNG
 ;-
 ;===============================================================================
 
@@ -92,9 +96,17 @@ do_fullsky = 0 ; dummy, only matters for orthview
 do_gif = keyword_set(gif)
 do_png = keyword_set(png)
 do_ps  = keyword_set(ps)
-do_image = do_gif or do_png
-;-------------------------------------------------
+do_image = (do_gif || do_png)
+do_true = keyword_set(truecolors)
+do_crop = keyword_set(crop)
 
+if undefined(polarization) then polarization=0
+do_polamplitude = (polarization eq 1)
+do_poldirection = (polarization eq 2)
+do_polvector    = (polarization eq 3)
+;-------------------------------------------------
+in_gdl = is_gdl()
+in_idl = ~in_gdl
 if (do_ps) then test_preview
 @idl_default_previewer ; defines the paper size
 if (do_ps and undefined(papersize)) then papersize = 'a4'
@@ -355,36 +367,38 @@ if (projtype eq 3) then begin
 endif
 ;====================================================
 
-if defined(colt) then ct=colt else ct = 33
-if undefined(polarization) then polarization=0
-do_polamplitude = (polarization eq 1)
-do_poldirection = (polarization eq 2)
-do_polvector    = (polarization eq 3)
-if defined(charsize) then charsfactor = charsize else charsfactor = 1.0
-;do_shade = (do_png && do_orth && defined(shademap))
 do_shade = (do_orth && defined(shademap))
-
+; set color table and character size
+ct          = defined(colt)     ? colt     : 33
+charsfactor = defined(charsize) ? charsize : 1.0
 
 ; alter the color table
 ; -----------------------
 if (~keyword_set(silent)) then print,'... computing the color table ...'
-if (do_poldirection) then begin
-    LOADCT, 0 , /SILENT
-    ncol = 256
-    one = replicate(1.,ncol)
-    tvlct,[0,0,0,findgen(ncol-3)]/(ncol-3)*720,one,one,/hsv ; hue is in degrees
+if (do_true) then begin
+    loadct, 0, /silent
+    tvlct,red,green,blue,/get
 endif else begin
-    LOADCT, abs(ct) , /SILENT
+    if (do_poldirection) then begin
+        LOADCT, 0, /SILENT
+        ncol = 256
+        one = replicate(1.,ncol)
+        tvlct,[0,0,0,findgen(ncol-3)]/(ncol-3)*720,one,one,/hsv ; hue is in degrees
+    endif else begin
+        LOADCT, abs(ct), /SILENT
+    endelse
+    tvlct,red,green,blue,/get
+    if (ct lt 0) then begin
+        red = reverse(red) & green = reverse(green) & blue = reverse(blue)
+    endif
 endelse
-tvlct,red,green,blue,/get
-if (ct lt 0) then begin
-    red = reverse(red) & green = reverse(green) & blue = reverse(blue)
-endif
 ; set up some specific definitions
-idx_black = 0 & idx_white = 1 & idx_grey = 2
-red[idx_black] = 0   & green[idx_black] = 0   & blue[idx_black] = 0 ; reserve for black
-red[idx_white] = 255 & green[idx_white] = 255 & blue[idx_white] = 255 ; reserve for white
-red[idx_grey ] = 175 & green[idx_grey ] = 175 & blue[idx_grey ] = 175 ; reserve for neutral grey
+; reserve first colors for Black, White and Neutral grey
+idx_black = 0B & idx_white = 1B   & idx_grey = 2B   & idx_bwg = [idx_black, idx_white, idx_grey]
+col_black = 0B & col_white = 255B & col_grey = 175B & col_bwg = [col_black, col_white, col_grey]
+red  [idx_bwg] = col_bwg
+green[idx_bwg] = col_bwg
+blue [idx_bwg] = col_bwg
 TVLCT,red,green,blue
 
 ; ---------------------
@@ -397,17 +411,18 @@ if (~keyword_set(silent)) then print,'... here it is.'
 titlewindow = proj_big+' projection : ' + title_display
 back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
 if (do_ps) then begin
+    ; 2009-11-04: 'ps' in GDL does not support: COLOR, BITS, XSIZE, ...
     if DEFINED(hxsize) then hxsize = (hxsize > 3) < 200 else hxsize = hxsize_def
     if ((size(ps))(1) ne 7) then file_ps = 'plot_'+proj_small+'.ps' else file_ps = ps
     SET_plot,'ps'
     do_portrait = 0
     do_landscape = 0
     DEVICE, FILE=file_ps, /COLOR, BITS = 8 ; opens the file that will receive the PostScript plot
-    if (do_gnom or (do_orth and not do_fullsky)) then begin
+    if (do_gnom || (do_orth && ~do_fullsky)) then begin
         do_portrait = 1
         DEVICE, /PORTRAIT,  XSIZE=hxsize, YSIZE=hxsize/du_dv*w_dx_dy, XOFFSET=4, YOFFSET=2
     endif
-    if (do_moll or (do_orth and do_fullsky)) then begin
+    if (do_moll || (do_orth && do_fullsky)) then begin
         do_landscape = 1
         DEVICE, /LANDSCAPE, XSIZE=hxsize, YSIZE=hxsize/du_dv*w_dx_dy, XOFFSET=4, YOFFSET=hxsize+yoffset
     endif
@@ -418,7 +433,7 @@ if (do_ps) then begin
     endif
     TVLCT,red,green,blue
     thick_dev = 2. ; device dependent thickness factor
-endif else begin
+endif else begin ; X, png or gif output
     idl_window = defined(window_user) ? window_user : 32 ; idl_window = 32 or window_user
     free_window    =  (idl_window gt 31) ; random  window if idl_window > 31
     virtual_window =  (idl_window lt 0)  ; virtual window if idl_window < 0
@@ -430,13 +445,27 @@ endif else begin
         set_plot,'z'
         device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buff=1
     endif
-    if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility
-    to_patch = ((!d.n_colors GT 256) && do_image  && ~keyword_set(crop))
-    device, decomp = to_patch
+    ;;if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility ;
+    ;;commented out 2009-10-28
+    ;to_patch = ((!d.n_colors GT 256) && do_image  && ~do_crop)
+    ;to_patch = ((!d.n_colors GT 256) && do_image && in_idl)
+    to_patch = ((!d.n_colors GT 256) && do_image)
+    if (in_gdl) then begin
+        device ; in GDL, Decomposed keyword is either ignored (device='X') or unvalid (device='Z') 
+        if (to_patch) then loadct,0,/silent ; emulate decomposed
+    endif else begin
+        device, decomposed = to_patch
+    endelse
     if (reuse_window) then begin
         wset, idl_window
     endif else begin
-        if (~use_z_buffer) then WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, XPOS=xpos, YPOS=ypos, RETAIN=window_retain
+        if (~use_z_buffer) then begin
+            WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, $
+                    XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, $
+                    XPOS=(in_gdl && undefined(xpos)) ? 0 : xpos
+                    YPOS=(in_gdl && undefined(ypos)) ? 0 : ypos
+                    RETAIN=window_retain
+        endif
         if (~virtual_window && (!d.x_size lt long(xsize) || !d.y_size lt long(ysize*w_dx_dy))) then begin
             message,level=-1,/info,'==========================================================='
             message,level=-1,/info,'WARNING: Because of screen and window manager limitations,'
@@ -447,7 +476,7 @@ endif else begin
             message,level=-1,/info,'==========================================================='
         endif
     endelse
-    TVLCT,red,green,blue
+    if (in_idl) then TVLCT,red,green,blue
     thick_dev = 1. ; device dependent thickness factor
 endelse
 
@@ -458,6 +487,8 @@ endelse
 ; -------------------------------------------------------------
 myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur],xstyle:5,ystyle:5}
 plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
+; GDL does not set the background when doing a plot in Z buffer
+if (in_gdl && use_z_buffer) then tv, replicate(!p.background, xsize, ysize*w_dx_dy)
 ; ---------- projection independent ------------------
 ; map itself
 if (do_shade && ~do_image) then begin
@@ -470,10 +501,21 @@ if (do_shade && ~do_image) then begin
     if (do_ps) then loadct,0,/silent ; must be in grey-scale for TrueColor PS output
     TV, bytscl(image3d),w_xll,w_yll,/normal,xsize=1.,true=3
     if (do_ps) then tvlct,red,green,blue ; revert to custom color table
+    image3d = 0
+endif else if (do_true  && ~do_image) then begin
+                                ; truecolors for X or PS, red, green, blue are
+                                ; only useful for the {0,1,2}={Black, white, grey}
+    image3d = make_array(/byte, xsize, ysize, 3)
+    image3d[*,*,0] = red  [planmap[*,*,0]]
+    image3d[*,*,1] = green[planmap[*,*,1]]
+    image3d[*,*,2] = blue [planmap[*,*,2]]
+;;;    if (do_ps) then loadct,0,/silent; must be in grey-scale for TrueColor PS output
+    tv, image3d, w_xll,w_yll,/normal,xsize=1.,true=3
+;;;    if (do_ps) then tvlct,red,green,blue ; revert to custom color table
+    image3d = 0
 endif else begin
     TV, planmap,w_xll,w_yll,/normal,xsize=1.
 endelse
-
 hpxv11 = 0
 
 ; the polarisation color ring
@@ -517,14 +559,14 @@ if (do_polvector) then begin
 endif
 
 ;  the color bar
-if (not keyword_set(nobar) and not do_poldirection) then begin
+if (~(keyword_set(nobar) || do_poldirection || do_true)) then begin
     color_bar = BYTE(CONGRID(color_bar,xsize*cbar_dx)) # REPLICATE(1.,(ysize*cbar_dy*w_dx_dy)>1)
     back(xsize*cbar_xll,0) = color_bar
     TV, back,0,cbar_yll,/normal,xsize = 1.
 endif
 
 ;  the color bar labels
-if (not keyword_set(nobar) and not keyword_set(nolabels) and not do_poldirection) then begin
+if (~(keyword_set(nobar) || keyword_set(nolabels) || do_true || do_poldirection)) then begin
     format = '(g10.2)'
     if ((Tmax - Tmin) ge 50 and MAX(ABS([Tmax,Tmin])) le 1.e5) then format='(i8)'
     if ((Tmax - Tmin) ge 5  and MAX(ABS([Tmax,Tmin])) le 1.e2) then format='(f6.1)'
@@ -535,7 +577,7 @@ if (not keyword_set(nobar) and not keyword_set(nolabels) and not do_poldirection
 endif
 
 ; the polarisation vector scale
-if (not keyword_set(nobar)  and do_polvector) then begin
+if (~keyword_set(nobar)  && do_polvector) then begin
     plots, vscal_x*[1,1], vscal_y+[0, 5*pol_rescale]*w_dy, /normal
     format = '(g10.2)'
     if ((5*vector_scale) lt 1.e3 and (5*vector_scale) ge 10) then format = '(f5.1)'
@@ -544,7 +586,7 @@ if (not keyword_set(nobar)  and do_polvector) then begin
 endif
 
 ;  the title
-if (not keyword_set(titleplot)) then title= '!6'+title_display else title='!6'+titleplot
+if (~ keyword_set(titleplot)) then title= '!6'+title_display else title='!6'+titleplot
 XYOUTS, x_title, y_title ,title, align=0.5, /normal, chars=1.6*charsfactor
 
 ;  the subtitle
@@ -615,12 +657,22 @@ endif
 
 ;  gif/png output
 if do_image then begin
+    valid_transparent = 0
+    if (keyword_set(transparent)) then begin
+        itr = nint(transparent)
+        if (itr lt 0 or itr gt 3) then begin
+            message,/info,'keyword TRANSPARENT must be in {0,1,2,3}'
+            message,/info,'current value '+string(transparent)+' will be ignored.'
+        endif else valid_transparent = 1
+    endif
+
     if (do_gif) then begin
         if (DATATYPE(gif) ne 'STR') then file_image = 'plot_'+proj_small+'.gif' else file_image = gif
     endif else begin
         if (DATATYPE(png) ne 'STR') then file_image = 'plot_'+proj_small+'.png' else file_image = png
     endelse
-    image = tvrd() ; a single call to tvrd()
+;    image = (do_true) ? tvrd(true=3) : tvrd() ; a single call to tvrd()
+    image = tvrd()
     if (do_shade) then begin
         image3d  =   make_array(/uint, 3,!d.x_size,!d.y_size)
         allshade =   make_array(/float,  !d.x_size,!d.y_size,value=1.0)
@@ -629,19 +681,48 @@ if do_image then begin
         image3d[0,*,*] = uint( (256. * red  [image] * allshade) < 65535.)
         image3d[1,*,*] = uint( (256. * green[image] * allshade) < 65535.)
         image3d[2,*,*] = uint( (256. * blue [image] * allshade) < 65535.)
+        if (in_gdl) then image3d = bytscl(image3d) ; GDL's write_png won't deal correctly with 16bit integers
         allshade = 0
     endif
-    if keyword_set(crop) then begin
+    if (do_true) then begin
+        dim3d = valid_transparent ? 4 : 3
+        image3d  =   make_array(/byte, dim3d, !d.x_size, !d.y_size)
+        ix_low = long(w_xll*!d.x_size) & iy_low = long(w_yll*!d.y_size) & iy_hi = long(w_yur*!d.y_size)-1
+        image3d[0,*,*] = red[image] & image3d[1,*,*] = green[image] & image3d[2,*,*] = blue[image]
+        image3d[0, ix_low:*, iy_low:iy_hi] = red[  planmap[*,*,0]]
+        image3d[1, ix_low:*, iy_low:iy_hi] = green[planmap[*,*,1]]
+        image3d[2, ix_low:*, iy_low:iy_hi] = blue[ planmap[*,*,2]]
+        if (valid_transparent) then begin
+            image3d[3,*,*] = 255B
+            if (itr   and 1) then begin ; turn grey  into transparent
+                pix_tr = where( total(abs(image3d[0:2,*,*]-col_grey ),1) eq 0, n_tr)
+                if (n_tr gt 0) then image3d[3 +4*pix_tr] = 0B
+            endif
+            if (itr/2 and 1) then begin ; turn white into transparent
+                pix_tr = where( total(abs(image3d[0:2,*,*]-col_white),1) eq 0, n_tr)
+                if (n_tr gt 0) then image3d[3 +4*pix_tr] = 0B
+            endif
+        endif
+    endif
+    ; deal with transparent colors for not TRUECOLORS, not SHADED images
+    if ~(do_true || do_shade) then begin
+        transp_colors = replicate(255B, 256) ; all colors are opaque
+        if (valid_transparent) then begin
+                                ; transparent = {1,3} -> grey pixels  are transparent
+                                ; transparent = {2,3} -> white pixels are transparent
+            if (itr   and 1) then transp_colors[idx_grey ] = 0B ; turn grey  into transparent
+            if (itr/2 and 1) then transp_colors[idx_white] = 0B ; turn white into transparent
+        endif
+    endif
+    if do_crop then begin
         y_crop_low = round(w_yll * n_elements(image[0,*])) & y_crop_hi  = y_crop_low + ysize - 1
         cropped = image[*,y_crop_low:y_crop_hi]
         if do_gif then write_gif,file_image,cropped,red,green,blue
         if do_png then begin
-            if (do_shade) then begin
+            if (do_shade || do_true) then begin
                 write_png, file_image, image3d[*,*,y_crop_low:y_crop_hi]
             endif else begin
                 if (keyword_set(transparent)) then begin
-                    transp_colors = replicate(255B, 256) ; all colors are opaque
-                    transp_colors[idx_grey] = 0B ; turn grey into transparent
                     write_png,file_image,cropped,red,green,blue, transparent=transp_colors
                 endif else begin
                     write_png,file_image,cropped,red,green,blue
@@ -651,37 +732,42 @@ if do_image then begin
     endif else begin
         if do_gif then write_gif,file_image, image,red,green,blue
         if do_png then begin
-            if (do_shade) then begin
+            if (do_shade || do_true) then begin
                 write_png, file_image, image3d
             endif else begin
-                write_png,file_image, image,red,green,blue
-            endelse
-        endif
-        if (to_patch && ~use_z_buffer) then begin 
-            device,decomp=0 ; put back colors on X window and redo color image
-            if (do_shade) then begin
-                tv, bytscl(image3d),0,0,/normal,xsize=1.,true=1
-            endif else begin
-                tv, image
+                if (keyword_set(transparent)) then begin
+                    write_png,file_image, image,red,green,blue, transparent=transp_colors
+                endif else begin
+                    write_png,file_image, image,red,green,blue
+                endelse
             endelse
         endif
     endelse
+    if (to_patch && ~use_z_buffer) then begin 
+        if (in_gdl) then begin
+            device, decomposed=0
+            tvlct,red,green,blue ; revert to custom color table
+        endif else begin
+            device,decomposed=0     ; put back colors on X window and redo color image
+        endelse
+        if (do_shade || do_true) then begin
+            tv, bytscl(image3d),0,0,/normal,xsize=1.,true=1
+        endif else begin
+            tv, image
+        endelse
+    endif
     image = 0
     if (~keyword_set(silent)) then print,'IMAGE file is in '+file_image
     if (keyword_set(preview)) then begin
         test_preview, found_preview ;, /crash
         if (found_preview gt 0) then begin
-            resolve_routine,'preview_file',/compile_full_file,/either
+            resolve_routine,'preview_file',/either ; ,compile_full_file=in_idl
             if do_gif then preview_file, file_image, /gif
             if do_png then preview_file, file_image, /png
         endif
     endif
 endif
 
-if (use_z_buffer) then begin
-    device,/close ;,decomp=~to_patch
-    set_plot,old_device
-endif
 
 if (do_ps) then begin
     device,/close
@@ -694,7 +780,11 @@ if (do_ps) then begin
             preview_file, file_ps, /ps, landscape=do_landscape
         endif
     endif
+endif else if (use_z_buffer) then begin
+    device,/close ;,decomp=~to_patch
+    set_plot,old_device
 endif
+
 
 return
 end

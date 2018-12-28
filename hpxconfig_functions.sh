@@ -20,6 +20,10 @@
 # 2009-06-18: added WLRPATH so that F90 codes can be linked to shared cfitsio library
 # 2009-06-26: replace echoLn with printf
 # 2009-07-10: debugging on MacOS, libgif -> libhpxgif
+# 2009-10-12: replace gfortran -dumpversion -> gfortran --version
+# 2009-10-21: removed bashisms: 
+#               replaced ' == ' tests with ' = ' or ' -eq '
+#               got rid of arrays in pickCppCompilation
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -228,14 +232,14 @@ askCUserMisc () {
     fi
 
     echoLn "A static library is produced by default. Do you also want a shared library ?"
-    if [ $DOSHARED == 1 ]; then
+    if [ $DOSHARED -eq 1 ]; then
 	echoLn "(Y|n) "
 	read answer
-	[ "x$answer" == "xn" -o "x$answer" == "xN" ] && DOSHARED=0
+	[ "x$answer" = "xn" -o "x$answer" = "xN" ] && DOSHARED=0
     else
 	echoLn "(y|N) "
 	read answer
-	[ "x$answer" == "xy" -o "x$answer" == "xY" ] && DOSHARED=1
+	[ "x$answer" = "xy" -o "x$answer" = "xY" ] && DOSHARED=1
     fi
 }
 #-------------
@@ -244,8 +248,8 @@ editCMakefile () {
     echoLn "Editing top Makefile  for C ..."
 
     clibtypes='c-static'
-    if [ $DOSHARED == 1 ]; then
-	if [ "${OS}" == "Darwin" ]; then
+    if [ $DOSHARED -eq 1 ]; then
+	if [ "${OS}" = "Darwin" ]; then
 	    clibtypes="${clibtypes} c-dynamic"
 	else
 	    ###clibtypes="${clibtypes} shared" # corrected 2008-11-17
@@ -354,27 +358,30 @@ pickCppCompilation() {
     cd $CXXCONFDIR
     list=`${LS} -1 config.* | ${AWK} -F. '{print $2}'`
     ii=1
-    vector[0]='return'
     for option in $list ; do
-	echo '   '$ii: $option
-	vector[$ii]=$option
+	echo "   ${ii}: ${option}"
+	#ii=`expr $ii + 1`
 	ii=$((ii+1))
     done
     echo "   0: None of the above (will send you back to main menu)."
     echo "   You can create your own C++ configuration in $CXXCONFDIR/config.* "
     echoLn "Choose one number: "
     read answer
-    if [ x$answer = "x0" ]; then 
+    if [  "x$answer" = "x0"  ]; then 
 	target_chosen=0
 	cd $HEALPIX
     else
-##	ind=$((answer))
-	target=${vector[${answer}]}
+	ii=1
+	for option in $list ; do
+	    [ $answer -eq $ii ] && target=$option
+	    ii=$((ii+1))
+	done
 	echo "will compile with ${target} configuration"
 	export HEALPIX_TARGET=${target}
 	target_chosen=1
 	cd $HEALPIX
     fi
+
 }
 #-------------
 installCppPackage () {
@@ -986,7 +993,8 @@ IdentifyCompiler () {
 	nabs=`$FC -V 2>&1 | ${GREP} 'Pro Fortran' | ${WC} -l`
 	ng95=`$FC -dumpversion 2>&1 | ${GREP} 'g95' | ${WC} -l`
 #	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${GREP} 'GCC' | ${WC} -l` # corrected 2008-11-17
-	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${WC} -l`
+#	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${WC} -l` # corrected 2009-10-12
+	ngfortran=`$FC --version 2>&1 | ${GREP} 'GNU Fortran' | ${WC} -l`
 	npath=`$FC -v 2>&1 | ${GREP} -i ekopath | ${WC} -l`
         if [ $nima != 0 ] ; then
                 FCNAME="Imagine F compiler"
@@ -1017,7 +1025,7 @@ IdentifyCompiler () {
 		PRFLAGS="-openmp -openmp_report0" # Open MP enabled # June 2007
 		FI8FLAG="-i8" # change default INTEGER to 64 bits
 ##		FI8FLAG="-integer-size 64" # change default INTEGER to 64 bits
-		[ $OS == Linux ] && WLRPATH="-Wl,-R"
+		[ $OS = "Linux" ] && WLRPATH="-Wl,-R"
         elif [ $npgf != 0 ] ; then
                 FCNAME="Portland Group Compiler"
 		PRFLAGS="-mp" # Open MP enabled, to be tested
@@ -1030,7 +1038,7 @@ IdentifyCompiler () {
   		FFLAGS="$FFLAGS -Am -X9 -static"
 	elif [ $nxlf != 0 ] ; then
 	    FTYPE="xlf"
-	    if [ "$OS" == "AIX" ] ; then
+	    if [ "$OS" = "AIX" ] ; then
 		FC="xlf90_r"
 		FCNAME="IBM XL Fortran"
 		FFLAGS="$FFLAGS -qsuffix=f=f90:cpp=F90"
@@ -1074,7 +1082,7 @@ IdentifyCompiler () {
 		PRFLAGS="-fopenmp" # Open MP enabled
 		CC="gcc"
 		FI8FLAG="-fdefault-integer-8" # change default INTEGER to 64 bits
-		[ $OS == Linux ] && WLRPATH="-Wl,-R"
+		[ $OS = "Linux" ] && WLRPATH="-Wl,-R"
 	elif [ $npath != 0 ] ; then
 	        FCNAME="PathScale EKOPath compiler"
 		FFLAGS="$FFLAGS"
@@ -1152,7 +1160,7 @@ EOF
     fi
     ${RM} ${tmpfile}*
 
-    if [ $cancompile == 0 ]; then
+    if [ $cancompile -eq 0 ]; then
 	echo
 	echo "  ERROR: Compilation with "
 	echo "${FC} ${FFLAGS}"
@@ -1161,7 +1169,7 @@ EOF
 	echo "Please check that this compiler is supported by your system"
 	crashAndBurn
     fi
-    if [ $canrun == 0 ]; then
+    if [ $canrun -eq 0 ]; then
 	echo
 	echo "  WARNING: Currently the codes compiled with "
 	echo "${FC} ${FFLAGS}"
@@ -1624,7 +1632,7 @@ readyTopMakefile () {
 
     # backup name
     sdate=`date +%s`
-    [ "x${sdate}" == "x" ] && sdate="1"
+    [ "x${sdate}" = "x" ] && sdate="1"
     mkbk=Makefile_bk${sdate}
     [ -s ${mkbk} ] && mkbk="${mkbk}a"
 

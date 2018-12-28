@@ -70,7 +70,8 @@ function healpixwindow, nside, dim, directory = dir_usr
 ;     version 1.1, EH, Caltech, 2002-08
 ;        uses !healpix variable
 ;        deals with polarized pixel window function
-;
+;  2009-09-09: uses !healpix.path.data
+;  2009-10-28: replaced findfile with file_test
 ;-
 
 syntax = 'Window = healpixwindow (nside [, dim, DIRECTORY=])'
@@ -101,10 +102,12 @@ file1 = 'pixel_window_n'+snside+'.fits'
 
 if (defined(dir_usr)) then begin
     file = dir_usr+file1
-    junk=findfile(file,count=count)
+    ;;;;junk=findfile(file,count=count)
+    count = file_test(file)
     if (count eq 0) then begin
         file = dir_usr+'/'+file1
-        junk=findfile(file,count=count)
+        ;;;;junk=findfile(file,count=count)
+        count = file_test(file)
         if (count eq 0) then begin
             print,'Could not find the file '+file
             print,' in the directory '+dir_usr
@@ -112,20 +115,23 @@ if (defined(dir_usr)) then begin
         endif
     endif
 endif else begin
-    dir = !healpix.directory
-    if (strtrim(dir) eq '') then begin
-        print,'The Unix system variable HEALPIX is not correctly defined'
-        print,'It should contain the full path to the Healpix directory'
-        message,'Abort'
-    endif
+;     dir = !healpix.directory
+;     if (strtrim(dir) eq '') then begin
+;         print,'The Unix system variable HEALPIX is not correctly defined'
+;         print,'It should contain the full path to the Healpix directory'
+;         message,'Abort'
+;     endif
 
-    file = dir+'/data/'+file1
+;    file = dir+'/data/'+file1
+    file = !healpix.path.data+file1
 
-    junk=findfile(file,count=count)
+    ;;;;junk=findfile(file,count=count)
+    count = file_test(file)
     if (count eq 0) then begin
         print,'Could not find the file '+file
         print,'Are you sure the Healpix system variable is correcly defined'
-        print,'current value HEALPIX = '+!healpix.directory
+;         print,'current value HEALPIX = '+!healpix.directory
+        print,'current value HEALPIX = '+getenv('HEALPIX')
         message,'Abort'
     endif
 endelse

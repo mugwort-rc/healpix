@@ -187,6 +187,8 @@ pro ianafast, map1_in, cl_out $
 ;       2008-08-27: cosmetics (a closing quote was missing)
 ;       2009-04-30: tmpdir= is not ignored anymore, and IDL_TMPDIR is now used
 ;       as default temporary directory.
+;       2009-09-07:  w8filedir -> w8dir *EVERYWHERE*
+;       2009-09-09:  use !healpix.path.data instead of !healpix.directory+'/data'
 ;
 ;-
 local = {routine: 'ianafast', exe: 'anafast', exe_cxx: 'anafast_cxx', double: keyword_set(double)}
@@ -255,7 +257,7 @@ if (~keyword_set(cxx)) then begin
 
     printf,lunit,hpx_add_parameter('regression', regression, /skip_if_not_set) ; let code choose default
 ;
-    printf,lunit,hpx_add_parameter('w8filedir',    w8filedir, /expand, /skip_if_not_set) ; F90 only
+    printf,lunit,hpx_add_parameter('w8filedir', w8dir, /expand,     /skip_if_not_set) ; F90 only
     printf,lunit,hpx_add_parameter('w8file',    w8file,             /skip_if_not_set) ; F90 only
 ;
     printf,lunit,hpx_add_parameter('theta_cut_deg',theta_cut_deg, def=0.0, /ifempty)
@@ -269,7 +271,8 @@ endif else begin
     printf,lunit,hpx_add_parameter('nmmax',       nmmax,      /skip_if_not_set) ; let code choose default
     printf,lunit,hpx_add_parameter('weighted',keyword_set(won)?'true':'false')
     if (keyword_set(won)) then begin
-        printf,lunit,hpx_add_parameter('healpix_data', !healpix.directory+'/data', /expand, /skip_if_not_set)
+;        printf,lunit,hpx_add_parameter('healpix_data', !healpix.directory+'/data', /expand, /skip_if_not_set)
+        printf,lunit,hpx_add_parameter('healpix_data', !healpix.path.data, /expand, /skip_if_not_set)
     endif
 endelse
 ; ------------------------

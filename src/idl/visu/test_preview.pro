@@ -31,6 +31,7 @@ pro find_in_path, file, finalpath, count, crash_on_error=crash
 ; look for a specified file in !path
 ;
 ; Mar 2006: added comments before crash
+; 2009-10-28: use file_test instead of findfile
 ;_
 
 version = float(!version.release)
@@ -39,17 +40,30 @@ if (version ge 5.3) then begin
 endif else begin
     listpath = str_sep(!path,':')
 endelse
-nl = n_elements(listpath)
-for i=0, nl-1 do begin
-    fullpath = filepath(file,root=listpath[i])
-    finalpath = findfile(fullpath,count=count)
-    if count gt 0 then goto, found
-endfor
+
+if (version lt 5.4) then begin
+    nl = n_elements(listpath)
+    for i=0, nl-1 do begin
+        fullpath = filepath(file,root=listpath[i])
+        finalpath = findfile(fullpath,count=count)
+        if count gt 0 then goto, found
+    endfor
+endif else begin
+    nl = n_elements(listpath)
+    for i=0, nl-1 do begin
+        fullpath = filepath(file,root=listpath[i])
+        count = file_test(fullpath)
+        if (count eq 1) then begin
+            finalpath = fullpath
+            goto, found
+        endif
+    endfor
+endelse
 
 comments=["-----------------------------------------------------------------------------",$
           "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
           "and the hard copy paper size,",$
-          "by running the config_preview script in the main Healpix directory.",$
+          "by running the configure script in the main Healpix directory.",$
 ;          "           (no need to restart IDL ;-)",$
           "-----------------------------------------------------------------------------"]
 
@@ -77,7 +91,7 @@ find_in_path, prevdef,finalpath,count,crash_on_error=crash
 if (count eq 0) then begin
     message,/info,prevdef+' not found,'
     message,/info,'can not preview file.'
-    message,/info,'Run ./config_preview in Healpix main directory'
+    message,/info,'Run ./configure in Healpix main directory'
 endif
 
 return

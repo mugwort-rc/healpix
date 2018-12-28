@@ -31,7 +31,8 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                MAX=max_set, MIN=min_set, $
                RESO_ARCMIN=reso_arcmin, FITS = fits, $
                FLIP=flip, DATA_plot = data_plot, $
-               POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
+               POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+               TRUECOLORS=truecolors, DATA_TC=data_tc
 
 ;+
 ;==============================================================================================
@@ -43,7 +44,8 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;     DATA2CART, data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat,
 ;          color, Tmax, Tmin, color_bar, dx, planvec, vector_scale,
 ;          pxsize=, pysize=, rot=, log=, hist_equal=, max=, min=,
-;          reso_arcmin=, fits=, flip=, data_plot=, POLARIZATION=, SILENT=, PIXEL_LIST=
+;          reso_arcmin=, fits=, flip=, data_plot=, POLARIZATION=, SILENT=,
+;          PIXEL_LIST=, ASINH=, TRUECOLORS=, DATA_TC=
 ;
 ; IN :
 ;      data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -64,6 +66,8 @@ pro data2cart, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;==============================================================================================
 ;-
 
+do_true = keyword_set(truecolors)
+truetype = do_true ? truecolors : 0
 ;help,data
 proj_small = 'cartesian'
 du_dv = 1.    ; aspect ratio
@@ -98,6 +102,7 @@ if defined(pxsize) then xsize = pxsize*1L else xsize = 500L
 if defined(pysize) then ysize = pysize*1L else ysize = xsize
 if defined(reso_arcmin) then resgrid = reso_arcmin/60. else resgrid = 1.5/60.
 dx      = resgrid * !DtoR
+zsize = (do_true) ? 3 : 1
 N_uv = xsize*ysize
 indlist = (n_elements(pixel_list) eq n_elements(data[*,0]))
 
@@ -106,7 +111,7 @@ if (~keyword_set(silent)) then begin
     print,'Cartesian map :',resgrid*60.,' arcmin / pixel ',xsize,'*',ysize,form='(a,f8.3,a,i4,a,i4)'
 endif
 
-grid = FLTARR(xsize,ysize)
+grid = FLTARR(xsize, ysize, zsize)
 ;; grid = MAKE_ARRAY(/FLOAT,xsize,ysize, Value = bad_data) 
 if do_polvector then planvec = MAKE_ARRAY(/FLOAT,xsize,ysize, 2, Value = bad_data) 
 ; -------------------------------------------------------------
@@ -170,15 +175,19 @@ for ystart = 0, ysize - 1, yband do begin
         'Q' : id_pix = UV2PIX(vector, pix_param) ; QuadCube (COBE cgis software)
         else : print,'error on pix_type'
     endcase
-    if (do_poldirection) then begin
-        grid[ystart*xsize] = (data[id_pix] - phi + 4*!PI) MOD (2*!PI) ; in 0,2pi
-    endif else if (do_polvector) then begin
-        grid[ystart*xsize]         = data[id_pix]
-        planvec[ystart*xsize]      = pol_data[id_pix,0]
-        planvec[ystart*xsize+n_uv] = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI); angle
+    if (do_true) then begin
+        for i=0,zsize-1 do grid[ystart*xsize+i*n_uv] = data_tc[id_pix,i]
     endif else begin
-        ;grid[ystart*xsize] = data[id_pix]
-        grid[ystart*xsize] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value)
+        if (do_poldirection) then begin
+            grid[ystart*xsize] = (data[id_pix] - phi + 4*!PI) MOD (2*!PI) ; in 0,2pi
+        endif else if (do_polvector) then begin
+            grid[ystart*xsize]         = data[id_pix]
+            planvec[ystart*xsize]      = pol_data[id_pix,0]
+            planvec[ystart*xsize+n_uv] = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI) ; angle
+        endif else begin
+                                ;grid[ystart*xsize] = data[id_pix]
+            grid[ystart*xsize] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value)
+        endelse
     endelse
 endfor
 u = 0 & v = 0 & x = 0 & vector = 0
@@ -188,16 +197,7 @@ u = 0 & v = 0 & x = 0 & vector = 0
 ; -------------------------------------------------------------
 data_plot = temporary(data)
 pol_data = 0
-mindata = MIN(grid,MAX=maxdata)
-if (mindata le (bad_data*.9) or (1 - finite(total(grid)))) then begin
-    Obs    = where( grid gt (bad_data*.9) and finite(grid), N_Obs )
-    if (N_Obs gt 0) then mindata = MIN(grid[Obs],max=maxdata)
-endif else begin 
-    if defined(Obs) then begin
-        Obs = 0
-        junk = temporary(Obs)   ; Obs is not defined
-    endif
-endelse
+find_min_max_valid, grid, mindata, maxdata, valid=Obs, bad_data=0.9*bad_data
 
 ;-----------------------------------
 ; export in fits the original cartesian map before alteration
@@ -224,9 +224,25 @@ if (do_poldirection) then begin
     min_set = 0.
     max_set = 2*!pi
 endif
-color = COLOR_MAP(grid, mindata, maxdata, Obs, $
-         color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent)
-if (defined(plan_off)) then color[plan_off]  = !P.BACKGROUND ; white
+
+if (truetype eq 2) then begin
+                                ; truecolors=2 map each field to its color independently
+    color = bytarr(xsize,ysize,zsize)
+    for i=0,zsize-1 do begin
+        find_min_max_valid, grid[*,*,i], mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
+        color[0,0,i] = COLOR_MAP(grid[*,*,i], mindata, maxdata, Obs, $
+                                 color_bar = color_bar, mode=mode_col, silent=silent)
+    endfor
+endif else begin
+                                ; same for truecolors=1 and false colors:
+    color = COLOR_MAP(grid, mindata, maxdata, Obs, $
+                      color_bar = color_bar, mode=mode_col, $
+                      minset = min_set, maxset = max_set, silent=silent)
+endelse
+
+if (defined(plan_off)) then begin
+    for i=0,zsize-1 do color[plan_off+i*n_uv]  = !P.BACKGROUND ; white
+endif
 if (do_polvector) then begin    ; rescale polarisation vector in each valid pixel
     planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)
 endif

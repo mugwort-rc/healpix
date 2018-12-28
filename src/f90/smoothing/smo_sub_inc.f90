@@ -108,7 +108,7 @@
   character(LEN=filenamelen)          :: def_dir, def_file
   character(LEN=filenamelen)          :: usr_dir, usr_file
   character(LEN=filenamelen)          :: final_file
-  character(LEN=filenamelen)          :: healpixdir
+  character(LEN=filenamelen)          :: healpixtestdir
   character(LEN=filenamelen)          :: beam_file
   character(len=filenamelen)          :: description
   character(len=100)                  :: chline,chline1
@@ -157,8 +157,8 @@
 
   !     --- gets the file name for the map ---
   chline = "''"
-  call getEnvironment("HEALPIX",healpixdir)
-  if (trim(healpixdir)/='') chline = trim(healpixdir)//'/test/map.fits'
+  healpixtestdir = get_healpix_test_dir()
+  if (trim(healpixtestdir)/='') chline = trim(healpixtestdir)//'/map.fits'
   description = concatnl( &
        & "", &
        & " Enter input file name (Map FITS file): ")
@@ -333,16 +333,7 @@
      w8name="weight_ring_n"//trim(sstr)//".fits"
 
      def_file = trim(w8name)
-     def_dir  = concatnl("","../data","./data","..")
-     call getEnvironment("HEALPIX",healpixdir)
-     if (trim(healpixdir) .ne. "") then
-        def_dir = concatnl(&
-             & def_dir, &
-             & healpixdir, &
-             & trim(healpixdir)//"data", &
-             & trim(healpixdir)//"/data", &
-             & trim(healpixdir)//char(92)//"data") !backslash
-     endif
+     def_dir  = get_healpix_data_dir()
 
 22   continue
      final_file = ''

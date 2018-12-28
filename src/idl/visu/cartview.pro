@@ -26,24 +26,55 @@
 ;
 ; -----------------------------------------------------------------------------
 PRO cartview, file_in, select_in, $
-ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
-EXECUTE=execute, $
-FACTOR = factor, FITS = fits, FLIP=flip, $
-GIF = gif, GLSIZE = glsize, GRATICULE=graticule, $
-HBOUND = hbound, HELP = help, $
-HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGLSIZE = iglsize, IGRATICULE=igraticule, $
-LOG = log, $
-MAX = max_set, MIN = min_set, $
-NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NOPOSITION = noposition, $
-OFFSET=offset, ONLINE = online, OUTLINE=outline, $
-PNG=png, POLARIZATION=polarization, $
-PREVIEW = preview, PS = ps, PXSIZE = pxsize, PYSIZE = pysize, $
-QUADCUBE = quadcube, $
-RESO_ARCMIN = reso_arcmin, RETAIN=retain, ROT = rot, $
-SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
-TITLEPLOT = titleplot, TRANSPARENT = transparent, $
-UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos, vector_scale = vector_scale
+              ASINH = asinh, $
+              CHARSIZE = charsize, $
+              COLT = colt, $
+              COORD = coord, $
+              CROP = crop, $
+              EXECUTE = execute, $
+              FACTOR = factor, $
+              FITS = fits, $
+              FLIP = flip, $
+              GIF = gif, $
+              GLSIZE = glsize, $
+              GRATICULE = graticule, $
+              HBOUND = hbound, $
+              HELP = help, $
+              HIST_EQUAL = hist_equal, $
+              HXSIZE = hxsize, $
+              IGLSIZE = iglsize, $
+              IGRATICULE = igraticule, $
+              LOG = log, $
+              MAX = max_set, $
+              MIN = min_set, $
+              NESTED = nested_online, $
+              NOBAR = nobar, $
+              NOLABELS = nolabels, $
+              NOPOSITION = noposition, $
+              OFFSET=offset, $
+              ONLINE = online, $
+              OUTLINE = outline, $
+              PNG = png, $
+              POLARIZATION = polarization, $
+              PREVIEW = preview, $
+              PS = ps, $
+              PXSIZE = pxsize, $
+              PYSIZE = pysize, $
+              QUADCUBE = quadcube, $
+              RESO_ARCMIN = reso_arcmin, $
+              RETAIN = retain, $
+              ROT = rot, $
+              SAVE = save, $
+              SILENT = silent, $
+              SUBTITLE = subtitle, $
+              TITLEPLOT = titleplot, $
+              TRANSPARENT = transparent, $
+              TRUECOLORS = truecolors, $
+              UNITS = units, $
+              WINDOW = window, $
+              XPOS = xpos, $
+              YPOS = ypos, $
+              vector_scale = vector_scale
 ;+
 ; for extended description see mollview or the paper documentation
 ;-
@@ -86,8 +117,9 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              RESO_ARCMIN=, RETAIN=, ROT=, SAVE=, SILENT=, '
-    print,'              SUBTITLE=, TITLEPLOT=, TRANSPARENT='
+    print,'              RESO_ARCMIN=, RETAIN=, ROT=, '
+    print,'              SAVE=, SILENT=, SUBTITLE=, '
+    print,'              TITLEPLOT=, TRANSPARENT=, TRUECOLORS= '
     print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
@@ -119,7 +151,8 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save,ONLINE=online,NESTED=nested_online,UNITS=units,COORD=coord,FLIP=flip, $
   ROT=rot,QUADCUBE=quadcube,LOG=log,ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, $
+  PIXEL_LIST=pixel_list, TRUECOLORS=truecolors, DATA_TC=data_tc
 if error NE 0 then return
 
 
@@ -129,8 +162,8 @@ data2cart, $
   PXSIZE=pxsize, PYSIZE=pysize, ROT=rot, LOG=log, HIST_EQUAL=hist_equal, $
   MAX=max_set, MIN=min_set, $
   RESO_ARCMIN = reso_arcmin, FITS = fits, FLIP=flip, DATA_plot = data_plot, $
-  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
-
+  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+  TRUECOLORS=truecolors, DATA_TC=data_tc
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, dx, title_display, $
@@ -141,7 +174,7 @@ proj2out, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /CART, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, TRANSPARENT = transparent, EXECUTE=execute, $
-  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain
+  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

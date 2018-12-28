@@ -186,6 +186,8 @@ pro fits_read,file_or_fcb,data,header,group_par,noscale=noscale, $
 ;       Only append primary header if INHERIT=T  W. Landsman  April 2007
 ;       Make ndata 64bit for very large files E. Hivon/W. Landsman May 2007
 ;       Added /PDU keyword to always append primary header W. Landsman June 2007
+;       Use PRODUCT to compute # of data points   W. Landsman  May 2009
+;       Make sure FIRST is long64 when computing position W.L. October 2009
 ;-
 ;
 ;-----------------------------------------------------------------------------
@@ -432,10 +434,8 @@ read_data:
                 end
         endcase
 
-        ndata = long64( axis[0] )
+        ndata = product( axis, /integer )
         bytes_per_word = (abs(bitpix)/8)
-        if naxis gt 1 then $
-           for i=2,naxis do ndata = ndata*axis[i-1]
         nbytes_per_group = bytes_per_word * (pcount + ndata)
         nbytes = (gcount>1) * nbytes_per_group
         nwords = nbytes / bytes_per_word
@@ -451,7 +451,7 @@ read_data:
                         message='INVALID group number specified'
                         goto,error_exit
                 end
-                position = position + group * nbytes_per_group 
+                position = position + long64(group) * nbytes_per_group 
         end
 ;
 ; read group parameters
@@ -463,7 +463,7 @@ read_data:
                 point_lun,fcb.unit,position
                 readu,fcb.unit,group_par
             endif
-            position = position + pcount * bytes_per_word
+            position = position + long64(pcount) * bytes_per_word
         endif
 ;
 ; create data array
@@ -478,7 +478,7 @@ read_data:
                         goto,error_exit
                 endif
                 data = make_array(dim = [last-first+1], type=idl_type, /nozero)
-                position = position + first * bytes_per_word
+                position = position + long64(first) * bytes_per_word
             endif else begin
 ;
 ; full array

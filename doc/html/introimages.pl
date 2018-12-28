@@ -15,8 +15,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg101.png"
  ALT="$\displaystyle \left(\begin{array}{c}
 a_{E,lm}'\  a_{B,lm}'
-\end{array}\right) ...
-...ht)
+\end{array}\right...
+...
 \left(\begin{array}{c}
 a_{E,lm}\  a_{B,lm}
 \end{array} \right).%\nonumber
@@ -34,8 +34,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg122.png"
  ALT="$\displaystyle \sum_{lm} M_{lm} {
 \left(
-\begin{array}{c} -a_{lm}^{\rm GRAD} \ru...
-...}^{\rm CURL} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
+\begin{array}{c} -a_{lm}^{\rm GRAD} \r...
+...^{\rm CURL} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
 }.$">|; 
 
 $key = q/displaystyle{left(array{{c}Qrule[.3cm]{0cm}{.2cm}rule[-.3cm]{0cm}{.2cm}<row_mark>-Urule[.3cm]{0cm}{.2cm}rule[-.3cm]{0cm}{.2cm}array{right)};MSF=1.6;LFS=12;AAT/;
@@ -242,8 +242,8 @@ $cached_env_img{$key} = q|<IMG
  ALT="$\displaystyle \left(\begin{array}{c}
 Q'\  U'
 \end{array}\right) =
-\left(\begin...
-...nd{array} \right)
+\left(\be...
+...array} \right)
 \left(\begin{array}{c}
 Q\  U
 \end{array} \right),%\nonumber
@@ -434,8 +434,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg125.png"
  ALT="$\displaystyle \phantom{1.1}{
 \left(
-\begin{array}{c} Q \rule[.3cm]{0cm}{.2cm}\r...
-...m}{.2cm}\  U \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
+\begin{array}{c} Q \rule[.3cm]{0cm}{.2cm}\...
+...}{.2cm}\  U \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
 }$">|; 
 
 $key = q/displaystylelangleTTrangle;MSF=1.6;LFS=12;AAT/;
@@ -512,7 +512,7 @@ $cached_env_img{$key} = q|<IMG
  ALT="$\displaystyle \left(
 \begin{array}{cc} X_{1,lm} &amp; i X_{2,lm} \\\\
 -i X_{2,lm} &amp; X_{1,lm}
-\end{array}\right)$">|; 
+\end{array} \right)$">|; 
 
 $key = q/1slash(4pi);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -557,8 +557,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg124.png"
  ALT="$\displaystyle \sum_{lm} M_{lm} {
 \left(
-\begin{array}{c} \sqrt{2}a_{{\rm E},lm}...
-..._{{\rm B},lm} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
+\begin{array}{c} \sqrt{2}a_{{\rm E},lm...
+...{{\rm B},lm} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
 }$">|; 
 
 $key = q/C_{{rm{{T},l};MSF=1.6;LFS=12;AAT/;
@@ -817,8 +817,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg75.png"
  ALT="$\displaystyle N_{lm}
 \left[ -\left({l-m^2 \over \sin^2\theta}
-+{1 \over 2}l(l-1...
-...s \theta)
++{1 \over 2}l(l-...
+... \theta)
 +(l+m) {\cos \theta \over \sin^2 \theta}
 P_{l-1}^m(\cos\theta)\right]$">|; 
 
@@ -897,8 +897,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg126.png"
  ALT="$\displaystyle \sum_{lm} M_{lm} {
 \left(
-\begin{array}{c} -\sqrt{2}a_{lm}^{\rm G...
-...}^{\rm CURL} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
+\begin{array}{c} -\sqrt{2}a_{lm}^{\rm ...
+...^{\rm CURL} \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
 }.$">|; 
 
 $key = q/displaystylefrac{l(l+1)}{(2pi)T_{CMB}^2}C_{X,l},;MSF=1.6;LFS=12;AAT/;
@@ -1014,8 +1014,8 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|introimg121.png"
  ALT="$\displaystyle \phantom{1.2}{
 \left(
-\begin{array}{c} Q \rule[.3cm]{0cm}{.2cm}\r...
-...m}{.2cm}\  U \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
+\begin{array}{c} Q \rule[.3cm]{0cm}{.2cm}\...
+...}{.2cm}\  U \rule[.3cm]{0cm}{.2cm}\rule[-.3cm]{0cm}{.2cm}\end{array}\right)
 }$">|; 
 
 $key = q/N_{{rm{{pix}};MSF=1.6;LFS=12;AAT/;

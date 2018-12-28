@@ -26,23 +26,55 @@
 ;
 ; -----------------------------------------------------------------------------
 pro orthview, file_in, select_in, $
-ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
-EXECUTE=execute, $
-FACTOR=factor, FLIP=flip, $
-GAL_CUT=gal_cut, GIF = gif, GLSIZE = glsize, GRATICULE = graticule, $
-HALF_SKY = half_sky, HBOUND = hbound, HELP = help, $
-HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGLSIZE = iglsize, IGRATICULE=igraticule, $
-LOG = log, $
-MAX = max_set, MIN = min_set, $
-NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, $
-OFFSET=offset, ONLINE = online, OUTLINE=outline, $
-PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
-QUADCUBE = quadcube, $
-RETAIN = retain, ROT = rot, $
-SAVE = save, SHADED = shaded, SILENT = silent, SUBTITLE = subtitle, $
-TITLEPLOT = titleplot, $
-UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
+              ASINH = asinh, $
+              CHARSIZE = charsize, $
+              COLT = colt, $
+              COORD = coord, $
+              CROP = crop, $
+              EXECUTE = execute, $
+              FACTOR = factor, $
+              FLIP = flip, $
+              GAL_CUT = gal_cut, $
+              GIF = gif, $
+              GLSIZE = glsize, $
+              GRATICULE = graticule, $
+              HALF_SKY = half_sky, $
+              HBOUND = hbound, $
+              HELP = help, $
+              HIST_EQUAL = hist_equal, $
+              HXSIZE = hxsize, $
+              IGLSIZE = iglsize, $
+              IGRATICULE=igraticule, $
+              LOG = log, $
+              MAX = max_set, $
+              MIN = min_set, $
+              NESTED = nested_online, $
+              NOBAR = nobar, $
+              NOLABELS = nolabels, $
+              NO_DIPOLE = no_dipole, $
+              NO_MONOPOLE = no_monopole, $
+              OFFSET = offset, $
+              ONLINE = online, $
+              OUTLINE = outline, $
+              PNG = png, $
+              POLARIZATION = polarization, $
+              PREVIEW = preview, $
+              PS = ps, $
+              PXSIZE = pxsize, $
+              QUADCUBE = quadcube, $
+              RETAIN = retain, $
+              ROT = rot, $
+              SAVE = save, $
+              SHADED = shaded, $
+              SILENT = silent, $
+              SUBTITLE = subtitle, $
+              TITLEPLOT = titleplot, $
+              TRANSPARENT = transparent, $
+              TRUECOLORS = truecolors, $
+              UNITS = units, $
+              WINDOW = window, $
+              XPOS = xpos, $
+              YPOS = ypos
 
 ;+
 ; for extended description see mollview or the paper documentation
@@ -85,10 +117,11 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
-    print,'              POLARIZATION=polarization, PREVIEW=, '
+    print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
-    print,'              RETAIN=, ROT=, SAVE=, SHADED=, SILENT=, '
-    print,'              SUBTITLE=, TITLEPLOT=, '
+    print,'              RETAIN=, ROT=,  '
+    print,'              SAVE=, SHADED=, SILENT=, SUBTITLE=, '
+    print,'              TITLEPLOT=, TRANSPARENT=, TRUECOLORS= '
     print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
@@ -124,7 +157,8 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save, ONLINE=online, NESTED=nested_online, UNITS=units, COORD=coord, FLIP=flip, $
   ROT=rot, QUADCUBE=quadcube, LOG=log, ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, $
+  PIXEL_LIST=pixel_list, TRUECOLORS=truecolors, DATA_TC=data_tc
 if error NE 0 then return
 
 data2orth, $
@@ -132,7 +166,9 @@ data2orth, $
   planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
-  POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, DO_SHADE=do_shade, SHADEMAP=shademap
+  POLARIZATION=polarization, HALF_SKY=half_sky, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+  DO_SHADE=do_shade, SHADEMAP=shademap, $
+  TRUECOLORS=truecolors, DATA_TC=data_tc
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -142,7 +178,7 @@ proj2out, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /ORTH, FLIP=flip, HALF_SKY=half_sky, COORD_IN=coord_in, $
   IGRATICULE=igraticule, HBOUND = hbound, WINDOW = window, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
-  SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain
+  SHADEMAP=shademap, EXECUTE=execute, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

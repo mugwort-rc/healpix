@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.12a</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.12a">
+<TITLE>Changes between release 2.0 and 2.13</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.13">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,32 +28,32 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html160"
+<A NAME="tex2html164"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html166"
+<A NAME="tex2html170"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html170"
+<A NAME="tex2html174"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html168"
+<A NAME="tex2html172"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html161"
+<B> Previous:</B> <A NAME="tex2html165"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html167"
+<B>Up:</B> <A NAME="tex2html171"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html171"
+<B> Next:</B> <A NAME="tex2html175"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 2.0 and 2.12a</A>
+Changes between release 2.0 and 2.13</A>
 </H1>
 Several routines have been added or improved since version 2.0, as listed below.
 Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
@@ -72,14 +72,54 @@ pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Recent editions (versions 2.11 and 2.12a)
+ Recent editions (version 2.13)
    <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode24.htm#idl:ianafast"><TT>ianafast</TT></A>, 
-              <A HREF="idlnode25.htm#idl:ismoothing"><TT>ismoothing</TT></A>, 
-              <A HREF="idlnode26.htm#idl:isynfast"><TT>isynfast</TT></A>: the <TT>TMPDIR</TT> keyword now works properly, and <TT>$IDL_TMPDIR</TT> is used as the
+ new <A HREF="idlnode22.htm#idl:healpix_doc"><TT>healpix_doc</TT></A> routine to
+browse HTML and PDF documentations
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+        <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ introduction of the <TT>TRUECOLORS=</TT> keyword to generate
+color image from 3 channel map
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ extended capability of the <TT>TRANSPARENT=</TT> keyword
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <TT>MAP_OUT=</TT> to <TT>gnomview</TT>
+	</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ improved compatibility with 
+<A NAME="tex2html1"
+  HREF="http://gnudatalanguage.sourceforge.net">GDL</A>
+(free IDL clone). See <A NAME="tex2html2"
+  HREF="install.htm">``<b>HEALPix</b> Installation Document''</A>
+for current GDL limitations.
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ update of the <TT>IDL-astron</TT> library routines, which now require IDL 6.1 or more
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode15.htm#idl:fits2alm"><TT>fits2alm</TT></A>: new <TT>LMAX=</TT> and <TT>LMIN=</TT> keywords
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode16.htm#idl:fits2cl"><TT>fits2cl</TT></A>: new <TT>LLFACTOR=</TT>  keyword
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode29.htm#idl:init_healpix"><TT>init_healpix</TT></A> defines
+substructure with complete path to <b>HEALPix</b> subdirectories (test, data, bin)
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ slightly faster <A HREF="idlnode57.htm#idl:write_fits_cut4"><TT>write_fits_cut4</TT></A>
+	and <A HREF="idlnode59.htm#idl:write_fits_sb"><TT>write_fits_sb</TT></A> routines.
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
+              <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>: solved problem with <TT>W8DIR=</TT> keyword.
+   </DL>
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Previous editions (versions 2.11 and 2.12a)
+   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
+              <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>, 
+              <A HREF="idlnode27.htm#idl:isynfast"><TT>isynfast</TT></A>: the <TT>TMPDIR</TT> keyword now works properly, and <TT>$IDL_TMPDIR</TT> is used as the
 default temporary directory ; more stable behaviour of these routines
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode54.htm#idl:ud_grade"><TT>ud_grade</TT></A>: 
+ <A HREF="idlnode55.htm#idl:ud_grade"><TT>ud_grade</TT></A>: 
 	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  correctly flags bad output pixels with <TT>bad_data</TT>
 value when upgrading maps
@@ -88,12 +128,12 @@ value when upgrading maps
 8192
 	</DL>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode32.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+ <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
         <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  using a virtual window (ie, setting <TT>WINDOW</TT> to a
 negative value) now allows faster generation of GIF and PNG files (especially useful over remote connections); 
 		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <TT>/RETAIN</TT> keyword; 
+ addition of <TT>RETAIN=</TT> keyword; 
 		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  deals correctly with user provided  <TT>MIN</TT> and <TT>MAX</TT> in
 <TT>LOG</TT> and <TT>ASINH</TT> modes
@@ -104,11 +144,11 @@ negative value) now allows faster generation of GIF and PNG files (especially us
 leaving these routines
 	</DL>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode32.htm#idl:mollview"><TT>orthview</TT></A>: addition of 
+ <A HREF="idlnode33.htm#idl:mollview"><TT>orthview</TT></A>: addition of 
               <TT>/SHADED</TT>
 	keyword for 3D rendering
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- issues warning when non-integer pixel indexes are fed to <A HREF="idlnode40.htm#idl:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*,</TT></A>   ...
+ issues warning when non-integer pixel indexes are fed to <A HREF="idlnode41.htm#idl:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*,</TT></A>   ...
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>ximview</TT>:
 		<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -130,45 +170,44 @@ leaving these routines
 (as well as ordinary 2-D images) at the level of individual pixels. Features
 include panning, zooming, blinking, image statistics and peak finding.
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode23.htm#idl:hpx2gs"><TT>hpx2gs</TT></A>: turns a healpix data set into a
-<A NAME="tex2html1"
-  HREF="http://earth.google.com/">Google Earth</A>/<A NAME="tex2html2"
+ <A HREF="idlnode24.htm#idl:hpx2gs"><TT>hpx2gs</TT></A>: turns a healpix data set into a
+<A NAME="tex2html3"
+  HREF="http://earth.google.com/">Google Earth</A>/<A NAME="tex2html4"
   HREF="http://earth.google.com/sky/skyedu.html">Google Sky</A>-compatible image
-
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode24.htm#idl:ianafast"><TT>ianafast</TT></A>: interface to (F90) <TT>anafast</TT>
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>: interface to (F90) <TT>anafast</TT>
 and (C++) <TT>anafast_cxx</TT> facilities 
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode26.htm#idl:isynfast"><TT>isynfast</TT></A>: interface to F90 <TT>synfast</TT> facility
+ <A HREF="idlnode27.htm#idl:isynfast"><TT>isynfast</TT></A>: interface to F90 <TT>synfast</TT> facility
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode25.htm#idl:ismoothing"><TT>ismoothing</TT></A>: interface to F90 <TT>smoothing</TT> facility
+ <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>: interface to F90 <TT>smoothing</TT> facility
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode7.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>: <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> binning
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode8.htm#idl:bl2fits"><TT>bl2fits</TT></A>: writes <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> window into
 FITS file
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode33.htm#idl:neighbours_nest"><TT>neighbours_nest</TT></A>, <A HREF="idlnode34.htm#idl:neighbours_ring"><TT>neighbours_ring</TT></A>: find immediate neighbours of a given pixel
+ <A HREF="idlnode34.htm#idl:neighbours_nest"><TT>neighbours_nest</TT></A>, <A HREF="idlnode35.htm#idl:neighbours_ring"><TT>neighbours_ring</TT></A>: find immediate neighbours of a given pixel
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode43.htm#idl:query_strip"><TT>query_strip</TT></A>: find pixels lying within a colatitude strip
+ <A HREF="idlnode44.htm#idl:query_strip"><TT>query_strip</TT></A>: find pixels lying within a colatitude strip
 </DL>	
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Routines with extended/improved user interface or new functionalities include
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode32.htm#idl:mollview"><TT>mollview, gnomview, cartview, orthview</TT></A>: 
+ <A HREF="idlnode33.htm#idl:mollview"><TT>mollview, gnomview, cartview, orthview</TT></A>: 
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>ONLINE</TT> keyword is now redundant, 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  introduction of <TT>GLSIZE</TT> and <TT>IGLSIZE</TT> to
   	control automatic labeling of graticules,
-	see Fig.&nbsp;<A HREF="idlnode32.htm#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode32.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+	see Fig.&nbsp;<A HREF="idlnode33.htm#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  addition of <TT>SILENT</TT> and <TT>EXECUTE</TT> keywords,
-	see Fig.&nbsp;<A HREF="idlnode32.htm#fig:plot_example_execute">2</A> on
-	page&nbsp;<A HREF="idlnode32.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+	see Fig.&nbsp;<A HREF="idlnode33.htm#fig:plot_example_execute">2</A> on
+	page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  addition of <TT>ASINH</TT> keyword to allow better visualisation of highly
-contrasted maps; see Figure&nbsp;<A HREF="idlnode32.htm#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode32.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>,
+contrasted maps; see Figure&nbsp;<A HREF="idlnode33.htm#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode33.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>,
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  under certain circumstances, can process high resolution cut sky data sets
 	without creating full sky dummy maps,
@@ -184,22 +223,22 @@ contrasted maps; see Figure&nbsp;<A HREF="idlnode32.htm#fig:merge_wmapKband">3</
 
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode30.htm#idl:median_filter"><TT>median_filter</TT></A>: bugs correction
+ <A HREF="idlnode31.htm#idl:median_filter"><TT>median_filter</TT></A>: bugs correction
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode54.htm#idl:ud_grade"><TT>ud_grade</TT></A>: more robust user interface
+ <A HREF="idlnode55.htm#idl:ud_grade"><TT>ud_grade</TT></A>: more robust user interface
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode11.htm#idl:change_polcconv"><TT>change_polcconv</TT></A>: new <TT>/FORCE</TT> keyword
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode49.htm#idl:remove_dipole"><TT>remove_dipole</TT></A>: more accurate
+ <A HREF="idlnode50.htm#idl:remove_dipole"><TT>remove_dipole</TT></A>: more accurate
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode41.htm#idl:query_disc"><TT>query_disc</TT></A>: when the disc center is
+ <A HREF="idlnode42.htm#idl:query_disc"><TT>query_disc</TT></A>: when the disc center is
 located at one of
 the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
 </DL>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Miscellaneous
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode31.htm#idl:mollcursor"><TT>mollcursor, gnomcursor...</TT></A>: an X11 patch is
+ <A HREF="idlnode32.htm#idl:mollcursor"><TT>mollcursor, gnomcursor...</TT></A>: an X11 patch is
 given so that these routines work under Mac OS X 10.4 and 10.5.
 </DL></DL>
 
@@ -207,32 +246,32 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html160"
+<A NAME="tex2html164"
   HREF="idlnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html166"
+<A NAME="tex2html170"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html170"
+<A NAME="tex2html174"
   HREF="idlnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html168"
+<A NAME="tex2html172"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html161"
+<B> Previous:</B> <A NAME="tex2html165"
   HREF="idlnode2.htm">Using the HEALPix IDL</A>
 
-<B>Up:</B> <A NAME="tex2html167"
+<B>Up:</B> <A NAME="tex2html171"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html171"
+<B> Next:</B> <A NAME="tex2html175"
   HREF="idlnode4.htm">Changes between release 1.2</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-08-06
+2009-11-27
 </ADDRESS>
 </BODY>
 </HTML>

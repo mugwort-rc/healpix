@@ -96,7 +96,10 @@ units = units, help=help
 ;      2000-02-16, EH, Caltech, 1.0
 ;      2002-08-16, EH, Caltech, 1.1 cosmetic editions
 ;      2006-06-23, EH, IAP: total() -> total(,/double) for improved accuracy
-;      2008-08-21, EH, IAP: accept Nside>8192; added /HELP keyword; slight speed increase
+;      2008-08-21, EH, IAP: accept Nside>8192; added /HELP keyword; slight speed
+;      increase
+;      2009-10-30, EH, IAP: replaced obsolete SVD with SVDC (+ SVSOL)
+;                           monopole and dipole now output in double precision
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -250,7 +253,8 @@ enough:
 
 print,'Best fit: '+scut
 if not dodipole then begin
-    monopole = float( (n/M)[0] )
+    ;monopole = float( (n/M)[0] )
+    monopole = (n/M)[0]
     print,'Monopole ['+units+']: ',monopole
 endif else begin
     ; fill other half of matrix by symmetry
@@ -265,20 +269,22 @@ endif else begin
 
    ; use SVD to invert matrix M and solve, A is inverse of Single Value
    ; Decomposition of M
-    SVD, M, w, U, V ; w contains (positive) eigenvalues
-    nw = n_elements(w)
-    Wp = dblarr(nw,nw)
-    large = where(w GT (MAX(w) *1.0d-06), count) ; find large eigenvalues
-    if (count gt 0) then Wp[large, large] = 1.d0/w[large] ; only invert those
-    ;A = V # Wp # TRANSPOSE(U)
-    C = V # Wp # (TRANSPOSE(U) # N)
+    SVDC, M, w, U, V, /double ; w contains (positive) eigenvalues
+    w_threshold = max(abs(w)) * 1.0d-06
+    if (is_gdl()) then begin ; GDL: no SVSOL, no DIAG_MATRIX
+        nw = n_elements(w)
+        Wp = dblarr(nw,nw)
+        large = where(abs(w) GT w_threshold, count) ; find large eigenvalues
+        if (count gt 0) then Wp[large, large] = 1.d0/w[large] ; only invert those
+        C = transpose(U) # ( Wp # (V # N))
+    endif else begin
+        w = w * ( abs(w) gt w_threshold) ; set low eigenvalues to zero
+        C = SVSOL( U, w, V, N, /double)
+    endelse
 
-    C = float(C)
-    Monopole = C(0)
-    DX       = C(1)
-    DY       = C(2)
-    DZ       = C(3)
-    Dipole = [dx,dy, dz]
+    ;;;C = float(C)
+    Monopole = C[0]
+    Dipole = C[1:3]
 
     print,'Monopole ['+units+']: ',monopole
     dip_ampli = sqrt(total(dipole^2, /double))
@@ -322,7 +328,7 @@ if not keyword_set(noremove) then begin
                     'Q' : vec = PIX2UV(id_pix, pix_param) ; QuadCube (COBE cgis software)
                     else : print,code+': error on pix_type'
                 endcase
-                map[good] = map[good] - (monopole + dx*vec[*,0] + dy*vec[*,1] + dz*vec[*,2] )
+                map[good] = map[good] - (monopole + dipole ## vec )
             endif else begin
                 map[good] = map[good] - monopole
             endelse

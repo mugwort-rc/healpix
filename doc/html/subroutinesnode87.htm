@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>rotate_alm*</TITLE>
-<META NAME="description" CONTENT="rotate_alm*">
+<TITLE>ring_num</TITLE>
+<META NAME="description" CONTENT="ring_num">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,212 +28,92 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1249"
+<A NAME="tex2html1253"
   HREF="subroutinesnode86.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1255"
+<A NAME="tex2html1259"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1259"
+<A NAME="tex2html1263"
   HREF="subroutinesnode88.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1257"
+<A NAME="tex2html1261"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1250"
-  HREF="subroutinesnode86.htm">ring_synthesis</A>
+<B> Previous:</B> <A NAME="tex2html1254"
+  HREF="subroutinesnode86.htm">ring_analysis</A>
 
-<B>Up:</B> <A NAME="tex2html1256"
+<B>Up:</B> <A NAME="tex2html1260"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1260"
-  HREF="subroutinesnode88.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
+<B> Next:</B> <A NAME="tex2html1264"
+  HREF="subroutinesnode88.htm">ring_synthesis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000870000000000000000"></A>
-<A NAME="sub:rotate_alm"></A>
+<A NAME="sub:ring_num"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">rotate_alm*</FONT></font></b><hr><H2>This routine transform the scalar (and tensor) <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients to
-emulate the effect of an arbitrary rotation of the underlying map. The rotation is done
-directly on the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> using the Wigner rotation matrices, computed by
-recursion.
-To rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> for <!-- MATH
- $l\leq l_{\rm max}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="68" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg111.png"
- ALT="$l\leq l_{\rm max}$"></SPAN> the number of
-operations scales like <SPAN CLASS="MATH"><IMG
- WIDTH="36" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg112.png"
- ALT="$l^3_{\rm max}$"></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/alm_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">ring_num</FONT></font></b><hr><H2>This function returns the ring number for a z coordinate.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/pix_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">rotate_alm*</FONT>(
-lmax, alm_TGC, psi, theta, phi
-)</h2></blockquote>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">ring_num</FONT>(
+nside, z
+)</h2>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=180><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=45><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>
-nlmax</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+nside</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> parameter of the map.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>alm_TGC(1:p,0:nlmax,0:nlmax)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>complex <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values
-                   before and after rotation of the coordinate system.  
-	The first index here runs from 1:1 for
-                   temperature only, and 1:3 for polarisation. In the latter
-                   case,  1=T, 2=E, 3=B.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>psi</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>z</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>first rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg49.png"
- ALT="$\psi$"></SPAN> about the z-axis.
-All angles are in radians and should lie in [-2<SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg2.png"
- ALT="$\pi$"></SPAN>,2<SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg2.png"
- ALT="$\pi$"></SPAN>], the rotations are
-active and the referential system is assumed to be right handed, the routine
-<A HREF="subroutinesnode24.htm#sub:coordsys2euler_zyz">coordsys2euler_zyz</A> can be used to generate
-the Euler angles
-<!-- MATH
- $\psi, \theta, \varphi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="56" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg48.png"
- ALT="$\psi, \theta, \varphi
-$"></SPAN> for rotation between standard astronomical coordinate
-systems;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>theta</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>second rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg50.png"
- ALT="$\theta$"></SPAN> about the original
-(unrotated) y-axis;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>phi</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>third rotation: angle <SPAN CLASS="MATH"><IMG
- WIDTH="17" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg51.png"
- ALT="$\varphi$"></SPAN> about the original (unrotated) z-axis;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the z coordinate to find the ring number for.</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use alm_tools, only: rotate_alm 
-<BR>...
-<BR>
-call rotate_alm(64, alm_TGC, PI/3., 0.5_dp, 0.0_dp)  
+print*,ring_num(256, 0.5)  
 <BR></font></tt>
 <BR><blockquote>
-Transforms scalar and tensor <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> for <!-- MATH
- $l_{\rm
-  max}=m_{\rm max} = 64$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="147" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
- ALT="$l_{\rm
-max}=m_{\rm max} = 64$"></SPAN> to emulate a rotation of the underlying map by
-(<!-- MATH
- $\psi=\pi/3, \theta=0.5, \varphi=0$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="194" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg114.png"
- ALT="$\psi=\pi/3, \theta=0.5, \varphi=0 $"></SPAN>).
+Prints the ring number of the ring at position <SPAN CLASS="MATH"><I>z</I>=0.5</SPAN>.
 </blockquote>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use coord_v_convert, only: coordsys2euler_zyz 
-<BR>
-use alm_tools, only: rotate_alm 
-<BR>...
-<BR>
-call coordsys2euler_zyz(2000.0_dp, 2000.0_dp, 'E', 'G', psi, theta, phi) 
-<BR>
-call rotate_alm(64, alm_TGC, psi, theta, phi)  
-<BR></font></tt>
-<BR><blockquote>
-Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic to Galactic coordinates.
-</blockquote>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">ring_num</FONT>.</h2>
+  <DL COMPACT><DT>
+<B>None</B>
+<DD></DL>
 
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">rotate_alm*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ring_num</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode24.htm#sub:coordsys2euler_zyz">coordsys2euler_zyz</A></B>
-<DD>can be used to generate
-the Euler angles <!-- MATH
- $\psi, \theta, \varphi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="56" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg48.png"
- ALT="$\psi, \theta, \varphi
-$"></SPAN> for rotation between standard astronomical coordinate systems
-  <DT>
-<B><A HREF="subroutinesnode25.htm#sub:create_alm">create_alm</A></B>
-<DD>Routine to create <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
-  <DT>
-<B><A HREF="subroutinesnode6.htm#sub:alter_alm">alter_alm</A></B>
-<DD>Routine to modify <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-  coefficients to apply or remove the effect of an instrumental beam.
-  <DT>
-<B><A HREF="subroutinesnode43.htm#sub:map2alm">map2alm</A></B>
-<DD>Routines to analyze a <b>HEALPix</b> sky map into its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-  coefficients.
-  <DT>
-<B><A HREF="subroutinesnode10.htm#sub:alm2map">alm2map</A></B>
-<DD>Routines to synthetize a <b>HEALPix</b> sky map from its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-  coefficients.
-  <DT>
-<B><A HREF="subroutinesnode13.htm#sub:alms2fits">alms2fits</A>, <A HREF="subroutinesnode27.htm#sub:dump_alms">dump_alms</A></B>
-<DD>Routines to save a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> in a FITS file.  
-  <DT>
-<B><A HREF="subroutinesnode104.htm#sub:xcc_v_convert">xcc_v_convert</A></B>
-<DD>rotates a 3D coordinate
-vector from one astronomical coordinate system to another.
+<B><A HREF="subroutinesnode41.htm#sub:in_ring">in_ring</A></B>
+<DD>Returns the pixels in a slice on a given ring.
   </DL>
 
 <P>
@@ -247,32 +127,32 @@ vector from one astronomical coordinate system to another.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1249"
+<A NAME="tex2html1253"
   HREF="subroutinesnode86.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1255"
+<A NAME="tex2html1259"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1259"
+<A NAME="tex2html1263"
   HREF="subroutinesnode88.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1257"
+<A NAME="tex2html1261"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1250"
-  HREF="subroutinesnode86.htm">ring_synthesis</A>
+<B> Previous:</B> <A NAME="tex2html1254"
+  HREF="subroutinesnode86.htm">ring_analysis</A>
 
-<B>Up:</B> <A NAME="tex2html1256"
+<B>Up:</B> <A NAME="tex2html1260"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1260"
-  HREF="subroutinesnode88.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
+<B> Next:</B> <A NAME="tex2html1264"
+  HREF="subroutinesnode88.htm">ring_synthesis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-08-06
+2009-11-27
 </ADDRESS>
 </BODY>
 </HTML>

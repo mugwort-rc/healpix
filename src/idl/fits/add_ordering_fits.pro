@@ -59,6 +59,7 @@ if defined(ordering) then begin
         'NEST' : nest_set = 1
         else : begin
             print,'ordering has to be either ''RING'' or ''NESTED'' '
+            print,'current ordering value: '''+strtrim(ordering,2)+''''
             error = 1
             return
         end

@@ -62,3 +62,15 @@ NB : the routines in the ./astron directory have been updated to
  2008-03-18
  EH
 ----------------
+
+NB : the routines in the ./astron directory have been updated to 
+ match the Nov 25, 2009 (*) version of the astron library.
+ NUMLINES is now obsolete (see obsolete_astron),
+ IDL_VALIDNAME is now part of IDL,
+ and many other routines have been updated.
+
+ (*) This version of astron requires IDL v6.1 or newer.
+
+ 2009-11-27
+ EH
+----------------

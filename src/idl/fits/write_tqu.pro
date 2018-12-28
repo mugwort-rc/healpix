@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro write_tqu, fitsfile, TQU, Coordsys=coordsys, Nested=nested, Ring=ring, Ordering=ordering, Extension=extension_id, Hdr=hdr, Xhdr=xhdr, Units=units, Help=help
+pro write_tqu, fitsfile, TQU, Coordsys=coordsys, Nested=nested, Ring=ring, Ordering=ordering, Extension=extension_id, Hdr=hdr, Xhdr=xhdr, Units=units, Help=help, Error=error
 ;+
 ; NAME:
 ;    write_tqu
@@ -97,6 +97,7 @@ pro write_tqu, fitsfile, TQU, Coordsys=coordsys, Nested=nested, Ring=ring, Order
 ; OUTPUTS:
 ;
 ; OPTIONAL OUTPUTS:
+;    Error = takes value 1 on output if error occurs
 ;
 ; COMMON BLOCKS:
 ;
@@ -120,7 +121,7 @@ if (keyword_set(help)) then begin
 endif
 
 syntax = ['SYNTAX : WRITE_TQU, fitsfile, TQU, Coordsys=, Nested=, Ring=, Ordering=, $',$
-          '            Extension=, Hdr=, Xhdr=, Units=, Help=']
+          '            Extension=, Hdr=, Xhdr=, Units=, Help=, Error=']
 
 if n_params() lt 2 then begin
     print,syntax,form='(a)'

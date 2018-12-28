@@ -126,6 +126,7 @@ pro write_fits_sb, filename, prim_st, exten_st, Coordsys=coordsys, Nested=nested
 ;       at a time
 ;  May 2005, EH, replaces FINDFILE by FILE_TEST
 ;  Jan 2009: calls init_astrolib
+;  Nov 2009: increased buffersize in fxbwritm for slightly faster writing
 ;-
 ;
 ; NB : do NOT use 'T' or 'F' as the tag names
@@ -266,10 +267,10 @@ endelse
 FXBHMAKE,xthdr,nrows
 
 for i=1, number-1 do begin
-    data = REFORM(exten_st.(i),npix)
+    data0 = (exten_st.(i))[0]
 
     ; update the header for 1 column with TFORMi = ' 1024x'
-    FXBADDCOL,col,xthdr,REPLICATE(data(0),nentry)
+    FXBADDCOL,col,xthdr,REPLICATE(data0,nentry)
 
     ; put default value for TTYPE*
     si = strtrim(string(i,form='(i2)'),2)
@@ -312,14 +313,23 @@ if defined(extension_id) then begin
 endif
 ; reopens the file, goes to the extension and puts the  header there
 FXBCREATE, unit, filename, xthdr, xtn_id
+naxis1 = sxpar(xthdr,'NAXIS1')
 
-
-nloop = (long(nrows) * nentry * (number-1L)) / 1.e4 ; write 10^4 values at a time
+;nloop = (long(nrows) * nentry * (number-1L)) / 1.e4 ; write 10^4 values at a time
+buffersize = 32768L*64 ; number of bytes per chunk
+;;bytes_per_row = nentry * (number-1L) * 4 ; nuber of bytes per row in FITS file = NAXIS1
+bytes_per_row = naxis1
+nloop = (long64(nrows) * bytes_per_row) / buffersize  ; number of chunks of size buffersize
 nloop = long(nloop+1) < nrows
-nw = nrows/nloop + 1L
+nw = nrows/nloop + 1L ; number of rows in each chunk
+buffersize = nw * bytes_per_row ; final size of chunk
 ip1   = indgen(number-1)+1
+;print,nloop,nw,nw*nloop-nrows, buffersize
+
+
 stcol = '['+string(ip1,form='(50(i2, :, ","))')+']'
-for i=0L, nloop-1 do begin
+stbuf = ',buffersize='+strtrim(buffersize,2)
+for i=0LL, nloop-1LL do begin
     low = long64(i * nw)
     if (low ge nrows) then goto, done
     hi  = long64(low + nw - 1) < (nrows-1)
@@ -327,10 +337,13 @@ for i=0L, nloop-1 do begin
     srange = strcompress(string(low*nentry,hi*nentry+nentry-1,form='("[",i15,":",i15,"]")'),/remove_all)
     starg =  strcompress(string(ip1,form='(50(:, ",exten_st.(",i2,")'+srange+'"))'),/remove_all)
     rows =   strcompress(string(low+1L,hi+1L,form='(",row=[",i12,",",i12,"]")'),/remove_all)
-    command = 'FXBWRITM, unit, '+stcol+starg+rows
+    command = 'FXBWRITM, unit, '+stcol+starg+rows+stbuf
     junk = execute(command)
     done:
 endfor
+
+
+
 if (hi ne (nrows-1)) then message,'error in FITS writing'
 
 ; closes the file

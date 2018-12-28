@@ -82,10 +82,11 @@ endif else begin
                     message,'Set either /RING or /NESTED or ORDERING=  when dealing with online maps',level=-1
                 endif
                 if (nmaps eq 1) then begin
-                    write_fits_map, tmpfile, variable, ring=ring, nested=nested, ordering=ordering
+                    write_fits_map, tmpfile, variable, ring=ring, nested=nested, ordering=ordering, error=error
                 endif else begin
-                    write_tqu, tmpfile, variable, ring=ring, nested=nested, ordering=ordering
+                    write_tqu, tmpfile, variable, ring=ring, nested=nested, ordering=ordering, error=error
                 endelse
+                if (error ne 0) then message,'Map not written.'
             end
             do_cl:  cl2fits, variable, tmpfile
             do_bl:  bl2fits, variable, tmpfile

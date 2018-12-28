@@ -46,6 +46,9 @@ FUNCTION FXMOVE, UNIT, EXTEN, SILENT = Silent, EXT_NO = ext_no, ERRMSG=errmsg
 ;         W. Landsman  December 2006
 ;      Make search for EXTNAME case-independent  W.Landsman March 2007 
 ;      Avoid round-off error for very large extensions N. Piskunov Dec 2007
+;      Assume since V6.1 (/INTEGER keyword available to PRODUCT() ) Dec 2007
+;      Capture error message from MRD_HREAD (must be used with post-June 2009
+;        version of MRD-HREAD)   W. Landsman  July 2009
 ;-
          DO_NAME = SIZE( EXTEN,/TNAME) EQ 'STRING'
 	 PRINT_ERROR = NOT ARG_PRESENT(ERRMSG)
@@ -79,8 +82,12 @@ FUNCTION FXMOVE, UNIT, EXTEN, SILENT = Silent, EXT_NO = ext_no, ERRMSG=errmsg
                 ; Can't use FXHREAD to read from pipe, since it uses
                 ; POINT_LUN.  So we read this in ourselves using mrd_hread
 
-                MRD_HREAD, UNIT, HEADER, STATUS, SILENT = Silent, FIRSTBLOCK=FIRSTBLOCK
-                IF STATUS LT 0 THEN RETURN, -1
+                MRD_HREAD, UNIT, HEADER, STATUS, SILENT = Silent, $
+		    FIRSTBLOCK=FIRSTBLOCK, ERRMSG = ERRMSG
+                IF STATUS LT 0 THEN BEGIN 
+		    IF PRINTERROR THEN MESSAGE,ERRMSG
+		    RETURN, -1
+		ENDIF    
                         
                 ; Get parameters that determine size of data
                 ; region.
@@ -103,9 +110,7 @@ FUNCTION FXMOVE, UNIT, EXTEN, SILENT = Silent, EXT_NO = ext_no, ERRMSG=errmsg
                 
                 IF NAXIS GT 0 THEN BEGIN 
                         DIMS = FXPAR(HEADER,'NAXIS*')           ;Read dimensions
-                        IF !VERSION.RELEASE GE '6.1' THEN $
-			         NDATA = PRODUCT(DIMS,/INTEGER) ELSE $
-				 NDATA = LONG64( PRODUCT(DIMS) )                     
+			NDATA = PRODUCT(DIMS,/INTEGER) 
                 ENDIF ELSE NDATA = 0
                 
                 NBYTES = LONG64(ABS(BITPIX) / 8) * GCOUNT * (PCOUNT + NDATA)

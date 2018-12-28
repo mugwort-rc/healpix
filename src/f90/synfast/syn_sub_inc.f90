@@ -104,7 +104,7 @@
   character(len=FILENAMELEN)          :: def_dir, def_file
   character(len=FILENAMELEN)          :: usr_dir, usr_file
   character(len=FILENAMELEN)          :: final_file
-  character(len=FILENAMELEN)          :: healpixdir
+  character(len=FILENAMELEN)          :: healpixtestdir
   character(len=FILENAMELEN)          :: beam_file
   character(len=80), DIMENSION(1:180) :: header_PS
   character(len=80), DIMENSION(1:180) :: header
@@ -186,8 +186,8 @@
 
   !     --- gets the file name for the Power Spectrum ---
   chline = ''
-  call getEnvironment("HEALPIX",healpixdir)
-  if (trim(healpixdir)/='') chline = trim(healpixdir)//'/test/cl.fits'
+  healpixtestdir = get_healpix_test_dir()
+  if (trim(healpixtestdir)/='') chline = trim(healpixtestdir)//'/cl.fits'
   description = concatnl(&
        & "", &
        & " Enter input Power Spectrum filename", &
@@ -230,16 +230,7 @@
   windowname="pixel_window_n"//trim(string(nsmax,"(i4.4)"))//".fits"
 
   def_file = trim(windowname)
-  def_dir  = concatnl("","../data","./data","..")
-  call getEnvironment("HEALPIX",healpixdir)
-  if (trim(healpixdir) .ne. "") then
-     def_dir = concatnl(&
-          & def_dir, &
-          & healpixdir, &
-          & trim(healpixdir)//"data", &
-          & trim(healpixdir)//"/data", &
-          & trim(healpixdir)//char(92)//"data") !backslash
-  endif
+  def_dir  = get_healpix_data_dir()
 
 22 continue
   final_file = ''

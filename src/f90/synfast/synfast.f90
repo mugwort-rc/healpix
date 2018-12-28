@@ -34,9 +34,9 @@ module synmod
   USE head_fits, only: add_card, merge_headers, del_card, write_minimal_header
   use rngmod,    only: rand_init, rand_gauss, planck_rng
   USE misc_utils,only: assert_alloc, fatal_error, wall_clock_time, brag_openmp, string
-  USE extension, only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
-         parse_string, parse_double, parse_lgt, parse_summarize, parse_check_unused, parse_finish, concatnl, scan_directories
+         parse_string, parse_double, parse_lgt, parse_summarize, parse_check_unused, &
+         parse_finish, concatnl, scan_directories, get_healpix_data_dir, get_healpix_test_dir
   implicit none
 
   character(len=*), parameter :: CODE = "SYNFAST"

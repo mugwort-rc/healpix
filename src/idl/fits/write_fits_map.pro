@@ -25,12 +25,13 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=nested, ring=ring, ordering=ordering, units=units
+pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=nested, ring=ring, ordering=ordering, units=units, error=error, help=help
 ;+
 ; writes a FITS file with data contained in a BINTABLE extension
 ;
 ; CALLING SEQUENCE:
-;    WRITE_FITS_MAP, filename, data [, info_header, Coordsys=, Nested=, Ring=, Ordering=]
+;    WRITE_FITS_MAP, filename, data [, info_header, Coordsys=, Nested=, Ring=,
+;    Ordering=, Error=, Help=]
 ;
 ; INPUTS:
 ;    filename = name of the output file 
@@ -59,6 +60,11 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;      Healpix coordinate system is respectively Celestial=equatorial, Ecliptic
 ;      or Galactic
 ;    Units = units of the data set
+;
+;   Help= if set, an extensive help (this IDL header) is printed
+;
+; OPTIONAL OUTPUT
+;    Error = takes value 1 on output if error occurs
 ;
 ; EXAMPLES
 ;   writting a fits file file.fits containing a RING ordered healpix map in 
@@ -96,14 +102,21 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;    user supplied header
 ;  Mar 2008, EH, use fxbwritm for better efficiency for large files
 ;  Jan 2009: calls init_astrolib
+;  Nov 2009: added Error and Help keywords. Slightly faster writting by adapting
+;  buffer size
 ;
 ;-
 
+code = 'WRITE_FITS_MAP'
+if (keyword_set(help)) then begin
+    doc_library,code
+    return
+endif
 init_astrolib
 
-code = 'WRITE_FITS_MAP'
+
 syntax_string = ['Syntax : '+code+', filename, data $',$
-'   [, info_header, Coordsys=, /Nested, /Ring, Ordering=, Units=]']
+'   [, info_header, Coordsys=, /Nested, /Ring, Ordering=, Units=, Error=, Help=]']
 if N_params() lt 2 or N_params() gt 3 then begin
     print, syntax_string,form='(a)'
     return
@@ -210,6 +223,7 @@ if (nend eq 1) then begin
 endif
 ; reopens the file, goes to the extension and puts the  header there
 FXBCREATE, unit, filename, xthdr
+naxis1 = sxpar(xthdr,'NAXIS1') ; bytes per row
 
 ; writes data in the table
 ; for row = 1LL, nrows do begin
@@ -219,7 +233,10 @@ FXBCREATE, unit, filename, xthdr
 ;     FXBWRITE,unit, data(ifirst:ilast), col, row
 ; endfor
 
-step = 12 ; 12 rows at once
+step = 12L ; 12 rows at once
+if (nrows gt 24) then step = 24L
+if (nrows gt 96) then step = 96L
+buffersize = step * naxis1
 nstep = (nrows + step - 1L)/step
 for is=0LL, nstep-1 do begin
     mystep = step < (nrows - is * step)
@@ -227,7 +244,7 @@ for is=0LL, nstep-1 do begin
     ilast =  ifirst + mystep * nentry - 1LL
     row = 1L + is*step + [0, mystep-1]
     ;;;print,is, ifirst,ilast ,row
-    FXBWRITM,unit, col, data(ifirst:ilast), row=row
+    FXBWRITM,unit, col, data(ifirst:ilast), row=row, buffersize=buffersize
 endfor
 
 ; closes the file

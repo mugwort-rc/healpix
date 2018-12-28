@@ -85,7 +85,7 @@
 ;                 read, 1 meaning success and 0 meaning failure.
 ;
 ; PROCEDURE CALLS: 
-;	HOST_TO_IEEE
+;      None.
 ; EXAMPLE:
 ;      Write a binary table 'sample.fits' giving 43 X,Y positions and a 
 ;      21 x 21 PSF at each position:
@@ -145,6 +145,9 @@
 ;          will be quantized to match those scale factors before being
 ;          written.  Sep 2007
 ;       E. Hivon: write 64bit integer and double precison columns, Mar 2008
+;       C. Markwardt Allow unsigned integers, which have special
+;          TSCAL/TZERO values.  Feb 2009
+;
 ;-
 ;
         compile_opt idl2
@@ -438,6 +441,15 @@
               (TYPE EQ 4 OR TYPE EQ 5) AND $
               (COLTYPE[I] EQ 2 OR COLTYPE[I] EQ 3 OR COLTYPE[I] EQ 14) THEN $
               TYPE_BAD = 0
+
+            ;; Unsigned types are OK
+            IF TSCAL1 EQ 1 AND $
+               ((COLTYPE[I] EQ 2 AND TZERO1 EQ 32768) OR $
+                (COLTYPE[I] EQ 3 AND TZERO1 EQ 2147483648D)) AND $
+               (TYPE EQ 1 OR TYPE EQ 2 OR TYPE EQ 3 OR $
+                TYPE EQ 12 OR TYPE EQ 13 OR TYPE EQ 14) THEN BEGIN
+               TYPE_BAD = 0
+            ENDIF
             
             IF TYPE_BAD THEN BEGIN
                 CASE COLTYPE[I] OF
@@ -449,11 +461,13 @@
                     6: STYPE = 'complex'
                     7: STYPE = 'string'
                     9: STYPE = 'double complex'
+                   12: STYPE = 'unsigned integer'
+                   13: STYPE = 'unsigned long integer'
                    14: STYPE = 'long64 integer'
                 ENDCASE
                 FOUND[I] = 0
                 MESSAGE = '; Data type (column '+STRTRIM(MYCOL[I],2)+$
-                  ') should be ' + STYPE
+                  ') should be ' + STYPE		 
             ENDIF
 
             DIMS = N_DIMS[*,ICOL[I],ILUN]
@@ -592,7 +606,14 @@
                 TSCAL1 = TSCAL[ICOL[I],ILUN]
                 TZERO1 = TZERO[ICOL[I],ILUN]
                 IF TSCAL1 EQ 0 THEN TSCAL1 = 1
-                IF TZERO1 NE 0 THEN DD = DD - TZERO1
+                ;; Handle special unsigned cases
+                IF TZERO1 EQ 32768 AND TSCAL1 EQ 1 AND CT EQ 2 THEN $
+                   ;; Unsigned integer
+                   DD = UINT(DD) - UINT(TZERO1) $
+                ELSE IF TZERO1 EQ 2147483648D AND TSCAL1 EQ 1 AND CT EQ 3 THEN $
+                   ;; Unsigned long integer
+                   DD = ULONG(DD) - ULONG(TZERO1) $
+                ELSE IF TZERO1 NE 0 THEN DD = DD - TZERO1
                 IF TSCAL1 NE 1 THEN DD = DD / TSCAL1
             ENDIF
             SZ = SIZE(DD)
@@ -607,28 +628,32 @@
                 (CT EQ 2): BEGIN
                     ;; Type-cast may be needed if we used TSCAL/TZERO
                     IF TP NE 2 THEN DD = FIX(DD)
-                    IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD 
-                END
+                    IF NOT KEYWORD_SET(NOIEEE) THEN $
+		       SWAP_ENDIAN_INPLACE, DD,/SWAP_IF_LITTLE
+               END
                 (CT EQ 3): BEGIN
                     ;; Type-cast may be needed if we used TSCAL/TZERO
                     IF TP NE 3 THEN DD = LONG(DD)
-                    IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD 
+                    IF NOT KEYWORD_SET(NOIEEE) THEN $
+		       SWAP_ENDIAN_INPLACE, DD,/SWAP_IF_LITTLE
+		    
                 END
                 (ct eq 14): begin
                     ;; Type-cast may be needed if we used TSCAL/TZERO
                     IF TP NE 14 THEN DD = LONG(DD)
-                    IF NOT KEYWORD_SET(NOIEEE) THEN HOST_TO_IEEE, DD                    
+                    IF NOT KEYWORD_SET(NOIEEE) THEN   $
+		       SWAP_ENDIAN_INPLACE, DD,/SWAP_IF_LITTLE                
                 end
 
                 ;; Floating and complex types
-                (CT GE 4 AND CT LE 6 OR CT EQ 9 or ct eq 5): BEGIN
+                (CT GE 4 AND CT LE 6 OR CT EQ 9): BEGIN
                     IF NOT KEYWORD_SET(NOIEEE) THEN BEGIN
                         IF N_ELEMENTS(NANVALUE) EQ 1 THEN BEGIN
                             W=WHERE(DD EQ NANVALUE,COUNT)
                             NAN = REPLICATE('FF'XB,16)
                             NAN = CALL_FUNCTION(DTYPENAMES,NAN,0,1)
                         ENDIF
-                        HOST_TO_IEEE, DD
+			SWAP_ENDIAN_INPLACE, DD,/SWAP_IF_LITTLE                        
                         IF COUNT GT 0 THEN DD[W] = NAN
                     ENDIF
                 END

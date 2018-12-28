@@ -170,7 +170,6 @@ BITPIX:
      13: if bitpix NE 32 then goto, BITPIX_ERROR
      
      else: begin
-     stop
               message = 'Data array is not a valid FITS datatype'
              if  N_elements(ERRMSG) GT 0 then errmsg = message else $
                                           message,'ERROR - ' + message,/CON

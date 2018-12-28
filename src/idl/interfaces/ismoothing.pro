@@ -152,6 +152,7 @@ pro ismoothing, map_in, map_out $
 ;	July 2007, Eric Hivon, v1.0
 ;	Aug  2007, Eric Hivon, v1.1
 ;       Oct  2007, v1.1.1
+;       2009-09-07:  w8filedir -> w8dir *EVERYWHERE*
 ;-
 
 local = {routine: 'ismoothing', exe: 'smoothing', double: keyword_set(double)}
@@ -201,7 +202,7 @@ printf,lunit,hpx_add_parameter('infile',     tmp_map_in,      /expand)
 printf,lunit,hpx_add_parameter('beam_file',  tmp_beam_file, /expand)
 ;
 printf,lunit,hpx_add_parameter('nlmax',       lmax,             /skip_if_not_set)
-printf,lunit,hpx_add_parameter('w8filedir', w8filedir, /expand, /skip_if_not_set)
+printf,lunit,hpx_add_parameter('w8filedir', w8dir,     /expand, /skip_if_not_set)
 printf,lunit,hpx_add_parameter('w8file',    w8file,             /skip_if_not_set)
 printf,lunit,hpx_add_parameter('regression', regression,        /skip_if_not_set) ; let code choose default
 ;

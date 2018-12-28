@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>nside2ntemplates</TITLE>
-<META NAME="description" CONTENT="nside2ntemplates">
+<TITLE>nside2npix</TITLE>
+<META NAME="description" CONTENT="nside2npix">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,47 +28,46 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html568"
+<A NAME="tex2html572"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html574"
+<A NAME="tex2html578"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html578"
+<A NAME="tex2html582"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html576"
+<A NAME="tex2html580"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html569"
-  HREF="idlnode36.htm">nside2npix</A>
+<B> Previous:</B> <A NAME="tex2html573"
+  HREF="idlnode36.htm">npix2nside</A>
 
-<B>Up:</B> <A NAME="tex2html575"
+<B>Up:</B> <A NAME="tex2html579"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html579"
-  HREF="idlnode38.htm">orthcursor</A>
+<B> Next:</B> <A NAME="tex2html583"
+  HREF="idlnode38.htm">nside2ntemplates</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000370000000000000000"></A>
-<A NAME="idl:nside2ntemplates"></A>
+<A NAME="idl:nside2npix"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">nside2ntemplates</FONT></font></b><hr><H2>This IDL facility provides the number of template pixels Ntemplates corresponding
-to resolution parameter Nside. Each template pixel has a different shape that
-<EM>can not</EM> be matched (by rotation or reflexion) to that of any of the other templates.
+<b><font size=+6><FONT COLOR="#CC0000">nside2npix</FONT></font></b><hr><H2>This IDL facility provides the number of pixels Npix over the full sky corresponding
+to resolution parameter Nside.
 </H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/nside2ntemplates.pro
+src/idl/toolkit/nside2npix.pro
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
+Npix=NSIDE2NPIX (Nside [,ERROR=])
 </h2>
 
 <P>
@@ -77,16 +76,14 @@ Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
   <DL COMPACT><DT>
 <B>Nside</B>
 <DD><b>HEALPix</b> resolution parameter (scalar integer),
-         should be a valid Nside (power of 2 in <!-- MATH
- $\{1,\ldots,8192\}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+         should be a valid Nside (power of 2 <SPAN CLASS="MATH"><IMG
+ WIDTH="48" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg43.png"
- ALT="$\{1,\ldots,8192\}$"></SPAN>)
+ ALT="$ \le 2^{29}$"></SPAN>)
     <DT>
-<B>Ntemplates</B>
-<DD>number of templates
+<B>Npix</B>
+<DD>number of pixels, Npix = 12*Nside<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> if Nside is a valid
+    resolution parameter or -1 otherwise
   </DL>
 
 <P>
@@ -101,64 +98,70 @@ Ntemplates=NSIDE2NTEMPLATES (Nside [,ERROR=])
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-nside2ntemplates outputs the number of template pixels
-  <BR><P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay">
+nside2npix checks that the given Nside is valid (power of 2 in
 <!-- MATH
- \begin{displaymath}
-{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.
-\end{displaymath}
- -->
-
-<IMG
- WIDTH="256" HEIGHT="47" BORDER="0"
- SRC="idlimg44.png"
- ALT="\begin{displaymath}{N_{\rm template}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}.\end{displaymath}">
-</DIV>
-<BR CLEAR="ALL">
-<P></P>
-If the argument <!-- MATH
- ${N_{\rm side}}$
+ $\{1,\ldots,2^{29}\}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg23.png"
- ALT="${N_{\rm side}}$"></SPAN> is not
-  valid, a  warning is issued and the error flag is raised.
+ WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg42.png"
+ ALT="$\{1,\ldots,2^{29}\}$"></SPAN>) and then computes the
+corresponding number of pixels <!-- MATH
+ $N_{\rm pix} = 12N_{\rm side}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="121" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg41.png"
+ ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN>.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2ntemplates</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2npix</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.0 or more is necessary to run nside2ntemplates .	
-  <DT>
-<B><A HREF="idlnode53.htm#idl:template_pixel_xxx">template_pixel_ring</A></B>
-<DD><DT>
-<B><A HREF="idlnode53.htm#idl:template_pixel_xxx">template_pixel_nest</A></B>
-<DD>return the
-  template pixel associated with any <b>HEALPix</b> pixel
-  <DT>
-<B><A HREF="idlnode52.htm#idl:same_shape_pixels_xxx">same_shape_pixels_ring</A></B>
-<DD><DT>
-<B><A HREF="idlnode52.htm#idl:same_shape_pixels_xxx">same_shape_pixels_nest</A></B>
-<DD>return
-  the ordered list of pixels having the same shape as a given pixel template
+<DD>version 6.1 or more is necessary to run nside2npix .	
+    <DT>
+<B><A HREF="idlnode36.htm#idl:npix2nside">npix2nside</A></B>
+<DD>computes Nside corresponding to Npix
+    <DT>
+<B><A HREF="idlnode41.htm#idl:pix_tools">pix2xxx</A>, <A HREF="idlnode41.htm#idl:pix_tools">ang2xxx</A>, <A HREF="idlnode41.htm#idl:pix_tools">vec2xxx</A>, ... </B>
+<DD>conversion between vector or angles and pixel index and vice-versa
+    <DT>
+<B><A HREF="idlnode41.htm#idl:pix_tools">vec2pix</A>, <A HREF="idlnode41.htm#idl:pix_tools">pix2vec</A></B>
+<DD>conversion between vector and pixel index
+    <DT>
+<B><A HREF="idlnode41.htm#idl:pix_tools">nest2ring</A>, <A HREF="idlnode41.htm#idl:pix_tools">ring2nest</A></B>
+<DD>conversion between NESTED and RING indices
   </DL>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-Ntemplates = nside2ntemplates(256, ERROR=error)</TD>
+Npix = nside2npix(256, ERROR=error)</TD>
 <TD ALIGN="LEFT">&nbsp;</TD>
 </TR>
 </TABLE>
 </font></tt>
 <BR><blockquote>
-Ntemplates will be 16768 the number of template pixels for the <b>HEALPix</b> 
+Npix will be 786432 the number of pixels over the full sky for the <b>HEALPix</b> 
 resolution parameter 256 and error will be 0</blockquote>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">
+Npix = nside2npix(248, ERROR=error)</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+</font></tt>
+<BR><blockquote>
+Npix will be -1 and error: 1, because 248 is not a valid value for a <b>HEALPix</b> 
+resolution parameter</blockquote>
+
+<P>
+
+<P>
 
 <P>
 
@@ -166,32 +169,32 @@ resolution parameter 256 and error will be 0</blockquote>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html568"
+<A NAME="tex2html572"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html574"
+<A NAME="tex2html578"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html578"
+<A NAME="tex2html582"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html576"
+<A NAME="tex2html580"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html569"
-  HREF="idlnode36.htm">nside2npix</A>
+<B> Previous:</B> <A NAME="tex2html573"
+  HREF="idlnode36.htm">npix2nside</A>
 
-<B>Up:</B> <A NAME="tex2html575"
+<B>Up:</B> <A NAME="tex2html579"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html579"
-  HREF="idlnode38.htm">orthcursor</A>
+<B> Next:</B> <A NAME="tex2html583"
+  HREF="idlnode38.htm">nside2ntemplates</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-08-06
+2009-11-27
 </ADDRESS>
 </BODY>
 </HTML>

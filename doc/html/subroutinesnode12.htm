@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html349"
+<A NAME="tex2html353"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html359"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html359"
+<A NAME="tex2html363"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html357"
+<A NAME="tex2html361"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html350"
+<B> Previous:</B> <A NAME="tex2html354"
   HREF="subroutinesnode11.htm">alm2map_der*</A>
 
-<B>Up:</B> <A NAME="tex2html356"
+<B>Up:</B> <A NAME="tex2html360"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html360"
+<B> Next:</B> <A NAME="tex2html364"
   HREF="subroutinesnode13.htm">alms2fits*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -98,17 +98,19 @@ and is such that <!-- MATH
 
 <!-- MATH
  \begin{eqnarray}
-{_{|s|}}a^{+}_{lm} &\myequal& - ( {_{|s|}}a_{lm} + (-1)^s {_{|s|}}a_{lm} )/2 \\
-	{_{|s|}}a^{-}_{lm} &\myequal& - ( {_{|s|}}a_{lm} - (-1)^s {_{|s|}}a_{lm} )/(2i)
+%typo correction on spin sign of second term of RHS, 2009-09-03
+	{_{|s|}}a^{+}_{lm} &\myequal& - ( {_{|s|}}a_{lm} + (-1)^s {_{-|s|}}a_{lm} )/2 \\
+	{_{|s|}}a^{-}_{lm} &\myequal& - ( {_{|s|}}a_{lm} - (-1)^s {_{-|s|}}a_{lm} )/(2i)
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>lm</I></SUB></TD>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><tex2<I>html</I><SUB><I>c</I></SUB><I>omment</I><SUB><I>m</I></SUB><I>ark</I>>58
+<SUB>|s|</SUB><I>a</I><SUP>+</SUP><SUB><I>lm</I></SUB></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="subroutinesimg25.png"
  ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> + (-1)<SUP><I>s</I></SUP> <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/2</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> + (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/2</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><SUB>|s|</SUB><I>a</I><SUP>-</SUP><SUB><I>lm</I></SUB></TD>
@@ -116,7 +118,7 @@ and is such that <!-- MATH
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="subroutinesimg25.png"
  ALT="$\textstyle \myequal$"></TD>
-<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> - (-1)<SUP><I>s</I></SUP> <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/(2<I>i</I>)</TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP>- ( <SUB>|s|</SUB><I>a</I><SUB><I>lm</I></SUB> - (-1)<SUP><I>s</I></SUP> <SUB>-|s|</SUB><I>a</I><SUB><I>lm</I></SUB> )/(2<I>i</I>)</TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 (<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
 </TABLE></DIV>
@@ -303,7 +305,7 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 <P>
 <hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2map_spin*</FONT>.</h2>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode86.htm#sub:ring_synthesis">ring_synthesis</A></B>
+<B><A HREF="subroutinesnode88.htm#sub:ring_synthesis">ring_synthesis</A></B>
 <DD>Performs FFT over <SPAN CLASS="MATH"><I>m</I></SPAN> for synthesis of the rings.
   <DT>
 <B>compute_lam_mm, get_pixel_layout, </B>
@@ -334,7 +336,7 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 <DD>routine generating maps of temperature
    and polarisation, and their spatial derivatives, from their  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
    <DT>
-<B><A HREF="subroutinesnode45.htm#sub:map2alm_spin">map2alm_spin</A></B>
+<B><A HREF="subroutinesnode46.htm#sub:map2alm_spin">map2alm_spin</A></B>
 <DD>routine performing the inverse transform
    of alm2map.
   <DT>
@@ -354,32 +356,32 @@ Make spin-4 maps from the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html349"
+<A NAME="tex2html353"
   HREF="subroutinesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html355"
+<A NAME="tex2html359"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html359"
+<A NAME="tex2html363"
   HREF="subroutinesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html357"
+<A NAME="tex2html361"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html350"
+<B> Previous:</B> <A NAME="tex2html354"
   HREF="subroutinesnode11.htm">alm2map_der*</A>
 
-<B>Up:</B> <A NAME="tex2html356"
+<B>Up:</B> <A NAME="tex2html360"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html360"
+<B> Next:</B> <A NAME="tex2html364"
   HREF="subroutinesnode13.htm">alms2fits*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-08-06
+2009-11-27
 </ADDRESS>
 </BODY>
 </HTML>

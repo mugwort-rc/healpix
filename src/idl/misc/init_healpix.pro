@@ -25,6 +25,32 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
+function defined_sysvar, sysvar
+defsysv, sysvar, exist=is_defined
+return, is_defined
+end
+
+function set_default_hpx_path, envar, dirlist
+
+                                ; use env variable $HEALPIX and concatenate list of subdirectories
+sep = path_sep()
+path = getenv(envar)
+if (strtrim(path,2) eq '') then begin
+    print,'WARNING: environment variable '+envar+' not found. '
+    path = ''
+endif
+if defined(dirlist) then begin
+    for i=0, n_elements(dirlist)-1 do begin
+        path = path + sep + dirlist[i]
+    endfor
+endif
+                                ; end with separator
+path = path + sep
+
+return, path
+end
+
+
 pro init_healpix, verbose=verbose
 ;+
 ; defines the (structure) system variable Healpix
@@ -32,33 +58,67 @@ pro init_healpix, verbose=verbose
 ; 2006-05-22: print caution message in version 5.5a which has touchy expand_path
 ; 2006-oct : v 2.10, enabled nside > 8192
 ; 2008-oct: v2.11, use getenv
+; 2009-09-09: v2.12: introduced !hpx* variables used by HFI-L2
+; 2009-09-14: v2.12e, correct typo
+; 2009-10-07: v2.12f, add !healpix.path.doc.(*) sub-structure
 ;-
 
 ; system variable name
 healpix_sysvar = '!HEALPIX'
 
 ; Healpix version
-version = '2.12a'
+version = '2.13a'
 
 ; release data
-date = '2009-08-06'
+date = '2009-11-27'
+
 
 ; Healpix directory
-sv = 'HEALPIX'
-;dsv = '$'+sv
+directory = getenv('HEALPIX')
+hexe      = getenv('HEXE')
+target    = getenv('HEALPIX_TARGET')
+if strtrim(target,2) eq '' then target = 'generic_gcc'
 
-; if (!version.release eq '5.5a') then message,'testing existence of '+sv+' environnement variable',/info
-; directory = expand_path(dsv)
-; directory = strtrim(directory,2)
-; if (directory eq dsv or directory eq '') then begin
-;     print,' system variable '+sv+' not found '
-;     directory = ''
-; endif
-directory = getenv(sv)
-if (strtrim(directory,2) eq '') then begin
-    print,' system variable '+sv+' not found '
-    directory = ''
+hpx_path_data     = defined_sysvar('!hpx_path_data')    ? !hpx_path_data    : set_default_hpx_path('HEALPIX',['data'])
+hpx_path_test     = defined_sysvar('!hpx_path_test')    ? !hpx_path_test    : set_default_hpx_path('HEALPIX',['test'])
+hpx_path_doc_html = defined_sysvar('!hpx_path_doc_html')? !hpx_path_doc_html: set_default_hpx_path('HEALPIX',['doc','html'])
+hpx_path_doc_pdf  = defined_sysvar('!hpx_path_doc_pdf') ? !hpx_path_doc_pdf : set_default_hpx_path('HEALPIX',['doc','pdf'])
+
+hpx_path_bin_f90 = ''
+if defined_sysvar('!hpx_path_bin_f90') then begin
+    hpx_path_bin_f90 = !hpx_path_bin_f90
+endif else begin
+    if strtrim(hexe,2) ne '' then begin
+        hpx_path_bin_f90 = set_default_hpx_path('HEXE')
+    endif else begin
+        if (strtrim(directory,2) ne '') then begin
+            hpx_path_bin_f90 = set_default_hpx_path('HEALPIX',['bin'])
+        endif ;else begin
+;             print,'WARNING: environment variable HEALPIX not found '
+;             directory = ''
+;         endelse
+    endelse
+endelse
+
+hpx_path_bin_cxx = ''
+if defined_sysvar('!hpx_path_bin_cxx') then begin
+    hpx_path_bin_cxx = !hpx_path_bin_cxx
+endif else begin
+    if (strtrim(directory,2) ne '') then begin
+        hpx_path_bin_cxx = set_default_hpx_path('HEALPIX',['src','cxx',target,'bin'])
+    endif
+endelse
+
+; give non blanck value to directory if HEALPIX not defined by !hpx_path_bin_f90
+; is defined
+if (strtrim(directory,2) eq '' && defined_sysvar('!hpx_path_bin_f90')) then begin
+    directory = file_dirname(!hpx_path_bin_f90)+path_sep()
 endif
+
+stc_bin  = {cxx:hpx_path_bin_cxx,   f90:hpx_path_bin_f90}
+stc_doc  = {html:hpx_path_doc_html, pdf:hpx_path_doc_pdf}
+stc_path = {bin:stc_bin, data: hpx_path_data, doc:stc_doc, test: hpx_path_test}
+
 
 ; list of possible Nside's
 nside = 2L^lindgen(30)  ; 1, 2, 4, 8, ..., 8192, ..., 2^29 = 0.54e9
@@ -70,12 +130,19 @@ comment = ['This system variable contains some information on Healpix :', $
            healpix_sysvar+'.VERSION   = current version number,', $
            healpix_sysvar+'.DATE      = date of release,',$
            healpix_sysvar+'.DIRECTORY = directory containing Healpix package,',$
+           healpix_sysvar+'.PATH      = structure containing:',$
+           healpix_sysvar+'.PATH.BIN  = structure containing binary path :',$
+           healpix_sysvar+'.PATH.BIN.CXX  =     C++',$
+           healpix_sysvar+'.PATH.BIN.F90  =     Fortran90',$
+           healpix_sysvar+'.PATH.DATA = path to data subdirectory,',$
+           healpix_sysvar+'.PATH.DOC  = path to doc subdirectories (.html, .pdf),',$
+           healpix_sysvar+'.PATH.TEST = path to test subdirectory,',$
            healpix_sysvar+'.NSIDE     = list of all valid values of Nside parameter,',$
            healpix_sysvar+'.BAD_VALUE = value of flag given to missing pixels in FITS files,',$
            healpix_sysvar+'.COMMENT   = this description.']
 
 ; create structure
-stc = {version:version, date:date, directory:directory, nside:nside, bad_value:bad_value, comment:comment}
+stc = {version:version, date:date, directory:directory, path:stc_path, nside:nside, bad_value:bad_value, comment:comment}
 
 ; fill variable out
 defsysv, healpix_sysvar, exists = exists

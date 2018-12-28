@@ -11,8 +11,14 @@ $cached_env_img{$key} = q|<IMG
 $key = q/!;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|installimg7.png"
+ SRC="|."$dir".q|installimg8.png"
  ALT="$\!$">|; 
+
+$key = q/^dagger;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="11" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|installimg7.png"
+ ALT="$^\dagger$">|; 
 
 $key = q/Lambda;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -23,7 +29,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/N_{{rm{side}le8192;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="106" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|installimg9.png"
+ SRC="|."$dir".q|installimg10.png"
  ALT="$N_{\rm side} \le 8192$">|; 
 
 $key = q/rangle;MSF=1.6;LFS=12;AAT/;
@@ -31,6 +37,12 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="12" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|installimg3.png"
  ALT="$\rangle$">|; 
+
+$key = q/3.4610^{18};MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="77" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|installimg9.png"
+ ALT="$3.46 10^{18}$">|; 
 
 $key = q/(mu;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -43,12 +55,6 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="|."$dir".q|installimg6.png"
  ALT="$\ldots$">|; 
-
-$key = q/3.4610^{18};MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="77" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|installimg8.png"
- ALT="$3.46 10^{18}$">|; 
 
 $key = q/2^{128}-1approx3.410^{38};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG

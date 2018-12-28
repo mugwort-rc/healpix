@@ -26,23 +26,53 @@
 ;
 ; -----------------------------------------------------------------------------
 pro mollview, file_in, select_in, $
-ASINH=asinh, CHARSIZE=charsize, COLT = colt, COORD = coord, CROP = crop, $
-EXECUTE=execute, $
-FACTOR=factor, FLIP=flip, $
-GAL_CUT=gal_cut, GIF = gif, GLSIZE = glsize, GRATICULE = graticule, $
-HELP = help, $
-HBOUND = hbound, HIST_EQUAL = hist_equal, HXSIZE = hxsize, $
-IGLSIZE = iglsize, IGRATICULE=igraticule, $
-LOG = log, $
-MAX = max_set, MIN = min_set, $
-NESTED = nested_online, NOBAR = nobar, NOLABELS = nolabels, NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, $
-OFFSET = offset, ONLINE = online, OUTLINE=outline, $
-PNG=png, POLARIZATION=polarization, PREVIEW = preview, PS = ps, PXSIZE = pxsize, $
-QUADCUBE = quadcube, $
-RETAIN = retain, ROT = rot, $
-SAVE = save, SILENT = silent, SUBTITLE = subtitle, $
-TITLEPLOT = titleplot, $
-UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
+              ASINH = asinh, $
+              CHARSIZE = charsize, $
+              COLT = colt, $
+              COORD = coord, $
+              CROP = crop, $
+              EXECUTE = execute, $
+              FACTOR = factor, $
+              FLIP = flip, $
+              GAL_CUT = gal_cut, $
+              GIF = gif, $
+              GLSIZE = glsize, $
+              GRATICULE = graticule, $
+              HELP = help, $
+              HBOUND = hbound, $
+              HIST_EQUAL = hist_equal, $
+              HXSIZE = hxsize, $
+              IGLSIZE = iglsize, $
+              IGRATICULE=igraticule, $
+              LOG = log, $
+              MAX = max_set, $
+              MIN = min_set, $
+              NESTED = nested_online, $
+              NOBAR = nobar, $
+              NOLABELS = nolabels, $
+              NO_DIPOLE = no_dipole, $
+              NO_MONOPOLE = no_monopole, $
+              OFFSET = offset, $
+              ONLINE = online, $
+              OUTLINE = outline, $
+              PNG = png, $
+              POLARIZATION = polarization, $
+              PREVIEW = preview, $
+              PS = ps, $
+              PXSIZE = pxsize, $
+              QUADCUBE = quadcube, $
+              RETAIN = retain, $
+              ROT = rot, $
+              SAVE = save, $
+              SILENT = silent, $
+              SUBTITLE = subtitle, $
+              TITLEPLOT = titleplot, $
+              TRANSPARENT = transparent, $
+              TRUECOLORS = truecolors, $
+              UNITS = units, $
+              WINDOW = window, $
+              XPOS = xpos, $
+              YPOS = ypos
 
 ;+
 ; NAME:
@@ -60,18 +90,18 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;                       GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, $
 ;                       HALF_SKY =, HBOUND =, HELP =, HIST_EQUAL=, HXSIZE=, $
 ;                       IGLSIZE=, IGRATICULE=igraticule, $
-; 	                LOG=, $
-;                       MAX=, MIN=, $ 
-; 	                NESTED=, NOBAR=, NOLABELS=, NOPOSITION =, $
+;                       LOG=, $
+;                       MAP_OUT=, MAX=, MIN=, $ 
+;                       NESTED=, NOBAR=, NOLABELS=, NOPOSITION =, $
 ;                       OFFSET =, ONLINE=, OUTLINE=, $
-; 	                PNG=, POLARIZATION=, PREVIEW=,$
+;                       PNG=, POLARIZATION=, PREVIEW=,$
 ;                       PS=, PXSIZE=, PYSIZE=, $
 ;                       QUADCUBE= , $
 ;                       NO_DIPOLE=, NO_MONOPOLE=, $
 ;                       RESO_ARCMIN= , ROT=, $
 ;                       SAVE=, SHADED=, SILENT=, SUBTITLE=, $
-;                       TITLEPLOT=, $
-; 	                UNITS=, WINDOW=, XPOS=, YPOS=]
+;                       TITLEPLOT=, TRANSPARENT=, TRUECOLORS= $
+;                       UNITS=, WINDOW=, XPOS=, YPOS=]
 ;                        
 ;  all the arguments and parameters are identical for all the
 ;  routines, excepted stated otherwise.
@@ -148,7 +178,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;       GAL_CUT: (positive float) specifies the symmetric galactic cut in degree
 ;             outside of which the the monopole and/or dipole fitting is done
 ;             (see also: NO_DIPOLE, NO_MONOPOLE)
-;             ** mollview only **
+;             ** mollview and orthview only **
 ;
 ;	GIF : string containing the name of a .GIF output
 ;	      if set to 0 or not set : no .GIF done
@@ -204,6 +234,10 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;         only applies to pixel with signal > 0.
 ;         (see OFFSET to offset signal)
 ;
+;       MAP_OUT : name of the IDL variable that will contain
+;         an un-altered Gnomic projection map
+;             ** gnomview only **
+;
 ; 	MAX : max value plotted, 
 ;		every data point larger than MAX takes the same color as MAX
 ;
@@ -227,7 +261,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;                pixels
 ;             can not be used together with NO_MONOPOLE 
 ;             (see: GAL_CUT, NO_MONOPOLE)
-;               ** mollview only **
+;               ** mollview and orthview only **
 ;
 ;       NO_MONOPOLE: if set to 1 (and GAL_CUT is not set) 
 ;                the best fit monopole over all valid pixels is removed
@@ -236,7 +270,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;                pixels
 ;             can not be used together with NO_DIPOLE 
 ;             (see: GAL_CUT, NO_DIPOLE)
-;               ** mollview only **
+;               ** mollview and orthview only **
 ;
 ;       OFFSET: additive offset to apply to data (default = 0)
 ;               the data plotted is of the form FACTOR*(data + OFFSET)
@@ -251,7 +285,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;    		just to be read by mollview
 ;		N.B. : the content of file_in is NOT altered in the
 ;		process
-;               **  can not be used with /SAVE  **
+;               **  can not be used with /SAVE  **    *** OBSOLETE ***
 ;
 ;       OUTLINE : structure containing the coordinates of one (or several) outline(s) to
 ;               be overplot.
@@ -349,6 +383,16 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ; 	TITLEPLOT : String containing the title of the plot, 
 ;     		if not set the title will be File (see SUBTITLE)
 ;
+;       TRANSPARENT: some pixels are transparent in the produced PNG file
+;            if set to 1: bad pixels (usually grey) are transparent
+;            if set to 2: white background pixels are transparent
+;            if set to 3: all of the above
+;            only valid with PNG
+;
+;       TRUECOLORS: if the input data is of the form [Npix,3] then the 3 fields
+;            are respectively understood as {Red, Green, Blue} True Colors
+;
+;
 ;	UNITS : character string containing the units, to be put on the right
 ;		side of the color bar (see : NOBAR)
 ;
@@ -421,6 +465,7 @@ UNITS = units, WINDOW = window, XPOS = xpos, YPOS = ypos
 ;       Nov-08:  restore original color table and plot settings when exiting
 ;       May-09:  added /SHADED to orthview, implemented EXECUTE in orthview, fix
 ;              Min-Max for LOG, use Z buffer when window<0, added RETAIN keyword
+;       Oct-09:  added /TRUECOLORS to all routines and MAP_OUT= to Gnomview
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -456,14 +501,14 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HIST_EQUAL=, HXSIZE=,'
     print,'              IGLSIZE=, IGRATICULE=,'
     print,'              LOG=, '
-    print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
+    print,'              MAP_OUT=, MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
     print,'              NO_DIPOLE, NO_MONOPLE, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
     print,'              PS=, PXSIZE=, PYSIZE=, QUADCUBE= ,'
     print,'              RETAIN=, ROT=, SAVE=, SILENT=, '
-    print,'              SUBTITLE=, TITLEPLOT=, '
+    print,'              SUBTITLE=, TITLEPLOT=, TRANSPARENT=, TRUECOLORS=, '
     print,'              UNITS=, WINDOW=, XPOS=, YPOS=]'
     print
     print,' Type '+uroutine+', /help '
@@ -496,7 +541,8 @@ loaddata_healpix, $
   data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, title_display, sunits, $
   SAVE=save, ONLINE=online, NESTED=nested_online, UNITS=units, COORD=coord, FLIP=flip, $
   ROT=rot, QUADCUBE=quadcube, LOG=log, ERROR=error, $
-  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list
+  POLARIZATION=polarization, FACTOR=factor, OFFSET=offset, SILENT=silent, COMPRESS=1, PIXEL_LIST=pixel_list, $
+  TRUECOLORS=truecolors, DATA_TC=data_tc
 if error NE 0 then return
 
 data2moll, $
@@ -504,7 +550,8 @@ data2moll, $
   planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
   PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,  $
   NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS=sunits, DATA_plot = data_plot, GAL_CUT=gal_cut, $
-  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
+  POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+  TRUECOLORS=truecolors, DATA_TC=data_tc
 
 proj2out, $
   planmap, Tmax, Tmin, color_bar, 0., title_display, $
@@ -514,7 +561,7 @@ proj2out, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
-  IGLSIZE=iglsize, RETAIN=retain
+  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent
 
 
 w_num = !d.window

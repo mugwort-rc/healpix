@@ -81,7 +81,7 @@
   integer(kind=I4B) :: nlheader
 
   character(len=FILENAMELEN)          :: infile, mffile
-  character(len=FILENAMELEN)          :: healpixdir
+  character(len=FILENAMELEN)          :: healpixtestdir
   character(len=FILENAMELEN)          :: description
   character(len=100)                  :: chline, sstr
   LOGICAL(kind=LGT) :: polarisation, fill_holes
@@ -118,8 +118,8 @@
 
   !     --- gets the file name for the map ---
   chline = "''"
-  call getEnvironment("HEALPIX",healpixdir)
-  if (trim(healpixdir)/='') chline = trim(healpixdir)//'/test/map.fits'
+  healpixtestdir = get_healpix_test_dir()
+  if (trim(healpixtestdir)/='') chline = trim(healpixtestdir)//'/map.fits'
   description = concatnl( &
        & "", &
        & " Enter input file name (Map FITS file): ")

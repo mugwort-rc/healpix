@@ -115,6 +115,7 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;                 corrected documentation header wrt offset/factor
 ;  Oct 2008, EH: allows offsetting of polarization norm when poltype=1
 ;  Dec 2008, EH: use OR instead of '||' for non-scalar tests
+;  Nov 2009, EH: accepts non-scalar Offset and Factor
 ;-
 
 if (n_params() lt 2) then begin
@@ -156,8 +157,8 @@ if (xtn eq 0 && fcb.nextend eq 0) then begin
     if (do_rescale) then begin
         bad_pixels = where(array le (bad_data*0.9) or finite(array,/nan), nbad)
         if (nbad gt 0)    then array[bad_pixels] = !values.f_nan
-        if (factor ne 1.) then array = temporary(array) * factor 
-        if (offset ne 0.) then array = temporary(array) + (factor*offset)
+        if (factor[0] ne 1.) then array = temporary(array) * factor[0] 
+        if (offset[0] ne 0.) then array = temporary(array) + (factor[0]*offset[0])
     endif
     goto, all_done
 endif
@@ -209,6 +210,8 @@ stride = 5.e6 > n_wpr ; 5 MB or 1 row per piece (June-2008)
 stride = FLOOR(stride / n_wpr) * n_wpr
 w_start = long64(0)
 pstart = long64(0)
+n_factors = n_elements(factor)
+n_offsets = n_elements(offset)
 while (w_start LE (n_words-1) ) do begin
     ; read one piece
     w_end = (w_start + stride - 1L) < (n_words-1)
@@ -223,8 +226,10 @@ while (w_start LE (n_words-1) ) do begin
             if (do_rescale) then begin
                 bad_pixels = where(x le (bad_data*0.9) or finite(x,/nan), nbad)
                 if (nbad gt 0)    then x[bad_pixels] = !values.f_nan
-                if (factor ne 1.) then x = x * factor 
-                if (offset ne 0.) then x = x + (factor*offset)
+                id_fact = (n_factors eq nmaps) ? i : 0
+                id_offs = (n_offsets eq nmaps) ? i : 0
+                if (factor[id_fact] ne 1.) then x *=  factor[id_fact] 
+                if (offset[id_offs] ne 0.) then x += (factor[id_fact]*offset[id_offs])
             endif
             array[pstart,i] = x
         endfor
@@ -238,13 +243,13 @@ while (w_start LE (n_words-1) ) do begin
             if (do_rescale) then begin
                 bad_pixels = where(tmp[*,i] le (bad_data*0.9) or finite(tmp[*,i],/nan), nbad)
                 if (nbad gt 0)    then tmp[bad_pixels,i] = !values.f_nan
-                if (factor ne 1.) then tmp[*,i] *= factor  ; rescale all fields
-                if (offset ne 0. && i eq 0) then tmp[*,i] +=  (factor*offset) ; only offset temperature
+                if (factor[0] ne 1.) then tmp[*,i] *= factor[0]  ; rescale all fields
+                if (offset[0] ne 0. && i eq 0) then tmp[*,i] +=  (factor[0]*offset[0]) ; only offset temperature
             endif
         endfor
         if (polar eq 1 || polar eq 3) then begin
             norm[0:np-1] = sqrt(tmp[0:np-1,1]^2+tmp[0:np-1,2]^2)  ; (Q,U) --> P
-            if (polar eq 1 && offset ne 0.) then norm[0:np-1] += (factor*offset) ; offset P, only when plotting P alone
+            if (polar eq 1 && offset[0] ne 0.) then norm[0:np-1] += (factor[0]*offset[0]) ; offset P, only when plotting P alone
         endif
         if (polar eq 2 || polar eq 3) then begin
             psi[0:np-1] = 0.5 * atan(tmp[0:np-1,2]*flipconv, tmp[0:np-1,1]) ; (Q,U) --> psi

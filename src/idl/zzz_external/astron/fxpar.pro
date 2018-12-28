@@ -17,8 +17,9 @@
 ;       with the given name.
 ;      
 ;       If the value is too long for one line, it may be continued on to the
-;       the next input card, using the OGIP CONTINUE convention.  For more info,
-;       http://heasarc.gsfc.nasa.gov/docs/heasarc/ofwg/docs/ofwg_recomm/r13.html
+;       the next input card, using the CONTINUE Long String Keyword convention.
+;       For more info, http://fits.gsfc.nasa.gov/registry/continue_keyword.html
+;       
 ;
 ;       Complex numbers are recognized as two numbers separated by one or more
 ;       space characters.

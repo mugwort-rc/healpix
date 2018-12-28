@@ -32,10 +32,9 @@ module medmod
   USE head_fits,  only: add_card
   use misc_utils, only: assert_alloc, fatal_error, wall_clock_time, brag_openmp
   USE pix_tools,  only: nside2npix, npix2nside, medfiltmap
-  USE extension,  only: getEnvironment
   USE paramfile_io, only: paramfile_handle, parse_init, parse_int, &
          parse_string, parse_double, parse_summarize, parse_lgt, parse_check_unused, parse_finish, &
-         concatnl
+         concatnl, get_healpix_test_dir
   implicit none
 
   character(len=*), parameter :: CODE = "MEDIAN_FILTER"

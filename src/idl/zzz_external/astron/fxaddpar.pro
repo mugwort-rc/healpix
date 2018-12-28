@@ -24,10 +24,10 @@
 ;       VALUE   = Value for parameter.  The value expression must be of the
 ;                 correct type, e.g. integer, floating or string.
 ;                 String values of 'T' or 'F' are considered logical
-;                 values.  If the value is a string and is "long"
-;                 (more than 69 characters), then it may be continued
-;                 over more than one line using the OGIP CONTINUE
-;                 standard.
+;                 values unless the /NOLOGICAL keyword is set.  If the value is
+;                 a string and is "long" (more than 69 characters), then it 
+;                 may be continued over more than one line using the OGIP 
+;                 CONTINUE standard.
 ;
 ; Opt. Inputs : 
 ;       COMMENT = String field.  The '/' is added by this routine.  Added
@@ -52,13 +52,18 @@
 ;       FORMAT  = Specifies FORTRAN-like format for parameter, e.g. "F7.3".  A
 ;                 scalar string should be used.  For complex numbers the format
 ;                 should be defined so that it can be applied separately to the
-;                 real and imaginary parts.
+;                 real and imaginary parts.      If not supplied, then the IDL
+;                 default formatting is used, except that double precision is
+;                 given a format of G19.12.
 ;
 ;       /NOCONTINUE = By default, FXADDPAR will break strings longer than 68 
 ;                characters into multiple lines using the continuation
 ;                convention.    If this keyword is set, then the line will
 ;                instead be truncated to 68 characters.    This was the default
 ;                behaviour of FXADDPAR prior to December 1999.  
+;
+;      /NOLOGICAL = If set, then the values 'T' and 'F' are not interpreted as
+;                logical values, and are simply added without interpretation.
 ;
 ;	ERRMSG	 = If defined and passed, then any error messages will be
 ;		   returned to the user in this parameter rather than
@@ -97,7 +102,7 @@
 ;       String values longer than 68 characters will be split into multiple
 ;       lines using the OGIP CONTINUE convention, unless the /NOCONTINUE keyword
 ;       is set.    For a description of the CONTINUE convention see    
-;       http://heasarc.gsfc.nasa.gov/docs/heasarc/ofwg/docs/ofwg_recomm/r13.htm
+;       http://fits.gsfc.nasa.gov/registry/continue_keyword.html
 ; Category    : 
 ;       Data Handling, I/O, FITS, Generic.
 ; Prev. Hist. : 
@@ -130,8 +135,10 @@
 ;       Version 4.2 W. Landsman July 2002, positioning of EXTEND keyword
 ;       Version 5, 23-April-2007, William Thompson, GSFC
 ;       Version 6, 02-Aug-2007, WTT, bug fix for OGIP long lines
+;       Version 6.1, 10-Feb-2009, W. Landsman, increase default format precision
+;       Version 6.2  30-Sep-2009, W. Landsman, added /NOLOGICAL keyword
 ; Version     : 
-;       Version 5, 23-April-2007
+;       Version 6.2, 30-Sep-2009
 ;-
 ;
 
@@ -219,7 +226,7 @@ END
 
 PRO FXADDPAR, HEADER, NAME, VALUE, COMMENT, BEFORE=BEFORE,      $
               AFTER=AFTER, FORMAT=FORMAT, NOCONTINUE = NOCONTINUE, $
-              ERRMSG=ERRMSG
+              ERRMSG=ERRMSG, NOLOGICAL=NOLOGICAL
 
         ON_ERROR,2                              ;Return to caller
 ;
@@ -528,7 +535,8 @@ REPLACE:
 
         IF TYPE[1] EQ 7 THEN BEGIN              ;which type?
                 UPVAL = STRUPCASE(VALUE)        ;force upper case.
-                IF (UPVAL EQ 'T') OR (UPVAL EQ 'F') THEN BEGIN
+                IF ~KEYWORD_SET(NOLOGICAL)  $ 
+		   &&  ((UPVAL EQ 'T') OR (UPVAL EQ 'F')) THEN BEGIN
                         STRPUT,H,UPVAL,29       ;insert logical value.
 ;
 ;  Otherwise, remove any tabs, and check for any apostrophes in the string.
@@ -624,7 +632,7 @@ REPLACE:
                 IF N_ELEMENTS(FORMAT) EQ 1 THEN BEGIN   ;use format keyword
                         VR = STRING(FLOAT(VALUE),    '('+STRUPCASE(FORMAT)+')')
                         VI = STRING(IMAGINARY(VALUE),'('+STRUPCASE(FORMAT)+')')
-                END ELSE BEGIN
+                 END ELSE BEGIN
                         VR = STRTRIM(FLOAT(VALUE),2)
                         VI = STRTRIM(IMAGINARY(VALUE),2)
                 ENDELSE
@@ -639,8 +647,11 @@ REPLACE:
 ;
         END ELSE BEGIN
                 IF (N_ELEMENTS(FORMAT) EQ 1) THEN $ ;use format keyword
-                        V = STRING(VALUE,'('+STRUPCASE(FORMAT)+')' ) ELSE $
+                        V = STRING(VALUE,'('+STRUPCASE(FORMAT)+')' ) ELSE BEGIN
+			IF TYPE[1] EQ 5 THEN $
+			V = STRING(VALUE,FORMAT='(G19.12)') ELSE $
                         V = STRTRIM(strupcase(VALUE),2)    ;default format
+			ENDELSE
                 S = STRLEN(V)                 ;right justify
                 STRPUT,H,V,(30-S)>10          ;insert
         ENDELSE

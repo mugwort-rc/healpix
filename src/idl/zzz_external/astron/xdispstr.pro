@@ -33,7 +33,7 @@
 ;
 ;  MODIFICATION HISTORY:
 ;     Written by R. S. Hill, RITSS, 17 Nov 2000
-;     Use cumulative keyword to TOTAL   W. Landsamn   May 2006
+;     Use cumulative keyword to TOTAL   W. Landsman   May 2006
 ;-
 
 

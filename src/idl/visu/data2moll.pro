@@ -29,7 +29,8 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
                planmap, Tmax, Tmin, color_bar, planvec, vector_scale, $
                PXSIZE=pxsize, LOG=log, HIST_EQUAL=hist_equal, MAX=max_set, MIN=min_set, FLIP=flip,$
                NO_DIPOLE=no_dipole, NO_MONOPOLE=no_monopole, UNITS = units, DATA_PLOT = data_plot, $
-               GAL_CUT=gal_cut, POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh
+               GAL_CUT=gal_cut, POLARIZATION=polarization, SILENT=silent, PIXEL_LIST=pixel_list, ASINH=asinh, $
+               TRUECOLORS=truecolors, DATA_TC=data_tc
 ;+
 ;==============================================================================================
 ;     DATA2MOLL
@@ -41,7 +42,7 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;          planmap, Tmax, Tmin, color_bar, planvec, vector_scale,
 ;          pxsize=, log=, hist_equal=, max=, min=, flip=, no_dipole=,
 ;          no_monopole=, units=, data_plot=, gal_cut=, polarization=, silent=,
-;          pixel_list=, asinh=
+;          pixel_list=, asinh=, truecolors=, data_tc=
 ;
 ; IN :
 ;      data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat
@@ -60,6 +61,8 @@ pro data2moll, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, c
 ;==============================================================================================
 ;-
 
+do_true = keyword_set(truecolors)
+truetype = do_true ? truecolors : 0
 du_dv = 2.    ; aspect ratio
 fudge = 1.02  ; spare some space around the Mollweide egg
 if keyword_set(flip) then flipconv=1 else flipconv = -1  ; longitude increase leftward by default (astro convention)
@@ -105,6 +108,7 @@ endif
 ; -------------------------------------------------------------
 if DEFINED(pxsize) then xsize= LONG(pxsize>200) else xsize = 800L
 ysize = xsize/2L
+zsize = (do_true) ? 3 : 1
 n_uv = xsize*ysize
 indlist = (n_elements(pixel_list) eq obs_npix)
 small_file = (n_uv GT obs_npix) 
@@ -146,31 +150,33 @@ if (small_file) then begin
         data_plot = data
     endelse
     ; color observed pixels
-    mindata = MIN(data[*,0],MAX=maxdata)
-    IF( mindata LE (bad_data*.9) or (1-finite(total(data[*,0])))) THEN BEGIN
-        Obs    = WHERE( data GT (bad_data*.9) AND finite(data[*,0]), N_Obs )
-        if (N_obs gt 0) then mindata = MIN(data[Obs,0],MAX=maxdata)
-;         if (N_Obs eq 0) then begin
-;             mindata = -1.0 & maxdata = 1.0
-;         endif else begin
-;             mindata = MIN(data[Obs,0],MAX=maxdata)
-;         endelse
-    ENDIF ELSE begin 
-        if defined(Obs) then begin
-            Obs = -1.
-            junk = temporary(Obs) ; Obs is not defined
-        endif
-    ENDELSE
-    data = COLOR_MAP(data, mindata, maxdata, Obs, $
-        color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent )
+    if (do_true) then begin
+        if (truetype eq 2) then begin
+            for i=0,2 do begin
+                find_min_max_valid, data_tc[*,i], mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
+                data_tc[0,i] = COLOR_MAP(data_tc[*,i], mindata, maxdata, Obs, $
+                                    color_bar = color_bar, mode=mode_col, silent=silent )
+            endfor
+        endif else begin
+            find_min_max_valid, data_tc, mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
+            data_tc = COLOR_MAP(data_tc, mindata, maxdata, Obs, $
+                                color_bar = color_bar, mode=mode_col, $
+                                minset = min_set, maxset = max_set, silent=silent )
+        endelse
+    endif else begin
+        find_min_max_valid, data[*,0], mindata, maxdata, valid=Obs, bad_data= 0.9 * bad_data
+        data = COLOR_MAP(data, mindata, maxdata, Obs, $
+                         color_bar = color_bar, mode=mode_col, $
+                         minset = min_set, maxset = max_set, silent=silent )
+    endelse
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         pol_data[0,0] = vector_map(pol_data[*,0], Obs, vector_scale = vector_scale)
     endif
     if defined(Obs) then Obs = 0
     Tmin = mindata & Tmax = maxdata
-    planmap = MAKE_ARRAY(/BYTE,xsize,ysize, Value = !P.BACKGROUND) ; white
+    planmap = MAKE_ARRAY(/BYTE, xsize, ysize, zsize, Value = !P.BACKGROUND) ; white
 endif else begin ; large file
-    planmap = MAKE_ARRAY(/FLOAT,xsize,ysize, Value = bad_data) 
+    planmap = MAKE_ARRAY(/FLOAT, xsize, ysize, zsize, Value = bad_data) 
     plan_off = 0L
 endelse
 if do_polvector then planvec = MAKE_ARRAY(/FLOAT,xsize,ysize, 2, Value = bad_data) 
@@ -251,25 +257,33 @@ for ystart = 0, ysize - 1, yband do begin
             else : print,'error on pix_type'
         endcase
         if (small_file) then begin ; (data and data_pol are already rescaled and color coded)
-            if (~ (do_polvector || do_polamplitude || do_poldirection) ) then begin
-                planmap[ystart*xsize+ellipse] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=2B) ; temperature
+            if (do_true) then begin
+                for i=0,zsize-1 do planmap[(ystart*xsize+i*n_uv)+ellipse] = data_tc[id_pix,i]
             endif else begin
-                planmap[ystart*xsize+ellipse] = data[id_pix]
+                if (~ (do_polvector || do_polamplitude || do_poldirection) ) then begin
+                    planmap[ystart*xsize+ellipse] = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=2B) ; temperature
+                endif else begin
+                    planmap[ystart*xsize+ellipse] = data[id_pix]
+                endelse
+                if (do_polvector) then begin
+                    planvec[ystart*xsize+ellipse]         = pol_data[id_pix,0] ; amplitude
+                    planvec[(ystart*xsize+n_uv)+ellipse]  = pol_data[id_pix,1] ; direction
+                endif
             endelse
-            if (do_polvector) then begin
-                planvec[ystart*xsize+ellipse]         = pol_data[id_pix,0] ; amplitude
-                planvec[(ystart*xsize+n_uv)+ellipse]  = pol_data[id_pix,1] ; direction
-            endif
         endif else begin ; (large file : do the projection first)
-            if (do_poldirection) then begin
-                planmap[ystart*xsize+ellipse] = (data[id_pix] - phi + 4*!PI) MOD (2*!PI) ; in 0,2pi
-            endif else if (do_polvector) then begin
-                planmap[ystart*xsize+ellipse]         = data[id_pix] ; temperature
-                planvec[ystart*xsize+ellipse]         = pol_data[id_pix,0] ; amplitude
-                planvec[(ystart*xsize+n_uv)+ellipse]  = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI); angle
-            endif else begin ; temperature only or amplitude only
-                ;planmap[ystart*xsize+ellipse]         = data[id_pix] ; temperature
-                planmap[ystart*xsize+ellipse]         = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value) ; temperature
+            if (do_true) then begin
+                for i=0,zsize-1 do planmap[(ystart*xsize+i*n_uv)+ellipse] = data_tc[id_pix,i]
+            endif else begin
+                if (do_poldirection) then begin
+                    planmap[ystart*xsize+ellipse] = (data[id_pix] - phi + 4*!PI) MOD (2*!PI) ; in 0,2pi
+                endif else if (do_polvector) then begin
+                    planmap[ystart*xsize+ellipse]         = data[id_pix] ; temperature
+                    planvec[ystart*xsize+ellipse]         = pol_data[id_pix,0] ; amplitude
+                    planvec[(ystart*xsize+n_uv)+ellipse]  = (pol_data[id_pix,1] - phi + 4*!PI) MOD (2*!PI) ; angle
+                endif else begin ; temperature only or amplitude only
+                                ;planmap[ystart*xsize+ellipse]         = data[id_pix] ; temperature
+                    planmap[ystart*xsize+ellipse]         = sample_sparse_array(data,id_pix,in_pix=pixel_list,default=!healpix.bad_value) ; temperature
+                endelse
             endelse
         endelse
     endif
@@ -283,28 +297,27 @@ endif else begin
 ; costly coloring operation on the Mollweide map
     data_plot = temporary(data)
     pol_data = 0
-    mindata = MIN(planmap,MAX=maxdata)
-    if (mindata LE (bad_data*.9) or (1-finite(total(planmap)))) then begin
-        Obs    = WHERE(planmap GT (bad_data*.9) AND finite(planmap), N_Obs )
-;         if (N_Obs eq 0) then begin
-;             mindata = -1. & maxdata = 1.
-;         endif else begin
-;             mindata = MIN(planmap[Obs],MAX=maxdata)
-;         endelse
-        if (N_Obs gt 0) then mindata = MIN(planmap[Obs],MAX=maxdata)
-    endif else begin
-        if defined(Obs) then begin
-            Obs = 0
-            junk = temporary(Obs) ; Obs is not defined
-        endif
-    endelse
+    find_min_max_valid, planmap, mindata, maxdata, valid= Obs, bad_data = 0.9 * bad_data
     if (do_poldirection) then begin
         min_set = 0.
         max_set = 2*!pi
     endif
-    planmap = COLOR_MAP(planmap, mindata, maxdata, Obs, $
-            color_bar = color_bar, mode=mode_col, minset = min_set, maxset = max_set, silent=silent)
-    planmap(plan_off) = !P.BACKGROUND ; white
+    if (truetype eq 2) then begin
+        ; truecolors=2 map each field to its color independently
+        color = bytarr(xsize,ysize,zsize)
+        for i=0,zsize-1 do begin
+            find_min_max_valid, planmap[*,*,i], mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
+            color[0,0,i] = COLOR_MAP(planmap[*,*,i], mindata, maxdata, Obs, $
+                          color_bar = color_bar, mode=mode_col, silent=silent)
+        endfor
+        planmap = color
+    endif else begin
+        ; same for truecolors=1 and false colors:
+        planmap = COLOR_MAP(planmap, mindata, maxdata, Obs, $
+                            color_bar = color_bar, mode=mode_col, $
+                            minset = min_set, maxset = max_set, silent=silent)
+    endelse
+    for i=0,zsize-1 do planmap[plan_off+i*n_uv] = !p.background ; white
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)
         planvec[plan_off] = -1

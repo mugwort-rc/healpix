@@ -93,6 +93,9 @@ pro writefits, filename, data, header, heap, Append = Append,  $
 ;       Set nbytes variable to LONG64 for very large files WL  May 2007
 ;       Update CHECKSUM keywords if already present  WL   Oct 2007
 ;       EXTEND keyword no longer required in FITS files with extensions WL Feb 2008
+;       Bug fix when filename ends with '.gz' and COMPRESS is used,
+;            the output file must be compressed          S. Koposov June 2008 
+
 ;-
   On_error, 2
   compile_opt idl2  
@@ -188,10 +191,10 @@ pro writefits, filename, data, header, heap, Append = Append,  $
     endif else begin
 
         ext = ''
-        if keyword_set(COMPRESS) then $
+        if keyword_set(COMPRESS) then begin 
             if strlowcase(strmid(filename,2,3,/reverse)) NE '.gz' $
-               then ext = '.gz' $
-        else compress = 0
+               then ext = '.gz' 
+        endif else compress = 0
 
 
        openw, unit, filename + ext, /GET_LUN, /swap_if_little_endian, $

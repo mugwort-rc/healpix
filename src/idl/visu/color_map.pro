@@ -62,7 +62,7 @@ do_hist  = (mode and 1)
 do_log   = (mode and 2)/2
 do_asinh = (mode and 4)/4
 if (do_asinh && (do_log || do_hist)) then begin
-    message,'Asinh mode can be used together with Log or Hist mode'
+    message,'Asinh mode can NOT be used together with Log or Hist mode'
 endif
 
 N_Color = !D.n_colors < 256
@@ -72,6 +72,7 @@ npix = n_elements(data)
 Color = MAKE_ARRAY(/BYTE, npix, Value = 2B)
 color_bar = [2B]
 if (sz(0) eq 2) then Color = reform(color,/over,sz(1),sz(2))
+if (sz(0) eq 3) then Color = reform(color,/over,sz(1),sz(2),sz(3))
 if defined(Obs) then begin
     if Obs[0] eq -1 then return, color
     N_obs = n_elements(Obs)

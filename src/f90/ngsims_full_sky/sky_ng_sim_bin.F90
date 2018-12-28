@@ -51,9 +51,10 @@ Program sky_ng_sim_bin
   USE head_fits, ONLY : add_card, merge_headers, get_card, write_minimal_header, del_card
 !  USE utilities, ONLY : die_alloc
   use misc_utils, only : wall_clock_time, assert_alloc
-  USE extension, ONLY : getEnvironment, getArgument, nArguments
+  USE extension, ONLY : getArgument, nArguments
   USE paramfile_io, ONLY : paramfile_handle, parse_int, parse_init, parse_string, &
-       &parse_lgt, parse_double, concatnl, scan_directories, parse_summarize
+       & parse_lgt, parse_double, concatnl, scan_directories, parse_summarize, &
+       & get_healpix_data_dir, get_healpix_test_dir
   Use sky_sub
   USE sub_ngpdf_sho
   USE sub_ngpdf_powergauss
@@ -91,7 +92,7 @@ Program sky_ng_sim_bin
   CHARACTER(LEN=filenamelen)          :: def_dir, def_file
   CHARACTER(LEN=filenamelen)          :: usr_dir, usr_file
   CHARACTER(LEN=filenamelen)          :: final_file
-  CHARACTER(LEN=filenamelen)          :: healpixdir
+  CHARACTER(LEN=filenamelen)          :: healpixtestdir
   Character(LEN=filenamelen)          :: beam_file
   character(len=filenamelen)          :: description
   character(len=100)                  :: chline,chline1,chline2
@@ -212,16 +213,7 @@ Program sky_ng_sim_bin
   windowname="pixel_window_n"//trim(sstr)//".fits"
 
   def_file = trim(windowname)
-  def_dir  = concatnl("","../data","./data","..")
-  call getEnvironment("HEALPIX",healpixdir)
-  if (trim(healpixdir) .ne. "") then
-     def_dir = concatnl(&
-          & def_dir, &
-          & healpixdir, &
-          & trim(healpixdir)//"data", &
-          & trim(healpixdir)//"/data", &
-          & trim(healpixdir)//char(92)//"data") !backslash
-  endif
+  def_dir  = get_healpix_data_dir()
 
 22 continue
   final_file = ''
@@ -321,8 +313,8 @@ Program sky_ng_sim_bin
 
      !     --- get filename for input power spectrum ---
      chline = ''
-     call getEnvironment("HEALPIX",healpixdir)
-     if (trim(healpixdir)/='') chline = trim(healpixdir)//'/test/cl.fits'
+     healpixtestdir = get_healpix_test_dir()
+     if (trim(healpixtestdir)/='') chline = trim(healpixtestdir)//'/cl.fits'
      description = concatnl( "", &
           & " Enter input Power Spectrum filename", &
           & " Can be either in FITS format or in the format produced by CAMB.")

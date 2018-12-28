@@ -1523,12 +1523,13 @@ contains
     use fitstools, only : getsize_fits, read_dbintab
     use extension, only : getEnvironment
     use pix_tools, only : nside2npix
+    use paramfile_io, only: get_healpix_data_dir, scan_directories
 
     real(DP),     dimension(0:,1:), intent(OUT)          :: pixlw
     character(len=*),             intent(IN), optional :: windowfile
     integer(i4b),                 intent(IN), optional :: nside
 
-    character(len=filenamelen) :: wfile, wfile_def, healpixdir
+    character(len=filenamelen) :: wfile, wfile_def, healpixdatadir
     character(len=4) :: sstr
     integer(I4B) :: npw_file, ncolw_file, npix
     integer(I4B) :: npw, ncolw, i
@@ -1558,15 +1559,18 @@ contains
           call fatal_error
        endif
        sstr = trim(string(nside,'(i4.4)'))
-       wfile_def = "data/pixel_window_n"//trim(sstr)//".fits"
-       call getEnvironment("HEALPIX",healpixdir)
+!        wfile_def = "data/pixel_window_n"//trim(sstr)//".fits"
+!        call getEnvironment("HEALPIX",healpixdir)
 
-       wfile = trim(healpixdir)//wfile_def
-       inquire(file=wfile, exist = good)
-       if (good) goto 10
-       wfile = trim(healpixdir)//'/'//wfile_def
-       inquire(file=wfile, exist = good)
-       if (good) goto 10
+!        wfile = trim(healpixdir)//wfile_def
+!        inquire(file=wfile, exist = good)
+!        if (good) goto 10
+!        wfile = trim(healpixdir)//'/'//wfile_def
+!        inquire(file=wfile, exist = good)
+!        if (good) goto 10
+       healpixdatadir = get_healpix_data_dir()
+       wfile_def = "pixel_window_n"//trim(sstr)//".fits"
+       good = scan_directories(healpixdatadir, wfile_def, wfile)
     endif
     if (.not.good) then
        print*,code//trim(wfile)//' not found'

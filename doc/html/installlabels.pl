@@ -10,7 +10,7 @@ $key = q/sec:windows/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:freef90compilers/;
+$key = q/sec:using_gdl/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -22,15 +22,19 @@ $key = q/fig:dirtree/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
-$key = q/subsub:conf/;
-$external_labels{$key} = "$URL/" . q|install.htm|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:troubleshoot/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:newfeatures/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:freef90compilers/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
+$key = q/subsub:conf/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
@@ -51,6 +55,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:windows/;
 $external_latex_labels{$key} = q|6.1|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:using_gdl/;
+$external_latex_labels{$key} = q|6.8|; 
 $noresave{$key} = "$nosave";
 
 $key = q/page:dirtree/;
@@ -74,7 +82,7 @@ $external_latex_labels{$key} = q|7|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:freef90compilers/;
-$external_latex_labels{$key} = q|7.4.4|; 
+$external_latex_labels{$key} = q|7.5.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsub:conf/;
