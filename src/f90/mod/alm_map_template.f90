@@ -4612,17 +4612,20 @@
   subroutine map2alm_iterative_KLOAD(nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC, &
        &   zbounds, w8ring, plm, mask)
     ! 2008-07-10: bug correction on map2alm for T only map: only pass temperature weights
+    ! 2008-11-06: adjust w8ring_in 2nd dimension to actual w8ring
+    ! 2008-11-27: patch to ignore dimension of non presen optional array (plm)
+    ! 2008-12-03: use pointer toward map and plm section (avoid stack overloading)
   !=======================================================================
 
     use statistics, only: tstats, compute_statistics
     use pix_tools,  only: nside2npix
     implicit none
     integer(I4B),   intent(IN)                       :: nsmax, nlmax, nmmax, iter_order
-    real(KMAP),     intent(INOUT),  dimension(0:,1:)    :: map_TQU
+    real(KMAP),     intent(INOUT),  dimension(0:,1:), target    :: map_TQU
     complex(KALMC), intent(INOUT), dimension(1:,0:,0:) :: alm_TGC
     real(DP),       intent(IN),  dimension(1:2),    optional :: zbounds
     real(DP),       intent(IN),  dimension(1:,1:), optional :: w8ring
-    real(DP),       intent(IN),  dimension(0:,1:), optional :: plm
+    real(DP),       intent(IN),  dimension(0:,1:), optional, target :: plm
     real(KMAP),     intent(IN),  dimension(0:,1:),   optional :: mask
     ! local variables
     real(DP), dimension(1:2)         :: zbounds_in
@@ -4638,6 +4641,8 @@
     complex(KALMC),allocatable,  dimension(:,:,:) :: alm_TGC_out
 
     character(len=*), parameter :: code = 'map2alm_iterative'
+    real(KMAP), pointer, dimension(:) :: p_map_1
+    real(DP),   pointer, dimension(:) :: p_plm_1
     !=======================================================================
 
     n_maps = size(map_TQU,2)
@@ -4673,9 +4678,13 @@
        n1_plm =  (nmmax+1_I8B) * (2*nlmax-nmmax+2_I8B) * nsmax
        if (size(plm,1) >= n1_plm) n_plms = size(plm,2) ! 1 or 3
        if (n_plms /= 0 .and. n_plms /= 1 .and. n_plms /= 3) then
-          print*,'invalid 2nd dim for plm: ',n_plms
-          print*,'(should be 1 or 3) '
-          call fatal_error(code)
+          if (abs(n_plms) > 1000) then ! edited 2008-11-27
+             n_plms = 0 ! ignore Plm on compilers returning stupid values for dangling arrays
+          else
+             print*,'invalid 2nd dim for plm: ',n_plms
+             print*,'(should be 1 or 3) '
+             call fatal_error(code)
+          endif
        endif
     endif
     if (polar == 0) n_plms = min(n_plms,1)
@@ -4740,6 +4749,7 @@
        call fatal_error(code)
     endif
 
+    nullify(p_map_1, p_plm_1) ! for sanity
     ! -------------------------------------
     ! start iterative (Jacobi) analysis
     ! -------------------------------------
@@ -4747,15 +4757,19 @@
        ! map -> alm
        select case (n_plms+polar*10)
        case(0) ! Temperature only
-          call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds_in, w8ring_in(:,1:1))
+          p_map_1 => map_TQU(:,1)
+          call map2alm(nsmax, nlmax, nmmax, p_map_1, alm_TGC, zbounds_in, w8ring_in(:,1:1))
        case(1) ! T with precomputed Ylm
-          call map2alm(nsmax, nlmax, nmmax, map_TQU(:,1), alm_TGC, zbounds_in, w8ring_in(:,1:1),plm(:,1))
+          p_map_1 => map_TQU(:,1)
+          p_plm_1 => plm(:,1)
+          call map2alm(nsmax, nlmax, nmmax, p_map_1, alm_TGC, zbounds_in, w8ring_in(:,1:1), p_plm_1)
        case(10) ! T+P
           call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in)
        case(11) ! T+P with precomputed Ylm_T
-          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in,plm(:,1))
+          p_plm_1 => plm(:,1)
+          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in, p_plm_1)
        case(13) ! T+P with precomputed Ylm
-          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in,plm)
+          call map2alm(nsmax, nlmax, nmmax, map_TQU, alm_TGC, zbounds_in, w8ring_in, plm)
        case default 
           print*,'Invalid configuration'
           call fatal_error(code)
@@ -4787,13 +4801,13 @@
        ! alm_2 -> map : reconstructed map
        select case (n_plms+polar*10)
        case(0)
-          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU(:,1))
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, p_map_1)
        case(1)
-          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU(:,1), plm(:,1))
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, p_map_1, p_plm_1)
        case(10)
           call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU)
        case(11)
-          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU, plm(:,1))
+          call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU, p_plm_1)
        case(13)
           call alm2map(nsmax, nlmax, nmmax, alm_TGC_out, map_TQU, plm)
        case default 
@@ -4825,6 +4839,9 @@
        map_TQU = map_TQU_in ! input map
        deallocate(alm_TGC_out, map_TQU_in)
     endif
+ 
+    if (associated(p_map_1)) nullify(p_map_1)
+    if (associated(p_plm_1)) nullify(p_plm_1)
 
     return
   end subroutine map2alm_iterative_KLOAD
@@ -4995,7 +5012,7 @@
     REAL(DP), DIMENSION(:,:), ALLOCATABLE :: pixlw, beamw
     REAL(DP), DIMENSION(0:nlmax)          :: cls_tt, cls_tg, cls_gg, cls_cc
     REAL(DP), DIMENSION(0:nlmax,1:4)      :: cl_in
-    REAL(DP), DIMENSION(:),   ALLOCATABLE :: fact_norm
+!    REAL(DP), DIMENSION(:),   ALLOCATABLE :: fact_norm
 
     CHARACTER(LEN=*), PARAMETER :: code = 'CREATE_ALM'
     CHARACTER(LEN=*), PARAMETER :: version = '2.0.0'
@@ -5070,19 +5087,12 @@
        enddo
     enddo
 
-    allocate( fact_norm(0:nlmax),stat = status)
-    call assert_alloc(status,code,'fact_norm')
-    do l=1, nlmax
-       fact_norm(l) = 1.0_dp         !   Normalisation=1, 'pure' C_ls are expected
-    enddo
-    fact_norm(0) = 1.0_dp
-
+    ! 2009-01-07: removed fact_norm, was creating problem with PGF90
     !     we always expect 4 columns, in the order T, G(=E), C(=B) and TG(=TE)
-    cls_tt(0:l_max) = cl_in(0:l_max,1) / fact_norm(0:l_max)
-    cls_gg(0:l_max) = cl_in(0:l_max,2) / fact_norm(0:l_max)
-    cls_cc(0:l_max) = cl_in(0:l_max,3) / fact_norm(0:l_max)
-    cls_tg(0:l_max) = cl_in(0:l_max,4) / fact_norm(0:l_max)
-    deallocate(fact_norm)
+    cls_tt(0:l_max) = cl_in(0:l_max,1)
+    cls_gg(0:l_max) = cl_in(0:l_max,2)
+    cls_cc(0:l_max) = cl_in(0:l_max,3)
+    cls_tg(0:l_max) = cl_in(0:l_max,4)
 
     ! converts units for power spectrum into units for maps
     if (present(units)) then

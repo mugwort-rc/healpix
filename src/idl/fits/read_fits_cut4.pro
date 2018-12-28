@@ -94,6 +94,7 @@ HDR = header, XHDR = xheader, NSIDE=nside, ORDERING=ordering, COORDSYS=coordsys,
 ;        Sept 2000, EH, Caltech
 ;        Aug  2002: use HDR and XHDR keywords to match other routines
 ;        Jan 2005: added NSIDE and ORDERING as outputs
+;       Jan 2009: calls init_astrolib
 ;-
 
 routine = 'READ_FITS_CUT4'
@@ -108,8 +109,7 @@ if (datatype(filename) ne 'STR') then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 fits_info, filename, /silent, n_ext = n_ext
 x0 = (defined(extension_id)) ? extension_id : 0

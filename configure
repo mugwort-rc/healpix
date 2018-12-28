@@ -1,15 +1,26 @@
-#!/bin/sh
+#! /bin/sh
 #
 # configuration script for Healpix
 # will configure (and compile) the C, C++, F90 and IDL packages
 #
-# works in Bourne(-Again) and Korn shells
+# It is free of bashims, and should work with
+#          Bourne Shell       (sh)
+#          Bourne-Again Shell (bash)
+#          Korn Shell         (ksh)
+# and most versions of 
+#          Debian Almquist Shell (dash)
+#
+# If is crashes unexpectedly, try replacing the first line above
+# from   #! /bin/sh 
+# to     #! /bin/bash
+# or     #! /bin/ksh
 #
 # 2008-03-26, IAP, EH
+# 2009-01-08: added comments on shells above
 #
 
 # version number
-HPXVERSION=2.11
+HPXVERSION=2.11c
 
 #-------------
 welcome () {

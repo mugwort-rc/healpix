@@ -1,7 +1,7 @@
 TEMP1	= $(SRCROOT)/alice
 VPATH	= $(TEMP1) $(LIBDIR)
 
-BINARIES= generateTexture test alice2 testSoSSkyMap testMollweideSkyMap testOrthogonalSkyMap
+BINARIES= generateTexture alice_test alice2 testSoSSkyMap testMollweideSkyMap testOrthogonalSkyMap
 
 include $(PARAMFILE)
 
@@ -30,7 +30,7 @@ alice2: $(ALICE2_OBJ) libhealpix_cxx.a libcxxsupport.a libcfitsio.a
 	$(CXXL) $(CXXLFLAGS) -o $@ $(ALICE2_OBJ) -lhealpix_cxx \
 	-lcxxsupport -lcfitsio -lfftpack $(CXX_EXTRALIBS)
 
-test: $(TEST_OBJ) libhealpix_cxx.a libcxxsupport.a libcfitsio.a
+alice_test: $(TEST_OBJ) libhealpix_cxx.a libcxxsupport.a libcfitsio.a
 	$(CXXL) $(CXXLFLAGS) -o $@ $(TEST_OBJ) -lhealpix_cxx \
 	-lcxxsupport -lcfitsio -lfftpack $(CXX_EXTRALIBS)	
 

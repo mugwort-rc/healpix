@@ -158,6 +158,7 @@ PRO READ_FITS_MAP, filename, T_sky, hdr, exthdr, SILENT=silent, PIXEL=pixel, NSI
 ;        Jan 2005: added NISDE and ORDERING as outputs
 ;  May 2005, EH, replaces FINDFILE by FILE_TEST
 ;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
+;  Jan 2009: calls init_astrolib
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -173,8 +174,7 @@ if N_params() LT 2 then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 ; get the primary header information
 if (datatype(filename) ne 'STR') then begin

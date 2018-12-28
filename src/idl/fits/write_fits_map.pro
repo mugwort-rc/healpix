@@ -95,12 +95,11 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;  Oct 2001, EH, slightly improved removal of trivial FITS keyword from
 ;    user supplied header
 ;  Mar 2008, EH, use fxbwritm for better efficiency for large files
+;  Jan 2009: calls init_astrolib
 ;
 ;-
 
-
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 code = 'WRITE_FITS_MAP'
 syntax_string = ['Syntax : '+code+', filename, data $',$

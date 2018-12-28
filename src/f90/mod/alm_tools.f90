@@ -230,6 +230,7 @@ module alm_tools
   ! July, Sep-Oct 2007: added alm2map_spin, map2alm_spin
   ! Oct 2007: zbounds and w8rings optional in map2alm (without plm)
   ! Nov 2008: correction of a crash bug in map2alm_iterative
+  ! Jan 2009: correction of a PGF90 specific bug in create_alm
   ! =====================================================
   ! about the F90 compilers 'features'
   ! - Intel compiler (ifc) (and maybe the other compilers as well)

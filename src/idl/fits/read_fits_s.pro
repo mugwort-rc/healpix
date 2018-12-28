@@ -99,6 +99,7 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;  Jan 2007: will exit gracefully if file contains image, but not requested extension
 ;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
 ;  June 2008, EH: can deal with file with large TFORM
+;  Jan 2009: calls init_astrolib
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -114,8 +115,7 @@ if N_params() eq 0 then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 if N_params() LT 1 or N_params() GT 3 then begin
     prim_stc = 0 & xten_stc = 0

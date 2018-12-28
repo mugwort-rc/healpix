@@ -23,7 +23,7 @@ sky_bin.par - example parameter file for sky_ng_sim_bin
 
 Integration in Healpix
 ----------------------
-- in progress, sky_ng_sim_bin does not compile as yet
+- in progress, sky_ng_sim and sky_ng_sin_bin will eventually be merged into a single code
 - replacement of idum parameter with iseed, to be consistent with synfast.
 - No pgplot, unless the preprocessing directive PGPLOT is given during compilation
-example: my_ng_sim.par
+examples: my_ng_sim.par   and   my_ng_sim_bin.par

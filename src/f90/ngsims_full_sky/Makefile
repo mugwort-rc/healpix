@@ -5,9 +5,9 @@ exec1	= $(BINDIR)/sky_ng_sim
 src1	= sky_ng_sim
 obj1 	= sky_sub.o  sub_ngpdf_powergauss.o  sub_ngpdf_sho.o  sky_ng_sim.o
 
-# exec2	= 
-# src2	= 
-# obj2 	= 
+exec2	= $(BINDIR)/sky_ng_sim_bin
+src2	= sky_ng_sim_bin
+obj2 	= sky_sub.o  sub_ngpdf_powergauss.o  sub_ngpdf_sho.o  sky_ng_sim_bin.o
 
 %.o: %.f90
 	$(FC) $(FFLAGS)  -c $< -o $@
@@ -25,7 +25,10 @@ obj1 	= sky_sub.o  sub_ngpdf_powergauss.o  sub_ngpdf_sho.o  sky_ng_sim.o
 	$(FC) $(FFLAGS)  $(ADDUS) $(PPFLAGS) $(PGFLAG) -c $< -o $@;; \
 	esac
 
-default: $(exec1)
+default: $(exec1) $(exec2)
 
 $(exec1): $(obj1) $(LIBDIR)/libhealpix.a
 	$(FC)  $(FFLAGS) -o $(exec1) $(obj1) $(PGLIBS) $(LDFLAGS)
+
+$(exec2): $(obj2) $(LIBDIR)/libhealpix.a
+	$(FC)  $(FFLAGS) -o $(exec2) $(obj2) $(PGLIBS) $(LDFLAGS)

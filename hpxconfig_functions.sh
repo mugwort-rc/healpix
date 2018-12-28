@@ -2,12 +2,19 @@
 # Bourne/Korn shell functions required to configure Healpix packages
 # ------------------------------------------------------------
 # 2008-03-26, IAP, EH
+# 2008-07-24  ---> version 2.10
 # 2008-09-22, EH: remove need for IDL_DIR
 #             no long term effects (on IDL_PATH and IDL_STARTUP) of hidl or hidlde
 #             do not expand HEALPIX variable in F90 config file
 # 2008-09-26: more stringent tests on F90 compiler (checkF90Compilation) and
 #                linkage to fitsio (checkF90FitsioLink)
 #             clean-up macros creating 'to_be_removed' files
+# 2008-11-13  ---> version 2.11
+# 2008-11-17: corrected typo in C 'c-shared' target
+#             detects correctly gfortran for version >= 4.3
+# 2008-11-21: solved potential problem with multiple cfitio*.tar.gz for C++
+#             introduced ${HEAD}
+#             replaced ~ with ${HOME}
 #
 #=====================================
 #=========== General usage ===========
@@ -57,7 +64,7 @@ echoLn () {
 }
 #-------------
 findFITSLib () {
-    for dir in $1 /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/src/cfitsio ~/lib ~/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
+    for dir in $1 /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
 	if [ -r "${dir}/lib${LIBFITS}.a" ] ; then
 	    FITSDIR=$dir
 	    break
@@ -66,7 +73,7 @@ findFITSLib () {
 }
 #-------------
 findFITSInclude () {
-    for dir in $1 /usr/include /usr/local/include /usr/local/src/cfitsio ~/include ~/include64 ./src/cxx/${HEALPIX_TARGET}/include/ ; do
+    for dir in $1 /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ ; do
 	if [ -r "${dir}/fitsio.h" ] ; then
 	    FITSINC=$dir
 	    break
@@ -226,7 +233,8 @@ editCMakefile () {
 	if [ "${OS}" == "Darwin" ]; then
 	    clibtypes="${clibtypes} c-dynamic"
 	else
-	    clibtypes="${clibtypes} shared"
+	    ###clibtypes="${clibtypes} shared" # corrected 2008-11-17
+	    clibtypes="${clibtypes} c-shared"
 	fi
     fi
 
@@ -301,8 +309,10 @@ getFitsTarFile () {
 	TARFITS=`${BASENAME} $FULLTARFITS`
     else
 	cd $CXXFITSDIR
-	list=`${LS} -r | ${GREP} cfitsio | ${GREP} tar.gz`
-	TARFITS=`${BASENAME} ${list[0]}`
+#	list=`${LS} -r | ${GREP} cfitsio | ${GREP} tar.gz`   # modified 2008-11-21
+#	TARFITS=`${BASENAME} ${list[0]}`
+	list=`${LS} -r | ${GREP} cfitsio | ${GREP} tar.gz | ${HEAD} -1`
+	TARFITS=`${BASENAME} ${list}`
 	cd $HEALPIX 
     fi
 }
@@ -953,12 +963,13 @@ IdentifyCompiler () {
 	nlah=`$FC --version 2>&1 | ${GREP} -i lahey | ${WC} -l`
 	nfuj=`$FC -V 2>&1 | ${GREP} -i fujitsu | ${WC} -l`
 #	nvas=`$FC | ${GREP} -i sierra | ${WC} -l`
-#  	nxlf=`man $FC | head -10 | ${GREP} XL | ${WC} -l`
-	nxlf=`$FC --help 2>&1 | head -15 | ${GREP} XL | ${WC} -l`
+#  	nxlf=`man $FC | ${HEAD} -10 | ${GREP} XL | ${WC} -l`
+	nxlf=`$FC --help 2>&1 | ${HEAD} -15 | ${GREP} XL | ${WC} -l`
 #	nxlf=`$FC -qversion 2>&1 | ${GREP} XL | ${WC} -l` # to be tested
 	nabs=`$FC -V 2>&1 | ${GREP} 'Pro Fortran' | ${WC} -l`
 	ng95=`$FC -dumpversion 2>&1 | ${GREP} 'g95' | ${WC} -l`
-	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${GREP} 'GCC' | ${WC} -l`
+#	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${GREP} 'GCC' | ${WC} -l` # corrected 2008-11-17
+	ngfortran=`$FC -dumpversion 2>&1 | ${GREP} 'GNU Fortran' | ${WC} -l`
 	npath=`$FC -v 2>&1 | ${GREP} -i ekopath | ${WC} -l`
         if [ $nima != 0 ] ; then
                 FCNAME="Imagine F compiler"
@@ -1619,6 +1630,7 @@ setTopDefaults() {
     DIRNAME="dirname"
     FILE="file"
     GREP="grep"
+    HEAD="head" # introduced 2008-11-21
     LS="ls"
     MAKE="make"
     NM="nm"

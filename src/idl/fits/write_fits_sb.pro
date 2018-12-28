@@ -125,6 +125,8 @@ pro write_fits_sb, filename, prim_st, exten_st, Coordsys=coordsys, Nested=nested
 ;  March 2005, EH, extreme speed improvement (x10) by writing only a few rows
 ;       at a time
 ;  May 2005, EH, replaces FINDFILE by FILE_TEST
+;  Jan 2009: calls init_astrolib
+;-
 ;
 ; NB : do NOT use 'T' or 'F' as the tag names
 ;-
@@ -135,8 +137,7 @@ if n_params() ne 3 then begin
     message,'    [Coordsys=, Ring=, Nested=, Ordering=, Partial=, Nside=, Extension=, Nothealpix=]',/nopref,/noname
 endif
 
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 ;-------------------------------------------------------------------------------
 create = 1 - keyword_set(extension_id)

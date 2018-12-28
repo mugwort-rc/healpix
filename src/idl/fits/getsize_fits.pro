@@ -72,6 +72,7 @@ function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, or
 ;      adapted from F90 getsize_fits
 ;      EH, 2000-11
 ;      2008-04-01: accepts compressed files
+;       Jan 2009: calls init_astrolib
 ;-
 
 routine = 'getsize_fits'
@@ -82,8 +83,7 @@ if n_params() eq 0 then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib       ; if not, run astrolib to do so
+init_astrolib
 
 fsize  = 0
 type  = -1

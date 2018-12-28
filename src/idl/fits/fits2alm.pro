@@ -84,6 +84,7 @@ PRO FITS2ALM, index, alm_array, fitsfile, signal, HDR = hdr, XHDR = xhdr
 ;       May 2005, EH, replaces FINDFILE by FILE_TEST
 ;       Aug 2005, EH: make output alm_array of same precision as FITS file data
 ;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
+;       Jan 2009: calls init_astrolib
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -98,8 +99,7 @@ endif
 if (not file_test(fitsfile)) then message,'file '+fitsfile+' not found'
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib      ; if not, run astrolib to do so
+init_astrolib
 
 hdr  = HEADFITS(fitsfile)
 

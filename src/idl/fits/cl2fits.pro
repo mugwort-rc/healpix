@@ -101,6 +101,7 @@ PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = 
 ;       May 2005, EH: added keywords in FITS header: MAX-LPOL, POLAR, BCROSS, UNITS
 ;       May 2007. EH: added beamwindow
 ;       Oct 2008. EH: prints out 'BL2FITS' in /beamwindow mode
+;       Jan 2009: calls init_astrolib
 ;-
 
 code = 'CL2FITS'
@@ -125,8 +126,7 @@ if datatype(cl_array) eq 'STR' or datatype(fitsfile) ne 'STR' then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib      ; if not, run astrolib to do so
+init_astrolib
 
 if n_elements(hdr)  eq 0 then hdr  = ' '
 if n_elements(xhdr) eq 0 then xhdr = ' '

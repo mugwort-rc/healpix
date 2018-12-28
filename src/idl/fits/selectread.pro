@@ -114,7 +114,7 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;  June 2008: EH, modified to deal with files with very large TFORM
 ;                 corrected documentation header wrt offset/factor
 ;  Oct 2008, EH: allows offsetting of polarization norm when poltype=1
-;
+;  Dec 2008, EH: use OR instead of '||' for non-scalar tests
 ;-
 
 if (n_params() lt 2) then begin
@@ -154,7 +154,7 @@ if (xtn eq 0 && fcb.nextend eq 0) then begin
     if polar gt 0 then message,'no polarisation information found in '+file
     fits_read, fcb, array, exten_no = xtn
     if (do_rescale) then begin
-        bad_pixels = where(array le (bad_data*0.9) || finite(array,/nan), nbad)
+        bad_pixels = where(array le (bad_data*0.9) or finite(array,/nan), nbad)
         if (nbad gt 0)    then array[bad_pixels] = !values.f_nan
         if (factor ne 1.) then array = temporary(array) * factor 
         if (offset ne 0.) then array = temporary(array) + (factor*offset)
@@ -221,7 +221,7 @@ while (w_start LE (n_words-1) ) do begin
         for i=0,nmaps-1 do begin
             x = (tbget(tab_xhdr, data, cols[i]))[*]
             if (do_rescale) then begin
-                bad_pixels = where(x le (bad_data*0.9) || finite(x,/nan), nbad)
+                bad_pixels = where(x le (bad_data*0.9) or finite(x,/nan), nbad)
                 if (nbad gt 0)    then x[bad_pixels] = !values.f_nan
                 if (factor ne 1.) then x = x * factor 
                 if (offset ne 0.) then x = x + (factor*offset)
@@ -236,7 +236,7 @@ while (w_start LE (n_words-1) ) do begin
         for i=0,2 do begin
             tmp[0,i] = (tbget(tab_xhdr, data, i+1))[*]
             if (do_rescale) then begin
-                bad_pixels = where(tmp[*,i] le (bad_data*0.9) || finite(tmp[*,i],/nan), nbad)
+                bad_pixels = where(tmp[*,i] le (bad_data*0.9) or finite(tmp[*,i],/nan), nbad)
                 if (nbad gt 0)    then tmp[bad_pixels,i] = !values.f_nan
                 if (factor ne 1.) then tmp[*,i] *= factor  ; rescale all fields
                 if (offset ne 0. && i eq 0) then tmp[*,i] +=  (factor*offset) ; only offset temperature

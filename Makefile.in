@@ -139,6 +139,7 @@ f90-vclean: f90-clean
 	for p in $(f90-prog); do \
 	$(RM) $(F90_BINDIR)/$$p; \
 	done
+	$(RM) $(F90_BINDIR)/sky_ng_sim*
 	$(RM) $(F90_INCDIR)/*.$(F90_MOD)
 	$(RM) $(F90_INCDIR)/*.pc $(F90_INCDIR)/*.pcl
 	$(RM) $(F90_LIBDIR)/*.a

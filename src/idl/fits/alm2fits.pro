@@ -87,6 +87,7 @@ PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr
 ;       Feb 2000: replace today() by today_fits(), EH (Caltech)      
 ;       Aug 2002: added EXTNAME and TTYPE* keywords, EH (IPAC)
 ;       Aug 2005: replaced FXBWRITE by much faster FXBWRITM
+;       Jan 2009: calls init_astrolib
 ;-
 
 if N_params() LT 3 or N_params() gt 5 then begin
@@ -95,8 +96,7 @@ if N_params() LT 3 or N_params() gt 5 then begin
 endif
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib      ; if not, run astrolib to do so
+init_astrolib
 
 if n_elements(hdr)  eq 0 then hdr  = ' '
 if n_elements(xhdr) eq 0 then xhdr = ' '

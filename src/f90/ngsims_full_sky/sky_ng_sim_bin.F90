@@ -45,11 +45,12 @@ Program sky_ng_sim_bin
   ! Uses Healpix pixelisation and subroutines
 
   USE healpix_types
-  USE alm_tools, ONLY : map2alm, alm2map, pow2alm_units
-  USE fitstools, ONLY : write_bintab
+  USE alm_tools, ONLY : map2alm_iterative, alm2map, pow2alm_units
+  USE fitstools, ONLY : read_asctab, write_bintab
   USE pix_tools, ONLY : nside2npix
-  USE head_fits, ONLY : add_card, merge_headers, get_card
-  USE utilities, ONLY : die_alloc
+  USE head_fits, ONLY : add_card, merge_headers, get_card, write_minimal_header, del_card
+!  USE utilities, ONLY : die_alloc
+  use misc_utils, only : wall_clock_time, assert_alloc
   USE extension, ONLY : getEnvironment, getArgument, nArguments
   USE paramfile_io, ONLY : paramfile_handle, parse_int, parse_init, parse_string, &
        &parse_lgt, parse_double, concatnl, scan_directories, parse_summarize
@@ -69,13 +70,14 @@ Program sky_ng_sim_bin
 
   COMPLEX(SPC), DIMENSION(:,:,:), ALLOCATABLE :: alm_T !The a_{lm} values
   COMPLEX(SPC), DIMENSION(:,:,:), ALLOCATABLE :: sum_alm_T ! The total a_{lm} values from all bins
-  REAL(SP),     DIMENSION(:),     ALLOCATABLE :: map_T !The pixel values in real space
+  REAL(SP),     DIMENSION(:, :),     ALLOCATABLE :: map_T !The pixel values in real space
   REAL(SP), DIMENSION(:,:), ALLOCATABLE :: cl_T !The Cl values
   REAL(KIND=DP),     DIMENSION(:,:),   ALLOCATABLE :: w8ring_T
   REAL(SP),     DIMENSION(:,:),     ALLOCATABLE :: tmp_2d
 
-  INTEGER(I4B), DIMENSION(8,2) :: values_time
-  REAL(SP) :: clock_time
+!   INTEGER(I4B), DIMENSION(8,2) :: values_time
+!   REAL(SP) :: clock_time
+  real(SP) :: time0, time1, clock_time, ptime0, ptime1, ptime
   INTEGER(I4B) :: status
 
   INTEGER(I4B) :: nbins !The total number of bins
@@ -84,11 +86,11 @@ Program sky_ng_sim_bin
   CHARACTER(LEN=filenamelen)          :: parafile = ''
   CHARACTER(LEN=filenamelen)          :: infile
   CHARACTER(LEN=filenamelen)          :: outfile
-!!$  CHARACTER(LEN=filenamelen)          :: windowfile
-!!$  CHARACTER(LEN=filenamelen)          :: windowname
-!!$  CHARACTER(LEN=filenamelen)          :: def_dir, def_file
-!!$  CHARACTER(LEN=filenamelen)          :: usr_dir, usr_file
-!!$  CHARACTER(LEN=filenamelen)          :: final_file
+  CHARACTER(LEN=filenamelen)          :: windowfile
+  CHARACTER(LEN=filenamelen)          :: windowname
+  CHARACTER(LEN=filenamelen)          :: def_dir, def_file
+  CHARACTER(LEN=filenamelen)          :: usr_dir, usr_file
+  CHARACTER(LEN=filenamelen)          :: final_file
   CHARACTER(LEN=filenamelen)          :: healpixdir
   Character(LEN=filenamelen)          :: beam_file
   character(len=filenamelen)          :: description
@@ -97,18 +99,18 @@ Program sky_ng_sim_bin
   CHARACTER(LEN=80), DIMENSION(1:180) :: header, header_PS
   Character(Len=4) :: sstr
   CHARACTER(LEN=*), PARAMETER :: code = "sky_ng_sim_bin"
-  CHARACTER(LEN=*), PARAMETER :: version = "1.0"
+  CHARACTER(LEN=*), PARAMETER :: version = "1.0.1"
   character(len=80), dimension(1:1) :: units_power, units_map
   CHARACTER(LEN=20)                            ::  string_quad
   REAL(SP) ::  quadrupole
   INTEGER(I4B) nlheader
   Integer :: i,m
-  Real :: sigma0, factor
-  Real,dimension(1:3) :: nu !Added to match with f90 version of shodev_driver
+  Real(DP) :: sigma0, factor
+  Real(DP),dimension(1:3) :: nu !Added to match with f90 version of shodev_driver
   !nu(i) is the ith moment of the distribution. 
   !The size of nu is fixed to 3 to prevent problems with passing unallocated arrays
-  Real :: power, rms_alm, mean
-  Integer :: count
+  Real(DP) :: power, rms_alm, mean
+  Integer :: count, iter_order
   Integer(I4B) :: pdf_choice !Used to chose type of pdf required
   Real(SP) :: Tmin, Tmax, convert
   Integer, parameter :: npts = 1000
@@ -123,7 +125,8 @@ Program sky_ng_sim_bin
   !                    get input parameters and create arrays
   !-----------------------------------------------------------------------
 
-  call date_and_time(values = values_time(:,1))
+  call wall_clock_time(time0)
+  call cpu_time(ptime0)
   !     --- read parameters interactively if no command-line arguments
   !     --- are given, otherwise interpret first command-line argument
   !     --- as parameter file name and read parameters from it:
@@ -131,7 +134,7 @@ Program sky_ng_sim_bin
      parafile=''
   else
      if (nArguments() /= 1) then
-        print "(' Usage: sky_ng_sim [parameter file name]')"
+        print "(' Usage: "//code//" [parameter file name]')"
         stop 1
      end if
      call getArgument(1,parafile)
@@ -173,6 +176,13 @@ Program sky_ng_sim_bin
        & chline )
   nlmax_global = parse_int(handle, 'nlmax', default=2*nsmax, descr=description)
 
+  !     --- gets the output sky map filename ---
+  description = concatnl(&
+       & "", &
+       & " Enter Output map file name (eg, test.fits) :", &
+       & "  (or !test.fits to overwrite an existing file)" )
+  outfile = parse_string(handle, "outfile", &
+       default="!test.fits", descr=description, filestatus="new")
 
   !     --- gets the fwhm of beam ---
   description = concatnl(&
@@ -195,65 +205,66 @@ Program sky_ng_sim_bin
      print*,'The beam file '//trim(beam_file)//' will be used instead.'
   endif
 
-!Not using pixel-window files as doing so changes the output power spectrum
+  ! including pixel window function, EH-2008-03-05
+ !     --- check for pixel-window-files ---
+  write (sstr,"(I4.4)") nsmax
+  windowname="pixel_window_n"//trim(sstr)//".fits"
 
-!!$ !     --- check for pixel-window-files ---
-!!$  write (sstr,"(I4.4)") nsmax
-!!$  windowname="pixel_window_n"//trim(sstr)//".fits"
-!!$
-!!$  def_file = trim(windowname)
-!!$  def_dir  = concatnl("","../data","./data","..")
-!!$  call getEnvironment("HEALPIX",healpixdir)
-!!$  if (trim(healpixdir) .ne. "") then
-!!$     def_dir = concatnl(&
-!!$          & def_dir, &
-!!$          & healpixdir, &
-!!$          & trim(healpixdir)//"data", &
-!!$          & trim(healpixdir)//"/data", &
-!!$          & trim(healpixdir)//char(92)//"data") !backslash
-!!$  endif
-!!$
-!!$22 continue
-!!$  final_file = ''
-!!$  ok = .false.
-!!$  ! if interactive, try default name in default directories first
-!!$  if (handle%interactive) ok = scan_directories(def_dir, def_file, final_file)
-!!$  if (.not. ok) then 
-!!$     ! not found, ask the user
-!!$     description = concatnl("",&
-!!$          &        " Could not find window file", &
-!!$          &        " Enter the directory where this file can be found:")
-!!$     usr_dir = parse_string(handle,'winfiledir',default='',descr=description)
-!!$     if (trim(usr_dir) == '') usr_dir = trim(def_dir)
-!!$     description = concatnl("",&
-!!$          &        " Enter the name of the window file:")
-!!$     usr_file = parse_string(handle,'windowfile',default=def_file,descr=description)
-!!$     ! look for new name in user provided or default directories
-!!$     ok   = scan_directories(usr_dir, usr_file, final_file)
-!!$     ! if still fails, crash or ask again if interactive
-!!$     if (.not. ok) then
-!!$        print*,' File not found'
-!!$        if (handle%interactive) goto 22
-!!$        stop 1
-!!$     endif
-!!$  endif
-!!$  windowfile = final_file
+  def_file = trim(windowname)
+  def_dir  = concatnl("","../data","./data","..")
+  call getEnvironment("HEALPIX",healpixdir)
+  if (trim(healpixdir) .ne. "") then
+     def_dir = concatnl(&
+          & def_dir, &
+          & healpixdir, &
+          & trim(healpixdir)//"data", &
+          & trim(healpixdir)//"/data", &
+          & trim(healpixdir)//char(92)//"data") !backslash
+  endif
+
+22 continue
+  final_file = ''
+  ok = .false.
+  ! if interactive, try default name in default directories first
+  if (handle%interactive) ok = scan_directories(def_dir, def_file, final_file)
+  if (.not. ok) then 
+     ! not found, ask the user
+     description = concatnl("",&
+          &        " Could not find window file", &
+          &        " Enter the directory where this file can be found:")
+     usr_dir = parse_string(handle,'winfiledir',default='',descr=description)
+     if (trim(usr_dir) == '') usr_dir = trim(def_dir)
+     description = concatnl("",&
+          &        " Enter the name of the window file:")
+     usr_file = parse_string(handle,'windowfile',default=def_file,descr=description)
+     ! look for new name in user provided or default directories
+     ok   = scan_directories(usr_dir, usr_file, final_file)
+     ! if still fails, crash or ask again if interactive
+     if (.not. ok) then
+        print*,' File not found'
+        if (handle%interactive) goto 22
+        stop 1
+     endif
+  endif
+  windowfile = final_file
 
   PRINT *," "
+
+  !-----------------------------------------------------------------------
 
   nmmax_global=nlmax_global
   npixtot = nside2npix(nsmax)
 
   !---allocate space for arrays---
 
-  ALLOCATE(map_T(0:npixtot-1),stat = status)
-  if (status /= 0) call die_alloc(code,"map_T")
+  ALLOCATE(map_T(0:npixtot-1, 1:1),stat = status)
+  call assert_alloc(status, code,"map_T")
 
   ALLOCATE(sum_alm_T(1:1,0:nlmax_global, 0:nmmax_global),stat = status)
-  if (status /= 0) call die_alloc(code,"sum_alm_T")
+  call assert_alloc(status, code,"sum_alm_T")
 
   ALLOCATE(w8ring_T(1:2*nsmax,1:1),stat = status)
-  if (status /= 0) call die_alloc(code,"w8ring_T")
+  call assert_alloc(status, code,"w8ring_T")
 
   ! For now, not using ring weights for quadrature correction
   w8ring_T = 1.d0
@@ -267,22 +278,18 @@ Program sky_ng_sim_bin
 
   nlmax=0
   do ibin=1,nbins
-
     nbinmax=nlmax
      ! get lrange for each bin
 
      !     --- gets the L range for the simulation for bin=ibin ---
 
-!     WRITE(chline,"(a,i5,a)") "We recommend: (0 <= l <= l_max <= ",3*nsmax-1,")"
-!     WRITE(chline,"(a,i5,a)") "Choosing l range for bin=",ibin 
      WRITE(chline,"(a,i5)") "Enter maximum value of l for bin", ibin
      description = concatnl(&
           & "", &
-!          & " Enter the maximum l range (l_max) for this bin simulation. ", &
           & chline )
      variable = 'nlmax'
      call add_subscript(variable, ibin)
-     nlmax = parse_int(handle, variable, default=2*nsmax, descr=description)
+     nlmax = parse_int(handle, variable, default=2*nsmax, vmax=nlmax_global, descr=description)
 
      if (ibin == 1) then
         WRITE(chline,"(a,i5,a)") "We recommend: (0 <= l_min for lowest bin=1)"
@@ -297,9 +304,9 @@ Program sky_ng_sim_bin
      variable = 'nlmin'
      call add_subscript(variable, ibin)
      if(ibin.eq.1) then 
-        nlmin = parse_int(handle, variable, default=0, descr=description)
+        nlmin = parse_int(handle, variable, default=0, vmin=0,vmax=nlmax_global, descr=description)
      else
-        nlmin = parse_int(handle, variable, default=nbinmax+1, descr=description)
+        nlmin = parse_int(handle, variable, default=nbinmax+1,vmin=nbinmax+1,vmax=nlmax_global, descr=description)
         if(nlmin < nbinmax+1) then
            write(*,*) 'stop --- the bins are not disjoint'
            stop
@@ -307,7 +314,7 @@ Program sky_ng_sim_bin
      endif
      !  end do
 
-     nlmax_global=max(0,nlmax)
+     !nlmax_global=max(0,nlmax)
 
      ! get PS for each bin
 
@@ -326,50 +333,41 @@ Program sky_ng_sim_bin
      !-----------------------------------------------------------------------
 
      nmmax   = nlmax
-     !  npixtot = nside2npix(nsmax)
 
      !-----------------------------------------------------------------------
      !                  allocates space for arrays
      !-----------------------------------------------------------------------
 
-     !  ALLOCATE(units_alm(1:1),units_map(1:1+2*polar),stat = status)
-     !  if (status /= 0) call die_alloc(code,"units_alm & units_map") 
-
      ALLOCATE(alm_T(1:1,0:nlmax, 0:nmmax),stat = status)
-     if (status /= 0) call die_alloc(code,"alm_T")
+     call assert_alloc(status, code,"alm_T")
 
+
+     ! single analysis
+     iter_order = 0 
 
      ALLOCATE(cl_T(0:nlmax,1:1),stat = status)
-     if (status /= 0) call die_alloc(code,"cl_T")
+     call assert_alloc(status, code,"cl_T")
 
      !------------------------------------------------------------------------
      ! Read in the input power spectrum
      !------------------------------------------------------------------------
 
-!!$     nlheader = SIZE(header_file)
-!!$     header_file = ''
-     !  do i=1,nlheader
-     !     header_file(i) = ""
-     !  enddo
-     cl_T = 0.0
-     !New lines added 9th June 2004
-     lmax = nlmax
-     header_PS = ''
-If (beam_file .ne. '') then
-     call read_powerspec(infile, nsmax, lmax, cl_T, header_PS, fwhm_arcmin, units_power, beam_file = beam_file) 
-else
-   call read_powerspec(infile, nsmax, lmax, cl_T, header_PS, fwhm_arcmin, units_power) 
-end if
-     call pow2alm_units(units_power, units_map)
 
-        quadrupole = cl_T(2,1)
-        do lval=0,nlmax
-           if (lval.lt.nlmin) then
+     cl_T = 0.0
+     !New lines added 8th June 2004
+     lmax = nlmax
+     call read_powerspec(infile, nsmax, lmax, cl_T, header_PS, fwhm_arcmin, units_power, beam_file = beam_file, winfile = windowfile) 
+     call pow2alm_units(units_power, units_map)
+     call del_card(header_PS, (/ "TUNIT#","TTYPE#"/)) ! remove TUNIT* and TTYPE* from header to avoid confusion later on
+
+     quadrupole = cl_T(2,1)
+     do lval=0,nlmax
+        if (lval.lt.nlmin) then
            !   Write (*,*) 'Setting cl(',lval,')to zero'
-              cl_T(lval,1)=0.0
-           endif
-        end do
-        write(*,*)  "Power spectrum out of the range (",nlmin,nlmax,") is set to zero"
+           cl_T(lval,1)=0.0
+        endif
+     end do
+     write(*,*)  "Power spectrum out of the range (",nlmin,nlmax,") is set to zero"
 
      !------------------------------------------------------------------------
      ! Draw pixel values in real space from non-Gaussian distribution
@@ -378,17 +376,17 @@ end if
      Write (*,*) "Creating non-Gaussian map with flat power spectrum"
 
      !     --- Chose the type of pdf to use ---
-  description = concatnl(&
-       & "", &
-       & " Select non-Gaussian pdf to use: Simple harmonic osciallator (1)", &
-       & "or powers of a Gaussian (2)" )
-  pdf_choice = parse_int(handle, 'pdf_choice', default=1, vmin = 1, vmax = 2, descr=description)  
+     description = concatnl(&
+          & "", &
+          & " Select non-Gaussian pdf to use: Simple harmonic osciallator (1)", &
+          & "or powers of a Gaussian (2)" )
+     pdf_choice = parse_int(handle, 'pdf_choice', default=1, vmin = 1, vmax = 2, descr=description)  
 
-  If (pdf_choice .eq. 1) Then
-     call shodev_driver(handle, npixtot, sigma0, map_T, nu, bins = ibin)
-  Else
-     call powergauss_driver(handle, npixtot, sigma0, map_T, nu, bins = ibin)
-  End If
+     If (pdf_choice .eq. 1) Then
+        call shodev_driver(handle, npixtot, sigma0, map_T(:,1), nu, bins = ibin)
+     Else
+        call powergauss_driver(handle, npixtot, sigma0, map_T(:,1), nu, bins = ibin)
+     End If
 
      !Normalise the map
      Write (*,*) "nu is", nu
@@ -398,7 +396,7 @@ end if
      !Compute the rms value of the pixels
      power = 0
      Do i = 0, npixtot-1
-        power = power + map_T(i)**2
+        power = power + map_T(i,1)**2
      End Do
      power = Sqrt(power/npixtot)
      Write (*,*) "rms value of the pixels is ", power
@@ -406,40 +404,35 @@ end if
         Write (*,*) "Can't calculate theoretical value of nu(2) to normalise"
         Write (*,*) "Normalising using rms pixel value instead"
         Write (*,*) "note - this method may change the statistical properties of the map"
-     !Compute the mean value of the pixels
-     mean = SUM(map_T)/npixtot
-     Write (*,*) 'Mean pixel value is ',mean,' - adjusting to zero'
-     map_T = map_T - mean     !Compute the rms value of the pixels
-     power = 0
-     Do i = 0, npixtot-1
-        power = power + map_T(i)**2
-     End Do
-     power = Sqrt(power/npixtot)
-     Write (*,*) "rms value of the pixels is ", power ," - setting to 1.0"
-     map_T = map_T / power    
-     !Check
-     power = 0
-     Do i = 0, npixtot-1
-        power = power + map_T(i)**2
-     End Do
-     power = Sqrt(power/npixtot)
-     Write (*,*) "Now rms value of the pixels is ", power
+        !Compute the mean value of the pixels
+        mean = SUM(map_T)/npixtot
+        Write (*,*) 'Mean pixel value is ',mean,' - adjusting to zero'
+        map_T = map_T - mean     !Compute the rms value of the pixels
+        power = 0
+        Do i = 0, npixtot-1
+           power = power + map_T(i,1)**2
+        End Do
+        power = Sqrt(power/npixtot)
+        Write (*,*) "rms value of the pixels is ", power ," - setting to 1.0"
+        map_T = map_T / power    
+        !Check
+        power = 0
+        Do i = 0, npixtot-1
+           power = power + map_T(i,1)**2
+        End Do
+        power = Sqrt(power/npixtot)
+        Write (*,*) "Now rms value of the pixels is ", power
      End If
      !------------------------------------------------------------------------
      ! Now compute the a_{lm} values from this distribution
      !------------------------------------------------------------------------
 
-     !  set alm_T to zero for startup of each bin
-
-     !  Do i = 0, nlmax
-     !     alm_T(1,i,i) = 0.0
-     !  End Do   
-
 
      Write (*,*) "Computing the values of the a_{lm}"
 !     call map2alm(nsmax, nlmax, nmmax, map_T, alm_T, -1000.d0, w8ring_T)
-     call map2alm(nsmax, nlmax, nmmax, map_T, alm_T, (/ 0.d0, 0.d0/), w8ring_T)
-     Write (*,*) "alms calculated"
+!     call map2alm(nsmax, nlmax, nmmax, map_T, alm_T, (/ 0.d0, 0.d0/), w8ring_T)
+     call map2alm_iterative(nsmax, nlmax, nmmax, iter_order, map_T, alm_T, w8ring=w8ring_T)
+
      !Compute the rms value of the a_{lm}
      power = 0.0
      count = 0
@@ -466,7 +459,6 @@ end if
      End Do
 
 
-
      !  store alm in a global array sum_alm_T(ibin,l,m)
      ! by summing up alm from sequential bins ! what about bins that overlap?
 
@@ -475,10 +467,9 @@ end if
      End Do
 
 
-
-     DEALLOCATE( alm_T )
+     if (allocated(alm_T)) DEALLOCATE( alm_T )
      !  DEALLOCATE( units_alm, units_map )
-     DEALLOCATE( cl_T)
+     if (allocated(cl_t)) DEALLOCATE( cl_T)
 
   end do ! bins loop
 
@@ -488,7 +479,11 @@ end if
   !------------------------------------------------------------------------
 
   !  call alm2map(nsmax,nlmax,nmmax,alm_T,map_T)
-  call alm2map(nsmax,nlmax,nmmax,sum_alm_T,map_T)
+  call alm2map(nsmax,nlmax,nmmax,sum_alm_T,map_T(:,1))
+
+  !------------------------------------------------------------------------
+  ! Plot histogram of pixel distribution (if required)
+  !------------------------------------------------------------------------
 
 #ifdef PGPLOT
   ! Plot histogram of pixel distribution (if required)
@@ -502,12 +497,11 @@ end if
      Tmin = 0.0
      Tmax = 0.0
      do i=1,npixtot
-        if (map_T(i) .lt. Tmin) Tmin=map_T(i)
-        if (map_T(i) .gt. Tmax) Tmax=map_T(i)
-      end do
+        if (map_T(i,1) .lt. Tmin) Tmin=map_T(i,1)
+        if (map_T(i,1) .gt. Tmax) Tmax=map_T(i,1)
+     end do
      call pgbegin(0,'?',1,1)
- 
-    if (.not. fitscl) then
+     if (.not. fitscl) then
         ! If reading in from .dat file Cls are already converted to uK
         convert = 1.0
         xlabel = 'Temperature / \gmK'
@@ -522,19 +516,16 @@ end if
         convert = 1.0
         xlabel = 'Pixel value'
      end if
-!     Write (*,*) 'Convert =', convert
-!     Write (*,*) 'xlabel =',xlabel
      Tmin = Tmin * convert
      Tmax = Tmax * convert
      call pghist(npixtot,map_T*convert,Tmin,Tmax,200,0)
-!     Write (*,*) 'pghis called'
      !Pixel values scaled to convert to uK if input fits file of cl values
      !which are normalised to C_2 = 1.0
      call pglab(TRIM(xlabel),'Number of pixels','')
      !Calculate 2*mean square value of T (ie 2 sigma^2)
      power = 0
      Do i = 1, npixtot
-        power = power + map_T(i)**2
+        power = power + map_T(i,1)**2
      End Do
      power = 2 * power*(convert**2) / npixtot
         xstep=(Tmax-Tmin)/real(npts-1)
@@ -549,17 +540,7 @@ end if
   End If   
 #endif
 
-  !     --- gets the output sky map filename ---
-  description = concatnl(&
-       & "", &
-       & " Enter Output map file name (eg, test.fits) :", &
-       & "  (or !test.fits to overwrite an existing file)" )
-  outfile = parse_string(handle, "outfile", &
-       default="!test.fits", descr=description, filestatus="new")
-
   call parse_summarize(handle,code=code)
-
-  PRINT *," "
 
   !-----------------------------------------------------------------------
   !                      write the map to FITS file
@@ -571,69 +552,32 @@ end if
   enddo
   !  fwhm_deg = fwhm_arcmin/60.
   PRINT *,"      "//code//"> Writing sky map to FITS file "
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Sky Map Pixelisation Specific Keywords    ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"PIXTYPE","HEALPIX","HEALPIX Pixelisation")
-  call add_card(header,"ORDERING","RING",  "Pixel ordering scheme, either RING or NESTED")
-  call add_card(header,"NSIDE"   ,nsmax,   "Resolution parameter for HEALPIX")
-  call add_card(header,"FIRSTPIX",0,"First pixel # (0 based)")
-  call add_card(header,"LASTPIX",npixtot-1,"Last pixel # (0 based)")
-  call add_card(header) ! blank line
-
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Planck Simulation Specific Keywords      ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"EXTNAME","SIMULATION")
-  call add_card(header,"CREATOR",code,        "Software creating the FITS file")
-  call add_card(header,"VERSION",version,     "Version of the simulation software")
-  call add_card(header,"MAX-LPOL",nlmax      ,"Maximum multipole l used in map synthesis")
-  !  call add_card(header,"RANDSEED",ioriginseed,"Random generator seed")
-    if (beam_file .eq. '') then
-       call add_card(header,"FWHM"    ,fwhm_deg   ," [deg] FWHM of gaussian symmetric beam")
-    else
-       call add_card(header,"BEAM_LEG",trim(beam_file),"File containing Legendre transform of symmetric beam")
-    endif
+  ! put inherited information immediatly, so that keyword values can be updated later on
+  ! by current code values
+  call add_card(header,"COMMENT","****************************************************************")
   call merge_headers(header_PS, header) ! insert header_PS in header at this point
-  call add_card(header)
+  call add_card(header,"COMMENT","****************************************************************")
+  ! start putting information relative to this code and run
+  call write_minimal_header(header, 'map', append=.true., &
+       nside = nsmax, ordering = 'RING', &   !, coordsys = coordsys, &
+       fwhm_degree = fwhm_arcmin / 60.d0, &
+       beam_leg = trim(beam_file), &
+       polar = polarisation, &
+       !deriv = deriv, &
+       creator = CODE, version = VERSION, &
+       nlmax = nlmax, &
+       !randseed = ioriginseed, &
+       units = units_map(1) )
 
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"COMMENT","     Data Description Specific Keywords       ")
-  call add_card(header,"COMMENT","-----------------------------------------------")
-  call add_card(header,"INDXSCHM","IMPLICIT"," Indexing : IMPLICIT or EXPLICIT")
-  call add_card(header,"GRAIN", 0, " Grain of pixel indexing")
-  call add_card(header,"COMMENT","GRAIN=0 : no indexing of pixel data                         (IMPLICIT)")
-  call add_card(header,"COMMENT","GRAIN=1 : 1 pixel index -> 1 pixel data                     (EXPLICIT)")
-  call add_card(header,"COMMENT","GRAIN>1 : 1 pixel index -> data of GRAIN consecutive pixels (EXPLICIT)")
-  call add_card(header) ! blank line
-  call add_card(header,"POLAR",polarisation," Polarisation included (True/False)")
-
-  call add_card(header) ! blank line
-  call add_card(header,"TTYPE1", "TEMPERATURE","Temperature map")
-  call add_card(header,"TUNIT1", units_map(1),"map unit")
-  call add_card(header)
-
-!!$  if (polarisation) then
-!!$     call add_card(header,"TTYPE2", "Q-POLARISATION","Q Polarisation map")
-!!$     call add_card(header,"TUNIT2", units_map(2),"map unit")
-!!$     call add_card(header)
-!!$
-!!$     call add_card(header,"TTYPE3", "U-POLARISATION","U Polarisation map")
-!!$     call add_card(header,"TUNIT3", units_map(3),"map unit")
-!!$     call add_card(header)
-!!$  endif
+  call add_card(header,"PDF_TYPE",pdf_choice,"1: Harmon. Oscill. ;2: Power of Gauss.")
+  call add_card(header,"EXTNAME","'SIMULATED MAP'", update=.true.)
   call add_card(header,"COMMENT","*************************************")
 
-!!$  if (polarisation) then
-!!$     !call output_map(map_TQU(0:npixtot-1,1:3), header, outfile) !not on Sun
-!!$     call write_bintab(map_TQU, npixtot, 3, header, nlheader, outfile)
-!!$  else
-  !call output_map(map_TQU(0:npixtot-1,1:1), header, outfile) !not on Sun
-!  call write_bintab(map_T, npixtot, 1, header, nlheader, outfile)
-  allocate(tmp_2d(0:npixtot-1,1:1))
-  tmp_2d(:,1) = map_T
-  call write_bintab(tmp_2d, npixtot, 1, header, nlheader, outfile)
-  deallocate(tmp_2d)
+!   allocate(tmp_2d(0:npixtot-1,1:1))
+!   tmp_2d(:,1) = map_T
+!   call write_bintab(tmp_2d, npixtot, 1, header, nlheader, outfile)
+!   deallocate(tmp_2d)
+  call write_bintab(map_T, npixtot, 1, header, nlheader, outfile)
 !!$  endif
 
   !-----------------------------------------------------------------------
@@ -644,33 +588,29 @@ end if
   DEALLOCATE( sum_alm_T )
   !  DEALLOCATE( units_alm, units_map )
 
-  call date_and_time(values = values_time(:,2))
+  call wall_clock_time(time1)
+  call cpu_time(ptime1)
+  clock_time = time1 - time0
+  ptime      = ptime1 - ptime0
 
-  values_time(:,1) = values_time(:,2) - values_time(:,1) ! difference in y, m, d, x, h, m, s, ms
-  clock_time =    (  ( values_time(3,1)*24 &
-       &             + values_time(5,1)   )*60.  &
-       &          + values_time(6,1)      )*60. &
-       &       + values_time(7,1) &
-       &       + values_time(8,1)/1000.
 
   WRITE(*,9000) " "
   WRITE(*,9000) " Report Card for "//code//" simulation run"
   WRITE(*,9000) "----------------------------------------"
   WRITE(*,9000) " "
-  !  if (.not. polarisation) then
-  !     WRITE(*,9000) "      Temperature alone"
-  !  else
-  !     WRITE(*,9000) "    Temperature + Polarisation"
-  !  endif
-  !  WRITE(*,9000) " "
   WRITE(*,9000) " Input power spectrum : "//TRIM(infile)
   WRITE(*,9010) " Multipole range      : 0 < l <= ", nlmax
   WRITE(*,9010) " Number of pixels     : ", npixtot
   !  WRITE(*,9020) " Pixel size in arcmin : ", pix_size_arcmin
   !  WRITE(*,9010) " Initial random # seed: ", ioriginseed
   !  WRITE(*,9020) " Gauss. FWHM in arcmin: ", fwhm_arcmin
+  if (trim(beam_file) == '') then
+     write(*,9020) " Gauss. FWHM in arcmin: ", fwhm_arcmin
+  else
+     write(*,9000) " Beam file: "//trim(beam_file)
+  endif
   WRITE(*,9000) " Output map           : "//TRIM(outfile)
-  WRITE(*,9020) " Total clock time [s] : ", clock_time
+  write(*,9030) " Clock and CPU time [s] : ", clock_time, ptime
 
   !-----------------------------------------------------------------------
   !                       end of routine
@@ -682,6 +622,7 @@ end if
 9000 format(a)
 9010 format(a,i16)
 9020 format(a,g20.5)
+9030 format(a,f11.2,f11.2)
 
 
   Stop

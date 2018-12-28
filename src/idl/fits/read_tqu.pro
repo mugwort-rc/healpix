@@ -86,6 +86,7 @@ PRO read_tqu, fitsfile, TQU, EXTENSION=extension_id, HDR = hdr, XHDR = xhdr, HEL
 ;       Dec 2002, E. Hivon (McMurdo)
 ;       Feb 2005, EH, replaces READ_FITS_S by faster SELECTREAD
 ;       May 2005, EH, replaces FINDFILE by FILE_TEST
+;       Jan 2009: calls init_astrolib
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -110,8 +111,7 @@ endif
 if (not file_test(fitsfile)) then message,'file '+fitsfile+' not found'
 
 ; run astrolib routine to set up non-standard system variables
-defsysv, '!DEBUG', EXISTS = i  ; check if astrolib variables have been set-up
-if (i ne 1) then astrolib      ; if not, run astrolib to do so
+init_astrolib
 
 fits_info, fitsfile, /silent, n_ext = n_ext
 

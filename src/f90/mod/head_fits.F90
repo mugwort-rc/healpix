@@ -36,6 +36,7 @@ module head_fits
   !
   ! EH, 2002-08-09
   ! 2007-09-20 added write_minimal_header
+  ! 2009-01-08 corrected typo in FITS header written by write_minimal_header (DY_Y -> DY_T)
   !-------------------------------------------------------------------------
 
   ! subroutine add_card   [interface]
@@ -1109,7 +1110,7 @@ contains
                 call add_card(header,"TUNIT2", my_units(it),"map unit")
                 call add_card(header)
 
-                call add_card(header,"TTYPE3", "DY_Y","(1st derivative of T wrt phi)/sin(theta)")
+                call add_card(header,"TTYPE3", "DY_T","(1st derivative of T wrt phi)/sin(theta)") ! corrected 2009-01-08
                 call add_card(header,"TUNIT3", my_units(it),"map unit")
                 call add_card(header)
              endif
