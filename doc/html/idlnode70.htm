@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1065"
+<A NAME="tex2html1071"
   HREF="idlnode69.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1071"
+<A NAME="tex2html1077"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1075"
+<A NAME="tex2html1081"
   HREF="idlnode71.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1073"
+<A NAME="tex2html1079"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1066"
+<B> Previous:</B> <A NAME="tex2html1072"
   HREF="idlnode69.htm">vec2ang</A>
 
-<B>Up:</B> <A NAME="tex2html1072"
+<B>Up:</B> <A NAME="tex2html1078"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1076"
+<B> Next:</B> <A NAME="tex2html1082"
   HREF="idlnode71.htm">write_fits_map</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -66,7 +66,7 @@ FITS file follows the one used for Boomerang98 and is adapted from
 COBE/DMR. This routine can be used to store polarized maps, where the
 information relative to the Stokes parameters I, Q and U are placed in extension
 0, 1 and 2 respectively by successive invocation of the routine.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/fits/write_fits_cut4.pro"><b>src/idl/fits/write_fits_cut4.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/fits/write_fits_cut4.pro"><b>src/idl/fits/write_fits_cut4.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 WRITE_FITS_CUT4 , <A HREF="#idl:write_fits_cut4:File">File</A>, <A HREF="#idl:write_fits_cut4:Pixel">Pixel</A>, <A HREF="#idl:write_fits_cut4:Signal">Signal</A>[, <A HREF="#idl:write_fits_cut4:N_Obs">N_Obs</A>, <A HREF="#idl:write_fits_cut4:Serror">Serror</A>, 
@@ -79,7 +79,8 @@ WRITE_FITS_CUT4 , <A HREF="#idl:write_fits_cut4:File">File</A>, <A HREF="#idl:wr
 <A HREF="#idl:write_fits_cut4:POLARISATION">/POLARISATION</A>,
 <A HREF="#idl:write_fits_cut4:RING">/RING</A>,
 <A HREF="#idl:write_fits_cut4:UNITS">UNITS=</A>,
-X<A HREF="#idl:write_fits_cut4:HDR">HDR=</A>]
+<A HREF="#idl:write_fits_cut4:XHDR">XHDR=</A>,
+<A HREF="#idl:write_fits_cut4:HELP">HELP=</A>]
 
 </h3>
 <P>
@@ -88,26 +89,26 @@ X<A HREF="#idl:write_fits_cut4:HDR">HDR=</A>]
  
   </SMALL><DL COMPACT><DT>
 <B>File</B>
-<DD>name of a FITS file in which the map is to be written
+<DD><A NAME="idl:write_fits_cut4:File"></A>          name of a FITS file in which the map is to be written
 
 <P>
 <DT>
 <B>Pixel</B>
-<DD>(LONG or LONG64 vector), 
+<DD><A NAME="idl:write_fits_cut4:Pixel"></A>	 (LONG or LONG64 vector), 
 <BR>
 index of observed (or valid) pixels
 
 <P>
 <DT>
 <B>Signal</B>
-<DD>(FLOAT or DOUBLE vector, same size as Pixel), 
+<DD><A NAME="idl:write_fits_cut4:Signal"></A>	 (FLOAT or DOUBLE vector, same size as Pixel), 
 <BR>
 value of signal in each observed pixel
 
 <P>
 <DT>
 <B>N_Obs</B>
-<DD>(LONG or INT or LONG64 vector, Optional, same size as Pixel), 
+<DD><A NAME="idl:write_fits_cut4:N_Obs"></A>	 (LONG or INT or LONG64 vector, Optional, same size as Pixel), 
 <BR>
 number of
 	 observation per pixel. 
@@ -119,7 +120,7 @@ If absent, the field <TT>N_OBS</TT> will take a value of 1 in the output file.
 <P>
 <DT>
 <B>Serror</B>
-<DD>(FLOAT or DOUBLE vector, Optional, same size as Pixel)
+<DD><A NAME="idl:write_fits_cut4:Serror"></A>	 (FLOAT or DOUBLE vector, Optional, same size as Pixel)
 <BR><EM>rms</EM> of signal in pixel, for white noise,
                    this is <!-- MATH
  $\propto 1/\sqrt{{\rm n\_obs}}$
@@ -141,7 +142,7 @@ If absent, the field <TT>SERROR</TT> will take a value of 0.0 in the output file
 
   </SMALL><DL COMPACT><DT>
 <B>COORDSYS=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_cut4:COORDSYS"></A>		  (optional), 
 <BR>
 if set to either 'C', 'E' or 'G',  specifies that the
 		Healpix coordinate system is respectively Celestial=equatorial,
@@ -152,7 +153,7 @@ if set to either 'C', 'E' or 'G',  specifies that the
 <P>
 <DT>
 <B>EXTENSION=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_cut4:EXTENSION"></A>		  (optional), 
 <BR>	  (0 based) extension number in which to write data. <b>default:</b>0.
 	  If set to 0 (or not set) <EM>a new file is written from scratch</EM>.
 	  If set to a value
@@ -163,8 +164,8 @@ if set to either 'C', 'E' or 'G',  specifies that the
 
 <P>
 <DT>
-<B>HDR<A NAME="idl:write_fits_cut4:HDR"></A>=</B>
-<DD>(optional), 
+<B>HDR=</B>
+<DD><A NAME="idl:write_fits_cut4:HDR"></A>(optional), 
 <BR>
 String array containing the information to be put in
 		the primary header. 
@@ -172,14 +173,15 @@ String array containing the information to be put in
 <P>
 <DT>
 <B>/NESTED</B>
-<DD>if set, specifies that the map is in the NESTED ordering
+<DD><A NAME="idl:write_fits_cut4:NESTED"></A>(optional)
+         if set, specifies that the map is in the NESTED ordering
 	scheme
 <BR>	<i>see also:</i>Ordering and Ring 
 
 <P>
 <DT>
 <B>NSIDE=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_cut4:NSIDE"></A>		(optional), 
 <BR>
 scalar integer, <b>HEALPix</b> resolution parameter of the
 		data set. The resolution parameter should be made
@@ -189,7 +191,7 @@ scalar integer, <b>HEALPix</b> resolution parameter of the
 <P>
 <DT>
 <B>ORDERING=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_cut4:ORDERING"></A>		  (optional), 
 <BR>
 if set to either 'ring' or 'nested' (case un-sensitive),
 		  specifies that the map is respectively in RING or NESTED
@@ -203,32 +205,39 @@ The ordering information should be made
 <P>
 <DT>
 <B>/POLARISATION</B>
-<DD>specifies that file will contain the I, Q and U polarisation
+<DD><A NAME="idl:write_fits_cut4:POLARISATION"></A>	  specifies that file will contain the I, Q and U polarisation
            Stokes parameter in extensions 0, 1 and 2 respectively, and sets the
 FITS header keywords accordingly
 
 <P>
 <DT>
 <B>/RING</B>
-<DD>if set, specifies that the map is in the RING ordering
+<DD><A NAME="idl:write_fits_cut4:RING"></A> if set, specifies that the map is in the RING ordering
 	scheme
 <BR>	<i>see also:</i>Ordering and Nested
 
 <P>
 <DT>
 <B>UNITS=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_cut4:UNITS"></A>		(optional), 
 <BR>
 string describing the physical units of the data set (only applies
 		to Signal and Serror)
 
 <P>
 <DT>
-<B>XHDR<A NAME="idl:write_fits_cut4:XHDR"></A>=</B>
-<DD>(optional), 
+<B>XHDR=</B>
+<DD><A NAME="idl:write_fits_cut4:XHDR"></A>(optional), 
 <BR>
 String array containing the information to be put in
 		the extension header. 
+
+<P>
+<DT>
+<B>HELP=</B>
+<DD><A NAME="idl:write_fits_cut4:HELP"></A>(optional), 
+<BR>
+if set, an extensive help is displayed, and no file is written
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -313,31 +322,31 @@ respectively. The <b>HEALPix</b> ring ordered scheme and the resolution <!-- MAT
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1065"
+<A NAME="tex2html1071"
   HREF="idlnode69.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1071"
+<A NAME="tex2html1077"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1075"
+<A NAME="tex2html1081"
   HREF="idlnode71.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1073"
+<A NAME="tex2html1079"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1066"
+<B> Previous:</B> <A NAME="tex2html1072"
   HREF="idlnode69.htm">vec2ang</A>
 
-<B>Up:</B> <A NAME="tex2html1072"
+<B>Up:</B> <A NAME="tex2html1078"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1076"
+<B> Next:</B> <A NAME="tex2html1082"
   HREF="idlnode71.htm">write_fits_map</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

@@ -2,6 +2,8 @@ No implementation found for style `xr-hyper'
 
 redefining command \lq 
 
+redefining command \contentsname 
+
 *** wrap_cmd_myequal not defined, cannot wrap \myequal 
 
 ? brace missing for \
@@ -10,10 +12,11 @@ Substitution of arg to newlabelxx delayed.
 
 redefining command \ 
 
-? brace missing for \oldcontentsline
-
 ? brace missing for \oldnewlabel
+
+? brace missing for \oldcontentsline
 Could not find the external label file: /tmp/installlabels.pl
+Could not find the external label file: /tmp/facilitieslabels.pl
 
 ? brace missing for \newedenvironment
 

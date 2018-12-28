@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html281"
+<A NAME="tex2html286"
   HREF="idlnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html287"
+<A NAME="tex2html292"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html291"
+<A NAME="tex2html296"
   HREF="idlnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html289"
+<A NAME="tex2html294"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html282"
-  HREF="idlnode4.htm">Changes between releases 3.20</A>
+<B> Previous:</B> <A NAME="tex2html287"
+  HREF="idlnode4.htm">Changes between releases 3.30</A>
 
-<B>Up:</B> <A NAME="tex2html288"
+<B>Up:</B> <A NAME="tex2html293"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html292"
+<B> Next:</B> <A NAME="tex2html297"
   HREF="idlnode6.htm">alm_i2t</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -57,14 +57,16 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <UL CLASS="ChildLinks">
 <LI><UL>
-<LI><A NAME="tex2html293"
-  HREF="idlnode5.htm#SECTION00050100000000000000">Changes between releases 3.11 and 3.20</A>
-<LI><A NAME="tex2html294"
-  HREF="idlnode5.htm#SECTION00050200000000000000">Changes between releases 3.00 and 3.11</A>
-<LI><A NAME="tex2html295"
-  HREF="idlnode5.htm#SECTION00050300000000000000">Changes between releases 2.20 and 3.00</A>
-<LI><A NAME="tex2html296"
-  HREF="idlnode5.htm#SECTION00050400000000000000">Changes between release 2.0 and 2.20</A>
+<LI><A NAME="tex2html298"
+  HREF="idlnode5.htm#SECTION00050100000000000000">Changes between releases 3.20 and 3.30</A>
+<LI><A NAME="tex2html299"
+  HREF="idlnode5.htm#SECTION00050200000000000000">Changes between releases 3.11 and 3.20</A>
+<LI><A NAME="tex2html300"
+  HREF="idlnode5.htm#SECTION00050300000000000000">Changes between releases 3.00 and 3.11</A>
+<LI><A NAME="tex2html301"
+  HREF="idlnode5.htm#SECTION00050400000000000000">Changes between releases 2.20 and 3.00</A>
+<LI><A NAME="tex2html302"
+  HREF="idlnode5.htm#SECTION00050500000000000000">Changes between release 2.0 and 2.20</A>
 </UL></UL>
 <!--End of Table of Child-Links-->
 <HR>
@@ -74,6 +76,44 @@ Previous changes</A>
 </H1>
 
 <H3><A NAME="SECTION00050100000000000000">
+Changes between releases 3.20 and 3.30</A>
+</H3>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode43.htm#idl:mollview"><TT>azeqview, cartview, gnomview, mollview,
+orthview</TT></A> visualization routines:
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <A HREF="idlnode43.htm#idl:mollview:pdf"><TT>PDF</TT></A> keyword for production of Adobe PDF outputs;
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <A HREF="idlnode43.htm#idl:mollview:latex"><TT>LATEX</TT></A> keyword for genuine 
+ or emulated <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> processing of character strings;
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ addition of <A HREF="idlnode43.htm#idl:mollview:pfonts"><TT>PFONTS</TT></A> keyword to select 
+origin and type of character font;
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ the <A HREF="idlnode43.htm#idl:mollview:crop"><TT>CROP</TT></A> keyword now has the same behavior for all output media (GIF, JPEG, PDF, PNG, PS, ... and X);  the <A HREF="idlnode43.htm#idl:mollview:nobar"><TT>NOBAR</TT></A> keyword now removes the color bar <EM>or</EM> the polarization color wheel, as applicable; correct EQUINOX date in header of output <A HREF="idlnode43.htm#idl:mollview:fits">FITS</A> map; the double precision maps and those with constant value are now correctly handled.
+</DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <A HREF="idlnode23.htm#idl:fits2cl:planck2"><TT>/PLANCK2</TT></A> keyword
+to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to Planck 2015 data.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ new routines <A HREF="idlnode46.htm#idl:nest2uniq"><TT>nest2uniq</TT></A> and <A HREF="idlnode68.htm#idl:uniq2nest"><TT>uniq2nest</TT></A> for conversion of standard pixel index to/from Unique ID number. See <A HREF="./intronode4.htm#intro:unique">''The Unique Identifier scheme''</A> section in <A NAME="tex2html6"
+  HREF="intro.htm">''<b>HEALPix</b> Introduction Document''</A>
+for more details.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <b>HEALPix</b> enabled GDL commands (<TT>hgdl</TT> and  <TT>hgdlde</TT>) are defined during the 
+<A HREF="#install:idlgdlconfig">configuration process</A>.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ update of the required
+    <A NAME="tex2html7"
+  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and <A NAME="tex2html8"
+  HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
+library
+    routines (2015-09-23).
+</DL>
+<P>
+
+<H3><A NAME="SECTION00050200000000000000">
 Changes between releases 3.11 and 3.20</A>
 </H3>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -103,15 +143,15 @@ defined in <A HREF="idlnode53.htm#idl:planck_colors"><TT>planck_colors</TT></A>
 <A HREF="idlnode54.htm#idl:query_disc"><TT>query_disc</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-    <A NAME="tex2html7"
+    <A NAME="tex2html9"
   HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and their supporting <A NAME="tex2html8"
+routines, and their supporting <A NAME="tex2html10"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 routines (2014-11-10).
 </DL>
 <P>
 
-<H3><A NAME="SECTION00050200000000000000">
+<H3><A NAME="SECTION00050300000000000000">
 Changes between releases 3.00 and 3.11</A>
 </H3>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -145,15 +185,15 @@ to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to Planck 20
 	<A HREF="idlnode61.htm#idl:read_tqu"><TT>read_tqu</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-	<A NAME="tex2html9"
+	<A NAME="tex2html11"
   HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and their supporting <A NAME="tex2html10"
+routines, and their supporting <A NAME="tex2html12"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 routines (2013-02-08).
 </DL></DL>
 <P>
 
-<H3><A NAME="SECTION00050300000000000000">
+<H3><A NAME="SECTION00050400000000000000">
 Changes between releases 2.20 and 3.00</A>
 </H3>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -216,7 +256,7 @@ maps
 </DL></DL>
 <P>
 
-<H3><A NAME="SECTION00050400000000000000">
+<H3><A NAME="SECTION00050500000000000000">
 Changes between release 2.0 and 2.20</A>
 </H3><SMALL CLASS="FOOTNOTESIZE">
 Several routines have been added or improved since version 2.0, as listed below.
@@ -247,7 +287,7 @@ pixels on the sphere.
  <A HREF="idlnode43.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
 		the <A HREF="idlnode43.htm#idl:mollview:outline"><TT>OUTLINE</TT></A> option now accept
 symbols with <TT>PSYM</TT> <SPAN CLASS="MATH">&gt; 8</SPAN>, using
-<A NAME="tex2html15"
+<A NAME="tex2html17"
   HREF="http://www.dfanning.com/programs/symcat.pro"><TT>symcat</TT></A>
 symbols definition.
 </DL>
@@ -331,9 +371,9 @@ color image from 3 channel map
 	</DL>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved compatibility with 
-<A NAME="tex2html11"
+<A NAME="tex2html13"
   HREF="http://gnudatalanguage.sourceforge.net">GDL</A>
-(free IDL clone). See <A NAME="tex2html12"
+(free IDL clone). See <A NAME="tex2html14"
   HREF="install.htm">``<b>HEALPix</b> Installation Document''</A>
 for current GDL limitations.
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -414,8 +454,8 @@ leaving these routines
 include panning, zooming, blinking, image statistics and peak finding.
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode32.htm#idl:hpx2gs"><TT>hpx2gs</TT></A>: turns a healpix data set into a
-<A NAME="tex2html13"
-  HREF="http://earth.google.com/">Google Earth</A>/<A NAME="tex2html14"
+<A NAME="tex2html15"
+  HREF="http://earth.google.com/">Google Earth</A>/<A NAME="tex2html16"
   HREF="http://earth.google.com/sky/skyedu.html">Google Sky</A>-compatible image
  <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode34.htm#idl:ianafast"><TT>ianafast</TT></A>: interface to (F90) <TT>anafast</TT>
@@ -495,31 +535,31 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html281"
+<A NAME="tex2html286"
   HREF="idlnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html287"
+<A NAME="tex2html292"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html291"
+<A NAME="tex2html296"
   HREF="idlnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html289"
+<A NAME="tex2html294"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html282"
-  HREF="idlnode4.htm">Changes between releases 3.20</A>
+<B> Previous:</B> <A NAME="tex2html287"
+  HREF="idlnode4.htm">Changes between releases 3.30</A>
 
-<B>Up:</B> <A NAME="tex2html288"
+<B>Up:</B> <A NAME="tex2html293"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html292"
+<B> Next:</B> <A NAME="tex2html297"
   HREF="idlnode6.htm">alm_i2t</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1591"
+<A NAME="tex2html1599"
   HREF="subroutinesnode109.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1597"
+<A NAME="tex2html1605"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1601"
+<A NAME="tex2html1609"
   HREF="subroutinesnode111.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1599"
+<A NAME="tex2html1607"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1592"
+<B> Previous:</B> <A NAME="tex2html1600"
   HREF="subroutinesnode109.htm">write_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html1598"
+<B>Up:</B> <A NAME="tex2html1606"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1602"
+<B> Next:</B> <A NAME="tex2html1610"
   HREF="subroutinesnode111.htm">write_plm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -64,7 +64,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This routine writes the baseline FITS header 
 for the most common <b>HEALPix</b> data sets: (cut sky or full sky) map, <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra and <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 coefficients.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/head_fits.F90"><b>src/f90/mod/head_fits.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">write_minimal_header</FONT>(
@@ -130,7 +130,7 @@ required for dtype='MAP' and dtype='CUTMAP'</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>map ordering, either 1 (=ring) or 2
 (=nested); see <TT>ordering</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">order<A NAME="sub:write_minimal_header:order"></A>ing(LEN=*)</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">ordering(LEN=*)<A NAME="sub:write_minimal_header:ordering"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>map ordering, either 'RING' or 
@@ -153,7 +153,7 @@ data set</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">version<A NAME="sub:write_minimal_header:version"></A>(LEN=*)</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>version<A NAME="sub:write_minimal_header:version"></A> of <TT>creator</TT> software</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>version of <TT>creator</TT> software</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">randseed<A NAME="sub:write_minimal_header:randseed"></A></font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
@@ -200,7 +200,7 @@ only applies to dtype='CL'</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">deriv<A NAME="sub:write_minimal_header:deriv"></A>     </font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>order<A NAME="sub:write_minimal_header:order"></A> of derivatives to included in FITS file (0, 1 or 2); 
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=245>order of derivatives to included in FITS file (0, 1 or 2); 
 only applies to dtype='MAP'</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">asym_cl<A NAME="sub:write_minimal_header:asym_cl"></A>    </font></i></TD>
@@ -282,31 +282,31 @@ keyword into a FITS file header.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1591"
+<A NAME="tex2html1599"
   HREF="subroutinesnode109.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1597"
+<A NAME="tex2html1605"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1601"
+<A NAME="tex2html1609"
   HREF="subroutinesnode111.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1599"
+<A NAME="tex2html1607"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1592"
+<B> Previous:</B> <A NAME="tex2html1600"
   HREF="subroutinesnode109.htm">write_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html1598"
+<B>Up:</B> <A NAME="tex2html1606"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1602"
+<B> Next:</B> <A NAME="tex2html1610"
   HREF="subroutinesnode111.htm">write_plm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

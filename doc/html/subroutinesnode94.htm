@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1399"
+<A NAME="tex2html1407"
   HREF="subroutinesnode93.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1405"
+<A NAME="tex2html1413"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1409"
+<A NAME="tex2html1417"
   HREF="subroutinesnode95.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1407"
+<A NAME="tex2html1415"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1400"
+<B> Previous:</B> <A NAME="tex2html1408"
   HREF="subroutinesnode93.htm">rotate_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html1406"
+<B>Up:</B> <A NAME="tex2html1414"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1410"
+<B> Next:</B> <A NAME="tex2html1418"
   HREF="subroutinesnode95.htm">scan_directories</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -87,63 +87,70 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  Equator.
 They are chosen to have their center located at
 <BR>
-<DIV ALIGN="CENTER">
-
+<DIV ALIGN="CENTER"><A NAME="eq:same_shape_pixel_xxx"></A>
 <!-- MATH
  \begin{eqnarray}
 z=\cos(\theta)\ge 2/3,  &\ &    0< \phi \leq \pi/2,   \nonumber\\%[Nside*(Nside+2)/4]
-     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  \nonumber %[Nside]
+     2/3 > z \geq 0,  &\ & \phi=0, \quad{\rm or}\quad  \phi=\frac{\pi}{4{N_{\rm side}}}.  %\nonumber %[Nside]
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
  WIDTH="147" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg138.png"
+ SRC="subroutinesimg133.png"
  ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$"></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg139.png"
+ SRC="subroutinesimg134.png"
  ALT="$\textstyle \ $"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="111" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg140.png"
+ SRC="subroutinesimg135.png"
  ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 <TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
  WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg141.png"
+ SRC="subroutinesimg136.png"
  ALT="$\displaystyle %[Nside*(Nside+2)/4]
 2/3 &gt; z \geq 0,$"></TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg139.png"
+ SRC="subroutinesimg134.png"
  ALT="$\textstyle \ $"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg142.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+ SRC="subroutinesimg137.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %\nonumber %[Nside]
 $"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-&nbsp;</TD></TR>
+(<SPAN CLASS="arabic">23</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
 They are numbered continuously from 0, starting at the North Pole, with the index
  increasing in <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg87.png"
+ SRC="subroutinesimg83.png"
  ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">same_shape_pixels_nest, same_shape_pixels_ring</FONT>(
- nside, template [,&nbsp;list, reflexion, nrep]
+<A HREF="#sub:same_shape_pixels_xxx:nside">nside</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:template">template</A>
+[,&nbsp;<A HREF="#sub:same_shape_pixels_xxx:list">list</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:reflexion">reflexion</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:nrep">nrep</A>]
 )</h3></blockquote>
 
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">same_shape_pixels_nest, same_shape_pixels_ring</FONT>(
- nside, template [,&nbsp;list, reflexion, nrep]
+<A HREF="#sub:same_shape_pixels_xxx:nside">nside</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:template">template</A>
+[,&nbsp;<A HREF="#sub:same_shape_pixels_xxx:list">list</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:reflexion">reflexion</A>, 
+ <A HREF="#sub:same_shape_pixels_xxx:nrep">nrep</A>]
 )</h3></blockquote>
 
 <P>
@@ -161,7 +168,7 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>
-nside</TD>
+nside<A NAME="sub:same_shape_pixels_xxx:nside"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>the <b>HEALPix</b> <!-- MATH
@@ -172,14 +179,14 @@ nside</TD>
  SRC="subroutinesimg13.png"
  ALT="${N_{\rm side}}$"></SPAN> parameter.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>template</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>template<A NAME="sub:same_shape_pixels_xxx:template"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>identification number of the
                    template pixel (the numbering
                    scheme of the pixel templates is the same for both routines).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>list(0:nrep-1) OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>list(0:nrep-1)<A NAME="sub:same_shape_pixels_xxx:list"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>pointer containing the ordered list of NESTED/RING scheme
@@ -188,13 +195,13 @@ nside</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg98.png"
+ SRC="subroutinesimg94.png"
  ALT="$12{N_{\rm side}}^2-1$"></SPAN>})
   of all pixels having the same shape as the template provided. The routines
                    will allocate the <TT>list</TT> array if it is not allocated
                    upon calling.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>reflexion(0:nrep-1) OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>reflexion(0:nrep-1)<A NAME="sub:same_shape_pixels_xxx:reflexion"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>pointer containing the transformation(s) (in
@@ -207,7 +214,7 @@ nside</TD>
                    will allocate the <TT>list</TT> array if it is not allocated
                    upon calling.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>nrep OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>nrep<A NAME="sub:same_shape_pixels_xxx:nrep"></A> OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>number of pixels having the same template (either 8, 16, 4<!-- MATH
@@ -272,31 +279,31 @@ and <TT>np</TT> will contain the number of pixels having that same shape (16 in 
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1399"
+<A NAME="tex2html1407"
   HREF="subroutinesnode93.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1405"
+<A NAME="tex2html1413"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1409"
+<A NAME="tex2html1417"
   HREF="subroutinesnode95.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1407"
+<A NAME="tex2html1415"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1400"
+<B> Previous:</B> <A NAME="tex2html1408"
   HREF="subroutinesnode93.htm">rotate_alm*</A>
 
-<B>Up:</B> <A NAME="tex2html1406"
+<B>Up:</B> <A NAME="tex2html1414"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1410"
+<B> Next:</B> <A NAME="tex2html1418"
   HREF="subroutinesnode95.htm">scan_directories</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

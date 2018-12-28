@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html681"
+<A NAME="tex2html687"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html687"
+<A NAME="tex2html693"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html691"
+<A NAME="tex2html697"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html689"
+<A NAME="tex2html695"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html682"
+<B> Previous:</B> <A NAME="tex2html688"
   HREF="idlnode37.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html688"
+<B>Up:</B> <A NAME="tex2html694"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html692"
+<B> Next:</B> <A NAME="tex2html698"
   HREF="idlnode39.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -60,10 +60,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 </H1>
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">ismoothing</FONT></font></b><hr>
-<H3>This IDL facility provides an interface to F90 '<A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>' facility. It can be
+<H3>This IDL facility provides an interface to F90 '<A HREF="#fac:smoothing">smoothing</A>' facility. It can be
 used to smooth a <b>HEALPix</b> map by an arbitrary circular 'beam' defined by its
 Legendre window function (or its FWHM if it is assumed Gaussian)</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/interfaces/ismoothing.pro"><b>src/idl/interfaces/ismoothing.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/interfaces/ismoothing.pro"><b>src/idl/interfaces/ismoothing.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 ISMOOTHING, 
@@ -158,16 +158,16 @@ ISMOOTHING,
 <B>/nested</B>
 <DD><A NAME="idl:ismoothing:nested"></A> if set, signals that *all* maps and mask read online are in
    NESTED scheme (does not apply to FITS file), 
-<A HREF="#idl:smoothing:ring"><TT>/ring</TT></A> and 
-<A HREF="#idl:smoothing:ordering"><TT>Ordering</TT></A>
+<A HREF="#idl:ismoothing:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:ismoothing:ordering"><TT>Ordering</TT></A>
 
 <P>
 <DT>
 <B>ordering=</B>
 <DD><A NAME="idl:ismoothing:ordering"></A> either 'RING' or 'NESTED', ordering of online maps and masks,
 see 
-<A HREF="#idl:smoothing:ring"><TT>/ring</TT></A> and 
-<A HREF="#idl:smoothing:nested"><TT>/nested</TT></A>
+<A HREF="#idl:ismoothing:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:ismoothing:nested"><TT>/nested</TT></A>
 
 <P>
 <DT>
@@ -185,8 +185,8 @@ see
 <DT>
 <B>/ring</B>
 <DD><A NAME="idl:ismoothing:ring"></A> see 
-<A HREF="#idl:smoothing:nested"><TT>/nested</TT></A> and 
-<A HREF="#idl:smoothing:ordering"><TT>Ordering</TT></A> above
+<A HREF="#idl:ismoothing:nested"><TT>/nested</TT></A> and 
+<A HREF="#idl:ismoothing:ordering"><TT>Ordering</TT></A> above
 
 <P>
 <DT>
@@ -236,7 +236,7 @@ see
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">ismoothing</FONT> is an interface to '<A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>' F90 facility. It
+<FONT COLOR="#CC0000">ismoothing</FONT> is an interface to '<A HREF="#fac:smoothing">smoothing</A>' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
@@ -260,16 +260,16 @@ circular beam profile <SPAN CLASS="MATH"><IMG
  ALT="$b(\theta)$"></SPAN>
     <DT>
 <B><A HREF="idlnode33.htm#idl:ialteralm">ialteralm</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>
+<DD>IDL Interface to F90 <A HREF="#fac:alteralm">alteralm</A>
     <DT>
 <B><A HREF="idlnode34.htm#idl:ianafast">ianafast</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A> and C++ anafast_cxx
+<DD>IDL Interface to F90 <A HREF="#fac:anafast">anafast</A> and C++ anafast_cxx
     <DT>
 <B><A HREF="idlnode37.htm#idl:iprocess_mask">iprocess_mask</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode11.htm#fac:process_mask">process_mask</A>
+<DD>IDL Interface to F90 <A HREF="#fac:process_mask">process_mask</A>
 <DT>
 <B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>
+<DD>IDL Interface to F90 <A HREF="#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
@@ -296,31 +296,31 @@ will generate and plot a white noise map and its smoothed version
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html681"
+<A NAME="tex2html687"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html687"
+<A NAME="tex2html693"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html691"
+<A NAME="tex2html697"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html689"
+<A NAME="tex2html695"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html682"
+<B> Previous:</B> <A NAME="tex2html688"
   HREF="idlnode37.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html688"
+<B>Up:</B> <A NAME="tex2html694"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html692"
+<B> Next:</B> <A NAME="tex2html698"
   HREF="idlnode39.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

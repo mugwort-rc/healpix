@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html633"
+<A NAME="tex2html639"
   HREF="idlnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html639"
+<A NAME="tex2html645"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html643"
+<A NAME="tex2html649"
   HREF="idlnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html641"
+<A NAME="tex2html647"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html634"
+<B> Previous:</B> <A NAME="tex2html640"
   HREF="idlnode33.htm">ialteralm</A>
 
-<B>Up:</B> <A NAME="tex2html640"
+<B>Up:</B> <A NAME="tex2html646"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html644"
+<B> Next:</B> <A NAME="tex2html650"
   HREF="idlnode35.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -60,11 +60,11 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 </H1>
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">ianafast</FONT></font></b><hr>
-<H3>This IDL facility provides an interface to '<A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
+<H3>This IDL facility provides an interface to '<A HREF="#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
 facilities. It can be used to produce the Spherical Harmonics coefficients
 (<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> of a <b>HEALPix</b> map (or pair of maps) and/or the resulting auto (or
 cross) power spectra <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/interfaces/ianafast.pro"><b>src/idl/interfaces/ianafast.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/interfaces/ianafast.pro"><b>src/idl/interfaces/ianafast.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 IANAFAST,  <A HREF="#idl:ianafast:map1_in">map1_in</A>[, <A HREF="#idl:ianafast:cl_out">cl_out</A>,
@@ -114,7 +114,7 @@ file or a memory array
 <P>
 <DT>
 <B>/cxx<A NAME="idl:ianafast:cxx"></A></B>
-<DD>if set, the C++ back-end anafast_cxx is invoked instead of F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>,
+<DD>if set, the C++ back-end anafast_cxx is invoked instead of F90 <A HREF="#fac:anafast">anafast</A>,
            AND the parameter file is written accordingly
 
 <P>
@@ -165,7 +165,7 @@ file or a memory array
 <DT>
 <B>nlmax<A NAME="idl:ianafast:nlmax"></A>=</B>
 <DD>maximum multipole of analysis, *required* for C++ anafast_cxx,
-      optional for F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>
+      optional for F90 <A HREF="#fac:anafast">anafast</A>
 
 <P>
 <DT>
@@ -266,7 +266,7 @@ be plotted
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">ianafast</FONT> is an interface to '<A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
+<FONT COLOR="#CC0000">ianafast</FONT> is an interface to '<A HREF="#fac:anafast">anafast</A>' F90 and 'anafast_cxx' C++
 facilities. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
@@ -279,23 +279,23 @@ file, or as a memory array.
 <B>idl</B>
 <DD>version 6.4 or more is necessary to run <FONT COLOR="#CC0000">ianafast</FONT>.
     <DT>
-<B><A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A></B>
+<B><A HREF="#fac:anafast">anafast</A></B>
 <DD>F90 facility called by <FONT COLOR="#CC0000">ianafast</FONT>.
     <DT>
 <B>anafast_cxx</B>
 <DD>C++ called by <FONT COLOR="#CC0000">ianafast</FONT>.
     <DT>
 <B><A HREF="idlnode33.htm#idl:ialteralm">ialteralm</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>
+<DD>IDL Interface to F90 <A HREF="#fac:alteralm">alteralm</A>
 <DT>
 <B><A HREF="idlnode37.htm#idl:iprocess_mask">iprocess_mask</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode11.htm#fac:process_mask">process_mask</A>
+<DD>IDL Interface to F90 <A HREF="#fac:process_mask">process_mask</A>
     <DT>
 <B><A HREF="idlnode38.htm#idl:ismoothing">ismoothing</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>
+<DD>IDL Interface to F90 <A HREF="#fac:smoothing">smoothing</A>
     <DT>
 <B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>
+<DD>IDL Interface to F90 <A HREF="#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
@@ -320,31 +320,31 @@ file, or as a memory array.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html633"
+<A NAME="tex2html639"
   HREF="idlnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html639"
+<A NAME="tex2html645"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html643"
+<A NAME="tex2html649"
   HREF="idlnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html641"
+<A NAME="tex2html647"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html634"
+<B> Previous:</B> <A NAME="tex2html640"
   HREF="idlnode33.htm">ialteralm</A>
 
-<B>Up:</B> <A NAME="tex2html640"
+<B>Up:</B> <A NAME="tex2html646"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html644"
+<B> Next:</B> <A NAME="tex2html650"
   HREF="idlnode35.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

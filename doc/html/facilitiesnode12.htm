@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html222"
+<A NAME="tex2html225"
   HREF="facilitiesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html228"
+<A NAME="tex2html231"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html232"
+<A NAME="tex2html235"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html230"
+<A NAME="tex2html233"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html223"
+<B> Previous:</B> <A NAME="tex2html226"
   HREF="facilitiesnode11.htm">process_mask</A>
 
-<B>Up:</B> <A NAME="tex2html229"
+<B>Up:</B> <A NAME="tex2html232"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html233"
+<B> Next:</B> <A NAME="tex2html236"
   HREF="facilitiesnode13.htm">smoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -80,7 +80,7 @@ The operation count is dominated by a term scaling as
 The map angular power spectrum, resolution, Gaussian beam FWHM or arbitrary beam window  
 and random seed for the simulation can be selected by the user.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/ngsims_full_sky/sky_ng_sim.F90"><b>src/f90/ngsims_full_sky/sky_ng_sim.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/ngsims_full_sky/sky_ng_sim.F90"><b>src/f90/ngsims_full_sky/sky_ng_sim.F90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 sky_ng_sim [parameter_file]
@@ -91,28 +91,28 @@ sky_ng_sim [parameter_file]
  
   </SMALL><DL COMPACT><DT>
 <B>simul_type = </B>
-<DD>Defines the simulation type, 1=temperature map only,
+<DD><A NAME="fac:sky_ng_sim:simul_type"></A>Defines the simulation type, 1=temperature map only,
        3=temperature and its first spatial derivatives,
        4=temperature and its first and second spatial derivatives.
 (default= 1).
     <DT>
 <B>infile = </B>
-<DD>Defines the input power spectrum file,
+<DD><A NAME="fac:sky_ng_sim:infile"></A>Defines the input power spectrum file,
 	(default= HEALPIX/test/cl.fits).
 <DT>
 <B>outfile_alms = </B>
-<DD>Defines the FITS file in which to output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> used
+<DD><A NAME="fac:sky_ng_sim:outfile_alms"></A>Defines the FITS file in which to output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> used
       for the simulation (default= `')
 <DT>
 <B>outfile = </B>
-<DD>Defines the output map file, (default= test.fits).
+<DD><A NAME="fac:sky_ng_sim:outfile"></A>Defines the output map file, (default= test.fits).
 <DT>
 <B>nsmax = </B>
-<DD>Defines the resolution of the map.
+<DD><A NAME="fac:sky_ng_sim:nsmax"></A>Defines the resolution of the map.
 (default= 32)
 <DT>
 <B>nlmax = </B>
-<DD>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
+<DD><A NAME="fac:sky_ng_sim:nlmax"></A>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
 to be used in the simulation. WARNING: <SPAN CLASS="MATH"><I>l</I><SUB><I>max</I></SUB></SPAN> can not exceed
 the value <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
@@ -123,19 +123,19 @@ are precomputed and provided up to this limit.
 (default= 2*<TT>nsmax</TT>)
 <DT>
 <B>fwhm_arcmin = </B>
-<DD>Defines the FWHM size in arcminutes 
+<DD><A NAME="fac:sky_ng_sim:fwhm_arcmin"></A>Defines the FWHM size in arcminutes 
 of the simulated Gaussian beam.
 (default= 0.0)
 <DT>
 <B>beam_file = </B>
-<DD>Defines the FITS file describing the
+<DD><A NAME="fac:sky_ng_sim:beam_file"></A>Defines the FITS file describing the
     Legendre window
     function of the circular beam to be used for the
     simulation. If set to an existing file name, it will override the
     <TT>fhwm_arcmin</TT> given above. (default=`')
 <DT>
 <B>windowfile = </B>
-<DD>Defines the input filename  for the pixel
+<DD><A NAME="fac:sky_ng_sim:windowfile"></A>Defines the input filename  for the pixel
     smoothing windows 
 (default= pixel_window_n????.fits, see Notes on default files and directories
 on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
@@ -146,11 +146,11 @@ on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORD
 page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).
 <DT>
 <B>iseed = </B>
-<DD>Defines the seed of the pseudo-random sequence to be used 
+<DD><A NAME="fac:sky_ng_sim:iseed"></A>Defines the seed of the pseudo-random sequence to be used 
 for the generation of the non-gaussian white noise (default= 1)
 <DT>
-<B>plot =</B>
-<DD>If <FONT COLOR="#CC0000">sky_ng_sim</FONT>was linked with the PGPLOT library during compilation, and
+<B>plot = </B>
+<DD><A NAME="fac:sky_ng_sim:plot"></A>If <FONT COLOR="#CC0000">sky_ng_sim</FONT>was linked with the PGPLOT library during compilation, and
 if <TT>plot</TT> is set to (case unsensitive) <TT>.true.</TT>, <TT>t</TT>, <TT>yes</TT>, <TT>y</TT>  or
 1, then the histogram of the simulated non-gaussian is produced, overplotted
 with the theoretical PDF; the histogram of the final map pixel values,
@@ -158,15 +158,15 @@ overplotted with a PDF of a gaussian of same mean and variance is subsequently
 produced.
 (default=.false.)
 <DT>
-<B>pdf_choice=1</B>
-<DD>Choice of non-Gaussian PDF to use: 1= Simple
+<B>pdf_choice=1 </B>
+<DD><A NAME="fac:sky_ng_sim:pdf_choice"></A>Choice of non-Gaussian PDF to use: 1= Simple
 Harmonics oscillator (see Eq&nbsp;<A HREF="#eq:nongauss_sho">2</A> below)
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 <B>sigma0= </B>
-RMS of oscillator ground state
+<A NAME="fac:sky_ng_sim:sigma0"></A>RMS of oscillator ground state
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 <B>na= </B>
-Integer in {0, 20}. Number of <SPAN CLASS="MATH"><IMG
+<A NAME="fac:sky_ng_sim:na"></A>Integer in {0, 20}. Number of <SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="facilitiesimg36.png"
  ALT="$\alpha$"></SPAN> coefficients to be
@@ -178,7 +178,7 @@ can only be done for <TT>na</TT><SPAN CLASS="MATH"><IMG
  ALT="$\le 3$"></SPAN>. 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 <B>alpha_1=, alpha_2=, ... </B>
-Real values of <SPAN CLASS="MATH"><IMG
+<A NAME="fac:sky_ng_sim:alpha_1"></A><A NAME="fac:sky_ng_sim:alpha_2"></A><A NAME="fac:sky_ng_sim:alpha_3"></A>Real values of <SPAN CLASS="MATH"><IMG
  WIDTH="22" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="facilitiesimg38.png"
  ALT="$\alpha_i$"></SPAN> coefficients for
@@ -192,7 +192,7 @@ Real values of <SPAN CLASS="MATH"><IMG
 Gaussian (see Eq&nbsp;<A HREF="#eq:nongauss_powgauss">3</A> below)
       <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 <B>npower = </B>
-Positive integer in {1,4} (default=1). The gaussian
+<A NAME="fac:sky_ng_sim:npower"></A>Positive integer in {1,4} (default=1). The gaussian
 will be set to the power 2*<TT>npower</TT>.
      </DL></DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -359,7 +359,7 @@ subroutine generates or reads the <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> w
 <DD>This <b>HEALPix</b> Fortran facility can be used to visualise the
   output map.
   <DT>
-<B>mollview</B>
+<B><A HREF="./idlnode43.htm#idl:mollview">mollview</A></B>
 <DD>This <b>HEALPix</b> IDL facility can be used to visualise the
   output map.
   <DT>
@@ -396,19 +396,19 @@ If the equality sign is omitted, then the parser ignores the entry.
 In this way comments may also be included in the file.
 In this example, the file contains the following qualifiers:
 <BR>
-<tt>simul_type = 1</tt><br>
-<tt>nsmax = 128</tt><br>
-<tt>nlmax = 256</tt><br>
-<tt>fwhm_arcmin = 30.0</tt><br>
-<tt>infile = cl.fits</tt><br>
-<tt>pdf_choice = 1</tt><br>
-<tt>iseed =  1</tt><br>
-<tt>na = 3</tt><br>
-<tt>sigma0 = 1.0</tt><br>
-<tt>alpha_1 = 0.0</tt><br>
-<tt>alpha_2 = 0.0</tt><br>
-<tt>alpha_3 = 0.2</tt><br>
-<tt>outfile = !test_ngfs.fits</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:simul_type">simul_type</A>= 1</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:nsmax">nsmax</A>= 128</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:nlmax">nlmax</A>= 256</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:fwhm_arcmin">fwhm_arcmin</A>= 30.0</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:infile">infile</A>= cl.fits</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:pdf_choice">pdf_choice</A>= 1</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:iseed">iseed</A>=  1</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:na">na</A>= 3</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:sigma0">sigma0</A>= 1.0</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:alpha_1">alpha_1</A>= 0.0</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:alpha_2">alpha_2</A>= 0.0</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:alpha_3">alpha_3</A>= 0.2</tt><br>
+<tt><A HREF="#fac:sky_ng_sim:outfile">outfile</A>= !test_ngfs.fits</tt><br>
 <TT>sky_ng_sim</TT> reads in the <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> power spectrum in 'cl.fits' up to <SPAN CLASS="MATH"><I>l</I>=256</SPAN>, and produces the map
 'map.fits' which has <!-- MATH
  $N_{\rm side}=128$
@@ -428,16 +428,28 @@ assuming a SHO PDF (see Eq&nbsp;<A HREF="#eq:nongauss_sho">2</A> above) with <SP
  WIDTH="121" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="facilitiesimg49.png"
  ALT="$\alpha_i = (0, 0, 0.2)$"></SPAN>.
-The map is convolved with a beam of FWHM 30.0 arcminutes. The <SPAN CLASS="MATH"><I>iseed</I>=1</SPAN> sets
-the random seed for the realisation. A different <SPAN CLASS="MATH"><I>iseed</I></SPAN> would have given a different 
-realisation from the same power spectrum. And finally, since <TT>simul_type =
+The map is convolved with a beam of FWHM 30.0 arcminutes. The <!-- MATH
+ $\hyperref{iseed}{}{}{fac:sky_ng_sim:iseed}=1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="facilitiesimg50.png"
+ ALT="$\hyperref{iseed}{}{}{fac:sky_ng_sim:iseed}=1$"></SPAN> sets
+the random seed for the realisation. A different <!-- MATH
+ $\hyperref{iseed}{}{}{fac:sky_ng_sim:iseed}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="5" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="facilitiesimg51.png"
+ ALT="$\hyperref{iseed}{}{}{fac:sky_ng_sim:iseed}$"></SPAN> would have given a different 
+realisation from the same power spectrum. And finally, since <TT><A HREF="#fac:sky_ng_sim:simul_type">simul_type</A>=
 1</TT> only the map (and not its spatial derivatives) will be output.
 </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">Since <BR>
-<tt>beam_file </tt><br>
-<tt>windowfile </tt><br>
-<tt>outfile_alms </tt><br>
+<tt><A HREF="#fac:sky_ng_sim:beam_file">beam_file</A></tt><br>
+<tt><A HREF="#fac:sky_ng_sim:windowfile">windowfile</A></tt><br>
+<tt><A HREF="#fac:sky_ng_sim:outfile_alms">outfile_alms</A></tt><br>
 were omitted, they take their default values (empty strings). 
 This means respectively that no beam were read, that <TT>sky_ng_sim</TT> attempts to find the pixel
 window files in the default directories (see page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>), and
@@ -555,31 +567,31 @@ contain the proper amount of data. </SMALL></TD>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html222"
+<A NAME="tex2html225"
   HREF="facilitiesnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html228"
+<A NAME="tex2html231"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html232"
+<A NAME="tex2html235"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html230"
+<A NAME="tex2html233"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html223"
+<B> Previous:</B> <A NAME="tex2html226"
   HREF="facilitiesnode11.htm">process_mask</A>
 
-<B>Up:</B> <A NAME="tex2html229"
+<B>Up:</B> <A NAME="tex2html232"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html233"
+<B> Next:</B> <A NAME="tex2html236"
   HREF="facilitiesnode13.htm">smoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

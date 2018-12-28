@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html847"
+<A NAME="tex2html855"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html853"
+<A NAME="tex2html861"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html857"
+<A NAME="tex2html865"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html863"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html848"
+<B> Previous:</B> <A NAME="tex2html856"
   HREF="subroutinesnode47.htm">map2alm_iterative*</A>
 
-<B>Up:</B> <A NAME="tex2html854"
+<B>Up:</B> <A NAME="tex2html862"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html858"
+<B> Next:</B> <A NAME="tex2html866"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -95,7 +95,7 @@ and is such that <!-- MATH
 <SPAN CLASS="MATH"><SUB><I>s</I></SUB><I>S</I><SUP>*</SUP> = <SUB>-<I>s</I></SUB><I>S</I></SPAN>.
 <BR>
 The 
-<A NAME="tex2html19"
+<A NAME="tex2html20"
   HREF="http://en.wikipedia.org/wiki/Spin-weighted_spherical_harmonics#Calculating">usual phase convention for the spin weighted harmonics</A>
 is
 <!-- MATH
@@ -224,7 +224,7 @@ match <b>HEALPix</b> polarization <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP>
  SRC="subroutinesimg37.png"
  ALT="$\ {_0}S^- = 0.$"></SPAN>
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">map2alm_spin*</FONT>(
@@ -294,14 +294,14 @@ value is relevant).</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg91.png"
+ SRC="subroutinesimg87.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta).$"></SPAN> If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
                    it is performed <EM>outside</EM> of the strip
                    zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring(1:2*nsmax,1:2), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring_TQU(1:2*nsmax,1:2)<A NAME="sub:map2alm_spin:w8ring_TQU"></A>, OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ring weights for quadrature corrections. If ring weights are not used, this array should be 1 everywhere.</TD>
@@ -392,31 +392,31 @@ polarization maps
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html847"
+<A NAME="tex2html855"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html853"
+<A NAME="tex2html861"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html857"
+<A NAME="tex2html865"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html855"
+<A NAME="tex2html863"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html848"
+<B> Previous:</B> <A NAME="tex2html856"
   HREF="subroutinesnode47.htm">map2alm_iterative*</A>
 
-<B>Up:</B> <A NAME="tex2html854"
+<B>Up:</B> <A NAME="tex2html862"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html858"
+<B> Next:</B> <A NAME="tex2html866"
   HREF="subroutinesnode49.htm">maskborder_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

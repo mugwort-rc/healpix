@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1339"
+<A NAME="tex2html1347"
   HREF="subroutinesnode88.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1345"
+<A NAME="tex2html1353"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1349"
+<A NAME="tex2html1357"
   HREF="subroutinesnode90.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1347"
+<A NAME="tex2html1355"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1340"
+<B> Previous:</B> <A NAME="tex2html1348"
   HREF="subroutinesnode88.htm">real_fft</A>
 
-<B>Up:</B> <A NAME="tex2html1346"
+<B>Up:</B> <A NAME="tex2html1354"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1350"
+<B> Next:</B> <A NAME="tex2html1358"
   HREF="subroutinesnode90.htm">ring_analysis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -74,7 +74,7 @@ from a <b>HEALPix</b> map. The fit is obtained by solving the linear system
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="125" HEIGHT="63" BORDER="0"
- SRC="subroutinesimg127.png"
+ SRC="subroutinesimg122.png"
  ALT="\begin{displaymath}
 \sum_{j=0}^{d^2-1}\ A_{ij}\ f_j = b_i
 \end{displaymath}"></TD>
@@ -94,7 +94,7 @@ b_i = \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="187" HEIGHT="52" BORDER="0"
- SRC="subroutinesimg128.png"
+ SRC="subroutinesimg123.png"
  ALT="\begin{displaymath}
 b_i = \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
 \end{displaymath}"></TD>
@@ -113,7 +113,7 @@ A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="199" HEIGHT="52" BORDER="0"
- SRC="subroutinesimg129.png"
+ SRC="subroutinesimg124.png"
  ALT="\begin{displaymath}
 A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
 \end{displaymath}"></TD>
@@ -123,7 +123,7 @@ A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
 <BR CLEAR="ALL"></DIV><P></P>
 where <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg130.png"
+ SRC="subroutinesimg125.png"
  ALT="$\cal{P}$"></SPAN> is the set of
 valid, unmasked pixels, <SPAN CLASS="MATH"><I>m</I></SPAN> is the input map, <SPAN CLASS="MATH"><I>w</I></SPAN> is pixel weighting, while
 <SPAN CLASS="MATH"><I>s</I><SUB>0</SUB>(<I>p</I>) = 1</SPAN> and <!-- MATH
@@ -131,7 +131,7 @@ valid, unmasked pixels, <SPAN CLASS="MATH"><I>m</I></SPAN> is the input map, <SP
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="260" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg131.png"
+ SRC="subroutinesimg126.png"
  ALT="$s_1(p)=x,\ s_2(p)=y,\ s_3(p)=z$"></SPAN> are
 respectively the monopole and dipole templates. The output map is then
 <BR>
@@ -145,7 +145,7 @@ m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="224" HEIGHT="60" BORDER="0"
- SRC="subroutinesimg132.png"
+ SRC="subroutinesimg127.png"
  ALT="\begin{displaymath}
 m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
 \end{displaymath}"></TD>
@@ -154,7 +154,7 @@ m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
 </TABLE>
 <BR CLEAR="ALL"></DIV><P></P>
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/pix_tools.F90"><b>src/f90/mod/pix_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">remove_dipole*</FONT>(
@@ -222,7 +222,7 @@ nside<A NAME="sub:remove_dipole:nside"></A></TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="214" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg96.png"
+ SRC="subroutinesimg92.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta)$"></SPAN>. If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the fit is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not, the
@@ -304,31 +304,31 @@ Will compute and remove the best fit monopole and dipole from a map with
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1339"
+<A NAME="tex2html1347"
   HREF="subroutinesnode88.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1345"
+<A NAME="tex2html1353"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1349"
+<A NAME="tex2html1357"
   HREF="subroutinesnode90.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1347"
+<A NAME="tex2html1355"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1340"
+<B> Previous:</B> <A NAME="tex2html1348"
   HREF="subroutinesnode88.htm">real_fft</A>
 
-<B>Up:</B> <A NAME="tex2html1346"
+<B>Up:</B> <A NAME="tex2html1354"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1350"
+<B> Next:</B> <A NAME="tex2html1358"
   HREF="subroutinesnode90.htm">ring_analysis</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

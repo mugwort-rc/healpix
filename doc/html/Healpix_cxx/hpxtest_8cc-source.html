@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_1e63337d9b7b66ab7c0f36a5926fc772.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_fb60de529d9e2210eb0efbbfd1449fbd.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -901,479 +901,487 @@
 <a name="l00879"></a>00879   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=1; m&lt;=mmax; ++m)
 <a name="l00880"></a>00880     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=m; l&lt;=lmax; ++l)
 <a name="l00881"></a>00881       {
-<a name="l00882"></a>00882       almT(l,m).real(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>()); almT(l,m).imag(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>());
-<a name="l00883"></a>00883       almG(l,m).real(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>()); almG(l,m).imag(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>());
-<a name="l00884"></a>00884       almC(l,m).real(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>()); almC(l,m).imag(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>());
-<a name="l00885"></a>00885       }
-<a name="l00886"></a>00886   almG(0,0)=almC(0,0)=almG(1,0)=almC(1,0)=almG(1,1)=almC(1,1)=0;
-<a name="l00887"></a>00887   }
-<a name="l00888"></a>00888 
-<a name="l00889"></a>00889 <span class="keywordtype">void</span> random_alm (<a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;alm, <span class="keywordtype">int</span> lmax, <span class="keywordtype">int</span> mmax)
-<a name="l00890"></a>00890   {
-<a name="l00891"></a>00891   alm.Set(lmax,mmax);
+<a name="l00882"></a>00882       <span class="keywordtype">double</span> t1,t2;
+<a name="l00883"></a>00883       t1=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(); t2=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>();
+<a name="l00884"></a>00884       almT(l,m)=xcomplex&lt;double&gt;(t1,t2);
+<a name="l00885"></a>00885       t1=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(); t2=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>();
+<a name="l00886"></a>00886       almG(l,m)=xcomplex&lt;double&gt;(t1,t2);
+<a name="l00887"></a>00887       t1=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(); t2=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>();
+<a name="l00888"></a>00888       almC(l,m)=xcomplex&lt;double&gt;(t1,t2);
+<a name="l00889"></a>00889       }
+<a name="l00890"></a>00890   almG(0,0)=almC(0,0)=almG(1,0)=almC(1,0)=almG(1,1)=almC(1,1)=0;
+<a name="l00891"></a>00891   }
 <a name="l00892"></a>00892 
-<a name="l00893"></a>00893   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=0; l&lt;=lmax; ++l)
-<a name="l00894"></a>00894     { alm(l,0)=dcomplex(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(),0.); }
-<a name="l00895"></a>00895 
-<a name="l00896"></a>00896   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=1; m&lt;=mmax; ++m)
-<a name="l00897"></a>00897     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=m; l&lt;=lmax; ++l)
-<a name="l00898"></a>00898       { alm(l,m).real(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>()); alm(l,m).imag(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>()); }
-<a name="l00899"></a>00899   }
-<a name="l00900"></a>00900 
-<a name="l00901"></a>00901 <span class="keywordtype">void</span> check_alm (<span class="keyword">const</span> <a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;oalm,
-<a name="l00902"></a>00902   <span class="keyword">const</span> <a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;alm, <span class="keywordtype">double</span> epsilon)
-<a name="l00903"></a>00903   {
-<a name="l00904"></a>00904   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;=alm.Mmax(); ++m)
-<a name="l00905"></a>00905     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=m; l&lt;=alm.Lmax(); ++l)
-<a name="l00906"></a>00906       {
-<a name="l00907"></a>00907       <span class="keywordflow">if</span> (!<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">abs_approx</a>(oalm(l,m).real(),alm(l,m).real(),epsilon))
-<a name="l00908"></a>00908         FAIL(cout &lt;&lt; <span class="stringliteral">"Problemr "</span> &lt;&lt; l &lt;&lt; <span class="stringliteral">" "</span> &lt;&lt; m &lt;&lt; endl)
-<a name="l00909"></a>00909       <span class="keywordflow">if</span> (!<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">abs_approx</a>(oalm(l,m).imag(),alm(l,m).imag(),epsilon))
-<a name="l00910"></a>00910         FAIL(cout &lt;&lt; <span class="stringliteral">"Problemi "</span> &lt;&lt; l &lt;&lt; <span class="stringliteral">" "</span> &lt;&lt; m &lt;&lt;  endl)
-<a name="l00911"></a>00911       }
-<a name="l00912"></a>00912   }
-<a name="l00913"></a>00913 
-<a name="l00914"></a>00914 <span class="keywordtype">void</span> check_alm2map2alm (<span class="keywordtype">int</span> lmax, <span class="keywordtype">int</span> mmax, <span class="keywordtype">int</span> nside)
-<a name="l00915"></a>00915   {
-<a name="l00916"></a>00916   cout &lt;&lt; <span class="stringliteral">"testing whether a_lm-&gt;map-&gt;a_lm returns original a_lm"</span> &lt;&lt; endl;
-<a name="l00917"></a>00917   cout &lt;&lt; <span class="stringliteral">"lmax="</span> &lt;&lt; lmax &lt;&lt;<span class="stringliteral">", mmax="</span> &lt;&lt; mmax &lt;&lt; <span class="stringliteral">", nside="</span> &lt;&lt; nside &lt;&lt; endl;
-<a name="l00918"></a>00918   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 1e-8;
-<a name="l00919"></a>00919   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalmT(lmax,mmax),almT(lmax,mmax),
-<a name="l00920"></a>00920     oalmG(lmax,mmax),almG(lmax,mmax),oalmC(lmax,mmax),almC(lmax,mmax);
-<a name="l00921"></a>00921   <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;double&gt;</a> mapT(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE), mapQ(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE),
-<a name="l00922"></a>00922     mapU(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE);
-<a name="l00923"></a>00923 
-<a name="l00924"></a>00924   random_alm(oalmT,oalmG,oalmC,lmax,mmax);
-<a name="l00925"></a>00925   <a class="code" href="group__alm__healpix__group.html#gd48143ef44a9fc4b5a93f073e5a36820">alm2map</a>(oalmT,mapT);
-<a name="l00926"></a>00926   map2alm_iter2(mapT,almT,1e-12,1e-12);
-<a name="l00927"></a>00927   check_alm (oalmT, almT, epsilon);
-<a name="l00928"></a>00928 
-<a name="l00929"></a>00929   alm2map_spin(oalmG,oalmC,mapQ,mapU,1);
-<a name="l00930"></a>00930   map2alm_spin_iter2(mapQ,mapU,almG,almC,1,1e-12,1e-12);
-<a name="l00931"></a>00931   check_alm (oalmG, almG, epsilon);
-<a name="l00932"></a>00932   check_alm (oalmC, almC, epsilon);
-<a name="l00933"></a>00933 
-<a name="l00934"></a>00934   <a class="code" href="group__alm__healpix__group.html#ge3e809f88ef1b19236544058a61a5222">alm2map_pol</a>(oalmT,oalmG,oalmC,mapT,mapQ,mapU);
-<a name="l00935"></a>00935   map2alm_pol_iter2(mapT,mapQ,mapU,almT,almG,almC,1e-12,1e-12);
-<a name="l00936"></a>00936   check_alm (oalmT, almT, epsilon);
-<a name="l00937"></a>00937   check_alm (oalmG, almG, epsilon);
-<a name="l00938"></a>00938   check_alm (oalmC, almC, epsilon);
-<a name="l00939"></a>00939   }
-<a name="l00940"></a>00940 
-<a name="l00941"></a>00941 <span class="keywordtype">void</span> check_smooth_alm ()
-<a name="l00942"></a>00942   {
-<a name="l00943"></a>00943   cout &lt;&lt; <span class="stringliteral">"testing whether unsmooth(smooth(a_lm)) returns a_lm"</span> &lt;&lt; endl;
-<a name="l00944"></a>00944   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 1e-14;
-<a name="l00945"></a>00945   <span class="keyword">const</span> <span class="keywordtype">double</span> fwhm = 100.*arcmin2rad;
-<a name="l00946"></a>00946   <span class="keyword">const</span> <span class="keywordtype">int</span> lmax=300, mmax=300;
-<a name="l00947"></a>00947   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalmT(lmax,mmax),almT(lmax,mmax),
-<a name="l00948"></a>00948     oalmG(lmax,mmax),almG(lmax,mmax),oalmC(lmax,mmax),almC(lmax,mmax);
-<a name="l00949"></a>00949 
-<a name="l00950"></a>00950   random_alm(oalmT,oalmG,oalmC,lmax,mmax);
-<a name="l00951"></a>00951 
-<a name="l00952"></a>00952   almT=oalmT; almG=oalmG; almC=oalmC;
-<a name="l00953"></a>00953   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, fwhm);
-<a name="l00954"></a>00954   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, -fwhm);
-<a name="l00955"></a>00955   check_alm (oalmT, almT, epsilon);
-<a name="l00956"></a>00956   almT=oalmT;
-<a name="l00957"></a>00957   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, almG, almC, fwhm);
-<a name="l00958"></a>00958   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, almG, almC, -fwhm);
-<a name="l00959"></a>00959   check_alm (oalmT, almT, epsilon);
-<a name="l00960"></a>00960   check_alm (oalmG, almG, epsilon);
-<a name="l00961"></a>00961   check_alm (oalmC, almC, epsilon);
-<a name="l00962"></a>00962   }
-<a name="l00963"></a>00963 
-<a name="l00964"></a>00964 <span class="keywordtype">void</span> check_rot_alm ()
-<a name="l00965"></a>00965   {
-<a name="l00966"></a>00966   cout &lt;&lt; <span class="stringliteral">"testing whether rot^-1(rot(a_lm)) returns a_lm"</span> &lt;&lt; endl;
-<a name="l00967"></a>00967   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 2e-13;
-<a name="l00968"></a>00968   <span class="keyword">const</span> <span class="keywordtype">int</span> lmax=300;
-<a name="l00969"></a>00969   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalm(lmax,lmax),alm(lmax,lmax);
-<a name="l00970"></a>00970 
-<a name="l00971"></a>00971   random_alm(oalm,lmax,lmax);
-<a name="l00972"></a>00972 
-<a name="l00973"></a>00973   alm=oalm;
-<a name="l00974"></a>00974   <a class="code" href="classAlm.html#51131885d883961a6f19852efa38c44f">rotate_alm</a> (alm,3,4,5);
-<a name="l00975"></a>00975   <a class="code" href="classAlm.html#51131885d883961a6f19852efa38c44f">rotate_alm</a> (alm,-5,-4,-3);
-<a name="l00976"></a>00976   check_alm (oalm, alm, epsilon);
-<a name="l00977"></a>00977   }
+<a name="l00893"></a>00893 <span class="keywordtype">void</span> random_alm (<a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;alm, <span class="keywordtype">int</span> lmax, <span class="keywordtype">int</span> mmax)
+<a name="l00894"></a>00894   {
+<a name="l00895"></a>00895   alm.Set(lmax,mmax);
+<a name="l00896"></a>00896 
+<a name="l00897"></a>00897   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=0; l&lt;=lmax; ++l)
+<a name="l00898"></a>00898     { alm(l,0)=dcomplex(rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(),0.); }
+<a name="l00899"></a>00899 
+<a name="l00900"></a>00900   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=1; m&lt;=mmax; ++m)
+<a name="l00901"></a>00901     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=m; l&lt;=lmax; ++l)
+<a name="l00902"></a>00902       {
+<a name="l00903"></a>00903       <span class="keywordtype">double</span> t1,t2;
+<a name="l00904"></a>00904       t1=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>(); t2=rng.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classplanck__rng.html#836ee08799067790f9e2c59be5b7de7f">rand_gauss</a>();
+<a name="l00905"></a>00905       alm(l,m)=xcomplex&lt;double&gt;(t1,t2);
+<a name="l00906"></a>00906       }
+<a name="l00907"></a>00907   }
+<a name="l00908"></a>00908 
+<a name="l00909"></a>00909 <span class="keywordtype">void</span> check_alm (<span class="keyword">const</span> <a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;oalm,
+<a name="l00910"></a>00910   <span class="keyword">const</span> <a class="code" href="classAlm.html">Alm</a>&lt;xcomplex&lt;double&gt; &gt;&amp;alm, <span class="keywordtype">double</span> epsilon)
+<a name="l00911"></a>00911   {
+<a name="l00912"></a>00912   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;=alm.Mmax(); ++m)
+<a name="l00913"></a>00913     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=m; l&lt;=alm.Lmax(); ++l)
+<a name="l00914"></a>00914       {
+<a name="l00915"></a>00915       <span class="keywordflow">if</span> (!<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">abs_approx</a>(oalm(l,m).real(),alm(l,m).real(),epsilon))
+<a name="l00916"></a>00916         FAIL(cout &lt;&lt; <span class="stringliteral">"Problemr "</span> &lt;&lt; l &lt;&lt; <span class="stringliteral">" "</span> &lt;&lt; m &lt;&lt; endl)
+<a name="l00917"></a>00917       <span class="keywordflow">if</span> (!<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#gebcc84905389a78a8ede759447aefcc9">abs_approx</a>(oalm(l,m).imag(),alm(l,m).imag(),epsilon))
+<a name="l00918"></a>00918         FAIL(cout &lt;&lt; <span class="stringliteral">"Problemi "</span> &lt;&lt; l &lt;&lt; <span class="stringliteral">" "</span> &lt;&lt; m &lt;&lt;  endl)
+<a name="l00919"></a>00919       }
+<a name="l00920"></a>00920   }
+<a name="l00921"></a>00921 
+<a name="l00922"></a>00922 <span class="keywordtype">void</span> check_alm2map2alm (<span class="keywordtype">int</span> lmax, <span class="keywordtype">int</span> mmax, <span class="keywordtype">int</span> nside)
+<a name="l00923"></a>00923   {
+<a name="l00924"></a>00924   cout &lt;&lt; <span class="stringliteral">"testing whether a_lm-&gt;map-&gt;a_lm returns original a_lm"</span> &lt;&lt; endl;
+<a name="l00925"></a>00925   cout &lt;&lt; <span class="stringliteral">"lmax="</span> &lt;&lt; lmax &lt;&lt;<span class="stringliteral">", mmax="</span> &lt;&lt; mmax &lt;&lt; <span class="stringliteral">", nside="</span> &lt;&lt; nside &lt;&lt; endl;
+<a name="l00926"></a>00926   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 1e-8;
+<a name="l00927"></a>00927   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalmT(lmax,mmax),almT(lmax,mmax),
+<a name="l00928"></a>00928     oalmG(lmax,mmax),almG(lmax,mmax),oalmC(lmax,mmax),almC(lmax,mmax);
+<a name="l00929"></a>00929   <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;double&gt;</a> mapT(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE), mapQ(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE),
+<a name="l00930"></a>00930     mapU(nside,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,SET_NSIDE);
+<a name="l00931"></a>00931 
+<a name="l00932"></a>00932   random_alm(oalmT,oalmG,oalmC,lmax,mmax);
+<a name="l00933"></a>00933   <a class="code" href="group__alm__healpix__group.html#gd48143ef44a9fc4b5a93f073e5a36820">alm2map</a>(oalmT,mapT);
+<a name="l00934"></a>00934   map2alm_iter2(mapT,almT,1e-12,1e-12);
+<a name="l00935"></a>00935   check_alm (oalmT, almT, epsilon);
+<a name="l00936"></a>00936 
+<a name="l00937"></a>00937   alm2map_spin(oalmG,oalmC,mapQ,mapU,1);
+<a name="l00938"></a>00938   map2alm_spin_iter2(mapQ,mapU,almG,almC,1,1e-12,1e-12);
+<a name="l00939"></a>00939   check_alm (oalmG, almG, epsilon);
+<a name="l00940"></a>00940   check_alm (oalmC, almC, epsilon);
+<a name="l00941"></a>00941 
+<a name="l00942"></a>00942   <a class="code" href="group__alm__healpix__group.html#ge3e809f88ef1b19236544058a61a5222">alm2map_pol</a>(oalmT,oalmG,oalmC,mapT,mapQ,mapU);
+<a name="l00943"></a>00943   map2alm_pol_iter2(mapT,mapQ,mapU,almT,almG,almC,1e-12,1e-12);
+<a name="l00944"></a>00944   check_alm (oalmT, almT, epsilon);
+<a name="l00945"></a>00945   check_alm (oalmG, almG, epsilon);
+<a name="l00946"></a>00946   check_alm (oalmC, almC, epsilon);
+<a name="l00947"></a>00947   }
+<a name="l00948"></a>00948 
+<a name="l00949"></a>00949 <span class="keywordtype">void</span> check_smooth_alm ()
+<a name="l00950"></a>00950   {
+<a name="l00951"></a>00951   cout &lt;&lt; <span class="stringliteral">"testing whether unsmooth(smooth(a_lm)) returns a_lm"</span> &lt;&lt; endl;
+<a name="l00952"></a>00952   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 1e-14;
+<a name="l00953"></a>00953   <span class="keyword">const</span> <span class="keywordtype">double</span> fwhm = 100.*arcmin2rad;
+<a name="l00954"></a>00954   <span class="keyword">const</span> <span class="keywordtype">int</span> lmax=300, mmax=300;
+<a name="l00955"></a>00955   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalmT(lmax,mmax),almT(lmax,mmax),
+<a name="l00956"></a>00956     oalmG(lmax,mmax),almG(lmax,mmax),oalmC(lmax,mmax),almC(lmax,mmax);
+<a name="l00957"></a>00957 
+<a name="l00958"></a>00958   random_alm(oalmT,oalmG,oalmC,lmax,mmax);
+<a name="l00959"></a>00959 
+<a name="l00960"></a>00960   almT=oalmT; almG=oalmG; almC=oalmC;
+<a name="l00961"></a>00961   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, fwhm);
+<a name="l00962"></a>00962   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, -fwhm);
+<a name="l00963"></a>00963   check_alm (oalmT, almT, epsilon);
+<a name="l00964"></a>00964   almT=oalmT;
+<a name="l00965"></a>00965   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, almG, almC, fwhm);
+<a name="l00966"></a>00966   <a class="code" href="classAlm.html#de2ae680b8814aacca26007a12d22fbc">smoothWithGauss</a> (almT, almG, almC, -fwhm);
+<a name="l00967"></a>00967   check_alm (oalmT, almT, epsilon);
+<a name="l00968"></a>00968   check_alm (oalmG, almG, epsilon);
+<a name="l00969"></a>00969   check_alm (oalmC, almC, epsilon);
+<a name="l00970"></a>00970   }
+<a name="l00971"></a>00971 
+<a name="l00972"></a>00972 <span class="keywordtype">void</span> check_rot_alm ()
+<a name="l00973"></a>00973   {
+<a name="l00974"></a>00974   cout &lt;&lt; <span class="stringliteral">"testing whether rot^-1(rot(a_lm)) returns a_lm"</span> &lt;&lt; endl;
+<a name="l00975"></a>00975   <span class="keyword">const</span> <span class="keywordtype">double</span> epsilon = 2e-13;
+<a name="l00976"></a>00976   <span class="keyword">const</span> <span class="keywordtype">int</span> lmax=300;
+<a name="l00977"></a>00977   <a class="code" href="classAlm.html">Alm&lt;xcomplex&lt;double&gt;</a> &gt; oalm(lmax,lmax),alm(lmax,lmax);
 <a name="l00978"></a>00978 
-<a name="l00979"></a>00979 <span class="keywordtype">void</span> check_isqrt()
-<a name="l00980"></a>00980   {
-<a name="l00981"></a>00981   cout &lt;&lt; <span class="stringliteral">"testing whether isqrt() works reliably"</span> &lt;&lt; endl;
-<a name="l00982"></a>00982   uint64 val=uint64(0xF234)&lt;&lt;16, valsq=val*val;
-<a name="l00983"></a>00983   <span class="keywordflow">if</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#g90be901d9bafb429af4eba54db2cc87a">isqrt</a>(valsq)!=val) FAIL(cout &lt;&lt; <span class="stringliteral">"PROBLEM1"</span> &lt;&lt; endl)
-<a name="l00984"></a>00984   if (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#g90be901d9bafb429af4eba54db2cc87a">isqrt</a>(valsq-1)!=val-1) FAIL(cout &lt;&lt; "PROBLEM2" &lt;&lt; endl)
+<a name="l00979"></a>00979   random_alm(oalm,lmax,lmax);
+<a name="l00980"></a>00980 
+<a name="l00981"></a>00981   alm=oalm;
+<a name="l00982"></a>00982   <a class="code" href="classAlm.html#51131885d883961a6f19852efa38c44f">rotate_alm</a> (alm,3,4,5);
+<a name="l00983"></a>00983   <a class="code" href="classAlm.html#51131885d883961a6f19852efa38c44f">rotate_alm</a> (alm,-5,-4,-3);
+<a name="l00984"></a>00984   check_alm (oalm, alm, epsilon);
 <a name="l00985"></a>00985   }
 <a name="l00986"></a>00986 
-<a name="l00987"></a>00987 <span class="keywordtype">void</span> check_pix2ang_acc()
+<a name="l00987"></a>00987 <span class="keywordtype">void</span> check_isqrt()
 <a name="l00988"></a>00988   {
-<a name="l00989"></a>00989   cout &lt;&lt; <span class="stringliteral">"testing accuracy of pix2ang at the poles"</span> &lt;&lt; endl;
-<a name="l00990"></a>00990   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;=29;++m)
-<a name="l00991"></a>00991     {
-<a name="l00992"></a>00992     <a class="code" href="classT__Healpix__Base.html">Healpix_Base2</a> base(m,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
-<a name="l00993"></a>00993     <span class="keywordflow">if</span> (base.pix2ang(1).theta==0.)
-<a name="l00994"></a>00994       FAIL(cout &lt;&lt; <span class="stringliteral">"PROBLEM: order "</span> &lt;&lt; m &lt;&lt; endl)
-<a name="l00995"></a>00995     }
-<a name="l00996"></a>00996   }
-<a name="l00997"></a>00997 
-<a name="l00998"></a>00998 <span class="keyword">const</span> <span class="keywordtype">int</span> nsteps=1000000;
-<a name="l00999"></a>00999 
-<a name="l01000"></a>01000 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_neighbors(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01001"></a>01001   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme)
-<a name="l01002"></a>01002   {
-<a name="l01003"></a>01003   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01004"></a>01004   wallTimers.start(name);
-<a name="l01005"></a>01005   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01006"></a>01006   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01007"></a>01007     {
-<a name="l01008"></a>01008     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01009"></a>01009     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01010"></a>01010     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfix__arr.html">fix_arr&lt;I,8&gt;</a> nres;
-<a name="l01011"></a>01011     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01012"></a>01012       {
-<a name="l01013"></a>01013       base.neighbors(pix,nres);
-<a name="l01014"></a>01014       ++cnt;
-<a name="l01015"></a>01015       }
-<a name="l01016"></a>01016     }
-<a name="l01017"></a>01017   wallTimers.stop(name);
-<a name="l01018"></a>01018   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01019"></a>01019   }
-<a name="l01020"></a>01020 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2ang(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01021"></a>01021   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01022"></a>01022   {
-<a name="l01023"></a>01023   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01024"></a>01024   wallTimers.start(name);
-<a name="l01025"></a>01025   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01026"></a>01026   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01027"></a>01027     {
-<a name="l01028"></a>01028     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01029"></a>01029     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01030"></a>01030     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01031"></a>01031       {
-<a name="l01032"></a>01032       <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a> p(base.pix2ang(pix));
-<a name="l01033"></a>01033       dummy+=p.theta+p.phi;
-<a name="l01034"></a>01034       ++cnt;
-<a name="l01035"></a>01035       }
-<a name="l01036"></a>01036     }
-<a name="l01037"></a>01037   wallTimers.stop(name);
-<a name="l01038"></a>01038   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01039"></a>01039   }
-<a name="l01040"></a>01040 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2vec(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01041"></a>01041   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01042"></a>01042   {
-<a name="l01043"></a>01043   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01044"></a>01044   wallTimers.start(name);
-<a name="l01045"></a>01045   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01046"></a>01046   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01047"></a>01047     {
-<a name="l01048"></a>01048     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01049"></a>01049     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01050"></a>01050     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01051"></a>01051       {
-<a name="l01052"></a>01052       <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html">vec3</a> v(base.pix2vec(pix));
-<a name="l01053"></a>01053       dummy+=v.x+v.y+v.z;
-<a name="l01054"></a>01054       ++cnt;
-<a name="l01055"></a>01055       }
-<a name="l01056"></a>01056     }
-<a name="l01057"></a>01057   wallTimers.stop(name);
-<a name="l01058"></a>01058   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01059"></a>01059   }
-<a name="l01060"></a>01060 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2zphi(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01061"></a>01061   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01062"></a>01062   {
-<a name="l01063"></a>01063   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01064"></a>01064   wallTimers.start(name);
-<a name="l01065"></a>01065   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01066"></a>01066   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01067"></a>01067     {
-<a name="l01068"></a>01068     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01069"></a>01069     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01070"></a>01070     <span class="keywordtype">double</span> z,phi;
-<a name="l01071"></a>01071     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01072"></a>01072       {
-<a name="l01073"></a>01073       base.pix2zphi(pix,z,phi);
-<a name="l01074"></a>01074       dummy+=z+phi;
-<a name="l01075"></a>01075       ++cnt;
-<a name="l01076"></a>01076       }
-<a name="l01077"></a>01077     }
-<a name="l01078"></a>01078   wallTimers.stop(name);
-<a name="l01079"></a>01079   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01080"></a>01080   }
-<a name="l01081"></a>01081 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_zphi2pix(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01082"></a>01082   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01083"></a>01083   {
-<a name="l01084"></a>01084   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01085"></a>01085   wallTimers.start(name);
-<a name="l01086"></a>01086   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01087"></a>01087   <span class="keywordtype">double</span> dz=2./sqrt(nsteps);
-<a name="l01088"></a>01088   <span class="keywordtype">double</span> dph=twopi/sqrt(nsteps);
-<a name="l01089"></a>01089   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01090"></a>01090     {
-<a name="l01091"></a>01091     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01092"></a>01092     <span class="keywordflow">for</span> (<span class="keywordtype">double</span> z=-1; z&lt;1; z+=dz)
-<a name="l01093"></a>01093       <span class="keywordflow">for</span> (<span class="keywordtype">double</span> phi=0; phi&lt;twopi; phi+=dph)
-<a name="l01094"></a>01094         {
-<a name="l01095"></a>01095         dummy+=base.zphi2pix(z,phi);
-<a name="l01096"></a>01096         ++cnt;
-<a name="l01097"></a>01097         }
-<a name="l01098"></a>01098     }
-<a name="l01099"></a>01099   wallTimers.stop(name);
-<a name="l01100"></a>01100   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01101"></a>01101   }
-<a name="l01102"></a>01102 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_ang2pix(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01103"></a>01103   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01104"></a>01104   {
-<a name="l01105"></a>01105   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01106"></a>01106   wallTimers.start(name);
-<a name="l01107"></a>01107   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01108"></a>01108   <span class="keywordtype">double</span> dth=<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathconstgroup.html#g43016d873124d39034edb8cd164794db">pi</a>/sqrt(nsteps);
-<a name="l01109"></a>01109   <span class="keywordtype">double</span> dph=twopi/sqrt(nsteps);
-<a name="l01110"></a>01110   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01111"></a>01111     {
-<a name="l01112"></a>01112     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
-<a name="l01113"></a>01113     <span class="keywordflow">for</span> (<span class="keywordtype">double</span> theta=0; theta&lt;<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathconstgroup.html#g43016d873124d39034edb8cd164794db">pi</a>; theta+=dth)
-<a name="l01114"></a>01114       <span class="keywordflow">for</span> (<span class="keywordtype">double</span> phi=0; phi&lt;twopi; phi+=dph)
-<a name="l01115"></a>01115         {
-<a name="l01116"></a>01116         dummy+=base.ang2pix(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a>(theta+1e-15*phi,phi));
-<a name="l01117"></a>01117         ++cnt;
-<a name="l01118"></a>01118         }
-<a name="l01119"></a>01119     }
-<a name="l01120"></a>01120   wallTimers.stop(name);
-<a name="l01121"></a>01121   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01122"></a>01122   }
-<a name="l01123"></a>01123 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_ring2nest(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
-<a name="l01124"></a>01124   {
-<a name="l01125"></a>01125   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01126"></a>01126   wallTimers.start(name);
-<a name="l01127"></a>01127   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01128"></a>01128   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01129"></a>01129     {
-<a name="l01130"></a>01130     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
-<a name="l01131"></a>01131     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01132"></a>01132     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01133"></a>01133       {
-<a name="l01134"></a>01134       dummy+=base.ring2nest(pix);
-<a name="l01135"></a>01135       ++cnt;
-<a name="l01136"></a>01136       }
-<a name="l01137"></a>01137     }
-<a name="l01138"></a>01138   wallTimers.stop(name);
-<a name="l01139"></a>01139   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01140"></a>01140   }
-<a name="l01141"></a>01141 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_nest2ring(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
-<a name="l01142"></a>01142   {
-<a name="l01143"></a>01143   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01144"></a>01144   wallTimers.start(name);
-<a name="l01145"></a>01145   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01146"></a>01146   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01147"></a>01147     {
-<a name="l01148"></a>01148     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
-<a name="l01149"></a>01149     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01150"></a>01150     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01151"></a>01151       {
-<a name="l01152"></a>01152       dummy+=base.nest2ring(pix);
-<a name="l01153"></a>01153       ++cnt;
-<a name="l01154"></a>01154       }
-<a name="l01155"></a>01155     }
-<a name="l01156"></a>01156   wallTimers.stop(name);
-<a name="l01157"></a>01157   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01158"></a>01158   }
-<a name="l01159"></a>01159 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_peano2nest(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
-<a name="l01160"></a>01160   {
-<a name="l01161"></a>01161   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01162"></a>01162   wallTimers.start(name);
-<a name="l01163"></a>01163   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01164"></a>01164   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01165"></a>01165     {
-<a name="l01166"></a>01166     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
-<a name="l01167"></a>01167     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01168"></a>01168     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01169"></a>01169       {
-<a name="l01170"></a>01170       dummy+=base.peano2nest(pix);
-<a name="l01171"></a>01171       ++cnt;
-<a name="l01172"></a>01172       }
-<a name="l01173"></a>01173     }
-<a name="l01174"></a>01174   wallTimers.stop(name);
-<a name="l01175"></a>01175   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01176"></a>01176   }
-<a name="l01177"></a>01177 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_nest2peano(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
-<a name="l01178"></a>01178   {
-<a name="l01179"></a>01179   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01180"></a>01180   wallTimers.start(name);
-<a name="l01181"></a>01181   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
-<a name="l01182"></a>01182   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
-<a name="l01183"></a>01183     {
-<a name="l01184"></a>01184     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
-<a name="l01185"></a>01185     I dpix=max(base.Npix()/nsteps,I(1));
-<a name="l01186"></a>01186     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
-<a name="l01187"></a>01187       {
-<a name="l01188"></a>01188       dummy+=base.nest2peano(pix);
-<a name="l01189"></a>01189       ++cnt;
-<a name="l01190"></a>01190       }
-<a name="l01191"></a>01191     }
-<a name="l01192"></a>01192   wallTimers.stop(name);
-<a name="l01193"></a>01193   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
-<a name="l01194"></a>01194   }
-<a name="l01195"></a>01195 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_disc(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01196"></a>01196   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01197"></a>01197   {
-<a name="l01198"></a>01198   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01199"></a>01199   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
-<a name="l01200"></a>01200   wallTimers.start(name);
-<a name="l01201"></a>01201   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
-<a name="l01202"></a>01202     {
-<a name="l01203"></a>01203     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
-<a name="l01204"></a>01204     base.query_disc(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0,0),halfpi/9,pix);
-<a name="l01205"></a>01205     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
-<a name="l01206"></a>01206     ++cnt;
-<a name="l01207"></a>01207     }
-<a name="l01208"></a>01208   wallTimers.stop(name);
-<a name="l01209"></a>01209   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
-<a name="l01210"></a>01210   }
-<a name="l01211"></a>01211 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_triangle(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01212"></a>01212   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01213"></a>01213   {
-<a name="l01214"></a>01214   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01215"></a>01215   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
-<a name="l01216"></a>01216   vector&lt;pointing&gt; corner;
-<a name="l01217"></a>01217   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0.01,0.01));
-<a name="l01218"></a>01218   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,1,0.01));
-<a name="l01219"></a>01219   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,0.01,1));
-<a name="l01220"></a>01220   wallTimers.start(name);
-<a name="l01221"></a>01221   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
-<a name="l01222"></a>01222     {
-<a name="l01223"></a>01223     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
-<a name="l01224"></a>01224     base.query_polygon(corner,pix);
-<a name="l01225"></a>01225     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
-<a name="l01226"></a>01226     ++cnt;
-<a name="l01227"></a>01227     }
-<a name="l01228"></a>01228   wallTimers.stop(name);
-<a name="l01229"></a>01229   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
-<a name="l01230"></a>01230   }
-<a name="l01231"></a>01231 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_polygon(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
-<a name="l01232"></a>01232   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
-<a name="l01233"></a>01233   {
-<a name="l01234"></a>01234   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
-<a name="l01235"></a>01235   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
-<a name="l01236"></a>01236   vector&lt;pointing&gt; corner;
-<a name="l01237"></a>01237   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0.01,0.01));
-<a name="l01238"></a>01238   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,1,-0.3));
-<a name="l01239"></a>01239   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,1,0.01));
-<a name="l01240"></a>01240   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,0.01,1));
-<a name="l01241"></a>01241   wallTimers.start(name);
-<a name="l01242"></a>01242   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
-<a name="l01243"></a>01243     {
-<a name="l01244"></a>01244     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
-<a name="l01245"></a>01245     base.query_polygon(corner,pix);
-<a name="l01246"></a>01246     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
-<a name="l01247"></a>01247     ++cnt;
-<a name="l01248"></a>01248     }
-<a name="l01249"></a>01249   wallTimers.stop(name);
-<a name="l01250"></a>01250   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
-<a name="l01251"></a>01251   }
-<a name="l01252"></a>01252 
-<a name="l01253"></a>01253 <span class="keywordtype">void</span> perftest()
-<a name="l01254"></a>01254   {
-<a name="l01255"></a>01255   <span class="keywordtype">double</span> dummy=0;
-<a name="l01256"></a>01256   cout &lt;&lt; <span class="stringliteral">"Measuring performance of Healpix_Base methods."</span> &lt;&lt; endl;
-<a name="l01257"></a>01257   perf_pix2zphi&lt;int&gt;   (<span class="stringliteral">"pix2zphi (RING):int  "</span>,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,dummy);
-<a name="l01258"></a>01258   perf_pix2zphi&lt;int&gt;   (<span class="stringliteral">"pix2zphi (NEST):int  "</span>,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>,dummy);
-<a name="l01259"></a>01259   perf_pix2zphi&lt;int64&gt; (<span class="stringliteral">"pix2zphi (RING):int64"</span>,RING,dummy);
-<a name="l01260"></a>01260   perf_pix2zphi&lt;int64&gt; (<span class="stringliteral">"pix2zphi (NEST):int64"</span>,NEST,dummy);
-<a name="l01261"></a>01261   perf_zphi2pix&lt;int&gt;   (<span class="stringliteral">"zphi2pix (RING):int  "</span>,RING,dummy);
-<a name="l01262"></a>01262   perf_zphi2pix&lt;int&gt;   (<span class="stringliteral">"zphi2pix (NEST):int  "</span>,NEST,dummy);
-<a name="l01263"></a>01263   perf_zphi2pix&lt;int64&gt; (<span class="stringliteral">"zphi2pix (RING):int64"</span>,RING,dummy);
-<a name="l01264"></a>01264   perf_zphi2pix&lt;int64&gt; (<span class="stringliteral">"zphi2pix (NEST):int64"</span>,NEST,dummy);
-<a name="l01265"></a>01265   perf_pix2ang&lt;int&gt;    (<span class="stringliteral">"pix2ang  (RING):int  "</span>,RING,dummy);
-<a name="l01266"></a>01266   perf_pix2ang&lt;int&gt;    (<span class="stringliteral">"pix2ang  (NEST):int  "</span>,NEST,dummy);
-<a name="l01267"></a>01267   perf_pix2ang&lt;int64&gt;  (<span class="stringliteral">"pix2ang  (RING):int64"</span>,RING,dummy);
-<a name="l01268"></a>01268   perf_pix2ang&lt;int64&gt;  (<span class="stringliteral">"pix2ang  (NEST):int64"</span>,NEST,dummy);
-<a name="l01269"></a>01269   perf_ang2pix&lt;int&gt;    (<span class="stringliteral">"ang2pix  (RING):int  "</span>,RING,dummy);
-<a name="l01270"></a>01270   perf_ang2pix&lt;int&gt;    (<span class="stringliteral">"ang2pix  (NEST):int  "</span>,NEST,dummy);
-<a name="l01271"></a>01271   perf_ang2pix&lt;int64&gt;  (<span class="stringliteral">"ang2pix  (RING):int64"</span>,RING,dummy);
-<a name="l01272"></a>01272   perf_ang2pix&lt;int64&gt;  (<span class="stringliteral">"ang2pix  (NEST):int64"</span>,NEST,dummy);
-<a name="l01273"></a>01273   perf_pix2vec&lt;int&gt;    (<span class="stringliteral">"pix2vec  (RING):int  "</span>,RING,dummy);
-<a name="l01274"></a>01274   perf_pix2vec&lt;int&gt;    (<span class="stringliteral">"pix2vec  (NEST):int  "</span>,NEST,dummy);
-<a name="l01275"></a>01275   perf_pix2vec&lt;int64&gt;  (<span class="stringliteral">"pix2vec  (RING):int64"</span>,RING,dummy);
-<a name="l01276"></a>01276   perf_pix2vec&lt;int64&gt;  (<span class="stringliteral">"pix2vec  (NEST):int64"</span>,NEST,dummy);
-<a name="l01277"></a>01277   perf_neighbors&lt;int&gt;  (<span class="stringliteral">"neighbors(NEST):int  "</span>,NEST);
-<a name="l01278"></a>01278   perf_neighbors&lt;int&gt;  (<span class="stringliteral">"neighbors(RING):int  "</span>,RING);
-<a name="l01279"></a>01279   perf_neighbors&lt;int64&gt;(<span class="stringliteral">"neighbors(NEST):int64"</span>,NEST);
-<a name="l01280"></a>01280   perf_neighbors&lt;int64&gt;(<span class="stringliteral">"neighbors(RING):int64"</span>,RING);
-<a name="l01281"></a>01281   perf_ring2nest&lt;int&gt;  (<span class="stringliteral">"ring2nest      :int  "</span>,dummy);
-<a name="l01282"></a>01282   perf_ring2nest&lt;int64&gt;(<span class="stringliteral">"ring2nest      :int64"</span>,dummy);
-<a name="l01283"></a>01283   perf_nest2ring&lt;int&gt;  (<span class="stringliteral">"nest2ring      :int  "</span>,dummy);
-<a name="l01284"></a>01284   perf_nest2ring&lt;int64&gt;(<span class="stringliteral">"nest2ring      :int64"</span>,dummy);
-<a name="l01285"></a>01285   perf_peano2nest&lt;int&gt;  (<span class="stringliteral">"peano2nest     :int  "</span>,dummy);
-<a name="l01286"></a>01286   perf_peano2nest&lt;int64&gt;(<span class="stringliteral">"peano2nest     :int64"</span>,dummy);
-<a name="l01287"></a>01287   perf_nest2peano&lt;int&gt;  (<span class="stringliteral">"nest2peano     :int  "</span>,dummy);
-<a name="l01288"></a>01288   perf_nest2peano&lt;int64&gt;(<span class="stringliteral">"nest2peano     :int64"</span>,dummy);
-<a name="l01289"></a>01289   perf_query_disc&lt;int&gt;      (<span class="stringliteral">"query_disc    (RING):int  "</span>,RING,dummy);
-<a name="l01290"></a>01290   perf_query_disc&lt;int&gt;      (<span class="stringliteral">"query_disc    (NEST):int  "</span>,NEST,dummy);
-<a name="l01291"></a>01291   perf_query_disc&lt;int64&gt;    (<span class="stringliteral">"query_disc    (RING):int64"</span>,RING,dummy);
-<a name="l01292"></a>01292   perf_query_disc&lt;int64&gt;    (<span class="stringliteral">"query_disc    (NEST):int64"</span>,NEST,dummy);
-<a name="l01293"></a>01293   perf_query_triangle&lt;int&gt;  (<span class="stringliteral">"query_triangle(RING):int  "</span>,RING,dummy);
-<a name="l01294"></a>01294   perf_query_triangle&lt;int&gt;  (<span class="stringliteral">"query_triangle(NEST):int  "</span>,NEST,dummy);
-<a name="l01295"></a>01295   perf_query_triangle&lt;int64&gt;(<span class="stringliteral">"query_triangle(RING):int64"</span>,RING,dummy);
-<a name="l01296"></a>01296   perf_query_triangle&lt;int64&gt;(<span class="stringliteral">"query_triangle(NEST):int64"</span>,NEST,dummy);
-<a name="l01297"></a>01297   perf_query_polygon&lt;int&gt;   (<span class="stringliteral">"query_polygon (RING):int  "</span>,RING,dummy);
-<a name="l01298"></a>01298   perf_query_polygon&lt;int&gt;   (<span class="stringliteral">"query_polygon (NEST):int  "</span>,NEST,dummy);
-<a name="l01299"></a>01299   perf_query_polygon&lt;int64&gt; (<span class="stringliteral">"query_polygon (RING):int64"</span>,RING,dummy);
-<a name="l01300"></a>01300   perf_query_polygon&lt;int64&gt; (<span class="stringliteral">"query_polygon (NEST):int64"</span>,NEST,dummy);
-<a name="l01301"></a>01301 
-<a name="l01302"></a>01302   <span class="keywordflow">if</span> (dummy&lt;0) cout &lt;&lt; dummy &lt;&lt; endl;
-<a name="l01303"></a>01303   }
-<a name="l01304"></a>01304 
-<a name="l01305"></a>01305 } <span class="comment">// unnamed namespace</span>
-<a name="l01306"></a>01306 
-<a name="l01307"></a>01307 <span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
-<a name="l01308"></a>01308   {
-<a name="l01309"></a>01309   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"hpxtest"</span>,argc,argv,1,<span class="stringliteral">""</span>);
-<a name="l01310"></a>01310   perftest();
-<a name="l01311"></a>01311   check_compress&lt;int&gt;();
-<a name="l01312"></a>01312   check_compress&lt;unsigned&gt;();
-<a name="l01313"></a>01313   check_compress&lt;int64&gt;();
-<a name="l01314"></a>01314   check_compress&lt;uint64&gt;();
-<a name="l01315"></a>01315   check_Moc&lt;int&gt;();
-<a name="l01316"></a>01316   check_Moc&lt;int64&gt;();
-<a name="l01317"></a>01317   check_rangeset&lt;int&gt;();
-<a name="l01318"></a>01318   check_rangeset&lt;int64&gt;();
-<a name="l01319"></a>01319   check_isqrt();
-<a name="l01320"></a>01320   check_pix2ang_acc();
-<a name="l01321"></a>01321   check_smooth_alm();
-<a name="l01322"></a>01322   check_rot_alm();
-<a name="l01323"></a>01323   check_alm2map2alm(620,620,256);
-<a name="l01324"></a>01324   check_alm2map2alm(620,2,256);
-<a name="l01325"></a>01325   check_average();
-<a name="l01326"></a>01326   check_import();
-<a name="l01327"></a>01327   check_ringnestring&lt;int&gt;();
-<a name="l01328"></a>01328   check_ringnestring&lt;int64&gt;();
-<a name="l01329"></a>01329   check_nestpeanonest&lt;int&gt;();
-<a name="l01330"></a>01330   check_nestpeanonest&lt;int64&gt;();
-<a name="l01331"></a>01331   check_pixzphipix&lt;int&gt;();
-<a name="l01332"></a>01332   check_pixzphipix&lt;int64&gt;();
-<a name="l01333"></a>01333   check_zphipixzphi&lt;int&gt;();
-<a name="l01334"></a>01334   check_zphipixzphi&lt;int64&gt;();
-<a name="l01335"></a>01335   check_pixangpix&lt;int&gt;();
-<a name="l01336"></a>01336   check_pixangpix&lt;int64&gt;();
-<a name="l01337"></a>01337   check_neighbors&lt;int&gt;();
-<a name="l01338"></a>01338   check_neighbors&lt;int64&gt;();
-<a name="l01339"></a>01339   check_swap_scheme();
-<a name="l01340"></a>01340   check_query_disc_strict(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
-<a name="l01341"></a>01341   check_query_disc_strict(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
-<a name="l01342"></a>01342   check_issue_229(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
-<a name="l01343"></a>01343   check_issue_229(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
-<a name="l01344"></a>01344   check_query_disc&lt;int&gt;();
-<a name="l01345"></a>01345   check_query_disc&lt;int64&gt;();
-<a name="l01346"></a>01346   check_query_polygon&lt;int&gt;();
-<a name="l01347"></a>01347   check_query_polygon&lt;int64&gt;();
-<a name="l01348"></a>01348 <span class="preprocessor">#ifdef UNITTESTS</span>
-<a name="l01349"></a>01349 <span class="preprocessor"></span>  <span class="keywordflow">if</span> (errcount&gt;0) <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#g06461f9a2db9f05ac2888820d12be3e8">planck_fail</a>(<span class="stringliteral">"unit test errors"</span>);
-<a name="l01350"></a>01350 <span class="preprocessor">#endif</span>
-<a name="l01351"></a>01351 <span class="preprocessor"></span>  }
+<a name="l00989"></a>00989   cout &lt;&lt; <span class="stringliteral">"testing whether isqrt() works reliably"</span> &lt;&lt; endl;
+<a name="l00990"></a>00990   uint64 val=uint64(0xF234)&lt;&lt;16, valsq=val*val;
+<a name="l00991"></a>00991   <span class="keywordflow">if</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#g90be901d9bafb429af4eba54db2cc87a">isqrt</a>(valsq)!=val) FAIL(cout &lt;&lt; <span class="stringliteral">"PROBLEM1"</span> &lt;&lt; endl)
+<a name="l00992"></a>00992   if (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathutilsgroup.html#g90be901d9bafb429af4eba54db2cc87a">isqrt</a>(valsq-1)!=val-1) FAIL(cout &lt;&lt; "PROBLEM2" &lt;&lt; endl)
+<a name="l00993"></a>00993   }
+<a name="l00994"></a>00994 
+<a name="l00995"></a>00995 <span class="keywordtype">void</span> check_pix2ang_acc()
+<a name="l00996"></a>00996   {
+<a name="l00997"></a>00997   cout &lt;&lt; <span class="stringliteral">"testing accuracy of pix2ang at the poles"</span> &lt;&lt; endl;
+<a name="l00998"></a>00998   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;=29;++m)
+<a name="l00999"></a>00999     {
+<a name="l01000"></a>01000     <a class="code" href="classT__Healpix__Base.html">Healpix_Base2</a> base(m,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
+<a name="l01001"></a>01001     <span class="keywordflow">if</span> (base.pix2ang(1).theta==0.)
+<a name="l01002"></a>01002       FAIL(cout &lt;&lt; <span class="stringliteral">"PROBLEM: order "</span> &lt;&lt; m &lt;&lt; endl)
+<a name="l01003"></a>01003     }
+<a name="l01004"></a>01004   }
+<a name="l01005"></a>01005 
+<a name="l01006"></a>01006 <span class="keyword">const</span> <span class="keywordtype">int</span> nsteps=1000000;
+<a name="l01007"></a>01007 
+<a name="l01008"></a>01008 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_neighbors(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01009"></a>01009   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme)
+<a name="l01010"></a>01010   {
+<a name="l01011"></a>01011   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01012"></a>01012   wallTimers.start(name);
+<a name="l01013"></a>01013   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01014"></a>01014   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01015"></a>01015     {
+<a name="l01016"></a>01016     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01017"></a>01017     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01018"></a>01018     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfix__arr.html">fix_arr&lt;I,8&gt;</a> nres;
+<a name="l01019"></a>01019     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01020"></a>01020       {
+<a name="l01021"></a>01021       base.neighbors(pix,nres);
+<a name="l01022"></a>01022       ++cnt;
+<a name="l01023"></a>01023       }
+<a name="l01024"></a>01024     }
+<a name="l01025"></a>01025   wallTimers.stop(name);
+<a name="l01026"></a>01026   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01027"></a>01027   }
+<a name="l01028"></a>01028 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2ang(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01029"></a>01029   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01030"></a>01030   {
+<a name="l01031"></a>01031   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01032"></a>01032   wallTimers.start(name);
+<a name="l01033"></a>01033   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01034"></a>01034   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01035"></a>01035     {
+<a name="l01036"></a>01036     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01037"></a>01037     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01038"></a>01038     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01039"></a>01039       {
+<a name="l01040"></a>01040       <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a> p(base.pix2ang(pix));
+<a name="l01041"></a>01041       dummy+=p.theta+p.phi;
+<a name="l01042"></a>01042       ++cnt;
+<a name="l01043"></a>01043       }
+<a name="l01044"></a>01044     }
+<a name="l01045"></a>01045   wallTimers.stop(name);
+<a name="l01046"></a>01046   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01047"></a>01047   }
+<a name="l01048"></a>01048 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2vec(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01049"></a>01049   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01050"></a>01050   {
+<a name="l01051"></a>01051   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01052"></a>01052   wallTimers.start(name);
+<a name="l01053"></a>01053   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01054"></a>01054   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01055"></a>01055     {
+<a name="l01056"></a>01056     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01057"></a>01057     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01058"></a>01058     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01059"></a>01059       {
+<a name="l01060"></a>01060       <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html">vec3</a> v(base.pix2vec(pix));
+<a name="l01061"></a>01061       dummy+=v.x+v.y+v.z;
+<a name="l01062"></a>01062       ++cnt;
+<a name="l01063"></a>01063       }
+<a name="l01064"></a>01064     }
+<a name="l01065"></a>01065   wallTimers.stop(name);
+<a name="l01066"></a>01066   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01067"></a>01067   }
+<a name="l01068"></a>01068 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_pix2zphi(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01069"></a>01069   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01070"></a>01070   {
+<a name="l01071"></a>01071   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01072"></a>01072   wallTimers.start(name);
+<a name="l01073"></a>01073   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01074"></a>01074   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01075"></a>01075     {
+<a name="l01076"></a>01076     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01077"></a>01077     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01078"></a>01078     <span class="keywordtype">double</span> z,phi;
+<a name="l01079"></a>01079     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01080"></a>01080       {
+<a name="l01081"></a>01081       base.pix2zphi(pix,z,phi);
+<a name="l01082"></a>01082       dummy+=z+phi;
+<a name="l01083"></a>01083       ++cnt;
+<a name="l01084"></a>01084       }
+<a name="l01085"></a>01085     }
+<a name="l01086"></a>01086   wallTimers.stop(name);
+<a name="l01087"></a>01087   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01088"></a>01088   }
+<a name="l01089"></a>01089 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_zphi2pix(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01090"></a>01090   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01091"></a>01091   {
+<a name="l01092"></a>01092   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01093"></a>01093   wallTimers.start(name);
+<a name="l01094"></a>01094   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01095"></a>01095   <span class="keywordtype">double</span> dz=2./sqrt(nsteps);
+<a name="l01096"></a>01096   <span class="keywordtype">double</span> dph=twopi/sqrt(nsteps);
+<a name="l01097"></a>01097   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01098"></a>01098     {
+<a name="l01099"></a>01099     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01100"></a>01100     <span class="keywordflow">for</span> (<span class="keywordtype">double</span> z=-1; z&lt;1; z+=dz)
+<a name="l01101"></a>01101       <span class="keywordflow">for</span> (<span class="keywordtype">double</span> phi=0; phi&lt;twopi; phi+=dph)
+<a name="l01102"></a>01102         {
+<a name="l01103"></a>01103         dummy+=base.zphi2pix(z,phi);
+<a name="l01104"></a>01104         ++cnt;
+<a name="l01105"></a>01105         }
+<a name="l01106"></a>01106     }
+<a name="l01107"></a>01107   wallTimers.stop(name);
+<a name="l01108"></a>01108   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01109"></a>01109   }
+<a name="l01110"></a>01110 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_ang2pix(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01111"></a>01111   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01112"></a>01112   {
+<a name="l01113"></a>01113   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01114"></a>01114   wallTimers.start(name);
+<a name="l01115"></a>01115   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01116"></a>01116   <span class="keywordtype">double</span> dth=<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathconstgroup.html#g43016d873124d39034edb8cd164794db">pi</a>/sqrt(nsteps);
+<a name="l01117"></a>01117   <span class="keywordtype">double</span> dph=twopi/sqrt(nsteps);
+<a name="l01118"></a>01118   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01119"></a>01119     {
+<a name="l01120"></a>01120     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,scheme);
+<a name="l01121"></a>01121     <span class="keywordflow">for</span> (<span class="keywordtype">double</span> theta=0; theta&lt;<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__mathconstgroup.html#g43016d873124d39034edb8cd164794db">pi</a>; theta+=dth)
+<a name="l01122"></a>01122       <span class="keywordflow">for</span> (<span class="keywordtype">double</span> phi=0; phi&lt;twopi; phi+=dph)
+<a name="l01123"></a>01123         {
+<a name="l01124"></a>01124         dummy+=base.ang2pix(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classpointing.html">pointing</a>(theta+1e-15*phi,phi));
+<a name="l01125"></a>01125         ++cnt;
+<a name="l01126"></a>01126         }
+<a name="l01127"></a>01127     }
+<a name="l01128"></a>01128   wallTimers.stop(name);
+<a name="l01129"></a>01129   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01130"></a>01130   }
+<a name="l01131"></a>01131 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_ring2nest(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
+<a name="l01132"></a>01132   {
+<a name="l01133"></a>01133   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01134"></a>01134   wallTimers.start(name);
+<a name="l01135"></a>01135   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01136"></a>01136   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01137"></a>01137     {
+<a name="l01138"></a>01138     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
+<a name="l01139"></a>01139     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01140"></a>01140     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01141"></a>01141       {
+<a name="l01142"></a>01142       dummy+=base.ring2nest(pix);
+<a name="l01143"></a>01143       ++cnt;
+<a name="l01144"></a>01144       }
+<a name="l01145"></a>01145     }
+<a name="l01146"></a>01146   wallTimers.stop(name);
+<a name="l01147"></a>01147   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01148"></a>01148   }
+<a name="l01149"></a>01149 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_nest2ring(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
+<a name="l01150"></a>01150   {
+<a name="l01151"></a>01151   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01152"></a>01152   wallTimers.start(name);
+<a name="l01153"></a>01153   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01154"></a>01154   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01155"></a>01155     {
+<a name="l01156"></a>01156     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
+<a name="l01157"></a>01157     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01158"></a>01158     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01159"></a>01159       {
+<a name="l01160"></a>01160       dummy+=base.nest2ring(pix);
+<a name="l01161"></a>01161       ++cnt;
+<a name="l01162"></a>01162       }
+<a name="l01163"></a>01163     }
+<a name="l01164"></a>01164   wallTimers.stop(name);
+<a name="l01165"></a>01165   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01166"></a>01166   }
+<a name="l01167"></a>01167 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_peano2nest(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
+<a name="l01168"></a>01168   {
+<a name="l01169"></a>01169   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01170"></a>01170   wallTimers.start(name);
+<a name="l01171"></a>01171   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01172"></a>01172   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01173"></a>01173     {
+<a name="l01174"></a>01174     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
+<a name="l01175"></a>01175     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01176"></a>01176     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01177"></a>01177       {
+<a name="l01178"></a>01178       dummy+=base.peano2nest(pix);
+<a name="l01179"></a>01179       ++cnt;
+<a name="l01180"></a>01180       }
+<a name="l01181"></a>01181     }
+<a name="l01182"></a>01182   wallTimers.stop(name);
+<a name="l01183"></a>01183   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01184"></a>01184   }
+<a name="l01185"></a>01185 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_nest2peano(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,<span class="keywordtype">double</span> &amp;dummy)
+<a name="l01186"></a>01186   {
+<a name="l01187"></a>01187   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01188"></a>01188   wallTimers.start(name);
+<a name="l01189"></a>01189   <span class="keywordtype">int</span> omax=<a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::order_max</a>;
+<a name="l01190"></a>01190   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> order=0; order&lt;=omax; ++order)
+<a name="l01191"></a>01191     {
+<a name="l01192"></a>01192     <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base (order,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
+<a name="l01193"></a>01193     I dpix=max(base.Npix()/nsteps,I(1));
+<a name="l01194"></a>01194     <span class="keywordflow">for</span> (I pix=0; pix&lt;base.Npix(); pix+=dpix)
+<a name="l01195"></a>01195       {
+<a name="l01196"></a>01196       dummy+=base.nest2peano(pix);
+<a name="l01197"></a>01197       ++cnt;
+<a name="l01198"></a>01198       }
+<a name="l01199"></a>01199     }
+<a name="l01200"></a>01200   wallTimers.stop(name);
+<a name="l01201"></a>01201   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-6 &lt;&lt; <span class="stringliteral">"MOps/s"</span> &lt;&lt; endl;
+<a name="l01202"></a>01202   }
+<a name="l01203"></a>01203 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_disc(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01204"></a>01204   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01205"></a>01205   {
+<a name="l01206"></a>01206   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01207"></a>01207   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
+<a name="l01208"></a>01208   wallTimers.start(name);
+<a name="l01209"></a>01209   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
+<a name="l01210"></a>01210     {
+<a name="l01211"></a>01211     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
+<a name="l01212"></a>01212     base.query_disc(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0,0),halfpi/9,pix);
+<a name="l01213"></a>01213     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
+<a name="l01214"></a>01214     ++cnt;
+<a name="l01215"></a>01215     }
+<a name="l01216"></a>01216   wallTimers.stop(name);
+<a name="l01217"></a>01217   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
+<a name="l01218"></a>01218   }
+<a name="l01219"></a>01219 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_triangle(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01220"></a>01220   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01221"></a>01221   {
+<a name="l01222"></a>01222   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01223"></a>01223   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
+<a name="l01224"></a>01224   vector&lt;pointing&gt; corner;
+<a name="l01225"></a>01225   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0.01,0.01));
+<a name="l01226"></a>01226   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,1,0.01));
+<a name="l01227"></a>01227   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,0.01,1));
+<a name="l01228"></a>01228   wallTimers.start(name);
+<a name="l01229"></a>01229   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
+<a name="l01230"></a>01230     {
+<a name="l01231"></a>01231     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
+<a name="l01232"></a>01232     base.query_polygon(corner,pix);
+<a name="l01233"></a>01233     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
+<a name="l01234"></a>01234     ++cnt;
+<a name="l01235"></a>01235     }
+<a name="l01236"></a>01236   wallTimers.stop(name);
+<a name="l01237"></a>01237   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
+<a name="l01238"></a>01238   }
+<a name="l01239"></a>01239 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;<span class="keywordtype">void</span> perf_query_polygon(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;name,
+<a name="l01240"></a>01240   <a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9">Healpix_Ordering_Scheme</a> scheme, <span class="keywordtype">double</span> &amp;dummy)
+<a name="l01241"></a>01241   {
+<a name="l01242"></a>01242   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> cnt=0;
+<a name="l01243"></a>01243   <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;</a> base(1024,scheme,SET_NSIDE);
+<a name="l01244"></a>01244   vector&lt;pointing&gt; corner;
+<a name="l01245"></a>01245   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,0.01,0.01));
+<a name="l01246"></a>01246   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(1,1,-0.3));
+<a name="l01247"></a>01247   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,1,0.01));
+<a name="l01248"></a>01248   corner.push_back(<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(0.01,0.01,1));
+<a name="l01249"></a>01249   wallTimers.start(name);
+<a name="l01250"></a>01250   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;1000; ++m)
+<a name="l01251"></a>01251     {
+<a name="l01252"></a>01252     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html">rangeset&lt;I&gt;</a> pix;
+<a name="l01253"></a>01253     base.query_polygon(corner,pix);
+<a name="l01254"></a>01254     dummy+=pix.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classrangeset.html#4936cdeaa357994e652df2e8f8a30998">nranges</a>();
+<a name="l01255"></a>01255     ++cnt;
+<a name="l01256"></a>01256     }
+<a name="l01257"></a>01257   wallTimers.stop(name);
+<a name="l01258"></a>01258   cout &lt;&lt; name &lt;&lt; <span class="stringliteral">": "</span> &lt;&lt; cnt/wallTimers.acc(name)*1e-3 &lt;&lt; <span class="stringliteral">"kOps/s"</span> &lt;&lt; endl;
+<a name="l01259"></a>01259   }
+<a name="l01260"></a>01260 
+<a name="l01261"></a>01261 <span class="keywordtype">void</span> perftest()
+<a name="l01262"></a>01262   {
+<a name="l01263"></a>01263   <span class="keywordtype">double</span> dummy=0;
+<a name="l01264"></a>01264   cout &lt;&lt; <span class="stringliteral">"Measuring performance of Healpix_Base methods."</span> &lt;&lt; endl;
+<a name="l01265"></a>01265   perf_pix2zphi&lt;int&gt;   (<span class="stringliteral">"pix2zphi (RING):int  "</span>,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>,dummy);
+<a name="l01266"></a>01266   perf_pix2zphi&lt;int&gt;   (<span class="stringliteral">"pix2zphi (NEST):int  "</span>,<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>,dummy);
+<a name="l01267"></a>01267   perf_pix2zphi&lt;int64&gt; (<span class="stringliteral">"pix2zphi (RING):int64"</span>,RING,dummy);
+<a name="l01268"></a>01268   perf_pix2zphi&lt;int64&gt; (<span class="stringliteral">"pix2zphi (NEST):int64"</span>,NEST,dummy);
+<a name="l01269"></a>01269   perf_zphi2pix&lt;int&gt;   (<span class="stringliteral">"zphi2pix (RING):int  "</span>,RING,dummy);
+<a name="l01270"></a>01270   perf_zphi2pix&lt;int&gt;   (<span class="stringliteral">"zphi2pix (NEST):int  "</span>,NEST,dummy);
+<a name="l01271"></a>01271   perf_zphi2pix&lt;int64&gt; (<span class="stringliteral">"zphi2pix (RING):int64"</span>,RING,dummy);
+<a name="l01272"></a>01272   perf_zphi2pix&lt;int64&gt; (<span class="stringliteral">"zphi2pix (NEST):int64"</span>,NEST,dummy);
+<a name="l01273"></a>01273   perf_pix2ang&lt;int&gt;    (<span class="stringliteral">"pix2ang  (RING):int  "</span>,RING,dummy);
+<a name="l01274"></a>01274   perf_pix2ang&lt;int&gt;    (<span class="stringliteral">"pix2ang  (NEST):int  "</span>,NEST,dummy);
+<a name="l01275"></a>01275   perf_pix2ang&lt;int64&gt;  (<span class="stringliteral">"pix2ang  (RING):int64"</span>,RING,dummy);
+<a name="l01276"></a>01276   perf_pix2ang&lt;int64&gt;  (<span class="stringliteral">"pix2ang  (NEST):int64"</span>,NEST,dummy);
+<a name="l01277"></a>01277   perf_ang2pix&lt;int&gt;    (<span class="stringliteral">"ang2pix  (RING):int  "</span>,RING,dummy);
+<a name="l01278"></a>01278   perf_ang2pix&lt;int&gt;    (<span class="stringliteral">"ang2pix  (NEST):int  "</span>,NEST,dummy);
+<a name="l01279"></a>01279   perf_ang2pix&lt;int64&gt;  (<span class="stringliteral">"ang2pix  (RING):int64"</span>,RING,dummy);
+<a name="l01280"></a>01280   perf_ang2pix&lt;int64&gt;  (<span class="stringliteral">"ang2pix  (NEST):int64"</span>,NEST,dummy);
+<a name="l01281"></a>01281   perf_pix2vec&lt;int&gt;    (<span class="stringliteral">"pix2vec  (RING):int  "</span>,RING,dummy);
+<a name="l01282"></a>01282   perf_pix2vec&lt;int&gt;    (<span class="stringliteral">"pix2vec  (NEST):int  "</span>,NEST,dummy);
+<a name="l01283"></a>01283   perf_pix2vec&lt;int64&gt;  (<span class="stringliteral">"pix2vec  (RING):int64"</span>,RING,dummy);
+<a name="l01284"></a>01284   perf_pix2vec&lt;int64&gt;  (<span class="stringliteral">"pix2vec  (NEST):int64"</span>,NEST,dummy);
+<a name="l01285"></a>01285   perf_neighbors&lt;int&gt;  (<span class="stringliteral">"neighbors(NEST):int  "</span>,NEST);
+<a name="l01286"></a>01286   perf_neighbors&lt;int&gt;  (<span class="stringliteral">"neighbors(RING):int  "</span>,RING);
+<a name="l01287"></a>01287   perf_neighbors&lt;int64&gt;(<span class="stringliteral">"neighbors(NEST):int64"</span>,NEST);
+<a name="l01288"></a>01288   perf_neighbors&lt;int64&gt;(<span class="stringliteral">"neighbors(RING):int64"</span>,RING);
+<a name="l01289"></a>01289   perf_ring2nest&lt;int&gt;  (<span class="stringliteral">"ring2nest      :int  "</span>,dummy);
+<a name="l01290"></a>01290   perf_ring2nest&lt;int64&gt;(<span class="stringliteral">"ring2nest      :int64"</span>,dummy);
+<a name="l01291"></a>01291   perf_nest2ring&lt;int&gt;  (<span class="stringliteral">"nest2ring      :int  "</span>,dummy);
+<a name="l01292"></a>01292   perf_nest2ring&lt;int64&gt;(<span class="stringliteral">"nest2ring      :int64"</span>,dummy);
+<a name="l01293"></a>01293   perf_peano2nest&lt;int&gt;  (<span class="stringliteral">"peano2nest     :int  "</span>,dummy);
+<a name="l01294"></a>01294   perf_peano2nest&lt;int64&gt;(<span class="stringliteral">"peano2nest     :int64"</span>,dummy);
+<a name="l01295"></a>01295   perf_nest2peano&lt;int&gt;  (<span class="stringliteral">"nest2peano     :int  "</span>,dummy);
+<a name="l01296"></a>01296   perf_nest2peano&lt;int64&gt;(<span class="stringliteral">"nest2peano     :int64"</span>,dummy);
+<a name="l01297"></a>01297   perf_query_disc&lt;int&gt;      (<span class="stringliteral">"query_disc    (RING):int  "</span>,RING,dummy);
+<a name="l01298"></a>01298   perf_query_disc&lt;int&gt;      (<span class="stringliteral">"query_disc    (NEST):int  "</span>,NEST,dummy);
+<a name="l01299"></a>01299   perf_query_disc&lt;int64&gt;    (<span class="stringliteral">"query_disc    (RING):int64"</span>,RING,dummy);
+<a name="l01300"></a>01300   perf_query_disc&lt;int64&gt;    (<span class="stringliteral">"query_disc    (NEST):int64"</span>,NEST,dummy);
+<a name="l01301"></a>01301   perf_query_triangle&lt;int&gt;  (<span class="stringliteral">"query_triangle(RING):int  "</span>,RING,dummy);
+<a name="l01302"></a>01302   perf_query_triangle&lt;int&gt;  (<span class="stringliteral">"query_triangle(NEST):int  "</span>,NEST,dummy);
+<a name="l01303"></a>01303   perf_query_triangle&lt;int64&gt;(<span class="stringliteral">"query_triangle(RING):int64"</span>,RING,dummy);
+<a name="l01304"></a>01304   perf_query_triangle&lt;int64&gt;(<span class="stringliteral">"query_triangle(NEST):int64"</span>,NEST,dummy);
+<a name="l01305"></a>01305   perf_query_polygon&lt;int&gt;   (<span class="stringliteral">"query_polygon (RING):int  "</span>,RING,dummy);
+<a name="l01306"></a>01306   perf_query_polygon&lt;int&gt;   (<span class="stringliteral">"query_polygon (NEST):int  "</span>,NEST,dummy);
+<a name="l01307"></a>01307   perf_query_polygon&lt;int64&gt; (<span class="stringliteral">"query_polygon (RING):int64"</span>,RING,dummy);
+<a name="l01308"></a>01308   perf_query_polygon&lt;int64&gt; (<span class="stringliteral">"query_polygon (NEST):int64"</span>,NEST,dummy);
+<a name="l01309"></a>01309 
+<a name="l01310"></a>01310   <span class="keywordflow">if</span> (dummy&lt;0) cout &lt;&lt; dummy &lt;&lt; endl;
+<a name="l01311"></a>01311   }
+<a name="l01312"></a>01312 
+<a name="l01313"></a>01313 } <span class="comment">// unnamed namespace</span>
+<a name="l01314"></a>01314 
+<a name="l01315"></a>01315 <span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
+<a name="l01316"></a>01316   {
+<a name="l01317"></a>01317   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"hpxtest"</span>,argc,argv,1,<span class="stringliteral">""</span>);
+<a name="l01318"></a>01318   perftest();
+<a name="l01319"></a>01319   check_compress&lt;int&gt;();
+<a name="l01320"></a>01320   check_compress&lt;unsigned&gt;();
+<a name="l01321"></a>01321   check_compress&lt;int64&gt;();
+<a name="l01322"></a>01322   check_compress&lt;uint64&gt;();
+<a name="l01323"></a>01323   check_Moc&lt;int&gt;();
+<a name="l01324"></a>01324   check_Moc&lt;int64&gt;();
+<a name="l01325"></a>01325   check_rangeset&lt;int&gt;();
+<a name="l01326"></a>01326   check_rangeset&lt;int64&gt;();
+<a name="l01327"></a>01327   check_isqrt();
+<a name="l01328"></a>01328   check_pix2ang_acc();
+<a name="l01329"></a>01329   check_smooth_alm();
+<a name="l01330"></a>01330   check_rot_alm();
+<a name="l01331"></a>01331   check_alm2map2alm(620,620,256);
+<a name="l01332"></a>01332   check_alm2map2alm(620,2,256);
+<a name="l01333"></a>01333   check_average();
+<a name="l01334"></a>01334   check_import();
+<a name="l01335"></a>01335   check_ringnestring&lt;int&gt;();
+<a name="l01336"></a>01336   check_ringnestring&lt;int64&gt;();
+<a name="l01337"></a>01337   check_nestpeanonest&lt;int&gt;();
+<a name="l01338"></a>01338   check_nestpeanonest&lt;int64&gt;();
+<a name="l01339"></a>01339   check_pixzphipix&lt;int&gt;();
+<a name="l01340"></a>01340   check_pixzphipix&lt;int64&gt;();
+<a name="l01341"></a>01341   check_zphipixzphi&lt;int&gt;();
+<a name="l01342"></a>01342   check_zphipixzphi&lt;int64&gt;();
+<a name="l01343"></a>01343   check_pixangpix&lt;int&gt;();
+<a name="l01344"></a>01344   check_pixangpix&lt;int64&gt;();
+<a name="l01345"></a>01345   check_neighbors&lt;int&gt;();
+<a name="l01346"></a>01346   check_neighbors&lt;int64&gt;();
+<a name="l01347"></a>01347   check_swap_scheme();
+<a name="l01348"></a>01348   check_query_disc_strict(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
+<a name="l01349"></a>01349   check_query_disc_strict(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
+<a name="l01350"></a>01350   check_issue_229(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e9748a0629cb9a7ad410c546fc80e8c81b">RING</a>);
+<a name="l01351"></a>01351   check_issue_229(<a class="code" href="healpix__tables_8h.html#6b968c7b00a536bb8df400c874c122e95f0b5e8a99b9441721ea34f14ccc60fe">NEST</a>);
+<a name="l01352"></a>01352   check_query_disc&lt;int&gt;();
+<a name="l01353"></a>01353   check_query_disc&lt;int64&gt;();
+<a name="l01354"></a>01354   check_query_polygon&lt;int&gt;();
+<a name="l01355"></a>01355   check_query_polygon&lt;int64&gt;();
+<a name="l01356"></a>01356 <span class="preprocessor">#ifdef UNITTESTS</span>
+<a name="l01357"></a>01357 <span class="preprocessor"></span>  <span class="keywordflow">if</span> (errcount&gt;0) <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#g06461f9a2db9f05ac2888820d12be3e8">planck_fail</a>(<span class="stringliteral">"unit test errors"</span>);
+<a name="l01358"></a>01358 <span class="preprocessor">#endif</span>
+<a name="l01359"></a>01359 <span class="preprocessor"></span>  }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Thu Oct 8 14:48:52 2015 for Healpix C++
+Generated on Fri Aug 26 12:54:45 2016 for Healpix C++
 </a> </small></address>
 </body>
 </html>

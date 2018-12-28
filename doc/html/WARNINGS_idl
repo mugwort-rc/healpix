@@ -17,10 +17,12 @@ Substitution of arg to newlabelxx delayed.
 
 redefining command \ 
 
-? brace missing for \oldnewlabel
-
 ? brace missing for \oldcontentsline
+
+? brace missing for \oldnewlabel
 Could not find the external label file: /tmp/installlabels.pl
+Could not find the external label file: /tmp/facilitieslabels.pl
+Could not find the external label file: /tmp/subroutineslabels.pl
 
 ? brace missing for \newedenvironment
 

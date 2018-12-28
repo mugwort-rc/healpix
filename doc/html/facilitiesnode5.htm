@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html138"
+<A NAME="tex2html141"
   HREF="facilitiesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html144"
+<A NAME="tex2html147"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html148"
+<A NAME="tex2html151"
   HREF="facilitiesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html146"
+<A NAME="tex2html149"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html139"
+<B> Previous:</B> <A NAME="tex2html142"
   HREF="facilitiesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html145"
+<B>Up:</B> <A NAME="tex2html148"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html149"
+<B> Next:</B> <A NAME="tex2html152"
   HREF="facilitiesnode6.htm">anafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -100,7 +100,7 @@ where <SPAN CLASS="MATH"><I>P</I>(<I>l</I>)</SPAN> is the pixel window function,
  Wiener filter). For an infinitely small pixel (or beam) one would have <SPAN CLASS="MATH"><I>P</I>(<I>l</I>) =
  1</SPAN> (resp. <SPAN CLASS="MATH"><I>B</I>(<I>l</I>) = 1</SPAN>) for any <SPAN CLASS="MATH"><I>l</I></SPAN>.
 </DL><SMALL CLASS="FOOTNOTESIZE"></H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/alteralm/alteralm.f90"><b>src/f90/alteralm/alteralm.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/alteralm/alteralm.f90"><b>src/f90/alteralm/alteralm.f90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 alteralm [options] [parameter_file]
@@ -125,31 +125,31 @@ alteralm [options] [parameter_file]
  
   </SMALL><DL COMPACT><DT>
 <B>infile_alms = </B>
-<DD>Defines the FITS file from which to read the input
+<DD><A NAME="fac:alteralm:infile_alms"></A>Defines the FITS file from which to read the input
 	<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
     <DT>
 <B>outfile_alms = </B>
-<DD>Defines the FITS file in which to write the altered
+<DD><A NAME="fac:alteralm:outfile_alms"></A>Defines the FITS file in which to write the altered
 	<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
     <DT>
 <B>fwhm_arcmin_in = </B>
-<DD>Defines the FWHM size in arcminutes 
+<DD><A NAME="fac:alteralm:fwhm_arcmin_in"></A>Defines the FWHM size in arcminutes 
       of the Gaussian beam present in the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. The output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be
       corrected from it, see Eq.&nbsp;(<A HREF="#eq:alteralm">1</A>). (default= value of FWHM keyword in <TT>infile_alms</TT>).
     <DT>
 <B>beam_file_in = </B>
-<DD>Defines the FITS file describing the
+<DD><A NAME="fac:alteralm:beam_file_in"></A>Defines the FITS file describing the
       Legendre window function of the circular beam present in the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. The output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be
       corrected from it, see Eq.&nbsp;(<A HREF="#eq:alteralm">1</A>). If set to an existing file name, it will override the
     <TT>fhwm_arcmin_in</TT> given above. (default= value of the BEAM_LEG keyword in <TT>infile_alms</TT>)
      <DT>
 <B>nlmax_out = </B>
-<DD>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
+<DD><A NAME="fac:alteralm:nlmax_out"></A>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
        to be used for the output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s. (default= maximum <SPAN CLASS="MATH"><I>l</I></SPAN> of input
        <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> = value of MAX-LPOL keyword in <TT>infile_alms</TT>).
      <DT>
 <B>nsmax_in = </B>
-<DD>If it can not be determined from the input file <TT>infile_alms</TT>, asks
+<DD><A NAME="fac:alteralm:nsmax_in"></A>If it can not be determined from the input file <TT>infile_alms</TT>, asks
        for the <b>HEALPix</b> resolution parameter <!-- MATH
  ${N_{\rm side}}$
  -->
@@ -160,7 +160,7 @@ alteralm [options] [parameter_file]
        window function is applied to the input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
      <DT>
 <B>nsmax_out = </B>
-<DD>Defines the <b>HEALPix</b> resolution parameter <!-- MATH
+<DD><A NAME="fac:alteralm:nsmax_out"></A>Defines the <b>HEALPix</b> resolution parameter <!-- MATH
  ${N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
@@ -177,7 +177,7 @@ alteralm [options] [parameter_file]
  ALT="${N_{\rm side}}$"></SPAN>).
     <DT>
 <B>fwhm_arcmin_out = </B>
-<DD>Defines the FWHM size in arcminutes 
+<DD><A NAME="fac:alteralm:fwhm_arcmin_out"></A>Defines the FWHM size in arcminutes 
       of the Gaussian beam to be applied to <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, see
       Eq.&nbsp;(<A HREF="#eq:alteralm">1</A>). (default= <TT>fwhm_arcmin_in</TT>).
     <DT>
@@ -185,24 +185,40 @@ alteralm [options] [parameter_file]
 <DD>Defines the FITS file describing the
       Legendre window function of the circular beam to be applied <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. If
       set to an existing file name, it will override the 
-    <TT>fhwm_arcmin_out</TT> given above. (default= `` '' )
+    <TT>fhwm_arcmin_out</TT> given above. (default= `` '')
     <DT>
 <B>coord_in = </B>
-<DD>Defines astrophysical coordinates used to compute the
+<DD><A NAME="fac:alteralm:coord_in"></A>Defines astrophysical coordinates used to compute the
     input <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. Valid choices are 'G' = Galactic, 'E' = Ecliptic, 
     'C'/'Q' = Celestial = eQuatorial. (default = value of COORDSYS keyword read
     from input FITS file)
     <DT>
 <B>epoch_in = </B>
-<DD>Defines astronomical epoch of input coordinate system (default=2000)
+<DD><A NAME="fac:alteralm:epoch_in"></A>Defines astronomical epoch of input coordinate system (default=2000)
     <DT>
 <B>coord_out = </B>
-<DD>Defines astrophysical coordinates into which to rotate
+<DD><A NAME="fac:alteralm:coord_out"></A>Defines astrophysical coordinates into which to rotate
     the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (default = <TT>coord_in</TT>)
     <DT>
 <B>epoch_out = </B>
-<DD>Defines astronomical epoch of output coordinate system
+<DD><A NAME="fac:alteralm:epoch_out"></A>Defines astronomical epoch of output coordinate system
     (default=<TT>epoch_in</TT>)
+     <DT>
+<B>windowfile_in = </B>
+<DD><A NAME="fac:alteralm:windowfile_in"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_in</TT>
+(default= pixel_window_n????.fits, see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
+     <DT>
+<B>winfiledir_in = </B>
+<DD><A NAME="fac:alteralm:winfiledir_in"></A>Defines the directory in which <TT>windowfile_in</TT>
+    is located (default : see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).
+     <DT>
+<B>windowfile_out = </B>
+<DD><A NAME="fac:alteralm:windowfile_out"></A>Defines the input filename from which to read the pixel window function parameterized by <TT>nsmax_out</TT>
+(default= pixel_window_n????.fits, see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
+     <DT>
+<B>winfiledir_out = </B>
+<DD><A NAME="fac:alteralm:winfiledir_out"></A>Defines the directory in which <TT>windowfile_out</TT>
+    is located (default : see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -292,21 +308,25 @@ If the equality sign is omitted, then the parser ignores the entry.
 In this way comments may also be included in the file.
 In this example, the file contains the following qualifiers:
 <BR>
-<tt>infile_alms = alm.fits</tt><br>
-<tt>nlmax_out = 512</tt><br>
-<tt>fwhm_arcmin_out = 20.0</tt><br>
-<tt>coord_out = G</tt><br>
-<tt>outfile_alms = newalm.fits</tt><br>
+<tt><A HREF="#fac:alteralm:infile_alms">infile_alms</A>= alm.fits</tt><br>
+<tt><A HREF="#fac:alteralm:nlmax_out">nlmax_out</A>= 512</tt><br>
+<tt><A HREF="#fac:alteralm:fwhm_arcmin_out">fwhm_arcmin_out</A>= 20.0</tt><br>
+<tt><A HREF="#fac:alteralm:coord_out">coord_out</A>= G</tt><br>
+<tt><A HREF="#fac:alteralm:outfile_alms">outfile_alms</A>= newalm.fits</tt><br>
 </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">Alteralm reads the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from 'alm.fits'. Since <BR>
-<tt>nsmax_in </tt><br>
-<tt>nsmax_out </tt><br>
-<tt>fwhm_arcmin_in </tt><br>
-<tt>beam_file_in </tt><br> 
-<tt>coord_in </tt><br>
-<tt>epoch_in </tt><br>
-<tt>epoch_out </tt><br>
+<tt><A HREF="#fac:alteralm:nsmax_in">nsmax_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:nsmax_out">nsmax_out</A></tt><br>
+<tt><A HREF="#fac:alteralm:fwhm_arcmin_in">fwhm_arcmin_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:beam_file_in">beam_file_in</A></tt><br> 
+<tt><A HREF="#fac:alteralm:coord_in">coord_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:epoch_in">epoch_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:epoch_out">epoch_out</A></tt><br>
+<tt><A HREF="#fac:alteralm:windowfile_in">windowfile_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:winfiledir_in">winfiledir_in</A></tt><br>
+<tt><A HREF="#fac:alteralm:windowfile_out">windowfile_out</A></tt><br>
+<tt><A HREF="#fac:alteralm:winfiledir_out">winfiledir_out</A></tt><br>
 have their default values, the pixel size will remain the same, the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> will be corrected
 from its input beam (whatever it was, assuming the relevant information can be
 found), and a gaussian beam of 20.0 arcmin will be applied
@@ -433,31 +453,31 @@ what the user provided.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html138"
+<A NAME="tex2html141"
   HREF="facilitiesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html144"
+<A NAME="tex2html147"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html148"
+<A NAME="tex2html151"
   HREF="facilitiesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html146"
+<A NAME="tex2html149"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html139"
+<B> Previous:</B> <A NAME="tex2html142"
   HREF="facilitiesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html145"
+<B>Up:</B> <A NAME="tex2html148"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html149"
+<B> Next:</B> <A NAME="tex2html152"
   HREF="facilitiesnode6.htm">anafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

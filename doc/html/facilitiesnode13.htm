@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html234"
+<A NAME="tex2html237"
   HREF="facilitiesnode12.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html240"
+<A NAME="tex2html243"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html244"
+<A NAME="tex2html247"
   HREF="facilitiesnode14.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html242"
+<A NAME="tex2html245"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html235"
+<B> Previous:</B> <A NAME="tex2html238"
   HREF="facilitiesnode12.htm">sky_ng_sim</A>
 
-<B>Up:</B> <A NAME="tex2html241"
+<B>Up:</B> <A NAME="tex2html244"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html245"
+<B> Next:</B> <A NAME="tex2html248"
   HREF="facilitiesnode14.htm">synfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -78,7 +78,7 @@ required in the spectral regime of <!-- MATH
  ALT="$l&gt; 2\cdot nsmax$"></SPAN>, it is recommended
 to choose an iterative computation of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/smoothing/smoothing.f90"><b>src/f90/smoothing/smoothing.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/smoothing/smoothing.f90"><b>src/f90/smoothing/smoothing.f90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 smoothing [options] [parameter_file]
@@ -103,23 +103,23 @@ smoothing [options] [parameter_file]
  
   </SMALL><DL COMPACT><DT>
 <B>simul_type = </B>
-<DD>Defines which map(s) to analyse, 1=temperature only, 2=temperature AND polarisation.
+<DD><A NAME="fac:smoothing:simul_type"></A>Defines which map(s) to analyse, 1=temperature only, 2=temperature AND polarisation.
 (default= 1)
     <DT>
 <B>infile = </B>
-<DD>Defines the filename for the FITS file containing the map to be smoothed. 
+<DD><A NAME="fac:smoothing:infile"></A>Defines the filename for the FITS file containing the map to be smoothed. 
 	(default= 'map.fits')
     <DT>
 <B>nlmax = </B>
-<DD>Defines the <SPAN CLASS="MATH"><I>l</I><SUB><I>max</I></SUB></SPAN> value for the application.
+<DD><A NAME="fac:smoothing:nlmax"></A>Defines the <SPAN CLASS="MATH"><I>l</I><SUB><I>max</I></SUB></SPAN> value for the application.
 (default= 64)
     <DT>
 <B>iter_order = </B>
-<DD>Defines the maximum order of quadrature 
+<DD><A NAME="fac:smoothing:iter_order"></A>Defines the maximum order of quadrature 
       iteration to be used. (default=0, no iteration)
  <DT>
 <B>fwhm_arcmin = </B>
-<DD>Defines the FWHM in arcminutes of the gaussian 
+<DD><A NAME="fac:smoothing:fwhm_arcmin"></A>Defines the FWHM in arcminutes of the gaussian 
 beam for the convolution. (default=10)
     <DT>
 <B>beam_file = </B>
@@ -130,27 +130,27 @@ beam for the convolution. (default=10)
     <TT>fhwm_arcmin</TT> given above. default=`'
 <DT>
 <B>outfile = </B>
-<DD>Defines the filename for the file that will contain 
+<DD><A NAME="fac:smoothing:outfile"></A>Defines the filename for the file that will contain 
 the smoothed map. (default='map_smoothed.fits')
      <DT>
 <B>plmfile = </B>
 <DD>Defines the name for an input file
     containing  precomputed Legendre polynomials <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN>.
-(default= no entry -- <A HREF="facilitiesnode6.htm#fac:anafast">anafast</A> executes the recursive evaluation 
+(default= no entry -- <FONT COLOR="#CC0000">smoothing</FONT>executes the recursive evaluation 
 of <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN>s)
 <DT>
 <B>w8file = </B>
-<DD>Defines name for an input file containing ring
+<DD><A NAME="fac:smoothing:w8file"></A>Defines name for an input file containing ring
   weights in the improved quadrature mode (default= no entry --
 the name is assumed to be 'weight_ring_n0xxxx.fits' where xxxx is nsmax)
 <DT>
 <B>w8filedir = </B>
-<DD>Gives the directory where the weight files are
+<DD><A NAME="fac:smoothing:w8filedir"></A>Gives the directory where the weight files are
 to be found (default= no entry -- smoothing searches in the default
 directories, see introduction)
 <DT>
 <B>won = </B>
-<DD>Set this to 1 if weight files are to be used,
+<DD><A NAME="fac:smoothing:won"></A>Set this to 1 if weight files are to be used,
 otherwise set it to 0 (or 2). (default= 0)
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -203,6 +203,14 @@ data/weight_ring_n0xxxx.fits </SMALL></TD>
 <DD>This <b>HEALPix</b> Fortran
 subroutine generates or reads the <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> window function used in <FONT COLOR="#CC0000">smoothing</FONT>
   <DT>
+<B><A HREF="facilitiesnode8.htm#fac:map2gif">map2gif</A></B>
+<DD>This <b>HEALPix</b> Fortran facility can be used to visualise the
+  input and output maps of <FONT COLOR="#CC0000">smoothing</FONT>.
+  <DT>
+<B><A HREF="./idlnode43.htm#idl:mollview">mollview</A></B>
+<DD>This <b>HEALPix</b> IDL facility can be used to visualise the
+  input and output maps of <FONT COLOR="#CC0000">smoothing</FONT>.
+  <DT>
 <B><A HREF="facilitiesnode14.htm#fac:synfast">synfast</A></B>
 <DD>This <b>HEALPix</b> facility can generate a map and also do the smoothing.
   <DT>
@@ -239,13 +247,17 @@ In this way comments may also be included in the file.
 In this example, the file contains the following
 qualifiers:
 <BR>
-<tt>simul_type = 1</tt><br>
-<tt>nlmax = 64</tt><br>
-<tt>infile = map.fits</tt><br>
-<tt>outfile = map_smoothed.fits</tt><br>
-<tt>fwhm_arcmin = 10.</tt><br>
-<tt>iter_order = 1</tt><br>
-</blockquote>
+<tt><A HREF="#fac:smoothing:simul_type">simul_type</A>= 1</tt><br>
+<tt><A HREF="#fac:smoothing:nlmax">nlmax</A>= 64</tt><br>
+<tt><A HREF="#fac:smoothing:infile">infile</A>= map.fits</tt><br>
+<tt><A HREF="#fac:smoothing:outfile">outfile</A>= map_smoothed.fits</tt><br>
+<tt><A HREF="#fac:smoothing:fwhm_arcmin">fwhm_arcmin</A>= 10.</tt><br>
+<tt><A HREF="#fac:smoothing:iter_order">iter_order</A>= 1</tt><br>
+smoothes the <b>HEALPix</b> temperature map contained in `map.fits' with 
+a 10 arcmin FWHM beam. The resulting map is saved 
+in `map_smoothed.fits'. The map analysis/synthesis was carried 
+out using fourier coeffecients up to an <SPAN CLASS="MATH"><I>l</I></SPAN> value of 64. A first
+order iteration of the quadrature was performed.</blockquote>
 <P>
 <hr><H1>RELEASE NOTES</H1><blockquote>
   </SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="blueball.png" ALT="*">
@@ -301,31 +313,31 @@ can not allocate memory for array xxx </SMALL></TD>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html234"
+<A NAME="tex2html237"
   HREF="facilitiesnode12.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html240"
+<A NAME="tex2html243"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html244"
+<A NAME="tex2html247"
   HREF="facilitiesnode14.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html242"
+<A NAME="tex2html245"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html235"
+<B> Previous:</B> <A NAME="tex2html238"
   HREF="facilitiesnode12.htm">sky_ng_sim</A>
 
-<B>Up:</B> <A NAME="tex2html241"
+<B>Up:</B> <A NAME="tex2html244"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html245"
+<B> Next:</B> <A NAME="tex2html248"
   HREF="facilitiesnode14.htm">synfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

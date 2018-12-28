@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1159"
+<A NAME="tex2html1167"
   HREF="subroutinesnode73.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1165"
+<A NAME="tex2html1173"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1169"
+<A NAME="tex2html1177"
   HREF="subroutinesnode75.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1167"
+<A NAME="tex2html1175"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1160"
+<B> Previous:</B> <A NAME="tex2html1168"
   HREF="subroutinesnode73.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1166"
+<B>Up:</B> <A NAME="tex2html1174"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1170"
+<B> Next:</B> <A NAME="tex2html1178"
   HREF="subroutinesnode75.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,20 +63,20 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <b><font size=+6><FONT COLOR="#CC0000">plm_gen</FONT></font></b><hr>
 <H3>This routine computes the latitude dependent part <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> of the
   spherical harmonics (<!-- MATH
  $Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="186" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg114.png"
+ SRC="subroutinesimg109.png"
  ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
   (see <b>HEALPix</b> primer)
   used to synthetize or analyze <b>HEALPix</b> maps of temperature and polarisation.
   Since version 2.20, which introduced optimized algorithms for spherical
   harmonic transforms, it has become obsolete and should no longer be used.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">plm_gen</FONT>(
@@ -109,7 +109,7 @@ nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
  SRC="subroutinesimg13.png"
  ALT="${N_{\rm side}}$"></SPAN> value for which to compute the <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax<A NAME="sub:plm_gen:nlmax"></A></TD>
@@ -117,7 +117,7 @@ nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><I>l</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax<A NAME="sub:plm_gen:nmmax"></A></TD>
@@ -125,7 +125,7 @@ nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A NAME="sub:plm_gen:plm"></A>(0:n_plm-1, 1:p)</TD>
@@ -133,12 +133,12 @@ nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> values, either for temperature only
                    (<SPAN CLASS="MATH"><I>p</I>=1</SPAN>) or temperature and polarisation (<SPAN CLASS="MATH"><I>p</I>=3</SPAN>). The number
                     of <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> is n_plm =
                     nsmax*(nmmax+1)*(2*nlmax-nmmax+2). They are stored in the
                     order of increasing order <SPAN CLASS="MATH"><I>l</I></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
@@ -151,39 +151,39 @@ nsmax<A NAME="sub:plm_gen:nsmax"></A></TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg115.png"
+ SRC="subroutinesimg110.png"
  ALT="$\lambda_{00}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{10}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg116.png"
+ SRC="subroutinesimg111.png"
  ALT="$\lambda_{10}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{20}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg117.png"
+ SRC="subroutinesimg112.png"
  ALT="$\lambda_{20}(\theta_1)$"></SPAN>,
                     ..., <!-- MATH
  $\lambda_{11}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg118.png"
+ SRC="subroutinesimg113.png"
  ALT="$\lambda_{11}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{21}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg119.png"
+ SRC="subroutinesimg114.png"
  ALT="$\lambda_{21}(\theta_1)$"></SPAN>;
                     ...,  <!-- MATH
  $\lambda_{00}(\theta_2)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg120.png"
+ SRC="subroutinesimg115.png"
  ALT="$\lambda_{00}(\theta_2)$"></SPAN> ...</TD>
 </TR>
 </TABLE>
@@ -225,7 +225,7 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
 <DD>Ancillary routines used
   for <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> recursion
   <DT>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
@@ -248,7 +248,7 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
    <DT>
 <B><A HREF="subroutinesnode46.htm#sub:map2alm">map2alm</A></B>
@@ -259,13 +259,13 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
   <DT>
 <B>plmgen</B>
 <DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{lm}$"></SPAN> and
   writting them on disc 
 </DL>
@@ -281,31 +281,31 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1159"
+<A NAME="tex2html1167"
   HREF="subroutinesnode73.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1165"
+<A NAME="tex2html1173"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1169"
+<A NAME="tex2html1177"
   HREF="subroutinesnode75.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1167"
+<A NAME="tex2html1175"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1160"
+<B> Previous:</B> <A NAME="tex2html1168"
   HREF="subroutinesnode73.htm">planck_rng derived type</A>
 
-<B>Up:</B> <A NAME="tex2html1166"
+<B>Up:</B> <A NAME="tex2html1174"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1170"
+<B> Next:</B> <A NAME="tex2html1178"
   HREF="subroutinesnode75.htm">query_disc</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

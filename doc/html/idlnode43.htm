@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html741"
+<A NAME="tex2html747"
   HREF="idlnode42.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html747"
+<A NAME="tex2html753"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html751"
+<A NAME="tex2html757"
   HREF="idlnode44.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html749"
+<A NAME="tex2html755"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html742"
+<B> Previous:</B> <A NAME="tex2html748"
   HREF="idlnode42.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html748"
+<B>Up:</B> <A NAME="tex2html754"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html752"
+<B> Next:</B> <A NAME="tex2html758"
   HREF="idlnode44.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -74,7 +74,7 @@ It also offers the possibility to
 generate GIF, JPEG, PDF, PNG and Postscript color-coded images of the projected map. 
 The projected (but not color-coded) data can also be output in FITS files and
 IDL arrays.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/visu/mollview.pro"><b>src/idl/visu/mollview.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/visu/mollview.pro"><b>src/idl/visu/mollview.pro</b></a>&nbsp;  
 <P>
 <SMALL CLASS="FOOTNOTESIZE"> 
 <A NAME="idl:mollview:TOP"></A></SMALL>
@@ -330,7 +330,7 @@ See <A HREF="#idl:mollview:bad_color">BAD_COLOR</A> for expected format.
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">CHARTHICK=<A NAME="idl:mollview:charthick"></A> </SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <A HREF="#idl:mollview:routines">all</A></SMALL></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> character thickness (in
-<A HREF="#idl:mollview:titleplot">TITLE</A>, <A HREF="#idl:mollview:subtitle">SUBTITLE</A> and
+<A HREF="#idl:mollview:titleplot">TITLEPLOT</A>, <A HREF="#idl:mollview:subtitle">SUBTITLE</A> and
 color bar labeling). Other characters thickness (such as
 <A HREF="#idl:mollview:glsize">graticule labels</A>), can be controlled with </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!P.CHARTHICK</TT>.
                 <b>default:</b>1 </SMALL></TD>
@@ -359,10 +359,10 @@ See <A HREF="#idl:mollview:example6">Example #6</A> below.
 <BR>- If the index does not match any existing table, or if it is above 255, 
   the current online table (modifiable with </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>TVLCT</TT>, </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>XLOADCT</TT>, </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>XPALETTE</TT>, ... 
   or eg, J. Davenport's 
-<A NAME="tex2html25"
+<A NAME="tex2html28"
   HREF="http://www.astro.washington.edu/users/jrad/cubehelix.pro"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>cubehelix.pro</TT></A>
 implementation of D. Green 's
-<A NAME="tex2html26"
+<A NAME="tex2html29"
   HREF="http://www.mrao.cam.ac.uk/~dag/CUBEHELIX/">cubehelix color scheme</A>) is used instead. <BR>-If </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>colt</TT><SPAN CLASS="MATH">&lt;0</SPAN>, the IDL color table ABS(colt) is used, but the scale is
  reversed (ie a red to blue scale becomes a blue to red scale).
  Note: -0.1 can be used as negative 0.
@@ -453,7 +453,7 @@ when applicable, its orientation and coordinates by
 <A HREF="#idl:mollview:rot">ROT</A> and 
 <A HREF="#idl:mollview:coord">COORD</A> respectively, ... <BR>
 For compatibility with standard FITS viewers (including 
-<A NAME="tex2html27"
+<A NAME="tex2html30"
   HREF="http://www.astromatic.net/category/softwareposts/stiff">STIFF</A>), unobserved pixels, and
 pixels outside the sphere, take the value </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>NaN</TT> (ie </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!values.f_nan</TT> in IDL).
 The resulting FITS file can be read in IDL with eg. map=</SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>readfits</TT>(</SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>filename</EM>). 
@@ -657,28 +657,28 @@ if set to 1 or 2, enables <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T
 <BR>- if set to 2 </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>with</EM> <A HREF="#idl:mollview:ps">PS</A> or 
           <A HREF="#idl:mollview:pdf">PDF</A> outputs, those strings (and the <A HREF="#idl:mollview:glsize">graticule labels</A>) will be processed 
            by genuine <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and inserted in the final PS or PDF file using </SMALL><SMALL CLASS="FOOTNOTESIZE"><I>psfrag</I> package
-          (requires the ubiquitous <A NAME="tex2html28"
+          (requires the ubiquitous <A NAME="tex2html31"
   HREF="https://www.ctan.org/starter"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>latex</TT></A>
 and its 
-<A NAME="tex2html29"
+<A NAME="tex2html32"
   HREF="https://www.ctan.org/pkg/color"></SMALL><SMALL CLASS="FOOTNOTESIZE"><I>color</I></A>,
-<A NAME="tex2html30"
+<A NAME="tex2html33"
   HREF="https://www.ctan.org/pkg/geometry"></SMALL><SMALL CLASS="FOOTNOTESIZE"><I>geometry</I></A>, 
-<A NAME="tex2html31"
+<A NAME="tex2html34"
   HREF="https://www.ctan.org/pkg/graphicx"></SMALL><SMALL CLASS="FOOTNOTESIZE"><I>graphicx</I></A>
 and
-<A NAME="tex2html32"
+<A NAME="tex2html35"
   HREF="https://www.ctan.org/pkg/psfrag"></SMALL><SMALL CLASS="FOOTNOTESIZE"><I>psfrag</I></A>
-packages as well as <A NAME="tex2html33"
+packages as well as <A NAME="tex2html36"
   HREF="https://www.ctan.org/pkg/dvips"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>dvips</TT></A>).
 In this case, the 
 <A HREF="#idl:mollview:pfonts">Pfonts</A> settings will be ignored.
 <BR>
-Note that <A NAME="tex2html34"
+Note that <A NAME="tex2html37"
   HREF="http://www.idlcoyote.com/programs/cgps2raster.pro"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>cgPStoRASTER</TT></A>,
-<A NAME="tex2html35"
+<A NAME="tex2html38"
   HREF="http://www.imagemagick.org/script/index.php">ImageMagick </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>convert</TT></A>
-and/or <A NAME="tex2html36"
+and/or <A NAME="tex2html39"
   HREF="http://www.graphicsmagick.org/convert.html">GraphicsMagick </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>gm convert</TT></A>
 can be used to turn a PS or PDF file into high resolution GIF, JPEG or PNG file.
 <BR>
@@ -690,7 +690,7 @@ Beware that the option </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>latex=2</TT> may 
 <A HREF="#idl:mollview:pdf">PDF</A>, 
 <A HREF="#idl:mollview:png">PNG</A>, 
 <A HREF="#idl:mollview:ps">PS</A>, or X)
-LaTeX is partially emulated with <A NAME="tex2html37"
+LaTeX is partially emulated with <A NAME="tex2html40"
   HREF="http://physics.mnstate.edu/craig/textoidl/"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>TeXtoIDL</TT></A>
 routines, which are now shipped with <b>HEALPix</b> 
           (no extra requirements).	
@@ -839,7 +839,7 @@ and can optionally contain the fields: <BR>- 'LINE[STYLE]': (optional, scalar) <
  WIDTH="137" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg71.png"
  ALT="$9\leq\vert\rm{psym}\vert\leq 46$"></SPAN>, D. Fanning's 
-<A NAME="tex2html38"
+<A NAME="tex2html41"
   HREF="http://www.idlcoyote.com/programs/cgsymcat.pro"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>cgSYMCAT.PRO</TT></A>
 symbols 
                      definition will be used; for example, psym=9 is an open circle). If <SPAN CLASS="MATH"><IMG
@@ -885,10 +885,10 @@ if set to 1            : outputs the plot in
 </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>azimequid</TT>, </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>cartesian</TT>, </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>gnomic</TT>, </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>mollweide</TT> 
 or </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>orthographic</TT>, <BR>
 if set to a file name  : outputs the plot in that file <BR><b>default:</b>0 <BR>
-The PDF file is produced from a PostScript file using the script <A NAME="tex2html39"
+The PDF file is produced from a PostScript file using the script <A NAME="tex2html42"
   HREF="http://tug.org/epstopdf/"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>epstopdf</TT></A>
 now shipped with <b>HEALPix</b> . Note that </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>epstopdf</TT> usually requires a fully functional implementation of the fairly widespread </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>gs</TT>, aka
-<A NAME="tex2html40"
+<A NAME="tex2html43"
   HREF="https://en.wikipedia.org/wiki/Ghostscript"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>Ghostscript</TT></A>, which may however not be available on the computation dedicated nodes of some computer clusters.
 <BR><i>see also:</i>
 <A HREF="#idl:mollview:preview">Preview</A>, 
@@ -902,15 +902,15 @@ now shipped with <b>HEALPix</b> . Note that </SMALL><SMALL CLASS="FOOTNOTESIZE">
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
 2-element vector of integers [<SPAN CLASS="MATH"><I>p</I><SUB>0</SUB></SPAN>, <SPAN CLASS="MATH"><I>p</I><SUB>1</SUB></SPAN>] selecting the default IDL font of character strings such as the
 <A HREF="#idl:mollview:subtitle">Subtitle</A>,
-<A HREF="#idl:mollview:title">Title</A> and
+<A HREF="#idl:mollview:titleplot">Titleplot</A> and
 <A HREF="#idl:mollview:units">Units</A>.
 <BR><SPAN CLASS="MATH"><I>p</I><SUB>0</SUB></SPAN> must be in <SPAN CLASS="MATH">{-1,0,1}</SPAN> and selects the origin of the fonts among
--1: <A NAME="tex2html41"
+-1: <A NAME="tex2html44"
   HREF="http://www.exelisvis.com/docs/Using_Hershey_Vector_Fon.html">Hershey Vector</A>,
-0:  <A NAME="tex2html42"
+0:  <A NAME="tex2html45"
   HREF="http://www.exelisvis.com/docs/using_device_fonts.html">Device Specific</A>
 and
-1:  <A NAME="tex2html43"
+1:  <A NAME="tex2html46"
   HREF="http://www.exelisvis.com/docs/using_truetype_fonts.html">True Type</A>
 Fonts.
 <BR><SPAN CLASS="MATH"><I>p</I><SUB>1</SUB></SPAN> must be in <!-- MATH
@@ -920,16 +920,16 @@ Fonts.
  WIDTH="94" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg73.png"
  ALT="$\{2,\ldots,20\}$"></SPAN> and selects the starting font of the character strings as described
-<A NAME="tex2html44"
+<A NAME="tex2html47"
   HREF="http://www.exelisvis.com/docs/Embedded_Formatting_Comm.html">here</A>. 
 The font can be changed within each string with embedded formatting commands, as discussed on
-<A NAME="tex2html45"
+<A NAME="tex2html48"
   HREF="http://www.exelisvis.com/docs/Fonts_and_Colors.html"></SMALL><SMALL CLASS="SMALL"><TT>
 http://www.exelisvis.com/docs/Fonts_and_Colors.html</SMALL><SMALL CLASS="FOOTNOTESIZE"></TT></A>.
 <BR><b>default:</b>[-1,6], corresponding to the Hershey vector font of type 'Complex Roman', and is equivalent to typing
 </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!p.font=-1</TT> and prepending the
 <A HREF="#idl:mollview:subtitle">Subtitle</A>,
-<A HREF="#idl:mollview:title">Title</A> and
+<A HREF="#idl:mollview:titleplot">Titleplot</A> and
 <A HREF="#idl:mollview:units">Units</A> 
 strings with </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>'!6'</TT>.
 <BR>
@@ -1300,7 +1300,7 @@ polarization field.
             GIF/JPEG/PNG image generated by <FONT COLOR="#CC0000">mollview</FONT> (a browser can also 
             be used).
   <DT>
-<B><A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>, <A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A></B>
+<B><A HREF="#fac:synfast">synfast</A>, <A HREF="#fac:smoothing">smoothing</A></B>
 <DD>These F90 <b>HEALPix</b> facilities will generate the FITS format 
             sky maps to be input to <FONT COLOR="#CC0000">mollview</FONT>.
   <DT>
@@ -1387,14 +1387,14 @@ and the <A HREF="#idl:mollview:titleplot">title</A> 'Simulated Planck LFI Sky Ma
 page&nbsp;<A HREF="idlnode43.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary <A HREF="#idl:mollview:graticule">rotation</A>, with a <A HREF="#idl:mollview:graticule">graticule</A> grid
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary
 (triangular) <A HREF="#idl:mollview:outline">outline</A></blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="13589"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="13795"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Figures produced by <A HREF="idlnode17.htm#idl:cartview">cartview</A>,
 <A HREF="idlnode28.htm#idl:gnomview">gnomview</A>, <A HREF="#idl:mollview">mollview</A> and <A HREF="idlnode51.htm#idl:orthview">orthview</A>, see respective
 routine documentation for details.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par28090" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par38297" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_visu_large.png"
@@ -1437,12 +1437,12 @@ upper right corner, and some greetings, as shown on
 Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> 
 on page&nbsp;<A HREF="idlnode43.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="13594"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="13800"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
 Figure produced by Example #3 .</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par28103" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par38310" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
  SRC="./plot_example_execute.png"
@@ -1488,14 +1488,14 @@ pixels is observed</blockquote><hr><H1>EXAMPLE # 5:</H1>
 various color scales: linear, Inverse
 Hyperbolic Sine, Histogram Equalized, and Log. See Figure&nbsp;<A HREF="#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode43.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="13600"></A>
+<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="13806"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
 Illustration (generated by 
 Example&nbsp;#5)
 of the various color scales available.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par28117" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par38324" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_wmapKband.png"
@@ -1508,7 +1508,7 @@ of the various color scales available.</CAPTION>
 <P>
 <hr><H1>EXAMPLE # 6:</H1> 
 <tt><A NAME="idl:mollview:example6"></A></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="#idl:mollview">mollview</A>,'<A NAME="tex2html49"
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="#idl:mollview">mollview</A>,'<A NAME="tex2html52"
   HREF="http://pla.esac.esa.int/pla/aio/planckProducts.html">HFI_SkyMap_217_2048_R1.10_nominal.fits</A>', $ </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
@@ -1519,19 +1519,19 @@ of the various color scales available.</CAPTION>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg76.png"
- ALT="$\quad\quad$"></SPAN> <A HREF="#idl:mollview:min">min</A>=-1.e3,<A HREF="#idl:mollview:max">max</A>=1.e7,<A HREF="#idl:mollview:title">title</A>='Planck @ 217GHz',<A HREF="#idl:mollview:charsize">charsize</A>=2</SMALL></TD>
+ ALT="$\quad\quad$"></SPAN> <A HREF="#idl:mollview:min">min</A>=-1.e3,<A HREF="#idl:mollview:max">max</A>=1.e7,<A HREF="#idl:mollview:titleplot">title</A>='Planck @ 217GHz',<A HREF="#idl:mollview:charsize">charsize</A>=2</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
 <blockquote>Illustrates the application of the second color table created by <A HREF="idlnode53.htm#idl:planck_colors">planck_colors</A>  to the
 visualization of Planck data at 217GHz (see Fig.&nbsp;<A HREF="#fig:planck_colors_217">4</A> on page&nbsp;<A HREF="idlnode43.htm#page:planck_colors_217"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)</blockquote>
-<DIV ALIGN="CENTER"><A NAME="page:planck_colors_217"></A><A NAME="fig:planck_colors_217"></A><A NAME="13605"></A>
+<DIV ALIGN="CENTER"><A NAME="page:planck_colors_217"></A><A NAME="fig:planck_colors_217"></A><A NAME="13811"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 4:</STRONG>
 Illustration (generated by 
 Example&nbsp;#6) of the application of Planck color table
 #2  to a Planck sky map.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par28126" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par38333" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
  SRC="./planck_colors_217.png"
@@ -1552,31 +1552,31 @@ Example&nbsp;#6) of the application of Planck color table
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html741"
+<A NAME="tex2html747"
   HREF="idlnode42.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html747"
+<A NAME="tex2html753"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html751"
+<A NAME="tex2html757"
   HREF="idlnode44.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html749"
+<A NAME="tex2html755"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html742"
+<B> Previous:</B> <A NAME="tex2html748"
   HREF="idlnode42.htm">mollcursor</A>
 
-<B>Up:</B> <A NAME="tex2html748"
+<B>Up:</B> <A NAME="tex2html754"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html752"
+<B> Next:</B> <A NAME="tex2html758"
   HREF="idlnode44.htm">neighbours_nest</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

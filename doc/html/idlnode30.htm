@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>healpixwindow </TITLE>
-<META NAME="description" CONTENT="healpixwindow ">
+<TITLE>healpixwindow</TITLE>
+<META NAME="description" CONTENT="healpixwindow">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html585"
+<A NAME="tex2html591"
   HREF="idlnode29.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html591"
+<A NAME="tex2html597"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html595"
+<A NAME="tex2html601"
   HREF="idlnode31.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html593"
+<A NAME="tex2html599"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html586"
+<B> Previous:</B> <A NAME="tex2html592"
   HREF="idlnode29.htm">healpix_doc: PDF and HTML</A>
 
-<B>Up:</B> <A NAME="tex2html592"
+<B>Up:</B> <A NAME="tex2html598"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html596"
+<B> Next:</B> <A NAME="tex2html602"
   HREF="idlnode31.htm">hpx2dm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -59,13 +59,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">healpixwindow </FONT></font></b><hr>
+<b><font size=+6><FONT COLOR="#CC0000">healpixwindow</FONT></font></b><hr>
 <H3>This IDL facility provides the window function in <SPAN CLASS="MATH"><I>l</I></SPAN> associated with the
 Healpix pixel of resolution Nside.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/misc/healpixwindow.pro"><b>src/idl/misc/healpixwindow.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/misc/healpixwindow.pro"><b>src/idl/misc/healpixwindow.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-wpix=HEALPIXWINDOW (Nside [, <A HREF="#idl:healpixwindow:Dim">Dim</A>, Directory])
+wpix=HEALPIXWINDOW(Nside [, <A HREF="#idl:healpixwindow:Dim">Dim</A>, Directory])
 </h3>
 <P>
 <hr>
@@ -112,7 +112,7 @@ the TEMPERATURE*GRAD one.
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">healpixwindow </FONT> computes the <SPAN CLASS="MATH"><I>l</I></SPAN> space window function due to the finite size of the
+<FONT COLOR="#CC0000">healpixwindow</FONT> computes the <SPAN CLASS="MATH"><I>l</I></SPAN> space window function due to the finite size of the
 <b>HEALPix</b> pixels. The typical size of a pixel (square root of its uniform surface
 area) is <!-- MATH
  $\sqrt{3/\pi}\ 3600/N_{\rm side}$
@@ -131,17 +131,17 @@ W(l)^2$
  WIDTH="168" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg56.png"
  ALT="$C(l)_{\rm pix} = C(l)
-W(l)^2$"></SPAN> where <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> is given by <FONT COLOR="#CC0000">healpixwindow </FONT>(Nside). The polarized
+W(l)^2$"></SPAN> where <SPAN CLASS="MATH"><I>W</I>(<I>l</I>)</SPAN> is given by <FONT COLOR="#CC0000">healpixwindow</FONT>(Nside). The polarized
 pixel window function is also provided (when Dim <SPAN CLASS="MATH">&gt;</SPAN> 1).
 This routine reads some FITS files located in the subdirectory <TT>data/</TT> of the
 <b>HEALPix</b> distribution, unless the keyword <TT>Directory</TT> is set otherwise.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">healpixwindow </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">healpixwindow</FONT></b></h3>
  
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.4 or more is necessary to run healpixwindow <DT>
+<DD>version 6.4 or more is necessary to run healpixwindow<DT>
 <B><A HREF="idlnode24.htm#idl:gaussbeam">gaussbeam</A></B>
 <DD>computes the <SPAN CLASS="MATH"><I>l</I></SPAN> space window function associated with
     a gaussian beam
@@ -157,7 +157,7 @@ This routine reads some FITS files located in the subdirectory <TT>data/</TT> of
 <P>
 <HR><H1>EXAMPLE:</H1> 
 <tt></SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> wpix = <FONT COLOR="#CC0000">healpixwindow </FONT>(256)</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> wpix = <FONT COLOR="#CC0000">healpixwindow</FONT>(256)</SMALL></TD>
 <TD></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
@@ -173,31 +173,31 @@ parameter 256 (pixel size of 13.7 arcmin)</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html585"
+<A NAME="tex2html591"
   HREF="idlnode29.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html591"
+<A NAME="tex2html597"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html595"
+<A NAME="tex2html601"
   HREF="idlnode31.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html593"
+<A NAME="tex2html599"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html586"
+<B> Previous:</B> <A NAME="tex2html592"
   HREF="idlnode29.htm">healpix_doc: PDF and HTML</A>
 
-<B>Up:</B> <A NAME="tex2html592"
+<B>Up:</B> <A NAME="tex2html598"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html596"
+<B> Next:</B> <A NAME="tex2html602"
   HREF="idlnode31.htm">hpx2dm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

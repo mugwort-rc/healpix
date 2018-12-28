@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html246"
+<A NAME="tex2html249"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html252"
+<A NAME="tex2html255"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html256"
+<A NAME="tex2html259"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html254"
+<A NAME="tex2html257"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html247"
+<B> Previous:</B> <A NAME="tex2html250"
   HREF="facilitiesnode13.htm">smoothing</A>
 
-<B>Up:</B> <A NAME="tex2html253"
+<B>Up:</B> <A NAME="tex2html256"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html257"
+<B> Next:</B> <A NAME="tex2html260"
   HREF="facilitiesnode15.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -83,7 +83,7 @@ during the execution of spectral synthesis, or  precomputed and read in
 before the synthesis is executed. The latter is no longer recommended since
 it provides no acceleration since the introduction of optimized algorithms
 in <b>HEALPix</b> v2.20. </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/synfast/synfast.f90"><b>src/f90/synfast/synfast.f90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/synfast/synfast.f90"><b>src/f90/synfast/synfast.f90</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>%
 synfast [options] [parameter_file]
@@ -108,21 +108,21 @@ synfast [options] [parameter_file]
  
   </SMALL><DL COMPACT><DT>
 <B>infile = </B>
-<DD>Defines the input power spectrum file,
+<DD><A NAME="fac:synfast:infile"></A>Defines the input power spectrum file,
 	(default= cl.fits). Note that <TT>infile</TT> is now optional :
     synfast can run even if only <TT>almsfile</TT> is provided.
     <DT>
 <B>outfile = </B>
-<DD>Defines the output (RING ordered) map file,
+<DD><A NAME="fac:synfast:outfile"></A>Defines the output (RING ordered) map file,
 (default= map.fits). Note that <TT>outfile</TT> is now optional: if it set to 
       `' (empty string),  mo map is synthesized but the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> generated can be output.
     <DT>
 <B>outfile_alms = </B>
-<DD>Defines the FITS file in which to output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> used
+<DD><A NAME="fac:synfast:outfile_alms"></A>Defines the FITS file in which to output <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> used
       for the simulation (default= `')
      <DT>
 <B>simul_type = </B>
-<DD>Defines the simulation type, 1=temperature only (1 field),
+<DD><A NAME="fac:synfast:simul_type"></A>Defines the simulation type, 1=temperature only (1 field),
        2=temperature+polarisation (3 fields), 3=temperature and its first
 spatial derivatives (3 fields),
        4=temperature and its first and second spatial derivatives (6 fields), 5=temperature
@@ -131,11 +131,11 @@ spatial derivatives (3 fields),
 (default= 1).
     <DT>
 <B>nsmax = </B>
-<DD>Defines the resolution of the map.
+<DD><A NAME="fac:synfast:nsmax"></A>Defines the resolution of the map.
 (default= 32)
      <DT>
 <B>nlmax = </B>
-<DD>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
+<DD><A NAME="fac:synfast:nlmax"></A>Defines the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value 
 to be used in the simulation. WARNING: <SPAN CLASS="MATH"><I>l</I><SUB><I>max</I></SUB></SPAN> can not exceed
 the value <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
@@ -146,24 +146,24 @@ are precomputed and provided up to this limit.
 (default= 64)
       <DT>
 <B>iseed = </B>
-<DD>Defines the random seed to be used 
+<DD><A NAME="fac:synfast:iseed"></A>Defines the random seed to be used 
 for the generation of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s from the power spectrum.
 (default= -1)
     <DT>
 <B>fwhm_arcmin = </B>
-<DD>Defines the FWHM size in arcminutes 
+<DD><A NAME="fac:synfast:fwhm_arcmin"></A>Defines the FWHM size in arcminutes 
 of the simulated Gaussian beam.
 (default= 420.0)
 <DT>
 <B>beam_file = </B>
-<DD>Defines the FITS file describing the
+<DD><A NAME="fac:synfast:beam_file"></A>Defines the FITS file describing the
     Legendre window
     function of the circular beam to be used for the
     simulation. If set to an existing file name, it will override the
     <TT>fhwm_arcmin</TT> given above. (default=`')
 <DT>
 <B>almsfile = </B>
-<DD>Defines the input filename for a file
+<DD><A NAME="fac:synfast:almsfile"></A>Defines the input filename for a file
     containing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s for constrained realisations. 
 (default= `'). If <TT>apply_windows</TT> is <EM>false</EM> 
 those <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>s are used as they are, without being multiplied
@@ -175,25 +175,25 @@ by the beam or pixel window function (with the assumption that they already have
     <A HREF="facilitiesnode5.htm#fac:alteralm">alteralm</A> facility to modify or remove
     the window functions contained in the constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
 <DT>
-<B>apply_windows=</B>
-<DD>Determines how the constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> read from
+<B>apply_windows = </B>
+<DD><A NAME="fac:synfast:apply_windows"></A>Determines how the constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> read from
      <TT>almsfile</TT> are
      treated with respect to window functions; see above for details. 
      y, yes, t, true, .true. and 1 are considered as <EM>true</EM>, while n, no, f,
      false, .false. and 0 are considered as <EM>false</EM>, (default = .false.).
 <DT>
 <B>plmfile = </B>
-<DD>Defines the input  filename for a file
+<DD><A NAME="fac:synfast:plmfile"></A>Defines the input  filename for a file
     containing  precomputed Legendre polynomials <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN>.
 (default= `')
      <DT>
 <B>windowfile = </B>
-<DD>Defines the input filename  for the pixel
+<DD><A NAME="fac:synfast:windowfile"></A>Defines the input filename  for the pixel
     smoothing windows 
 (default= pixel_window_n????.fits, see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
      <DT>
 <B>winfiledir = </B>
-<DD>Defines the directory in which windowfile
+<DD><A NAME="fac:synfast:winfiledir"></A>Defines the directory in which windowfile
     is located (default : see Notes on default files and directories on page&nbsp;<A HREF="facilitiesnode2.htm#page:defdir"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -218,7 +218,7 @@ are output as well as the temperature itself: <SPAN CLASS="MATH"><I>T</I>(<I>p</
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="185" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg50.png"
+ SRC="facilitiesimg52.png"
  ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
 $"></SPAN>, <!-- MATH
  $\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
@@ -226,7 +226,7 @@ $"></SPAN>, <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="231" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg51.png"
+ SRC="facilitiesimg53.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
 \theta\partial\phi}/\sin\theta,\right. $"></SPAN> 
 <!-- MATH
@@ -234,7 +234,7 @@ $"></SPAN>, <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="142" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg52.png"
+ SRC="facilitiesimg54.png"
  ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $"></SPAN>.
 If <TT>simul_type = 5</TT> or
 <TT>6</TT> the first derivatives of the (T,Q,U) fields or the first and second derivatives respectively
@@ -245,7 +245,7 @@ are output as well as the field themself: <SPAN CLASS="MATH"><I>T</I>(<I>p</I>)<
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="343" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg53.png"
+ SRC="facilitiesimg55.png"
  ALT="$\left({\partial T}/{\partial \theta}, {\partial Q}/{\partial \theta}, {\partial
 U}/{\partial \theta}; {\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
 $"></SPAN>, <!-- MATH
@@ -254,7 +254,7 @@ $"></SPAN>, <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="298" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg54.png"
+ SRC="facilitiesimg56.png"
  ALT="$\left({\partial^2 T}/{\partial \theta^2},\ldots; {\partial^2 T}/{\partial
 \theta\partial\phi}/\sin\theta,\ldots ;\right. $"></SPAN> 
 <!-- MATH
@@ -262,7 +262,7 @@ $"></SPAN>, <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="167" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg55.png"
+ SRC="facilitiesimg57.png"
  ALT="$\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \ldots \right) $"></SPAN>
 <br><br>The random sequence seed for generation of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from the
 power spectrum should be non-zero integer. If 0 is provided, a seed is generated
@@ -332,13 +332,13 @@ If the keyword is present, it will be inherited by the simulated map.
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="86" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg56.png"
+ SRC="facilitiesimg58.png"
  ALT="$C^{T\times B}_{l} \ne 0$"></SPAN> and/or <!-- MATH
  $C^{E\times B}_{l} \ne 0$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="87" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg57.png"
+ SRC="facilitiesimg59.png"
  ALT="$C^{E\times B}_{l} \ne 0$"></SPAN>,
 see the subroutine <A HREF="./subroutinesnode24.htm#sub:create_alm"><TT>create_alm</TT></A>.
 
@@ -381,11 +381,11 @@ subroutine generates or reads the <SPAN CLASS="MATH"><I>B</I>(<I>l</I>)</SPAN> w
   <DT>
 <B><A HREF="facilitiesnode8.htm#fac:map2gif">map2gif</A></B>
 <DD>This <b>HEALPix</b> Fortran facility can be used to visualise the
-  output map.
+  output map of <FONT COLOR="#CC0000">synfast</FONT>.
   <DT>
-<B>mollview</B>
+<B><A HREF="./idlnode43.htm#idl:mollview">mollview</A></B>
 <DD>This <b>HEALPix</b> IDL facility can be used to visualise the
-  output map.
+  output map of <FONT COLOR="#CC0000">synfast</FONT>.
   <DT>
 <B><A HREF="facilitiesnode5.htm#fac:alteralm">alteralm</A></B>
 <DD>This <b>HEALPix</b> Fortran facility can be
@@ -430,13 +430,13 @@ If the equality sign is omitted, then the parser ignores the entry.
 In this way comments may also be included in the file.
 In this example, the file contains the following qualifiers:
 <BR>
-<tt>simul_type = 1</tt><br>
-<tt>nsmax = 32</tt><br>
-<tt>nlmax = 64</tt><br>
-<tt>iseed = -1</tt><br>
-<tt>fwhm_arcmin = 420.0</tt><br>
-<tt>infile = cl.fits</tt><br>
-<tt>outfile = map.fits</tt><br>
+<tt><A HREF="#fac:synfast:simul_type">simul_type</A>= 1</tt><br>
+<tt><A HREF="#fac:synfast:nsmax">nsmax</A>= 32</tt><br>
+<tt><A HREF="#fac:synfast:nlmax">nlmax</A>= 64</tt><br>
+<tt><A HREF="#fac:synfast:iseed">iseed</A>= -1</tt><br>
+<tt><A HREF="#fac:synfast:fwhm_arcmin">fwhm_arcmin</A>= 420.0</tt><br>
+<tt><A HREF="#fac:synfast:infile">infile</A>= cl.fits</tt><br>
+<tt><A HREF="#fac:synfast:outfile">outfile</A>= map.fits</tt><br>
 </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">Synfast reads in the <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> power spectrum in 'cl.fits' up to <SPAN CLASS="MATH"><I>l</I>=64</SPAN>, and
@@ -446,20 +446,32 @@ produces the (RING ordered) map
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg58.png"
+ SRC="facilitiesimg60.png"
  ALT="$N_{\rm side}=32$"></SPAN>.
-The map is convolved with a beam of FWHM 420.0 arcminutes. The <SPAN CLASS="MATH"><I>iseed</I>=-1</SPAN> sets
-the random seed for the realisation. A different <SPAN CLASS="MATH"><I>iseed</I></SPAN> would have given a different 
+The map is convolved with a beam of FWHM 420.0 arcminutes. The <!-- MATH
+ $\hyperref{iseed}{}{}{fac:synfast:iseed}=-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="54" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="facilitiesimg61.png"
+ ALT="$\hyperref{iseed}{}{}{fac:synfast:iseed}=-1$"></SPAN> sets
+the random seed for the realisation. A different <!-- MATH
+ $\hyperref{iseed}{}{}{fac:synfast:iseed}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="5" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="facilitiesimg62.png"
+ ALT="$\hyperref{iseed}{}{}{fac:synfast:iseed}$"></SPAN> would have given a different 
 realisation from the same power spectrum.
 </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">Since <BR>
-<tt>outfile_alms </tt><br>
-<tt>almsfile </tt><br>
-<tt>apply_windows </tt><br>
-<tt>plmfile </tt><br>
-<tt>beam_file </tt><br>
-<tt>windowfile </tt><br>
+<tt><A HREF="#fac:synfast:outfile_alms">outfile_alms</A></tt><br>
+<tt><A HREF="#fac:synfast:almsfile">almsfile</A></tt><br>
+<tt><A HREF="#fac:synfast:apply_windows">apply_windows</A></tt><br>
+<tt><A HREF="#fac:synfast:plmfile">plmfile</A></tt><br>
+<tt><A HREF="#fac:synfast:beam_file">beam_file</A></tt><br>
+<tt><A HREF="#fac:synfast:windowfile">windowfile</A></tt><br>
 were omitted, they take their default values (empty strings). 
 This means that no file for constrained realisation or precomputed
 Legendre polynomials are read, the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> generated in the process are not
@@ -625,31 +637,31 @@ contain the proper amount of data. </SMALL></TD>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html246"
+<A NAME="tex2html249"
   HREF="facilitiesnode13.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html252"
+<A NAME="tex2html255"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html256"
+<A NAME="tex2html259"
   HREF="facilitiesnode15.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html254"
+<A NAME="tex2html257"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html247"
+<B> Previous:</B> <A NAME="tex2html250"
   HREF="facilitiesnode13.htm">smoothing</A>
 
-<B>Up:</B> <A NAME="tex2html253"
+<B>Up:</B> <A NAME="tex2html256"
   HREF="facilities.htm">HEALPix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html257"
+<B> Next:</B> <A NAME="tex2html260"
   HREF="facilitiesnode15.htm">ud_grade</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

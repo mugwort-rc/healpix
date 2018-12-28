@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html717"
+<A NAME="tex2html723"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html723"
+<A NAME="tex2html729"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html727"
+<A NAME="tex2html733"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html725"
+<A NAME="tex2html731"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html718"
+<B> Previous:</B> <A NAME="tex2html724"
   HREF="idlnode40.htm">lm2index</A>
 
-<B>Up:</B> <A NAME="tex2html724"
+<B>Up:</B> <A NAME="tex2html730"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html728"
+<B> Next:</B> <A NAME="tex2html734"
   HREF="idlnode42.htm">mollcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -61,10 +61,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">median_filter </FONT></font></b><hr>
 <H3>This IDL facility allows the median filtering of a Healpix map.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/toolkit/median_filter.pro"><b>src/idl/toolkit/median_filter.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/toolkit/median_filter.pro"><b>src/idl/toolkit/median_filter.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-MEDIAN_FILTER <A HREF="#idl:median_filter:_InputMap">(InputMap</A>, <A HREF="#idl:median_filter:Radius">Radius</A>, <A HREF="#idl:median_filter:MedianMap">MedianMap</A>[,<A HREF="#idl:median_filter:ORDERING">ORDERING=</A>, <A HREF="#idl:median_filter:RING">/RING</A>, <A HREF="#idl:median_filter:NESTED">/NESTED</A>, <A HREF="#idl:median_filter:FILL_HOLES">/FILL_HOLES</A>, <A HREF="#idl:median_filter:DEGREES">/DEGREES</A>, /ARCMIN])
+MEDIAN_FILTER (<A HREF="#idl:median_filter:InputMap">InputMap</A>, <A HREF="#idl:median_filter:Radius">Radius</A>, <A HREF="#idl:median_filter:MedianMap">MedianMap</A>[,<A HREF="#idl:median_filter:ORDERING">ORDERING=</A>, <A HREF="#idl:median_filter:RING">/RING</A>, <A HREF="#idl:median_filter:NESTED">/NESTED</A>, <A HREF="#idl:median_filter:FILL_HOLES">/FILL_HOLES</A>, <A HREF="#idl:median_filter:DEGREES">/DEGREES</A>, <A HREF="#idl:median_filter:ARCMIN">/ARCMIN</A>])
 </h3>
 <P>
 <hr>
@@ -72,21 +72,21 @@ MEDIAN_FILTER <A HREF="#idl:median_filter:_InputMap">(InputMap</A>, <A HREF="#id
  
   </SMALL><DL COMPACT><DT>
 <B>InputMap</B>
-<DD>(IN)
+<DD><A NAME="idl:median_filter:InputMap"></A> (IN)
 	either an IDL array containing a full sky Healpix map to filter ('online' usage), 
         or the name of an external FITS file containing a full sky or cut sky map
 
 <P>
 <DT>
 <B>Radius</B>
-<DD>(IN)
+<DD><A NAME="idl:median_filter:Radius"></A> (IN)
 	  radius of the disk on which the median is computed.
             It is in Radians, unless <TT>/DEGREES</TT> or <TT>/ARCMIN</TT> are set
 
 <P>
 <DT>
 <B>MedianMap</B>
-<DD>(OUT)
+<DD><A NAME="idl:median_filter:MedianMap"></A> (OUT)
 	   either an IDL variable containing on output the filtered map,
         or the name of an external FITS file to contain the map. Should be of
 	   same type of <TT>InputMap</TT>. Flagged pixels (ie, having the value
@@ -100,35 +100,35 @@ MEDIAN_FILTER <A HREF="#idl:median_filter:_InputMap">(InputMap</A>, <A HREF="#id
 
   </SMALL><DL COMPACT><DT>
 <B>/ARCMIN</B>
-<DD>If set, <TT>Radius</TT> is in arcmin rather than radians
+<DD><A NAME="idl:median_filter:ARCMIN"></A> If set, <TT>Radius</TT> is in arcmin rather than radians
 
 <P>
 <DT>
-<B>/DEG</B>
-<DD>If set, <TT>Radius</TT> is in degrees rather than radians
+<B>/DEGREES</B>
+<DD><A NAME="idl:median_filter:DEGREES"></A> If set, <TT>Radius</TT> is in degrees rather than radians
 
 <P>
 <DT>
 <B>/FILL_HOLES</B>
-<DD>If set, flagged pixels are replaced with the
+<DD><A NAME="idl:median_filter:FILL_HOLES"></A> If set, flagged pixels are replaced with the
 	median of the valid pixels found within a distance <TT>Radius</TT>. If
 	there are any.
 
 <P>
 <DT>
 <B>/NESTED</B>
-<DD>Same as ORDERING='NESTED'
+<DD><A NAME="idl:median_filter:NESTED"></A> Same as ORDERING='NESTED'
 
 <P>
 <DT>
 <B>ORDERING=</B>
-<DD>Healpix map ordering, should be either 'RING' or 'NESTED'. Only
+<DD><A NAME="idl:median_filter:ORDERING"></A>	  Healpix map ordering, should be either 'RING' or 'NESTED'. Only
 	  applies to 'online' usage.
 
 <P>
 <DT>
 <B>/RING</B>
-<DD>Same as ORDERING='RING'
+<DD><A NAME="idl:median_filter:RING"></A> Same as ORDERING='RING'
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -182,31 +182,31 @@ The input and output can either be arrays or FITS files, but they to be both
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html717"
+<A NAME="tex2html723"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html723"
+<A NAME="tex2html729"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html727"
+<A NAME="tex2html733"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html725"
+<A NAME="tex2html731"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html718"
+<B> Previous:</B> <A NAME="tex2html724"
   HREF="idlnode40.htm">lm2index</A>
 
-<B>Up:</B> <A NAME="tex2html724"
+<B>Up:</B> <A NAME="tex2html730"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html728"
+<B> Next:</B> <A NAME="tex2html734"
   HREF="idlnode42.htm">mollcursor</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

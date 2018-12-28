@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html835"
+<A NAME="tex2html843"
   HREF="subroutinesnode46.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html841"
+<A NAME="tex2html849"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html845"
+<A NAME="tex2html853"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html843"
+<A NAME="tex2html851"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html836"
+<B> Previous:</B> <A NAME="tex2html844"
   HREF="subroutinesnode46.htm">map2alm*</A>
 
-<B>Up:</B> <A NAME="tex2html842"
+<B>Up:</B> <A NAME="tex2html850"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html846"
+<B> Next:</B> <A NAME="tex2html854"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -87,7 +87,7 @@ Jacobi iterative process reads
 <TABLE WIDTH="100%" ALIGN="CENTER">
 <TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="323" HEIGHT="38" BORDER="0"
- SRC="subroutinesimg93.png"
+ SRC="subroutinesimg89.png"
  ALT="\begin{displaymath}
 \textbf{a}^{(n)} = \textbf{a}^{(n-1)} + \textbf{A}. \left( ...
 ...\textbf{m}- \textbf{w}. \textbf{S}.\textbf{a}^{(n-1)} \right),
@@ -117,7 +117,7 @@ with
 </DIV>
 <BR CLEAR="ALL"><P></P>
 <br><br></H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">map2alm_iterative*</FONT>(
@@ -164,10 +164,10 @@ improves the accuracy of the final <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SU
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="127" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg94.png"
+ SRC="subroutinesimg90.png"
  ALT="$
 T_{\rm CPU} \propto 1 + 2 \times $"></SPAN>iter_order. 
-iter_order<A NAME="sub:map2alm_iterative:iter_order"></A> <SPAN CLASS="MATH">=0</SPAN> is a straight analysis, while iter_order <SPAN CLASS="MATH">=3</SPAN> is usually a
+iter_order  <SPAN CLASS="MATH">=0</SPAN> is a straight analysis, while iter_order <SPAN CLASS="MATH">=3</SPAN> is usually a
 good compromise.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=190>map_TQU<A NAME="sub:map2alm_iterative:map_TQU"></A>(0:12*nsmax**2-1, 1:p)</TD>
@@ -195,7 +195,7 @@ case, the first index is (1,2,3) corresponding to (T,E,B).</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg91.png"
+ SRC="subroutinesimg87.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta).$"></SPAN> If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
                    performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
@@ -231,7 +231,7 @@ used instead of recursion.</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=35>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>pixel mask,
-assumed to have the same resolution (and RING ordering) as the map. The map <TT>map_TQU<A NAME="sub:map2alm_iterative:map_TQU"></A></TT> is
+assumed to have the same resolution (and RING ordering) as the map. The map <TT>map_TQU</TT> is
 multiplied by that mask before being analyzed, and will therefore be altered on
 output. 
 <SPAN CLASS="MATH"><I>q</I></SPAN> should be in <SPAN CLASS="MATH">{1,2,3}</SPAN>. If <SPAN CLASS="MATH"><I>p</I>=<I>q</I>=3</SPAN>, then each of
@@ -339,31 +339,31 @@ computed by <FONT COLOR="#CC0000">map2alm_iterative*</FONT>into a FITS file
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html835"
+<A NAME="tex2html843"
   HREF="subroutinesnode46.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html841"
+<A NAME="tex2html849"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html845"
+<A NAME="tex2html853"
   HREF="subroutinesnode48.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html843"
+<A NAME="tex2html851"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html836"
+<B> Previous:</B> <A NAME="tex2html844"
   HREF="subroutinesnode46.htm">map2alm*</A>
 
-<B>Up:</B> <A NAME="tex2html842"
+<B>Up:</B> <A NAME="tex2html850"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html846"
+<B> Next:</B> <A NAME="tex2html854"
   HREF="subroutinesnode48.htm">map2alm_spin*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

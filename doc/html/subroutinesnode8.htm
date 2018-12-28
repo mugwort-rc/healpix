@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html367"
+<A NAME="tex2html375"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html373"
+<A NAME="tex2html381"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html377"
+<A NAME="tex2html385"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html375"
+<A NAME="tex2html383"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html368"
+<B> Previous:</B> <A NAME="tex2html376"
   HREF="subroutinesnode7.htm">alm2cl*</A>
 
-<B>Up:</B> <A NAME="tex2html374"
+<B>Up:</B> <A NAME="tex2html382"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html378"
+<B> Next:</B> <A NAME="tex2html386"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -72,7 +72,7 @@ since <b>HEALPix</b> v2.20 precomputed harmonics most likely won't speed up comp
 and some with or without polarisation.
 The routines accept both single and double precision arrays for alm_TGC and
   map_TQU. The precision of these arrays should match.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2map*</FONT>(
@@ -127,7 +127,7 @@ nsmax<A NAME="sub:alm2map:nsmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if only a temperature map is
 to be synthesized, the map-array should be passed with this rank.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU<A NAME="sub:alm2map:map_TQU"></A>(0:12*nsmax**2-1, 1:3)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU(0:12*nsmax**2-1, 1:3)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP or DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if both temperature an 
@@ -147,7 +147,7 @@ this rank, precomputed <!-- MATH
  ALT="$P_{lm}(\theta)$"></SPAN> are used instead of recursion. (
 n_plm = nsmax*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm<A NAME="sub:alm2map:plm"></A>(0:n_plm-1,1:3), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1,1:3), OPTIONAL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>If this optional matrix is 
@@ -159,7 +159,7 @@ passed with this rank, precomputed <!-- MATH
  SRC="subroutinesimg22.png"
  ALT="$P_{lm}(\theta)$"></SPAN> AND precomputed tensor
 harmonics are used instead of recursion. (n_plm =
-nsmax<A NAME="sub:alm2map:nsmax"></A>*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
+nsmax*(nmmax+1)*(2*nlmax-nmmax+2)</TD>
 </TR>
 </TABLE>
 
@@ -276,31 +276,31 @@ of real space filtering
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html367"
+<A NAME="tex2html375"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html373"
+<A NAME="tex2html381"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html377"
+<A NAME="tex2html385"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html375"
+<A NAME="tex2html383"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html368"
+<B> Previous:</B> <A NAME="tex2html376"
   HREF="subroutinesnode7.htm">alm2cl*</A>
 
-<B>Up:</B> <A NAME="tex2html374"
+<B>Up:</B> <A NAME="tex2html382"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html378"
+<B> Next:</B> <A NAME="tex2html386"
   HREF="subroutinesnode9.htm">alm2map_der*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

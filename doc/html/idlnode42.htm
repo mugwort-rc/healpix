@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html729"
+<A NAME="tex2html735"
   HREF="idlnode41.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html741"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html739"
+<A NAME="tex2html745"
   HREF="idlnode43.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html737"
+<A NAME="tex2html743"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html730"
+<B> Previous:</B> <A NAME="tex2html736"
   HREF="idlnode41.htm">median_filter</A>
 
-<B>Up:</B> <A NAME="tex2html736"
+<B>Up:</B> <A NAME="tex2html742"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html740"
+<B> Next:</B> <A NAME="tex2html746"
   HREF="idlnode43.htm">mollview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,7 +63,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This IDL facility provides a point-and-click interface for finding
 the astronomical location, value and pixel index of the pixels nearest 
 to the pointed position on a Mollweide projection of a <b>HEALPix</b> map.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/visu/mollcursor.pro"><b>src/idl/visu/mollcursor.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/visu/mollcursor.pro"><b>src/idl/visu/mollcursor.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 MOLLCURSOR, [<A HREF="#idl:mollcursor:cursor_type">cursor_type=</A>, <A HREF="#idl:mollcursor:file_out">file_out=</A>]
@@ -74,11 +74,11 @@ MOLLCURSOR, [<A HREF="#idl:mollcursor:cursor_type">cursor_type=</A>, <A HREF="#i
  
   </SMALL><DL COMPACT><DT>
 <B>cursor_type=</B>
-<DD>cursor type to be used 
+<DD><A NAME="idl:mollcursor:cursor_type"></A> cursor type to be used 
 <BR>	<b>default:</b>34
  	<DT>
 <B>file_out=</B>
-<DD>file containing on output the list of
+<DD><A NAME="idl:mollcursor:file_out"></A> file containing on output the list of
  	point selected with the cursor. 
 <BR>
 If set to 1, the file will
@@ -100,9 +100,9 @@ by mollview. Mouse buttons are used to select the function :
 <br><br>right button = quit mollcursor
 <BR>
 <BR><B>Note on Mac OS X, X11 and IDL cursor:</B> 
-depending on the Mac OS X version<A NAME="tex2html21"
-  HREF="idlfootnode.htm#foot10178"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>and most importantly on the X Window System being used,<A NAME="tex2html22"
-  HREF="idlfootnode.htm#foot10179"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>the IDL function <TT>cursor</TT>, and therefore <b>HEALPix</b> <FONT COLOR="#CC0000">mollcursor</FONT>,
+depending on the Mac OS X version<A NAME="tex2html24"
+  HREF="idlfootnode.htm#foot10378"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>and most importantly on the X Window System being used,<A NAME="tex2html25"
+  HREF="idlfootnode.htm#foot10379"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>the IDL function <TT>cursor</TT>, and therefore <b>HEALPix</b> <FONT COLOR="#CC0000">mollcursor</FONT>,
 gnomcursor, <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg2.png"
@@ -115,16 +115,15 @@ If you are using Apple's X11, type under Tiger (10.4):
 or, under Leopard (10.5), Snow Leopard (10.6), Lion (10.7): 
 <BR><SMALL CLASS="FOOTNOTESIZE"><TT>defaults write org.x.x11 wm_click_through -bool true</TT></SMALL> 
 <BR>
-If you are using Xquartz (default under Montain Lion (10.8), Mavericks (10.9)
-and Yosemite (10.10)): 
+If you are using Xquartz (for eg, Montain Lion (10.8), Mavericks (10.9), Yosemite (10.10), El Capitan (10.11) or Sierra (10.12)): 
 <BR><SMALL CLASS="FOOTNOTESIZE"><TT>defaults write org.macosforge.xquartz.X11 wm_click_through -bool true</TT></SMALL>
 <BR>
 and if you are using MacPort's X11 (package xorg-server):
 <BR><SMALL CLASS="FOOTNOTESIZE"><TT>defaults write org.macports.X11 wm_click_through -bool true</TT></SMALL>
 <BR>(see
-<A NAME="tex2html23"
+<A NAME="tex2html26"
   HREF="http://www.idlcoyote.com/misc_tips/maccursor.html"><SMALL CLASS="SMALL">http://www.idlcoyote.com/misc_tips/maccursor.html</SMALL></A>
-and <A NAME="tex2html24"
+and the section <A HREF="#install:macos_idl_cursor">Mac OS X,  X11 and IDL cursor</A> in <A NAME="tex2html27"
   HREF="install.htm">''<b>HEALPix</b> Installation Documentation''</A>). 
 <BR>
 And finally, <FONT COLOR="#CC0000">mollcursor</FONT> obviously requires the '3 button mouse' to be enabled,
@@ -146,7 +145,7 @@ which can be done in the X11 Preferences menu, or if Xquartz is used (see <TT>ma
   <DT>
 <B>xv</B>
 <DD>xv or a similar facility is required to view the
-            GIF/PNG image generated by <FONT COLOR="#CC0000">mollcursor</FONT>(a browser can also 
+            GIF/PNG image generated by <FONT COLOR="#CC0000">mollcursor</FONT>  (a browser can also 
             be used).
   <DT>
 <B>synfast</B>
@@ -200,31 +199,31 @@ position and flux of bright synchrotron sources, for example.</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html729"
+<A NAME="tex2html735"
   HREF="idlnode41.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html735"
+<A NAME="tex2html741"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html739"
+<A NAME="tex2html745"
   HREF="idlnode43.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html737"
+<A NAME="tex2html743"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html730"
+<B> Previous:</B> <A NAME="tex2html736"
   HREF="idlnode41.htm">median_filter</A>
 
-<B>Up:</B> <A NAME="tex2html736"
+<B>Up:</B> <A NAME="tex2html742"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html740"
+<B> Next:</B> <A NAME="tex2html746"
   HREF="idlnode43.htm">mollview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

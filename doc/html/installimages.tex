@@ -6,10 +6,10 @@
 
 
 \usepackage{xr-hyper,healpix,graphicx,html,makeidx}%
-\providecommand{\hpxversion}{3.30}%
-\providecommand{\hpxverstex}{3\_30}%
+\providecommand{\hpxversion}{3.31}%
+\providecommand{\hpxverstex}{3\_31}%
 \providecommand{\idlversion}{6.4 }%2013-10%
-\providecommand{\gdlversion}{0.9.3 } 
+\providecommand{\gdlversion}{0.9.6 } 
 \hypersetup{%
 	pdftitle={HEALPix Installation Guidelines},%
 	pdfauthor={E. Hivon et al},%
@@ -28,8 +28,12 @@
 %
 \providecommand{\linklatexhtml}[3]{% \linklatexhtml{name}{latex_target}{html_target}
 \htmladdnormallink{#1}{#3}}%
-\providecommand{\mylink}[2]{% \mylink{link_id}{link_text}
+\providecommand{\mylink}[2]{% \mylink{link_id}{link_text} (internal link)
+\hyperref{#2}{}{}{#1}}%
+\providecommand{\mylinkext}[2]{% \mylink{link_id}{link_text}  (external link)
 \hyperref{#2}{}{}{#1}} 
+
+
 \makeatletter%
 \providecommand{\nop}[1]{\Hy@raisedlink{\hypertarget{#1}{}}} 
 \makeatother%
@@ -45,11 +49,11 @@
 %
 \providecommand{\facname}{}  % must be here because it is in idl.tex%
 \providecommand{\FACNAME}{}  % must be here because it is in idl.tex
-\externaldocument{intro}
-\externaldocument{csub}
-\externaldocument{idl}
-\externaldocument{facilities}
-\externaldocument{subroutines}
+\externaldocument{intro}[intro.pdf]
+\externaldocument{csub}[csub.pdf]
+\externaldocument{idl}[idl.pdf]
+\externaldocument{facilities}[facilities.pdf]
+\externaldocument{subroutines}[subroutines.pdf]
 \externallabels{.}{/tmp/introlabels.pl}
 \externallabels{.}{/tmp/csublabels.pl}
 \externallabels{.}{/tmp/idllabels.pl}
@@ -189,7 +193,7 @@
 \stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1550}%
+\lthtmlinlinemathA{tex2html_wrap_inline1774}%
 $2^{128}-1 \approx 3.4\ 10^{38}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -199,13 +203,13 @@ $2^{128}-1 \approx 3.4\ 10^{38}$%
 \stepcounter{subsection}
 \stepcounter{subsubsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1552}%
+\lthtmlinlinemathA{tex2html_wrap_inline1776}%
 $\langle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1554}%
+\lthtmlinlinemathA{tex2html_wrap_inline1778}%
 $\rangle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -219,25 +223,25 @@ $\rangle$%
 \stepcounter{subsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1560}%
+\lthtmlinlinemathA{tex2html_wrap_inline1784}%
 $(\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1564}%
+\lthtmlinlinemathA{tex2html_wrap_inline1788}%
 $C(\ell)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1570}%
+\lthtmlinlinemathA{tex2html_wrap_inline1794}%
 $[0, \ell_{\rm max}]$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1572}%
+\lthtmlinlinemathA{tex2html_wrap_inline1796}%
 $\ell_{\rm max}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -248,15 +252,43 @@ $\ell_{\rm max}$%
 \stepcounter{section}
 \stepcounter{subsection}
 \stepcounter{subsection}
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1574}%
-$\tilde{}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
+\stepcounter{subsubsection}
 
+
+\setlength{\itemsep}{-1pt}%
+
+
+
+\setlength{\parsep}{-10pt}%
+
+
+
+\setlength{\itemsep}{-1pt}%
+
+
+
+\setlength{\parsep}{-10pt}%
+
+
+
+\setlength{\itemsep}{-1pt}%
+
+
+
+\setlength{\parsep}{-10pt}%
+
+
+
+\setlength{\itemsep}{-1pt}%
+
+
+
+\setlength{\parsep}{-10pt}%
+
+\stepcounter{subsubsection}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1576}%
+\lthtmlinlinemathA{tex2html_wrap_inline1798}%
 $\ldots$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -270,17 +302,17 @@ $\ldots$%
 \stepcounter{section}
 \stepcounter{subsection}
 \stepcounter{subsubsection}
-{\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1578}%
-$a_{\ell m}$%
-\lthtmlinlinemathZ
-\lthtmlcheckvsize\clearpage}
-
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{subsubsection}
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1802}%
+$a_{\ell m}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
 
 
 \setlength{\itemsep}{0pt}%
@@ -370,7 +402,7 @@ $a_{\ell m}$%
 \setlength{\parsep}{0pt}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1596}%
+\lthtmlinlinemathA{tex2html_wrap_inline1820}%
 $\langle\ldots\rangle$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -400,7 +432,7 @@ $\langle\ldots\rangle$%
 \setlength{\parsep}{0pt}%
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1608}%
+\lthtmlinlinemathA{tex2html_wrap_inline1832}%
 ${N_{\rm side}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}

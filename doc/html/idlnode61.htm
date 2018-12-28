@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html957"
+<A NAME="tex2html963"
   HREF="idlnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html963"
+<A NAME="tex2html969"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html967"
+<A NAME="tex2html973"
   HREF="idlnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html965"
+<A NAME="tex2html971"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html958"
+<B> Previous:</B> <A NAME="tex2html964"
   HREF="idlnode60.htm">read_fits_s</A>
 
-<B>Up:</B> <A NAME="tex2html964"
+<B>Up:</B> <A NAME="tex2html970"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html968"
+<B> Next:</B> <A NAME="tex2html974"
   HREF="idlnode62.htm">remove_dipole</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -65,7 +65,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 with optionally the error (dT,dQ,dU) and correlation (dQU, dTU, dTQ)
 from separate extensions
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/fits/read_tqu.pro"><b>src/idl/fits/read_tqu.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/fits/read_tqu.pro"><b>src/idl/fits/read_tqu.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 READ_TQU , <A HREF="#idl:read_tqu:File">File</A>, <A HREF="#idl:read_tqu:TQU">TQU</A>, [<A HREF="#idl:read_tqu:Extension">Extension=</A>, <A HREF="#idl:read_tqu:Hdr">Hdr=</A>, <A HREF="#idl:read_tqu:Xhdr">Xhdr=</A>, <A HREF="#idl:read_tqu:HELP">/HELP</A>, <A HREF="#idl:read_tqu:Nside">Nside=</A>, <A HREF="#idl:read_tqu:Ordering">Ordering=</A>, <A HREF="#idl:read_tqu:Coordsys">Coordsys=</A>]
@@ -76,12 +76,13 @@ READ_TQU , <A HREF="#idl:read_tqu:File">File</A>, <A HREF="#idl:read_tqu:TQU">TQ
  
   </SMALL><DL COMPACT><DT>
 <B>File</B>
-<DD>name of a FITS file from which the maps are to be read
+<DD><A NAME="idl:read_tqu:File"></A>          name of a FITS file from which the maps are to be read
 
 <P>
 <DT>
 <B>TQU</B>
-<DD>: array of Healpix maps of size (<SPAN CLASS="MATH"><IMG
+<DD><A NAME="idl:read_tqu:TQU"></A> : 
+array of Healpix maps of size (<SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg88.png"
  ALT="$N_{\rm pix}$"></SPAN>,3,<TT>n_ext</TT>) where <SPAN CLASS="MATH"><IMG
@@ -103,7 +104,7 @@ Three maps are available in each extension of the FITS file :
 <P>
 <DT>
 <B>Extension=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Extension"></A>		(optional), 
 <BR>
 extension unit to be read from FITS file: 
  either its 0-based ID number (ie, 0 for first extension <EM>after</EM> primary array) 
@@ -113,7 +114,7 @@ extension unit to be read from FITS file:
 <P>
 <DT>
 <B>Hdr=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Hdr"></A>		  (optional), 
 <BR>
 string variable containing on output  the contents of the primary header. (If already present, FITS reserved
 		  keywords will be automatically updated).
@@ -121,7 +122,7 @@ string variable containing on output  the contents of the primary header. (If al
 <P>
 <DT>
 <B>Xhdr=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Xhdr"></A>		  (optional), 
 <BR>
 string variable containing on output the contents of the
 		  extension header. If 
@@ -131,7 +132,7 @@ string variable containing on output the contents of the
 <P>
 <DT>
 <B>Nside=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Nside"></A>		(optional), 
 <BR>
 returns on output the <b>HEALPix</b> resolution parameter, as read
 		from the FITS header. Set to -1 if not found
@@ -139,7 +140,7 @@ returns on output the <b>HEALPix</b> resolution parameter, as read
 <P>
 <DT>
 <B>Ordering=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Ordering"></A>	        (optional), 
 <BR>
 returns on output the pixel ordering, as read from the FITS
 	        header. Either 'RING' or 'NESTED' or ' ' (if not found).
@@ -147,7 +148,7 @@ returns on output the pixel ordering, as read from the FITS
 <P>
 <DT>
 <B>Coordsys=</B>
-<DD>(optional), 
+<DD><A NAME="idl:read_tqu:Coordsys"></A>	        (optional), 
 <BR>
 returns on output the astrophysical coordinate system used, 
 		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
@@ -160,7 +161,7 @@ returns on output the astrophysical coordinate system used,
 
   </SMALL><DL COMPACT><DT>
 <B>/HELP</B>
-<DD>if set, an extensive help is displayed and no
+<DD><A NAME="idl:read_tqu:HELP"></A> if set, an extensive help is displayed and no
 	file is read
    </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -229,31 +230,31 @@ The variable <TT>xhdr</TT> will contain the extension(s) header.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html957"
+<A NAME="tex2html963"
   HREF="idlnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html963"
+<A NAME="tex2html969"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html967"
+<A NAME="tex2html973"
   HREF="idlnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html965"
+<A NAME="tex2html971"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html958"
+<B> Previous:</B> <A NAME="tex2html964"
   HREF="idlnode60.htm">read_fits_s</A>
 
-<B>Up:</B> <A NAME="tex2html964"
+<B>Up:</B> <A NAME="tex2html970"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html968"
+<B> Next:</B> <A NAME="tex2html974"
   HREF="idlnode62.htm">remove_dipole</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

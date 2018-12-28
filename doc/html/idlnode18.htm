@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html441"
+<A NAME="tex2html447"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html447"
+<A NAME="tex2html453"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html451"
+<A NAME="tex2html457"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html449"
+<A NAME="tex2html455"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html442"
+<B> Previous:</B> <A NAME="tex2html448"
   HREF="idlnode17.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html448"
+<B>Up:</B> <A NAME="tex2html454"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html452"
+<B> Next:</B> <A NAME="tex2html458"
   HREF="idlnode19.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -64,7 +64,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 The main effect is to change the sign of the U Stokes parameter,
 and add/update the POLCCONV FITS header with either
 COSMO or IAU value.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#idl:change_polcconv:File_Out">File_Out</A>[, <A HREF="#idl:change_polcconv:I2C">/I2C</A>, <A HREF="#idl:change_polcconv:C2I">/C2I</A>, <A HREF="#idl:change_polcconv:C2C">/C2C</A>, <A HREF="#idl:change_polcconv:I2I">/I2I</A>, <A HREF="#idl:change_polcconv:FORCE">/FORCE</A>]
@@ -76,12 +76,12 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
  
   </SMALL><DL COMPACT><DT>
 <B>File_In</B>
-<DD>name of a FITS file to be read
+<DD><A NAME="idl:change_polcconv:File_In"></A>          name of a FITS file to be read
 
 <P>
 <DT>
 <B>File_Out</B>
-<DD>name of a FITS file to be written, after modification of the
+<DD><A NAME="idl:change_polcconv:File_Out"></A>          name of a FITS file to be written, after modification of the
           polarisation coordinate convention, if applicable
 
 <P>
@@ -92,7 +92,7 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
 
   </SMALL><DL COMPACT><DT>
 <B>/I2C</B>
-<DD>changes from IAU to COSMO coordinate convention 
+<DD><A NAME="idl:change_polcconv:I2C"></A> changes from IAU to COSMO coordinate convention 
 <BR>            -if POLCCONV is not found or found with value 'IAU', it is
              added/replaced with value 'COSMO', and the sign of the U stokes
              parameter map is changed 
@@ -102,7 +102,7 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
 <P>
 <DT>
 <B>/C2I</B>
-<DD>changes from COSMO to IAU coordinate convention 
+<DD><A NAME="idl:change_polcconv:C2I"></A> changes from COSMO to IAU coordinate convention 
 <BR>            -if POLCCONV is not found or found with value 'COSMO', it is
              added/replaced with value 'IAU', and the sign of the U stokes
              parameter map is changed 
@@ -112,7 +112,7 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
 <P>
 <DT>
 <B>/C2C</B>
-<DD>does NOT change coordinate system 
+<DD><A NAME="idl:change_polcconv:C2C"></A> does NOT change coordinate system 
 <BR>            -if POLCCONV is found with value 'IAU', program will issue error
             message and no file is written 
 <BR>            -in all other case POLCCONV is set/added with value 'COSMO', but
@@ -121,7 +121,7 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
 <P>
 <DT>
 <B>/I2I</B>
-<DD>does NOT change coordinate system 
+<DD><A NAME="idl:change_polcconv:I2I"></A> does NOT change coordinate system 
 <BR>            -if POLCCONV is found with value 'COSMO', program will issue error
             message and no file is written 
 <BR>            -in all other case POLCCONV is set/added with value 'IAU', but
@@ -130,7 +130,7 @@ CHANGE_POLCCONV , <A HREF="#idl:change_polcconv:File_In">File_In</A>, <A HREF="#
 <P>
 <DT>
 <B>/FORCE</B>
-<DD>if set, the value of POLCCONV read from the FITS header is
+<DD><A NAME="idl:change_polcconv:FORCE"></A> if set, the value of POLCCONV read from the FITS header is
           ignored.
               The sign of U is swapped (if used with /C2I or /I2C), and the
               FITS keyword is updated accordingly.
@@ -197,31 +197,31 @@ The recognised format are:
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html441"
+<A NAME="tex2html447"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html447"
+<A NAME="tex2html453"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html451"
+<A NAME="tex2html457"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html449"
+<A NAME="tex2html455"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html442"
+<B> Previous:</B> <A NAME="tex2html448"
   HREF="idlnode17.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html448"
+<B>Up:</B> <A NAME="tex2html454"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html452"
+<B> Next:</B> <A NAME="tex2html458"
   HREF="idlnode19.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

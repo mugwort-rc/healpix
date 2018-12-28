@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1387"
+<A NAME="tex2html1395"
   HREF="subroutinesnode92.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1393"
+<A NAME="tex2html1401"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1397"
+<A NAME="tex2html1405"
   HREF="subroutinesnode94.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1395"
+<A NAME="tex2html1403"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1388"
+<B> Previous:</B> <A NAME="tex2html1396"
   HREF="subroutinesnode92.htm">ring_synthesis</A>
 
-<B>Up:</B> <A NAME="tex2html1394"
+<B>Up:</B> <A NAME="tex2html1402"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1398"
+<B> Next:</B> <A NAME="tex2html1406"
   HREF="subroutinesnode94.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -70,17 +70,17 @@ To rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> for <!-- MA
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="68" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg134.png"
+ SRC="subroutinesimg129.png"
  ALT="$l\leq l_{\rm max}$"></SPAN> the number of
 operations scales like <SPAN CLASS="MATH"><IMG
  WIDTH="36" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg135.png"
+ SRC="subroutinesimg130.png"
  ALT="$l^3_{\rm max}$"></SPAN>.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">rotate_alm*</FONT>(
-<A HREF="#sub:rotate_alm:lmax">lmax</A>, <A HREF="#sub:rotate_alm:alm_TGC">alm_TGC</A>, <A HREF="#sub:rotate_alm:psi">psi</A>, <A HREF="#sub:rotate_alm:theta">theta</A>, <A HREF="#sub:rotate_alm:phi">phi</A>
+<A HREF="#sub:rotate_alm:nlmax">nlmax</A>, <A HREF="#sub:rotate_alm:alm_TGC">alm_TGC</A>, <A HREF="#sub:rotate_alm:psi">psi</A>, <A HREF="#sub:rotate_alm:theta">theta</A>, <A HREF="#sub:rotate_alm:phi">phi</A>
 )</h3></blockquote>
 
 <P>
@@ -98,7 +98,7 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=180>
-nlmax</TD>
+nlmax<A NAME="sub:rotate_alm:nlmax"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
@@ -172,7 +172,7 @@ Transforms scalar and tensor <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SP
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="147" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg136.png"
+ SRC="subroutinesimg131.png"
  ALT="$l_{\rm
 max}=m_{\rm max} = 64$"></SPAN> to emulate a rotation of the underlying map by
 (<!-- MATH
@@ -180,7 +180,7 @@ max}=m_{\rm max} = 64$"></SPAN> to emulate a rotation of the underlying map by
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="194" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg137.png"
+ SRC="subroutinesimg132.png"
  ALT="$\psi=\pi/3, \theta=0.5, \varphi=0 $"></SPAN>).
 </blockquote>
 
@@ -248,31 +248,31 @@ vector from one astronomical coordinate system to another.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1387"
+<A NAME="tex2html1395"
   HREF="subroutinesnode92.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1393"
+<A NAME="tex2html1401"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1397"
+<A NAME="tex2html1405"
   HREF="subroutinesnode94.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1395"
+<A NAME="tex2html1403"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1388"
+<B> Previous:</B> <A NAME="tex2html1396"
   HREF="subroutinesnode92.htm">ring_synthesis</A>
 
-<B>Up:</B> <A NAME="tex2html1394"
+<B>Up:</B> <A NAME="tex2html1402"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1398"
+<B> Next:</B> <A NAME="tex2html1406"
   HREF="subroutinesnode94.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

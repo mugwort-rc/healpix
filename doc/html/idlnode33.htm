@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html627"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html633"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html637"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html635"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
+<B> Previous:</B> <A NAME="tex2html628"
   HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html634"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
+<B> Next:</B> <A NAME="tex2html638"
   HREF="idlnode34.htm">ianafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -60,7 +60,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 </H1>
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">ialteralm</FONT></font></b><hr>
-<H3>This IDL facility provides an interface to F90 '<A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>' facility. 
+<H3>This IDL facility provides an interface to F90 '<A HREF="#fac:alteralm">alteralm</A>' facility. 
 This program can be used to modify a set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> spherical harmonics
   coefficients, as those extracted by <A HREF="idlnode34.htm#idl:ianafast">ianafast</A> or 
   simulated by <A HREF="idlnode39.htm#idl:isynfast">isynfast</A>, before
@@ -102,7 +102,7 @@ where <SPAN CLASS="MATH"><I>P</I>(<I>l</I>)</SPAN> is the pixel window function,
  1</SPAN> (resp. <SPAN CLASS="MATH"><I>B</I>(<I>l</I>) = 1</SPAN>) for any <SPAN CLASS="MATH"><I>l</I></SPAN>.
 </DL><SMALL CLASS="FOOTNOTESIZE">
 </H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/interfaces/ialteralm.pro"><b>src/idl/interfaces/ialteralm.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/interfaces/ialteralm.pro"><b>src/idl/interfaces/ialteralm.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
 IALTERALM, 
@@ -126,7 +126,11 @@ IALTERALM,
 <A HREF="#idl:ialteralm:nsmax_in">nsmax_in</A>,
 <A HREF="#idl:ialteralm:nsmax_out">nsmax_out</A>,
 <A HREF="#idl:ialteralm:silent">/silent</A>,
-<A HREF="#idl:ialteralm:tmpdir">tmpdir=</A>
+<A HREF="#idl:ialteralm:tmpdir">tmpdir=</A>,
+<A HREF="#idl:ialteralm:windowfile_in">windowfile_in</A>,
+<A HREF="#idl:ialteralm:winfiledir_in">winfiledir_in</A>,
+<A HREF="#idl:ialteralm:windowfile_out">windowfile_out</A>,
+<A HREF="#idl:ialteralm:winfiledir_out">winfiledir_out</A>
 ]
 </h3>
 <P>
@@ -258,6 +262,34 @@ Could be set to 0 for infinitely small pixels (no window)
 <b>default:</b>IDL_TMPDIR (see IDL documentation)
 
 <P>
+<DT>
+<B>windowfile_in=</B>
+<DD><A NAME="idl:ialteralm:windowfile_in"></A>FITS file containing pixel window for <A HREF="#idl:ialteralm:nside_in">nside_in</A>
+        <b>default:</b>determined automatically by back-end routine.
+      Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>winfiledir_in=</B>
+<DD><A NAME="idl:ialteralm:winfiledir_in"></A>directory where <A HREF="#idl:ialteralm:windowfile_in">windowfile_in</A> is to be found 
+        <b>default:</b>determined automatically by back-end routine.
+      Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>windowfile_out=</B>
+<DD><A NAME="idl:ialteralm:windowfile_out"></A>FITS file containing pixel window for <A HREF="#idl:ialteralm:nside_out">nside_out</A>
+        <b>default:</b>determined automatically by back-end routine.
+      Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>winfiledir_out=</B>
+<DD><A NAME="idl:ialteralm:winfiledir_out"></A>directory where <A HREF="#idl:ialteralm:windowfile_out">windowfile_out</A> is to be found 
+        <b>default:</b>determined automatically by back-end routine.
+      Do not set this keyword unless you really know what you are doing
+
+<P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
@@ -265,7 +297,7 @@ Could be set to 0 for infinitely small pixels (no window)
 <hr> 
 <H1>DESCRIPTION</H1> 
 <blockquote>
-<FONT COLOR="#CC0000">ialteralm</FONT> is an interface to '<A HREF="./facilitiesnode5.htm#fac:alteralm">alteralm</A>' F90 facility. It
+<FONT COLOR="#CC0000">ialteralm</FONT> is an interface to '<A HREF="#fac:alteralm">alteralm</A>' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
@@ -281,16 +313,16 @@ file, or as a memory array.
 <DD>F90 facility called by <FONT COLOR="#CC0000">ialteralm</FONT>.
 <DT>
 <B><A HREF="idlnode34.htm#idl:ianafast">ianafast</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode6.htm#fac:anafast">anafast</A> and C++ anafast_cxx
+<DD>IDL Interface to F90 <A HREF="#fac:anafast">anafast</A> and C++ anafast_cxx
     <DT>
 <B><A HREF="idlnode37.htm#idl:iprocess_mask">iprocess_mask</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode11.htm#fac:process_mask">process_mask</A>
+<DD>IDL Interface to F90 <A HREF="#fac:process_mask">process_mask</A>
     <DT>
 <B><A HREF="idlnode38.htm#idl:ismoothing">ismoothing</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode13.htm#fac:smoothing">smoothing</A>
+<DD>IDL Interface to F90 <A HREF="#fac:smoothing">smoothing</A>
     <DT>
 <B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
-<DD>IDL Interface to F90 <A HREF="./facilitiesnode14.htm#fac:synfast">synfast</A>
+<DD>IDL Interface to F90 <A HREF="#fac:synfast">synfast</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
@@ -321,31 +353,31 @@ file, or as a memory array.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html621"
+<A NAME="tex2html627"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html633"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html631"
+<A NAME="tex2html637"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html629"
+<A NAME="tex2html635"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html622"
+<B> Previous:</B> <A NAME="tex2html628"
   HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html628"
+<B>Up:</B> <A NAME="tex2html634"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html632"
+<B> Next:</B> <A NAME="tex2html638"
   HREF="idlnode34.htm">ianafast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

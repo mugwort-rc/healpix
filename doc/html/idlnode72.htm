@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1089"
+<A NAME="tex2html1095"
   HREF="idlnode71.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1095"
+<A NAME="tex2html1101"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1099"
+<A NAME="tex2html1105"
   HREF="idlnode73.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1097"
+<A NAME="tex2html1103"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1090"
+<B> Previous:</B> <A NAME="tex2html1096"
   HREF="idlnode71.htm">write_fits_map</A>
 
-<B>Up:</B> <A NAME="tex2html1096"
+<B>Up:</B> <A NAME="tex2html1102"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1100"
+<B> Next:</B> <A NAME="tex2html1106"
   HREF="idlnode73.htm">write_tqu</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -63,10 +63,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <H3>This IDL facility writes out a <b>HEALPix</b> map into a FITS file according to
 the <b>HEALPix</b> convention. It can also write an arbitray data set into a FITS
 binary table</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/fits/write_fits_sb.pro"><b>src/idl/fits/write_fits_sb.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/fits/write_fits_sb.pro"><b>src/idl/fits/write_fits_sb.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-WRITE_FITS_SB , <A HREF="#idl:write_fits_sb:File">File</A>, <A HREF="#idl:write_fits_sb:Prim_Stc">Prim_Stc</A>[, <A HREF="#idl:write_fits_sb:Xten_stc">Xten_stc</A>, <A HREF="#idl:write_fits_sb:Coordsys">Coordsys=</A>, <A HREF="#idl:write_fits_sb:Nested">/Nested</A>, <A HREF="#idl:write_fits_sb:Ring">/Ring</A>,
+WRITE_FITS_SB, <A HREF="#idl:write_fits_sb:File">File</A>, <A HREF="#idl:write_fits_sb:Prim_Stc">Prim_Stc</A>[, <A HREF="#idl:write_fits_sb:Xten_stc">Xten_stc</A>, <A HREF="#idl:write_fits_sb:Coordsys">Coordsys=</A>, <A HREF="#idl:write_fits_sb:Nested">/Nested</A>, <A HREF="#idl:write_fits_sb:Ring">/Ring</A>,
 <A HREF="#idl:write_fits_sb:Ordering">Ordering=</A>, <A HREF="#idl:write_fits_sb:Partial">/Partial</A>, <A HREF="#idl:write_fits_sb:Nside">Nside=</A>, <A HREF="#idl:write_fits_sb:Extension">Extension=</A>, <A HREF="#idl:write_fits_sb:Nothealpix">/Nothealpix</A>]
 
 </h3>
@@ -76,12 +76,12 @@ WRITE_FITS_SB , <A HREF="#idl:write_fits_sb:File">File</A>, <A HREF="#idl:write_
  
   </SMALL><DL COMPACT><DT>
 <B>File</B>
-<DD>name of a FITS file in which the map is to be written
+<DD><A NAME="idl:write_fits_sb:File"></A>          name of a FITS file in which the map is to be written
 
 <P>
 <DT>
 <B>Prim_stc</B>
-<DD>IDL structure containing the following fields: 
+<DD><A NAME="idl:write_fits_sb:Prim_Stc"></A>	IDL structure containing the following fields: 
 <BR>		- primary header 
 <BR>		- primary image 
 <BR>
@@ -90,7 +90,7 @@ Set it to 0 to get an empty primary unit
 <P>
 <DT>
 <B>Xten_stc</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Xten_stc"></A>		  (optional), 
 <BR>
 IDL structure containing the following fields: 
 <BR>		- extension header  
@@ -109,7 +109,7 @@ NB: because of some astron routines limitation, avoid using the single letters
 
   </SMALL><DL COMPACT><DT>
 <B>Coordsys=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Coordsys"></A>		  (optional), 
 <BR>
 if set to either 'C', 'E' or 'G',  specifies that the
 		Healpix coordinate system is respectively Celestial=equatorial,
@@ -120,7 +120,7 @@ if set to either 'C', 'E' or 'G',  specifies that the
 <P>
 <DT>
 <B>Ordering=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Ordering"></A>		  (optional), 
 <BR>
 if set to either 'ring' or 'nested' (case un-sensitive),
 		  specifies that the map is respectively in RING or NESTED
@@ -130,7 +130,7 @@ if set to either 'ring' or 'nested' (case un-sensitive),
 <P>
 <DT>
 <B>Nside=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Nside"></A>		(optional), 
 <BR>
 scalar integer, <b>HEALPix</b> resolution parameter of the
 		data set. Must be used when the data set does not
@@ -139,7 +139,7 @@ scalar integer, <b>HEALPix</b> resolution parameter of the
 <P>
 <DT>
 <B>Extension=</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Extension"></A>		(optional), 
 <BR>
 scalar integer, extension in which to write the data
 		(0 based).
@@ -148,7 +148,7 @@ scalar integer, extension in which to write the data
 <P>
 <DT>
 <B>/Nested</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Nested"></A>	  (optional), 
 <BR>
 if set, specifies that the map is in the NESTED ordering
 	scheme
@@ -157,7 +157,7 @@ if set, specifies that the map is in the NESTED ordering
 <P>
 <DT>
 <B>/Ring</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Ring"></A>	  (optional), 
 <BR>
 if set, specifies that the map is in the RING ordering
 	scheme
@@ -166,7 +166,7 @@ if set, specifies that the map is in the RING ordering
 <P>
 <DT>
 <B>/Partial</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Partial"></A>	  (optional), 
 <BR>
 if set, the data set does not cover the whole sky. In
 	that case the information on the actual map resolution should be given by the
@@ -176,7 +176,7 @@ if set, the data set does not cover the whole sky. In
 <P>
 <DT>
 <B>/Nothealpix</B>
-<DD>(optional), 
+<DD><A NAME="idl:write_fits_sb:Nothealpix"></A>	  (optional), 
 <BR>
 if set, the data set can be arbitrary, and the
 	restriction on the number of pixels do not apply. The keywords <TT>	Ordering</TT>, <TT>Nside</TT>, <TT>Nested</TT>, <TT>Ring</TT> and <TT>Partial</TT> are ignored.
@@ -191,7 +191,7 @@ if set, the data set can be arbitrary, and the
 <IMG
  WIDTH="559" HEIGHT="474" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg107.png"
- ALT="$\textstyle \parbox{\hsize}{\facname writes out the information contained in {\t...
+ ALT="$\textstyle \parbox{\hsize}{\facname {} writes out the information contained in ...
 ...{30}$.\\
 \par
 If {\tt Nothealpix} is set, the restrictions on Nside are void.}$">
@@ -255,31 +255,31 @@ of the FITS file 'map_fluxnumber.fits'.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1089"
+<A NAME="tex2html1095"
   HREF="idlnode71.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1095"
+<A NAME="tex2html1101"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1099"
+<A NAME="tex2html1105"
   HREF="idlnode73.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1097"
+<A NAME="tex2html1103"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1090"
+<B> Previous:</B> <A NAME="tex2html1096"
   HREF="idlnode71.htm">write_fits_map</A>
 
-<B>Up:</B> <A NAME="tex2html1096"
+<B>Up:</B> <A NAME="tex2html1102"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1100"
+<B> Next:</B> <A NAME="tex2html1106"
   HREF="idlnode73.htm">write_tqu</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

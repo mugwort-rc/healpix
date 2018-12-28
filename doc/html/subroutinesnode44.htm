@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html799"
+<A NAME="tex2html807"
   HREF="subroutinesnode43.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html805"
+<A NAME="tex2html813"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html809"
+<A NAME="tex2html817"
   HREF="subroutinesnode45.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html807"
+<A NAME="tex2html815"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html800"
+<B> Previous:</B> <A NAME="tex2html808"
   HREF="subroutinesnode43.htm">input_map*</A>
 
-<B>Up:</B> <A NAME="tex2html806"
+<B>Up:</B> <A NAME="tex2html814"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html810"
+<B> Next:</B> <A NAME="tex2html818"
   HREF="subroutinesnode45.htm">long_count,&nbsp;long_size</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -65,12 +65,14 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  set) from a FITS file. The user can choose to read only a section of the table,
  starting from an arbitrary position. 
 The data can be read into a single or double precision array.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">input_tod*</FONT>(
 <A HREF="#sub:input_tod:filename">filename</A>, <A HREF="#sub:input_tod:tod">tod</A>, <A HREF="#sub:input_tod:npix">npix</A>, <A HREF="#sub:input_tod:ntods">ntods</A><i><font color="#224422">[, <A HREF="#sub:input_tod:header">header</A>, <A HREF="#sub:input_tod:firstpix">firstpix</A>, <A HREF="#sub:input_tod:fmissval">fmissval</A>]</font></i>
 )</h3></blockquote>
+Arguments appearing in <i><font color="#224422">italic</font></i> are
+optional.
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -87,7 +89,7 @@ Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/co
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-filename<A NAME="sub:input_tod:filename"></A> (LEN = <tt>filenamelen</tt>)</TD>
+filename<A NAME="sub:input_tod:filename"></A>(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from</TD>
@@ -109,7 +111,7 @@ filename<A NAME="sub:input_tod:filename"></A> (LEN = <tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of columns to read</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A NAME="sub:input_tod:header"></A></font></i>(LEN=80)(1:)  (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A NAME="sub:input_tod:header"></A></font></i>(LEN=80)(1:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
@@ -181,31 +183,31 @@ filename<A NAME="sub:input_tod:filename"></A> (LEN = <tt>filenamelen</tt>)</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html799"
+<A NAME="tex2html807"
   HREF="subroutinesnode43.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html805"
+<A NAME="tex2html813"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html809"
+<A NAME="tex2html817"
   HREF="subroutinesnode45.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html807"
+<A NAME="tex2html815"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html800"
+<B> Previous:</B> <A NAME="tex2html808"
   HREF="subroutinesnode43.htm">input_map*</A>
 
-<B>Up:</B> <A NAME="tex2html806"
+<B>Up:</B> <A NAME="tex2html814"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html810"
+<B> Next:</B> <A NAME="tex2html818"
   HREF="subroutinesnode45.htm">long_count,&nbsp;long_size</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

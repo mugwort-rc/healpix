@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1579"
+<A NAME="tex2html1587"
   HREF="subroutinesnode108.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1585"
+<A NAME="tex2html1593"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1589"
+<A NAME="tex2html1597"
   HREF="subroutinesnode110.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1587"
+<A NAME="tex2html1595"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1580"
+<B> Previous:</B> <A NAME="tex2html1588"
   HREF="subroutinesnode108.htm">write_dbintab</A>
 
-<B>Up:</B> <A NAME="tex2html1586"
+<B>Up:</B> <A NAME="tex2html1594"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1590"
+<B> Next:</B> <A NAME="tex2html1598"
   HREF="subroutinesnode110.htm">write_minimal_header</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -66,7 +66,7 @@ FITS file follows the one used for Boomerang98 and is adapted from COBE/DMR.
 This routine can be used to store polarized maps, where the
 information relative to the Stokes parameters I, Q and U are placed in extension
 0, 1 and 2 respectively by successive invocation of the routine.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">write_fits_cut4</FONT>(
@@ -126,13 +126,13 @@ filename<A NAME="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</T
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg126.png"
+ SRC="subroutinesimg121.png"
  ALT="$ \propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A NAME="sub:write_fits_cut4:header"></A></font></i>(LEN=80)(1:)  (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header to be included in the FITS file</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">coord<A NAME="sub:write_fits_cut4:coord"></A></font></i>(LEN=1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
@@ -150,18 +150,13 @@ filename<A NAME="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</T
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b> ordering scheme, 1: RING, 2: NESTED</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header<A NAME="sub:write_fits_cut4:header"></A></font></i>(LEN=80)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS header to be included in the FITS file</TD>
-</TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">units<A NAME="sub:write_fits_cut4:units"></A></font></i>(LEN=20)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maps units (applies only to Signal and
                    Serror)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extension</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extno</font></i><A NAME="sub:write_fits_cut4:extno"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>(0 based) extension number in which to write data. <b>default:</b>0.
@@ -172,12 +167,12 @@ filename<A NAME="sub:write_fits_cut4:filename"></A>(LEN=<tt>filenamelen</tt>)</T
 		  All extensions of the same file should use the same Nside,
 Order and Coord</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">polarisaton</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">polarisaton</font></i><A NAME="sub:write_fits_cut4:polarisation"></A></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to a non zero value, specifies that file will contain the I, Q and U polarisation
            Stokes parameter in extensions 0, 1 and 2 respectively, and sets the
-FITS header keywords accordingly. If not set, the keywords found in <TT>header<A NAME="sub:write_fits_cut4:header"></A></TT> will prevail.</TD>
+FITS header keywords accordingly. If not set, the keywords found in <A HREF="#sub:write_fits_cut4:header"><TT>header</TT></A> will prevail.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
@@ -238,31 +233,31 @@ FITS header keywords accordingly. If not set, the keywords found in <TT>header<A
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1579"
+<A NAME="tex2html1587"
   HREF="subroutinesnode108.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1585"
+<A NAME="tex2html1593"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1589"
+<A NAME="tex2html1597"
   HREF="subroutinesnode110.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1587"
+<A NAME="tex2html1595"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1580"
+<B> Previous:</B> <A NAME="tex2html1588"
   HREF="subroutinesnode108.htm">write_dbintab</A>
 
-<B>Up:</B> <A NAME="tex2html1586"
+<B>Up:</B> <A NAME="tex2html1594"
   HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1590"
+<B> Next:</B> <A NAME="tex2html1598"
   HREF="subroutinesnode110.htm">write_minimal_header</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>

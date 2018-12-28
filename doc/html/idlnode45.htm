@@ -29,26 +29,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html765"
+<A NAME="tex2html771"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html771"
+<A NAME="tex2html777"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html775"
+<A NAME="tex2html781"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html773"
+<A NAME="tex2html779"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html766"
+<B> Previous:</B> <A NAME="tex2html772"
   HREF="idlnode44.htm">neighbours_nest</A>
 
-<B>Up:</B> <A NAME="tex2html772"
+<B>Up:</B> <A NAME="tex2html778"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html776"
+<B> Next:</B> <A NAME="tex2html782"
   HREF="idlnode46.htm">nest2uniq</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -68,10 +68,10 @@ southernmost pixel in first element. For the four pixels in the southern
 corners of the
 equatorial faces which have two equally southern neighbours the
 routine returns the southwestern pixel first and proceeds clockwise.</H3>
-Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/806/tree/trunk/src/idl/toolkit/neighbours_ring.pro"><b>src/idl/toolkit/neighbours_ring.pro</b></a>&nbsp;  
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/845/tree/trunk/src/idl/toolkit/neighbours_ring.pro"><b>src/idl/toolkit/neighbours_ring.pro</b></a>&nbsp;  
 <P>
 <hr><h1>FORMAT </h1><h3>IDL>
-neighbours_ring <A HREF="#idl:neighbours_ring:_Nside">(Nside</A>, <A HREF="#idl:neighbours_ring:Ipix0">Ipix0</A>, <A HREF="#idl:neighbours_ring:Listpix">Listpix</A>[,Nneigh])
+neighbours_ring (<A HREF="#idl:neighbours_ring:Nside">Nside</A>, <A HREF="#idl:neighbours_ring:Ipix0">Ipix0</A>, <A HREF="#idl:neighbours_ring:Listpix">Listpix</A>[,<A HREF="#idl:neighbours_ring:Nneigh">Nneigh</A>])
 </h3>
 <P>
 <hr>
@@ -79,18 +79,20 @@ neighbours_ring <A HREF="#idl:neighbours_ring:_Nside">(Nside</A>, <A HREF="#idl:
  
   </SMALL><DL COMPACT><DT>
 <B>Nside</B>
-<DD><b>HEALPix</b> resolution parameter (scalar integer),
+<DD><A NAME="idl:neighbours_ring:Nside"></A> 
+<b>HEALPix</b> resolution parameter (scalar integer),
          should be a valid Nside (power of 2)
+   <DT>
+<B>Ipix0</B>
+<DD><A NAME="idl:neighbours_ring:Ipix0"></A>RING-scheme index of central pixel in [0,12*Nside<SPAN CLASS="MATH"><SUP>2</SUP></SPAN>-1]
     <DT>
-<B>Ipix0<A NAME="idl:neighbours_ring:Ipix0"></A></B>
-<DD>RING-scheme index of central pixel in [0,12*Nside<SPAN CLASS="MATH"><SUP>2</SUP></SPAN>-1]
-    <DT>
-<B>Listpix<A NAME="idl:neighbours_ring:Listpix"></A></B>
-<DD>output: list of neighbouring pixel (RING scheme index) of
+<B>Listpix</B>
+<DD><A NAME="idl:neighbours_ring:Listpix"></A>output: list of neighbouring pixel (RING scheme index) of
 size <TT>Nneigh</TT>
     <DT>
 <B>Nneigh</B>
-<DD>optional output: number of neighbours of pixel <TT>#Ipix0</TT>. 
+<DD><A NAME="idl:neighbours_ring:Nneigh"></A> 
+optional output: number of neighbours of pixel <TT>#Ipix0</TT>. 
    Usually 8, sometimes 7 (for 8 particular pixels) or 6 (if Nside=1)
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
@@ -144,31 +146,31 @@ listing the RING-indexed 8 neighbors of pixel #1 for Nside=4
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html765"
+<A NAME="tex2html771"
   HREF="idlnode44.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html771"
+<A NAME="tex2html777"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html775"
+<A NAME="tex2html781"
   HREF="idlnode46.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html773"
+<A NAME="tex2html779"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html766"
+<B> Previous:</B> <A NAME="tex2html772"
   HREF="idlnode44.htm">neighbours_nest</A>
 
-<B>Up:</B> <A NAME="tex2html772"
+<B>Up:</B> <A NAME="tex2html778"
   HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html776"
+<B> Next:</B> <A NAME="tex2html782"
   HREF="idlnode46.htm">nest2uniq</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Version 3.30, 2015-10-08
+Version 3.31, 2016-08-26
 </ADDRESS>
 </BODY>
 </HTML>
