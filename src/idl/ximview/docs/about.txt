@@ -1,4 +1,4 @@
-Ximview Version 0.5
+Ximview Version 0.6.2
 
 Written by J. P. Leahy 2007-2008
 

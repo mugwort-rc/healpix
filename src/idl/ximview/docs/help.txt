@@ -1,6 +1,6 @@
 Ximview Help
 
-version 0.5 beta
+version 0.6.2 beta
 
 NOTE: A hypertext version of this help file is available in the docs
 subdirectory of your Ximiview directory. Start with docs/home.html.

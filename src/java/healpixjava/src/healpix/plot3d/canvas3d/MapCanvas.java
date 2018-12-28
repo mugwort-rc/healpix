@@ -58,7 +58,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * function.
  * 
  * @author ejoliet
- * @version $Id: MapCanvas.java 56226 2008-07-30 07:32:24Z ejoliet $
+ * @version $Id: MapCanvas.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class MapCanvas extends Canvas3D implements RotateAble {
 

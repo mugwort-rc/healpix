@@ -34,7 +34,7 @@ import javax.swing.JPanel;
  * GUI.
  * 
  * @author ejoliet
- * @version $Id: Map3DPanelContent.java 56224 2008-07-30 07:30:00Z ejoliet $
+ * @version $Id: Map3DPanelContent.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class Map3DPanelContent extends JPanel implements ActionListener, MapTaker {
 	

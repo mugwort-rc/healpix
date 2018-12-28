@@ -28,7 +28,7 @@ import javax.media.j3d.QuadArray;
  * {@link DataSphere}.
  * 
  * @author ejoliet
- * @version $Id: QuadArrayExt.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: QuadArrayExt.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class QuadArrayExt extends QuadArray {
 	

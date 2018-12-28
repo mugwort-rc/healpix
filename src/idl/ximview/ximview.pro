@@ -1091,7 +1091,11 @@ pos += STRING(zoom_factor, FORMAT = "(1X,F6.3,1X)")
 
 dt = SYSTIME(1) - start
 
-IF state.VERBOSE THEN pos +=STRING(dt, FORMAT = "(F10.5)")
+IF state.VERBOSE && nix ge 0 THEN BEGIN
+;  nest2ring, nside, nix, rix2
+;  pos +=STRING(rix-rix2, FORMAT = "(I10)") ; F10.5 for dt 
+  pos +=STRING(dt, FORMAT = "(F10.5)")
+ENDIF
 
 IF log THEN BEGIN
     PRINT, pos
@@ -3963,13 +3967,14 @@ PRO ximview, input, range, proj, order, COLUMN = column, EXTENSION = exten, $
 ;       April 2008      v0.4.2: Bug fixes
 ;       July  2008      v0.5: Bug fixes
 ;       November 2008   v0.6: Bug fix (HP2HPX), added scale to PNG output.
+;       August 2009     v0.6.2: Bug fix in grid2hp_index & related progs.
 ;-
 COMPILE_OPT IDL2
 
 ; Global parameters describing graphics state
 COMMON gr_global, windev, redraw_req, colmap, badcol, syscol
 
-version = '0.6'
+version = '0.6.2'
 
 start = SYSTIME(1)
 

@@ -34,7 +34,7 @@ import java.util.ArrayList;
  * Usage: java -cp jhealpix.jar healpix.plot3d.progs.testing.TestingQueryPolygon
  * 
  * @author ejoliet
- * @version $Id: Healpix3DMapViewer.java 26131 2007-06-27 16:02:03Z ejoliet $
+ * @version $Id: TestingQueryPolygon.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class TestingQueryPolygon {
 

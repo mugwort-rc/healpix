@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * This represent a generalized multi data map.
  * @author ejoliet
- * @version $Id: AbstractHealpixMap.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: AbstractHealpixMap.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public interface AbstractHealpixMap extends Serializable {
 	

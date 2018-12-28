@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * Krzysztof M. Gorski. Healpix.core.Healpixmap does this for a fixed nside This
  * code written by William O'Mullane
  * 
- * @version $Id: Healpix.java 54692 2008-07-09 08:57:08Z womullan $
+ * @version $Id: Healpix.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  * @author womullan
  * 
  */

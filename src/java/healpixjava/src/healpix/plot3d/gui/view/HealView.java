@@ -42,7 +42,7 @@ import java.awt.event.ActionListener;
  * feature.
  * 
  * @author ejoliet
- * @version $Id: HealView.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: HealView.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class HealView extends Frame implements ActionListener {
 

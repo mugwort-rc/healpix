@@ -38,10 +38,10 @@ pro init_healpix, verbose=verbose
 healpix_sysvar = '!HEALPIX'
 
 ; Healpix version
-version = '2.12'
+version = '2.12a'
 
 ; release data
-date = '2009-07-31'
+date = '2009-08-06'
 
 ; Healpix directory
 sv = 'HEALPIX'

@@ -40,6 +40,9 @@ FUNCTION xph2hp, nside, x, y, proj, order, NPOLE=npole, SPOLE = spole, $
 ; Returns: Array of HEALPix pixel numbers. For "/BOTH" it is a 2-D
 ;          array containing [[ring pixels], [nested pixels]]
 ;
+; Revision history:
+;  3 August 2009: RING pixel index bug fixed (as per grid2hp_index)
+;
 npfacet = [[8, 4, 4, 11], $
            [5, 0, 3,  7], $
            [5, 1, 2,  7], $
@@ -179,7 +182,9 @@ IF ring THEN BEGIN
         MESSAGE, "Can't handle pixels in different facet rows"
     ENDIF
     set_hpi_ring, nside, xx, yy, row[0], ringnum, ringpos, offset
-    hpi[goodpix] = tring[ringnum] + ringpos + (facet MOD 4) * offset
+    ringpos += (facet MOD 4) * offset
+    ringpos MOD= 4*nside
+    hpi[goodpix] = tring[ringnum] + ringpos
 ENDIF
 
 IF nest THEN BEGIN

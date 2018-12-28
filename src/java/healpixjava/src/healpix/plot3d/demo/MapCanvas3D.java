@@ -63,7 +63,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * Gaia
  * 
  * @author ejoliet
- * @version $Id: MapCanvas3D.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: MapCanvas3D.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 
 public class MapCanvas3D extends Canvas3D implements RotateAble {

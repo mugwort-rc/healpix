@@ -216,10 +216,12 @@ FOR i = 0, nchunk-1 DO BEGIN
         ENDCASE
         chunk *= scale
 
-        IF wrap LE 0 THEN lows  = WHERE(chunk LE 0.)            ELSE lows  = -1
+        IF wrap LE 0 THEN lows  = WHERE(chunk LE 0.)           ELSE lows = -1
         IF wrap EQ 0 THEN highs = WHERE(chunk GE FLOAT(dbyte)) ELSE highs = -1
 
         chunk MOD= ntop
+        negs = WHERE(chunk LT -0.5)
+        IF negs[0] NE -1 THEN chunk[negs] += ntop
         bchunk = BYTE(ROUND(chunk))
 
         IF lows[0]  NE -1 THEN bchunk[lows]  = botcol
@@ -249,6 +251,8 @@ DONE:
 
 topcol = topcol + ngrey
 
+IF verbose THEN $
+   MESSAGE, /INFORMATIONAL, STRING(minmax(byte_image),FORMAT="('output range:',2I4)")
 ; IF verbose THEN PRINT, 'Scaled in ',SYSTIME(1)-start,' seconds'
 
 RETURN, byte_image

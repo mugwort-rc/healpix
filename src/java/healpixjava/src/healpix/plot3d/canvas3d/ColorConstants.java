@@ -24,7 +24,7 @@ package healpix.plot3d.canvas3d;
 /**
  * Some color factor to get them from a static way.
  * 
- * @version $Id: ColorConstants.java 30580 2007-09-05 15:02:18Z nbach $
+ * @version $Id: ColorConstants.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class ColorConstants {
 	/**

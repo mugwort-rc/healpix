@@ -45,7 +45,7 @@ import javax.swing.JApplet;
  * Allow map selection and eventually display it and allow zoom.
  * 
  * @author ejoliet
- * @version $Id: ViewMaps.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: ViewMaps.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class ViewMaps extends JApplet implements ActionListener, TextListener,
 		ItemListener, MapTaker {

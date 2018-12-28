@@ -35,7 +35,7 @@ import javax.media.j3d.LineArray;
  * Part of the {@link HealSphere}
  * 
  * @author ejoliet
- * @version $Id: ZoneSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: ZoneSphere.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class ZoneSphere extends HealSphere {
 

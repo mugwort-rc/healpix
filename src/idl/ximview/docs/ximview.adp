@@ -1,7 +1,7 @@
 <!DOCTYPE DCF>  
 <assistantconfig version="3.3.0">  
    <profile>  
-      <property name="name">Ximview version 0.5 beta</property>  
+      <property name="name">Ximview version 0.6.2 beta</property>  
       <property name="title">Ximview Help</property>  
       <property name="startpage">home.html</property>  
       <property name="aboutmenutext">About Ximview</property>  

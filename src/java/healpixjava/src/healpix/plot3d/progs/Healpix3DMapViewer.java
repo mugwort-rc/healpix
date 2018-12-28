@@ -32,7 +32,7 @@ import java.io.File;
  * [filename]
  * 
  * @author ejoliet
- * @version $Id: Healpix3DMapViewer.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: Healpix3DMapViewer.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class Healpix3DMapViewer {
 	

@@ -25,7 +25,7 @@ import java.awt.Color;
  * Creates a color map using a color transformation of data values.
  * 
  * @author ejoliet
- * @version $Id: ColorMap.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: ColorMap.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class ColorMap {
 	

@@ -21,7 +21,7 @@ package healpix.plot3d.gui;
 
 /**
  * @author ejoliet
- * @version $Id: ExtBoxDisplayer.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: ExtBoxDisplayer.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public interface ExtBoxDisplayer {
     

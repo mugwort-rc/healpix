@@ -42,7 +42,7 @@ import net.ivoa.util.ColumnTable;
  * Converts fits file into healpix map. Read the fits and create the
  * {@link HealpixMap} object.
  * 
- * @version $Id: Fits2HealpixMapImp.java 49444 2008-05-07 10:23:02Z ejoliet $
+ * @version $Id: Fits2HealpixMapImp.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  * @author ejoliet
  */
 public class Fits2HealpixMapImp implements Fits2HealpixMap {

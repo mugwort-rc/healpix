@@ -357,7 +357,9 @@ Program sky_ng_sim_bin
      cl_T = 0.0
      !New lines added 8th June 2004
      lmax = nlmax
-     call read_powerspec(infile, nsmax, lmax, cl_T, header_PS, fwhm_arcmin, units_power, beam_file = beam_file, winfile = windowfile) 
+     ! each line should be less than 132 characters in length (2009-08-03)
+     call read_powerspec(infile, nsmax, lmax, cl_T, header_PS, fwhm_arcmin, units_power, &
+          & beam_file = beam_file, winfile = windowfile) 
      call pow2alm_units(units_power, units_map)
      call del_card(header_PS, (/ "TUNIT#","TTYPE#"/)) ! remove TUNIT* and TTYPE* from header to avoid confusion later on
 

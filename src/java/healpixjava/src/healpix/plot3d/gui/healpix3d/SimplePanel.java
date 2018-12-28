@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
  * to interact with Healpix sphere.
  * 
  * @author ejoliet
- * @version $Id: SimplePanel.java 56224 2008-07-30 07:30:00Z ejoliet $
+ * @version $Id: SimplePanel.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class SimplePanel extends JPanel implements ItemListener {
 	/**

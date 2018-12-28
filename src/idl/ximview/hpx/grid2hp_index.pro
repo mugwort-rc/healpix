@@ -98,6 +98,8 @@ FUNCTION grid2hp_index, nside, x, y, proj, order, NPOLE=npole, SPOLE = spole, $
 ;
 ; MODIFICATION HISTORY:
 ;      Written by:      J. P. Leahy, January 2008
+;      Bug fix: indices in eastern half of facets in row 2 were returned
+;      offset by 4*Nside. Fixed by JPL, 3 August 2009 
 ;
 ;-
 COMPILE_OPT IDL2
@@ -276,7 +278,9 @@ IF ring THEN BEGIN
         MESSAGE, "Can't handle pixels in different facet rows"
     ENDIF
     set_hpi_ring, nside, xx, yy, row[0], ringnum, ringpos, offset
-    hpi[goodpix] = tring[ringnum] + ringpos + (facet MOD 4) * offset
+    ringpos += (facet MOD 4) * offset
+    ringpos MOD= 4*nside
+    hpi[goodpix] = tring[ringnum] + ringpos
 ENDIF
 
 IF nest THEN BEGIN

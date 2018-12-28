@@ -40,7 +40,7 @@ import javax.vecmath.Vector3d;
  * Emmanuel Joliet with some methods added from pix_tools F90 code port to Java.
  * 
  * @author William O'Mullane, extended by Emmanuel Joliet
- * @version $Id: HealpixIndex.java 93882 2009-06-24 14:45:25Z womullan $
+ * @version $Id: HealpixIndex.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 
 public class HealpixIndex implements Serializable {
@@ -49,7 +49,7 @@ public class HealpixIndex implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
     public static final String REVISION =
-        "$Id: HealpixIndex.java 93882 2009-06-24 14:45:25Z womullan $";
+        "$Id: HealpixIndex.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $";
 	/** The Constant ns_max. */
 	public static final int ns_max = 8192;
 	

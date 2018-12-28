@@ -30,7 +30,7 @@ import java.io.File;
  * load a map from a fits file.
  * 
  * @author ejoliet
- * @version $Id: HealpixMapCreator.java 56224 2008-07-30 07:30:00Z ejoliet $
+ * @version $Id: HealpixMapCreator.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class HealpixMapCreator {
 

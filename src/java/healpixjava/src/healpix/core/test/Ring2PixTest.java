@@ -29,7 +29,7 @@ import junit.framework.TestCase;
  * Test ring to nest scheme pixel index number
  * 
  * @author ejoliet
- * @version $Id: Ring2PixTest.java 44793 2008-03-06 16:48:56Z ejoliet $
+ * @version $Id: Ring2PixTest.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class Ring2PixTest extends TestCase {
 

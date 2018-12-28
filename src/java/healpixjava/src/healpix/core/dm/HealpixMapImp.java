@@ -40,7 +40,7 @@ import net.ivoa.util.BufferedDataOutputStream;
  * with e.g. visualisation/analysis tools in the HEALPix distribution.
  * 
  * @author ejoliet
- * @version $Id: HealpixMapImp.java 93882 2009-06-24 14:45:25Z womullan $
+ * @version $Id: HealpixMapImp.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
  */
 public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		Serializable, Cloneable {

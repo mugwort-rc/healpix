@@ -1,5 +1,15 @@
 XIMVIEW Updates
 
+v0.6.2  Released 03:08:2009
+ - Fixed bug which caused incorrect RING pixel index to be listed
+   for pixels in the eastern half of facets 5,6 and 7 (all in the
+   equatorial row). Pixel indices were off by 4*N_side.
+ - Updated various documentation headers to correct version number
+ - Slight change to scale_image: better handling of negative values
+   when colour scale wraps.
+ - Included IDL astrolib GCIRC.pro in the astrolib directory
+   (used when getting integrated fluxes; omitted in error before).
+
 v0.6    Released 11:11:2008
  - Minor bug fix for reading CUT4 files.
  - Files -> Write PNG now includes the scale bar as well as the
