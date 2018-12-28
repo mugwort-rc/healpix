@@ -19,8 +19,6 @@
  */
 package healpix.plot3d.gui.healpix3d;
 
-// import healpix.util.Vector3d;
-
 import healpix.core.Healpix;
 import healpix.tools.Constants;
 import healpix.tools.SpatialVector;
@@ -35,7 +33,7 @@ import javax.media.j3d.LineArray;
  * Part of the {@link HealSphere}
  * 
  * @author ejoliet
- * @version $Id: ZoneSphere.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: ZoneSphere.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class ZoneSphere extends HealSphere {
 

@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -231,6 +231,7 @@ module alm_tools
   ! Oct 2007: zbounds and w8rings optional in map2alm (without plm)
   ! Nov 2008: correction of a crash bug in map2alm_iterative
   ! Jan 2009: correction of a PGF90 specific bug in create_alm
+  ! Jan 2010: correction of a bug in alm2map_pol_der affecting Q and U derivatives
   ! =====================================================
   ! about the F90 compilers 'features'
   ! - Intel compiler (ifc) (and maybe the other compilers as well)

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -36,7 +36,7 @@ pro angdist, v1, v2, dist
 ;
 ; HISTORY : Oct 2003,
 ;    EH, corrected bug on scalar product boundary
-;
+;    2010-03-01: works for non-normalized input vectors
 ;-
 
 if (n_params() ne 3) then begin
@@ -49,7 +49,8 @@ r1 = v1 / sqrt(total(v1*v1))
 r2 = v2 / sqrt(total(v2*v2))
 
 ; scalar product
-sprod = total(v1*v2)
+;sprod = total(v1*v2)
+sprod = total(r1*r2) ; bug corrected 2010-03-01
 
 if (sprod > 0.999d0) then begin
 ; almost colinear vectors

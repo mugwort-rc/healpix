@@ -1,5 +1,7 @@
 healpix.core
 healpix.core.base
+healpix.core.base.set
+healpix.core.base.set.test
 healpix.core.base.test
 healpix.core.dm
 healpix.core.dm.util

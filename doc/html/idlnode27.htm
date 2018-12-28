@@ -57,14 +57,12 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">isynfast</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'synfast' facility. It can be
 used to generate sky maps and/or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from power spectra (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>), synthesize maps from
 <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or simulate maps from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> and constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/interfaces/isynfast.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 ISYNFAST, cl_in [, map_out,
@@ -72,11 +70,10 @@ ISYNFAST, cl_in [, map_out,
       iseed=, keep_tmp_files=, lmax=, nlmax=, nside=, nsmax=, plmfile=,
       simul_type=, silent=, tmpdir=, windowfile=, winfiledir=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>cl_in</B>
 <DD>input power spectrum, can be a FITS file, or a memory array containing the
         <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, used to generate a map or a set of gaussian alm 
@@ -86,12 +83,12 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
     <DT>
 <B>map_out</B>
 <DD>optional output: map synthetised from the power spectrum or from constraining alm
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>alm_in=</B>
 <DD>optional input (constraining) alm           <b>default:</b>no alm
 
@@ -211,8 +208,9 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
       Do not set this keyword unless you really know what you are doing
 
 <P>
-</DL>
-
+</DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -221,11 +219,10 @@ requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">isynfast</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">isynfast</FONT>.
     <DT>
@@ -237,31 +234,33 @@ file, or as a memory array.
     <DT>
 <B><A HREF="idlnode25.htm#idl:ianafast">ianafast</A></B>
 <DD>IDL Interface to F90 anafast and C++ anafast_cxx
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">isynfast</FONT>, '$HEALPIX/test/cl.fits', map, fwhm=30, nside=256, /silent</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">isynfast</FONT>, '$HEALPIX/test/cl.fits', map, fwhm=30, nside=256, /silent  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><A HREF="idlnode33.htm#idl:mollview">mollview</A>, map, 1, title='I'</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<A HREF="idlnode33.htm#idl:mollview">mollview</A>, map, 1, title='I'  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><A HREF="idlnode33.htm#idl:mollview">mollview</A>, map, 2, title='Q'</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<A HREF="idlnode33.htm#idl:mollview">mollview</A>, map, 2, title='Q'  </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 will synthetize and plot I and Q  maps constistent with WMAP-1yr best fit power
 spectrum and observed with a circular gaussian 30 arcmin beam.
 </blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html452"
@@ -289,7 +288,7 @@ spectrum and observed with a circular gaussian 30 arcmin beam.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

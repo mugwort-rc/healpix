@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mpi_alm2map*</TITLE>
-<META NAME="description" CONTENT="mpi_alm2map*">
+<TITLE>mpi_alm_tools*</TITLE>
+<META NAME="description" CONTENT="mpi_alm_tools*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,141 +28,93 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html821"
+<A NAME="tex2html825"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html827"
+<A NAME="tex2html831"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html835"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html829"
+<A NAME="tex2html833"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html822"
-  HREF="subroutinesnode50.htm">mpi_alm_tools*</A>
+<B> Previous:</B> <A NAME="tex2html826"
+  HREF="subroutinesnode50.htm">merge_headers</A>
 
-<B>Up:</B> <A NAME="tex2html828"
+<B>Up:</B> <A NAME="tex2html832"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html832"
-  HREF="subroutinesnode52.htm">mpi_alm2map_simple*</A>
+<B> Next:</B> <A NAME="tex2html836"
+  HREF="subroutinesnode52.htm">mpi_alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000510000000000000000"></A>
-<A NAME="sub:mpi_alm2map"></A>
+<A NAME="sub:mpi_alm_tools"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mpi_alm2map*</FONT></font></b><hr><H2>This subroutine implements MPI parallelization of the serial alm2map
-routine. It supports both temperature and polarization inputs in both
-single and double precision. It must only be run by the root node of
-the MPI communicator.
-</H2><br>Location in HEALPix directory tree: <b>
+<b><font size=+6><FONT COLOR="#CC0000">mpi_alm_tools*</FONT></font></b><hr><H2>This module implements MPI parallelization of the alm2map and map2alm routines. 
+It is not compiled by default during installation, but rather intended for
+users who need massive parallelization in their own programming. Typical
+applications are Monte Carlo simulations and Markov chain type
+analyses.
+
+<P>
+The routines can be called in two modes, either simple or
+advanced. The former mimics the interface of the standard routines,
+but with an additional MPI handle as a first argument, and is intended
+for applications which requires only one or a few transforms. The
+latter interface provides both more flexibility (in particular the
+option of pre-computation of the Legendre polynomials) and a simpler
+interface when multiple transforms are required. This interface is
+particularly well suited for Monte Carlo simulations and Markov chain
+type analyses.  </H2><br>Location in HEALPix directory tree: <b> 
 src/f90/mod/mpi_alm_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">mpi_alm2map*</FONT>(
-alms, map
-)</h2></blockquote>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1> 
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Simple one-line interfaces:
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_map2alm_simple
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_alm2map_simple
+</DL>
 
 <P>
-<hr><H1>ARGUMENTS</H1>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Three-step advanced interfaces:
 
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-alms(1:nmaps,0:lmax,0:nmax)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC or DPC</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Input alms. If
-nmaps=1, only temperature information is included; if nmaps=3,
-polarization information is included</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map(0:npix,1:nmaps)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP or DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Output map. nmaps must match 
-that of the input alms array.</TD>
-</TR>
-</TABLE>
-
-<P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call mpi_comm_rank(comm, myid, ierr)
+<OL>
+<LI>Initialization: 
 <BR>
-if (myid == root) then
+mpi_initialize_alm_tools
+</LI>
+<LI>Execution of spherical harmonics transforms
+   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_map2alm (root processor)
+	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_alm2map (root processor)
+	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_map2alm_slave (slave processor)
+	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ mpi_alm2map_slave (slave processor)
+    </DL>
+</LI>
+<LI>Finalizing: 
 <BR>
-call mpi_initialize_alm_tools(comm, nsmax, nlmax, nmmax, 
+mpi_cleanup_alm_tools
+</LI>
+</OL></DL>
+</font></tt>
 <BR>
-zbounds,polarization, precompute_plms)
-<BR>
-call mpi_alm2map(alms, map)
-<BR>
-else 
-<BR>
-call mpi_initialize_alm_tools(comm)
-<BR>
-call mpi_alm2map_slave
-<BR>
-end
-<BR>
-call mpi_cleanup_alm_tools
-<BR></font></tt>
-<BR><blockquote>
-This example 1) initializes the mpi_alm_tools module (i.e.,
-allocates internal arrays and defines required parameters), 2)
-executes a parallel alm2map operation, and 3) frees the previously
-allocated memory.
-</blockquote>
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">mpi_alm2map*</FONT>.</h2>
-  <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">alm_tools</SPAN></B>
-<DD>module
-  </DL>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mpi_alm2map*</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode54.htm#sub:mpi_cleanup_alm_tools">mpi_cleanup_alm_tools</A></B>
-<DD>Frees memory that is allocated by the current routine. 
-   <DT>
-<B><A HREF="subroutinesnode55.htm#sub:mpi_initialize_alm_tools">mpi_initialize_alm_tools</A></B>
-<DD>Allocates memory and defines variables for the mpi_alm_tools module. 
-  <DT>
-<B><A HREF="subroutinesnode53.htm#sub:mpi_alm2map_slave">mpi_alm2map_slave</A></B>
-<DD>Routine for executing a parallel inverse spherical harmonics transform (slave processor interface)
-  <DT>
-<B><A HREF="subroutinesnode56.htm#sub:mpi_map2alm">mpi_map2alm</A></B>
-<DD>Routine for executing a parallel spherical harmonics transform (root processor interface)
-  <DT>
-<B><A HREF="subroutinesnode58.htm#sub:mpi_map2alm_slave">mpi_map2alm_slave</A></B>
-<DD>Routine for executing a parallel spherical harmonics transform (slave processor interface)
-  <DT>
-<B><A HREF="subroutinesnode52.htm#sub:mpi_alm2map_simple">mpi_alm2map_simple</A></B>
-<DD>One-line interface to the parallel inverse spherical harmonics transform 
-  <DT>
-<B><A HREF="subroutinesnode57.htm#sub:mpi_map2alm_simple">mpi_map2alm_simple</A></B>
-<DD>One-line interface to the parallel spherical harmonics transform 
-  </DL>
 
 <P>
 
@@ -175,32 +127,32 @@ allocated memory.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html821"
+<A NAME="tex2html825"
   HREF="subroutinesnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html827"
+<A NAME="tex2html831"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html831"
+<A NAME="tex2html835"
   HREF="subroutinesnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html829"
+<A NAME="tex2html833"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html822"
-  HREF="subroutinesnode50.htm">mpi_alm_tools*</A>
+<B> Previous:</B> <A NAME="tex2html826"
+  HREF="subroutinesnode50.htm">merge_headers</A>
 
-<B>Up:</B> <A NAME="tex2html828"
+<B>Up:</B> <A NAME="tex2html832"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html832"
-  HREF="subroutinesnode52.htm">mpi_alm2map_simple*</A>
+<B> Next:</B> <A NAME="tex2html836"
+  HREF="subroutinesnode52.htm">mpi_alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

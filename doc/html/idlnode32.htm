@@ -57,23 +57,20 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">mollcursor</FONT></font></b><hr><H2>This IDL facility provides a point-and-click interface for finding
 the astronomical location, value and pixel index of the pixels nearest 
 to the pointed position on a Mollweide projection of a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/visu/mollcursor.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 MOLLCURSOR, [cursor_type=, file_out=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>cursor_type=</B>
 <DD>cursor type to be used 
 <BR>	<b>default:</b>34
@@ -86,7 +83,7 @@ If set to 1, the file will
  	take its default name: 'cursor_catalog.txt'. 
 <BR>
 If set to a non-empty character string, the file name will be that string
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -95,18 +92,18 @@ mollcursor should be run immediately following mollview. It gives the
 longitude, latitude, map value and pixel number
 corresponding to the cursor position in the window containing the map generated
 by mollview. Mouse buttons are used to select the function :  
-
+</SMALL>
 <P>
-left button = display the information relative to the current cursor position, 
-
+<SMALL CLASS="FOOTNOTESIZE">left button = display the information relative to the current cursor position, 
+</SMALL>
 <P>
-middle button = print out this information in the IDL command window 
-
+<SMALL CLASS="FOOTNOTESIZE">middle button = print out this information in the IDL command window 
+</SMALL>
 <P>
-right button = quit mollcursor
+<SMALL CLASS="FOOTNOTESIZE">right button = quit mollcursor
 <BR>
 <BR><B>Note on Mac OS X, X11 and IDL cursor:</B> on some versions<A NAME="tex2html9"
-  HREF="idlfootnode.htm#foot3695"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>of Mac OS X
+  HREF="idlfootnode.htm#foot3765"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>of Mac OS X
 , in particular Tiger (ie,
 10.4.*) and Leopard (ie, 10.5.*), the IDL function <TT>cursor</TT>, and therefore <b>HEALPix</b> <FONT COLOR="#CC0000">mollcursor</FONT>,
 gnomcursor, <SPAN CLASS="MATH"><IMG
@@ -134,11 +131,10 @@ And finally, <FONT COLOR="#CC0000">mollcursor</FONT> obviously requires the '3 b
 which can be done in the X11 Preferences menu.
 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mollcursor</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">mollcursor</FONT>
   <DT>
@@ -182,27 +178,28 @@ which can be done in the X11 Preferences menu.
   <DT>
 <B><A HREF="idlnode39.htm#idl:orthcursor">orthcursor</A></B>
 <DD>interactive cursor to be used with orthview
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-mollcursor</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+mollcursor </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  
+</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>After mollview reads in a map and generates
 its mollweide projection, mollcursor is run to know the
 position and flux of bright synchrotron sources, for example.</blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html512"
@@ -230,7 +227,7 @@ position and flux of bright synchrotron sources, for example.</blockquote>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

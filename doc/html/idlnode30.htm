@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">lm2index</FONT></font></b><hr><H2>This IDL routine provides a means to convert the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> degree and order
 <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN> into the index <!-- MATH
@@ -66,19 +65,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN> (in order to be fed to
 alm2fits routine for instance)</H2><br>Location in HEALPix directory tree: <b>
 src/idl/misc/lm2index.pro
-
+</SMALL>
 <P>
-</b>
-
+<SMALL CLASS="FOOTNOTESIZE"></b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 LM2INDEX, l, m, index
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>l</B>
 <DD>Long array containing on INPUT the order <SPAN CLASS="MATH"><I>l</I></SPAN>. 
     <DT>
@@ -88,7 +85,7 @@ LM2INDEX, l, m, index
 <B>index</B>
 <DD>Long array containing on OUTPUT the index <BR>
                  <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -106,11 +103,10 @@ definition <!-- MATH
  ALT="$0 \le \vert m\vert\le l$"></SPAN> (the routine does not check for this).
 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">lm2index</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">lm2index</FONT>.
     <DT>
@@ -125,27 +121,28 @@ definition <!-- MATH
 <DD>routine complementary to <FONT COLOR="#CC0000">lm2index</FONT>:
     converts <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> +
     <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 into <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN>.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">lm2index</FONT>, l, m, index</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">lm2index</FONT>, l, m, index </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 will return in <TT>index</TT> in value <!-- MATH
  $l^2 + l+ m + 1$
  -->
 <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP> + <I>l</I>+ <I>m</I> + 1</SPAN>
-</blockquote>
-
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html488"
@@ -173,7 +170,7 @@ will return in <TT>index</TT> in value <!-- MATH
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

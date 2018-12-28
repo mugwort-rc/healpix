@@ -28,6 +28,10 @@ TD.eqno			{ }	/* equation-number cells */
 
 
 /* document-specific styles come next */
+SPAN.tt		{   }
+DIV.em		{   }
 DIV.navigation		{   }
+DIV.centerline		{   }
 SPAN.arabic		{   }
 SPAN.textbf		{ font-weight: bold  }
+#par4731		{   }

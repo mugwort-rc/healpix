@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>convert_ring2nest*</TITLE>
-<META NAME="description" CONTENT="convert_ring2nest*">
+<TITLE>convert_nest2ring*</TITLE>
+<META NAME="description" CONTENT="convert_nest2ring*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,38 +28,38 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html485"
+<A NAME="tex2html489"
   HREF="subroutinesnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html491"
+<A NAME="tex2html495"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html495"
+<A NAME="tex2html499"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html493"
+<A NAME="tex2html497"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html486"
-  HREF="subroutinesnode22.htm">convert_nest2ring*</A>
+<B> Previous:</B> <A NAME="tex2html490"
+  HREF="subroutinesnode22.htm">convert_inplace*</A>
 
-<B>Up:</B> <A NAME="tex2html492"
+<B>Up:</B> <A NAME="tex2html496"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html496"
-  HREF="subroutinesnode24.htm">coordsys2euler_zyz</A>
+<B> Next:</B> <A NAME="tex2html500"
+  HREF="subroutinesnode24.htm">convert_ring2nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000230000000000000000"></A>
-<A NAME="sub:convert_ring2nest"></A>
+<A NAME="sub:convert_nest2ring"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">convert_ring2nest*</FONT></font></b><hr><H2>Routine to convert a <b>HEALPix</b> map from RING to NESTED scheme. <BR>
+<b><font size=+6><FONT COLOR="#CC0000">convert_nest2ring*</FONT></font></b><hr><H2>Routine to convert a <b>HEALPix</b> map from NESTED to RING scheme. <BR>
 The routine is a
   wrapper for 6 different routines and can threfore process
   integer, single precision and double precision maps as well as mono or bi
@@ -70,7 +70,7 @@ src/f90/mod/pix_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">convert_ring2nest*</FONT>(
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">convert_nest2ring*</FONT>(
 nside, map
 )</h2></blockquote>
 
@@ -111,66 +111,67 @@ nside</TD>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call convert_ring2nest(256,map)  
+call convert_nest2ring(256,map)  
 <BR></font></tt>
 <BR><blockquote>
-Converts an <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=256</SPAN> map given in array <SPAN CLASS="MATH"><I>map</I></SPAN> from RING to NESTED scheme.
+Converts an <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=256</SPAN> map given in array <SPAN CLASS="MATH"><I>map</I></SPAN> from NESTED to RING scheme.
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">convert_ring2nest*</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">convert_nest2ring*</FONT>.</h2>
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode68.htm#sub:pix_tools">ring2nest</A></B>
-<DD>routine to convert a RING pixel index to NESTED pixel number.		
+<B><A HREF="subroutinesnode69.htm#sub:pix_tools">nest2ring</A></B>
+<DD>routine to convert a NESTED pixel index to RING pixel number.		
   </DL>
 
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">convert_ring2nest*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">convert_nest2ring*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="#sub:convert_ring2nest">convert_nest2ring</A></B>
-<DD>convert between
-  NESTED and RING schemes.
+<B><A HREF="subroutinesnode24.htm#sub:convert_ring2nest">convert_ring2nest</A></B>
+<DD>convert between RING and NESTED schemes.
   <DT>
-<B><A HREF="subroutinesnode21.htm#sub:convert_inplace">convert_inplace</A></B>
-<DD>convert between 
-    RING and NESTED schemes inplace. This routine is slower than <FONT COLOR="#CC0000">convert_ring2nest*</FONT>, but doesn't require as much memory.
+<B><A HREF="subroutinesnode22.htm#sub:convert_inplace">convert_inplace</A></B>
+<DD>convert between NESTED
+    and RING schemes inplace. This routine is slower than <FONT COLOR="#CC0000">convert_nest2ring*</FONT>, but doesn't require as much memory.
   </DL>
 
 <P>
 
 <P>
 
+
+<P>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html485"
+<A NAME="tex2html489"
   HREF="subroutinesnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html491"
+<A NAME="tex2html495"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html495"
+<A NAME="tex2html499"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html493"
+<A NAME="tex2html497"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html486"
-  HREF="subroutinesnode22.htm">convert_nest2ring*</A>
+<B> Previous:</B> <A NAME="tex2html490"
+  HREF="subroutinesnode22.htm">convert_inplace*</A>
 
-<B>Up:</B> <A NAME="tex2html492"
+<B>Up:</B> <A NAME="tex2html496"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html496"
-  HREF="subroutinesnode24.htm">coordsys2euler_zyz</A>
+<B> Next:</B> <A NAME="tex2html500"
+  HREF="subroutinesnode24.htm">convert_ring2nest*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

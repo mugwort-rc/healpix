@@ -34,7 +34,7 @@ import javax.vecmath.Point3d;
  * to indicate a data value for each pixel. DataSphere deals with different map
  * inside a HealpixMap object - e.g. read from fits file-.
  * 
- * @version $Id: DataSphere.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: DataSphere.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class DataSphere extends HealSphere {
 
@@ -170,8 +170,8 @@ public class DataSphere extends HealSphere {
 		int faceoff = nQuads * face;
 		// QuadArrayExt[] quads2 = new QuadArrayExt[nQuads];
 		QuadArrayExt quads = new QuadArrayExt(nPoints,
-				GeometryArray.COORDINATES | GeometryArray.COLOR_3);
-
+				GeometryArray.COORDINATES | GeometryArray.COLOR_3 );
+		
 		int offset;
 		Color3f c;
 
@@ -183,6 +183,8 @@ public class DataSphere extends HealSphere {
 				int pixindex = faceoff + q;
 				SpatialVector[] points = index.corners_nest(pixindex, 1);
 				double val = (double) ch.get(imap, pixindex);// ch.getPixAsFloat(pixindex);
+//				if(val==0)
+//					continue;
 				if (Double.isNaN(val)) {
 					c = new Color3f(128, 128, 128);
 				} else {

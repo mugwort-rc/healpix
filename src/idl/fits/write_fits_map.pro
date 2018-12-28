@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -104,6 +104,7 @@ pro write_fits_map, filename, data, info_header, coordsys=coordsys, nested=neste
 ;  Jan 2009: calls init_astrolib
 ;  Nov 2009: added Error and Help keywords. Slightly faster writting by adapting
 ;  buffer size
+;  2010-01-28: make sure that error is defined and =0 when everything is OK
 ;
 ;-
 
@@ -164,6 +165,7 @@ if defined(info_header) then begin
 endif
 if (count eq 0) then sxaddpar,info_hdr,'TTYPE1','UNKNOWN1','unknown content'
 
+error = 0
 ; add ordering information to user supplied extension header
 add_ordering_fits,info_hdr, nested=nested, ring=ring, ordering=ordering,error=error
 if error ne 0 then return

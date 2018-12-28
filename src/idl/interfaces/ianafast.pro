@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -189,6 +189,7 @@ pro ianafast, map1_in, cl_out $
 ;       as default temporary directory.
 ;       2009-09-07:  w8filedir -> w8dir *EVERYWHERE*
 ;       2009-09-09:  use !healpix.path.data instead of !healpix.directory+'/data'
+;       2010-02-22: SILENT forwarded to hpx_file2mem
 ;
 ;-
 local = {routine: 'ianafast', exe: 'anafast', exe_cxx: 'anafast_cxx', double: keyword_set(double)}
@@ -282,7 +283,7 @@ free_lun, lunit
 hpx_xface_generic, /run, fullpath, tmp_par_file, silent=silent
 
 ; deal with online data
-if (arg_present(cl_out)) then hpx_file2mem, tmp_cl_out, cl_out, /cl, show_cl = show_cl
+if (arg_present(cl_out)) then hpx_file2mem, tmp_cl_out, cl_out, /cl, show_cl = show_cl, silent=silent
 
 ; to_remove
 hpx_xface_generic, clean = ~keyword_set(keep_tmp_files)

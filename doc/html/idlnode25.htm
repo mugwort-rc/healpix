@@ -57,12 +57,10 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">ianafast</FONT></font></b><hr><H2>This IDL facility provides an interface to 'anafast' F90 and 'anafast_cxx' C++ facilities</H2><br>Location in HEALPix directory tree: <b>
 src/idl/interfaces/ianafast.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 IANAFAST,  map1_in [, cl_out,
@@ -71,11 +69,10 @@ IANAFAST,  map1_in [, cl_out,
        regression=, ring=, show_cl=, simul_type=, silent=, theta_cut_deg=, tmpdir=, 
        weighted=, won=, w8file=, w8dir=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>map1_in</B>
 <DD>required input: 1st input map, can be a FITS file, or a memory array containing the
         map to analyze
@@ -83,12 +80,12 @@ IANAFAST,  map1_in [, cl_out,
 <B>cl_out</B>
 <DD>optional output: auto or cross power spectrum <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, can be a FITS
 file or a memory array
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>alm1_out=</B>
 <DD>output alm of 1st map, must be a FITS file          <b>default:</b>alm not kept
 
@@ -257,8 +254,9 @@ be plotted
         <b>default:</b>determined automatically by back-end routine
 
 <P>
-</DL>
-
+</DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -268,11 +266,10 @@ requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ianafast</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">ianafast</FONT>.
     <DT>
@@ -287,30 +284,33 @@ file, or as a memory array.
     <DT>
 <B><A HREF="idlnode26.htm#idl:ismoothing">ismoothing</A></B>
 <DD>IDL Interface to F90 smoothing
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-whitenoise = randomn(seed, <A HREF="idlnode37.htm#idl:nside2npix">nside2npix</A>(256))</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+whitenoise = randomn(seed, <A HREF="idlnode37.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">ianafast</FONT>, whitenoise, cl, /ring, /silent</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+ <FONT COLOR="#CC0000">ianafast</FONT>, whitenoise, cl, /ring, /silent  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">plot, cl[*,0]</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+ plot, cl[*,0]  
+</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
  will plot the power spectrum of a white noise map
 </blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html428"
@@ -338,7 +338,7 @@ whitenoise = randomn(seed, <A HREF="idlnode37.htm#idl:nside2npix">nside2npix</A>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

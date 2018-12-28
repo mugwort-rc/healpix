@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT></font></b><hr><H2>These IDL facilities provide the ordered list of all <b>HEALPix</b> pixels having the same shape
   as a given template, for a resolution parameter <!-- MATH
@@ -70,19 +69,16 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/toolkit/same_shape_pixels_nest.pro, src/idl/toolkit/same_shape_pixels_ring.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 same_shape_pixels_nest, Nside, Template, List_Pixels_Nest [, Reflexion, NREPLICATIONS=]
-</h2>
-<hr><h1>FORMAT </h1><h2>IDL>
+</h2><hr><h1>FORMAT </h1><h2>IDL>
 same_shape_pixels_ring, Nside, Template, List_Pixels_Ring [, Reflexion, NREPLICATIONS=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Nside</B>
 <DD>(IN, scalar) the <b>HEALPix</b> <!-- MATH
  ${N_{\rm side}}$
@@ -111,12 +107,12 @@ same_shape_pixels_ring, Nside, Template, List_Pixels_Ring [, Reflexion, NREPLICA
                    1: rotation + East-West swap (ie, reflexion around meridian),
                    2: rotation + North-South swap (ie, reflexion around
                    Equator), 3: rotation + East-West and North-South swaps
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
- <DL COMPACT><DT>
+ </SMALL><DL COMPACT><DT>
 <B>NREPLICATIONS</B>
 <DD>(OUT, OPTIONAL, scalar) number of pixels having the same shape as
   the template. It is also the length of the vectors <TT>List_Pixel_Nest</TT>,
@@ -134,7 +130,7 @@ same_shape_pixels_ring, Nside, Template, List_Pixels_Ring [, Reflexion, NREPLICA
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg23.png"
  ALT="${N_{\rm side}}$"></SPAN>.
- </DL>
+ </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -163,6 +159,7 @@ same_shape_pixels_ring, Nside, Template, List_Pixels_Ring [, Reflexion, NREPLICA
  ALT="${N_{\rm side}}$"></SPAN>. The template pixels are all located in the Northern Hemisphere, or on the
  Equator.
 They are chosen to have their center located at
+</SMALL>
 <BR>
 <DIV ALIGN="CENTER">
 
@@ -204,15 +201,14 @@ $"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 </TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-They are numbered continuously from 0, starting at the North Pole, with the index
+<BR CLEAR="ALL"><P></P><SMALL CLASS="FOOTNOTESIZE">
+ They are numbered continuously from 0, starting at the North Pole, with the index
  increasing in <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg60.png"
  ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
 
 </blockquote>
-
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 same_shape_pixels_ring, 256, 1234, list_pixels, reflexion, nrep=np  
@@ -228,10 +224,9 @@ the same shape as the template #1234 for <!-- MATH
  ALT="${N_{\rm side}}=256$"></SPAN>. Upon return <TT>reflexion</TT> will
 contain the reflexions to apply to each pixel returned to match the template,
 and <TT>np</TT> will contain the number of pixels having that same shape (16 in that case).
-</blockquote>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT></b></h3>
+</blockquote><hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">same_shape_pixels_XXXX</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B><A HREF="idlnode38.htm#idl:nside2ntemplates">nside2templates</A></B>
 <DD>returns the
   number of template pixel shapes available for a given <!-- MATH
@@ -247,15 +242,16 @@ and <TT>np</TT> will contain the number of pixels having that same shape (16 in 
 <B><A HREF="idlnode54.htm#idl:template_pixel_xxx">template_pixel_nest</A></B>
 <DD>return
   the template shape matching the pixel provided
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-
-
+<SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html764"
@@ -283,7 +279,7 @@ and <TT>np</TT> will contain the number of pixels having that same shape (16 in 
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

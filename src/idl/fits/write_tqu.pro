@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -112,6 +112,7 @@ pro write_tqu, fitsfile, TQU, Coordsys=coordsys, Nested=nested, Ring=ring, Order
 ;
 ; MODIFICATION HISTORY:
 ;    version 1.0, Eric Hivon, Nov-Dec 2002
+;    2010-01-28: make sure that error is defined and =0 when everything is OK
 ;
 ;-
 
@@ -185,6 +186,7 @@ endif else begin
     xtname = ['SIGNAL','ERROR','CORRELATION']
 endelse
 
+error = 0
 for i_ext=i_ext0, i_ext0+n_ext-1 do begin
 ; create structure for 1st/2nd/3rd extension (number 0,1,2)
     sxaddpar,xhdr,'EXTNAME',xtname[i_ext]

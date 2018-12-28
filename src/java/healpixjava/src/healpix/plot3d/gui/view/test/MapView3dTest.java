@@ -35,7 +35,7 @@ import junit.framework.TestCase;
  * Test Healpix 3d map viewer.
  * 
  * @author ejoliet
- * @version $Id: MapView3dTest.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: MapView3dTest.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class MapView3dTest extends TestCase {
 
@@ -122,10 +122,10 @@ public class MapView3dTest extends TestCase {
 	public static void main(String[] args) {
 		int imap = 1;
 		MapTaker mview;
-		mview = new Map3DPanelContent();
-		//mview = new MapView3d(false, false, 0.1f);
+//		mview = new Map3DPanelContent();
+		mview = new MapView3d(false, false, 0.1f);
 
-		HealpixMapCreator cr = new HealpixMapCreator(2);
+		HealpixMapCreator cr = new HealpixMapCreator(8);
 		HealpixMap map = cr.getMap();
 		map.setImap(imap);
 		if ( map != null ) {

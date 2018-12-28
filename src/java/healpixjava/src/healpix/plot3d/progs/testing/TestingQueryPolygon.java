@@ -21,6 +21,8 @@ package healpix.plot3d.progs.testing;
 
 import healpix.core.AngularPosition;
 import healpix.core.HealpixIndex;
+import healpix.core.base.set.LongIterator;
+import healpix.core.base.set.LongRangeSet;
 import healpix.core.dm.HealpixMap;
 import healpix.core.dm.AbstractHealpixMap.Scheme;
 import healpix.plot3d.gui.view.MapView3d;
@@ -28,13 +30,14 @@ import healpix.tools.HealpixMapCreator;
 import healpix.tools.SpatialVector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Testing query polygon to detect prime meridian black zone defect in Planck
  * Usage: java -cp jhealpix.jar healpix.plot3d.progs.testing.TestingQueryPolygon
  * 
  * @author ejoliet
- * @version $Id: TestingQueryPolygon.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: TestingQueryPolygon.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class TestingQueryPolygon {
 
@@ -54,10 +57,10 @@ public class TestingQueryPolygon {
 		try {
 			MapView3d mview = new MapView3d(false);
 			vlist = new ArrayList<Object>();
-			// HealpixMap map = getMapWithPixRingTriangle();
-//			HealpixMap map = getMapWithPixNest();
-			// HealpixMap map = getMap3PixelsRing();
-			 HealpixMap map = getMapNeighbours();
+//			 HealpixMap map = getMapWithPixRingTriangle();
+			HealpixMap map = getMapWithPixNest();
+//			 HealpixMap map = getMap3PixelsRing();
+//			 HealpixMap map = getMapNeighbours();
 			// // getMap();
 			mview.setMap(map);
 			System.out.println("Map min/max: " + map.getMin(0) + "/"
@@ -105,14 +108,13 @@ public class TestingQueryPolygon {
 		vlist.add(vec3);
 		vlist.add(vec4);
 
-		ArrayList pixlist = new HealpixIndex(map.nside()).query_polygon(map
+		LongRangeSet pixlist = new HealpixIndex(map.nside()).query_polygon(map
 				.nside(), vlist, 1, 0);
 		pixlist = new HealpixIndex(map.nside()).query_triangle(map.nside(),
 				vec1, vec2, vec3, 1, 0);
-		int nlist = pixlist.size();
-		for (int i = 0; i < nlist; i++) {
-			long ip = (int) ((Long) pixlist.get(i)).longValue();
-			map.setValueCell((int) ip, 0.5);
+		LongIterator it = pixlist.longIterator(); 
+		while(it.hasNext()){
+			map.setValueCell(((Long)it.next()).intValue(), 0.5);
 			// System.out.println(ip);
 		}
 
@@ -136,7 +138,7 @@ public class TestingQueryPolygon {
 		HealpixMapCreator cr = new HealpixMapCreator(nside, true);
 
 		HealpixMap map = cr.getMap();
-		map.setScheme(Scheme.RING);
+		map.setScheme(Scheme.NEST);
 
 		ArrayList vlist1 = new ArrayList();
 		HealpixIndex pt = new HealpixIndex(nside);
@@ -153,17 +155,17 @@ public class TestingQueryPolygon {
 
 		for (int vi = 0; vi < v.length; vi++) {
 			map.add((int) triang[vi], 10);
-			v[vi] = pt.pix2vec_ring(triang[vi]);
+			v[vi] = pt.pix2vec_nest(triang[vi]);
 
 		}
 
-		ArrayList pixlist;
+//		ArrayList pixlist;
+		LongRangeSet pixlist;
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], nest, inclusive);
-
-		int nlist = pixlist.size();
-		for (int i = 0; i < nlist; i++) {
-			long ip = (int) ((Long) pixlist.get(i)).longValue();
-			map.add((int) pt.ring2nest((int) ip), 5);
+		LongIterator it = pixlist.longIterator(); 
+		while(it.hasNext()){
+			long ip = ((Long) it.next()).longValue();
+			map.add((int) pt.ring2nest(ip), 5);
 			System.out.println(ip);
 		}
 
@@ -198,13 +200,13 @@ public class TestingQueryPolygon {
 			map.add(iptest, 10);
 		}
 
-		ArrayList pixlist;
+//		ArrayList pixlist;
+		LongRangeSet pixlist;
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], 0, 0);
-
-		int nlist = pixlist.size();
-		for (int i = 0; i < nlist; i++) {
-			long ip = (int) ((Long) pixlist.get(i)).longValue();
-			map.add((int) pt.ring2nest((int) ip), 5);
+		LongIterator it = pixlist.longIterator(); 
+		while(it.hasNext()){
+			long ip = ((Long) it.next()).longValue();
+			map.add((int) pt.ring2nest( ip), 5);
 			System.out.println(ip);
 		}
 		return map;
@@ -248,11 +250,11 @@ public class TestingQueryPolygon {
 		vlist1.add((Object) v);
 		addVec(v, map, pv++);
 
-		ArrayList pixlist = pt.query_polygon(nside, vlist1, 0, 0);
-		int nlist = pixlist.size();
-		for (int i = 0; i < nlist; i++) {
-			long ip = (int) ((Long) pixlist.get(i)).longValue();
-			map.add((int) ip, 0.5);
+		LongRangeSet pixlist = pt.query_polygon(nside, vlist1, 0, 0);
+		LongIterator it = pixlist.longIterator(); 
+		while(it.hasNext()){
+			Long ip = it.next();
+			map.add( ip.intValue(), 0.5);
 			System.out.println(ip);
 		}
 
@@ -293,7 +295,7 @@ public class TestingQueryPolygon {
 		vlist1.add((Object) v);
 		map.setValueCell(4447, pv);
 		addVec(nside,v, map, pv*2);
-		ArrayList pixlist = pt.neighbours_nest(nside, 4447);
+		List<Long> pixlist = pt.neighbours_nest( 4447);
 		int nlist = pixlist.size();
 		for (int i = 0; i < nlist; i++) {
 			long ip = (int) ((Long) pixlist.get(i)).longValue();
@@ -342,11 +344,11 @@ public class TestingQueryPolygon {
 		addVec(v, map, pv++);
 
 		addVec(v, map, pv++);
-		ArrayList pixlist = pt.query_polygon(nside, vlist1, 1, 0);
-		int nlist = pixlist.size();
-		for (int i = 0; i < nlist; i++) {
-			long ip = (int) ((Long) pixlist.get(i)).longValue();
-			map.add((int) ip, 0.5);
+		LongRangeSet pixlist = pt.query_polygon(nside, vlist1, 1, 0);
+		LongIterator it = pixlist.longIterator(); 
+		while(it.hasNext()){
+			Long ip = it.next();
+			map.add(ip.intValue(), 0.5);
 			System.out.println(ip);
 		}
 

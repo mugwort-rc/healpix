@@ -33,7 +33,7 @@ import java.awt.image.BufferedImage;
  * an HealpixMap. It implements ExtBoxDisplayer.
  * 
  * @author ejoliet
- * @version $Id: BoxDisplay.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: BoxDisplay.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class BoxDisplay extends Canvas implements ExtBoxDisplayer {
 	

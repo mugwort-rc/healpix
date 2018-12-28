@@ -19,10 +19,9 @@
  */
 package healpix.tools;
 
-import javax.vecmath.Vector3d;
 
 /**
- * The SpatialVector is a standard 3D vector class with the addition that each
+ * The SpatialVector contains standard 3D vector with the addition that each
  * coordinate (x,y,z) is also kept in ra,dec since we expect the vector to live
  * on the surface of the unit sphere, i.e.
  * 
@@ -40,13 +39,13 @@ import javax.vecmath.Vector3d;
  * time at JHU.
  */
 
-public class SpatialVector extends Vector3d {
+public class SpatialVector {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	double x, y, z;
 
 	/** The ra_. */
 	double ra_;
@@ -61,7 +60,9 @@ public class SpatialVector extends Vector3d {
 	 * Default constructor constructs (1,0,0), ra=0, dec=0.
 	 */
 	public SpatialVector() {
-		super(1, 0, 0);
+		x = 1;
+		y = 0;
+		z = 0;
 		ra_ = 0;
 		dec_ = 0;
 		okRaDec_ = true;
@@ -70,12 +71,14 @@ public class SpatialVector extends Vector3d {
 	/**
 	 * Constructor from three coordinates
 	 * 
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param x1
+	 * @param y1
+	 * @param z1
 	 */
-	public SpatialVector(double x, double y, double z) {
-		super(x, y, z);
+	public SpatialVector(double x1, double y1, double z1) {
+		x = x1;
+		y = y1;
+		z = z1;
 		ra_ = 0;
 		dec_ = 0;
 		okRaDec_ = false;
@@ -103,9 +106,38 @@ public class SpatialVector extends Vector3d {
 	 *            the vector to copy
 	 */
 	public SpatialVector(SpatialVector copy) {
-		super(copy.x(), copy.y(), copy.z());
-		normalize();
+		this(copy.x(), copy.y(), copy.z());
+		normalized();
 		updateRaDec();
+	}
+
+	/**
+	 * Returns the length of this vector.
+	 * 
+	 * @return the length of this vector
+	 */
+	public final double length() {
+		return Math.sqrt(lengthSquared());
+	}
+
+	/**
+	 * Returns the squared length of this vector.
+	 * 
+	 * @return the squared length of this vector
+	 */
+	public final double lengthSquared() {
+		return x * x + y * y + z * z;
+	}
+
+	/**
+	 * Normalized this vector
+	 */
+	public void normalized() {
+		double d = length();
+		// zero-div may occur.
+		x /= d;
+		y /= d;
+		z /= d;
 	}
 
 	/**
@@ -125,6 +157,25 @@ public class SpatialVector extends Vector3d {
 	}
 
 	/**
+	 * Returns the angle in radians between this vector and the vector
+	 * parameter; the return value is constrained to the range [0,PI].
+	 * 
+	 * @param v1
+	 *            the other vector
+	 * @return the angle in radians in the range [0,PI]
+	 */
+	public final double angle(SpatialVector v1) {
+		// return (double)Math.acos(dot(v1)/v1.length()/v.length());
+		// Numerically, near 0 and PI are very bad condition for acos.
+		// In 3-space, |atan2(sin,cos)| is much stable.
+		double xx = y * v1.z - z * v1.y;
+		double yy = z * v1.x - x * v1.z;
+		double zz = x * v1.y - y * v1.x;
+		double cross = Math.sqrt(xx * xx + yy * yy + zz * zz);
+		return Math.abs(Math.atan2(cross, dot(v1)));
+	}
+
+	/**
 	 * Get the coordinates in a 3 elements 1D array
 	 * 
 	 * @return coordinates [x,y,z]
@@ -136,21 +187,24 @@ public class SpatialVector extends Vector3d {
 		ret[2] = x;
 		return ret;
 	}
-	
-	
-	/** return x (only as rvalue) */
+
+	/**
+	 * @return x
+	 */
 	public double x() {
 		return x;
 	}
-	
 
-	/** return y (only as rvalue) */
+	/**
+	 * @return y
+	 */
 	public double y() {
 		return y;
 	}
 
-
-	/** return z (only as rvalue) */
+	/**
+	 * @return z
+	 */
 	public double z() {
 		return z;
 	}
@@ -161,7 +215,8 @@ public class SpatialVector extends Vector3d {
 	 * @see javax.vecmath.Tuple3d#toString()
 	 */
 	public String toString() {
-		return "" + x() + " " + y() + " " + z();
+		return this.getClass().getName() + "[" + x() + ", " + y() + ", " + z()
+				+ "]";
 	}
 
 	/**
@@ -188,6 +243,47 @@ public class SpatialVector extends Vector3d {
 		return ((x() == v.x() && y() == v.y() && z() == v.z()) ? true : false);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof SpatialVector))
+			return false;
+		SpatialVector other = (SpatialVector) obj;
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+			return false;
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+			return false;
+		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
 	/**
 	 * multiply with a number
 	 * 
@@ -197,6 +293,17 @@ public class SpatialVector extends Vector3d {
 	 */
 	public SpatialVector mul(double n) {
 		return new SpatialVector((n * x()), (n * y()), (n * z()));
+	}
+
+	/**
+	 * Computes the dot product of the this vector and vector v1.
+	 * 
+	 * @param v1
+	 *            the other vector
+	 * @return dot product
+	 */
+	public final double dot(SpatialVector v1) {
+		return x * v1.x + y * v1.y + z * v1.z;
 	}
 
 	/**
@@ -228,7 +335,7 @@ public class SpatialVector extends Vector3d {
 	 */
 	public double dec() {
 		if (!okRaDec_) {
-			normalize();
+			normalized();
 			updateRaDec();
 		}
 		return dec_;
@@ -241,7 +348,7 @@ public class SpatialVector extends Vector3d {
 	 */
 	public double ra() {
 		if (!okRaDec_) {
-			normalize();
+			normalized();
 			updateRaDec();
 		}
 		return ra_;
@@ -255,7 +362,6 @@ public class SpatialVector extends Vector3d {
 		x = Math.cos(ra_ * Constants.cPr) * cd;
 		y = Math.sin(ra_ * Constants.cPr) * cd;
 		z = Math.sin(dec_ * Constants.cPr);
-		set(x, y, z);
 	}
 
 	/**
@@ -280,4 +386,26 @@ public class SpatialVector extends Vector3d {
 		okRaDec_ = true;
 	}
 
+	/**
+	 * @return Right Ascencion of this vector in radians
+	 */
+	public double toRa() {
+		double phi = 0.;
+		if ((x != 0.) || (y != 0))
+			phi = Math.atan2(y, x); // phi in [-pi,pi]
+
+		if (phi < 0)
+			phi += 2.0 * Math.PI; // phi in [0, 2pi]
+
+		return phi;
+	}
+
+	/**
+	 * @return Declination of this vector in radians
+	 */
+	public double toDe() {
+		double z2 = z / length();
+		double theta = Math.acos(z2);
+		return Math.PI / 2 - theta;
+	}
 };

@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">rotate_coord</FONT></font></b><hr><H2>This IDL facility provides a means to rotate a set of 3D position
 vectors (and their Stokes parameters Q and U) between to astrophysical coordinate systems
@@ -65,16 +64,14 @@ or by an arbitrary rotation.
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/misc/rotate_coord.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 Outvec = ROTATE_COORD( Invec [, Inco=, Outco=, Euler_Matrix=, Stokes_Parameters=] )
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Invec</B>
 <DD>input,  array of size (n,3) : set of 3D position vectors
     <DT>
@@ -104,7 +101,7 @@ Can not be used together with a change in coordinates.
       the input position vector. Q and U are defined wrt the local
       parallel and meridian and are therefore transformed in a non
       trivial way in case of rotation
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -116,25 +113,25 @@ It can also be applied to compute the effect of a rotation on the
 linear polarization Stokes parameters (Q and U) expressed in local
 coordinates system at the location of each of the input 3D vectors.
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">rotate_coord</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">rotate_coord</FONT>.
     <DT>
 <B><A HREF="idlnode14.htm#idl:euler_matrix_new">euler_matrix_new</A></B>
 <DD>constructs the Euler Matrix for a set of
     three angles and three axes of rotation
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html752"
@@ -162,7 +159,7 @@ coordinates system at the location of each of the input 3D vectors.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

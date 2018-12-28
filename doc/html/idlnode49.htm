@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">read_tqu</FONT></font></b><hr><H2>This IDL facility reads a temperature+polarization Healpix map
 (T,Q,U) from a binary table FITS file, 
@@ -66,16 +65,14 @@ from separate extensions
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/fits/read_tqu.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 READ_TQU , File, TQU, [Extension=, Hdr=, Xhdr=, Help=, Nside=, Ordering=, Coordsys=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>File</B>
 <DD>name of a FITS file from which the maps are to be read
 
@@ -152,16 +149,16 @@ returns on output the astrophysical coordinate system used,
 		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
 
 <P>
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Help</B>
 <DD>if set, an extensive help is displayed and no
 	file is read
-   </DL>
+   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -173,11 +170,10 @@ file (see qualifiers above). Therefore the file may have up to three extensions 
 maps in each. Extensions can be written together or one by one (in
 their physical order) using the Extension option
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_tqu</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">read_tqu</FONT>
   <DT>
@@ -204,30 +200,30 @@ arbitrary data sets from FITS files
 <B>sxpar</B>
 <DD>This IDL routine (included in <b>HEALPix</b> package) can be
   used to extract FITS keywords from the header(s) HDR or XHDR read with <FONT COLOR="#CC0000">read_tqu</FONT>.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-read_tqu, 'map_polarization.fits', TQU, xhdr=xhdr</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+read_tqu, 'map_polarization.fits', TQU, xhdr=xhdr</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 Reads into <TT>TQU</TT> the polarization maps contained in the FITS file
 'map_polarization.fits'.
 The variable <TT>xhdr</TT> will contain the extension(s) header.
 </blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html716"
@@ -255,7 +251,7 @@ The variable <TT>xhdr</TT> will contain the extension(s) header.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

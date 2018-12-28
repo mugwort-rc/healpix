@@ -20,6 +20,7 @@
 package healpix.plot3d.canvas3d;
 
 import healpix.core.dm.HealpixMap;
+import healpix.core.dm.AbstractHealpixMap.Scheme;
 import healpix.plot3d.gui.healpix3d.DataSphere;
 import healpix.plot3d.gui.healpix3d.HealSphere;
 import healpix.plot3d.gui.healpix3d.RotateAble;
@@ -58,7 +59,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * function.
  * 
  * @author ejoliet
- * @version $Id: MapCanvas.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: MapCanvas.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class MapCanvas extends Canvas3D implements RotateAble {
 
@@ -540,7 +541,8 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 
 		nestGroup = new BranchGroup();
 
-		// if (nside < theMap.nside()) {
+//		if (64 < theMap.nside()) {
+//			this.nside=64;
 		try {
 			// rch = (Fchannel) ch.regrade(nside);
 			theMap = theMap.regrade(nside);
@@ -603,6 +605,9 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 		int nfaces = 12;
 		face = new HealSphere[nfaces];
 
+		if(nside > 128)		
+			nside = 128;
+		
 		try {
 			theMap = theMap.regrade(nside);
 		} catch ( Exception e ) {
@@ -660,6 +665,10 @@ public class MapCanvas extends Canvas3D implements RotateAble {
 
 		if ( !allView ) {
 			allGroup.detach();
+		}
+		if (this.colorbar != null) {
+			this.colorbar.update(new SineColorTransform(theMap.getMin(imap),
+					theMap.getMax(imap)));
 		}
 	}
 

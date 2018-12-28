@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>input_map*</TITLE>
-<META NAME="description" CONTENT="input_map*">
+<TITLE>in_ring</TITLE>
+<META NAME="description" CONTENT="in_ring">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,177 +28,138 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html713"
+<A NAME="tex2html717"
   HREF="subroutinesnode41.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html719"
+<A NAME="tex2html723"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html723"
+<A NAME="tex2html727"
   HREF="subroutinesnode43.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html721"
+<A NAME="tex2html725"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html714"
-  HREF="subroutinesnode41.htm">in_ring</A>
+<B> Previous:</B> <A NAME="tex2html718"
+  HREF="subroutinesnode41.htm">healpix_types module</A>
 
-<B>Up:</B> <A NAME="tex2html720"
+<B>Up:</B> <A NAME="tex2html724"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html724"
-  HREF="subroutinesnode43.htm">input_tod*</A>
+<B> Next:</B> <A NAME="tex2html728"
+  HREF="subroutinesnode43.htm">input_map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000420000000000000000"></A>
-<A NAME="sub:input_map"></A>
+<A NAME="sub:in_ring"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">input_map*</FONT></font></b><hr><H2>This routine reads a <b>HEALPix</b> map from a FITS file. This can deal with full sky
-as well as cut sky maps</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.f90
+<b><font size=+6><FONT COLOR="#CC0000">in_ring</FONT></font></b><hr><H2>Routine to find the pixel index of all pixels on a slice of a given
+ring. The output indices can be either in the RING or NESTED scheme,
+depending on the <TT>nest</TT> keyword.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/pix_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">input_map*</FONT>(
-filename, map, npixtot, nmaps [, fmissval, header, units, extno]
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">in_ring</FONT>(
+nside, iz, phi0, dphi, listir, nir, nest
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-filename(len=<tt>filenamelen</tt>)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from,
-                   containing a full sky or cut sky map</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map(0:npixtot-1,1:nmaps)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>full sky map(s) constructed
-                   from the data present in the file, missing pixels are filled
-                   with fmissval</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>npixtot</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+nside</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels in the full sky map</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> parameter of the map.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nmaps</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>iz</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of maps in the file</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>ring number, counted southwards from the north pole.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>phi0</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>central <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg76.png"
+ ALT="$\phi$"></SPAN> position in the slice.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-fmissval (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value to be given to missing pixels, its default
-                   value is 0</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>dphi</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>defines the size of the slice. The slice has length <SPAN CLASS="MATH">2 x <I>dphi</I></SPAN> along the ring with center at <SPAN CLASS="MATH"><I>phi</I>0</SPAN>.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>header(LEN=80)(1:) (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>units(LEN=20)(1:nmaps) (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maps units</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>extno (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>listir(0:4*nside-1)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>extension number to read the data from
-                   (0 based).<b>default:</b>0 (the first extension is read)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The pixel indexes in the slice.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nir</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the number of pixels in the slice.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nest  (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The pixel indexes are in the NESTED numbering scheme if nest=1, and in RING scheme otherwise.</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use pix_tools, only: nside2npix 
-<BR>
-use fitstools, only: getsize_fits, input_map 
-<BR>...
-<BR>
-npixtot = getsize_fits('map.fits',nmaps=nmaps, nside=nside) 
-<BR>
-npix = nside2npix(nside) 
-<BR>
-allocate(map(0:npix-1,1:nmaps)) 
-<BR>
-call input_map('map.fits', map, npix, nmaps)  
+call in_ring(256, 10, 0, 0.1, listir, nir, nest=1)  
 <BR></font></tt>
 <BR><blockquote>
-Reads into <TT>map</TT> the content of the FITS file 'map.fits'
+Returns the NESTED pixel index of all pixels within 0.1 radians on each side of <SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg77.png"
+ ALT="$\phi=0$"></SPAN> on the 10th ring.
 </blockquote>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">input_map*</FONT>.</h2>
+
+<P>
+
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">in_ring</FONT>.</h2>
   <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
-<DD>module, containing:
-  <DT>
-<B>printerror</B>
-<DD>routine for printing FITS error messages.
-  <DT>
-<B><A HREF="subroutinesnode79.htm#sub:read_bintab">read_bintab</A></B>
-<DD>routine to read a binary table
-  from a FITS file
-  <DT>
-<B><A HREF="subroutinesnode82.htm#sub:read_fits_cut4">read_fits_cut4</A></B>
-<DD>routine to read cut sky
-  map from a FITS file
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.
+<B><A HREF="subroutinesnode69.htm#sub:pix_tools">ring2nest</A></B>
+<DD>conversion from RING scheme pixel index to NESTED scheme pixel index
+ <DT>
+<B>next_in_line_nest</B>
+<DD>returns NESTED index of pixel lying to the East of the
+ current pixel and on the same ring
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">input_map*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">in_ring</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>anafast</B>
-<DD>executable that reads a <b>HEALPix</b> map and analyses it. 
+<B><A HREF="subroutinesnode69.htm#sub:pix_tools">pix2ang</A>, <A HREF="subroutinesnode69.htm#sub:pix_tools">ang2pix</A></B>
+<DD>convert between angle and pixel number.
   <DT>
-<B>synfast</B>
-<DD>executable that generate full sky <b>HEALPix</b> maps
+<B><A HREF="subroutinesnode69.htm#sub:pix_tools">pix2vec</A>, <A HREF="subroutinesnode69.htm#sub:pix_tools">vec2pix</A></B>
+<DD>convert between a cartesian vector and pixel number.
   <DT>
-<B><A HREF="subroutinesnode38.htm#sub:getsize_fits">getsize_fits</A></B>
-<DD>subroutine to know the size of a FITS file.
-  <DT>
-<B><A HREF="subroutinesnode65.htm#sub:output_map">output_map</A></B>
-<DD>subroutine to write a FITS file
-  from a <b>HEALPix</b> map
-  <DT>
-<B><A HREF="subroutinesnode101.htm#sub:write_bintabh">write_bintabh</A></B>
-<DD>subroutine to write a large
-  array into a FITS file piece by piece
-  <DT>
-<B><A HREF="subroutinesnode43.htm#sub:input_tod">input_tod*</A></B>
-<DD>subroutine to read an arbitrary subsection of
-  a large binary table
+<B><A HREF="subroutinesnode37.htm#sub:getdisc_ring">getdisc_ring</A></B>
+<DD>find all pixels within a certain radius.
   </DL>
 
 <P>
@@ -212,32 +173,32 @@ Reads into <TT>map</TT> the content of the FITS file 'map.fits'
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html713"
+<A NAME="tex2html717"
   HREF="subroutinesnode41.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html719"
+<A NAME="tex2html723"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html723"
+<A NAME="tex2html727"
   HREF="subroutinesnode43.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html721"
+<A NAME="tex2html725"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html714"
-  HREF="subroutinesnode41.htm">in_ring</A>
+<B> Previous:</B> <A NAME="tex2html718"
+  HREF="subroutinesnode41.htm">healpix_types module</A>
 
-<B>Up:</B> <A NAME="tex2html720"
+<B>Up:</B> <A NAME="tex2html724"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html724"
-  HREF="subroutinesnode43.htm">input_tod*</A>
+<B> Next:</B> <A NAME="tex2html728"
+  HREF="subroutinesnode43.htm">input_map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

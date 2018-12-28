@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * This represent a generalized multi data map.
  * @author ejoliet
- * @version $Id: AbstractHealpixMap.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: AbstractHealpixMap.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public interface AbstractHealpixMap extends Serializable {
 	
@@ -44,7 +44,7 @@ public interface AbstractHealpixMap extends Serializable {
 	 * 
 	 * @return the value of HEALPIx NSIDE parameter.
 	 */
-	public short nside();
+	public int nside();
 
 	/**
 	 * Return the current HEALPix scheme.
@@ -66,7 +66,7 @@ public interface AbstractHealpixMap extends Serializable {
 	 * 
 	 * @return the number of pixels/cells of the sphere tesselisation.
 	 */
-	public int nPixel();
+	public long nPixel();
 
 	/**
 	 * Set the names of the maps

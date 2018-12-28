@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>About this document ...</TITLE>
-<META NAME="description" CONTENT="About this document ...">
+<TITLE>xcc_v_convert</TITLE>
+<META NAME="description" CONTENT="xcc_v_convert">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -18,77 +18,178 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="STYLESHEET" HREF="subroutines.css">
 
+<LINK REL="next" HREF="subroutinesnode108.htm">
 <LINK REL="previous" HREF="subroutinesnode106.htm">
 <LINK REL="up" HREF="subroutines.htm">
+<LINK REL="next" HREF="subroutinesnode108.htm">
 </HEAD>
 
 <BODY >
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1493"
+<A NAME="tex2html1497"
   HREF="subroutinesnode106.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1497"
+<A NAME="tex2html1503"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_g.png"> 
-<A NAME="tex2html1499"
+<A NAME="tex2html1507"
+  HREF="subroutinesnode108.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1505"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1494"
-  HREF="subroutinesnode106.htm">xcc_v_convert</A>
+<B> Previous:</B> <A NAME="tex2html1498"
+  HREF="subroutinesnode106.htm">write_plm</A>
 
-<B>Up:</B> <A NAME="tex2html1498"
+<B>Up:</B> <A NAME="tex2html1504"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
+<B> Next:</B> <A NAME="tex2html1508"
+  HREF="subroutinesnode108.htm">About this document ...</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION0001070000000000000000">
-About this document ...</A>
-</H1>
- <STRONG><b>HEALPix</b> Fortran Subroutines Overview</STRONG><P>
-This document was generated using the
-<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2002-2-1 (1.71)
-<P>
-Copyright &#169; 1993, 1994, 1995, 1996,
-<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
-Computer Based Learning Unit, University of Leeds.
+<H1><A NAME="SECTION0001070000000000000000"></A>
+<A NAME="sub:xcc_v_convert"></A>
 <BR>
-Copyright &#169; 1997, 1998, 1999,
-<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
-Mathematics Department, Macquarie University, Sydney.
+ 
+</H1>
+
 <P>
-The command line arguments were: <BR>
- <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html/ -up_url main.htm -up_title 'Main Page' -math -html_version 4.0 -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -prefix subroutines -t 'Healpix/F90 subroutines' subroutines</TT>
+<b><font size=+6><FONT COLOR="#CC0000">xcc_v_convert</FONT></font></b><hr><H2>This routine rotates a 3D coordinate vector from one astronomical coordinate
+system to another.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/coord_v_convert.f90
+</b>
+
 <P>
-The translation was initiated by Eric Hivon on 2009-11-27
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">xcc_v_convert</FONT>(
+ivector, iepoch, oepoch, isys, osys, ovector
+)</h2></blockquote>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=130><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=45><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>
+ivector(1:3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>3D coordinate vector of one astronomical object, 
+ in the input coordinate system.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>iepoch</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the input astronomical coordinate system.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>oepoch</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the output astronomical coordinate system.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>isys(len=*)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>input coordinate system, should be one of 'E'=Ecliptic, 'G'=Galactic, 'C'/'Q'=Celestial/eQuatorial.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>osys(len=*)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>output coordinate system, same choice as above.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>ovector(1:3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>3D coordinate vector of the same object, 
+ in the output coordinate system.</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+use healpix_types 
+<BR>
+use coord_v_convert, only: xcc_v_convert 
+<BR>
+real(dp) :: vecin(1:3), vecout(1:3) 
+<BR>
+vecin = (/ 0_dp, 0_dp, 1_dp /) 
+<BR>
+call xcc_v_convert(vecin, 2000.0_dp, 2000.0_dp, 'g', 'c', vecout)  
+<BR></font></tt>
+<BR><blockquote>Will produce in <TT>vecout</TT> the location in Celestial coordinates (2000 epoch) of
+the North Galactic Pole (defined in <TT>vecin</TT>)
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">xcc_v_convert</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode25.htm#sub:coordsys2euler_zyz">coordsys2euler_zyz</A></B>
+<DD>produces the
+Euler angles
+ <!-- MATH
+ $\psi, \theta, \varphi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="56" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg52.png"
+ ALT="$\psi, \theta, \varphi
+$"></SPAN> in (Z,Y,Z) convention for rotation between standard astronomical coordinate systems.
+  <DT>
+<B><A HREF="subroutinesnode15.htm#sub:ang2vec">ang2vec</A>, <A HREF="subroutinesnode98.htm#sub:vec2ang">vec2ang</A></B>
+<DD>Routine to convert spherical coordinates
+  (co-latitude and longitude) into 3D vector coordinates and vice-versa.
+  </DL>
+
+<P>
+
+<P>
+
+
+<P>
+
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1493"
+<A NAME="tex2html1497"
   HREF="subroutinesnode106.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1497"
+<A NAME="tex2html1503"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_g.png"> 
-<A NAME="tex2html1499"
+<A NAME="tex2html1507"
+  HREF="subroutinesnode108.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1505"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1494"
-  HREF="subroutinesnode106.htm">xcc_v_convert</A>
+<B> Previous:</B> <A NAME="tex2html1498"
+  HREF="subroutinesnode106.htm">write_plm</A>
 
-<B>Up:</B> <A NAME="tex2html1498"
+<B>Up:</B> <A NAME="tex2html1504"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
+<B> Next:</B> <A NAME="tex2html1508"
+  HREF="subroutinesnode108.htm">About this document ...</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

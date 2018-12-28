@@ -1,7 +1,0 @@
-digraph G {
-  bgcolor=transparent;
-  compound=true
-  node [ fontsize=10, fontname="FreeSans"];
-  edge [ labelfontsize=9, labelfontname="FreeSans"];
-  dir_1283e087bffca834c0434fdb936f0239 [shape=box, label="Healpix_cxx", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_1283e087bffca834c0434fdb936f0239.html"];
-}

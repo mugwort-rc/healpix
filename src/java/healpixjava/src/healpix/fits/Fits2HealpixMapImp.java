@@ -42,7 +42,7 @@ import net.ivoa.util.ColumnTable;
  * Converts fits file into healpix map. Read the fits and create the
  * {@link HealpixMap} object.
  * 
- * @version $Id: Fits2HealpixMapImp.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: Fits2HealpixMapImp.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  * @author ejoliet
  */
 public class Fits2HealpixMapImp implements Fits2HealpixMap {
@@ -74,12 +74,9 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 	public Fits2HealpixMapImp() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#readFitsBinaryTable(java.lang.String)
 	 */
-	@SuppressWarnings("deprecation")
 	public double[][] readFitsBinaryTable(String filename) throws Exception {
 		Fits fits = new Fits(filename);
 		BasicHDU[] bhdu = fits.read();
@@ -140,7 +137,7 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 			int dim = getDimension(type);
 			if ( getDataType(type) != 'A' && getDataType(type) != 'B' ) {
 				Object obj = thdu.getColumn(i);
-				if ( getDataType(type) == 'F' ) {
+				if ( getDataType(type) == 'D' ) {
 					if ( dim > 1 ) {
 						// for (int u = 0; u < dim; u++) {
 						// float[][] dati = (float[][]) obj;
@@ -152,18 +149,21 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 							array[i][j] = tdoub[j];
 						}
 					}
-				} else {
+				} else if ( getDataType(type) == 'F' ) {
 					if ( dim > 1 ) {
 						// for (int u = 0; u < dim; u++) {
-						// double[][] dati = (double[][]) obj;
-						// double[] tdoub = dati[u];
+						// float[][] dati = (float[][]) obj;
+						// float[] tdoub = dati[u];
 						// }
 					} else {
-						double[] tdoub = (double[]) obj;
+						float[] tdoub = (float[]) obj;
 						for ( int j = 0; j < nrow; j++ ) {
 							array[i][j] = tdoub[j];
 						}
 					}
+				} else {
+					System.err.println("Datatype not supported yet "+getDataType(type));
+					return null;
 				}
 				names[i] = thdu.getColumnName(i);
 				System.out.println("Name:" + names[i]);
@@ -244,9 +244,7 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 		return ' ';
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#fits2map(java.lang.String)
 	 */
 	public HealpixMap fits2map(String filename) throws Exception {
@@ -293,36 +291,28 @@ public class Fits2HealpixMapImp implements Fits2HealpixMap {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#getMap()
 	 */
 	public HealpixMap getMap() {
 		return map;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#setMap(healpix.core.dm.HealpixMap)
 	 */
 	public void setMap(HealpixMap m) {
 		map = m;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#setColname(java.lang.String[])
 	 */
 	public void setColname(String[] nam) {
 		names = nam;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see healpix.fits.Fits2HealpixMap#getColname()
 	 */
 	public String[] getColname() {

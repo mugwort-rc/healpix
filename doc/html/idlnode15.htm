@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">fits2alm</FONT></font></b><hr><H2>This IDL routine provides a means to 
 read from a FITS file binary table extension(s) containing spherical
@@ -66,19 +65,17 @@ header information if required. The facility is intended to enable
 the user to read the output from the <b>HEALPix</b> facilities <SPAN  CLASS="textbf">anafast</SPAN> and <SPAN  CLASS="textbf">synfast</SPAN>.
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/fits/fits2alm.pro
-
+</SMALL>
 <P>
-</b>
-
+<SMALL CLASS="FOOTNOTESIZE"></b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-FITS2ALM, index, alm_array, fitsfile, [signal, HELP=, HDR=, LMAX=, LMIN=, XHDR= ]
+FITS2ALM, index, alm_array, fitsfile, [signal, /HELP, HDR=, LMAX=, LMIN=, XHDR= ]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>index</B>
 <DD>Long array containing the index for the corresponding
                  array of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients (and errors if required). The
@@ -106,32 +103,33 @@ nsig = number of signals to be written (1 for any of T E B
 <DD>String defining the signal coefficients to read
                   Valid options: 'T', 'E', 'B' or 'ALL' <BR>
 	<b>default:</b>'T'.  
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>HDR=</B>
-<DD>String array containing the primary header for the FITS
+<DD>String array containing the primary header read from the FITS
       file. 
     <DT>
-<B>HELP=</B>
+<B>/HELP</B>
 <DD>If set, the routine documentation header is shown and the routine exits	
     <DT>
 <B>LMAX=</B>
 <DD>Largest <SPAN CLASS="MATH"><I>l</I></SPAN> multipole  to be output
     <DT>
 <B>LMIN=</B>
-<DD>Smallest <SPAN CLASS="MATH"><I>l</I></SPAN> multipole to be output. If LMIN (LMAX) is below (above) the range of <SPAN CLASS="MATH"><I>l</I></SPAN>'s present in the file,
+<DD>Smallest <SPAN CLASS="MATH"><I>l</I></SPAN> multipole to be output. If LMIN (resp. LMAX) is below (above) the range of <SPAN CLASS="MATH"><I>l</I></SPAN>'s present in the file,
               it will be silently ignored
     <DT>
 <B>XHDR=</B>
-<DD>String array containing the extension header(s). If
+<DD>String array containing the read extension header(s). If
                   ALL signals are required, then the three extension 
                   headers are returned appended into one string array.
-  </DL>
-
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -141,11 +139,10 @@ from a FITS file. FITS headers can also optionally be read from the
 input file. 
 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2alm</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">fits2alm</FONT>.
     <DT>
@@ -169,15 +166,15 @@ input file.
     <DT>
 <B>alteralm, anafast, synfast</B>
 <DD>F90 facilities providing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">fits2alm</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">fits2alm</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 <FONT COLOR="#CC0000">fits2alm</FONT> reads from the input FITS file <TT>alm.fits</TT> 
@@ -185,12 +182,13 @@ the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients into the
 passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>. Upon return <TT>index</TT>
 will contain the value of <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 for each <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
 found in the file.
-</blockquote>
-
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html308"
@@ -218,7 +216,7 @@ found in the file.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

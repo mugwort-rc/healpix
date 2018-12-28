@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -39,7 +39,7 @@ MODULE healpix_types
   !            Mars 2008: i8b same as i4b on machines not supporting 64 bits (NO64BITS flag set)
   !            Feb  2009: introduce healpix_version
   !
-  character(len=*), PARAMETER, public :: healpix_version = '2.13a'
+  character(len=*), PARAMETER, public :: healpix_version = '2.14'
   INTEGER, PARAMETER, public :: i4b = SELECTED_INT_KIND(9)
 #ifdef NO64BITS
   INTEGER, PARAMETER, public :: i8b = i4b

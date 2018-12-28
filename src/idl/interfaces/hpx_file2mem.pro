@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,10 +25,11 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro hpx_file2mem, tmpfile, variable, cl=cl, map=map, show_cl=show_cl
+pro hpx_file2mem, tmpfile, variable, cl=cl, map=map, show_cl=show_cl, silent=silent
 
 ;; common hpx_xface_com, tmp_head, to_remove
 
+; 2010-02-22: added SILENT keyword
 
 do_map = keyword_set(map)
 do_cl  = keyword_set(cl)
@@ -41,14 +42,14 @@ endif
 if (size(variable, /tname) ne 'STRING') then begin
                                 ; valid array: read file into data
     case 1 of
-        do_cl:  fits2cl, variable, tmpfile, show=show_cl
+        do_cl:  fits2cl, variable, tmpfile, show=show_cl, silent=silent
         do_map: begin
             npix = getsize_fits(tmpfile, nmaps=nmaps)
-            if (nmaps eq 1) then read_fits_map, tmpfile, variable else read_tqu, tmpfile, variable
+            if (nmaps eq 1) then read_fits_map, tmpfile, variable, silent=silent else read_tqu, tmpfile, variable
         end
     endcase
 endif else if (keyword_set(show_cl) && do_cl) then begin
-    if (strtrim(tmpfile,2) ne '' && strtrim(tmpfile,2) ne "''") then fits2cl, junk, tmpfile, show=1
+    if (strtrim(tmpfile,2) ne '' && strtrim(tmpfile,2) ne "''") then fits2cl, junk, tmpfile, show=1, silent=silent
 endif
 
 

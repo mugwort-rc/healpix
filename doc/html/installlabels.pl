@@ -82,7 +82,7 @@ $external_latex_labels{$key} = q|7|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:freef90compilers/;
-$external_latex_labels{$key} = q|7.5.4|; 
+$external_latex_labels{$key} = q|8.3.4|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsub:conf/;

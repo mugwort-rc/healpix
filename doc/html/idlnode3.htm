@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.0 and 2.13</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.0 and 2.13">
+<TITLE>Changes between release 2.0 and 2.14</TITLE>
+<META NAME="description" CONTENT="Changes between release 2.0 and 2.14">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -53,7 +53,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between release 2.0 and 2.13</A>
+Changes between release 2.0 and 2.14</A>
 </H1>
 Several routines have been added or improved since version 2.0, as listed below.
 Note that thanks to the newer <TT>IDL-astron</TT> library, FITS read/write routines
@@ -72,7 +72,35 @@ pixels on the sphere.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Recent editions (version 2.13)
+ Recent edition (version 2.14)
+ <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode33.htm#idl:mollview"><TT>cartview, gnomview, mollview, orthview</TT></A>:
+        <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>OUTLINE=</TT>, <TT>GRATICULE=</TT>, <TT>IGRATICULE=</TT> work
+again with virtual windows (<TT>WINDOW</TT><SPAN CLASS="MATH">&lt;0</SPAN>)
+		<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>YPOS=</TT> and <TT>RETAIN=</TT> keywords active again
+	</DL>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode33.htm#idl:mollview"><TT>orthview</TT></A>:
+		fixed problems with <TT>/SHADE</TT> keyword, which now
+outputs 8-byte (instead of 16-byte) PNG files
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
+		<A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>: 
+	fixed problem with processing of
+polarized maps stored in memory.
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode55.htm#idl:ud_grade"><TT>ud_grade</TT></A>: 
+	improved handling of flagged pixels on Double
+Precision input maps
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode50.htm#idl:remove_dipole"><TT>remove_dipole</TT></A>: 
+<TT>COORD_IN=</TT> and <TT>COORD_OUT=</TT> now
+accept lower case values; <TT>/SILENT</TT> keyword added.
+ </DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Previous edition (version 2.13)
    <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  new <A HREF="idlnode22.htm#idl:healpix_doc"><TT>healpix_doc</TT></A> routine to
 browse HTML and PDF documentations
@@ -108,11 +136,9 @@ substructure with complete path to <b>HEALPix</b> subdirectories (test, data, bi
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
               <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>: solved problem with <TT>W8DIR=</TT> keyword.
-   </DL>
-
-<P>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Previous editions (versions 2.11 and 2.12a)
+   </DL></DL>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Older editions (versions 2.11 and 2.12a)
    <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <A HREF="idlnode25.htm#idl:ianafast"><TT>ianafast</TT></A>, 
               <A HREF="idlnode26.htm#idl:ismoothing"><TT>ismoothing</TT></A>, 
@@ -241,7 +267,6 @@ the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
  <A HREF="idlnode32.htm#idl:mollcursor"><TT>mollcursor, gnomcursor...</TT></A>: an X11 patch is
 given so that these routines work under Mac OS X 10.4 and 10.5.
 </DL></DL>
-
 <P>
 
 <DIV CLASS="navigation"><HR>
@@ -271,7 +296,7 @@ given so that these routines work under Mac OS X 10.4 and 10.5.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

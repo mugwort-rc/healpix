@@ -39,7 +39,7 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * mouse buttons.
  * 
  * @author ejoliet
- * @version $Id: Healpix3DMap.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: Healpix3DMap.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class Healpix3DMap extends JFrame {
 	/**

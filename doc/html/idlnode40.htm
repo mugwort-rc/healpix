@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">orthview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a full sky or half sky orthographic projection 
 (projection onto a tangent plane from a point located at infinity) of
@@ -66,27 +65,25 @@ It also offers the possibility to
 generate GIF, PNG and Postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/visu/orthview.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 ORTHVIEW, File, [Select, ] [CHARSIZE=, ... 
             ... WINDOW=, XPOS=, YPOS= ]
 
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <DD>For a full list of qualifiers see <A HREF="idlnode33.htm#idl:mollview">mollview</A>
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <DD>For a full list of keywords see <A HREF="idlnode33.htm#idl:mollview">mollview</A>
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -100,48 +97,52 @@ color scaling, maximum and
 minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
 polarization field. 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">orthview</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <DD>see <A HREF="idlnode33.htm#idl:mollview">mollview</A>
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-map  = findgen(48)</TD>
+<SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">orthview,map,/online,graticule=[45,30],rot=[10,20,30],$</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+orthview,map,/online,graticule=[45,30],rot=[10,20,30],$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN>	   title='Orthographic projection',subtitle='orthview' $</TD>
+ ALT="$\quad$"></SPAN>	   title='Orthographic projection',subtitle='orthview' $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN> outline=triangle</TD>
+ ALT="$\quad$"></SPAN> outline=triangle </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>makes an orthographic projection of map (see Figure&nbsp;<A HREF="idlnode33.htm#fig:plot_visu">1</A>d on
 page&nbsp;<A HREF="idlnode33.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
-(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
-
+(with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html608"
@@ -169,7 +170,7 @@ page&nbsp;<A HREF="idlnode33.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

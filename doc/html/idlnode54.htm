@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">template_pixel_xxxx</FONT></font></b><hr><H2>These IDL facilities provide the index of the template pixel associated with a given
   <b>HEALPix</b> pixel, for a resolution parameter <!-- MATH
@@ -67,24 +66,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg23.png"
  ALT="${N_{\rm side}}$"></SPAN>. 
-
+</SMALL>
 <P>
-</H2><br>Location in HEALPix directory tree: <b>
+<SMALL CLASS="FOOTNOTESIZE"></H2><br>Location in HEALPix directory tree: <b>
 src/idl/toolkit/template_pixel_nest.pro, src/idl/toolkit/template_pixel_ring.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 template_pixel_nest, Nside, Pixel_Nest, Template, Reflexion
-</h2>
-<hr><h1>FORMAT </h1><h2>IDL>
+</h2><hr><h1>FORMAT </h1><h2>IDL>
 template_pixel_ring, Nside, Pixel_Ring, Template, Reflexion
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Nside</B>
 <DD>(IN, scalar) the <b>HEALPix</b> <!-- MATH
  ${N_{\rm side}}$
@@ -125,7 +121,7 @@ template_pixel_ring, Nside, Pixel_Ring, Template, Reflexion
                    1: rotation + East-West swap (ie, reflexion around meridian),
                    2: rotation + North-South swap (ie, reflexion around
                    Equator), 3: rotation + East-West and North-South swaps
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -138,16 +134,17 @@ template_pixel_ring, Nside, Pixel_Ring, Template, Reflexion
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg23.png"
  ALT="${N_{\rm side}}$"></SPAN>. 
-
+</SMALL>
 <P>
-Any pixel can be <EM>matched in shape</EM>
+<SMALL CLASS="FOOTNOTESIZE">Any pixel can be <EM>matched in shape</EM>
   to a single of these templates by a combination of  a rotation around the polar axis with 
   reflexion(s) around a meridian and/or the equator. 
-
+</SMALL>
 <P>
-The template pixels are all located in the Northern Hemisphere, or on the
+<SMALL CLASS="FOOTNOTESIZE">The template pixels are all located in the Northern Hemisphere, or on the
  Equator.
 They are chosen to have their center located at
+</SMALL>
 <BR>
 <DIV ALIGN="CENTER">
 
@@ -189,15 +186,14 @@ $"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
 &nbsp;</TD></TR>
 </TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-They are numbered continuously from 0, starting at the North Pole, with the index
+<BR CLEAR="ALL"><P></P><SMALL CLASS="FOOTNOTESIZE">
+ They are numbered continuously from 0, starting at the North Pole, with the index
  increasing in <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg60.png"
  ALT="$\phi$"></SPAN>, and then increasing for decreasing <SPAN CLASS="MATH"><I>z</I></SPAN>.
 
 </blockquote>
-
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 template_pixel_ring, 256, 500000, template, reflexion  
@@ -214,10 +210,9 @@ that of the pixel #500000 for <!-- MATH
 contain 2, meaning that the template must be reflected around a meridian and
 around the equator (and then rotated around the polar axis) in order to match
 the pixel.
-</blockquote>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">template_pixel_xxxx</FONT></b></h3>
+</blockquote><hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">template_pixel_xxxx</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B><A HREF="idlnode38.htm#idl:nside2ntemplates">nside2templates</A></B>
 <DD>returns the
   number of template pixel shapes available for a given <!-- MATH
@@ -233,17 +228,18 @@ the pixel.
 <B><A HREF="idlnode53.htm#idl:same_shape_pixels_xxx">same_shape_pixels_nest</A></B>
 <DD>return
   the ordered list of pixels having the same shape as a given pixel template
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+
+<P>
+<SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
+<P>
 
 <P>
 
-
 <P>
-
-<P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html776"
@@ -271,7 +267,7 @@ the pixel.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

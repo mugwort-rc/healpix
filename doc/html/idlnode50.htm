@@ -57,24 +57,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">remove_dipole</FONT></font></b><hr><H2>This IDL facility provides a means to fit and remove the dipole and monopole
 from a <b>HEALPix</b> map.
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/misc/remove_dipole.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 REMOVE_DIPOLE, Map [,Weight, BAD_DATA=, GAL_CUT=, COORD_IN=, COORD_OUT=, Dipole=, Monopole=,
-      /NOREMOVE, NSIDE=, /ONLYMONOPOLE, ORDERING=, PIXEL=, UNITS=, /HELP]
+      /NOREMOVE, NSIDE=, /ONLYMONOPOLE, ORDERING=, PIXEL=, /SILENT, UNITS=, /HELP]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Map</B>
 <DD>input and output, vector
 <BR>
@@ -111,8 +108,8 @@ same size as map,
       before applying the cut.
     <DT>
 <B>COORD_IN =</B>
-<DD>string, coordinate system (either 'Q' or 'C': equatorial,
-    'G': galactic or 'E': ecliptic)
+<DD>string, map coordinate system (either 'Q' or 'C': equatorial,
+    'G': galactic or 'E': ecliptic; upper/lower case accepted)
 <BR>         <b>default:</b>'G' (galactic)
     <DT>
 <B>COORD_OUT =</B>
@@ -146,12 +143,12 @@ value found for the best fit monopole (done simultaneously with dipole),
     <DT>
 <B>UNITS=</B>
 <DD>string, units of the input map
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>/NOREMOVE</B>
 <DD>if set, the best fit dipole and monopole are computed but not
     removed (ie, Map is unchanged)
@@ -161,8 +158,12 @@ value found for the best fit monopole (done simultaneously with dipole),
     <DT>
 <B>/HELP</B>
 <DD>if set, only display documentation header
-  </DL>
-
+    <DT>
+<B>/SILENT</B>
+<DD>if set, the routine works silently
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -172,21 +173,21 @@ latitude larger in magnitude than GAL_CUT (in degrees). The position of the pixe
 on the sky is reconstructed from NSIDE and ORDERING.
 If Map does not cover the full sky, the actual indices of the concerned pixels should be given in PIXEL
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">remove_dipole</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run remove_dipole.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html728"
@@ -214,7 +215,7 @@ If Map does not cover the full sky, the actual indices of the concerned pixels s
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

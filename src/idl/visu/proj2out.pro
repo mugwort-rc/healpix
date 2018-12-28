@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -443,7 +443,12 @@ endif else begin ; X, png or gif output
     if (use_z_buffer) then begin
         character_size = [!d.x_ch_size,!d.y_ch_size]
         set_plot,'z'
-        device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buff=1
+        pixel_depth = (do_true) ? 24 : 8
+        if (in_gdl) then begin
+            device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buffering=0
+        endif else begin
+            device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buffering=0, set_pixel_depth=pixel_depth
+        endelse
     endif
     ;;if (!D.NAME eq 'X') then  DEVICE, PSEUDO = 8 ; for Windows compatibility ;
     ;;commented out 2009-10-28
@@ -454,7 +459,7 @@ endif else begin ; X, png or gif output
         device ; in GDL, Decomposed keyword is either ignored (device='X') or unvalid (device='Z') 
         if (to_patch) then loadct,0,/silent ; emulate decomposed
     endif else begin
-        device, decomposed = to_patch
+        device, decomposed = use_z_buffer || to_patch
     endelse
     if (reuse_window) then begin
         wset, idl_window
@@ -462,8 +467,8 @@ endif else begin ; X, png or gif output
         if (~use_z_buffer) then begin
             WINDOW, idl_window>0, FREE=free_window, PIXMAP=virtual_window, $
                     XSIZE = xsize, YSIZE = ysize*w_dx_dy, TITLE = titlewindow, $
-                    XPOS=(in_gdl && undefined(xpos)) ? 0 : xpos
-                    YPOS=(in_gdl && undefined(ypos)) ? 0 : ypos
+                    XPOS=(in_gdl && undefined(xpos)) ? 0 : xpos, $
+                    YPOS=(in_gdl && undefined(ypos)) ? 0 : ypos, $ ; bug correction 2009-12-05
                     RETAIN=window_retain
         endif
         if (~virtual_window && (!d.x_size lt long(xsize) || !d.y_size lt long(ysize*w_dx_dy))) then begin
@@ -487,8 +492,17 @@ endelse
 ; -------------------------------------------------------------
 myplot={urange:[umin,umax],vrange:[vmin,vmax],position:[w_xll,w_yll,w_xur,w_yur],xstyle:5,ystyle:5}
 plot, /nodata, myplot.urange, myplot.vrange, pos=myplot.position, XSTYLE=myplot.xstyle, YSTYLE=myplot.ystyle
-; GDL does not set the background when doing a plot in Z buffer
-if (in_gdl && use_z_buffer) then tv, replicate(!p.background, xsize, ysize*w_dx_dy)
+; Set the background when doing a plot in Z buffer
+if (use_z_buffer) then begin
+    l64ysize = long64(ysize*w_dx_dy)
+    if ~do_true then begin 
+        tv, replicate(!p.background, xsize, l64ysize)
+    endif else begin
+        back = [red[!p.background],green[!p.background],blue[!p.background]] ## replicate(1b, xsize*l64ysize)
+        tv, reform(back, xsize, l64ysize, 3, /overwrite),true=3
+        back=0
+    endelse
+endif
 ; ---------- projection independent ------------------
 ; map itself
 if (do_shade && ~do_image) then begin
@@ -502,7 +516,8 @@ if (do_shade && ~do_image) then begin
     TV, bytscl(image3d),w_xll,w_yll,/normal,xsize=1.,true=3
     if (do_ps) then tvlct,red,green,blue ; revert to custom color table
     image3d = 0
-endif else if (do_true  && ~do_image) then begin
+; endif else if (do_true  && ~do_image) then begin
+endif else if (do_true) then begin
                                 ; truecolors for X or PS, red, green, blue are
                                 ; only useful for the {0,1,2}={Black, white, grey}
     image3d = make_array(/byte, xsize, ysize, 3)
@@ -671,8 +686,7 @@ if do_image then begin
     endif else begin
         if (DATATYPE(png) ne 'STR') then file_image = 'plot_'+proj_small+'.png' else file_image = png
     endelse
-;    image = (do_true) ? tvrd(true=3) : tvrd() ; a single call to tvrd()
-    image = tvrd()
+    image = (do_true) ? tvrd(true=3) : tvrd() ; a single call to tvrd()
     if (do_shade) then begin
         image3d  =   make_array(/uint, 3,!d.x_size,!d.y_size)
         allshade =   make_array(/float,  !d.x_size,!d.y_size,value=1.0)
@@ -681,17 +695,14 @@ if do_image then begin
         image3d[0,*,*] = uint( (256. * red  [image] * allshade) < 65535.)
         image3d[1,*,*] = uint( (256. * green[image] * allshade) < 65535.)
         image3d[2,*,*] = uint( (256. * blue [image] * allshade) < 65535.)
-        if (in_gdl) then image3d = bytscl(image3d) ; GDL's write_png won't deal correctly with 16bit integers
+;         if (in_gdl) then image3d = bytscl(image3d) ; GDL's write_png won't deal correctly with 16bit integers
+        image3d = bytscl(image3d) ; use 8 bit integers only
         allshade = 0
     endif
     if (do_true) then begin
         dim3d = valid_transparent ? 4 : 3
         image3d  =   make_array(/byte, dim3d, !d.x_size, !d.y_size)
-        ix_low = long(w_xll*!d.x_size) & iy_low = long(w_yll*!d.y_size) & iy_hi = long(w_yur*!d.y_size)-1
-        image3d[0,*,*] = red[image] & image3d[1,*,*] = green[image] & image3d[2,*,*] = blue[image]
-        image3d[0, ix_low:*, iy_low:iy_hi] = red[  planmap[*,*,0]]
-        image3d[1, ix_low:*, iy_low:iy_hi] = green[planmap[*,*,1]]
-        image3d[2, ix_low:*, iy_low:iy_hi] = blue[ planmap[*,*,2]]
+        for i=0,2 do image3d[i,*,*] = image[*,*,i]
         if (valid_transparent) then begin
             image3d[3,*,*] = 255B
             if (itr   and 1) then begin ; turn grey  into transparent
@@ -729,7 +740,7 @@ if do_image then begin
                 endelse
             endelse
         endif
-    endif else begin
+    endif else begin ; uncropped
         if do_gif then write_gif,file_image, image,red,green,blue
         if do_png then begin
             if (do_shade || do_true) then begin

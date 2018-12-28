@@ -1,11 +1,11 @@
 package healpix.core.test;
 
 import healpix.core.HealpixIndex;
+import healpix.core.base.set.LongIterator;
+import healpix.core.base.set.LongRangeSet;
 import healpix.tools.SpatialVector;
 
 import java.util.ArrayList;
-
-import javax.vecmath.Vector3d;
 
 import junit.framework.TestCase;
 
@@ -33,8 +33,8 @@ public class Pix2Ang4096Test extends TestCase {
 		double phi = deg2rad * alpha; // in rad
 		System.out.println("[theta,phi] healpix input: [" + (90 - delta) + ", "
 				+ alpha + " ]");
-		long nside = 4096; // 2^12
-		HealpixIndex pt = new HealpixIndex((int) nside);
+		int nside = 4096; // 2^12
+		HealpixIndex pt = new HealpixIndex(nside);
 		try {
 			pix = pt.ang2pix_nest(theta, phi);
 			System.out.println("Ipix_nest=" + pix);
@@ -44,13 +44,13 @@ public class Pix2Ang4096Test extends TestCase {
 		SpatialVector v = (SpatialVector) pt.Ang2Vec(theta, phi);
 		long pix1 = pt.vec2pix_nest(v);
 		System.out.println("** ipix1 (from angular spatial vector)=" + pix1);
-		double[] radec2 = pt.pix2ang_nest((int) pix1);
+		double[] radec2 = pt.pix2ang_nest(pix1);
 		System.out.println("** Theta,phi from ipix1:" + radec2[0] / deg2rad + ","
 				+ radec2[1] / deg2rad);
 
 		assertEquals(pix1, pix);
 		long pix2test = pix;// 83188373;//80568190;//16377824;
-		double[] radec_nest = pt.pix2ang_nest((int) pix2test);
+		double[] radec_nest = pt.pix2ang_nest( pix2test);
 		System.out.println("** @ ipix=" + pix2test + " [theta,phi]: ["
 				+ radec_nest[0] / deg2rad + "," + radec_nest[1] / deg2rad
 				+ " ]");
@@ -71,23 +71,23 @@ public class Pix2Ang4096Test extends TestCase {
 	 * 
 	 * @throws Exception the exception
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unused", "unchecked"})
 	public void Query_Polygon() throws Exception {
 		double PI = Math.PI;
 		double deg2rad = PI / 180;
-		long nside = 4;
+		int nside = 4;
 		HealpixIndex pt = new HealpixIndex((int) nside);
 		
 		double ang1[]={90*deg2rad, -1*deg2rad};
 		double ang2[]={90*deg2rad, -1*deg2rad};
 		double ang3[]={95*deg2rad, 1*deg2rad};
 		double ang4[]={85*deg2rad, 1*deg2rad};
-		Vector3d v1 = pt.Ang2Vec(ang1[0],ang1[1]);
-		Vector3d v2 = pt.Ang2Vec(ang2[0],ang2[1]);
+		SpatialVector v1 = pt.Ang2Vec(ang1[0],ang1[1]);
+		SpatialVector v2 = pt.Ang2Vec(ang2[0],ang2[1]);
 		long ipix1 = pt.ang2pix_nest(ang1[0],ang1[1]);
 		long ipix2 = pt.ang2pix_nest(ang2[0],ang2[1]);
-		Vector3d v3 = pt.Ang2Vec(ang3[0],ang3[1]);
-		Vector3d v4 = pt.Ang2Vec(ang4[0],ang4[1]);
+		SpatialVector v3 = pt.Ang2Vec(ang3[0],ang3[1]);
+		SpatialVector v4 = pt.Ang2Vec(ang4[0],ang4[1]);
 		long ipix3 = pt.ang2pix_nest(ang3[0],ang3[1]);
 		long ipix4 = pt.ang2pix_nest(ang4[0],ang4[1]);
 		System.out.println("Ipx1:"+ipix1);
@@ -95,10 +95,10 @@ public class Pix2Ang4096Test extends TestCase {
 //		
 		int nest = 0;
 		long ipix = 0;
-		int[] result = null;
+//		int[] result = null;
 		int inclusive = 1;
-//		int[] result = { 51, 52, 53, 66, 67, 68, 69, 82, 83, 84, 85, 86, 98,
-//				99, 100, 101, 115, 116, 117 };
+		int[] result = { 51, 52, 53, 66, 67, 68, 69, 82, 83, 84, 85, 86, 98,
+				99, 100, 101, 115, 116, 117 };
 //		int[] result1 = { 55, 70, 71, 87 };
 //		int[] result2 = { 137, 152, 153, 168 };
 //		int[] result3 = { 27, 43, 44, 58, 59, 60, 74, 75, 76, 77, 89, 90, 91,
@@ -120,15 +120,17 @@ public class Pix2Ang4096Test extends TestCase {
 //		v = pt.pix2vec_ring(86);
 //		vlist.add((Object) v);
 //
-		ArrayList pixlist;
+//		ArrayList pixlist;
+		LongRangeSet pixlist;
 		pixlist = pt.query_polygon(nside, vlist, nest, inclusive);
-		// System.out.println(" List size="+pixlist.size());
-		int nlist = pixlist.size();
-		// System.out.println(" Pixel list:");
-		for (int i = 0; i < nlist; i++) {
-			ipix = ((Long) pixlist.get(i)).longValue();
-			//assertEquals("pixel = " + ipix, result[i], ipix, 1e-10);
+		System.out.println(" List size="+pixlist.size());
+		LongIterator it = pixlist.longIterator();
+		int i=0;
+		while(it.hasNext()) {
+			ipix = it.next();
+//			assertEquals("pixel = " + ipix, result[i], ipix, 1e-10);
 			System.out.println("i="+i+" pixel # "+ipix);
+			i++;
 		}
 //
 //		/* Yet another test */

@@ -3,8 +3,6 @@ package healpix.tools.test;
 import healpix.core.HealpixIndex;
 import healpix.tools.SpatialVector;
 
-import javax.vecmath.Vector3d;
-
 import junit.framework.TestCase;
 
 /**
@@ -40,7 +38,7 @@ public class SpatialVectorTest extends TestCase {
 	public void testLength() {
 		SpatialVector v1 = new SpatialVector(1, 1, 1);
 		assertEquals(v1.length(), Math.sqrt(3.d));
-		v1.normalize();
+		v1.normalized();
 		assertEquals(v1.length(), 1.d);
 		v1 = new SpatialVector(2, 0, 0);
 		assertEquals(v1.length(), 2.d);
@@ -51,13 +49,13 @@ public class SpatialVectorTest extends TestCase {
 	 */
 	public void testNorm() {
 		SpatialVector v1 = new SpatialVector(2, 1, 1);
-		Vector3d v2 = new Vector3d(2,1,1);
+		SpatialVector v2 = new SpatialVector(2,1,1);
 
 		System.out.println("Vector before norm:"+v1.toString());
 		assertEquals(v1.length(), Math.sqrt(6.d));
-		v1.normalize();
+		v1.normalized();
 		System.out.println("SpatialVector after norm:"+v1.toString());
-		v2.normalize();
+		v2.normalized();
 		System.out.println("Vector3d after norm:"+v2.toString());
 	}
 
@@ -67,7 +65,7 @@ public class SpatialVectorTest extends TestCase {
 	public void testMe() {
 		SpatialVector v = new SpatialVector(0.9998476951563913,
 				-0.01745240643728351, 6.123233995736766E-17);
-		v.normalize();
+		v.normalized();
 		System.out.println("Vector norm:"+v.toString());
 		long nside = 4;
 		HealpixIndex pt;

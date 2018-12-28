@@ -43,6 +43,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ToolTipManager;
+import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 
 import com.sun.j3d.utils.picking.PickCanvas;
@@ -56,7 +57,7 @@ import com.sun.j3d.utils.picking.behaviors.PickMouseBehavior;
  * console.Using swings default (ToolTipManager) initialDelay constant.
  * 
  * @author ejoliet
- * @version $Id: ToolTipBehavior.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: ToolTipBehavior.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class ToolTipBehavior extends PickMouseBehavior {
 	
@@ -252,7 +253,7 @@ public class ToolTipBehavior extends PickMouseBehavior {
 			PickIntersection pickIntersection = pickResult
 					.getClosestIntersection(eyePos);
 			if (pickIntersection != null) {
-				int[] indices;
+				final int[] indices;
 				if (pickIntersection.getGeometryArray() instanceof QuadArray) {
 					indices = pickIntersection.getPrimitiveVertexIndices();
 					if (pixel != null) {// Not a 2D text!
@@ -263,9 +264,10 @@ public class ToolTipBehavior extends PickMouseBehavior {
 						// the right value
 						// cause is a
 						// quad!
-						// pixel.setColor(indices[0], new Color3f(128,128,128));
+						
+						//updateColor(pixel, indices);
+						break;
 					}
-
 				}
 			}
 			if (pickResult.numGeometryArrays() > 0) {
@@ -281,15 +283,34 @@ public class ToolTipBehavior extends PickMouseBehavior {
 					}
 				}
 			}
-			Point s = canvas.getLocationOnScreen();
-			s.x += lastPoint.x;
-			s.y += lastPoint.y + CURSOR_SKIP;
-
-			// if (htmlText != null)
-			// htmlText = "null";//"<html><font size=\"-1\" face=\""+
-			// sim.util.WordWrap.toHTML(canvas.getFont().getFamily())+ "\">" +
-			// htmlText + "</font></html>";
-			DialogToolTip.showToolTip(s, htmlText);
 		}
+		Point s = canvas.getLocationOnScreen();
+		s.x += lastPoint.x;
+		s.y += lastPoint.y + CURSOR_SKIP;
+
+		// if (htmlText != null)
+		// htmlText = "null";//"<html><font size=\"-1\" face=\""+
+		// sim.util.WordWrap.toHTML(canvas.getFont().getFamily())+ "\">" +
+		// htmlText + "</font></html>";
+		DialogToolTip.showToolTip(s, htmlText);
+	}
+
+	private void updateColor(final QuadArrayExt pixel, final int[] indices) {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+//				Color3f[] clr = pixel.getColorRef3f();
+				pixel.setColor(indices[0], new Color3f(128,128,128));
+				try {
+					wait(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				pixel.setColor(indices[0], new Color3f(clr[0].x,clr[1].y,clr[2].z));
+				
+			}
+		}).start();		
 	}
 }

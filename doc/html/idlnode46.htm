@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">read_fits_cut4 </FONT></font></b><hr><H2>This IDL facility reads a cut sky <b>HEALPix</b> map from a FITS file according to
 the <b>HEALPix</b> convention. The format used for the
@@ -66,18 +65,16 @@ COBE/DMR. This routine can also be used to read polarized cut sky map, where
 each Stokes parameter is stored in a different extension of the same FITS file.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/fits/read_fits_cut4.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 READ_FITS_CUT4 , File, Pixel, Signal [, N_Obs, Serror, EXTENSION=, HDR=, XHDR=, NSIDE=,
     ORDERING=, COORDSYS=]
 
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>File</B>
 <DD>name of a FITS file in which the map is to be written
 
@@ -116,12 +113,12 @@ number of observation per pixel
  ALT="$\propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>
 
 <P>
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>EXTENSION =</B>
 <DD>(IN, optional), 
 <BR>
@@ -168,19 +165,18 @@ returns on output the astrophysical coordinate system used,
 		as read from FITS header (value of keywords COORDSYS or SKYCOORD)
 
 <P>
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-
+</SMALL>
 <P>
-</blockquote>
-
+<SMALL CLASS="FOOTNOTESIZE"></blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_cut4 </FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run read_fits_cut4 <DT>
 <B><A HREF="idlnode57.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
@@ -199,12 +195,13 @@ arbitrary data sets from FITS files
 <B>sxpar</B>
 <DD>This IDL routine (included in <b>HEALPix</b> package) can be
   used to extract FITS keywords from the header(s) HDR or XHDR read with read_fits_map .
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html680"
@@ -232,7 +229,7 @@ arbitrary data sets from FITS files
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

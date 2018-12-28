@@ -42,7 +42,7 @@ import javax.vecmath.Vector3f;
  * their 'arrow'.
  * 
  * @author ejoliet
- * @version $Id: Group3DAxis.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: Group3DAxis.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class Group3DAxis extends BranchGroup {
 	

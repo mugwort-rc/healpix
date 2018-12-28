@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">fits2cl</FONT></font></b><hr><H2>This IDL facility provides a means to
 read from a FITS file an ascii or binary table extension containing power 
@@ -74,16 +73,14 @@ output from the <b>HEALPix</b> facility <SPAN  CLASS="textbf">anafast</SPAN>.
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/fits/fits2cl.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 FITS2CL, cl_array, fitsfile, [HDR = ,/HELP, /INTERACTIVE, LLFACTOR=, MULTIPOLES=,  /RSHOW, /SHOW, /SILENT=, XHDR =]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>cl_array</B>
 <DD>real array of <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> coefficients read or computed from the
       file. The output dimension depends on the contents of the file. 
@@ -97,12 +94,12 @@ FITS2CL, cl_array, fitsfile, [HDR = ,/HELP, /INTERACTIVE, LLFACTOR=, MULTIPOLES=
 <DD>String containing the name of the FITS file to be read. The
     file contains either <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra or <SPAN CLASS="MATH"><I>a</I><SUB><I>l m</I></SUB></SPAN> coefficients. In either
     cases, <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> is returned.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>HDR =</B>
 <DD>String array containing on output the primary header
       read from the FITS file. 
@@ -148,8 +145,9 @@ FITS2CL, cl_array, fitsfile, [HDR = ,/HELP, /INTERACTIVE, LLFACTOR=, MULTIPOLES=
 <B>XHDR =</B>
 <DD>String array containing on output the extension header
       read from the FITS file. 
-  </DL>
-
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -158,11 +156,10 @@ file containing an ascii table extension. Descriptive headers conforming
 to the FITS convention can also be read from the input file.
 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2cl</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">fits2cl</FONT>.
     <DT>
@@ -186,19 +183,22 @@ that can be read by <FONT COLOR="#CC0000">fits2cl</FONT>.
     <DT>
 <B>anafast</B>
 <DD>F90 facility computing <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> files that can be read by <FONT COLOR="#CC0000">fits2cl</FONT>.
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">fits2cl</FONT>, pwrsp, '$HEALPIX/test/cl.fits', $</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">fits2cl</FONT>, pwrsp, '$HEALPIX/test/cl.fits', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">HDR=hdr, XHDR=xhdr, MULTI=l, LLFACT=fll</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+	HDR=hdr, XHDR=xhdr, MULTI=l, LLFACT=fll </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">plot, l, powrsp[*,0]*fll</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+plot, l, powrsp[*,0]*fll
+</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 <FONT COLOR="#CC0000">fits2cl</FONT> reads a power spectrum <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> from the input FITS file 
@@ -217,15 +217,15 @@ factors <SPAN CLASS="MATH"><IMG
  SRC="idlimg19.png"
  ALT="$l(l+1)C(l)/2\pi$"></SPAN> vs <SPAN CLASS="MATH"><I>l</I></SPAN> is then plotted.
 </blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html320"
@@ -253,7 +253,7 @@ factors <SPAN CLASS="MATH"><IMG
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

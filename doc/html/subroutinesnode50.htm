@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mpi_alm_tools*</TITLE>
-<META NAME="description" CONTENT="mpi_alm_tools*">
+<TITLE>merge_headers</TITLE>
+<META NAME="description" CONTENT="merge_headers">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,93 +28,117 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html809"
+<A NAME="tex2html813"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html815"
+<A NAME="tex2html819"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html819"
+<A NAME="tex2html823"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html817"
+<A NAME="tex2html821"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html810"
-  HREF="subroutinesnode49.htm">merge_headers</A>
+<B> Previous:</B> <A NAME="tex2html814"
+  HREF="subroutinesnode49.htm">median*</A>
 
-<B>Up:</B> <A NAME="tex2html816"
+<B>Up:</B> <A NAME="tex2html820"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html820"
-  HREF="subroutinesnode51.htm">mpi_alm2map*</A>
+<B> Next:</B> <A NAME="tex2html824"
+  HREF="subroutinesnode51.htm">mpi_alm_tools*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000500000000000000000"></A>
-<A NAME="sub:mpi_alm_tools"></A>
+<A NAME="sub:merge_headers"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mpi_alm_tools*</FONT></font></b><hr><H2>This module implements MPI parallelization of the alm2map and map2alm routines. 
-It is not compiled by default during installation, but rather intended for
-users who need massive parallelization in their own programming. Typical
-applications are Monte Carlo simulations and Markov chain type
-analyses.
-
-<P>
-The routines can be called in two modes, either simple or
-advanced. The former mimics the interface of the standard routines,
-but with an additional MPI handle as a first argument, and is intended
-for applications which requires only one or a few transforms. The
-latter interface provides both more flexibility (in particular the
-option of pre-computation of the Legendre polynomials) and a simpler
-interface when multiple transforms are required. This interface is
-particularly well suited for Monte Carlo simulations and Markov chain
-type analyses.  </H2><br>Location in HEALPix directory tree: <b> 
-src/f90/mod/mpi_alm_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">merge_headers</FONT></font></b><hr><H2>This routine merges two FITS headers.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/head_fits.F90
 </b>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1> 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Simple one-line interfaces:
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm_simple
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map_simple
-</DL>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">merge_headers</FONT>(
+header1, header2
+)</h2></blockquote>
 
 <P>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Three-step advanced interfaces:
+<hr><H1>ARGUMENTS</H1>
 
-<OL>
-<LI>Initialization: 
-<BR>
-mpi_initialize_alm_tools
-</LI>
-<LI>Execution of spherical harmonics transforms
-   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm (root processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map (root processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_map2alm_slave (slave processor)
-	   <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- mpi_alm2map_slave (slave processor)
-    </DL>
-</LI>
-<LI>Finalizing: 
-<BR>
-mpi_cleanup_alm_tools
-</LI>
-</OL></DL>
-</font></tt>
-<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+header1(LEN=80) DIMENSION(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>First header.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header2(LEN=80) DIMENSION(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Second header. On output,
+                   will contain the concatenation of (in that order) header2 and
+                   header1. If header2 is too short to allow the
+                   merging the output will be truncated</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+call merge_headers(header1, header2)  
+<BR></font></tt>
+<BR><blockquote>
+On output header2 will contain the original header2, followed by the
+content of header1
+</blockquote>
+
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">merge_headers</FONT>.</h2>
+  <DL COMPACT><DT>
+<B>write_hl</B>
+<DD>more general routine for adding a keyword to a header.
+  <DT>
+<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
+<DD>library for FITS file handling.		
+  </DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">merge_headers</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode8.htm#sub:add_card">add_card</A></B>
+<DD>general purpose routine to write any keywords into a FITS
+  file header
+  <DT>
+<B><A HREF="subroutinesnode33.htm#sub:get_card">get_card</A></B>
+<DD>general purpose routine to read any keywords from a header in a FITS file.
+  <DT>
+<B><A HREF="subroutinesnode27.htm#sub:del_card">del_card</A></B>
+<DD>routine to discard a keyword from a FITS header
+  <DT>
+<B><A HREF="subroutinesnode84.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode65.htm#sub:number_of_alms">number_of_alms</A></B>
+<DD>routines to read specific keywords from a
+  header in a FITS file.
+  <DT>
+<B><A HREF="subroutinesnode39.htm#sub:getsize_fits">getsize_fits</A></B>
+<DD>function returning the size of the data set in a fits
+  file and reading some other useful FITS keywords
+  </DL>
 
 <P>
 
@@ -127,32 +151,32 @@ mpi_cleanup_alm_tools
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html809"
+<A NAME="tex2html813"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html815"
+<A NAME="tex2html819"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html819"
+<A NAME="tex2html823"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html817"
+<A NAME="tex2html821"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html810"
-  HREF="subroutinesnode49.htm">merge_headers</A>
+<B> Previous:</B> <A NAME="tex2html814"
+  HREF="subroutinesnode49.htm">median*</A>
 
-<B>Up:</B> <A NAME="tex2html816"
+<B>Up:</B> <A NAME="tex2html820"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html820"
-  HREF="subroutinesnode51.htm">mpi_alm2map*</A>
+<B> Next:</B> <A NAME="tex2html824"
+  HREF="subroutinesnode51.htm">mpi_alm_tools*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

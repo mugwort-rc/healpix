@@ -31,14 +31,18 @@ import java.util.ArrayList;
  * Krzysztof M. Gorski. Healpix.core.Healpixmap does this for a fixed nside This
  * code written by William O'Mullane
  * 
- * @version $Id: Healpix.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * THIS IS 32 BIT - if you want 64 use HealpixIndex
+ * 
+ * @version $Id: Healpix.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  * @author womullan
  * 
  */
 public final class Healpix {
 
+	// should work for 8192 but apparently there is some problem
+	// if you want more than this use HealpixIndex which is 64bit
 	/** The Constant ns_max. */
-	public static final int ns_max = 8192;
+	public static final int ns_max = 4096;
 
 	/** The Constant x2pix. */
 	private static final int x2pix[] = new int[128];
@@ -52,14 +56,6 @@ public final class Healpix {
 	/** The Constant pix2y. */
 	private static final int pix2y[] = new int[1024];
 
-	/** The ix. */
-	private static int ix;
-
-	/** The iy. */
-	private static int iy;
-
-	/** The face_num. */
-	private static int face_num;
 
 	/**
 	 * Initialize pix2x and pix2y constructs the array giving x and y in the
@@ -130,7 +126,7 @@ public final class Healpix {
 	 *            angle (along parallel), in [0,2*Pi]	 * @return pixel index nested
 	 * @throws Exception
 	 */
-	public static final int ang2pix_nest(int nside, double theta, double phi)
+	public static final  int  ang2pix_nest(int nside, double theta, double phi)
 			throws Exception {
 		int ipix;
 		double z, za, z0, tt, tp, tmp;
@@ -260,8 +256,9 @@ public final class Healpix {
 	public static final AngularPosition pix2ang_nest(int nside, int ipix)
 			throws Exception {
 
-		int npix, npface, ipf, ip_low, ip_trunc, ip_med, ip_hi;
-		int jrt, jr, nr, jpt, jp, kshift, nl4;
+		long npix, npface, ipf; 
+		int  ip_low, ip_trunc, ip_med,ip_hi, face_num;
+		int jrt, jr, nr, jpt, jp, kshift, nl4, ix, iy;
 		double z, fn, fact1, fact2, theta, phi;
 
 		// cooordinate of the lowest corner of each face
@@ -287,15 +284,15 @@ public final class Healpix {
 		// finds the face, and the number in the face
 		npface = (int) Math.pow(nside, 2);
 
-		face_num = ipix / npface;// face number in {0,11}
-		ipf = ipix % npface;// pixel number in the face {0,npface-1}
+		face_num = (int)(ipix / npface);// face number in {0,11}
+		ipf = (int) (ipix % npface);// pixel number in the face {0,npface-1}
 
 		// finds the x,y on the face (starting from the lowest corner)
 		// from the pixel number
-		ip_low = ipf % 1024; // content of the last 10 bits
-		ip_trunc = ipf / 1024; // truncation of the last 10 bits
-		ip_med = ip_trunc % 1024; // content of the next 10 bits
-		ip_hi = ip_trunc / 1024; // content of the high weight 10 bits
+		ip_low = (int) (ipf % 1024); // content of the last 10 bits
+		ip_trunc = (int)(ipf / 1024); // truncation of the last 10 bits
+		ip_med = (int)(ip_trunc % 1024); // content of the next 10 bits
+		ip_hi = (int)(ip_trunc / 1024); // content of the high weight 10 bits
 
 		ix = 1024 * pix2x[ip_hi] + 32 * pix2x[ip_med] + pix2x[ip_low];
 		iy = 1024 * pix2y[ip_hi] + 32 * pix2y[ip_med] + pix2y[ip_low];
@@ -305,12 +302,12 @@ public final class Healpix {
 		jpt = ix - iy;// 'horizontal' in {-nside+1,nside-1}
 
 		// computes the z coordinate on the sphere
-		jr = jrll[face_num + 1] * nside - jrt - 1;// ring number in
-		// {1,4*nside-1}
+		jr = jrll[face_num + 1] * nside - jrt - 1;
+		// ring number in {1,4*nside-1}
 
 		nr = nside;// equatorial region (the most frequent)
 		z = (2 * nside - jr) * fact2;
-		kshift = jr - nside % 2;
+		kshift = (jr - nside) % 2;
 		if (jr < nside) { // north pole region
 			nr = jr;
 			z = 1.0 - nr * nr * fact1;
@@ -356,7 +353,7 @@ public final class Healpix {
 			throws Exception {
 
 		double theta, phi;
-		int nl2, nl4, npix, ncap, iring, iphi, ip, ipix1;
+		long nl2, nl4, npix, ncap, iring, iphi, ip, ipix1;
 		double fact1, fact2, fodd, hip, fihip;
 		// -----------------------------------------------------------------------
 		if (nside < 1 || nside > ns_max)

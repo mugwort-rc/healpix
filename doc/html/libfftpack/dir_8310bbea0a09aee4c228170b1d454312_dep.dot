@@ -1,6 +1,0 @@
-digraph G {
-  compound=true
-  node [ fontsize=10, fontname="FreeSans"];
-  edge [ labelfontsize=9, labelfontname="FreeSans"];
-  dir_8310bbea0a09aee4c228170b1d454312 [shape=box, label="libfftpack", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_8310bbea0a09aee4c228170b1d454312.html"];
-}

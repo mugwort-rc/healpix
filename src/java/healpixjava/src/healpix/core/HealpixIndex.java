@@ -21,16 +21,19 @@ package healpix.core;
 
 import healpix.core.base.BitManipulation;
 import healpix.core.base.HealpixException;
+import healpix.core.base.Xyf;
+import healpix.core.base.set.LongList;
+import healpix.core.base.set.LongRangeIterator;
+import healpix.core.base.set.LongRangeSet;
+import healpix.core.base.set.LongRangeSetBuilder;
+import healpix.core.base.set.LongSet;
 import healpix.tools.Constants;
 import healpix.tools.SpatialVector;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Vector;
-
-import javax.vecmath.Vector3d;
+import java.util.List;
 
 /**
  * Generic healpix routines but tied to a given NSIDE in the constructor Java
@@ -38,55 +41,76 @@ import javax.vecmath.Vector3d;
  * class - no functions floating about. Original algorithms Eric Hivon and
  * Krzysztof M. Gorski. This code written by William O'Mullane extended by
  * Emmanuel Joliet with some methods added from pix_tools F90 code port to Java.
+ * Performance for 64bits resolution improved using code from Jan Kotek and
+ * inspired in PCJ (http://pcj.sourceforge.net/)
  * 
  * @author William O'Mullane, extended by Emmanuel Joliet
- * @version $Id: HealpixIndex.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: HealpixIndex.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 
 public class HealpixIndex implements Serializable {
 	/**
 	 * Default serial version
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
+    /**
+     * the actual version  from SVN
+     */
     public static final String REVISION =
-        "$Id: HealpixIndex.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $";
+        "$Id: HealpixIndex.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $";
 	/** The Constant ns_max. */
-	public static final int ns_max = 8192;
+	public static final int ns_max = 536870912;// 1048576;
+	/** Max order 
+	public static final int order_max=29;
 	
-	public static long[] nsidelist = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048,
-			4096, 8192, 16384, 32768, 65563, 131072, 262144, 524288,
-			1048576 };
+    /*! The order of the map; -1 for nonhierarchical map. */
+    protected int order;
 
+	static short ctab[], utab[];
 
+	/** Available nsides ..always poer of 2 ..**/
+	public static int[] nsidelist = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048,
+			4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288,
+			1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 
+			67108864, 134217728,  268435456, 536870912 };
+
+	// coordinate of the lowest corner of each face
+	int jrll[] = {  2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
+	int jpll[] = {  1, 3, 5, 7, 0, 2, 4, 6, 1, 3, 5, 7 };
+
+	 static  int xoffset[] = { -1,-1, 0, 1, 1, 1, 0,-1 };
+	 static  int yoffset[] = {  0, 1, 1, 1, 0,-1,-1,-1 };
+	 static  int facearray[][] =
+	        { {  8, 9,10,11,-1,-1,-1,-1,10,11, 8, 9 },   // S
+	          {  5, 6, 7, 4, 8, 9,10,11, 9,10,11, 8 },   // SE
+	          { -1,-1,-1,-1, 5, 6, 7, 4,-1,-1,-1,-1 },   // E
+	          {  4, 5, 6, 7,11, 8, 9,10,11, 8, 9,10 },   // SW
+	          {  0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11 },   // center
+	          {  1, 2, 3, 0, 0, 1, 2, 3, 5, 6, 7, 4 },   // NE
+	          { -1,-1,-1,-1, 7, 4, 5, 6,-1,-1,-1,-1 },   // W
+	          {  3, 0, 1, 2, 3, 0, 1, 2, 4, 5, 6, 7 },   // NW
+	          {  2, 3, 0, 1,-1,-1,-1,-1, 0, 1, 2, 3 } }; // N
+	 static  int swaparray[][] =
+	        { {  0,0,0,0,0,0,0,0,3,3,3,3 },   // S
+	          {  0,0,0,0,0,0,0,0,6,6,6,6 },   // SE
+	          {  0,0,0,0,0,0,0,0,0,0,0,0 },   // E
+	          {  0,0,0,0,0,0,0,0,5,5,5,5 },   // SW
+	          {  0,0,0,0,0,0,0,0,0,0,0,0 },   // center
+	          {  5,5,5,5,0,0,0,0,0,0,0,0 },   // NE
+	          {  0,0,0,0,0,0,0,0,0,0,0,0 },   // W
+	          {  6,6,6,6,0,0,0,0,0,0,0,0 },   // NW
+	          {  3,3,3,3,0,0,0,0,0,0,0,0 } }; // N
 	/** The Constant z0. */
 	public static final double z0 = Constants.twothird; // 2/3
-
-	/** The Constant x2pix. */
-	private static final int x2pix[] = new int[128];
-
-	/** The Constant y2pix. */
-	private static final int y2pix[] = new int[128];
-
-	/** The Constant pix2x. */
-	private static final int pix2x[] = new int[1024];
-
-	/** The Constant pix2y. */
-	private static final int pix2y[] = new int[1024];
-
-	/** The ix. */
-	private static int ix;
-
-	/** The iy. */
-	private static int iy;
 
 	/** The nside. */
 	public int nside = 1024;
 
 	/** The ncap. */
-	public int nl2, nl3, nl4, npface, npix, ncap;
+	protected long  nl2, nl3, nl4, npface, npix, ncap;
 
 	/** The fact2. */
-	public double fact1, fact2;
+	protected double fact1, fact2;
 
 	/** The bm. */
 	transient private BitManipulation bm = new BitManipulation();
@@ -95,19 +119,59 @@ public class HealpixIndex implements Serializable {
 	 * Inits the.
 	 */
 	protected void init() {
-		if ( pix2x[1023] <= 0 )
-			mkpix2xy();
-		if ( y2pix[127] == 0 )
-			mkxy2pix();
+		// tablefiller
+		int tabmax=0x100;
+		ctab=new short[tabmax];
+		utab=new short[tabmax];
+		for (int m=0; m<0x100; ++m)
+	    {
+	    ctab[m] =(short)(
+	         (m&0x1 )       | ((m&0x2 ) << 7) | ((m&0x4 ) >> 1) | ((m&0x8 ) << 6)
+	      | ((m&0x10) >> 2) | ((m&0x20) << 5) | ((m&0x40) >> 3) | ((m&0x80) << 4));
+	    utab[m] = (short)(
+	         (m&0x1 )       | ((m&0x2 ) << 1) | ((m&0x4 ) << 2) | ((m&0x8 ) << 3)
+	      | ((m&0x10) << 4) | ((m&0x20) << 5) | ((m&0x40) << 6) | ((m&0x80) << 7));
+	    }
+		// end tablefiller
 		nl2 = 2 * nside;
 		nl3 = 3 * nside;
 		nl4 = 4 * nside;
-		npface = (int) Math.pow(nside, 2);
-		ncap = 2 * nside * ( nside - 1 );// points in each polar cap, =0 for
+		npface = (long)nside * (long)nside;
+		ncap = 2 * (long)nside * ( (long)nside - 1 );// points in each polar cap, =0 for
 		// nside =1
-		npix = (int) ( 12 * Math.pow(nside, 2) );
-		fact1 = 1.50 * nside;
-		fact2 = 3.0 * npface;
+		npix =  12 * npface ;
+		fact2 = 4.0 / npix;
+		fact1 = (nside << 1) * fact2;
+		
+		order = nside2order(nside);
+	}
+
+	/**
+	 * Gets the order from the nside
+	 * @param nside
+	 * @return order
+	 */
+	public static int nside2order(int nside) {
+		int ord=0;
+		assert (nside > 0);
+	    if ( ((nside)&(nside-1)) > 0 ) {
+	    	return -1;
+	    }
+	    // ok c++ uses a a log - lookup should be better and
+	    // we do not have iog2 in java 
+	    // the posiiton in the array of nsides is the order !
+		ord = Arrays.binarySearch(nsidelist,nside);
+		ord = (int) log2(nside);
+		return ord;
+	}
+
+	/**
+	 * Log base two
+	 * @param num
+	 * @return log2
+	 */
+	public static double log2(double num) {
+		return (Math.log(num) / Math.log(2));
 	}
 
 	/**
@@ -120,76 +184,23 @@ public class HealpixIndex implements Serializable {
 	/**
 	 * Construct healpix routines tied to a given nside
 	 * 
-	 * @param nside
+	 * @param nSIDE2
 	 *            resolution number
 	 * @throws Exception
 	 */
-	public HealpixIndex(int nside) throws Exception {
-		if ( nside > ns_max || nside < 1 ) {
+	public HealpixIndex(int nSIDE2) throws Exception {
+		if ( nSIDE2 > ns_max || nSIDE2 < 1 ) {
 			throw new Exception("nsides must be between 1 and " + ns_max);
 		}
-		this.nside = nside;
+		this.nside = nSIDE2;
 		init();
 	}
 
 	/**
-	 * Initialize pix2x and pix2y constructs the array giving x and y in the
-	 * face from pixel number for the nested (quad-cube like) ordering of pixels
-	 * the bits corresponding to x and y are interleaved in the pixel number one
-	 * breaks up the pixel number by even and odd bits
-	 */
-	protected static void mkpix2xy() {
-		int kpix, jpix, ix, iy, ip, id;
-
-		for ( kpix = 0; kpix <= 1023; kpix++ ) { // pixel number
-			jpix = kpix;
-			ix = 0;
-			iy = 0;
-			ip = 1;// bit position (in x and y)
-			while ( jpix != 0 ) { // go through all the bits;
-				id = jpix % 2;// bit value (in kpix), goes in ix
-				jpix = jpix / 2;
-				ix = id * ip + ix;
-
-				id = jpix % 2;// bit value (in kpix), goes in iy
-				jpix = jpix / 2;
-				iy = id * ip + iy;
-
-				ip = 2 * ip;// next bit (in x and y)
-			};
-			pix2x[kpix] = ix;// in 0,31
-			pix2y[kpix] = iy;// in 0,31
-		};
-
-	}
-
-	/**
-	 * Initialize x2pix and y2pix
-	 */
-	protected static void mkxy2pix() {
-		int j, k, id, ip;
-		for ( int i = 0; i < 128; i++ ) {
-			j = i;
-			k = 0;
-			ip = 1;
-			while ( j != 0 ) {
-				id = j % 2;
-				j = j / 2;
-				k = ip * id + k;
-				ip = ip * 4;
-			}
-			x2pix[i] = k;
-			y2pix[i] = 2 * k;
-		}
-	}
-
-	/**
-	 * renders the pixel number ipix (NESTED scheme) for a pixel which contains
+	 * renders the pixel number ipix ( scheme as defined for object) 
+	 * for a pixel which contains
 	 * a point on a sphere at coordinates theta and phi, given the map
-	 * resolution parametr nside the computation is made to the highest
-	 * resolution available (nside=8192) and then degraded to that required (by
-	 * integer division) this doesn't cost more, and it makes sure that the
-	 * treatement of round-off will be consistent for every resolution
+	 * resolution parameter nside 
 	 * 
 	 * @param theta
 	 *            angle (along meridian), in [0,Pi], theta=0 : north pole
@@ -198,11 +209,12 @@ public class HealpixIndex implements Serializable {
 	 * @return pixel index number
 	 * @throws Exception
 	 */
-	public int ang2pix_nest(double theta, double phi) throws Exception {
-		int ipix;
-		double z, za, tt, tp, tmp;
-		int jp, jm, ifp, ifm, face_num, ix, iy;
-		int ix_low, ix_hi, iy_low, iy_hi, ipf, ntt;
+	public long ang2pix_nest(double theta, double phi) throws Exception {
+		long ipix;
+		double z, za, tt, tp;
+		long ifp, ifm;
+		long jp, jm;
+		int  ntt, face_num, ix, iy;
 
 		if ( phi >= Constants.twopi )
 			phi = phi - Constants.twopi;
@@ -214,90 +226,88 @@ public class HealpixIndex implements Serializable {
 		if ( phi > Constants.twopi || phi < 0 ) {
 			throw new Exception("phi must be between 0 and " + Constants.twopi);
 		}
-		// Note excpetion thrown means method does not get further.
+		// Note exception thrown means method does not get further.
 
 		z = Math.cos(theta);
 		za = Math.abs(z);
 		tt = phi / Constants.piover2;// in [0,4]
 
+		
 		// System.out.println("Za:"+za +" z0:"+z0+" tt:"+tt+" z:"+z+"
 		// theta:"+theta+" phi:"+phi);
 		if ( za <= z0 ) { // Equatorial region
 			// System.out.println("Equatorial !");
 			// (the index of edge lines increase when the longitude=phi goes up)
-			jp = (int) Math.rint(ns_max * ( 0.50 + tt - ( z * 0.750 ) ));// ascending
-			// edge
-			// line
-			// index
-			jm = (int) Math.rint(ns_max * ( 0.50 + tt + ( z * 0.750 ) ));// descending
-			// edge
-			// line
-			// index
+		    double temp1 = nside*(0.5+tt);
+		    double temp2 = nside*(z*0.75);
+
+			jp = (long) (temp1 - temp2);
+			// ascending edge line index
+			jm = (long) (temp1 + temp2);
+			// descending edge line index
 
 			// finds the face
-			ifp = jp / ns_max; // in {0,4}
-			ifm = jm / ns_max;
+			ifp = jp >> order; // in {0,4}
+			ifm = jm >> order;
 			if ( ifp == ifm ) { // faces 4 to 7
-				face_num = ( ifp % 4 ) + 4;
+				face_num = (int)( ifp == 4 ?  4 : ifp+4);
 			} else {
 				if ( ifp < ifm ) { // (half-)faces 0 to 3
-					face_num = ( ifp % 4 );
+					face_num = (int)ifp ;
 				} else { // (half-)faces 8 to 11
-					face_num = ( ifm % 4 ) + 8;
+					face_num = (int) ifm   + 8;
 				};
 			};
 
-			ix = ( jm % ns_max );
-			iy = ns_max - ( jp % ns_max ) - 1;
+			ix = (int)( jm & (nside -1));
+			iy = (int) (nside - ( jp &  (nside -1 )) - 1);
 		} else { // polar region, za > 2/3
 
 			ntt = (int) ( tt );
 			if ( ntt >= 4 )
 				ntt = 3;
 			tp = tt - ntt;
-			tmp = Math.sqrt(3.0 * ( 1.0 - za )); // in ]0,1]
+			double tmp = nside * Math.sqrt(3.0 * ( 1.0 - za )); 
 
 			// (the index of edge lines increase when distance from the closest
 			// pole goes up)
-			jp = (int) Math.rint(ns_max * tp * tmp);// line going toward the
+			jp = (long) ( tp * tmp);// line going toward the
 			// pole as phi increases
-			jm = (int) Math.rint(ns_max * ( 1.0 - tp ) * tmp); // that one goes
-			// away of the
-			// closest pole
-			jp = Math.min(ns_max - 1, jp); // for points too close to the
-			// boundary
+			jm = (long) (( 1.0 - tp ) * tmp); // that one goes
+			// away of the closest pole
+			jp = Math.min(ns_max - 1, jp); 
+			// for points too close to the boundary
 			jm = Math.min(ns_max - 1, jm);
 
 			// finds the face and pixel's (x,y)
 			if ( z >= 0 ) { // North Pole
 				// System.out.println("Polar z>=0 ntt:"+ntt+" tt:"+tt);
 				face_num = ntt; // in {0,3}
-				ix = ns_max - jm - 1;
-				iy = ns_max - jp - 1;
+				ix = (int) (nside - jm - 1);
+				iy = (int) (nside - jp - 1);
 			} else {
 				// System.out.println("Polar z<0 ntt:"+ntt+" tt:"+tt);
 				face_num = ntt + 8;// in {8,11}
-				ix = jp;
-				iy = jm;
+				ix = (int)jp;
+				iy = (int)jm;
 			};
 		};
 
-		ix_low = ix % 128;
-		ix_hi = ix / 128;
-		iy_low = iy % 128;
-		iy_hi = iy / 128;
-		ipf = ( x2pix[ix_hi] + y2pix[iy_hi] ) * ( 128 * 128 )
-				+ ( x2pix[ix_low] + y2pix[iy_low] ); // in {0, nside**2 - 1}
-
-		ipf = ipf / (int) Math.rint(( Math.pow(( ns_max / nside ), 2) ));
-		// System.out.println("ix_low:"+ix_low +" ix_hi:"+ix_hi+"
-		// iy_low:"+iy_low+" iy_hi:"+iy_hi+" ipf:"+ipf+ " face:"+face_num);
-
-		ipix = (int) Math.rint(ipf + face_num * npface); // in {0,
-		// 12*nside**2 - 1}
-
+		ipix = xyf2nest(ix,iy,face_num);
+	
 		return ipix;
+	}
 
+	protected  long xyf2nest(int ix, int iy, int face_num) {
+		  return ((long)(face_num)<<(2*order)) +
+		    (   ((long)(utab[ ix     &0xff]))
+		      | ((long)(utab[(ix>> 8)&0xff])<<16)
+		      | ((long)(utab[(ix>>16)&0xff])<<32)
+		      | ((long)(utab[(ix>>24)&0xff])<<48)
+		      | ((long)(utab[ iy     &0xff])<<1)
+		      | ((long)(utab[(iy>> 8)&0xff])<<17)
+		      | ((long)(utab[(iy>>16)&0xff])<<33)
+		      | ((long)(utab[(iy>>24)&0xff])<<49) ); 
 	}
 
 	/**
@@ -310,73 +320,50 @@ public class HealpixIndex implements Serializable {
 	 * @return double array of [theta, phi] angles
 	 * @throws Exception
 	 */
-	public double[] pix2ang_nest(int ipix) throws Exception {
+	public double[] pix2ang_nest(long ipix) throws Exception {
 
-		int ipf, ip_low, ip_trunc, ip_med, ip_hi;
-		int jrt, jr, nr, jpt, jp, kshift;
-		double z, fn, theta, phi;
-
-		// cooordinate of the lowest corner of each face
-		// add extra zero in front so array like in fortran
-		int jrll[] = { 0, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
-		int jpll[] = { 0, 1, 3, 5, 7, 0, 2, 4, 6, 1, 3, 5, 7 };
-		// -----------------------------------------------------------------------
 		if ( ipix < 0 || ipix > npix - 1 )
 			throw new Exception("ipix out of range");
 
-		fn = 1.0 * nside;
-		double fact1 = 1.0 / ( 3.0 * fn * fn );
-		double fact2 = 2.0 / ( 3.0 * fn );
+		long  nr, jp, kshift;
+		double z, theta, phi;
+		
+		Xyf x =    nest2xyf(ipix);
 
-		// finds the face, and the number in the face
+		int ix = x.ix;
+		int iy = x.iy;
+		int face_num = x.face_num;
 
-		int face_num = ipix / npface;// face number in {0,11}
-		ipf = ipix % npface;// pixel number in the face {0,npface-1}
+		// TODO this c++ bit shift givesa differnt jr to the Healpix Code - why ?
+		long jr = ((long)(jrll[face_num ] << order)) -ix -iy -1;
+		//int jr =((jrll[face_num + 1]) * nside )- ix -iy - 1;// ring number in
 
-		// finds the x,y on the face (starting from the lowest corner)
-		// from the pixel number
-		ip_low = ipf % 1024; // content of the last 10 bits
-		ip_trunc = ipf / 1024; // truncation of the last 10 bits
-		ip_med = ip_trunc % 1024; // content of the next 10 bits
-		ip_hi = ip_trunc / 1024; // content of the high weight 10 bits
+		// ring number in {1,4*nside-1}
 
-		ix = 1024 * pix2x[ip_hi] + 32 * pix2x[ip_med] + pix2x[ip_low];
-		iy = 1024 * pix2y[ip_hi] + 32 * pix2y[ip_med] + pix2y[ip_low];
-
-		// transforms this in (horizontal, vertical) coordinates
-		jrt = ix + iy;// 'vertical' in {0,2*(nside-1)}
-		jpt = ix - iy;// 'horizontal' in {-nside+1,nside-1}
-
-		// computes the z coordinate on the sphere
-		jr = jrll[face_num + 1] * nside - jrt - 1;// ring number in
-		// {1,4*nside-1}
-
-		nr = nside;// equatorial region (the most frequent)
-		z = ( nl2 - jr ) * fact2;
-		kshift = jr - nside % 2;
 		if ( jr < nside ) { // north pole region
 			nr = jr;
-			z = 1.0 - nr * nr * fact1;
+			z = 1.0 - nr * nr * fact2;
 			kshift = 0;
-		} else {
-			if ( jr > nl3 ) { // south pole region
+		} else if ( jr > nl3 ) { // south pole region
 				nr = nl4 - jr;
-				z = -1.0 + nr * nr * fact1;
+				z =  nr * nr * fact2 -1.0;
 				kshift = 0;
-			}
-		};
+		} else {
+			nr = nside;
+			z = ( nl2 - (long)jr ) * fact1;
+			kshift = ((long)jr - nside) & 1;
+		}
 		theta = Math.acos(z);
 
 		// computes the phi coordinate on the sphere, in [0,2Pi]
-		jp = ( jpll[face_num + 1] * nr + jpt + 1 + kshift ) / 2;// 'phi' number
-		// in the ring
-		// in {1,4*nr}
+		jp = ( (long)jpll[face_num] * nr + (long)ix - (long)iy + (long)1 + (long)kshift ) / 2;
+		// 'phi' number in the ring in {1,4*nr}
 		if ( jp > nl4 )
 			jp = jp - nl4;
 		if ( jp < 1 )
 			jp = jp + nl4;
 
-		phi = ( jp - ( kshift + 1 ) * 0.50 ) * ( Constants.piover2 / nr );
+		phi = ( jp - ( kshift + 1L ) * 0.50 ) * ( Constants.piover2 / nr );
 
 		// if (phi < 0)
 		// phi += 2.0 * Math.PI; // phi in [0, 2pi]
@@ -384,6 +371,32 @@ public class HealpixIndex implements Serializable {
 		double[] ret = { theta, phi };
 		return ret;
 
+	}
+
+	private Xyf nest2xyf(long ipix) {
+		
+		Xyf ret = new Xyf();
+		ret.face_num =(int)( ipix>>(2*order));
+		long pix = ipix& (npface-1);
+		// need o check the & here - they were unsigned in cpp ...
+		int raw = (int)(((pix&0x555500000000L)>>16) 
+		             | ((pix&0x5555000000000000L)>>31)
+		             | (pix&0x5555)
+		             | ((pix&0x55550000)>>15));
+		  ret.ix =  ctab[raw&0xff]
+		     | (ctab[(raw>>8)&0xff]<<4)
+		     | (ctab[(raw>>16)&0xff]<<16)
+		     | (ctab[(raw>>24)&0xff]<<20);
+		  pix >>= 1;
+		  raw = (int)(((pix&0x555500000000L)>>16) 
+		             | ((pix&0x5555000000000000L)>>31)
+		             | (pix&0x5555)
+		             | ((pix&0x55550000)>>15));
+		  ret.iy =  ctab[raw&0xff]
+		     | (ctab[(raw>>8)&0xff]<<4)
+		     | (ctab[(raw>>16)&0xff]<<16)
+		     | (ctab[(raw>>24)&0xff]<<20);
+		return ret;
 	}
 
 	/**
@@ -396,10 +409,10 @@ public class HealpixIndex implements Serializable {
 	 * @return double array of [theta, phi] angles
 	 * @throws Exception
 	 */
-	public double[] pix2ang_ring(int ipix) throws Exception {
+	public double[] pix2ang_ring(long ipix) throws Exception {
 
 		double theta, phi;
-		int iring, iphi, ip, ipix1;
+		long iring, iphi, ip, ipix1;
 		double fodd, hip, fihip;
 		// -----------------------------------------------------------------------
 		if ( ipix < 0 || ipix > npix - 1 )
@@ -410,42 +423,32 @@ public class HealpixIndex implements Serializable {
 		if ( ipix1 <= ncap ) { // North Polar cap -------------
 
 			hip = ipix1 / 2.0;
-			fihip = (int) ( hip );
-			iring = (int) ( Math.sqrt(hip - Math.sqrt(fihip)) ) + 1;// counted
-			// from
-			// North
-			// pole
+			fihip = (long) ( hip );
+			iring = (long) ( Math.sqrt(hip - Math.sqrt(fihip)) ) + 1L;
+			// counted from North pole
 			iphi = ipix1 - 2 * iring * ( iring - 1 );
 
-			theta = Math.acos(1.0 - Math.pow(iring, 2) / fact2);
+			theta = Math.acos(1.0 - (iring* iring * fact2));
 			phi = ( (double) ( iphi ) - 0.50 ) * Constants.PI / ( 2.0 * iring );
 
 		} else {
-			if ( ipix1 <= nl2 * ( 5 * nside + 1 ) ) { // Equatorial region
-				// ------
-				ip = ipix1 - ncap - 1;
-				iring = (int) ( ip / nl4 ) + nside;// counted from North pole
-				iphi = (int) ip % nl4 + 1;
+			if ( ipix < (npix - ncap)  ) { // Equatorial region
+				ip = ipix - ncap;
+				iring = (long) ( ip / nl4 ) + nside;// counted from North pole
+				iphi = (long) ip % nl4 + 1;
 
-				fodd = 0.50 * ( 1 + ( ( iring + nside ) % 2 ) ); // 1 if
-				// iring+nside
-				// is odd, 1/2
-				// otherwise
-				theta = Math.acos(( nl2 - iring ) / fact1);
+				fodd = (((iring+nside)&1)>0) ? 1 : 0.5; 
+				// 1 if iring+nside is odd, 1/2 otherwise
+				theta = Math.acos(( nl2 - iring ) * fact1);
 				phi = ( (double) ( iphi ) - fodd ) * Constants.PI
 						/ (double) nl2;
-
 			} else { // South Polar cap -----------------------------------
-				ip = npix - ipix1 + 1;
-				hip = ip / 2.0;
-				fihip = (int) ( hip );
-				iring = (int) ( Math.sqrt(hip - Math.sqrt(fihip)) ) + 1;// counted
-				// from
-				// South
-				// pole
+				ip = npix - ipix;
+				iring = (long) (0.5*(1+Math.sqrt(2*ip-1)));
+				// counted from South pole
 				iphi = 4 * iring + 1 - ( ip - 2 * iring * ( iring - 1 ) );
 
-				theta = Math.acos(-1.0 + Math.pow(iring, 2) / fact2);
+				theta = Math.acos(-1.0 + Math.pow(iring, 2) * fact2);
 				phi = ( (double) ( iphi ) - 0.50 ) * Constants.PI
 						/ ( 2.0 * iring );
 
@@ -471,20 +474,19 @@ public class HealpixIndex implements Serializable {
 	 * @return pixel index number
 	 * @throws Exception
 	 */
-	public int ang2pix_ring(double theta, double phi) throws Exception {
+	public long ang2pix_ring(double theta, double phi) throws Exception {
 
-		int ipix;
-
-		int jp, jm, ipix1;
-		double z, za, tt, tp, tmp;
-		int ir, ip, kshift;
-
-		// -----------------------------------------------------------------------
 		if ( nside < 1 || nside > ns_max )
 			throw new Exception("nside out of range");
 		if ( theta < 0.0 || theta > Constants.PI )
 			throw new Exception("theta out of range");
 
+		long ipix;
+		long jp, jm, ir, ip;
+		double z, za, tt, tp, tmp, temp1, temp2;
+		int  kshift;
+
+		// -----------------------------------------------------------------------
 		z = Math.cos(theta);
 		za = Math.abs(z);
 		if ( phi >= Constants.twopi )
@@ -494,51 +496,37 @@ public class HealpixIndex implements Serializable {
 		tt = phi / Constants.piover2;// in [0,4)
 
 		if ( za <= z0 ) {
-
-			jp = (int) ( nside * ( 0.50 + tt - z * 0.750 ) );// index of
-			// ascending edge
-			// line
-			jm = (int) ( nside * ( 0.50 + tt + z * 0.750 ) );// index of
-			// descending edge
-			// line
+		    temp1 = nside*(0.5+tt);
+		    temp2 = nside*z*0.75;
+		    jp = (long)(temp1-temp2); // index of  ascending edge line
+		    jm = (long)(temp1+temp2); // index of descending edge line
 
 			ir = nside + 1 + jp - jm;// in {1,2n+1} (ring number counted from
 			// z=2/3)
-			kshift = 0;
-			if ( ir % 2 == 0 )
-				kshift = 1;// kshift=1 if ir even, 0 otherwise
+			kshift = 1 - (int)(ir&1);
+	
+			ip = (long) ( (jp+jm-(long)nside+(long)kshift+1L)/2L);// in {1,4n}
+			ip = ip % nl4;
 
-			ip = (int) ( ( jp + jm - nside + kshift + 1 ) / 2 ) + 1;// in {1,4n}
-			if ( ip > nl4 )
-				ip = ip - nl4;
+			ipix = ncap + ( ir - 1 )* nl4 + ip;
+			return ipix;
 
-			ipix1 = ncap + nl4 * ( ir - 1 ) + ip;
+		} 
+		tp = tt - (int)( tt );// MOD(tt,1.0)
+		tmp = (long)nside * Math.sqrt(3.0 * ( 1.0 - za ));
 
+		jp = (long) (  tp * tmp );// increasing edge line index
+		jm = (long) ( ( 1.0 - tp ) * tmp );// decreasing edge line index
+
+		ir = jp + jm + 1L;// ring number counted from the closest pole
+		ip = (long) ( tt * ir );// in {1,4*ir})
+		ip = ip % (4L * ir);
+		if ( z > 0.0 ) {
+			ipix = 2L * ir * ( ir - 1L ) + ip;			
 		} else {
-
-			tp = tt - (int) ( tt );// MOD(tt,1.0)
-			tmp = Math.sqrt(3.0 * ( 1.0 - za ));
-
-			jp = (int) ( nside * tp * tmp );// increasing edge line index
-			jm = (int) ( nside * ( 1.0 - tp ) * tmp );// decreasing edge line
-			// index
-
-			ir = jp + jm + 1;// ring number counted from the closest pole
-			ip = (int) ( tt * ir ) + 1;// in {1,4*ir}
-			if ( ip > 4 * ir )
-				ip = ip - 4 * ir;
-
-			ipix1 = 2 * ir * ( ir - 1 ) + ip;
-			if ( z <= 0.0 ) {
-				ipix1 = npix - 2 * ir * ( ir + 1 ) + ip;
-			};
-
-		};
-
-		ipix = ipix1 - 1;// in {0, npix-1}
-
+			ipix = npix - 2L * ir * ( ir + 1L ) + ip;
+		}
 		return ipix;
-
 	}
 
 	/**
@@ -549,75 +537,43 @@ public class HealpixIndex implements Serializable {
 	 * @return RING pixel index number
 	 * @throws Exception
 	 */
-	public int nest2ring(int ipnest) throws Exception {
-
-		int ipring;
-
-		int face_num, n_before;
-		int ipf, ip_low, ip_trunc, ip_med, ip_hi;
-		int ix, iy, jrt, jr, nr, jpt, jp, kshift;
-
-		// coordinate of the lowest corner of each face
-		// 0 added in front because the java array is zero offset
-		int jrll[] = { 0, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
-		int jpll[] = { 0, 1, 3, 5, 7, 0, 2, 4, 6, 1, 3, 5, 7 };
-		// -----------------------------------------------------------------------
-		if ( ipnest < 0 || ipnest > npix - 1 )
-			throw new Exception("ipnest out of range");
-
-		// initiates the array for the pixel number -> (x,y) mapping
-		if ( pix2x[1023] <= 0 )
-			mkpix2xy();
-
-		// finds the face, and the number in the face
-		face_num = ipnest / npface;// face number in {0,11}
-		ipf = ipnest % npface;// pixel number in the face {0,npface-1}
-
-		// finds the x,y on the face (starting from the lowest corner)
-		// from the pixel number
-		ip_low = ipf % 1024;// content of the last 10 bits
-		ip_trunc = ipf / 1024;// truncation of the last 10 bits
-		ip_med = ip_trunc % 1024;// content of the next 10 bits
-		ip_hi = ip_trunc / 1024;// content of the high weight 10 bits
-
-		ix = 1024 * pix2x[ip_hi] + 32 * pix2x[ip_med] + pix2x[ip_low];
-		iy = 1024 * pix2y[ip_hi] + 32 * pix2y[ip_med] + pix2y[ip_low];
-
-		// transforms this in (horizontal, vertical) coordinates
-		jrt = ix + iy;// 'vertical' in {0,2*(nside-1)}
-		jpt = ix - iy;// 'horizontal' in {-nside+1,nside-1}
-
-		// computes the z coordinate on the sphere
-		jr = jrll[face_num + 1] * nside - jrt - 1;// ring number in
-		// {1,4*nside-1}
-
-		nr = nside;// equatorial region (the most frequent)
-		n_before = ncap + nl4 * ( jr - nside );
-		kshift = ( jr - nside ) % 2;
-		if ( jr < nside ) { // north pole region
-			nr = jr;
-			n_before = 2 * nr * ( nr - 1 );
-			kshift = 0;
-		} else {
-			if ( jr > nl3 ) { // south pole region
-				nr = nl4 - jr;
-				n_before = npix - 2 * ( nr + 1 ) * nr;
-				kshift = 0;
-			}
-		};
-
-		// computes the phi coordinate on the sphere, in [0,2Pi]
-		jp = ( jpll[face_num + 1] * nr + jpt + 1 + kshift ) / 2;// 'phi' number
-		// in the ring
-		// in {1,4*nr}
-
-		if ( jp > nl4 )
-			jp = jp - nl4;
-		if ( jp < 1 )
-			jp = jp + nl4;
-
-		ipring = n_before + jp - 1;// in {0, npix-1}
+	public long nest2ring(long ipnest) throws Exception {
+		Xyf xyf = nest2xyf(ipnest);
+		long ipring = xyf2ring(xyf.ix,xyf.iy,xyf.face_num);
 		return ipring;
+	}
+
+	private long xyf2ring(int ix, int iy, int face_num) {
+		  long jr = ((long)jrll[face_num]*(long)nside) - (long)ix - (long)iy  - 1L;
+
+		  long nr, kshift, n_before;
+		  if (jr<(long)nside)
+		    {
+		    nr = jr;
+		    n_before = 2*nr*(nr-1);
+		    kshift = 0;
+		    }
+		  else if (jr > 3*(long)nside)
+		    {
+		    nr = nl4-jr;
+		    n_before = npix - 2*(nr+1)*nr;
+		    kshift = 0;
+		    }
+		  else
+		    {
+		    nr = (long)nside;
+		    n_before = ncap + (jr-(long)nside)*nl4;
+		    kshift = (jr-(long)nside)&1;
+		    }
+
+		  long jp = ((long)jpll[face_num]*nr + (long)ix - (long)iy + 1L + (long)kshift) / 2L;
+		  if (jp>nl4)
+		    jp-=nl4;
+		  else
+		    if (jp<1) jp+=nl4;
+
+		  return n_before + jp - 1L;
+		
 	}
 
 	/**
@@ -628,219 +584,94 @@ public class HealpixIndex implements Serializable {
 	 * @return NEST pixel index number
 	 * @throws Exception
 	 */
-	public int ring2nest(int ipring) throws Exception {
-		int ipnest;
-
-		double fihip, hip;
-		int ip, iphi, ipt, ipring1;
-		int kshift, face_num = 0, nr;
-		int irn, ire, irm, irs, irt, ifm, ifp;
-		int ix, iy, ix_low, ix_hi, iy_low, iy_hi, ipf;
-
-		// coordinate of the lowest corner of each face
-		// 0 added in front because the java array is zero offset
-		int jrll[] = { 0, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4 };
-		int jpll[] = { 0, 1, 3, 5, 7, 0, 2, 4, 6, 1, 3, 5, 7 };
-		// -----------------------------------------------------------------------
-		if ( ipring < 0 || ipring > npix - 1 )
-			throw new Exception("ipring out of range");
-		if ( x2pix[127] <= 0 )
-			mkxy2pix();
-
-		ipring1 = ipring + 1;
-
-		// finds the ring number, the position of the ring and the face number
-		if ( ipring1 <= ncap ) { // North Pole
-			hip = ipring1 / 2.0;
-			fihip = Math.rint(hip);
-			irn = (int) Math.floor(Math.sqrt(hip - Math.sqrt(fihip))) + 1;// counted
-			// from
-			// North
-			// pole
-			iphi = ipring1 - 2 * irn * ( irn - 1 );
-			kshift = 0;
-			nr = irn;// 1/4 of the number of points on the current ring
-			face_num = ( iphi - 1 ) / irn;// in {0,3}
-
-		} else {
-			if ( ipring1 <= nl2 * ( 5 * nside + 1 ) ) { // Equatorial
-
-				ip = ipring1 - ncap - 1;
-				irn = (int) Math.floor(ip / nl4) + nside;// counted from
-				// North pole
-				iphi = ip % nl4 + 1;
-
-				kshift = ( irn + nside ) % 2; // 1 if irn+nside is odd, 0
-				// otherwise
-				nr = nside;
-				ire = irn - nside + 1;// in {1, 2*nside +1}
-				irm = nl2 + 2 - ire;
-				ifm = ( iphi - ire / 2 + nside - 1 ) / nside;// face boundary
-				ifp = ( iphi - irm / 2 + nside - 1 ) / nside;
-				if ( ifp == ifm ) { // faces 4 to 7
-					face_num = ifp % 4 + 4;
-				} else {
-					if ( ifp + 1 == ifm ) { // (half-)faces 0 to 3
-						face_num = ifp;
-					} else {
-						if ( ifp - 1 == ifm ) { // (half-)faces 8 to 11
-							face_num = ifp + 7;
-						}
-					};
-				}
-
-			} else { // South
-
-				ip = npix - ipring1 + 1;
-				hip = ip / 2.0;
-				fihip = Math.rint(hip);
-				irs = (int) Math.floor(Math.sqrt(hip - Math.sqrt(fihip))) + 1;// counted
-				// from
-				// South
-				// pole
-				iphi = 4 * irs + 1 - ( ip - 2 * irs * ( irs - 1 ) );
-
-				kshift = 0;
-				nr = irs;
-				irn = nl4 - irs;
-				face_num = ( iphi - 1 ) / irs + 8;// in {8,11}
-
-			}
-		};
-
-		// finds the (x,y) on the face
-		irt = irn - jrll[face_num + 1] * nside + 1;// in {-nside+1,0}
-		ipt = 2 * iphi - jpll[face_num + 1] * nr - kshift - 1;// in
-		// {-nside+1,nside-1}
-		if ( ipt >= nl2 )
-			ipt = ipt - 8 * nside;// for the face #4
-
-		ix = ( ipt - irt ) / 2;
-		iy = -( ipt + irt ) / 2;
-
-		// System.out.println("face:"+face_num+" irt:"+irt+" ipt:"+ipt+"
-		// ix:"+ix+" iy:"+iy);
-		ix_low = ix % 128;
-		ix_hi = ix / 128;
-		iy_low = iy % 128;
-		iy_hi = iy / 128;
-
-		ipf = ( x2pix[ix_hi] + y2pix[iy_hi] ) * ( 128 * 128 )
-				+ ( x2pix[ix_low] + y2pix[iy_low] );// in {0, Math.pow(nside,2)
-		// - 1}
-
-		ipnest = (int) (ipf + face_num * npface);// in {0,
-		// 12*Math.pow(nside,2) - 1}
-
-		return ipnest;
+	public long ring2nest(long ipring) throws Exception {
+		  Xyf xyf=ring2xyf(ipring);
+		  return xyf2nest (xyf.ix, xyf.iy, xyf.face_num);
 	}
 
-	/**
-	 * Convert from pix number to x,y inside a given face. 0,0 is the lower
-	 * right corner of the face.
-	 * 
-	 * @param ipix
-	 *            pixel index NEST number
-	 * @return {@link Point} coordinate x,y
-	 * @throws Exception
-	 */
-	public Point pix2xy_nest(int ipix) throws Exception {
-		if ( ipix < 0 || ipix >= npface )
-			throw new Exception("ipix out of range");
-		return pix2xy_nestface(ipix);
+	private Xyf ring2xyf(long pix) {
+		Xyf ret = new Xyf();
+		long iring, iphi, kshift, nr;
 
+
+		  if (pix<ncap) // North Polar cap
+		    {
+		    iring = (long)(0.5*(1+Math.sqrt(1L+2L*pix))); //counted from North pole
+		    iphi  = (pix+1) - 2*iring*(iring-1);
+		    kshift = 0;
+		    nr = iring;
+		    ret.face_num=0;
+		    long tmp = iphi-1;
+		    if (tmp>=(2L*iring))
+		      {
+		      ret.face_num=2;
+		      tmp-=2L*iring;
+		      }
+		    if (tmp>=iring) ++ret.face_num;
+		    }
+		  else if (pix<(npix-ncap)) // Equatorial region
+		    {
+		    long ip = pix - ncap;
+		    if (order>=0)
+		      {
+		      iring = (ip>>(order+2)) + (long)nside; // counted from North pole
+		      iphi  = (ip&(nl4-1)) + 1;
+		      }
+		    else
+		      {
+		      iring = (ip/(nl4)) + (long)nside; // counted from North pole
+		      iphi  = (ip%(nl4)) + 1L;
+		      }
+		    kshift = (iring+(long)nside)&1;
+		    nr = (long)nside;
+		    long ire = iring-(long)nside+1;
+		    long irm = nl2+2-ire;
+		    long ifm, ifp;
+		    if (order>=0)
+		      {
+		      ifm = (iphi - ire/2 + (long)nside -1) >> order;
+		      ifp = (iphi - irm/2 + (long)nside -1) >> order;
+		      }
+		    else
+		      {
+		      ifm = (iphi - ire/2 + (long)nside -1) / (long)nside;
+		      ifp = (iphi - irm/2 + (long)nside -1) / (long)nside;
+		      }
+		    if (ifp == ifm) // faces 4 to 7
+		      ret.face_num = (ifp==4) ? 4 : (int)ifp+4;
+		    else if (ifp<ifm) // (half-)faces 0 to 3
+		      ret.face_num = (int)ifp;
+		    else // (half-)faces 8 to 11
+		      ret.face_num = (int)ifm + 8;
+		    }
+		  else // South Polar cap
+		    {
+		    long ip = npix - pix;
+		    iring = (long)(0.5*(1+Math.sqrt(2L*ip-1L))); //counted from South pole
+		    iphi  = 4L*iring + 1 - (ip - 2L*iring*(iring-1L));
+		    kshift = 0;
+		    nr = iring;
+		    iring = 2L*nl2-iring;
+		    ret.face_num=8;
+		    long tmp = iphi-1L;
+		    if (tmp>=(2L*nr))
+		      {
+		      ret.face_num=10;
+		      tmp-=2L*nr;
+		      }
+		    if (tmp>=nr) ++ret.face_num;
+		    }
+
+		  long irt = iring - ((long)jrll[ret.face_num]*(long)nside) + 1L;
+		  long ipt = 2L*iphi- (long)jpll[ret.face_num]*nr - kshift -1L;
+		  if (ipt>=nl2) ipt-=8L*(long)nside;
+
+		  ret.ix = (int)( (ipt-irt) >>1);
+		  ret.iy =(int) ((-(ipt+irt))>>1);
+		
+		return ret;
 	}
 
-	/**
-	 * Convert from a x,y in a given face to a pix number.
-	 * 
-	 * @param ix
-	 *            x coordinate
-	 * @param iy
-	 *            y coordinate
-	 * @param face
-	 *            face nested number
-	 * @return pixel index number in NEST scheme
-	 * @throws Exception
-	 */
-	public int xy2pix_nest(int ix, int iy, int face) throws Exception {
-		if ( nside < 1 || nside > ns_max )
-			throw new Exception("nside out of range");
-		if ( ix < 0 || ix > ( nside - 1 ) )
-			throw new Exception("ix out of range");
-		if ( iy < 0 || iy > ( nside - 1 ) )
-			throw new Exception("iy out of range");
-
-		int ipf, ipix;
-		ipf = xy2pix_nest(ix, iy);
-		ipix = (int) ( ipf + face * npface );// in {0, 12*(nside^2)-1}
-		return ipix;
-	}
-
-	/**
-	 * Convert from a point in a given face to a pix number. Convenience method
-	 * just unpacks the point to x and y and calls the other xy2pix_nest method.
-	 * 
-	 * @param p
-	 *            {@link Point} coordinate x,y
-	 * @param face
-	 *            face nested number
-	 * @return pixel index nested number
-	 * @throws Exception
-	 */
-	public int xy2pix_nest(Point p, int face) throws Exception {
-		return xy2pix_nest(p.x, p.y, face);
-	}
-
-	/**
-	 * Convert from a x,y in a given face to a pix number in a face without
-	 * offset.
-	 * 
-	 * @param ix
-	 *            x coordinate
-	 * @param iy
-	 *            y coordinate
-	 * @return pixel index number
-	 * @throws Exception
-	 */
-	public int xy2pix_nest(int ix, int iy) throws Exception {
-		int ix_low, ix_hi, iy_low, iy_hi, ipf;
-		if ( x2pix[127] <= 0 )
-			mkxy2pix();
-
-		ix_low = ix % 128;
-		ix_hi = ix / 128;
-		iy_low = iy % 128;
-		iy_hi = iy / 128;
-
-		ipf = ( x2pix[ix_hi] + y2pix[iy_hi] ) * ( 128 * 128 )
-				+ ( x2pix[ix_low] + y2pix[iy_low] );
-		return ipf;
-	}
-
-	/**
-	 * Convert from pix number to x,y inside a given face. 0,0 is the lower
-	 * right corner of the face.
-	 * 
-	 * @param ipix
-	 *            pixel index number in that face
-	 * @return {@link Point} coordinate x,y
-	 * @throws Exception
-	 */
-	public Point pix2xy_nestface(int ipix) throws Exception {
-		if ( pix2x[1023] <= 0 )
-			mkpix2xy();
-		int ip_low, ip_trunc, ip_med, ip_hi, ix, iy;
-		ip_low = ipix % 1024;// content of the last 10 bits
-		ip_trunc = ipix / 1024;// truncation of the last 10 bits
-		ip_med = ip_trunc % 1024;// content of the next 10 bits
-		ip_hi = ip_trunc / 1024;// content of the high weight 10 bits
-		ix = 1024 * pix2x[ip_hi] + 32 * pix2x[ip_med] + pix2x[ip_low];
-		iy = 1024 * pix2y[ip_hi] + 32 * pix2y[ip_med] + pix2y[ip_low];
-		// System.out.println("ip_low:"+ip_low+" iptrun:"+ip_trunc+"
-		// ip_med"+ip_med+" ip_hi"+ip_hi+" ix:"+ix+" iy:"+iy);
-		return new Point(ix, iy);
-	}
 
 	/**
 	 * integration limits in cos(theta) for a given ring i_th, i_th > 0
@@ -856,26 +687,26 @@ public class HealpixIndex implements Serializable {
 		// integration limits in cos(theta) for a given ring i_th
 		// i > 0 !!!
 
-		r_n_side = 1.0 * nside;
-		if ( i_th <= nside ) {
+		r_n_side = 1.0 * (long)nside;
+		if ( i_th <= (long)nside ) {
 			ab = 1.0 - ( Math.pow(i_th, 2.0) / 3.0 ) / (double) npface;
 			b = 1.0 - ( Math.pow(( i_th - 1 ), 2.0) / 3.0 ) / (double) npface;
-			if ( i_th == nside ) {
-				a = 2.0 * ( nside - 1.0 ) / 3.0 / r_n_side;
+			if ( i_th == (long)nside ) {
+				a = 2.0 * ( (long)nside - 1.0 ) / 3.0 / r_n_side;
 			} else {
 				a = 1.0 - Math.pow(( i_th + 1 ), 2) / 3.0 / (double) npface;
 			};
 
 		} else {
 			if ( i_th < nl3 ) {
-				ab = 2.0 * ( 2 * nside - i_th ) / 3.0 / r_n_side;
-				b = 2.0 * ( 2 * nside - i_th + 1 ) / 3.0 / r_n_side;
-				a = 2.0 * ( 2 * nside - i_th - 1 ) / 3.0 / r_n_side;
+				ab = 2.0 * ( 2 * (long)nside - i_th ) / 3.0 / r_n_side;
+				b = 2.0 * ( 2 * (long)nside - i_th + 1 ) / 3.0 / r_n_side;
+				a = 2.0 * ( 2 * (long)nside - i_th - 1 ) / 3.0 / r_n_side;
 			} else {
 				if ( i_th == nl3 ) {
-					b = 2.0 * ( -nside + 1 ) / 3.0 / r_n_side;
+					b = 2.0 * ( -(long)nside + 1 ) / 3.0 / r_n_side;
 				} else {
-					b = -1.0 + Math.pow(( 4 * nside - i_th + 1 ), 2) / 3.0
+					b = -1.0 + Math.pow(( 4 * (long)nside - i_th + 1 ), 2) / 3.0
 							/ (double) npface;
 				}
 
@@ -891,8 +722,8 @@ public class HealpixIndex implements Serializable {
 	}
 
 	/**
-	 * calculate the points of crosing for a given theata on the boundaries of
-	 * the pixel - returns the left and right phi crosings
+	 * calculate the points of crossing for a given theata on the boundaries of
+	 * the pixel - returns the left and right phi crossings
 	 * 
 	 * @param i_th
 	 *            ith pixel
@@ -907,7 +738,7 @@ public class HealpixIndex implements Serializable {
 	public double[] pixel_boundaries(double i_th, double i_phi, int i_zone,
 			double cos_theta) {
 		double sq3th, factor, jd, ju, ku, kd, phi_l, phi_r;
-		double r_n_side = 1.0 * nside;
+		double r_n_side = 1.0 * (long)nside;
 
 		// HALF a pixel away from both poles
 		if ( Math.abs(cos_theta) >= 1.0 - 1.0 / 3.0 / (double) npface ) {
@@ -940,7 +771,7 @@ public class HealpixIndex implements Serializable {
 				// EQUATORIAL ZONE
 				double cth34 = 0.50 * ( 1.0 - 1.50 * cos_theta );
 				double cth34_1 = cth34 + 1.0;
-				int modfactor = (int) ( nside + ( i_th % 2 ) );
+				int modfactor = (int) ( (long)nside + ( i_th % 2 ) );
 
 				jd = i_phi - ( modfactor - i_th ) / 2.0;
 				ju = jd - 1;
@@ -961,7 +792,7 @@ public class HealpixIndex implements Serializable {
 			} else {
 				sq3th = Math.sqrt(3.0 * ( 1.0 + cos_theta ));
 				factor = 1.0 / r_n_side / sq3th;
-				int ns2 = 2 * nside;
+				long ns2 = 2 * (long)nside;
 
 				jd = i_th - ns2 + i_phi;
 				ju = jd - 1;
@@ -995,9 +826,9 @@ public class HealpixIndex implements Serializable {
 	 * @return ring number
 	 * @throws Exception
 	 */
-	public int ring(int ipix) throws Exception {
+	public int ring(long ipix) throws Exception {
 		int iring = 0;
-		int ipix1 = ipix + 1;// in {1, npix}
+		long ipix1 = ipix + 1;// in {1, npix}
 		int ip;
 		double hip, fihip = 0;
 		if ( ipix1 <= ncap ) { // North Polar cap -------------
@@ -1008,19 +839,19 @@ public class HealpixIndex implements Serializable {
 			// North
 			// pole
 		} else {
-			if ( ipix1 <= nl2 * ( 5 * nside + 1 ) ) { // Equatorial region
+			if ( ipix1 <= nl2 * ( 5 * (long)nside + 1 ) ) { // Equatorial region
 				// ------
-				ip = ipix1 - ncap - 1;
-				iring = (int) ( ip / nl4 ) + nside;// counted from North pole
+				ip = (int)(ipix1 - ncap - 1);
+				iring = (int) (( ip / nl4 ) + (long)nside);// counted from North pole
 			} else { // South Polar cap -----------------------------------
-				ip = npix - ipix1 + 1;
+				ip = (int)(npix - ipix1 + 1L);
 				hip = ip / 2.0;
 				fihip = (int) ( hip );
 				iring = (int) ( Math.sqrt(hip - Math.sqrt(fihip)) ) + 1;// counted
 				// from
 				// South
 				// pole
-				iring = nl4 - iring;
+				iring = (int)(nl4 - iring);
 			}
 		};
 		return iring;
@@ -1051,7 +882,7 @@ public class HealpixIndex implements Serializable {
 	 * @return pixel index number in nest scheme
 	 * @throws Exception
 	 */
-	public int vec2pix_nest(SpatialVector vec) throws Exception {
+	public long vec2pix_nest(SpatialVector vec) throws Exception {
 		double[] angs = Vect2Ang(vec);//ang(vec);
 		return ang2pix_nest(angs[0], angs[1]);
 	}
@@ -1064,7 +895,7 @@ public class HealpixIndex implements Serializable {
 	 * @return pixel index number in ring scheme
 	 * @throws Exception
 	 */
-	public int vec2pix_ring(SpatialVector vec) throws Exception {
+	public long vec2pix_ring(SpatialVector vec) throws Exception {
 		double[] angs = Vect2Ang(vec);
 		return ang2pix_ring(angs[0], angs[1]);
 	}
@@ -1077,7 +908,7 @@ public class HealpixIndex implements Serializable {
 	 * @return {@link SpatialVector}
 	 * @throws Exception
 	 */
-	public SpatialVector pix2vec_nest(int pix) throws Exception {
+	public SpatialVector pix2vec_nest(long pix) throws Exception {
 		double[] angs = pix2ang_nest(pix);
 		return vector(angs[0], angs[1]);
 	}
@@ -1090,7 +921,7 @@ public class HealpixIndex implements Serializable {
 	 * @return {@link SpatialVector}
 	 * @throws Exception
 	 */
-	public SpatialVector pix2vec_ring(int pix) throws Exception {
+	public SpatialVector pix2vec_ring(long pix) throws Exception {
 		double[] angs = pix2ang_ring(pix);
 		return vector(angs[0], angs[1]);
 	}
@@ -1106,13 +937,14 @@ public class HealpixIndex implements Serializable {
 	 * @throws Exception
 	 */
 	public SpatialVector[] corners_nest(int pix, int step) throws Exception {
-		int pixr = nest2ring(pix);
+		long pixr = nest2ring(pix);
 		return corners_ring(pixr, step);
 	}
 
 	/**
 	 * Returns set of points along the boundary of the given pixel in RING
 	 * scheme. Step 1 gives 4 points on the corners.
+	 * Mainly for graphics = you may not want to use LARGE NSIDEs..
 	 * 
 	 * @param pix
 	 *            pixel index number in ring scheme
@@ -1120,7 +952,7 @@ public class HealpixIndex implements Serializable {
 	 * @return {@link SpatialVector} for each points
 	 * @throws Exception
 	 */
-	public SpatialVector[] corners_ring(int pix, int step) throws Exception {
+	public SpatialVector[] corners_ring(long pix, int step) throws Exception {
 		int nPoints = step * 2 + 2;
 		SpatialVector[] points = new SpatialVector[nPoints];
 		double[] p0 = pix2ang_ring(pix);
@@ -1130,10 +962,10 @@ public class HealpixIndex implements Serializable {
 
 		int i_zone = (int) ( phi / Constants.piover2 );
 		int ringno = ring(pix);
-		int i_phi_count = Math.min(ringno, Math.min(nside, ( nl4 ) - ringno));
+		int i_phi_count = Math.min(ringno, (int)Math.min((long)nside, ( nl4 ) - ringno));
 		int i_phi = 0;
 		double phifac = Constants.piover2 / i_phi_count;
-		if ( ringno >= nside && ringno <= nl3 ) {
+		if ( ringno >= (long)nside && ringno <= nl3 ) {
 			// adjust by 0.5 for odd numbered rings in equatorial since
 			// they start out of phase by half phifac.
 			i_phi = (int) ( phi / phifac + ( ( ringno % 2 ) / 2.0 ) ) + 1;
@@ -1194,7 +1026,7 @@ public class HealpixIndex implements Serializable {
 		// in deg^2
 		double arcSecArea = skyArea * 3600. * 3600.; // 4PI steredian in
 		// (arcSec^2)
-		long npixels = 12 * nside * nside;
+		long npixels = 12 * (long)nside * (long)nside;
 		res = arcSecArea / npixels; // area per pixel
 		res = Math.sqrt(res); // angular size of the pixel arcsec
 		return res;
@@ -1207,8 +1039,8 @@ public class HealpixIndex implements Serializable {
 	 *            in arcsec
 	 * @return long nside parameter
 	 */
-	static public long calculateNSide(double pixsize) {
-		long res = 0;
+	static public int calculateNSide(double pixsize) {
+		int res = 0;
 		double pixelArea = pixsize * pixsize;
 		double degrad = Math.toDegrees(1.);
 		double skyArea = 4. * Constants.PI * degrad * degrad * 3600. * 3600.;
@@ -1246,7 +1078,7 @@ public class HealpixIndex implements Serializable {
 	 * @return SpatialVector
 	 * @throws IllegalArgumentException
 	 */
-	public Vector3d Ang2Vec(double theta, double phi) {
+	public SpatialVector Ang2Vec(double theta, double phi) {
 		double PI = Math.PI;
 		String SID = "Ang2Vec:";
 		SpatialVector v;
@@ -1259,7 +1091,7 @@ public class HealpixIndex implements Serializable {
 		double y = stheta * Math.sin(phi);
 		double z = Math.cos(theta);
 		v = new SpatialVector(x, y, z);
-		return (Vector3d) v;
+		return v;
 	}
 
 	/**
@@ -1295,7 +1127,7 @@ public class HealpixIndex implements Serializable {
 	 *            long the number of pixels in the map
 	 * @return nside long the map resolution parameter
 	 */
-	public long Npix2Nside(long npix) {
+	public static long npix2Nside(long npix) {
 		long nside = 0;
 		long npixmax = 12 * (long) ns_max * (long) ns_max;
 		System.out.println("ns_max=" + ns_max + "  npixmax=" + npixmax);
@@ -1309,7 +1141,7 @@ public class HealpixIndex implements Serializable {
 			throw new IllegalArgumentException(SID
 					+ " npix is too large > 12 * ns_max^2");
 		}
-		double fnpix = 12.0 * nside * nside;
+		double fnpix = 12.0 * (long)nside * (long)nside;
 		if ( Math.abs(fnpix - npix) > 1.0e-2 ) {
 			throw new IllegalArgumentException(SID
 					+ "  npix is not 12*nside*nside");
@@ -1331,11 +1163,7 @@ public class HealpixIndex implements Serializable {
 	 *            long the map resolution
 	 * @return npix long the number of pixels in the map
 	 */
-	public long Nside2Npix(long nside) {
-
-		long[] nsidelist = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048,
-				4096, 8192, 16384, 32768, 65563, 131072, 262144, 524288,
-				1048576, 2097152, 4194304 };
+	public static long nside2Npix(int nside) {
 
 		long res = 0;
 		String SID = "Nside2Npix:";
@@ -1365,12 +1193,12 @@ public class HealpixIndex implements Serializable {
 	 *         triangle with vertices vec1, vec2, vec3
 	 * @throws Exception
 	 */
-	public double SurfaceTriangle(SpatialVector v1, SpatialVector v2,
+	public static double surfaceTriangle(SpatialVector v1, SpatialVector v2,
 			SpatialVector v3) throws Exception {
 		double res = 0.;
-		double side1 = AngDist(v2, v3) / 4.0;
-		double side2 = AngDist(v3, v1) / 4.0;
-		double side3 = AngDist(v1, v2) / 4.0;
+		double side1 = angDist(v2, v3) / 4.0;
+		double side2 = angDist(v3, v1) / 4.0;
+		double side3 = angDist(v1, v2) / 4.0;
 		double x0 = Math.tan(side1 + side2 + side3);
 		double x1 = Math.tan(side2 + side3 - side1);
 		double x2 = Math.tan(side1 + side3 - side2);
@@ -1391,14 +1219,14 @@ public class HealpixIndex implements Serializable {
 	 * @return double dist
 	 * @throws Exception
 	 */
-	public double AngDist(SpatialVector v1, SpatialVector v2) throws Exception {
+	public static double angDist(SpatialVector v1, SpatialVector v2) throws Exception {
 		double dist = 0.;
 		double aligned = 0.999;
 		/* Normalize both vectors */
 		SpatialVector r1 = v1;
 		SpatialVector r2 = v2;
-		r1.normalize();
-		r2.normalize();
+		r1.normalized();
+		r2.normalized();
 		double sprod = r1.dot(r2);
 		/* This takes care about the bug in vecmath method from java3d project */
 		if ( sprod > aligned ) { // almost aligned
@@ -1418,55 +1246,6 @@ public class HealpixIndex implements Serializable {
 			dist = Math.acos(sprod);// r3d1.angle(r3d2);
 		}
 		return dist;
-	}
-
-	//
-	// public static double[] ang(Vector3d vec) {
-	// double theta = Math.acos(vec.getZ());
-	// double phi = Math.asin(vec.getY() / Math.sin(theta));
-	// double[] ret = { theta, phi };
-	// return ret;
-	//
-	// }
-
-	/**
-	 * calculates a vector production of two vectors.
-	 * 
-	 * @param v1
-	 *            Vectror containing 3 elements of Number type
-	 * @param v2
-	 *            Vector containing 3 elements of Number type
-	 * @return Vector of 3 Objects of Double type
-	 * @throws Exception
-	 */
-	public Vector<Object> VectProd(Vector v1, Vector v2) throws Exception {
-		Vector<Object> res = new Vector<Object>();
-		double[] v1_element = new double[3];
-		double[] v2_element = new double[3];
-		for ( int i = 0; i < 3; i++ ) {
-			if ( v1.get(i).getClass().isInstance(Number.class) ) {
-				v1_element[i] = ( (Number) v1.get(i) ).doubleValue();
-			} else {
-				throw new Exception();
-			}
-			if ( v2.get(i).getClass().isInstance(Number.class) ) {
-				v2_element[i] = ( (Number) v2.get(i) ).doubleValue();
-			} else {
-				throw new Exception();
-			}
-
-		}
-
-		Double value = new Double(v1_element[1] * v2_element[2] - v1_element[2]
-				* v2_element[1]);
-		res.add((Object) value);
-		value = new Double(v1_element[1] * v2_element[2] - v1_element[2]
-				* v2_element[1]);
-		res.add((Object) value);
-		value = new Double(v1_element[1] * v2_element[2] - v1_element[2]
-				* v2_element[1]);
-		res.add((Object) value);
-		return res;
 	}
 
 	/**
@@ -1497,12 +1276,7 @@ public class HealpixIndex implements Serializable {
 	 * @return SpatialVector result of the product
 	 */
 	public SpatialVector crossProduct(SpatialVector v1, SpatialVector v2) {
-		SpatialVector res = new SpatialVector(0., 0., 0.);
-		// double x = v1.y() * v2.z() - v1.z() * v2.y();
-		// double y = v1.z() * v2.x() - v1.x() * v2.z();
-		// double z = v1.x() * v2.y() - v1.y() * v2.x();
-		res.cross(v1, v2);
-		return res;
+		return v1.cross(v2);
 	}
 
 	/**
@@ -1525,9 +1299,10 @@ public class HealpixIndex implements Serializable {
 	 * @return ArrayList of pixel numbers calls: RingNum(nside, ir)
 	 *         InRing(nside, iz, phi0, dphi,nest)
 	 */
-	public ArrayList<Long> query_disc(long nside, Vector3d vector,
+	public LongRangeSet query_disc(int nside, SpatialVector vector,
 			double radius, int nest, int inclusive) {
-		ArrayList<Long> res = new ArrayList<Long>();
+		LongRangeSetBuilder res = new LongRangeSetBuilder();
+//		LongRangeSet res = new LongRangeSet();
 		long irmin, irmax, iz;
 		double x0, y0, z0, radius_eff;
 		double a, b, c, cosang;
@@ -1552,14 +1327,14 @@ public class HealpixIndex implements Serializable {
 
 		radius_eff = radius;
 		if ( do_inclusive )
-			radius_eff += Constants.PI / ( 4.0 * nside ); // increas radius by
-		// half pixel
+			radius_eff += Constants.PI / ( 4.0 * nside ); // increase radius by
+		// half pixel: different in C++ version where a 'magic' number is used.
 		cosang = Math.cos(radius_eff);
 		/* disc center */
-		vector.normalize();
-		x0 = vector.x; // norm_vect0;
-		y0 = vector.y; // norm_vect0;
-		z0 = vector.z; // norm_vect0;
+		vector.normalized();
+		x0 = vector.x(); // norm_vect0;
+		y0 = vector.y(); // norm_vect0;
+		z0 = vector.z(); // norm_vect0;
 
 		phi0 = 0.0;
 		dphi = 0.0;
@@ -1579,14 +1354,14 @@ public class HealpixIndex implements Serializable {
 		} else {
 			zmax = Math.sin(rlat1);
 		}
-		irmin = RingNum(nside, zmax);
+		irmin = ringNum(nside, zmax);
 		irmin = Math.max(1, irmin - 1); // start from a higher point to be safe
 		if ( rlat2 <= -Constants.piover2 ) {
 			zmin = -1.0;
 		} else {
 			zmin = Math.sin(rlat2);
 		}
-		irmax = RingNum(nside, zmin);
+		irmax = ringNum(nside, zmin);
 		irmax = Math.min(4 * nside - 1, irmax + 1); // go down to a lower point
 
 		/* loop on ring number */
@@ -1625,12 +1400,37 @@ public class HealpixIndex implements Serializable {
 			}
 			if ( done < 2 ) { // pixels in disc
 				/* find pixels in the disc */
-
-				ArrayList<Long> listir = InRing(nside, iz, phi0, dphi, do_nest);//InRing(nside, iz, phi0, dphi, do_nest)
-				res.addAll(listir);
+				InRing(nside,iz, phi0, dphi,res);
+				
+				
 			}
 		}
-		return res;
+		//
+		// if no intersections and radius less than pixel size return the pixel number
+		//
+		double pixres = getPixRes(nside); // in arc seconds
+		long pixel = 0;
+		if (res.size() == 0 && pixres > Math.toDegrees(radius) / 3600.) {
+			try {
+				pixel = vec2pix_ring(vector);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			res.append(pixel);
+//			res.add(pixel);
+			
+		}
+		if(do_nest)
+			try {
+//				return ringIterator2nested_longset(nside, res.ranges());
+				return ringIterator2nested_longset(nside, res.build().rangeIterator());
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return res.build();
+//		return res;
 	}
 
 	/**
@@ -1642,7 +1442,7 @@ public class HealpixIndex implements Serializable {
 	 *            double z coordinate
 	 * @return long ring number
 	 */
-	public long RingNum(long nside, double z) {
+	public long ringNum(int nside, double z) {
 		long iring = 0;
 		/* equatorial region */
 
@@ -1668,8 +1468,6 @@ public class HealpixIndex implements Serializable {
 	 * are in [0, 12*nside^2 - 1] the indexing is in RING, unless nest is set to
 	 * 1
 	 * 
-	 * @param nside
-	 *            long the map resolution
 	 * @param iz
 	 *            long ring number
 	 * @param phi0
@@ -1679,11 +1477,12 @@ public class HealpixIndex implements Serializable {
 	 * @param nest
 	 *            boolean format flag
 	 * @return ArrayList of pixels
-	 * @throws IllegalArgumentException *
+	 * @throws IllegalArgumentException
+	 * @deprecated use InRingLongSet
 	 */
-	public ArrayList<Long> InRing(long nside, long iz, double phi0,
+	public ArrayList<Long> inRing( long iz, double phi0,
 			double dphi, boolean nest) {
-		return InRing(nside,iz,phi0,dphi,nest,false);
+		return inRing(iz,phi0,dphi,nest,false);
 	}
 	/**
 	 * returns the list of pixels in RING or NEST scheme with latitude in [phi0 -
@@ -1691,8 +1490,6 @@ public class HealpixIndex implements Serializable {
 	 * are in [0, 12*nside^2 - 1] the indexing is in RING, unless nest is set to
 	 * 1
 	 * 
-	 * @param nside
-	 *            long the map resolution
 	 * @param iz
 	 *            long ring number
 	 * @param phi0
@@ -1706,9 +1503,10 @@ public class HealpixIndex implements Serializable {
 	 *            CENTER is not in the range [phi_low, phi_hi]. If not, strict :
 	 *            include only pixels whose CENTER is in [phi_low, phi_hi]
 	 * @return ArrayList of pixels
-	 * @throws IllegalArgumentException *
+	 * @throws IllegalArgumentException
+	 * @deprecated Use the InRingLongSet instead.
 	 */
-	public ArrayList<Long> InRing(long nside, long iz, double phi0,
+	public ArrayList<Long> inRing( long iz, double phi0,
 			double dphi, boolean nest, boolean conservative) {
 		boolean take_all = false;
 		boolean to_top = false;
@@ -1723,8 +1521,8 @@ public class HealpixIndex implements Serializable {
 		long kshift, nr, ipix1, ipix2, nir1, nir2, ncap, npix;
 		long ip_low = 0, ip_hi = 0, in, inext, nir;
 		ArrayList<Long> res = new ArrayList<Long>();
-		npix = 12 * nside * nside; // total number of pixels
-		ncap = 2 * nside * ( nside - 1 ); // number of pixels in the north
+		npix = 12 * (long)nside * (long)nside; // total number of pixels
+		ncap = 2 * (long)nside * ( (long)nside - 1 ); // number of pixels in the north
 		// polar
 		// cap
 		double phi_low = bm.MODULO(phi0 - dphi, Constants.twopi) - epsilon; // phi
@@ -1736,22 +1534,21 @@ public class HealpixIndex implements Serializable {
 		if ( Math.abs(dphi - Constants.PI) < 1.0e-6 )
 			take_all = true;
 		/* identifies ring number */
-		if ( ( iz >= nside ) && ( iz <= 3 * nside ) ) { // equatorial region
-			ir = iz - nside + 1; // in [1, 2*nside + 1]
-			ipix1 = ncap + 4 * nside * ( ir - 1 ); // lowest pixel number in
-			// the
-			// ring
-			ipix2 = ipix1 + 4 * nside - 1; // highest pixel number in the ring
+		if ( ( iz >= (long)nside ) && ( iz <= 3 * (long)nside ) ) { // equatorial region
+			ir = iz - (long)nside + 1; // in [1, 2*nside + 1]
+			ipix1 = ncap + 4 * (long)nside * ( ir - 1 ); 
+			// lowest pixel number in the ring
+			ipix2 = ipix1 + 4 * (long)nside - 1; // highest pixel number in the ring
 			kshift = (long) bm.MODULO(ir, 2.);
 
-			nr = nside * 4;
+			nr = (long)nside * 4;
 		} else {
-			if ( iz < nside ) { // north pole
+			if ( iz < (long)nside ) { // north pole
 				ir = iz;
 				ipix1 = 2 * ir * ( ir - 1 ); // lowest pixel number
 				ipix2 = ipix1 + 4 * ir - 1; // highest pixel number
 			} else { // south pole
-				ir = 4 * nside - iz;
+				ir = 4 * (long)nside - iz;
 
 				ipix1 = npix - 2 * ir * ( ir + 1 ); // lowest pixel number
 				ipix2 = ipix1 + 4 * ir - 1; // highest pixel number
@@ -1776,7 +1573,7 @@ public class HealpixIndex implements Serializable {
 					if(in>-1)
 						res.add(0, new Long(in));
 					for ( int i = 1; i < nir; i++ ) {
-						inext = next_in_line_nest(nside, in);
+						inext = next_in_line_nest((long)nside, in);
 						in = inext;
 						if(in>-1)
 							res.add(i, new Long(in));
@@ -1818,6 +1615,7 @@ public class HealpixIndex implements Serializable {
 			ip_low = Math.min(ip_low, nr - 1);
 			ip_hi = Math.max(ip_hi, 0);
 		}
+		
 		//
 		if ( ip_low > ip_hi )
 			to_top = true;
@@ -1847,7 +1645,7 @@ public class HealpixIndex implements Serializable {
 					in = ring2nest((int) ip_low);
 					res.add(0, new Long(in));
 					for ( long i = 1; i <= nir - 1; i++ ) {
-						inext = next_in_line_nest(nside, in);
+						inext = next_in_line_nest((long)nside, in);
 						in = inext;
 						if(i>-1)
 							res.add((int) i, new Long(in));
@@ -1871,7 +1669,7 @@ public class HealpixIndex implements Serializable {
 					in = ring2nest((int) ip_low);
 					res.add(0, new Long(in));
 					for ( int i = 1; i <= nir - 1; i++ ) {
-						inext = next_in_line_nest(nside, in);
+						inext = next_in_line_nest((long)nside, in);
 						in = inext;
 						if(i>-1)
 							res.add(i, new Long(in));
@@ -1883,7 +1681,243 @@ public class HealpixIndex implements Serializable {
 		}
 		return res;
 	}
+	
+//	// Left for records an attempt to get nested scheme speed up fails
+//	//TODO why?
+//	private LongRangeSet ringIterator2nested_longset(int nside, LongRangeIterator iter) throws Exception {
+//		LongSet s = new LongSet();
+//		setOrder(nside2order(nside));
+//		long inext = 0L;
+//		while(iter.moveToNext()){
+////		for (int i = 0; i < iter.length; i++) {
+//			long nestIpix = ring2nest(iter.first());
+////			long nestIpix = ring2nest(iter[i].first());
+//			for(long ipix = iter.first(); ipix<=iter.last();ipix++){
+////				s.add(ring2nest(ipix));				
+//				inext = next_in_line_nest(nside, nestIpix);
+//				nestIpix = inext;
+//				s.add(nestIpix);
+//			}
+//
+//			
+//		}
+//		return s.toLongRangeSet();
+//	}
+	
+	/**
+	 * Method called whenever a nested scheme is needed. This is not as fast as
+	 * ring method performance
+	 * 
+	 * @param nside
+	 * @param iter
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unused")
+	private LongRangeSet ringIterator2nested_longset(int nside, LongRangeIterator iter)
+			throws Exception {
+		LongSet s = new LongSet();
+		setOrder(nside2order(nside));
+		long inext = 0L;
+		while (iter.moveToNext()) {
+			long nestIpix = ring2nest(iter.first());
+			for (long ipix = iter.first(); ipix <= iter.last(); ipix++) {
+				s.add(ring2nest(ipix));
+				// inext = next_in_line_nest(nside, nestIpix);
+				// nestIpix = inext;
+				// s.add(nestIpix);
+				// TODO this can be optimized with next_in_line, but it seems to
+				// be failing
+			}
 
+		}
+		return s.toLongRangeSet();
+	}
+	/**
+	 * returns the list of pixels in NEST scheme with latitude in [phi0 -
+	 * dpi, phi0 + dphi] on the ring iz in [1, 4*nside -1 ] The pixel id numbers
+	 * are in [0, 12*nside^2 - 1] the indexing is in RING, unless nest is set to
+	 * 1
+	 * @param nside
+	 *            long the map resolution
+	 * @param iz
+	 *            long ring number
+	 * @param phi0
+	 *            double
+	 * @param dphi
+	 *            double
+	 * @return Long range set
+	 * @throws Exception
+	 */
+	public LongRangeSet InRing_nested_longset(int nside, long iz, double phi0,
+			double dphi) throws Exception {
+		LongRangeIterator iter = InRingLongSet(nside, iz, phi0, dphi).rangeIterator();
+		return ringIterator2nested_longset(nside, iter);
+	}
+	
+	/**
+	 * returns the list of pixels in RING scheme with latitude in [phi0 -
+	 * dpi, phi0 + dphi] on the ring iz in [1, 4*nside -1 ] The pixel id numbers
+	 * are in [0, 12*nside^2 - 1] the indexing is in RING, unless nest is set to
+	 * 1
+	 * NOTE: this is the f90 code 'in_ring' method ported to java with 'conservative' flag to false
+	 * 
+	 * @param nside
+	 *            long the map resolution
+	 * @param iz
+	 *            long ring number
+	 * @param phi0
+	 *            double
+	 * @param dphi
+	 *            double
+	 * @return set result
+	 */
+	public LongRangeSet InRingLongSet(long nside, long iz, double phi0, double dphi) {
+		LongRangeSetBuilder b = new LongRangeSetBuilder();
+		InRing(nside, iz, phi0, dphi, b);
+		return b.build();
+	}
+	/**
+	 * returns the list of pixels in RING scheme with latitude in [phi0 -
+	 * dpi, phi0 + dphi] on the ring iz in [1, 4*nside -1 ] The pixel id numbers
+	 * are in [0, 12*nside^2 - 1] the indexing is in RING, unless nest is set to
+	 * 1
+	 * NOTE: this is the f90 code 'in_ring' method ported to java with 'conservative' flag to false
+	 * 
+	 * @param nside
+	 *            long the map resolution
+	 * @param iz
+	 *            long ring number
+	 * @param phi0
+	 *            double
+	 * @param dphi
+	 *            double
+	 * @param res result
+	 */
+	public void InRing(long nside, long iz, double phi0, double dphi,LongRangeSetBuilder res)  {
+		boolean take_all = false;
+		boolean to_top = false;
+	
+		boolean conservative = false;
+//		String SID = "InRing:";
+		double epsilon = 1e-12;//Double.MIN_VALUE; // the constant to eliminate
+		// java calculation jitter
+		double shift = 0.;
+		long ir = 0;
+		long kshift, nr, ipix1, ipix2,  ncap, npix;//nir1, nir2,
+		long ip_low = 0, ip_hi = 0; //,in, nir;
+//		long inext;
+		npix = 12 * nside * nside; // total number of pixels
+		ncap = 2 * nside * (nside - 1); // number of pixels in the north polar
+										// cap
+		double phi_low = bm.MODULO(phi0 - dphi, Constants.twopi) - epsilon; // phi min,
+																  // excluding
+																  // 2pi period
+		double phi_hi = bm.MODULO(phi0 + dphi, Constants.twopi) + epsilon;
+
+//
+		if (Math.abs(dphi - Constants.PI) < epsilon)  take_all = true;
+
+		/* identifies ring number */
+		if ((iz >= nside) && (iz <= 3 * nside)) { // equatorial region
+			ir = iz - nside + 1; // in [1, 2*nside + 1]
+			ipix1 = ncap + 4 * nside * (ir - 1); // lowest pixel number in the
+											     // ring
+			ipix2 = ipix1 + 4 * nside - 1; // highest pixel number in the ring
+			kshift = (long) bm.MODULO(ir, 2.);
+
+			nr = nside * 4;
+		} else {
+			if (iz < nside) { // north pole
+				ir = iz;
+				ipix1 = 2 * ir * (ir - 1); // lowest pixel number
+				ipix2 = ipix1 + 4 * ir - 1; // highest pixel number
+			} else { // south pole
+				ir = 4 * nside - iz;
+
+				ipix1 = npix - 2 * ir * (ir + 1); // lowest pixel number
+				ipix2 = ipix1 + 4 * ir - 1;       // highest pixel number
+			}
+			nr = ir * 4;
+			kshift = 1;
+		}
+
+		// Construct the pixel list
+		if (take_all) {
+             res.appendRange(ipix1,ipix2);
+//			res.addAll(ipix1, ipix2);
+
+			return;
+		}
+
+		shift = kshift / 2.0;
+
+		// conservative : include every intersected pixel, even if the
+		// pixel center is out of the [phi_low, phi_hi] region
+		if (conservative) {
+			ip_low = (long) Math.round((nr * phi_low) / Constants.twopi - shift);
+			ip_hi = (long) Math.round((nr * phi_hi) / Constants.twopi - shift);
+
+			ip_low = (long) bm.MODULO(ip_low, nr); // in [0, nr - 1]
+			ip_hi = (long) bm.MODULO(ip_hi, nr); // in [0, nr - 1]
+//			System.out.println("ip_low="+ip_low+" ip_hi="+ip_hi);
+		} else { // strict: includes only pixels whose center is in
+			//                                                    [phi_low,phi_hi]
+
+			ip_low = (long) Math.ceil((nr * phi_low) / Constants.twopi - shift);
+			ip_hi = (long)((nr * phi_hi) / Constants.twopi - shift);
+			if (ip_low == ip_hi + 1)
+				ip_low = ip_hi;
+
+			if ((ip_low - ip_hi == 1) && (dphi * nr < Constants.PI)) {
+				// the interval is too small ( and away from pixel center)
+				// so no pixels is included in the list
+				
+				System.out
+						.println("the interval is too small and avay from center");
+	
+				return; // return empty list 
+			}
+
+			ip_low = Math.min(ip_low, nr - 1);
+			ip_hi = Math.max(ip_hi, 0);
+		}
+
+		//
+		if (ip_low > ip_hi)
+			to_top = true;
+
+		if (to_top) {
+			ip_low += ipix1;
+			ip_hi += ipix1;
+			//nir1 = ipix2 - ip_low + 1;
+
+			//nir2 = ip_hi + 1;
+
+            res.appendRange(ipix1,ip_hi);
+            res.appendRange(ip_low,ipix2);    
+//            res.addAll(ipix1,ip_hi);
+//            res.addAll(ip_low,ipix2);        
+		} else {
+			if (ip_low < 0 ){
+				ip_low = Math.abs(ip_low) ;
+				//nir1 = ip_low;
+				//nir2 = ip_hi + 1;
+
+                res.appendRange(ipix1, ipix1+ip_hi);
+                res.appendRange(ipix2-ip_low +1, ipix2);
+//                res.addAll(ipix1, ipix1+ip_hi);
+//                res.addAll(ipix2-ip_low +1, ipix2);
+				return ;
+
+			}
+			ip_low += ipix1;
+			ip_hi += ipix1;
+
+            res.appendRange(ip_low,ip_hi);
+//            res.addAll(ip_low,ip_hi);
+		}
+	}
 	/**
 	 * returns the list of pixels in RING or NEST scheme with latitude in [phi0 -
 	 * dpi, phi0 + dphi] on the ring iz in [1, 4*nside -1 ] The pixel id numbers
@@ -1903,8 +1937,9 @@ public class HealpixIndex implements Serializable {
 	 *            boolean format flag
 	 * @return ArrayList of pixels
 	 * @throws IllegalArgumentException
+	 * @deprecated Don't use anymore, was only for 
 	 */
-	public ArrayList<Long> InRingCxx(long nside, long iz, double phi0,
+	public ArrayList<Long> inRingCxx(long nside, long iz, double phi0,
 			double dphi, boolean nest) {
 		long nr, ir, ipix1;
 
@@ -1996,21 +2031,21 @@ public class HealpixIndex implements Serializable {
 			throw new IllegalArgumentException(SID
 					+ " nside should be power of 2 >0 and < " + ns_max);
 		}
-		nsidesq = nside * nside;
+		nsidesq = (long)nside * (long)nside;
 		npix = 12 * nsidesq; // total number of pixels
 		if ( ( ipix < 0 ) || ( ipix > npix - 1 ) ) {
 			throw new IllegalArgumentException(SID
 					+ " ipix out of range defined by nside");
 		}
 		// initiates array for (x,y) -> pixel number -> (x,y) mapping
-		if ( x2pix[127] <= 0 ) // xmax-1
-			mkxy2pix();
+
 		local_magic1 = ( nsidesq - 1 ) / 3;
 		local_magic2 = 2 * local_magic1;
-		face_num = ipix / nsidesq;
 		ipf = (long) bm.MODULO(ipix, nsidesq); // Pixel number in face
-		ixiy[0] = pix2xy_nest((int) ipf).x;
-		ixiy[1] = pix2xy_nest((int) ipf).y;
+		Xyf xyf = nest2xyf(ipix);
+		ixiy[0] = xyf.ix;
+		ixiy[1] = xyf.iy;
+		face_num = xyf.face_num;
 		ix = ixiy[0];
 		iy = ixiy[1];
 		ixp = ix + 1;
@@ -2018,7 +2053,7 @@ public class HealpixIndex implements Serializable {
 		boolean sel = false;
 		icase = -1; // iside the nest flag
 		// Exclude corners
-		if ( ipf == local_magic2 ) { // west coirner
+		if ( ipf == local_magic2 ) { // west corner
 			inext = ipix - 1;
 			return inext;
 		}
@@ -2044,7 +2079,7 @@ public class HealpixIndex implements Serializable {
 			sel = true;
 		}
 		if ( !sel ) { // iside a face
-			inext = xy2pix_nest((int) ixp, (int) iym, (int) face_num);
+			inext = xyf2nest((int) ixp, (int) iym, (int) face_num);
 			return inext;
 		}
 		//
@@ -2065,13 +2100,13 @@ public class HealpixIndex implements Serializable {
 					other_face = 4 + ibp;
 					ipo = (long) bm.MODULO(bm.invMSB(ipf), nsidesq); // SE-NW
 					// flip
-
-					ixiy[0] = pix2xy_nest((int) ipo).x;
-					ixiy[1] = pix2xy_nest((int) ipo).y;
+					xyf = nest2xyf(ipo);
+					ixiy[0] = xyf.ix;
+					ixiy[1] = xyf.iy;
 					ixo = ixiy[0];
 					iyo = ixiy[1];
 
-					inext = xy2pix_nest((int) ixo + 1, (int) iyo,
+					inext = xyf2nest((int) ixo + 1, (int) iyo,
 							(int) other_face);
 
 					break;
@@ -2099,20 +2134,23 @@ public class HealpixIndex implements Serializable {
 							(double) nsidesq); // NE-SW flip
 					// System.out.println(" ipo="+ipo);
 
-					ixiy[0] = pix2xy_nest((int) ipo).x;
-					ixiy[1] = pix2xy_nest((int) ipo).y;
+					xyf = nest2xyf (ipo);
+					ixiy[0] = xyf.ix;
+					ixiy[1] = xyf.iy;
 
 					ixo = ixiy[0];
 					iyo = ixiy[1];
-					inext = xy2pix_nest((int) ixo, (int) iyo - 1,
+					inext = xyf2nest((int) ixo, (int) iyo - 1,
 							(int) other_face);
 					break;
 				case 4: // SouthEast edge
 					other_face = 8 + ib;
 					ipo = (long) bm.MODULO(bm.invMSB(ipf), nsidesq);
-					ixiy[0] = pix2xy_nest((int) ipo).x;
-					ixiy[1] = pix2xy_nest((int) ipo).y;
-					inext = xy2pix_nest((int) ixiy[0] + 1, (int) ixiy[1],
+					xyf=nest2xyf(ipo);
+					ixiy[0] = xyf.ix;
+					ixiy[1] = xyf.iy;
+
+					inext = xyf2nest((int) ixiy[0] + 1, (int) ixiy[1],
 							(int) other_face);
 					break;
 				case 6: // Northy corner
@@ -2135,9 +2173,10 @@ public class HealpixIndex implements Serializable {
 					other_face = 4 + ibp;
 					ipo = (long) bm.MODULO(bm.invLSB(ipf), nsidesq); // NE-SW
 					// flip
-					ixiy[0] = pix2xy_nest((int) ipo).x;
-					ixiy[1] = pix2xy_nest((int) ipo).y;
-					inext = xy2pix_nest((int) ixiy[0], (int) ixiy[1] - 1,
+					xyf=nest2xyf(ipo);
+					ixiy[0] = xyf.ix;
+					ixiy[1] = xyf.iy;
+					inext = xyf2nest((int) ixiy[0], (int) ixiy[1] - 1,
 							(int) other_face);
 					break;
 				case 4: // SouthEast edge
@@ -2177,17 +2216,20 @@ public class HealpixIndex implements Serializable {
 	 *            if set 1 returns all pixels crossed by polygon boundaries
 	 * @return ArrayList of pixels algorithm: the polygon is divided into
 	 *         triangles vertex 0 belongs to all triangles
-	 * @throws IllegalArgumentException
+	 * @throws Exception
 	 */
-	public ArrayList<Long> query_polygon(long nside, ArrayList<Object> vlist,
+	public LongRangeSet query_polygon(int nside, ArrayList<Object> vlist,
 			long nest, long inclusive) throws Exception {
-		ArrayList<Long> res = new ArrayList<Long>();
+//		ArrayList<Long> res = new ArrayList<Long>();
+		LongSet res = new LongSet();
 		int nv = vlist.size();
 		healpix.tools.SpatialVector vp0, vp1, vp2;
 		healpix.tools.SpatialVector vo;
-		ArrayList<Long> vvlist = new ArrayList<Long>();
+		LongList vvlist = new LongList();
+//		LongRangeSetBuilder vvlist = new LongRangeSetBuilder();
 		double hand;
 		double[] ss = new double[nv];
+		@SuppressWarnings("unused")
 		long npix;
 		int ix = 0;
 
@@ -2270,36 +2312,37 @@ public class HealpixIndex implements Serializable {
 			}
 		}
 		/* fill the poligon, one triangle at a time */
-		npix = (long) Nside2Npix(nside);
+		npix = (long) nside2Npix(nside);
 		while ( n_remain >= 3 ) {
 			vp0 = (SpatialVector) vlist.get(0);
 			vp1 = (SpatialVector) vlist.get(n_remain - 2);
 			vp2 = (SpatialVector) vlist.get(n_remain - 1);
 
 			/* find pixels within the triangle */
-			ArrayList<Long> templist = new ArrayList<Long>();
-			templist = query_triangle(nside, vp0, vp1, vp2, nest, inclusive);
+			LongRangeSet templist = query_triangle(nside, vp0, vp1, vp2, nest, inclusive);
 
-			vvlist.addAll(templist);
+			vvlist.addAll(templist.longIterator());
 			n_remain--;
 		}
 		/* make final pixel list */
-		npix = vvlist.size();
-		long[] pixels = new long[(int) npix];
-		for ( int i = 0; i < npix; i++ ) {
-			pixels[i] = vvlist.get(i).longValue();
-		}
-		Arrays.sort(pixels);
-		int k = 0;
-		res.add(k, new Long(pixels[0]));
-		for ( int i = 1; i < pixels.length; i++ ) {
-			if ( pixels[i] > pixels[i - 1] ) {
-				k++;
-				res.add(k, new Long(pixels[i]));
-			}
-		}
+//		npix = vvlist.size();
+//		long[] pixels = new long[(int) npix];
+//		for ( int i = 0; i < npix; i++ ) {
+//			pixels[i] = vvlist.get(i).longValue();
+//		}
+//		Arrays.sort(pixels);
+//		int k = 0;
+//		res.add(k, new Long(pixels[0]));
+//		for ( int i = 1; i < pixels.length; i++ ) {
+//			if ( pixels[i] > pixels[i - 1] ) {
+//				k++;
+//				res.add(k, new Long(pixels[i]));
+//			}
+//		}
 
-		return res;
+//		return res;
+		res.addAll(vvlist);
+		return res.toLongRangeSet();
 	}
 	
 	/**
@@ -2334,15 +2377,17 @@ public class HealpixIndex implements Serializable {
 	 *            triangle will be listed, if set to 1 all pixels overlaping the
 	 *            triangle will be listed
 	 * @return ArrayList with pixel numbers
-	 * @throws healpixException
+	 * @throws Exception
 	 *             if the triangle is degenerated
-	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Long> query_triangle(long nside, SpatialVector v1,
+	public LongRangeSet query_triangle(int nside, SpatialVector v1,
 			SpatialVector v2, SpatialVector v3, long nest, long inclusive)
 			throws Exception {
-		ArrayList<Long> res;
-		res = new ArrayList<Long>();
+//		ArrayList<Long> res;
+//		res = new ArrayList<Long>();
+//		LongRangeSet res = new LongRangeSet();
+		LongSet res = new LongSet();
+		@SuppressWarnings("unused")
 		ArrayList<Long> listir;
 		long npix, iz, irmin, irmax, n12, n123a, n123b, ndom = 0;
 		boolean test1, test2, test3;
@@ -2371,7 +2416,7 @@ public class HealpixIndex implements Serializable {
 		/*                                       */
 
 		// System.out.println("in query_triangle");
-		npix = Nside2Npix(nside);
+		npix = nside2Npix(nside);
 		if ( npix < 0 ) {
 			throw new IllegalArgumentException(SID
 					+ " Nside should be power of 2 >0 and < " + ns_max);
@@ -2419,9 +2464,9 @@ public class HealpixIndex implements Serializable {
 		vo[0] = crossProduct(vv[1], vv[2]);
 		vo[1] = crossProduct(vv[2], vv[0]);
 		vo[2] = crossProduct(vv[0], vv[1]);
-		vo[0].normalize();
-		vo[1].normalize();
-		vo[2].normalize();
+		vo[0].normalized();
+		vo[1].normalized();
+		vo[2].normalized();
 //		System.out.println("Orthogonal vectors:");
 		
 //		printVec(vo[0].get());
@@ -2515,8 +2560,8 @@ public class HealpixIndex implements Serializable {
 			zmin = Math.max(-1.0, Math.cos(Math.acos(zmin) + offset));
 		}
 
-		irmin = RingNum(nside, zmax);
-		irmax = RingNum(nside, zmin);
+		irmin = ringNum(nside, zmax);
+		irmax = ringNum(nside, zmin);
 
 //		System.out.println("irmin = " + irmin + " irmax =" + irmax);
 
@@ -2659,16 +2704,21 @@ public class HealpixIndex implements Serializable {
 							dphiring += Constants.PI;
 						}
 						/* finds pixels in the triangle on that ring */
-						listir = InRing(nside, iz, phi0, dphiring, do_nest);
+//						listir = inRing( iz, phi0, dphiring, do_nest);
 //						ArrayList<Long> listir2 = InRing(nside, iz, phi0, dphiring, do_nest);						
-						res.addAll(listir);
-
+//						res.addAll(listir);
+						LongRangeSet listir2;
+						if(do_nest){
+							listir2 = InRing_nested_longset(nside, iz, phi0, dphiring);
+						}else{
+							listir2 = InRingLongSet(nside, iz, phi0, dphiring);
+						}				
+						res.addAll(listir2.longIterator());
 					}
 				}
 			}
-
-		}
-		return res;
+		}		
+		return res.toLongRangeSet();
 	}
 
 	/**
@@ -2768,12 +2818,13 @@ public class HealpixIndex implements Serializable {
 	 * @param nest
 	 *            long if = 1 result is in NESTED scheme
 	 * @return ArrayList of pixel numbers (long)
-	 * @throws IllegalArgumentException
+	 * @throws Exception
 	 */
-	public ArrayList<Long> query_strip(long nside, double theta1,
+	public LongRangeSet query_strip(int nside, double theta1,
 			double theta2, long nest) throws Exception {
-		ArrayList<Long> res = new ArrayList<Long>();
-		ArrayList<Long> listir = new ArrayList<Long>();
+//		LongRangeSet res = new LongRangeSet();
+		
+		LongRangeSetBuilder res = new LongRangeSetBuilder();
 		long npix, nstrip;
 		long iz, irmin, irmax;
 		int is;
@@ -2782,7 +2833,7 @@ public class HealpixIndex implements Serializable {
 		boolean nest_flag = false;
 		String SID = " QUERY_STRIP";
 		/* ---------------------------------------- */
-		npix = Nside2Npix(nside);
+		npix = nside2Npix(nside);
 		if ( nest == 1 )
 			nest_flag = true;
 		if ( npix < 0 ) {
@@ -2807,30 +2858,23 @@ public class HealpixIndex implements Serializable {
 		}
 		/* loops on strips */
 		for ( is = 0; is < nstrip; is++ ) {
-			irmin = RingNum(nside, Math.cos(colrange[2 * is]));
-			irmax = RingNum(nside, Math.cos(colrange[2 * is + 1]));
+			irmin = ringNum(nside, Math.cos(colrange[2 * is]));
+			irmax = ringNum(nside, Math.cos(colrange[2 * is + 1]));
 			/* loop on ring number */
 			for ( iz = irmin; iz <= irmax; iz++ ) {
 				phi0 = 0.;
 				dphi = Constants.PI;
-				listir = InRing(nside, iz, phi0, dphi, nest_flag);//InRing(nside, iz, phi0, dphi, nest_flag);
-				res.addAll(listir);
+				LongRangeSet listir;
+				if(nest_flag) {
+					listir = InRing_nested_longset(this.nside, iz, phi0, dphi);//InRing(nside, iz, phi0, dphi, nest_flag);
+				}else {
+					listir = InRingLongSet(this.nside, iz, phi0, dphi);//InRing(nside, iz, phi0, dphi, nest_flag);
+				}
+				res.appendRanges(listir.rangeIterator());
+				//if res is LongRangeSet, then res.addAll(listir.longIterator());
 			}
 		}
-		return res;
-	}
-
-	/**
-	 * Spatial vector2 vector3d.
-	 * 
-	 * @param vec the vec
-	 * 
-	 * @return the vector3d
-	 */
-	Vector3d SpatialVector2Vector3d(SpatialVector vec) {
-		Vector3d res = new Vector3d();
-		res.set(new double[] { vec.x(), vec.y(), vec.z() });
-		return res;
+		return res.build();
 	}
 
 	/**
@@ -2840,480 +2884,64 @@ public class HealpixIndex implements Serializable {
 	 * southern neighbour). From then on the neighbors are ordered in the
 	 * clockwise direction.
 	 * 
-	 * @param nside the map resolution
 	 * @param ipix long pixel number
 	 * @return ArrayList
 	 * @throws Exception 
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Long> neighbours_nest(int nside, long ipix) throws Exception  {
-		ArrayList<Long> res = new ArrayList<Long>(8);
-		int ipf, ipo, ix, ixm, ixp, iy, iym, iyp, ixo, iyo;
-		int face_num, other_face;
-		int ia, ib, ibp, ibm, ib2,  nsidesq;
-        int icase;
-		long local_magic1, local_magic2;
-		long arb_const = 0;
-		Point ixiy = new Point();
-		Point ixoiyo = new Point();
-		/* fill the pixel list with 0 */
-		res.add(0, new Long(0));
-		res.add(1, new Long(0));
-		res.add(2, new Long(0));
-		res.add(3, new Long(0));
-		res.add(4, new Long(0));
-		res.add(5, new Long(0));
-		res.add(6, new Long(0));
-		res.add(7, new Long(0));
-		icase = 0;
-		nsidesq = nside * nside;
+	public List<Long> neighbours_nest( long ipix) throws Exception  {
 		
-		local_magic1 = (nsidesq - 1) / 3;
-		local_magic2 = 2 * local_magic1;
-		face_num = (int) ( ipix / nsidesq );
-		ipf = (int) bm.MODULO(ipix, nsidesq); // Pixel number in face
-		ixiy = pix2xy_nest((int) ipf);
-		ix = ixiy.x;
-		iy = ixiy.y;
-		//
-		ixm = ix - 1;
-		ixp = ix + 1;
-		iym = iy - 1;
-		iyp = iy + 1;
+		ArrayList<Long> result = new ArrayList<Long>(8);
+		Xyf xyf = nest2xyf(ipix);
+		int ix, iy, face_num;
+		ix = xyf.ix;
+		iy=xyf.iy;
+		face_num=xyf.face_num;
+		
 
-		icase = 0; // inside the face
+		long nsm1 = (long)nside-1;
+		long tmp=0;
+		  if ((ix>0)&&(ix<nsm1)&&(iy>0)&&(iy<nsm1)){
+		      for (int m=0; m<8; ++m){
+		        tmp = xyf2nest(ix+xoffset[m],iy+yoffset[m],face_num);
+		        result.add(m, tmp);
+		      }
+		  }else {
+		    for (int i=0; i<8; ++i)
+		      {
+		      int x=ix+xoffset[i];
+		      int y=iy+yoffset[i];
+		      int nbnum=4;
+		      if (x<0)
+		        { x+=nside; nbnum-=1; }
+		      else if (x>=nside)
+		        { x-=nside; nbnum+=1; }
+		      if (y<0)
+		        { y+=nside; nbnum-=3; }
+		      else if (y>=nside)
+		        { y-=nside; nbnum+=3; }
 
-		/* exclude corners */
-		if (ipf == local_magic2 && icase == 0)
-			icase = 5; // West corner
-		if (ipf == (nsidesq - 1) && icase == 0)
-			icase = 6; // North corner
-		if (ipf == 0 && icase == 0)
-			icase = 7; // South corner
-		if (ipf == local_magic1 && icase == 0)
-			icase = 8; // East corner
-
-		/* detect edges */
-		if ((ipf & local_magic1) == local_magic1 && icase == 0)
-			icase = 1; // NorthEast
-		if ((ipf & local_magic1) == 0 && icase == 0)
-			icase = 2; // SouthWest
-		if ((ipf & local_magic2) == local_magic2 && icase == 0)
-			icase = 3; // NorthWest
-		if ((ipf & local_magic2) == 0 && icase == 0)
-			icase = 4; // SouthEast
-
-		/* inside a face */
-		if (icase == 0) {
-			res.set(0, new Long( xy2pix_nest(ixm, iym, face_num)));
-			res.set(1, new Long( xy2pix_nest(ixm, iy, face_num)));
-			res.set(2, new Long( xy2pix_nest(ixm, iyp, face_num)));
-			res.set(3, new Long( xy2pix_nest(ix, iyp, face_num)));
-			res.set(4, new Long( xy2pix_nest(ixp, iyp, face_num)));
-			res.set(5, new Long( xy2pix_nest(ixp, iy, face_num)));
-			res.set(6, new Long( xy2pix_nest(ixp, iym, face_num)));
-			res.set(7, new Long( xy2pix_nest(ix, iym, face_num)));
-			return res;
-		}
-		/*                 */
-		ia = face_num / 4; // in [0,2]
-		ib = (int) bm.MODULO(face_num, 4); // in [0,3]
-		ibp = (int) bm.MODULO(ib + 1, 4);
-		ibm = (int) bm.MODULO(ib + 4 - 1, 4);
-		ib2 = (int) bm.MODULO(ib + 2, 4);
-
-		if (ia == 0) { // North pole region
-			switch (icase) {
-			case 1: // north-east edge
-				other_face = 0 + ibp;
-				res.set(0, new Long( xy2pix_nest(ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest(ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(ix, iyp, face_num)));
-				res.set(7, new Long( xy2pix_nest(ix, iym, face_num)));
-				ipo = (int) bm.MODULO(bm.swapLSBMSB( ipf), nsidesq);
-				ixoiyo = pix2xy_nest((int) ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(4, new Long( xy2pix_nest(ixo + 1, iyo,
-						other_face)));
-				res.set(5, new Long( (other_face * nsidesq + ipo)));
-				res.set(6, new Long( xy2pix_nest(ixo - 1, iyo,
-						other_face)));
-				break;
-			case 2: // SouthWest edge
-				other_face = 4 + ib;
-				ipo = (int) bm.MODULO(bm.invLSB( ipf), nsidesq); // SW-NE flip
-				ixoiyo = pix2xy_nest((int) ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(ixo, iyo - 1,
-						other_face)));
-				res.set(1, new Long( (other_face * nsidesq + ipo)));
-				res.set(2, new Long( xy2pix_nest(ixo, iyo + 1,
-						other_face)));
-				res.set(3, new Long( xy2pix_nest(ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest(ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest(ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(ixp, iym, face_num)));
-				res.set(7, new Long( xy2pix_nest(ix, iym, face_num)));
-				break;
-			case 3: // NorthWest edge
-				other_face = 0 + ibm;
-				ipo = (int) bm.MODULO(bm.swapLSBMSB( ipf), nsidesq); // E-W flip
-				ixoiyo = pix2xy_nest((int) ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest( ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest( ixo, iyo - 1,
-						other_face)));
-				res.set(3, new Long( (other_face * nsidesq + ipo)));
-				res.set(4, new Long( xy2pix_nest( ixo, iyo + 1,
-						other_face)));
-				res.set(5, new Long( xy2pix_nest( ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(ixp, iym, face_num)));
-				res.set(7, new Long( xy2pix_nest( ix, iym, face_num)));
-				break;
-			case 4: // SouthEast edge
-				other_face = 4 + ibp;
-				ipo = (int) bm.MODULO(bm.invMSB( ipf), nsidesq); // SE-NW flip
-				ixoiyo = pix2xy_nest((int) ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(ixo - 1, iyo,
-						other_face)));
-				res.set(1, new Long( xy2pix_nest(ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest(ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest(ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(ixo + 1, iyo,
-						other_face)));
-				res.set(7, new Long( (other_face * nsidesq + ipo)));
-				break;
-			case 5: // West corner
-				other_face = 4 + ib;
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(0, new Long( (arb_const - 2)));
-				res.set(1, new Long( arb_const));
-				other_face = 0 + ibm;
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(2, new Long( arb_const));
-				res.set(3, new Long( (arb_const + 2)));
-				res.set(4, new Long( (ipix + 1)));
-				res.set(5, new Long( (ipix - 1)));
-				res.set(6, new Long( (ipix - 2)));
-				res.remove(7);
-				break;
-			case 6: //  North corner
-				other_face = 0 + ibm;
-				res.set(0, new Long( (ipix - 3)));
-				res.set(1, new Long( (ipix - 1)));
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(2, new Long( (arb_const - 2)));
-				res.set(3, new Long( arb_const));
-				other_face = 0 + ib2;
-				res.set(4, new Long( (other_face * nsidesq + nsidesq - 1)));
-				other_face = 0 + ibp;
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(5, new Long( arb_const));
-				res.set(6, new Long( (arb_const - 1)));
-				res.set(7, new Long( (ipix - 2)));
-				break;
-			case 7: // South corner
-				other_face = 8 + ib;
-				res.set(0, new Long( (other_face * nsidesq + nsidesq - 1)));
-				other_face = 4 + ib;
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(1, new Long( arb_const));
-				res.set(2, new Long( (arb_const + 2)));
-				res.set(3, new Long( (ipix + 2)));
-				res.set(4, new Long( (ipix + 3)));
-				res.set(5, new Long( (ipix + 1)));
-				other_face = 4 + ibp;
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(6, new Long( (arb_const + 1)));
-				res.set(7, new Long( arb_const));
-				break;
-			case 8: // East corner
-				other_face = 0 + ibp;
-				res.set(1, new Long( (ipix - 1)));
-				res.set(2, new Long( (ipix + 1)));
-				res.set(3, new Long( (ipix + 2)));
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(4, new Long( (arb_const + 1)));
-				res.set(5, new Long(( arb_const)));
-				other_face = 4 + ibp;
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(0, new Long( (arb_const - 1)));
-				res.set(6, new Long( arb_const));
-				res.remove(7);
-				break;
-			}
-		} else if (ia == 1) { // Equatorial region
-			switch (icase) {
-			case 1: // north-east edge
-				other_face = 0 + ib;
-				res.set(0, new Long( xy2pix_nest( ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest(  ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(  ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(  ix, iyp, face_num)));
-				res.set(7, new Long( xy2pix_nest(  ix, iym, face_num)));
-				ipo = (int) bm.MODULO(bm.invLSB( ipf), nsidesq); // NE-SW flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(4, new Long( xy2pix_nest(  ixo, iyo + 1,
-						other_face)));
-				res.set(5, new Long( (other_face * nsidesq + ipo)));
-				res.set(6, new Long( xy2pix_nest(  ixo, iyo - 1,
-						other_face)));
-				break;
-			case 2: // SouthWest edge
-				other_face = 8 + ibm;
-				ipo = (int) bm.MODULO(bm.invLSB( ipf), nsidesq); // SW-NE flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(  ixo, iyo - 1,
-						other_face)));
-				res.set(1, new Long((other_face * nsidesq + ipo)));
-				res.set(2, new Long( xy2pix_nest( ixo, iyo + 1,
-						other_face)));
-				res.set(3, new Long( xy2pix_nest( ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest( ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest( ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(  ixp, iym, face_num)));
-				res.set(7, new Long( xy2pix_nest(  ix, iym, face_num)));
-				break;
-			case 3: // NortWest edge
-				other_face = 0 + ibm;
-				ipo = (int) bm.MODULO(bm.invMSB( ipf), nsidesq); // NW-SE flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(2, new Long( xy2pix_nest( ixo - 1, iyo,
-						other_face)));
-				res.set(3, new Long( (other_face * nsidesq + ipo)));
-				res.set(4, new Long( xy2pix_nest( ixo + 1, iyo,
-						other_face)));
-				res.set(0, new Long( xy2pix_nest(  ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest(  ixm, iy, face_num)));
-				res.set(5, new Long( xy2pix_nest(  ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(  ixp, iym, face_num)));
-				res.set(7, new Long(xy2pix_nest(  ix, iym, face_num)));
-				break;
-			case 4: // SouthEast edge
-				other_face = 8 + ib;
-				ipo = (int) bm.MODULO(bm.invMSB( ipf), nsidesq); // SE-NW flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(  ixo - 1, iyo,
-						other_face)));
-				res.set(1, new Long( xy2pix_nest( ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(  ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(  ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest( ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest(  ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(  ixo + 1, iyo,
-						other_face)));
-				res.set(7, new Long( (other_face * nsidesq + ipo)));
-				break;
-			case 5: // West corner
-				other_face = 8 + ibm;
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(0, new Long( (arb_const - 2)));
-				res.set(1, new Long( arb_const));
-				other_face = 4 + ibm;
-				res.set(2, new Long( (other_face * nsidesq + local_magic1)));
-				other_face = 0 + ibm;
-				arb_const = other_face * nsidesq;
-				res.set(3, new Long( arb_const));
-				res.set(4, new Long( (arb_const + 1)));
-				res.set(5, new Long( (ipix + 1)));
-				res.set(6, new Long( (ipix - 1)));
-				res.set(7, new Long( (ipix - 2)));
-				break;
-			case 6: //  North corner
-				other_face = 0 + ibm;
-				res.set(0, new Long( (ipix - 3)));
-				res.set(1, new Long( (ipix - 1)));
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(2, new Long( (arb_const - 1)));
-				res.set(3, new Long( arb_const));
-				other_face = 0 + ib;
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(4, new Long( arb_const));
-				res.set(5, new Long( (arb_const - 2)));
-				res.set(6, new Long( (ipix - 2)));
-				res.remove(7);
-				break;
-			case 7: // South corner
-				other_face = 8 + ibm;
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(0, new Long( arb_const));
-				res.set(1, new Long( (arb_const + 2)));
-				res.set(2, new Long( (ipix + 2)));
-				res.set(3, new Long( (ipix + 3)));
-				res.set(4, new Long( (ipix + 1)));
-				other_face = 8 + ib;
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(5, new Long( (arb_const + 1)));
-				res.set(6, new Long( arb_const));
-				res.remove(7);
-				break;
-			case 8: // East corner
-				other_face = 8 + ib;
-				arb_const = other_face * nsidesq + nsidesq - 1;
-				res.set(0, new Long( (arb_const - 1)));
-				res.set(1, new Long( (ipix - 1)));
-				res.set(2, new Long( (ipix + 1)));
-				res.set(3, new Long( (ipix + 2)));
-				res.set(7, new Long( arb_const));
-				other_face = 0 + ib;
-				arb_const = other_face * nsidesq;
-				res.set(4, new Long( (arb_const + 2)));
-				res.set(5, new Long( arb_const));
-				other_face = 4 + ibp;
-				res.set(6, new Long( (other_face * nsidesq + local_magic2)));
-				break;
-			}
-		} else { // South pole region
-			switch (icase) {
-			case 1: // North-East edge
-				other_face = 4 + ibp;
-				res.set(0, new Long( xy2pix_nest( ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest( ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(  ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(  ix, iyp, face_num)));
-				res.set(7, new Long( xy2pix_nest(  ix, iym, face_num)));
-				ipo = (int) bm.MODULO(bm.invLSB( ipf), nsidesq); // NE-SW flip
-				ixoiyo = pix2xy_nest( ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(4, new Long( xy2pix_nest(  ixo, iyo + 1,
-						other_face)));
-				res.set(5, new Long( (other_face * nsidesq + ipo)));
-				res.set(6, new Long( xy2pix_nest( ixo, iyo - 1,
-						other_face)));
-				break;
-			case 2: // SouthWest edge
-				other_face = 8 + ibm;
-				ipo = (int) bm.MODULO(bm.swapLSBMSB( ipf), nsidesq); // W-E flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(  ixo - 1, iyo,
-						other_face)));
-				res.set(1, new Long( (other_face * nsidesq + ipo)));
-				res.set(2, new Long( xy2pix_nest(  ixo + 1, iyo,
-						other_face)));
-				res.set(3, new Long( xy2pix_nest(  ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest(  ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest(  ixp, iy, face_num)));
-				res.set(6, new Long(xy2pix_nest(  ixp, iym, face_num)));
-				res.set(7, new Long( xy2pix_nest(  ix, iym, face_num)));
-				break;
-			case 3: // NorthWest edge
-				other_face = 4 + ib;
-				ipo = (int) bm.MODULO(bm.invMSB( ipf), nsidesq);
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(  ixm, iym, face_num)));
-				res.set(1, new Long( xy2pix_nest(  ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(  ixo - 1, iyo,
-						other_face)));
-				res.set(3, new Long( (other_face * nsidesq + ipo)));
-				res.set(4, new Long( xy2pix_nest(  ixo + 1, iyo,
-						other_face)));
-				res.set(5, new Long( xy2pix_nest(  ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(  ixp, iym, face_num)));
-				res.set(7, new Long( xy2pix_nest(  ix, iym, face_num)));
-				break;
-			case 4: // SouthEast edge
-				other_face = 8 + ibp;
-				ipo = (int) bm.MODULO(bm.swapLSBMSB( ipf), nsidesq); // SE-NW
-				// flip
-				ixoiyo = pix2xy_nest(  ipo);
-				ixo = ixoiyo.x;
-				iyo = ixoiyo.y;
-				res.set(0, new Long( xy2pix_nest(  ixo, iyo - 1,
-						other_face)));
-				res.set(1, new Long( xy2pix_nest(  ixm, iy, face_num)));
-				res.set(2, new Long( xy2pix_nest(  ixm, iyp, face_num)));
-				res.set(3, new Long( xy2pix_nest(  ix, iyp, face_num)));
-				res.set(4, new Long( xy2pix_nest(  ixp, iyp, face_num)));
-				res.set(5, new Long( xy2pix_nest(  ixp, iy, face_num)));
-				res.set(6, new Long( xy2pix_nest(  ixo, iyo + 1,
-						other_face)));
-				res.set(7, new Long( (other_face * nsidesq + ipo)));
-				break;
-			case 5: // West corner
-				other_face = 8 + ibm;
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(0, new Long( (arb_const - 2)));
-				res.set(1, new Long( arb_const));
-				other_face = 4 + ib;
-				res.set(2, new Long( (other_face * nsidesq)));
-				res.set(3, new Long( (other_face * nsidesq + 1)));
-				res.set(4, new Long( (ipix + 1)));
-				res.set(5, new Long( (ipix - 1)));
-				res.set(6, new Long( (ipix - 2)));
-				res.remove(7);
-				break;
-			case 6: //  North corner
-				other_face = 4 + ib;
-				res.set(0, new Long( (ipix - 3)));
-				res.set(1, new Long((ipix - 1)));
-				arb_const = other_face * nsidesq + local_magic1;
-				res.set(2, new Long( (arb_const - 1)));
-				res.set(3, new Long( arb_const));
-				other_face = 0 + ib;
-				res.set(4, new Long( (other_face * nsidesq)));
-				other_face = 4 + ibp;
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(5, new Long( arb_const));
-				res.set(6, new Long( (arb_const - 2)));
-				res.set(7, new Long( (ipix - 2)));
-				break;
-			case 7: // South corner
-				other_face = 8 + ib2;
-				res.set(0, new Long( (other_face * nsidesq)));
-				other_face = 8 + ibm;
-				arb_const = other_face * nsidesq;
-				res.set(1, new Long( arb_const));
-				res.set(2, new Long( (arb_const + 1)));
-				res.set(3, new Long( (ipix + 2)));
-				res.set(4, new Long( (ipix + 3)));
-				res.set(5, new Long( (ipix + 1)));
-				other_face = 8 + ibp;
-				arb_const = other_face * nsidesq;
-				res.set(6, new Long( (arb_const + 2)));
-				res.set(7, new Long( arb_const));
-				break;
-			case 8: // East corner
-				other_face = 8 + ibp;
-				res.set(1, new Long( (ipix - 1)));
-				res.set(2, new Long( (ipix + 1)));
-				res.set(3, new Long( (ipix + 2)));
-				arb_const = other_face * nsidesq + local_magic2;
-				res.set(6, new Long( arb_const));
-				res.set(0, new Long( (arb_const - 2)));
-				other_face = 4 + ibp;
-				arb_const = other_face * nsidesq;
-				res.set(4, new Long( (arb_const + 2)));
-				res.set(5, new Long( arb_const));
-				res.remove(7);
-				break;
-			}
-		}
-		return res;
+		      int f = facearray[nbnum][face_num];
+		      
+		      if (f>=0)
+		        {
+		        if ((swaparray[nbnum][face_num]&1)>0) x=(int)((long)nside-(long)x-1L);
+		        if ((swaparray[nbnum][face_num]&2)>0) y=(int)((long)nside-(long)y-1L);
+		        if ((swaparray[nbnum][face_num]&4)>0) {
+		        	int tint = x;
+		        	x=y; y=tint;
+		        }
+		        tmp =  xyf2nest(x,y,f);
+		        result.add(i,tmp);
+		        }
+		      else
+		        result.add(i, -1L);
+		      }
+		    }
+		return result;
 	}
 
-	/*
+	/**
 	 * return the parent PIXEL of a given pixel at some higher NSIDE. 
 	 * One must also provide the nsode of the given pixel as otherwise it
 	 * can not be known.
@@ -3327,6 +2955,7 @@ public class HealpixIndex implements Serializable {
 	 * @param requirednside nside to upgrade to
 	 * 
 	 * @return the new pixel number
+	 * @throws Exception 
  	 */
 	static public long parentAt(long child, int childnside, int requirednside) throws Exception{
 	    // nside is the number of bits .. 
@@ -3349,10 +2978,10 @@ public class HealpixIndex implements Serializable {
 	 * @param nside2
 	 * @return  number of bits difference between the pixel ids.
 	 */
-	public static int bitdiff(int nside1, int nside2){
+	public static int bitdiff(long nside1, long nside2){
 		int pbits = 2;
-		int childnside=nside2;
-		int parentnside=nside1;
+		long childnside=nside2;
+		long parentnside=nside1;
 		if (nside1>=nside2){
 			childnside=nside1;
 			parentnside=nside2;
@@ -3377,14 +3006,15 @@ public class HealpixIndex implements Serializable {
 	 * the difference in NSIDE bits and then listing all numbers 
 	 * which fill the empty bits. 
 	 * 
-	 * BEWARE - not chcking you ar enot trying to go too DEEP. 
+	 * BEWARE - not checking you are not trying to go too DEEP. 
 	 * 
 	 * @param nside  nside of pix
 	 * @param pix  the pixel 
 	 * @param requiredNside  the nside you want the children at
-	 * @return
+	 * @return children pixels
+	 * @throws Exception 
 	 */
-	public static long[] getChildrenAt(int nside, long pix, int requiredNside) throws Exception{
+	public static long[] getChildrenAt(long nside, long pix, int requiredNside) throws Exception{
 	 
 		if (nside >= requiredNside){
 			throw new Exception("The requirend NSIDE should be greater than the pix NSIDE");
@@ -3399,4 +3029,47 @@ public class HealpixIndex implements Serializable {
 		}
 		return pixlist;
 	}
+
+	/**
+	 * Gets the order value
+	 * 
+	 * @return order
+	 */
+	public int getOrder() {
+		return order;
+	}
+
+	/**
+	 * Sets the order
+	 * 
+	 * @param order
+	 */
+	public void setOrder(int order) {
+		this.order = order;
+	}
+
+//	/**
+//	 * Integer square root
+//	 * 
+//	 * @param arg
+//	 *            value
+//	 * @return long square root
+//	 */
+//	private static long isqrt(double arg) {
+//		double d = Math.sqrt(arg + 0.5);
+//		return (long) d;
+//
+//	}
+
+//	//! Returns the largest integer \a n that fulfills \a 2^n<=arg.
+//	template<typename I> inline unsigned int ilog2 (I arg)
+//	  {
+//	  unsigned int res=0;
+//	  while (arg > 0x0000FFFF) { res+=16; arg>>=16; }
+//	  if (arg > 0x000000FF) { res|=8; arg>>=8; }
+//	  if (arg > 0x0000000F) { res|=4; arg>>=4; }
+//	  if (arg > 0x00000003) { res|=2; arg>>=2; }
+//	  if (arg > 0x00000001) { res|=1; }
+//	  return res;
+//	  }
 }

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>getArgument</TITLE>
-<META NAME="description" CONTENT="getArgument">
+<TITLE>get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</TITLE>
+<META NAME="description" CONTENT="get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,87 +28,98 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html617"
+<A NAME="tex2html621"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html627"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html631"
   HREF="subroutinesnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html625"
+<A NAME="tex2html629"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html618"
-  HREF="subroutinesnode33.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
+<B> Previous:</B> <A NAME="tex2html622"
+  HREF="subroutinesnode33.htm">get_card</A>
 
-<B>Up:</B> <A NAME="tex2html624"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html628"
-  HREF="subroutinesnode35.htm">getEnvironment</A>
+<B> Next:</B> <A NAME="tex2html632"
+  HREF="subroutinesnode35.htm">getArgument</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000340000000000000000"></A>
-<A NAME="sub:getargument"></A>
+<A NAME="sub:get_healpix_xxx_dir"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">getArgument</FONT></font></b><hr><H2>This subroutine emulates the C routine <TT>getarg</TT>, which returns the value of
-a given command line argument.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/extension.F90
+<b><font size=+6><FONT COLOR="#CC0000">get_healpix_main_dir,&nbsp;<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg41.png"
+ ALT="$\ldots$"></SPAN></FONT></font></b><hr><H2>A few functions are available to return the full path to <b>HEALPix</b> main directory
+and its <TT>data</TT> and <TT>test</TT> subdirectories. This allow those paths to be
+controlled by preprocessing macros or environment variables in case of
+non-standard installation of the <b>HEALPix</b> directory structure.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/paramfile_io.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">getArgument</FONT>(
-index, value
-)</h2></blockquote>
+
+<BIG CLASS="LARGE"><SPAN  CLASS="textbf">FUNCTIONS: </SPAN></BIG>
+<BR>
+<TT>hmd = get_healpix_main_dir()</TT> 
 
 <P>
-<hr><H1>ARGUMENTS</H1>
-
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-index</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>index of the command line argument (where the first argument
-                   has index 1)</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>value</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>value of the argument</TD>
-</TR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the full path to the main
+			<b>HEALPix</b> directory. It will be determined, in this
+			order, from the value of the
+			preprocessing macros <TT>HEALPIX</TT> and <TT>HEALPIXDIR</TT>
+			if they are defined or the
+			environment variable <TT>$HEALPIX</TT> otherwise</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
 </TABLE>
+<BR>
+<BR>
+<P>
+<TT>hdd = get_healpix_data_dir()</TT> 
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">getArgument</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode35.htm#sub:getenvironment">getEnvironment</A></B>
-<DD>returns value of
-  environment variable
-<DT>
-<B><A HREF="subroutinesnode59.htm#sub:narguments">nArguments</A></B>
-<DD>returns number of command line arguments
-  </DL>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the full path to
+			<b>HEALPix</b> <TT>data</TT> subdirectory. It will be determined
+			from the preprocessing macro <TT>HEALPIXDATA</TT> or the environment variable <TT>$HEALPIXDATA</TT>. If both fail, it will return the list of directories {<TT>. ../data ./data .. $HEALPIX $HEALPIX/data $HEALPIX/../data
+			$HEALPIX<SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg14.png"
+ ALT="$\backslash$"></SPAN>data</TT>} separated by LineFeed.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+<P>
+<TT>htd = get_healpix_test_dir()</TT> 
 
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the full path to
+			<b>HEALPix</b> <TT>test</TT> subdirectory. It will be determined,
+			in this order, from the preprocessing macro <TT>HEALPIXTEST</TT>, the environment
+			variable <TT>$HEALPIXTEST</TT> or <TT>$HEALPIX/test</TT>.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<BR>
+<P>
 <P>
 
 <P>
@@ -118,32 +129,32 @@ index</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html617"
+<A NAME="tex2html621"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html627"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html631"
   HREF="subroutinesnode35.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html625"
+<A NAME="tex2html629"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html618"
-  HREF="subroutinesnode33.htm">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir</A>
+<B> Previous:</B> <A NAME="tex2html622"
+  HREF="subroutinesnode33.htm">get_card</A>
 
-<B>Up:</B> <A NAME="tex2html624"
+<B>Up:</B> <A NAME="tex2html628"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html628"
-  HREF="subroutinesnode35.htm">getEnvironment</A>
+<B> Next:</B> <A NAME="tex2html632"
+  HREF="subroutinesnode35.htm">getArgument</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

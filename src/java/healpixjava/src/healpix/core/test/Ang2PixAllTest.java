@@ -32,7 +32,7 @@ import junit.framework.TestCase;
  * Test the healpix pixel and angle related methods.
  * 
  * @author ejoliet
- * @version $Id: Ang2PixAllTest.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: Ang2PixAllTest.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class Ang2PixAllTest extends TestCase {
 
@@ -64,6 +64,14 @@ public class Ang2PixAllTest extends TestCase {
 	}
 
 	/**
+	 * THIS takes forever - well at least overnight - so beware if you wan tot do it
+	 * @throws Exception
+	 */
+//	public void testAllNest4096() throws Exception {
+	//	testAll(4096, false);
+//}
+
+	/**
 	 * Test pix to angle and angle to pixel tied to a resolution number nside
 	 * 
 	 * @param nside
@@ -76,9 +84,11 @@ public class Ang2PixAllTest extends TestCase {
 
 		HealpixIndex hi = new HealpixIndex(nside);
 
+		
 		int length = 12 * nside * nside;
 		DecimalFormat form = new DecimalFormat("#.###");
 
+		System.err.println("Doing NSIDE="+nside+" npix="+length);
 		for (int i = 0; i < length; i++) {
 			AngularPosition pos = null;
 			double[] posHi = null;
@@ -91,24 +101,41 @@ public class Ang2PixAllTest extends TestCase {
 				posHi = hi.pix2ang_nest(i);
 			}
 			int pix = 0;
-			if (ring)
+			long lpix =0;
+			if (ring){
 				pix = Healpix.ang2pix_ring(nside, pos.theta(), pos.phi());
-			else
+				lpix = hi.ang2pix_ring( pos.theta(), pos.phi());
+				
+			}else{
 				pix = Healpix.ang2pix_nest(nside, pos.theta(), pos.phi());
+				lpix = hi.ang2pix_nest( pos.theta(), pos.phi());
+			}
+			
+			assertEquals("Healpix and HealpixIndex disagree on theta for " + i,
+					pos.theta(), posHi[0],0.00000000000001);
+			
 			assertEquals("i incorrect for  theta "
 					+ form.format(Math.cos(pos.theta())) + " phi/pi "
 					+ form.format(pos.phi() / Constants.PI), i, pix);
 
-			assertEquals("Healpix and HealpixIndex disagree on theta for " + i,
-					pos.theta(), posHi[0]);
-			assertEquals("Healpix and HealpixIndex disagree on phi", pos.phi(),
-					posHi[1]);
+			assertEquals("i incorrect for  phi "
+					+ form.format(Math.cos(posHi[0])) + " phi/pi "
+					+ form.format(posHi[1] / Constants.PI), i, lpix);
 
+			assertEquals("Healpix and HealpixIndex disagree on phi", pos.phi(),
+					posHi[1],0.00000000000001);
+
+
+			
+		//	if (pix%nside==0) {
+		//		System.err.println("pix="+pix + " pos "+pos);
+		//	}
 		}
 
 	}
 
-	/** Uwe's problem index* */
+	/** Uwe's problem index* 
+	 * @throws Exception */
 	public void test8063() throws Exception {
 
 		int nside = 64;

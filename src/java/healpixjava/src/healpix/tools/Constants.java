@@ -25,7 +25,7 @@ package healpix.tools;
 public class Constants {
 
 	/** The Constant PI. */
-	public static final double PI = 3.141592653589793238462643383279502884197;
+	public static final double PI = Math.PI;//3.141592653589793238462643383279502884197;
 
 	/** The Constant cPr. */
 	public static final double cPr = PI / 180;
@@ -47,10 +47,10 @@ public class Constants {
 	public static final double ln10 = Math.log(10);
 
 	/** The Constant piover2. */
-	public static final double piover2 = PI / 2;
+	public static final double piover2 = PI / 2.;
 
 	/** The Constant twopi. */
-	public static final double twopi = 6.283185307179586476925286766559005768394;// 2 *
+	public static final double twopi = 2*PI;//6.283185307179586476925286766559005768394;// 2 *
 																					// PI;
 
 	/** The Constant twothird. */

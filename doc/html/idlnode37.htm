@@ -57,23 +57,20 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">nside2npix</FONT></font></b><hr><H2>This IDL facility provides the number of pixels Npix over the full sky corresponding
 to resolution parameter Nside.
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/toolkit/nside2npix.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 Npix=NSIDE2NPIX (Nside [,ERROR=])
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Nside</B>
 <DD><b>HEALPix</b> resolution parameter (scalar integer),
          should be a valid Nside (power of 2 <SPAN CLASS="MATH"><IMG
@@ -84,17 +81,18 @@ Npix=NSIDE2NPIX (Nside [,ERROR=])
 <B>Npix</B>
 <DD>number of pixels, Npix = 12*Nside<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> if Nside is a valid
     resolution parameter or -1 otherwise
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>ERROR =</B>
 <DD>error flag, set to 1 on output if Nside is NOT valid, or
     stays to 0 otherwise.
-  </DL>
-
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -114,11 +112,10 @@ corresponding number of pixels <!-- MATH
  SRC="idlimg41.png"
  ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN>.
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">nside2npix</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run nside2npix .	
     <DT>
@@ -133,40 +130,41 @@ corresponding number of pixels <!-- MATH
     <DT>
 <B><A HREF="idlnode41.htm#idl:pix_tools">nest2ring</A>, <A HREF="idlnode41.htm#idl:pix_tools">ring2nest</A></B>
 <DD>conversion between NESTED and RING indices
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-Npix = nside2npix(256, ERROR=error)</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+Npix = nside2npix(256, ERROR=error)
+</SMALL></TD>
+<TD></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 Npix will be 786432 the number of pixels over the full sky for the <b>HEALPix</b> 
-resolution parameter 256 and error will be 0</blockquote>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-Npix = nside2npix(248, ERROR=error)</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+resolution parameter 256 and error will be 0</blockquote><HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+Npix = nside2npix(248, ERROR=error)
+</SMALL></TD>
+<TD></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
 Npix will be -1 and error: 1, because 248 is not a valid value for a <b>HEALPix</b> 
 resolution parameter</blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html572"
@@ -194,7 +192,7 @@ resolution parameter</blockquote>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

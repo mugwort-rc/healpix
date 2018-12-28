@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr
+PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr, HELP=help
 
 ;+
 ; NAME:
@@ -37,7 +37,7 @@ PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr
 ;       header information if required.
 ;
 ; CALLING SEQUENCE:
-;       ALM2FITS, index, alm_array, fitsfile, [HDR = , XHDR = ]
+;       ALM2FITS, index, alm_array, fitsfile, [HDR=, XHDR=, HELP= ]
 ; 
 ; INPUTS:
 ;       fitsfile = String containing the name of the file to be written      
@@ -67,6 +67,7 @@ PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr
 ;                  headers are returned appended into one string array.
 ;                  NOTE: optional header strings should NOT include the
 ;                  header keywords explicitly written by this routine.
+;       HELP     = If set, this documentation header is shown
 ;
 ; EXAMPLE:
 ;       Write the T spherical harmonic coefficients with corresponding errors
@@ -88,10 +89,16 @@ PRO ALM2FITS, index, alm_array, fitsfile, HDR = hdr, XHDR = xhdr
 ;       Aug 2002: added EXTNAME and TTYPE* keywords, EH (IPAC)
 ;       Aug 2005: replaced FXBWRITE by much faster FXBWRITM
 ;       Jan 2009: calls init_astrolib
+;       Jan 2010: added HELP keyword
 ;-
 
+if (keyword_set(help)) then begin
+    doc_library,'alm2fits'
+    return
+endif
+
 if N_params() LT 3 or N_params() gt 5 then begin
-  print,'Syntax : ALM2FITS, index, alm_array, fitsfile, [HDR = , XHDR = ]'
+  print,'Syntax : ALM2FITS, index, alm_array, fitsfile, [HDR=, XHDR=, HELP=]'
   goto, Exit
 endif
 

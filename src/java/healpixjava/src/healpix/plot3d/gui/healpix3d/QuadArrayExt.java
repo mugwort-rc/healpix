@@ -20,15 +20,17 @@
 package healpix.plot3d.gui.healpix3d;
 
 import healpix.core.AngularPosition;
+import healpix.core.dm.HealpixMap;
 
 import javax.media.j3d.QuadArray;
+import javax.vecmath.Color3f;
 
 /**
  * Quadrilatere Array with tooltip fonctionality ready to be used by
  * {@link DataSphere}.
  * 
  * @author ejoliet
- * @version $Id: QuadArrayExt.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: QuadArrayExt.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class QuadArrayExt extends QuadArray {
 	
@@ -48,8 +50,13 @@ public class QuadArrayExt extends QuadArray {
 	int index;
 
 	/** The data. */
-	HealpixDataIndex data[];
+	double data[];
+	/** The angular data */
+	AngularPosition dataAngle[];
+	/** The pixel ids */
+	int dataIpix[];
 
+	private HealpixMap map;
 	/**
 	 * Instantiates a new quad array ext.
 	 * 
@@ -58,17 +65,32 @@ public class QuadArrayExt extends QuadArray {
 	 */
 	QuadArrayExt(int nPoints, int color) {
 		super(nPoints, color);
-		data = new HealpixDataIndex[nPoints];
+		data = new double[nPoints];
+		dataAngle = new AngularPosition[nPoints];
+		dataIpix = new int[nPoints];
 		init();
 	}
-
+	/**
+	 * Instantiates a new quad array ext.
+	 * 
+	 * @param nPoints the n points
+	 * @param color the color
+	 */
+	QuadArrayExt(HealpixMap ch, int nPoints, int color) {
+		super(nPoints, color);
+		this.map=ch;
+		data = new double[nPoints];
+		dataAngle = new AngularPosition[nPoints];
+		dataIpix = new int[nPoints];
+		init();
+	}
 	/**
 	 * Inits the.
 	 */
 	private void init() {
-		for (int u = 0; u < data.length; u++) {
-			data[u] = new HealpixDataIndex();
-		}
+//		for (int u = 0; u < data.length; u++) {
+//			data[u] = new HealpixDataIndex();
+//		}
 	}
 
 	/**
@@ -96,7 +118,7 @@ public class QuadArrayExt extends QuadArray {
 	 * @param ipix the ipix
 	 */
 	public void setIpix(int ind, int ipix) {
-		data[ind].ipix = ipix;
+		dataIpix[ind] = ipix;
 	}
 
 	/**
@@ -107,7 +129,7 @@ public class QuadArrayExt extends QuadArray {
 	 * @return the ipix
 	 */
 	public int getIpix(int ind) {
-		return data[ind].ipix;
+		return dataIpix[ind];
 	}
 
 	/**
@@ -135,7 +157,7 @@ public class QuadArrayExt extends QuadArray {
 	 * @param ang the ang
 	 */
 	public void setAngle(int ind, AngularPosition ang) {
-		data[ind].angle = ang;
+		dataAngle[ind] = ang;
 	}
 
 	/**
@@ -155,7 +177,7 @@ public class QuadArrayExt extends QuadArray {
 	 * @return the angle
 	 */
 	public AngularPosition getAngle(int ind) {
-		return data[ind].angle;
+		return dataAngle[ind];
 	}
 
 	/**
@@ -174,7 +196,7 @@ public class QuadArrayExt extends QuadArray {
 	 * @param d the d
 	 */
 	public void setValue(int ind, double d) {
-		data[ind].value = d;
+		data[ind] = d;
 	}
 
 	/**
@@ -194,9 +216,9 @@ public class QuadArrayExt extends QuadArray {
 	 * @return the tool tip txt
 	 */
 	public String getToolTipTxt(int ind) {
-		return "<html>" + "Value=" + data[ind].value + "<br>"
-				+ data[ind].angle.toString() + "<br>" + "Healpix pixel:"
-				+ data[ind].ipix + "<html>";
+		return "<html>" + "Value=" + data[ind] + "<br>"
+				+ dataAngle[ind].toString() + "<br>" + "Healpix pixel:"
+				+ dataIpix[ind] + "<html>";
 	}
 
 	/**

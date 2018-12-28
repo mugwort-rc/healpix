@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2008 Krzysztof M. Gorski, Eric Hivon, 
+!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon, 
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -1872,8 +1872,8 @@
     !       from its alm for the HEALPIX pixelisation
     !      for the Temperature field
     !
-    ! der1 = dT/d(theta), dT/d(phi)
-    ! der2 = d^2T/d(theta^2), d^2T/d(theta)/d(phi), d^2T/d(phi^2)
+    ! der1 = dT/d(theta), dT/d(phi)/sin(theta)
+    ! der2 = d^2T/d(theta^2), d^2T/d(theta)/d(phi)/sin(theta), d^2T/d(phi^2)/sin(theta)^2
     !
     ! derivatives of Ylm are obtained from Qu.Th. of Ang.Mom. Varshalovich et al
     !=======================================================================
@@ -2235,11 +2235,15 @@
     !       from its alm for the HEALPIX pixelisation
     !      for the Temperature and polarisation fields
     !
-    ! der1 = dX/d(theta), dX/d(phi)
-    ! der2 = d^2X/d(theta^2), d^2X/d(theta)/d(phi), d^2X/d(phi^2)
+    ! der1 = dX/d(theta), dX/d(phi)/sin(theta)
+    ! der2 = d^2X/d(theta^2), d^2X/d(theta)/d(phi)/sin(theta), d^2X/d(phi^2)/sin(theta)^2
     ! where X = (T,Q,U)
     !
     ! derivatives of Ylm are obtained from Qu.Th. of Ang.Mom. Varshalovich et al
+    !
+    ! 2010-02-09: correction of a bug affecting
+    ! dX/d(theta), dX/d(theta)/d(phi)/sin(theta), d^2X/d(theta)^2 for X = Q,U
+    ! mainly at low ell
     !=======================================================================
     integer(I4B), intent(IN)                   :: nsmax, nlmax, nmmax
     complex(KALMC), INTENT(IN),  dimension(1:3,0:nlmax,0:nmmax) :: alm_TGC
@@ -2441,6 +2445,7 @@
                    if (l > 1) then
                       xp = (2*m)*one_on_s1/fl  ! spin m / (l sin(theta))
                       aq = at * sqrt(1.0_dp - 4.0_dp/(fl*fl)) ! at * sqrt(l^2-spin^2)/l
+                      aq = aq * normal_l(l-1) / normal_l(l) ! correct for Ypol renormalisation ! 2010-02-09
                       derW   = a0 * lam_lm(2,l) - aq * lam_lm(2,l-1) + xp * lam_lm(3,l)
                       derX   = a0 * lam_lm(3,l) - aq * lam_lm(3,l-1) + xp * lam_lm(2,l)
                       b_ns_t(2-par_lm:5-par_lm) = b_ns_t(2-par_lm:5-par_lm) - derW * dalm(2:5,l) ! Q, U  odd

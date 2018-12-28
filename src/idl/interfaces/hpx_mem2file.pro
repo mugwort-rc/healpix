@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -81,6 +81,7 @@ endif else begin
                 if (undefined(ring) && undefined(nested) && undefined(ordering)) then begin
                     message,'Set either /RING or /NESTED or ORDERING=  when dealing with online maps',level=-1
                 endif
+                error = 0
                 if (nmaps eq 1) then begin
                     write_fits_map, tmpfile, variable, ring=ring, nested=nested, ordering=ordering, error=error
                 endif else begin

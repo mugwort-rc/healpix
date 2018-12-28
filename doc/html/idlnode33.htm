@@ -57,11 +57,12 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
 
 <P>
@@ -71,16 +72,14 @@ It also offers the possibility to
 generate GIF, PNG and Postscript images of the projected map.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/visu/mollview.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 MOLLVIEW, File, [Select, ] [/ASINH, CHARSIZE=, COLT=, ... 
             ... WINDOW=, XPOS=, YPOS= ]
 
 </h2>
-
 <P>
-Several visualization routines have a similar interface. Their qualifiers and
+<SMALL CLASS="FOOTNOTESIZE">Several visualization routines have a similar interface. Their qualifiers and
 keywords are all listed here, and the routines to which they apply are coded
 in the 'routine' column as: 
 <BR>
@@ -88,180 +87,204 @@ C: <A HREF="idlnode10.htm#idl:cartview">cartview</A>,
 G: <A HREF="idlnode21.htm#idl:gnomview">gnomview</A>, 
 M: <A HREF="#idl:mollview">mollview</A>,
 O: <A HREF="idlnode40.htm#idl:orthview">orthview</A> and all: all of them
+</SMALL>
 <P>
-<B>Qualifiers</B> should appear in the order indicated. They can take a range of values, and some of them are optional.
+<SMALL CLASS="FOOTNOTESIZE"><B>Qualifiers</B> should appear in the order indicated. They can take a range of values, and some of them are optional.
 <BR><B>Keywords</B> are optional, and can appear in any order. They take the form <TT>keyword=value</TT> and can be abbreviated to a non ambiguous form
 (ie, <TT>factor=10.0</TT> can be replaced by <TT>fac = 10.0</TT>). They generally can take a range of values, but
 some of them (noted as <TT>/keyword</TT> below) are boolean switches: they are either present (or set to 1) or absent (or set
 to 0).
-
+</SMALL>
 <P>
-
 <H1>QUALIFIERS</H1>
 <BR>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+</SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>File</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Required
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+File  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> Required
 <BR>
 name of a (possibly gzip compressed) FITS file containing 
-               the <b>HEALPix</b>  map in an extension or in the image field, <BR><EM>or</EM>    name of an <EM>online</EM> variable (either array or
+               the <b>HEALPix</b>  map in an extension or in the image field, <BR></SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>or</EM>    name of an </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>online</EM> variable (either array or
 structure) containing the <b>HEALPix</b>  map (See note below);
 <BR>
 if Save is set   :    name of an IDL saveset file containing
-               the <b>HEALPix</b>  map stored under the variable  <TT>data</TT> <BR><b> (default : none)</b>
-<BR><SPAN ID="txt3815">Note on online data</SPAN>: in order to preserve the integrity of the input data, 
-		the content of the array or structure <TT>File</TT> is replicated
+               the <b>HEALPix</b>  map stored under the variable  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>data</TT> <BR><b> (default : none)</b>
+<BR><SPAN ID="txt3885">Note on online data</SPAN>: in order to preserve the integrity of the input data, 
+		the content of the array or structure </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>File</TT> is replicated
 before being possibly altered by the map making process. 
 Therefore plotting online data will require more memory than reading the data from disc directly, and is not recommended
 		to visualize data sets of size comparable to that of the
 computer memory.
-<BR><SPAN ID="txt3817">Note on high resolution cut sky data</SPAN>: cut sky data (in which less
+<BR><SPAN ID="txt3887">Note on high resolution cut sky data</SPAN>: cut sky data (in which less
 than 50% of the sky is observed), can be processed with a minimal memory
 foot-print, by not allocating fake full map. In the current release, two
 restrictions apply: the input data set must be read from a FITS file in 'cut4'
-format, and the <TT>POLARIZATION</TT> IDL keyword (described below) must be 0 (default value). See the
-Examples #4 below (on page&nbsp;<A HREF="idlnode33.htm#page:example_hires_cutsky"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).</TD>
+format, and the </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>POLARIZATION</TT> IDL keyword (described below) must be 0 (default value). See the
+Examples #4 below (on page&nbsp;<A HREF="idlnode33.htm#page:example_hires_cutsky"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>Select</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Optional
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">Select  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> Optional
 <BR>
 column of the BIN FITS table to be plotted, can be either  <BR>- a name : value given in TTYPEi of the FITS file <BR>
 NOT case sensitive and can be truncated, <BR>(only letters, digits and underscore are valid) <BR>- an integer        : number i of the column
                             containing the data, starting with 1 (also valid if
-		  <TT>File</TT> is an online array) <BR><b>default:</b>1 for full sky maps, 'SIGNAL' column for FITS files
+		  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>File</TT> is an online array) <BR><b>default:</b>1 for full sky maps, 'SIGNAL' column for FITS files
 		  containing cut sky maps
-               (see the Examples below)</TD>
+               (see the Examples below)</SMALL></TD>
 </TR>
-</TABLE>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-
 <H1>KEYWORDS</H1>
 <BR>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+</SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/ASINH</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the color table is altered to emulate the effect of replacing
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+/ASINH   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">   if set, the color table is altered to emulate the effect of replacing
             the data by <SPAN CLASS="MATH"><IMG
  WIDTH="56" HEIGHT="23" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg34.png"
  ALT="$\sinh^{-1}$"></SPAN>(data) in order to enhance the low contrast regions.
-            Can be used in conjonction with Factor and Offset, but can <EM>not</EM> be
+            Can be used in conjonction with Factor and Offset, but can </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>not</EM> be
             used with /LOG nor /HIST_EQUAL.
-		<i>see also:</i>Factor, Hist_Equal, Log, Offset</TD>
+		<i>see also:</i>Factor, Hist_Equal, Log, Offset
+	</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>CHARSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>overall multiplicative factor applied to the size of
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">CHARSIZE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  overall multiplicative factor applied to the size of
                all;
                characters appearing on the plot
-        	<b>default:</b>1.0</TD>
+        	<b>default:</b>1.0 </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>COLT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>color table number, in [-40,40]. If colt<SPAN CLASS="MATH">&lt;0</SPAN>, the IDL color
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">COLT=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  color table number, in [-40,40]. If colt<SPAN CLASS="MATH">&lt;0</SPAN>, the IDL color
         	table abs(colt) is used, but the scale is
                reversed (ie a red to blue scale becomes a blue to red
         	scale). Note: -0.1 can be used as negative 0.
-<BR><b>default:</b>33 (Blue-Red)</TD>
+<BR><b>default:</b>33 (Blue-Red) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>COORD=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>vector with 1 or 2 elements describing the coordinate system of the map;
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">COORD=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		vector with 1 or 2 elements describing the coordinate system of the map;
                 either
 <BR>- 'C' or 'Q' : Celestial2000 = eQuatorial, <BR>- 'E'        : Ecliptic, <BR>- 'G'        : Galactic  <BR>
 if coord = ['x','y'] the map is rotated from system 'x' to system 'y' <BR>
 if coord = ['y'] the map is rotated to coordinate system 'y' (with the
                original system assumed to be Galactic unless indicated otherwise in the
-                input file) <BR><i>see also:</i>Rot</TD>
+                input file) <BR><i>see also:</i>Rot</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/CROP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set the GIF/PNG file only contains the map and
-               no title, color bar, ... <BR><i>see also:</i>Gif, Png</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/CROP  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set the GIF/PNG file only contains the map and
+               no title, color bar, ... <BR><i>see also:</i>Gif, Png</SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>EXECUTE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>character string containing IDL command(s) to be executed in the
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">EXECUTE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		character string containing IDL command(s) to be executed in the
 plotting window. See 
-Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A></TD>
+Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A></SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>FACTOR=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>scalar multiplicative factor to be applied to the
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">FACTOR= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> scalar multiplicative factor to be applied to the
 	valid data <BR>
 the data plotted is of the form Factor*(data + Offset) <BR>
 This does not affect the flagged pixels <BR>
 Can be used together with ASINH or LOG <BR>
-When used with TRUECOLORS, FACTOR can be a 3-element vector. <BR><i>see also:</i>ASINH, Offset, LOG, Truecolors <BR><b>default:</b>1.0</TD>
+When used with TRUECOLORS, FACTOR can be a 3-element vector. <BR><i>see also:</i>ASINH, Offset, LOG, Truecolors <BR><b>default:</b>1.0  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>FITS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of an output fits file with
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">FITS= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -G- </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	string containing the name of an output fits file with
         the rectangular map in the primary image <BR>
 if set to 1            : output the plot in
         plot_gnomonic.fits <BR>
 if set to a file name  : output the plot in that file  <BR><b>default:</b>0: no .FITS done
 <BR>
-The resulting FITS file can be read with eg. map=<TT>readfits</TT>(<EM>filename</EM>).
-	When used in conjonction with <TT>FITS</TT>, the <TT>ROT</TT> keyword should
+The resulting FITS file can be read with eg. map=</SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>readfits</TT>(</SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>filename</EM>).
+	When used in conjonction with </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>FITS</TT>, the </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>ROT</TT> keyword should
 take the form (lon0, [lat0]), ie, no extra rotation around the center of the
 plot.
-<BR><i>see also:</i>Map_out</TD>
+<BR><i>see also:</i>Map_out</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/FLIP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set the longitude increases to the right, whereas by
-                default (astronomical convention) it increases towards the left</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/FLIP  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set the longitude increases to the right, whereas by
+                default (astronomical convention) it increases towards the left </SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GAL_CUT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-MO</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>(positive float) specifies the symmetric galactic cut in degrees
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">GAL_CUT=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -MO   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> (positive float) specifies the symmetric galactic cut in degrees
               outside of which the monopole and/or dipole fitting is done
 	<b>default:</b>0: monopole and dipole fit done on the whole sky
-              (<i>see also:</i>No_dipole, No_monopole)</TD>
+              (<i>see also:</i>No_dipole, No_monopole) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GIF=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of a .GIF output <BR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">GIF=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		string containing the name of a .GIF output <BR>
 if set to 1            : output the plot in plot_[projection].gif <BR>
 if set to a file name  : output the plot in that file <BR>
 Please note that the resulting GIF image might not always look
 	      as expected. The reason for this is a problem with
 	      'backing store' in the IDL-routine TVRD. Please read the IDL
 	      documentation for more information. <BR><b>default:</b>no .GIF done <BR><i>see also:</i>Crop, Png, Ps, Preview
-and Retain</TD>
+and Retain</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GLSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>character size of the graticule labels in units of <TT>Charsize</TT>. <BR><b>default:</b>0: no labeling of graticules. <BR><i>see also:</i>Charsize, Graticule</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">GLSIZE= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	character size of the graticule labels in units of </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>Charsize</TT>. <BR><b>default:</b>0: no labeling of graticules. <BR><i>see also:</i>Charsize, Graticule
+	</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>GRATICULE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, puts a graticule (ie, longitude and latitude grid) 
-	in the <EM>output</EM> astrophysical coordinates
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">GRATICULE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	if set, puts a graticule (ie, longitude and latitude grid) 
+	in the </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>output</EM> astrophysical coordinates
 	with delta_long = delta_lat = gdef
          degrees <BR>
 if set to a scalar <SPAN CLASS="MATH"><I>x</I>&gt;</SPAN> gmin then delta_long = delta_lat = <SPAN CLASS="MATH"><I>x</I></SPAN> <BR>
@@ -272,23 +295,29 @@ mollview : gdef = 45, gmin = 10 <BR>
 orthview : gdef = 45, gmin = 10 <BR>
 Note that the graticule will rotate with the sphere is Rot is set.
 	To outline only the equator set graticule=[360,90].
-	The automatic labeling of the graticule is controlled by <TT>Glsize</TT>
-<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Igraticule, Rot, Coord, Glsize</TD>
+	The automatic labeling of the graticule is controlled by </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>Glsize</TT>
+<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Igraticule, Rot, Coord, Glsize
+	</SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HALF_SKY</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--O</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, only shows only one half of the sky 
-   (centered on (0,0) or on the location parametrized by Rot) instead of the full sky</TD>
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>HBOUND=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to a valid <!-- MATH
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+/HALF_SKY </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> --O </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set, only shows only one half of the sky 
+   (centered on (0,0) or on the location parametrized by Rot) instead of the full sky </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">HBOUND= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set to a valid <!-- MATH
  ${N_{\rm side}}$
  -->
 <SPAN CLASS="MATH"><IMG
@@ -302,135 +331,157 @@ boundaries corresponding to that <!-- MATH
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg23.png"
  ALT="${N_{\rm side}}$"></SPAN>
-on top of the map.</TD>
+on top of the map. </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HELP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the routine header is printed (by doc_library)
-      and nothing else is done</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/HELP </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set, the routine header is printed (by doc_library)
+      and nothing else is done </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/HIST_EQUAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set,     uses a histogram equalized color mapping
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/HIST_EQUAL  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
+		if set,     uses a histogram equalized color mapping
 			(useful for non gaussian data field)
 		<b>default:</b>uses linear color mapping and 
                      		puts the level 0 in the middle
                      		of the color scale (ie, green for Blue-Red)
 				unless Min and Max are not symmetric
-<BR><i>see also:</i>Asinh, Log</TD>
+<BR><i>see also:</i>Asinh, Log</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>HXSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>horizontal dimension (in cm) of the Postscript printout <BR><b>default:</b>26 cm <SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">HXSIZE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		horizontal dimension (in cm) of the Postscript printout <BR><b>default:</b>26 cm <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg35.png"
- ALT="$\simeq$"></SPAN> 10 in <BR><i>see also:</i>Pxsize</TD>
+ ALT="$\simeq$"></SPAN> 10 in <BR><i>see also:</i>Pxsize</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>IGLSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>character size of the input coordinates graticule labels in units of <TT>Charsize</TT>. <BR><b>default:</b>0: no labeling of graticules. <BR><i>see also:</i>Charsize, Igraticule</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">IGLSIZE= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	character size of the input coordinates graticule labels in units of </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>Charsize</TT>. <BR><b>default:</b>0: no labeling of graticules. <BR><i>see also:</i>Charsize, Igraticule
+	</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>IGRATICULE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, puts a graticule (ie, longitude and latitude grid) 
-	in the <EM>input</EM> astrophysical coordinates.
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">IGRATICULE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	if set, puts a graticule (ie, longitude and latitude grid) 
+	in the </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>input</EM> astrophysical coordinates.
 	See Graticule for conventions and details.
 	If both Graticule and Igraticule are set, the latter will
 	be represented with dashes.
 <BR>
-The automatic labeling of the graticule is controlled by <TT>Iglsize</TT>
-<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Graticule, Rot, Coord, Iglsize</TD>
+The automatic labeling of the graticule is controlled by </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>Iglsize</TT>
+<BR><b>default:</b>0 [no graticule] <BR><i>see also:</i>Graticule, Rot, Coord, Iglsize
+	</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/LOG</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>display the log of map. This is intended for
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/LOG  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		display the log of map. This is intended for
  	application to positive definite maps only, eg. Galactic foreground
-	emission templates; for arbitrary maps, use /ASINH instead.	 <BR><i>see also:</i>Asinh, Factor, Hist_Equal, Offset</TD>
+	emission templates; for arbitrary maps, use /ASINH instead.	 <BR><i>see also:</i>Asinh, Factor, Hist_Equal, Offset</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>MAP_OUT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>variable that will contain the gnomonic map on output
-<BR><i>see also:</i>Fits</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MAP_OUT= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -G- </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	variable that will contain the gnomonic map on output
+<BR><i>see also:</i>Fits</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>MAX=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Set the maximum value for the plotted signal <BR><b>default:</b>is to use the actual signal
-	maximum.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MAX=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	Set the maximum value for the plotted signal <BR><b>default:</b>is to use the actual signal
+	maximum.</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>MIN=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>Set the minimum value for the plotted signal <BR><b>default:</b>is to use the actual signal minimum.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">MIN=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	Set the minimum value for the plotted signal <BR><b>default:</b>is to use the actual signal minimum.</SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NESTED</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>specify that the online data is ordered in the nested scheme</TD>
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NO_DIPOLE</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-MO</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set  (and Gal_cut is not set) 
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NESTED  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	specify that the online data is ordered in the nested scheme</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NO_DIPOLE  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -MO   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set  (and Gal_cut is not set) 
                 the best fit monopole *and* dipole over all valid pixels are
                 removed; <BR>
 if Gal_cut is set to <SPAN CLASS="MATH"><I>b</I>&gt;0</SPAN>, the best monopole and dipole fit is performed on all valid
                 pixels with <SPAN CLASS="MATH">|</SPAN>galactic latitude<SPAN CLASS="MATH">|&gt;<I>b</I></SPAN> (in deg) and is removed from
                 all valid pixels <BR><b>default:</b>0 (no monopole or dipole removal)
 <BR>
-can NOT be used together with No_monopole <BR><i>see also:</i>Gal_cut, No_monopole</TD>
+can NOT be used together with No_monopole <BR><i>see also:</i>Gal_cut, No_monopole</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NO_MONOPOLE</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-MO</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set (and Gal_cut is not set) 
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NO_MONOPOLE  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -MO   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set (and Gal_cut is not set) 
                 the best fit monopole over all valid pixels is
                 removed; <BR>
 if Gal_cut is set to <SPAN CLASS="MATH"><I>b</I>&gt;0</SPAN>, the best monopole fit is performed on all valid
                 pixels with <SPAN CLASS="MATH">|</SPAN>galactic latitude<SPAN CLASS="MATH">|&gt;<I>b</I></SPAN> (in deg) and is removed from
                 all valid pixels <BR><b>default:</b>0 (no monopole removal)
 <BR>
-can NOT be used together with No_dipole <BR><i>see also:</i>Gal_cut, No_dipole</TD>
+can NOT be used together with No_dipole <BR><i>see also:</i>Gal_cut, No_dipole</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOBAR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, color bar is not present</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NOBAR  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set, color bar is not present </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOLABELS</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, color bar labels (min and max) are not present, <b>default:</b>
-	labels are present</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NOLABELS  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set, color bar labels (min and max) are not present, <b>default:</b>
+	labels are present </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/NOPOSITION</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>-G-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the astronomical location of the map
-        central point is not indicated</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/NOPOSITION </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> -G- </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> if set, the astronomical location of the map
+        central point is not indicated </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>OFFSET=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>scalar additive factor to be applied to the valid data <BR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">OFFSET= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> scalar additive factor to be applied to the valid data <BR>
 the data plotted is of the form Factor*(data + Offset) <BR>
 This does not affect the flagged pixels <BR>
 can be used together with ASINH or LOG <BR>
 When used with TRUECOLORS, OFFSET can be a 3-element vector. <BR>
-see also : ASINH, Offset, LOG, TRUECOLORS <BR><b>default:</b>0.0</TD>
+see also : ASINH, Offset, LOG, TRUECOLORS <BR><b>default:</b>0.0  </SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>OUTLINE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>IDL (meta-)structure containing the description of one (or several) outline(s) to
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">OUTLINE= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
+	IDL (meta-)structure containing the description of one (or several) outline(s) to
       be overplotted on the final map.
 <BR>
 For each contour or point list, the corresponding (sub)structure should
 	contain the following fields :  <BR>- 'COORD' coordinate system (either, 'C', 'G', or 'E') of the contour
 <BR>- 'RA' RA/longitude coordinates of the contour vertices (array or scalar) <BR>- 'DEC' Dec/latitude coordinates of the contour vertices (array or scalar)
-<BR>- 'LINE[STYLE]' (optional, scalar) <B>+2</B>: black dashes, <B>+1</B>: black dots, <B>0</B>: black solid (default), <B>-1</B>: black dots on white background, <B>-2</B>: black dashes on
+<BR>- 'LINE[STYLE]' (optional, scalar) </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>+2</B>: black dashes, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>+1</B>: black dots, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>0</B>: black solid (default), </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>-1</B>: black dots on white background, </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>-2</B>: black dashes on
 	white background
 <BR>- 'PSY[M]' (optional, scalar) symbol used to represent vertices (same meaning as
 	    standard PSYM in IDL). If <SPAN CLASS="MATH"><IMG
@@ -440,8 +491,9 @@ For each contour or point list, the corresponding (sub)structure should
                         connected, by arcs of geodesics;
                     if <SPAN CLASS="MATH">&gt;0</SPAN>, only the vertices are shown
                     <b>default:</b>0 <BR>- 'SYM[SIZE]' (optional, scalar) vertice symbol size (same meaning as SYMSIZE in IDL)
-
+</SMALL>
 <P>
+<SMALL CLASS="FOOTNOTESIZE">
 Notes: when applicable, the vertices are connected by segments of geodesics. To
 	obtain a better looking outline, increase the number of vertices
 	provided. The outline does not have to be closed. The procedure will NOT
@@ -449,29 +501,35 @@ Notes: when applicable, the vertices are connected by segments of geodesics. To
 <BR>
 Several outlines can be overplotted at
 once by gathering the respective structures into one meta-structure.
-<BR><i>see also:</i>Coord, Graticule</TD>
+<BR><i>see also:</i>Coord, Graticule </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PNG=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>string containing the name of a .PNG output <BR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">PNG=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		string containing the name of a .PNG output <BR>
 if set to 1            : output the plot in plot_[projection].png <BR>
 if set to a file name  : output the plot in that file <BR>
 Please note that the resulting PNG image might not always look
 	      as expected. The reason for this is problems with
 	      'backing store' in the IDL-routine TVRD. Please read the IDL
 	      documentation for more information. <BR><b>default:</b>no .PNG done <BR><i>see also:</i>Crop, Gif, Ps, Preview
-and Retain</TD>
+and Retain</SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>POLARIZATION=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to
-	<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">POLARIZATION= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+	if set to
+	</SMALL><DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 <B>0</B>
 no polarization information is plotted. 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -499,58 +557,70 @@ Note: the angles are color coded with a fixed color table (independent of Colt)
 <B>3</B>
 -the temperature is color coded (with a color table defined by Colt)
 <BR>-and the polarisation is overplot as headless VECTORS
-	</DL>
+	</DL><SMALL CLASS="FOOTNOTESIZE">
 	<b>default:</b>0 <BR><SPAN  CLASS="textbf">Note:</SPAN> The representation of the polarization direction (options 2 and 3 above),
         include the effects of the rotations and/or changes or astronomical coordinates
       (controlled by ROT and COORD respectively) but do not include the effects
       of the distortions induced by the projection from the sphere to the plan.
       Because the polarization usually has more power at small scales, it must
       generally be represented on maps of small patches of the sky to remain
-      legible, in which case the projection-induced distortions are small.</TD>
+      legible, in which case the projection-induced distortions are small.
+	   </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/PREVIEW</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, there is a 'ghostview' preview of the
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/PREVIEW  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set, there is a 'ghostview' preview of the
 	        postscript file or a 'xv' preview of the gif file
-<BR><i>see also:</i>Gif, Png and Ps</TD>
+<BR><i>see also:</i>Gif, Png and Ps</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set to 0            : no postscript output <BR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">PS=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
+	      if set to 0            : no postscript output <BR>
 if set to 1            : output the plot in plot_cartesian, plot_gnomic.ps,
 	      plot_mollweide.ps or plot_orthographic respectively <BR>
-if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><i>see also:</i>Preview, Gif, Png</TD>
+if set to a file name  : output the plot in that file <BR><b>default:</b>0 <BR><i>see also:</i>Preview, Gif, Png</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PXSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>set the number of horizontal screen_pixels or postscript_color_dots of the plot
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">PXSIZE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		set the number of horizontal screen_pixels or postscript_color_dots of the plot
     		(useful for high definition color printer)
 <BR><b>default:</b>800 (Mollview and full sky Orthview), 600 (half sky
-		Orthview), 500 (Cartview and Gnomonic)</TD>
+		Orthview), 500 (Cartview and Gnomonic) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>PYSIZE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>CG-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>set the number of vertical screen_pixels or postscript_color_dots of the plot <BR><b>default:</b>Pxsize</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">PYSIZE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> CG-   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		set the number of vertical screen_pixels or postscript_color_dots of the plot <BR><b>default:</b>Pxsize </SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>RESO_ARCMIN=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>CG-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5</TD>
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>RETAIN=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>specifies the type of
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+RESO_ARCMIN= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> CG- </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE">  
+		size of screen_pixels or postscript_color_dots in arcmin <BR><b>default:</b>1.5 </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">RETAIN= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> specifies the type of
 backing store to use for direct graphics windows in {0,1,2}.
-<b>default:</b>2. See IDL documentation for details.</TD>
+<b>default:</b>2. See IDL documentation for details. </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>ROT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>vector with 1, 2 or 3 elements specifing the rotation angles in DEGREES
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">ROT=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		vector with 1, 2 or 3 elements specifing the rotation angles in DEGREES
                to apply to the map in the 'output' coordinate system (see Coord)
              = ( lon0, [lat0, rat0])  <BR>
 lon0 : longitude of the point to be put at the center of the plot
@@ -560,39 +630,46 @@ lat0 : latitude of the point to be put at the center of the plot
  		      <b>default:</b>0 <BR>
 rot0 : anti clockwise rotation to apply to the sky around the
                      center (lon0, lat0) before projecting
-                     <b>default:</b>0 <BR><i>see also:</i>FITS</TD>
+                     <b>default:</b>0 <BR><i>see also:</i>FITS</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/SAVE</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, assumes that File is in IDL saveset format, 
-    		the variable saved should be DATA</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/SAVE  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set, assumes that File is in IDL saveset format, 
+    		the variable saved should be DATA </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE"> 
+                </SMALL>
 <P>
-/SHADED</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>--O</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the orthographic sphere is shaded, using a Phong model, to emulate 3D viewing.
+<SMALL CLASS="FOOTNOTESIZE">/SHADED </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> --O </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set, the orthographic sphere is shaded, using a Phong model, to emulate 3D viewing.
               The sphere is illuminated by isotropic ambiant light plus a single light source.
-                 Can NOT be used with GIF.</TD>
+                 Can NOT be used with GIF. </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>/SILENT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if set, the program runs silently</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">/SILENT  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		if set, the program runs silently </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>SUBTITLE=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the subtitle to the plot
-<BR><i>see also:</i>Titleplot</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">SUBTITLE=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		String containing the subtitle to the plot
+<BR><i>see also:</i>Titleplot</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>TITLEPLOT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the title of the plot, 
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">TITLEPLOT=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		String containing the title of the plot, 
      		if not set the title will be File
-<BR><i>see also:</i>Subtitle</TD>
+<BR><i>see also:</i>Subtitle</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>TRANSPARENT=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>If set to 1, the input data pixels with value <A HREF="idlnode29.htm#idl:init_healpix"><TT>!healpix.bad_value</TT></A>(<!-- MATH
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">TRANSPARENT=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		If set to 1, the input data pixels with value <A HREF="idlnode29.htm#idl:init_healpix"></SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>!healpix.bad_value</TT></A>(<!-- MATH
  $=-1.6375\,10^{30}$
  -->
 <SPAN CLASS="MATH"><IMG
@@ -606,56 +683,67 @@ If set to 2, the background pixels will be transparent (instead of the usual whi
 <BR>
 If set to 3, both the grey and white pixels will look transparent.
 <BR>
-Active only in conjunction with PNG</TD>
+Active only in conjunction with PNG</SMALL></TD>
 </TR>
-</TABLE>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SPAN  CLASS="textbf">name</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">routines</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SPAN  CLASS="textbf"> description</SPAN></TH>
+<TR><TD></TD>
+<TD></TD>
+<TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>TRUECOLORS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>if the input data is of the form [Npix,3] then the 3 fields
+</TABLE><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">  
+<SPAN  CLASS="textbf">name</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf">routines</SPAN> </SMALL></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textbf"> description</SPAN> </SMALL></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">TRUECOLORS= </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+if the input data is of the form [Npix,3] then the 3 fields
             are respectively understood as Red, Green, Blue True Color channels.
 <BR>
 If set to 1, the mapping field-intensity to color is done for the 3 channels at once. (<i>see also:</i>Factor, Offset)
 <BR>
 If set to 2, that mapping is done for each channel separately (in that case, MIN
-and MAX keywords are ignored).</TD>
+and MAX keywords are ignored). 
+</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>UNITS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>String containing the units, to be put on the right
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">UNITS=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		String containing the units, to be put on the right
 		hand side of the color bar, overrides the value read from the input file,
 		if any
-<BR><i>see also:</i>Nobar, Nolabels</TD>
+<BR><i>see also:</i>Nobar, Nolabels</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>WINDOW=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>IDL window index (integer)
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">WINDOW=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+                 IDL window index (integer)
 <BR>- if WINDOW <SPAN CLASS="MATH">&lt; 0</SPAN>: virtual window: no visible window opened. Can
                  be used with PNG or GIF, in particular is those files are
-larger than the screen. <B>Note:</B> The Z buffer will be used instead of the X server,
+larger than the screen. </SMALL><SMALL CLASS="FOOTNOTESIZE"><B>Note:</B> The Z buffer will be used instead of the X server,
 allowing much faster production of the image over a slow network
 <BR>- if WINDOW in <SPAN CLASS="MATH">[0,31]</SPAN>: the specified IDL window with index WINDOW is used
                (or reused). Can be used to have a sequence of images appear
 in the same window <BR>- if WINDOW <SPAN CLASS="MATH">&gt; 31</SPAN>: a free (<SPAN CLASS="MATH">=</SPAN>unused) window with a random index <SPAN CLASS="MATH">&gt; 31</SPAN> will be
-               created and used. <BR><b>default:</b>32</TD>
+               created and used. <BR><b>default:</b>32		 
+                  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>XPOS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>The X position on the screen of the lower left corner
-	        of the window, in device coordinate</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">XPOS=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> 
+		The X position on the screen of the lower left corner
+	        of the window, in device coordinate</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95>YPOS=</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>all</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>The Y position on the screen of the lower left corner 
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=95><SMALL CLASS="FOOTNOTESIZE">YPOS=  </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SMALL CLASS="FOOTNOTESIZE"> all   </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350><SMALL CLASS="FOOTNOTESIZE"> The Y position on the screen of the lower left corner 
                of the window, in device coordinate
-
-<P></TD>
+</SMALL>
+<P>
+</TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
@@ -669,11 +757,10 @@ color scaling, maximum and
 minimum range for the plot, plot-title <I>etc</I>. It also allows the representation of the
 polarization field. 
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mollview</FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">mollview</FONT>
   <DT>
@@ -721,44 +808,47 @@ polarization field.
   <DT>
 <B><A HREF="idlnode39.htm#idl:orthcursor">orthcursor</A></B>
 <DD>interactive cursor to be used with orthview
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-map  = findgen(48)</TD>
+<SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65])</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>,map, graticule=[45,30],rot=[10,20,30],$</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>,map, graticule=[45,30],rot=[10,20,30],$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg40.png"
- ALT="$\quad\quad$"></SPAN>	  title='Mollweide projection',subtitle='mollview', $</TD>
+ ALT="$\quad\quad$"></SPAN>	  title='Mollweide projection',subtitle='mollview', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg40.png"
- ALT="$\quad\quad$"></SPAN> outline=triangle</TD>
+ ALT="$\quad\quad$"></SPAN> outline=triangle </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>makes a Mollweide projection of a pixel index map (see Figure&nbsp;<A HREF="#fig:plot_visu">1</A>c on
 page&nbsp;<A HREF="idlnode33.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary
 triangular outline</blockquote>
-
-<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="4222"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_visu"></A><A NAME="fig:plot_visu"></A><A NAME="4292"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 Figures produced by <A HREF="idlnode10.htm#idl:cartview">cartview</A>,
 <A HREF="idlnode21.htm#idl:gnomview">gnomview</A>, <A HREF="#idl:mollview">mollview</A> and <A HREF="idlnode40.htm#idl:orthview">orthview</A>, see respective
 routine documentation for details.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par14162" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par14260" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_visu_large.png"
@@ -770,43 +860,47 @@ routine documentation for details.</CAPTION>
 
 <P>
 <hr><H1>EXAMPLE # 3:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-map  = findgen(48)</TD>
+<SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">mycommand = 'x=findgen(64)/10. &amp; ' + $</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+mycommand = 'x=findgen(64)/10. &amp; ' + $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg40.png"
- ALT="$\quad\quad$"></SPAN>	'plot,x,sin(x),pos=[0.8,0.8,0.99,0.99],/noerase &amp;' +$</TD>
+ ALT="$\quad\quad$"></SPAN>	'plot,x,sin(x),pos=[0.8,0.8,0.99,0.99],/noerase &amp;' +$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg40.png"
- ALT="$\quad\quad$"></SPAN>	'xyouts,0.5,0.5,''Hello World !'',/normal,charsize=2,align=0.5'</TD>
+ ALT="$\quad\quad$"></SPAN>	'xyouts,0.5,0.5,''Hello World !'',/normal,charsize=2,align=0.5'  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>,map, execute=mycommand, png='plot_example_execute.png',/preview,$</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>,map, execute=mycommand, png='plot_example_execute.png',/preview,$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="42" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg40.png"
- ALT="$\quad\quad$"></SPAN>	/graticule,/glsize</TD>
+ ALT="$\quad\quad$"></SPAN>	/graticule,/glsize </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>produces a PNG file containing a Mollweide projection of a pixel index map
 with labeled graticules, a simple sine wave in the
 upper right corner, and some greetings, as shown on Figure&nbsp;<A HREF="#fig:plot_example_execute">2</A> on page&nbsp;<A HREF="idlnode33.htm#page:plot_example_execute"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-
-<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="4227"></A>
+<DIV ALIGN="CENTER"><A NAME="page:plot_example_execute"></A><A NAME="fig:plot_example_execute"></A><A NAME="4297"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
 Figure produced by example #3.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par14175" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par14273" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="450" ALIGN="BOTTOM" BORDER="0"
  SRC="./plot_example_execute.png"
@@ -817,51 +911,57 @@ Figure produced by example #3.</CAPTION>
 </DIV>
 
 <P>
-<A NAME="page:example_hires_cutsky"></A><hr><H1>EXAMPLE # 4:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
+<SMALL CLASS="FOOTNOTESIZE"><A NAME="page:example_hires_cutsky"></A></SMALL><hr><H1>EXAMPLE # 4:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-pixel  = l64indgen(400000)</TD>
+<SMALL CLASS="FOOTNOTESIZE">pixel  = l64indgen(400000) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">signal = pixel * 10.0</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+signal = pixel * 10.0 </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">file = 'cutsky.fits'</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+file = 'cutsky.fits' </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">write_fits_cut4, file, pixel+100000, signal, nside=32768, /ring</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+write_fits_cut4, file, pixel+100000, signal, nside=32768, /ring </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT">gnomview, file, rot=[0,90], grat=30, title='high res. cut-sky map'</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+gnomview, file, rot=[0,90], grat=30, title='high res. cut-sky map' </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>produces and plots a high resolution map (6.4 arcsec/pixel), in which only a very small subset of
-pixels is observed</blockquote>
-<hr><H1>EXAMPLE # 5:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-
+pixels is observed</blockquote><hr><H1>EXAMPLE # 5:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
 <P>
-file = 'wmap_band_iqumap_r9_5yr_K_v3.fits'</TD>
+<SMALL CLASS="FOOTNOTESIZE">file = 'wmap_band_iqumap_r9_5yr_K_v3.fits' </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>, file, title='Linear Color Scale', /silent</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>, file, title='Linear Color Scale', /silent </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>, file,/asinh,title='Sinh!u-1!n Color Scale' , /silent</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>, file,/asinh,title='Sinh!u-1!n Color Scale' , /silent </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>, file,/hist, title='Histogram Equalized Color Scale', /silent</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>, file,/hist, title='Histogram Equalized Color Scale', /silent </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">mollview</FONT>, file,/log,  title='Log Scale', /silent</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>, file,/log,  title='Log Scale', /silent </SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>produces Mollweide projections of the same map (here the WMAP-5yr K band) with
 various color scales: linear, Inverse
 Hyperbolic Sine, Histogram Equalized, and Log. See Figure&nbsp;<A HREF="#fig:merge_wmapKband">3</A> on page&nbsp;<A HREF="idlnode33.htm#page:merge_wmapKband"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
 </blockquote>
-
-<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="4233"></A>
+<DIV ALIGN="CENTER"><A NAME="page:merge_wmapKband"></A><A NAME="fig:merge_wmapKband"></A><A NAME="4303"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
 Illustration (generated by example&nbsp;#5) of the various color scales available.</CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par14189" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par14287" ALIGN="CENTER">
 <IMG
   WIDTH="720" HEIGHT="509" ALIGN="BOTTOM" BORDER="0"
  SRC="./merge_wmapKband.png"
@@ -873,16 +973,17 @@ Illustration (generated by example&nbsp;#5) of the various color scales availabl
 
 <P>
 <hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">mollview</FONT>,  'planck100GHZ-LFI.fits', min=-100, max=100, /graticule, $</TD>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">mollview</FONT>,  'planck100GHZ-LFI.fits', min=-100, max=100, /graticule, $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN>	 title='Simulated Planck LFI Sky Map at 100GHz'</TD>
+ ALT="$\quad$"></SPAN>	 title='Simulated Planck LFI Sky Map at 100GHz'</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote><FONT COLOR="#CC0000">mollview</FONT> reads in the map 'planck100GHZ-LFI.fits' and generates
 an output image in which
 the temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
@@ -894,14 +995,15 @@ the temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
  ALT="$\mu$"></SPAN>K),
 a graticule with a 45 degree step in longitude and latitude is drawn,
 and the title 'Simulated Planck LFI Sky Map at 100GHz' appended to the image.
-</blockquote>
-
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html524"
@@ -929,7 +1031,7 @@ and the title 'Simulated Planck LFI Sky Map at 100GHz' appended to the image.
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -124,7 +124,10 @@ npix_out = nside2npix(nside_out)
 nmaps = n_elements(map_in[0,*])
 
 if undefined(bad_data) then bad_data = !healpix.bad_value
-bad = where(map_in eq bad_data, nbad)
+;bad = where(map_in eq bad_data, nbad)
+; test for bad pixels less sensitive to input map precision (2010-02-17)
+threshold = abs(1.e-7 * bad_data)
+bad = where(abs(map_in - bad_data) lt threshold, nbad)
 
 ratio = 1
 if defined(power) then ratio = (float(nside_out)/float(nside_in)) ^ power 
@@ -239,6 +242,7 @@ pro ud_grade, map_in, map_out, nside_out=nside_out, order_in=order_in, order_out
 ;    2006-11-20: check for validity of order_in and order_out
 ;    2009-05-07: correctly flags bad output pixels with bad_data value when
 ;               upgrading maps
+;    2010-02-17: bad pixels correctly identified in DP map
 ;-
 
 routine = 'UD_GRADE'

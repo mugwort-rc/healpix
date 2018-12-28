@@ -3,13 +3,13 @@
 	
 	<property name="logdir" value="logs"/>
 	<property name="lib" value="${basedir}/lib"/>
-	<property name="classes" value="${basedir}/build"/>
+	<property name="classes" value="${basedir}/classes"/>
 	<property name="dist" value="${basedir}/dist"/>
 	<property name="conf" value="${basedir}/conf"/>
 	<property name="src" value="${basedir}/src"/>
 	<property name="docs" value="${basedir}/healpixdocs"/>
 	<property name="junit.reports" value="${basedir}/reports/junit"/>
-	<property name="version" value="$Id: build.xml,v 1.3.2.2 2009/08/03 16:25:20 healpix Exp $" />
+	<property name="version" value="$Id: build.xml,v 1.3.2.4 2010/02/22 14:55:48 healpix Exp $" />
 	<property name="author" value="$Author: healpix $" />    
 	<property name="project-description" value="Java Healpix Library"/>
 	<path id="classpath">
@@ -26,6 +26,7 @@
 	<target name="init" description="Initialize the build">
 		<mkdir dir="${classes}"/>
 		<mkdir dir="${dist}"/>
+		<mkdir dir="${docs}"/>
 	</target>
 	<target name="svnrevision" description="determine the subversion revision number">
 	   <exec executable="svnversion" outputproperty="svn.revision" />
@@ -48,7 +49,7 @@
 			<classpath refid="classpath" />
 			<formatter type="xml" usefile="true" />
 			<batchtest todir="${junit.reports}">
-				<fileset dir="${classes}" includes="**/test/*Test*.class" />
+				<fileset dir="${classes}" includes="**/test/*Test.class" />
 			</batchtest>
 		</junit>
 		<junitreport todir="${junit.reports}">
@@ -151,4 +152,32 @@
 				<fileset file="${lib}/j3dutils.jar"/>		
 	        </jar>
 	    </target>
+
+
+	<target name="distsmall" depends="clean,compile" description="Build the JAR file containing only classes for HealpixIndex">
+		<jar destfile="${dist}/jhealpixSmall.jar">
+            <fileset dir="${classes}">     	
+                <exclude name="**/doc-files/**" />
+                <exclude name="**/test/**" />
+                <exclude name="**/package-info*" />
+                <exclude name="**/Healpix.class" />
+            	<exclude name="**/dm/**" />
+            	<exclude name="**/fits/**" />
+            	<exclude name="**/plot3d/**" />
+            	<exclude name="**/tools/Coord*" />
+            	<exclude name="**/tools/HealpixMap*" />
+            </fileset>
+
+		<manifest>
+			<attribute name="Specification-Title"        value="${project-description}"/>
+			<attribute name="Specification-Version"      value="${version}"/>
+			<attribute name="Specification-Vendor"       value="${author}"/>
+			<attribute name="Implementation-Title"       value="${project-description}"/>
+			<attribute name="Implementation-Version"     value="${version}"/>
+			<attribute name="Implementation-Vendor"      value="${author}"/>
+			<attribute name="Author"                     value="${author}" />
+		</manifest>
+		</jar>
+	</target>
+
 </project>

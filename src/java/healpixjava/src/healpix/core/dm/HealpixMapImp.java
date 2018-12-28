@@ -40,7 +40,7 @@ import net.ivoa.util.BufferedDataOutputStream;
  * with e.g. visualisation/analysis tools in the HEALPix distribution.
  * 
  * @author ejoliet
- * @version $Id: HealpixMapImp.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: HealpixMapImp.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		Serializable, Cloneable {
@@ -163,6 +163,8 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	/** The imap. */
 	private int imap = 0;
 
+	private final HealpixMap map_orig;
+
 	/**
 	 * Construct a HEALPix mapper for a given map names and data columns.
 	 * 
@@ -190,7 +192,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		this.maxVal = new double[this.nMaps];
 		this.N = new int[this.nMaps];
 		for (int n = 0; n < this.nMaps; ++n) {
-			int M = this.nPixel();
+			int M = (int)this.nPixel();
 			this.map[n] = new MapItem[M];
 			for (int m = 0; m < M; ++m) {
 				this.map[n][m] = new MapItem();
@@ -202,6 +204,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 			this.maxVal[n] = getMaxMapItem(n);
 			this.N[n] = 0;
 		}
+		map_orig = this;
 	}
 
 	/**
@@ -233,7 +236,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		this.maxVal = new double[this.nMaps];
 		this.N = new int[this.nMaps];
 		for (int n = 0; n < this.nMaps; ++n) {
-			int M = this.nPixel();
+			int M = (int)this.nPixel();
 			this.map[n] = new MapItem[M];
 			for (int m = 0; m < M; ++m) {
 				this.map[n][m] = new MapItem();
@@ -242,6 +245,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 			this.maxVal[n] = 0.;
 			this.N[n] = 0;
 		}
+		map_orig = this;
 	}
 
 	/**
@@ -286,7 +290,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * 
 	 * @see healpix.core.dm.AbstractHealpixMap#nPixel()
 	 */
-	public int nPixel() {
+	public long nPixel() {
 		return this.npix;
 	}
 
@@ -295,7 +299,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * 
 	 * @see healpix.core.dm.AbstractHealpixMap#nside()
 	 */
-	public short nside() {
+	public int nside() {
 		return (short) this.nside;
 	}
 
@@ -491,7 +495,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		double[][] mapData = new double[this.nMaps][];
 		Object[] table = new Object[this.nMaps];
 		for (int n = 0; n < this.nMaps; ++n) {
-			mapData[n] = new double[this.npix];
+			mapData[n] = new double[(int)this.npix];
 			table[n] = mapData[n];
 
 			// populate column data
@@ -540,20 +544,21 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 */
 	public HealpixMap regrade(int nside) {
 		HealpixMap m = null;
+		
 		if (nside > this.nside()) { // Upgrade!
 			try {
-				m = new HealpixTool(this).upgrade(nside);
+				m = new HealpixTool(map_orig).upgrade(nside);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (nside < this.nside()) { // Degrade!
 			try {
-				m = new HealpixTool(this).degrade(nside);
+				m = new HealpixTool(map_orig).degrade(nside);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
-			m = new HealpixTool(this).map_in;
+			m = map_orig;
 		}
 		// At least return the same map!
 		return m;
@@ -583,18 +588,19 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * @see healpix.core.dm.HealpixMap#getMax(int)
 	 */
 	public double getMax(int i) {
-		double max = Double.MIN_VALUE;
-		double min = Double.MAX_VALUE;
-		int npix = 12 * nside * nside;
-		for (int u = 0; u < npix; u++) {
-			// double val = rch.getPixel(i);
-			double val = (double) get(i, u);
-			if (val < min)
-				min = val;
-			if (val > max)
-				max = val;
-		}
-		return (double) max;
+		return this.maxVal[i];
+//		double max = Double.MIN_VALUE;
+//		double min = Double.MAX_VALUE;
+//		long npix = 12 * nside * nside;
+//		for (int u = 0; u < npix; u++) {
+//			// double val = rch.getPixel(i);
+//			double val = (double) get(i, u);
+//			if (val < min)
+//				min = val;
+//			if (val > max)
+//				max = val;
+//		}
+//		return (double) max;
 	}
 
 	/**
@@ -607,7 +613,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	public double getMaxMapItem(int i) {
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;
-		int npix = 12 * nside * nside;
+		long npix = 12 * nside * nside;
 		for (int u = 0; u < npix; u++) {
 			// double val = rch.getPixel(i);
 			double val = this.map[i][u].getValue();
@@ -625,18 +631,19 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * @see healpix.core.dm.HealpixMap#getMin(int)
 	 */
 	public double getMin(int i) {
-		double max = Double.MIN_VALUE;
-		double min = Double.MAX_VALUE;
-		int npix = 12 * nside * nside;
-		for (int u = 0; u < npix; u++) {
-			// double val = rch.getPixel(i);
-			double val = (double) get(i, u);
-			if (val < min)
-				min = val;
-			if (val > max)
-				max = val;
-		}
-		return (double) min;
+		return this.minVal[i];
+//		double max = Double.MIN_VALUE;
+//		double min = Double.MAX_VALUE;
+//		long npix = 12 * nside * nside;
+//		for (int u = 0; u < npix; u++) {
+//			// double val = rch.getPixel(i);
+//			double val = (double) get(i, u);
+//			if (val < min)
+//				min = val;
+//			if (val > max)
+//				max = val;
+//		}
+//		return (double) min;
 	}
 
 	/**
@@ -649,7 +656,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	public double getMinMapItem(int i) {
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;
-		int npix = 12 * nside * nside;
+		long npix = 12 * nside * nside;
 		for (int u = 0; u < npix; u++) {
 			double val = this.map[i][u].getValue();
 			if (val < min)
@@ -693,7 +700,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * 
 	 * @return the value of HEALPIx NSIDE parameter.
 	 */
-	public short getNside() {
+	public int getNside() {
 		return nside();
 	}
 
@@ -922,7 +929,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 		int ipn = 0;
 		for (int imap = 0; imap < this.getName().length; imap++) {
 			for (int ipr = 0; ipr < nPixel(); ipr++) {
-				ipn = this.nest2ring(ipr);
+				ipn = (int)this.nest2ring(ipr);
 				MapItem item = map[imap][ipr];
 				double val = item.getValue();
 				if (item == null) {
@@ -959,7 +966,7 @@ public class HealpixMapImp extends HealpixIndex implements HealpixMap,
 	 * @see healpix.core.dm.HealpixMap#getMapItemData()
 	 */
 	public double[][] getMapItemData() {
-		int npix = 12 * nside * nside;
+		int npix = (int)(12 * nside * nside);
 		double[][] mapDouble = new double[this.nMaps][npix];
 		for (int j = 0; j < this.nMaps; j++) {
 			for (int u = 0; u < npix; u++) {

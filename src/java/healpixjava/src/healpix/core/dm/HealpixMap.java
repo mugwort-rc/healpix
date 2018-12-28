@@ -24,7 +24,7 @@ import healpix.core.AngularPosition;
 /**
  * Healpix map data model interface.
  * 
- * @version $Id: HealpixMap.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: HealpixMap.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  * @author ejoliet
  * 
  */

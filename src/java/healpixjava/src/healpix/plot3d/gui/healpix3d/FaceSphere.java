@@ -29,7 +29,7 @@ import javax.vecmath.Point3d;
  * Creates a Healpix Face tesselasition
  * 
  * @author ejoliet
- * @version $Id: FaceSphere.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: FaceSphere.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class FaceSphere extends HealSphere {
 

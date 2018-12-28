@@ -57,7 +57,6 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">write_fits_cut4 </FONT></font></b><hr><H2>This IDL facility writes out a cut sky <b>HEALPix</b> map into a FITS file according to
 the <b>HEALPix</b> convention. The format used for the
@@ -67,7 +66,6 @@ information relative to the Stokes parameters I, Q and U are placed in extension
 0, 1 and 2 respectively by successive invocation of the routine.</H2><br>Location in HEALPix directory tree: <b>
 src/idl/fits/write_fits_cut4.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 WRITE_FITS_CUT4 , File, Pixel, Signal [, N_Obs, Serror, 
@@ -83,11 +81,10 @@ UNITS=,
 XHDR=]
 
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>File</B>
 <DD>name of a FITS file in which the map is to be written
 
@@ -135,12 +132,12 @@ If absent, the field <TT>SERROR</TT> will take a value of 0.0 in the output file
 	 output file
 
 <P>
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>COORDSYS=</B>
 <DD>(optional), 
 <BR>
@@ -232,19 +229,18 @@ String array containing the information to be put in
 		the extension header. 
 
 <P>
-</DL>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-
+</SMALL>
 <P>
-</blockquote>
-
+<SMALL CLASS="FOOTNOTESIZE"></blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_fits_cut4 </FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">write_fits_cut4 </FONT>
   <DT>
@@ -263,45 +259,49 @@ arbitrary data sets into FITS files
 <B>sxaddpar</B>
 <DD>This IDL routine (included in <b>HEALPix</b> package) can be used to update
   or add FITS keywords to the header in <TT>HDR</TT> and <TT>XHDR</TT>
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
 <FONT COLOR="#CC0000">write_fits_cut4 </FONT>, 'map_cut.fits', pixel, temperature, /ring,
-nside=32, /pol</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+nside=32, /pol </SMALL></TD>
+<TD></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>writes in 'map_cut.fits' a FITS file containing the temperature measured in a
   set of <b>HEALPix</b> pixel.
-</blockquote>
-<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-<FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, temperature, n_t, s_t, $</TD>
+</blockquote><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, temperature, n_t, s_t, $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol</TD>
+ ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, qstokes, n_q, s_q, $</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, qstokes, n_q, s_q, $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=1</TD>
+ ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=1</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, ustokes, n_u, s_u, $</TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">write_fits_cut4 </FONT>,  'tqu_cut.fits', pixel, ustokes, n_u, s_u, $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg16.png"
- ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=2</TD>
+ ALT="$\quad$"></SPAN>		    /ring, nside=32, /pol, ext=2</SMALL></TD>
 </TR>
-</TABLE>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt><br><blockquote>writes in 'tqu_cut.fits' a FITS file with three extensions, each of them containing
 information on the observed pixel, the measured signal, the number of
 observations and noise per pixel, for the three Stokes parameters I, Q and U
@@ -313,11 +313,11 @@ respectively. The <b>HEALPix</b> ring ordered scheme and the resolution <!-- MAT
  SRC="idlimg66.png"
  ALT="${N_{\rm side}}=32$"></SPAN> is assumed.
 </blockquote>
-
 <P>
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html812"
@@ -345,7 +345,7 @@ respectively. The <b>HEALPix</b> ring ordered scheme and the resolution <!-- MAT
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

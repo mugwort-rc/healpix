@@ -57,23 +57,20 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <BR>
  
 </H1>
-
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">query_strip </FONT></font></b><hr><H2>This IDL facility provides a means to find the index of all pixels belonging to
 a latitude strip defined by its bounds
 </H2><br>Location in HEALPix directory tree: <b>
 src/idl/toolkit/query_strip.pro
 </b>
-
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
 query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=]
 </h2>
-
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>Nside</B>
 <DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
     <DT>
@@ -103,12 +100,12 @@ query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=
     <DT>
 <B>Nlist</B>
 <DD>on output: number of pixels in Listpix (=0 if no pixel is found).
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>NESTED =</B>
 <DD>if set, the output list uses the NESTED numbering scheme
     instead of the default RING
@@ -120,8 +117,9 @@ query_strip , Nside, Theta1, Theta2, Listpix, [Nlist, NESTED=, INCLUSIVE=, HELP=
     <DT>
 <B>/HELP </B>
 <DD>if set, the routine prints its documentation header and exits.
-  </DL>
-
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
@@ -129,11 +127,10 @@ query_strip finds the pixels within the given strip in a selective way WITHOUT
 scanning all the sky pixels. The numbering scheme of the output list and the
 inclusiveness of the strip can be changed
 </blockquote>
-
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_strip </FONT></b></h3>
 <BR> 
-  <DL COMPACT><DT>
+  </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run query_strip .
     <DT>
@@ -148,7 +145,7 @@ inclusiveness of the strip can be changed
 <B><A HREF="idlnode45.htm#idl:query_triangle">query_triangle</A></B>
 <DD>render the list of pixels enclosed
   respectively in a given disc, polygon and triangle
-  </DL>
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
@@ -167,13 +164,13 @@ Returns the NESTED pixel index of all pixels with colatitude in
  SRC="idlimg2.png"
  ALT="$\pi$"></SPAN>]
 </blockquote>
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
-
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE">
+ </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <A NAME="tex2html656"
@@ -201,7 +198,7 @@ Returns the NESTED pixel index of all pixels with colatitude in
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

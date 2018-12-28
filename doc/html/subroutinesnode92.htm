@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>string, strlowcase, strupcase</TITLE>
-<META NAME="description" CONTENT="string, strlowcase, strupcase">
+<TITLE>scan_directories</TITLE>
+<META NAME="description" CONTENT="scan_directories">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,141 +28,120 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1313"
+<A NAME="tex2html1317"
   HREF="subroutinesnode91.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1319"
+<A NAME="tex2html1323"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1323"
+<A NAME="tex2html1327"
   HREF="subroutinesnode93.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1321"
+<A NAME="tex2html1325"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1314"
-  HREF="subroutinesnode91.htm">scan_directories</A>
+<B> Previous:</B> <A NAME="tex2html1318"
+  HREF="subroutinesnode91.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 
-<B>Up:</B> <A NAME="tex2html1320"
+<B>Up:</B> <A NAME="tex2html1324"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1324"
-  HREF="subroutinesnode93.htm">surface_triangle</A>
+<B> Next:</B> <A NAME="tex2html1328"
+  HREF="subroutinesnode93.htm">string, strlowcase, strupcase</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000920000000000000000"></A>
-<A NAME="sub:string"></A>
+<A NAME="sub:scan_directories"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">string, strlowcase, strupcase</FONT></font></b><hr><H2>The Fortran90 module misc_utils contains three functions to create or
-  manipulate character strings.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/misc_utils.F90
+<b><font size=+6><FONT COLOR="#CC0000">scan_directories</FONT></font></b><hr><H2>Function to scan a set of directories for a given file
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/paramfile_io.F90
 </b>
+
+<P>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">scan_directories</FONT>(
+directories, filename, fullpath
+)</h2>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=140><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=235><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>
-number</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT/ I4B/ SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>number or boolean flag to be turned into a character string.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>instring</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+directories</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>arbitrary character string.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>contains the set of directories (up to 20), separated by an ASCII
+                   character of value <SPAN CLASS="MATH">&lt;</SPAN> 32  (see <TT><A HREF="subroutinesnode21.htm#sub:concatnl">concatnl</A></TT>). During the
+                   search, it is assumed that the
+                   given directories and filename can be separated by nothing,
+                   a <SPAN CLASS="MATH">/</SPAN> (slash) or a <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg14.png"
+ ALT="$\backslash$"></SPAN> (backslash)</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>outstring</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>--</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>output character string.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=140>format OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>filename</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>character string describing Fortran
-                   format of output. </TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the file to be found.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fullpath</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>returns the full path to the first occurrence of the
+                   file among the directories provided. Empty if the file is not
+                   found. The search is not recursive.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>set to true if the file is found, to false otherwise.</TD>
 </TR>
 </TABLE>
 
-<P>
-
-<BIG CLASS="LARGE"><SPAN  CLASS="textbf">FUNCTIONS: </SPAN></BIG>
-<BR>
-<TT>outstring = string(number [,format])</TT> 
-
-<P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>number</TT> converted to a
-                                         character string. If <TT>format</TT> is provided it is used to
-                                         format the output, if not, the fortran default format
-                                         matching <TT>number</TT>'s type is used.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR>
-<P>
-<TT>outstring = strlowcase(instring)</TT> 
-
-<P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>instring</TT>
-                                         converted to lowercase. ASCII characters in the [A-Z] range
-                                         are mapped to [a-z], while all others remain unchanged.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR>
-<P>
-<TT>outstring = strupcase(instring)</TT> 
-
-<P>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns in <TT>outstring</TT> its argument <TT>instring</TT>
-                                         converted to uppercase. ASCII characters in the [a-z] range
-                                         are mapped to [A-Z], while all others remain unchanged.</TD>
-<TD ALIGN="LEFT">&nbsp;</TD></TR>
-</TABLE>
-<BR>
-<BR>
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use misc_utils 
+use paramfile_io 
 <BR>
-character(len=24) :: s1 
+character(len=filenamelen) :: dirs, full 
 <BR>
-s1 = string(123,'(i5.5)') 
+logical(lgt) :: found 
 <BR>
-print*, trim(s1) 
+dirs = concatnl('dir1','<SPAN CLASS="MATH">/</SPAN>dir2','<SPAN CLASS="MATH">/</SPAN>dir2<SPAN CLASS="MATH">/</SPAN>subdir1<SPAN CLASS="MATH">/</SPAN>') ! build directories list. 
 <BR>
-print*,trim(strupcase('*aBcD-123')) 
+found = <FONT COLOR="#CC0000">scan_directories</FONT>(dirs, 'myfile', full) ! do the search 
 <BR>
-print*,trim(strlowcase('*aBcD-123')) 
-<BR></font></tt>
-<BR><blockquote> Will printout <TT>00123</TT>, <TT>*ABCD-123</TT> and <TT>*abcd-123</TT>.
-</blockquote>
+if (found) print*,trim(full)
+</font></tt>
+<BR><blockquote>Search for 'myfile' in the directories  'dir1', '<SPAN CLASS="MATH">/</SPAN>dir2', '<SPAN CLASS="MATH">/</SPAN>dir2<SPAN CLASS="MATH">/</SPAN>subdir1<SPAN CLASS="MATH">/</SPAN>'</blockquote>
 
 <P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">scan_directories</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode67.htm#sub:parse_xxx">parse_xxx</A></B>
+<DD>parse an ASCII file for parameters definition
+  <DT>
+<B><A HREF="subroutinesnode21.htm#sub:concatnl">concatnl</A></B>
+<DD>concatenates a set of substrings into one string, interspaced
+  with LineFeed character
+  </DL>
 
 <P>
 
@@ -173,32 +152,32 @@ print*,trim(strlowcase('*aBcD-123'))
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1313"
+<A NAME="tex2html1317"
   HREF="subroutinesnode91.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1319"
+<A NAME="tex2html1323"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1323"
+<A NAME="tex2html1327"
   HREF="subroutinesnode93.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1321"
+<A NAME="tex2html1325"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1314"
-  HREF="subroutinesnode91.htm">scan_directories</A>
+<B> Previous:</B> <A NAME="tex2html1318"
+  HREF="subroutinesnode91.htm">same_shape_pixels_nest, same_shape_pixels_ring</A>
 
-<B>Up:</B> <A NAME="tex2html1320"
+<B>Up:</B> <A NAME="tex2html1324"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1324"
-  HREF="subroutinesnode93.htm">surface_triangle</A>
+<B> Next:</B> <A NAME="tex2html1328"
+  HREF="subroutinesnode93.htm">string, strlowcase, strupcase</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>

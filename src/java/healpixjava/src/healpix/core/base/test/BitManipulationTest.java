@@ -26,7 +26,7 @@ import junit.framework.TestCase;
  * Test the {@link BitManipulation} class.
  * 
  * @author ejoliet
- * @version $Id: BitManipulationTest.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: BitManipulationTest.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class BitManipulationTest extends TestCase {
 	/**

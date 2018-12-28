@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2008  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -297,26 +297,47 @@ endif else begin
 ; costly coloring operation on the Mollweide map
     data_plot = temporary(data)
     pol_data = 0
-    find_min_max_valid, planmap, mindata, maxdata, valid= Obs, bad_data = 0.9 * bad_data
     if (do_poldirection) then begin
         min_set = 0.
         max_set = 2*!pi
     endif
-    if (truetype eq 2) then begin
-        ; truecolors=2 map each field to its color independently
-        color = bytarr(xsize,ysize,zsize)
-        for i=0,zsize-1 do begin
-            find_min_max_valid, planmap[*,*,i], mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
-            color[0,0,i] = COLOR_MAP(planmap[*,*,i], mindata, maxdata, Obs, $
-                          color_bar = color_bar, mode=mode_col, silent=silent)
-        endfor
-        planmap = color
-    endif else begin
-        ; same for truecolors=1 and false colors:
-        planmap = COLOR_MAP(planmap, mindata, maxdata, Obs, $
-                            color_bar = color_bar, mode=mode_col, $
-                            minset = min_set, maxset = max_set, silent=silent)
-    endelse
+    find_min_max_valid, planmap, mindata, maxdata, valid= Obs, bad_data = 0.9 * bad_data
+    case truetype of
+        2: begin
+                                ; truecolors=2 map each field to its color independently
+            color = bytarr(xsize, ysize, zsize)
+            for i=0,zsize-1 do begin
+                find_min_max_valid, planmap[*,*,i], mindata, maxdata, valid=Obs, bad_data = 0.9 * bad_data
+                color[0,0,i] = COLOR_MAP(planmap[*,*,i], mindata, maxdata, Obs, $
+                                         color_bar = color_bar, mode=mode_col, silent=silent)
+            endfor
+            planmap = color
+        end
+        3: begin
+            intensity = total(planmap,3)/3.
+            find_min_max_valid, intensity, mindata, maxdata, valid= Obs, bad_data = 0.1 * bad_data
+            bint = COLOR_MAP(intensity, mindata, maxdata, Obs, $
+                                color_bar = color_bar, mode=mode_col, $
+                                minset = min_set, maxset = max_set, silent=silent)
+;             for i=0,2 do begin
+;                 ioff = i*xsize*ysize
+;                 color[Obs+ioff] = 3B + bytscl((planmap[Obs+ioff]>0)/intensity[Obs] * bint[Obs], min=0,top=252)
+;             endfor
+            ioff = xsize * ysize
+            mat = planmap[[[Obs], [Obs+ioff], [Obs+2*ioff]]] > 0
+            mat2 = (bint[Obs]/intensity[Obs]) # [1,1,1]
+            color = 3B + bytscl(mat*mat2, min=0, top=252)
+            planmap = MAKE_ARRAY(/BYTE, xsize, ysize, 3, Value = 2B)
+            for i=0,2 do planmap[Obs + i*ioff] = color[*,i]
+            
+        end
+        else: begin
+                                ; same for truecolors=1 and false colors:
+            planmap = COLOR_MAP(planmap, mindata, maxdata, Obs, $
+                                color_bar = color_bar, mode=mode_col, $
+                                minset = min_set, maxset = max_set, silent=silent)
+        end
+    endcase
     for i=0,zsize-1 do planmap[plan_off+i*n_uv] = !p.background ; white
     if (do_polvector) then begin ; rescale polarisation vector in each valid pixel
         planvec[*,*,0] = vector_map(planvec[*,*,0], Obs, vector_scale = vector_scale)

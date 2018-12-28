@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
  * to interact with Healpix sphere.
  * 
  * @author ejoliet
- * @version $Id: SimplePanel.java,v 1.1.2.2 2009/08/03 16:25:20 healpix Exp $
+ * @version $Id: SimplePanel.java,v 1.1.2.4 2010/02/22 14:55:50 healpix Exp $
  */
 public class SimplePanel extends JPanel implements ItemListener {
 	/**
@@ -133,7 +133,7 @@ public class SimplePanel extends JPanel implements ItemListener {
 		nchoice = new Choice();
 		nchoice.setForeground(Color.blue);
 
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 12; i++) {
 			nchoice.addItem(Integer.toString(i));
 		}
 

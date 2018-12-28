@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>median_filter</TITLE>
-<META NAME="description" CONTENT="median_filter">
+<TITLE>map2gif</TITLE>
+<META NAME="description" CONTENT="map2gif">
 <META NAME="keywords" CONTENT="facilities">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,183 +28,203 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html132"
+<A NAME="tex2html139"
   HREF="facilitiesnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html138"
+<A NAME="tex2html145"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html142"
+<A NAME="tex2html149"
   HREF="facilitiesnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html140"
+<A NAME="tex2html147"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html133"
-  HREF="facilitiesnode8.htm">map2gif</A>
+<B> Previous:</B> <A NAME="tex2html140"
+  HREF="facilitiesnode8.htm">hotspot</A>
 
-<B>Up:</B> <A NAME="tex2html139"
+<B>Up:</B> <A NAME="tex2html146"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html143"
-  HREF="facilitiesnode10.htm">plmgen</A>
+<B> Next:</B> <A NAME="tex2html150"
+  HREF="facilitiesnode10.htm">median_filter</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00090000000000000000"></A>
-<A NAME="fac:median_filter"></A>
+<A NAME="fac:map2gif"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">median_filter</FONT></font></b><hr><H2>This program produces the median filtered map of an input <b>HEALPix</b> map
-  (polarised or unpolarised). The
-  neighborhood on the which the median is computed is defined as a disk of
-  user-defined radius</H2><br>Location in HEALPix directory tree: <b>
-src/f90/median_filter/median_filter.f90
+<b><font size=+6><FONT COLOR="#CC0000">map2gif</FONT></font></b><hr><H2>This Fortran facility provides a means to generate a
+gif image from an input <b>HEALPix</b> sky map. It is intended to allow some
+primitive visualisation for those with limited or no access to IDL. 
+It is also useful for image generation in a pipeline environment.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/map2gif/map2gif.f90
 </b>
 
 <P>
 <hr><h1>FORMAT </h1><blockquote><h2>%
-median_filter [options] [parameter_file]
+map2gif
 </h2></blockquote>
-
-<P>
-<hr><H1>COMMAND LINE OPTIONS</H1>
-<BR> 
-  <DL COMPACT><DT>
-<B><TT>-d</TT></B>
-<DD><DT>
-<B><TT>--double</TT></B>
-<DD>double precision mode (see Notes on double/single precision modes on page&nbsp;<A HREF="facilitiesnode2.htm#page:ioprec"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
-    <DT>
-<B><TT>-s</TT></B>
-<DD><DT>
-<B><TT>--single</TT></B>
-<DD>single precision mode (default)
-  </DL>
 
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   <DL COMPACT><DT>
-<B>simul_type = </B>
-<DD>Either 1 or 2. If set to 1, only the temperature component of the
-      input map will be filtered. If set to 2, all the Stokes components available
-      in the input file will be filtered (default = 1)
-<DT>
-<B>infile = </B>
-<DD>Name of the FITS file containing the map to be filtered
-      (default = '', no default input file).
-<DT>
-<B>mf_radius_arcmin = </B>
-<DD>Radius in arcmin of the disk over which the
-      median is computed (default = <!-- MATH
- $3\theta_{\rm pix}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="42" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg19.png"
- ALT="$3\theta_{\rm pix}$"></SPAN> where <!-- MATH
- $\theta_{\rm pix}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg20.png"
- ALT="$\theta_{\rm pix}$"></SPAN>
-      is the input map pixel size).
-<DT>
-<B>fill_holes = </B>
-<DD>If set to true, flagged pixels take for value the median of
-      the valid pixels surrounding them (if any). Otherwise they are left
-      unchanged.
-      (default = .false.). Note that <TT>y, yes,t, true, .true.</TT> and 1 are
-      interpreted as <EM>true</EM>, while <TT>n, no, f, false, .false.</TT> and 0 stand
-      for <EM>false</EM>.
-<DT>
-<B>mffile = </B>
-<DD>Name of the FITS file containing the median filtered map
-</DL>
+<B>- bar</B>
+<DD>Logical which determines whether a color bar is
+      displayed <b>default:</b>.false.. 
+    <DT>
+<B>- col</B>
+<DD>The number of the color table to utilise <b>default:</b>5.
+    <DT>
+<B>- hlp</B>
+<DD>Print on-line help for the facility.
+    <DT>
+<B>- inp</B>
+<DD>The file name of the input FITS sky map <b> (default : none)</b>.
+    <DT>
+<B>- log</B>
+<DD>Logical to use the log of the signal when plotting 
+      <b>default:</b>.false.
+    <DT>
+<B>- ash</B>
+<DD>Logical to use the hyperbolic arc sine of the signal when
+      plotting. Cannot be true when -log is true.
+      <b>default:</b>.false.
+    <DT>
+<B>- add</B>
+<DD>Real value to add to the signal before performing any
+      other operation to it (like taking the logarithm etc.)
+      <b>default:</b>0.0
+    <DT>
+<B>- mul</B>
+<DD>Real value to multiply the signal with directly after
+      adding the offset (see above).
+      <b>default:</b>1.0
+    <DT>
+<B>- min</B>
+<DD>Set the minimum value for the plotted signal
+    <b>default:</b>is to use the actual signal minimum.
+    <DT>
+<B>- max</B>
+<DD>Set the maximum value for the plotted signal
+      <b>default:</b>is to use the actual signal maximum.
+    <DT>
+<B>- pro</B>
+<DD>Select the projection scheme <b>default:</b>Mollweide.
+    <DT>
+<B>- out</B>
+<DD>The file name of the output gif image <b> (default : none)</b>.
+    <DT>
+<B>- sig</B>
+<DD>The identifier of the signal to plot: for a
+      polarisation map, then the mapping is 1 = I; 2 = Q; 3 = U
+      <b>default:</b>1.
+    <DT>
+<B>- ttl</B>
+<DD>A string specifying the title for the plot <b> (default : none)</b>.
+    <DT>
+<B>- xsz</B>
+<DD>The x-dimension of the image in pixels <b>default:</b>800.
+  </DL>
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-Median_Filter produces a median filtered map in which the value of each pixel
-is the median of the input map valid pixels found within a disk of given
-  radius centered on that pixel. A pixel flagged as 'non-valid' in the input map
-  can either be left unchanged or 'filled in' with the same scheme, if at
-  least one valid pixel is found among its neighbors. 
-<BR>
-If the map is polarized, each of the three Stokes components is filtered separately.
-
+map2gif reads in a <b>HEALPix</b> sky map in FITS format and generates an
+image in GIF format. map2gif allows the selection of the projection
+scheme (Mollweide or Gnomonic for small patches of the sky), color
+table, color bar inclusion, linear or log scaling, maximum and 
+minimum range for the plot and plot-title. The facility utilises
+a command-line interface.
 </blockquote>
 
 <P>
-<hr><H1>SUPPORT    </H1><H2>This section lists those routines and facilities (including those <i>external</i> to the Healpix distribution) which can assist in the utilisation of <b><FONT COLOR="#CC0000">median_filter</FONT></b>.</H2><br>
-  <DL COMPACT><DT>
-<B><A HREF="facilitiesnode6.htm#fac:anafast">anafast</A></B>
-<DD>This <b>HEALPix</b> Fortran facility can
-     	       analyse a <b>HEALPix</b> map.
-  <DT>
-<B><A HREF="facilitiesnode13.htm#fac:synfast">synfast</A></B>
-<DD>This <b>HEALPix</b> facility can generate a
-  <b>HEALPix</b> map from a power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN>.
+<hr><H1>DATASETS</H1><h2> The following datasets are involved in the <b><FONT COLOR="#CC0000">map2gif</FONT></b>
+ processing.</h2>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">Dataset</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+None required</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+</TR>
+</TABLE>
 
 <P>
-</DL>
+<hr><H1>SUPPORT    </H1><H2>This section lists those routines and facilities (including those <i>external</i> to the Healpix distribution) which can assist in the utilisation of <b><FONT COLOR="#CC0000">map2gif</FONT></b>.</H2><br>
+  <DL COMPACT><DT>
+<B>xv</B>
+<DD>xv or a similar facility is required to view the
+            gif image generated by map2gif (a browser can also 
+            be used).
+  <DT>
+<B><A HREF="facilitiesnode14.htm#fac:synfast">synfast</A></B>
+<DD>This <b>HEALPix</b> facility will generate the FITS format 
+            sky map to be input to map2gif.
+  </DL>
 
 <P>
 <hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
 <TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT">
-median_filter  [option]</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
+map2gif</TD>
+<TD ALIGN="LEFT">-inp planck100GHZ-LFI.fits</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">-out planck100GHZ-LFI.gif</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">-bar .true.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">-min -100</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">-max 100</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">-ttl Simulated Planck LFI Sky Map at 100GHz</TD>
 </TR>
 </TABLE>
-</font></tt><br><blockquote>
-Median_Filter runs in interactive mode, self-explanatory.
-</blockquote>
-
-<P>
-<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-<TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT">
-median_filter  [option] filename</TD>
-<TD ALIGN="LEFT">&nbsp;</TD>
-</TR>
-</TABLE>
-</font></tt><br><blockquote>When 'filename' is present, median_filter enters the non-interactive mode and parses
-its inputs from the file 'filename'. This has the following
-structure: the first entry is a qualifier which announces to the parser
-which input immediately follows. If this input is omitted in the
-input file, the parser assumes the default value.
-If the equality sign is omitted, then the parser ignores the entry.
-In this way comments may also be included in the file.
-In this example, the file contains the following qualifiers:
-<BR>
-<tt>simul_type = 1</tt><br>
-<tt>infile = map.fits</tt><br>
-<tt>mf_radius_arcmin = 20.0</tt><br>
-<tt>mffile = med.fits</tt><br>
-
-<P>
-Median_Filter reads the sky map from 'map.fits'. Since <BR>
-<tt>fill_holes </tt><br>
-has its default value, ..., The median will be computed on a disk of 20 arcmin
-in radius, and the result will be written in 'med.fits'.
+</font></tt><br><blockquote>map2gif reads in the map `planck100GHZ-LFI.fits' and generates
+an output gif image with name `planck100GHZ-LFI.gif' in which
+the temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="facilitiesimg20.png"
+ ALT="$\pm$"></SPAN> 100 (<SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="facilitiesimg21.png"
+ ALT="$\mu$"></SPAN>K), 
+a color bar has been drawn and the title `Simulated Planck
+LFI Sky Map at 100GHz' appended to the image.
 </blockquote>
 
 <P>
 <hr><H1>RELEASE NOTES</H1><blockquote>
   <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="blueball.png" ALT="*">
- Initial release (<b>HEALPix</b> 2.00)
-  </DL>
+ Initial release (<b>HEALPix</b> 1.00)
+</DL>
 </blockquote>
 
 <P>
-<hr><H1>MESSAGES</H1><h2>This section describes error messages generated by <b><FONT COLOR="#CC0000">median_filter</FONT></b>
+<hr><H1>MESSAGES</H1><h2>This section describes error messages generated by <b><FONT COLOR="#CC0000">map2gif</FONT></b>
 </h2>
 
 <TABLE CELLPADDING=3 BORDER="1">
@@ -217,72 +237,15 @@ in radius, and the result will be written in 'med.fits'.
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-can not allocate memory for array xxx</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>Fatal</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>You do not have
-                   sufficient system resources to run this
-                   facility at the map resolution you required. 
-  Try a lower map resolution.</TD>
+None at present</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-
-<P>
-this is not a binary table</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
-of the proper format</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-there are undefined values in the table!</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
-of the proper format</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-the header in xxx is too long</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
-of the proper format</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-XXX-keyword not found</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the fitsfile you have specified is not 
-of the proper format</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-found xxx in the file, expected:yyyy</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the specified fitsfile does not
-contain the proper amount of data.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125>
-
-<P></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=125></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
@@ -299,32 +262,32 @@ contain the proper amount of data.</TD>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html132"
+<A NAME="tex2html139"
   HREF="facilitiesnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html138"
+<A NAME="tex2html145"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html142"
+<A NAME="tex2html149"
   HREF="facilitiesnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html140"
+<A NAME="tex2html147"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html133"
-  HREF="facilitiesnode8.htm">map2gif</A>
+<B> Previous:</B> <A NAME="tex2html140"
+  HREF="facilitiesnode8.htm">hotspot</A>
 
-<B>Up:</B> <A NAME="tex2html139"
+<B>Up:</B> <A NAME="tex2html146"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html143"
-  HREF="facilitiesnode10.htm">plmgen</A>
+<B> Next:</B> <A NAME="tex2html150"
+  HREF="facilitiesnode10.htm">median_filter</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2009-11-27
+2010-03-04
 </ADDRESS>
 </BODY>
 </HTML>
