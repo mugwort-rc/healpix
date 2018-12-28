@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2013  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extension_id, columns=columns
+pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extension_id, columns=columns, help=help
 ;+
 ; NAME:
 ;       READ_FITS_S
@@ -66,7 +66,10 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;      Merge = if set, the content of the primary and secondary units
 ;      are merged
 ;
-;      Extension = number of extension of be read, 0 based
+;      Extension : extension unit to be read from FITS file: 
+;        either its 0-based ID number (ie, 0 for first extension after primary array)
+;        or the case-insensitive value of its EXTNAME keyword.
+;	 If absent, first extension (=0) will be read
 ;
 ;      Columns = list of columns to be read from a binary table 
 ;        can be a list of integer (1 based) indexing the columns positions
@@ -78,14 +81,14 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;
 ; TIPS:
 ;    to plot column 5 vs. column 1 of 'file' irrespective of their name
-;        read_fits_sb, 'file', prims, exts
+;        read_fits_s, 'file', prims, exts
 ;        x = exts.(1)
 ;        y = exts.(5)
 ;        plot,x,y
 ;
 ;    to plot the column SIGNAL versus the column NOISE without knowing
 ;    their position
-;        read_fits_sb, 'file', prims, exts
+;        read_fits_s, 'file', prims, exts
 ;        x = exts.signal
 ;        y = exts.noise
 ;        plot,x,y
@@ -100,6 +103,8 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
 ;  June 2008, EH: can deal with file with large TFORM
 ;  Jan 2009: calls init_astrolib
+;  Jan 2013: allows EXTENSION to be a string
+;  Mars 2013: added HELP
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -107,7 +112,12 @@ pro read_fits_s, filename, prim_stc, xten_stc, merge=merge, extension = extensio
 ;-
 
 code = 'READ_FITS_S'
-syntax =  'Syntax : '+code+', Filename, Prim_Stc, Xten_Stc, [Merge=, Extension=, Columns=]'
+syntax =  'Syntax : '+code+', Filename, Prim_Stc, Xten_Stc, [Merge=, Extension=, Columns=, Help=]'
+
+if keyword_set(help) then begin
+    doc_library,code
+    return
+endif
 
 if N_params() eq 0 then begin
     print, syntax
@@ -138,9 +148,16 @@ prim_stc = CREATE_STRUCT('HDR',hdr)
 if (image_found) then prim_stc = CREATE_STRUCT(prim_stc,'IMG',image)
 
 xten_stc = 0
-fits_info,filename, /silent, n_ext=n_ext
-xtn = (keyword_set(extension_id)) ? (extension_id+1) : 1
-if (n_ext lt xtn) then begin ; no extension available
+fits_info, filename, /silent, n_ext=n_ext, extname=extnames
+if size(extension_id,/TNAME) eq 'STRING' then begin
+    extension_idp1 = extension_id[0]
+    junk = where(strupcase(strtrim(extnames,2)) eq strupcase(extension_idp1), count)
+    not_found = (count eq 0)
+endif else begin
+    extension_idp1 = defined(extension_id) ? extension_id[0] + 1 : 1
+    not_found = (extension_idp1 gt n_ext)
+endelse
+if (not_found) then begin ; no extension available
     if (image_found) then begin
         if (expect_extension) then print,'WARNING: Found 1 image but not the requested extension in '+filename
         return
@@ -151,7 +168,7 @@ if (n_ext lt xtn) then begin ; no extension available
 endif
 
 ; ----- if there is the required extension ------
-table = MRDFITS(filename,xtn,xthdr,range=1,/silent, columns=columns)  ; first row
+table = MRDFITS(filename,extension_idp1,xthdr,range=1,/silent, columns=columns)  ; first row
 tags = TAG_NAMES(table)
 n_tag = N_TAGS(table)
 bitpix  = ABS(ROUND(SXPAR(xthdr,'BITPIX'))) ; bits per 'word'
@@ -178,7 +195,7 @@ endcase
 size = (bitpix/8.) * float(n_wpr) * float(n_rows) / 1024.^2 ; size in MB
 if (size le 100.) then begin ; smaller than 100MB, read in one sitting
     if defined(columns) then begin
-        table = MRDFITS(filename,xtn,/SILENT, columns=columns)
+        table = MRDFITS(filename,extension_idp1,/SILENT, columns=columns)
         for i=0L, n_tag-1 do begin
             nn = n_elements(table.(i))
             ni = n_entry(i)
@@ -189,7 +206,11 @@ if (size le 100.) then begin ; smaller than 100MB, read in one sitting
             endcase
         endfor
     endif else begin
-        fits_read,filename, data, header_fr, exten_no=xtn, /no_pdu
+        if (size(extension_idp1,/tname) eq 'STRING') then begin
+            fits_read,filename, data, header_fr, extname=extension_idp1, /no_pdu
+        endif else begin
+            fits_read,filename, data, header_fr, exten_no=extension_idp1, /no_pdu
+        endelse
         tbinfo, header_fr, tb_str
         for i=0L, n_tag-1 do begin
             case (merge) of
@@ -216,7 +237,7 @@ endif else begin
     r_start = 0L
     while (r_start LE (n_rows-1) ) do begin
         r_end = (r_start + stride - 1L) < (n_rows-1)
-        table = MRDFITS(filename,xtn,range=[r_start,r_end],/SILENT, columns=columns)
+        table = MRDFITS(filename,extension_idp1,range=[r_start,r_end],/SILENT, columns=columns)
         for i=0L, n_tag-1 do begin
             nn = n_elements(table.(i))
             ni = n_entry(i)

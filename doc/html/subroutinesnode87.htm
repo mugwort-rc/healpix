@@ -113,10 +113,10 @@ filename(LEN=<tt>filenamelen</tt>)</TD>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>anynull</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>TRUE, if there are missing pixels, and FALSE
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><TT>.TRUE.</TT>, if there are missing pixels, and <TT>.FALSE.</TT>
                    otherwise.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">header</font></i>(LEN=80)(1:) (OPTIONAL)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">header</font></i>(LEN=80)(1:)(OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>character string array
@@ -140,16 +140,24 @@ filename(LEN=<tt>filenamelen</tt>)</TD>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call read_bintab ('map.fits',map,12*32**2,1,nullval,anynull)  
+call read_bintab ('map.fits', map, 12*32**2, 1, nullval, anynull)  
 <BR></font></tt>
 <BR><blockquote>
-Reads a <b>HEALPix</b> temperature map from the file `map.fits' to the array map(0:12*32**2-1,1:1). The pixel number 12*32**2 is the number of pixels in a <!-- MATH
+Reads a <b>HEALPix</b> temperature map from the file `map.fits' to the array
+map(0:12*32**2-1,1:1). The pixel number 12*32**2 is the number of pixels in a
+<!-- MATH
  ${N_{\rm side}}=32$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg112.png"
- ALT="${N_{\rm side}}=32$"></SPAN> <b>HEALPix</b> map. If there are missing pixels in the file, anynull is TRUE and these pixels get the value returned in nullval. 
+ SRC="subroutinesimg113.png"
+ ALT="${N_{\rm side}}=32$"></SPAN> <b>HEALPix</b> map. 
+If there are missing pixels in the input file (with
+value <TT>NaN</TT> (Not a Number), <SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg83.png"
+ ALT="$\pm$"></SPAN><TT>Infinity</TT>, or matching the FITS
+keyword <TT>BAD_DATA</TT>) then <TT>anynull</TT> is <TT>.TRUE.</TT> and these pixels get the value returned in <TT>nullval</TT>. 
 </blockquote>
 
 <P>
@@ -170,7 +178,7 @@ Reads a <b>HEALPix</b> temperature map from the file `map.fits' to the array map
 <BR> 
   <DL COMPACT><DT>
 <B><A HREF="subroutinesnode48.htm#sub:input_map">input_map</A></B>
-<DD>Routine which reads a map using <FONT COLOR="#CC0000">read_bintab*</FONT>and fills missing pixels with a given value.
+<DD>Routine which reads a map using <FONT COLOR="#CC0000">read_bintab*</FONT> and fills missing pixels with a given value.
   <DT>
 <B><A HREF="subroutinesnode51.htm#sub:map2alm">map2alm</A></B>
 <DD>Routine which analyse a map and returns the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
@@ -219,7 +227,7 @@ Reads a <b>HEALPix</b> temperature map from the file `map.fits' to the array map
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

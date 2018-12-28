@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>convert_oldhpx2cmbfast</TITLE>
-<META NAME="description" CONTENT="convert_oldhpx2cmbfast">
+<TITLE>euler_matrix_new</TITLE>
+<META NAME="description" CONTENT="euler_matrix_new">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,124 +28,131 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html425"
+<A NAME="tex2html434"
   HREF="idlnode20.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html431"
+<A NAME="tex2html440"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html435"
+<A NAME="tex2html444"
   HREF="idlnode22.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html433"
+<A NAME="tex2html442"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html426"
-  HREF="idlnode20.htm">cl2fits</A>
+<B> Previous:</B> <A NAME="tex2html435"
+  HREF="idlnode20.htm">convert_oldhpx2cmbfast</A>
 
-<B>Up:</B> <A NAME="tex2html432"
+<B>Up:</B> <A NAME="tex2html441"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html436"
-  HREF="idlnode22.htm">euler_matrix_new</A>
+<B> Next:</B> <A NAME="tex2html445"
+  HREF="idlnode22.htm">fits2alm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000210000000000000000"></A>
-<A NAME="idl:convert_oldhpx2cmbfast"></A>
+<A NAME="idl:euler_matrix_new"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">convert_oldhpx2cmbfast</FONT></font></b><hr><H2>This IDL facility provides a means to
-change the normalization of polarization power spectra in a FITS file
-from Healpix 1.1 convention to Healpix 1.2 (which is the same as CMBFAST).
+<b><font size=+6><FONT COLOR="#CC0000">euler_matrix_new</FONT></font></b><hr><H2>This IDL facility provides a means to generate a 3D rotation Euler
+matrix parametrized by three angles and three axes of rotation.
 </H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/convert_oldhpx2cmbfast.pro
+src/idl/misc/euler_matrix_new.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-CONVERT_OLDHPX2CMBFAST, file_in, [file_out, NO_RENORM= ]
+matrix = EULER_MATRIX_NEW(a1, a2, a3 [, X=, Y=, ZYX=, DEG=]) 
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>file_in</B>
-<DD>String containing the name of the FITS file with the power
-    spectra to be read.
+<B>matrix</B>
+<DD>a 3x3 array containing the Euler matrix
     <DT>
-<B>file_out</B>
-<DD>(OPTIONAL) String containing the name of the file to be
-    written after renormalization. If absent, <TT>file_in</TT> will be used for output
+<B>a1</B>
+<DD>input, float scalar, 
+    angle of the first rotation, expressed in radians,
+    unless DEG (see below) is set
+    <DT>
+<B>a2</B>
+<DD>angle of the second rotation, same units as a1
+    <DT>
+<B>a3</B>
+<DD>angle of the third rotation, same units as a1
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>NO_RENORM =</B>
-<DD>if set, the renormalization is not done.
-      but the keyword POLNORM = CMBFAST is added to the FITS header
-   (useful if the FITS file is already in CMBFAST format).
+<B>DEG=</B>
+<DD>if set, the angles are in degrees instead of radians
+    <DT>
+<B>X=</B>
+<DD>if set, uses the classical mechanics convention (ZXZ):
+<BR>
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate X axis, 
+<BR>
+rotation a3 around final Z axis 
+<BR>        (see Goldstein for more details). 
+<BR>	<b>default:</b>this convention is used
+
+<P>
+<DT>
+<B>Y=</B>
+<DD>if set, uses the quantum mechanics convention (ZYZ):
+<BR>
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate Y axis, 
+<BR>
+rotation a3 around final Z axis.
+
+<P>
+<DT>
+<B>ZYX=</B>
+<DD>if set, uses the aeronautics convention (ZYX):
+<BR>
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate Y axis, 
+<BR>
+rotation a3 around final X axis.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-convert_oldhpx2cmbfast does the conversion from the polarization normalisation
-used in <b>HEALPix</b> 1.1 to the one used in <b>HEALPix</b> 1.2 
-(see the 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"><A NAME="tex2html7"
-  HREF="intro.htm">Healpix primer document</A>).
-A keyword POLNORM = CMBFAST is added to the header to keep track of which
-files have been renormalized.  If this keyword is not present in the input FITS
-file, <SPAN  CLASS="textbf">synfast</SPAN> will issue a
-warning when simulating a polarization map from that power spectrum, but no
-attempt to renormalize the power spectra will be made. 
-
+<IMG
+ WIDTH="559" HEIGHT="363" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg44.png"
+ ALT="$\textstyle \parbox{\hsize}{\facname \ ~\ allows the generation of a rotation Eu...
+...,/Y)) \\ [.2cm]
+euler\_matrix\_new(a,b,c,/Z) = euler\_matrix($-$a, b,$-$c,/Z)
+}$">
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">convert_oldhpx2cmbfast</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">euler_matrix_new</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run convert_oldhpx2cmbfast.
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">euler_matrix_new</FONT>.
     <DT>
-<B><A HREF="idlnode20.htm#idl:cl2fits">cl2fits</A></B>
-<DD>provides the a routine to write a
-      power spectrum to a FITS file.
-    <DT>
-<B><A HREF="idlnode24.htm#idl:fits2cl">fits2cl</A></B>
-<DD>provides the complimentary routine to read in a
-      power spectrum from a FITS file.
-    <DT>
-<B>synfast</B>
-<DD>utilises the output file generated by convert_oldhpx2cmbfast.
+<B><A HREF="idlnode61.htm#idl:rotate_coord">rotate_coord</A></B>
+<DD>apply a rotation to a set of position vectors and
+    polarization Stokes parameters.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-convert_oldhpx2cmbfast, 'cl_flat.fits'
-</SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
-convert_oldhpx2cmbfast will renormalize the polarization power spectra read
-from 'cl_flat.fits', and write them in the same file.
-</blockquote>
-<P>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL>
-<P>
-
 <P>
 
 <P>
@@ -153,32 +160,32 @@ from 'cl_flat.fits', and write them in the same file.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html425"
+<A NAME="tex2html434"
   HREF="idlnode20.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html431"
+<A NAME="tex2html440"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html435"
+<A NAME="tex2html444"
   HREF="idlnode22.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html433"
+<A NAME="tex2html442"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html426"
-  HREF="idlnode20.htm">cl2fits</A>
+<B> Previous:</B> <A NAME="tex2html435"
+  HREF="idlnode20.htm">convert_oldhpx2cmbfast</A>
 
-<B>Up:</B> <A NAME="tex2html432"
+<B>Up:</B> <A NAME="tex2html441"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html436"
-  HREF="idlnode22.htm">euler_matrix_new</A>
+<B> Next:</B> <A NAME="tex2html445"
+  HREF="idlnode22.htm">fits2alm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

@@ -20,8 +20,7 @@ FULL_INCLUDE:=
 include libcfitsio/planck.make
 include c_utils/planck.make
 include libfftpack/planck.make
-include libpsht/planck.make
-#include libsharp/planck.make
+include libsharp/planck.make
 include cxxsupport/planck.make
 include Healpix_cxx/planck.make
 include alice/planck.make
@@ -40,6 +39,8 @@ $(all_cbin): %: | $(BINDIR)_mkdir
 	$(CXXL) $(CXXLFLAGS) -o $@ $^ $(CXX_EXTRALIBS)
 
 compile_all: $(all_cbin) $(all_cxxbin) hdrcopy
+
+compile_libs: $(all_lib) $(LIB_libcfitsio) hdrcopy
 
 hdrclean:
 	@if [ -d $(INCDIR) ]; then rm -rf $(INCDIR)/* ; fi

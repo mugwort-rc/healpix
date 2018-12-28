@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between release 2.20 and 3.0</TITLE>
-<META NAME="description" CONTENT="Changes between release 2.20 and 3.0">
+<TITLE>Changes between releases 3.00 and 3.10</TITLE>
+<META NAME="description" CONTENT="Changes between releases 3.00 and 3.10">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,128 +28,104 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html221"
+<A NAME="tex2html227"
   HREF="idlnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html227"
+<A NAME="tex2html233"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html231"
+<A NAME="tex2html237"
   HREF="idlnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html229"
+<A NAME="tex2html235"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html222"
+<B> Previous:</B> <A NAME="tex2html228"
   HREF="idlnode3.htm">What is available?</A>
 
-<B>Up:</B> <A NAME="tex2html228"
+<B>Up:</B> <A NAME="tex2html234"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html232"
-  HREF="idlnode5.htm">Changes between release 2.0</A>
+<B> Next:</B> <A NAME="tex2html238"
+  HREF="idlnode5.htm">Previous changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00040000000000000000">
-Changes between release 2.20 and 3.0</A>
+Changes between releases 3.00 and 3.10</A>
 </H1>
-Several routines have been added or improved since version 2.20, as listed below.
 
 <P>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Latest edition (version 3.0)
+ Latest edition (version 3.10)
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines to go from circular beam profile to transfer function
-(<A HREF="idlnode13.htm#idl:beam2bl"><TT>beam2bl</TT></A>), 
-and back (<A HREF="idlnode15.htm#idl:bl2beam"><TT>bl2beam</TT></A>); 
-to go from indexed list of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> to a(l,m) 2D table
-(<A HREF="idlnode7.htm#idl:alm_i2t"><TT>alm_i2t</TT></A>), 
-and back
-(<A HREF="idlnode8.htm#idl:alm_t2i"><TT>alm_t2i</TT></A>); and to compute the angular distance
-between pairs of vectors (<A HREF="idlnode11.htm#idl:angulardistance"><TT>angulardistance</TT></A>).
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- addition of <A HREF="idlnode37.htm#idl:iprocess_mask"><TT>iprocess_mask</TT></A>
-interface to F90 <TT>process_mask</TT> facility to compute the angular distance of valid
-pixels to the closest invalid pixels for a input binary mask.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- creation of <A HREF="idlnode32.htm#idl:hpx2dm"><TT>hpx2dm</TT></A> routine to generate
-DomeMaster images of <b>HEALPix</b> maps that can be projected on planetariums.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the pixel query routines 
-<A HREF="idlnode55.htm#idl:query_triangle"><TT>query_triangle</TT></A>, 
-<A HREF="idlnode53.htm#idl:query_polygon"><TT>query_polygon</TT></A>, 
-and in particular <A HREF="idlnode52.htm#idl:query_disc"><TT>query_disc</TT></A>, 
-have been improved and will return fewer
-false positive pixels in the <A HREF="idlnode52.htm#idl:query_disc:inclusive"><EM>inclusive</EM></A> mode
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- improved accuracy of the co-latitude calculation in the vicinity
-of the poles for high resolution in <A HREF="idlnode51.htm#idl:pix_tools"><TT>nest2ring, ring2nest,
-pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\ldots$"></SPAN></TT></A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode43.htm#idl:mollview"><TT>cartview, gnomview, mollview,
-orthview</TT></A>:
- the length and spacing of the headless vectors used to represent
-polarization is now user-controlled  via <A HREF="idlnode43.htm#idl:mollview:polarization"><TT>POLARIZATION</TT></A> keyword. The <A HREF="idlnode43.htm#idl:mollview:colt"><TT>COLT</TT></A> keyword now
-allows the use of an interactively modified color table.
+ bug corrections: 
+	<A HREF="idlnode51.htm#idl:query_disc"><TT>query_disc</TT></A>: correct handling of empty disc; 
+	<A HREF="idlnode13.htm#idl:bin_llcl"><TT>bin_llcl</TT></A>: correct handling of optional argument.
 
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode50.htm#idl:orthview"><TT>orthview</TT></A> now accepts
-<A HREF="idlnode43.htm#idl:mollview:stagger"><TT>STAGGER</TT></A> keyword to overplot staggered
-spheres (with a twist) in order to detect periodic boundary conditions on the
-sky
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode24.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <A HREF="idlnode24.htm#idl:fits2cl:wmap7"><TT>WMAP7</TT></A> keyword
-to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to WMAP 7yr data.
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="idlnode57.htm#idl:read_fits_map"><TT>read_fits_map</TT></A> can now read
-<!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg3.png"
- ALT="${N_{\rm side}}$"></SPAN>=8192 <b>HEALPix</b> maps and is generally faster than previously for smaller
-maps
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- update of <TT>astron</TT> library routines (01-Feb-2012).
+ double precision of input now preserved in
+	<A HREF="idlnode24.htm#idl:gaussbeam"><TT>gaussbeam</TT></A> and 
+	<A HREF="idlnode21.htm#idl:euler_matrix_new"><TT>euler_matrix_new</TT></A>.
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of <A HREF="idlnode23.htm#idl:fits2cl:planck1"><TT>/PLANCK1</TT></A> keyword
+to read best fit <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> model to Planck 2013 + external data.
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ it is now possible to read a specific FITS file extension identified by its
+	(0-based) number or its case-insensitive EXTNAME value with the <TT>Extension</TT>
+	keyword added to 
+	<A HREF="idlnode23.htm#idl:fits2cl"><TT>fits2cl</TT></A>,
+	<A HREF="idlnode26.htm#idl:getsize_fits"><TT>getsize_fits</TT></A>,
+	<A HREF="idlnode56.htm#idl:read_fits_map"><TT>read_fits_map</TT></A>,
+	<A HREF="idlnode57.htm#idl:read_fits_s"><TT>read_fits_s</TT></A> and 
+	<A HREF="idlnode58.htm#idl:read_tqu"><TT>read_tqu</TT></A>.
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ update of the required
+	<A NAME="tex2html2"
+  HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
+routines, and their supporting <A NAME="tex2html3"
+  HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
+routines (2013-02-08).
 </DL></DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html221"
+<A NAME="tex2html227"
   HREF="idlnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html227"
+<A NAME="tex2html233"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html231"
+<A NAME="tex2html237"
   HREF="idlnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html229"
+<A NAME="tex2html235"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html222"
+<B> Previous:</B> <A NAME="tex2html228"
   HREF="idlnode3.htm">What is available?</A>
 
-<B>Up:</B> <A NAME="tex2html228"
+<B>Up:</B> <A NAME="tex2html234"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html232"
-  HREF="idlnode5.htm">Changes between release 2.0</A>
+<B> Next:</B> <A NAME="tex2html238"
+  HREF="idlnode5.htm">Previous changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>hpx2gs</TITLE>
-<META NAME="description" CONTENT="hpx2gs">
+<TITLE>ianafast</TITLE>
+<META NAME="description" CONTENT="ianafast">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,229 +28,290 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html569"
+<A NAME="tex2html578"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html575"
+<A NAME="tex2html584"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html579"
+<A NAME="tex2html588"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html577"
+<A NAME="tex2html586"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html570"
-  HREF="idlnode32.htm">hpx2dm</A>
+<B> Previous:</B> <A NAME="tex2html579"
+  HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html576"
+<B>Up:</B> <A NAME="tex2html585"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html580"
-  HREF="idlnode34.htm">ianafast</A>
+<B> Next:</B> <A NAME="tex2html589"
+  HREF="idlnode34.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000330000000000000000"></A>
-<A NAME="idl:hpx2gs"></A>
+<A NAME="idl:ianafast"></A>
 <BR>
  
 </H1>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"> 
-</SMALL>
-<P>
-<b><font size=+6><FONT COLOR="#CC0000">hpx2gs</FONT></font></b><hr><H2>This IDL facility provides a means to turn a <b>HEALPix</b> map into a image that
-can be visualized with 
-<A NAME="tex2html10"
-  HREF="http://earth.google.com/">Google Earth</A>
-or 
-<A NAME="tex2html11"
-  HREF="http://earth.google.com/sky/skyedu.html">Google Sky</A>.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/hpx2gs.pro
+<b><font size=+6><FONT COLOR="#CC0000">ianafast</FONT></font></b><hr><H2>This IDL facility provides an interface to 'anafast' F90 and 'anafast_cxx' C++
+facilities. It can be used to produce the Spherical Harmonics coefficients
+(<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> of a <b>HEALPix</b> map (or pair of maps) and/or the resulting auto (or
+cross) power spectra <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/interfaces/ianafast.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-<FONT COLOR="#CC0000">hpx2gs</FONT>, 
-<A HREF="#idl:hpx2gs:file">File</A>, 
-[ <A HREF="#idl:hpx2gs:select">Select</A>, ]
-[ <A HREF="#idl:hpx2gs:coord_in">COORD_IN=</A>, 
-<A HREF="#idl:hpx2gs:help">/HELP</A>, 
-<A HREF="#idl:hpx2gs:kml">KML=</A>, 
-<A HREF="#idl:hpx2gs:png">PNG=</A>, 
-<A HREF="#idl:hpx2gs:reso_arcmin">RESO_ARCMIN=</A>, 
-<A HREF="#idl:hpx2gs:subtitle">SUBTITLE=</A>, 
-<A HREF="#idl:hpx2gs:titleplot">TITLEPLOT=</A>,+ <A HREF="#idl:hpx2gs:other_keywords">most of cartview keywords</A><SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\ldots$"></SPAN>
-]
-
+IANAFAST,  map1_in [, cl_out,
+       alm1_out=, alm2_out=, binpath=, cxx=, double=, help=, healpix_data=, iter_order=, keep_tmp_files=, 
+       map2_in=, maskfile=, nested=, nlmax=, nmmax=, ordering=, plmfile=, polarisation=, 
+       regression=, ring=, show_cl=, simul_type=, silent=, theta_cut_deg=, tmpdir=, 
+       weighted=, won=, w8file=, w8dir=]
 </h2>
 <P>
-<H1>QUALIFIERS</H1>
-<BR>
-</SMALL><TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE">  
-<A NAME="idl:hpx2gs:file"></A>File    </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Required
-<BR>
-name of a FITS file containing 
-               the <b>HEALPix</b>  map in an extension or in the image field, <BR></SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>or</EM>    name of an </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>online</EM> variable (either array or
-structure) containing the <b>HEALPix</b>  map (See note below);
-<BR>
-if Save is set   :    name of an IDL saveset file containing
-               the <b>HEALPix</b>  map stored under the variable  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>data</TT> <BR><b> (default : none)</b></SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE"><A NAME="idl:hpx2gs:select"></A>Select    </SMALL></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Optional
-<BR>
-column of the BIN FITS table to be plotted, can be either  <BR>- a name : value given in TTYPEi of the FITS file <BR>
-NOT case sensitive and can be truncated, <BR>(only letters, digits and underscore are valid) <BR>- an integer        : number i of the column
-                            containing the data, starting with 1 (also valid if
-		  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>File</TT> is an online array) <BR><b>default:</b>1 for full sky maps, 'SIGNAL' column for FITS files
-		  containing cut sky maps</SMALL></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  </SMALL><DL COMPACT><DT>
+<B>map1_in</B>
+<DD>required input: 1st input map, can be a FITS file, or a memory array containing the
+        map to analyze
+    <DT>
+<B>cl_out</B>
+<DD>optional output: auto or cross power spectrum <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>, can be a FITS
+file or a memory array
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B><A NAME="idl:hpx2gs:coord_in"></A>COORD_IN =</B>
-<DD>1-character scalar, describing the input data coordinate system:
-<BR>
-either 'C' or 'Q' : Celestial2000 = eQuatorial,
-<BR>                       'E'        : Ecliptic,
-<BR>                       'G'        : Galactic.
-<BR>
-If set, it will over-ride the coordinates read from the FITS file header (when
-             applicable). In absence of information, the input coordinates is
-assumed to be celestial.
-<BR>
-The data will be rotated so that the output coordinates are Celestial, as expected by Google Sky
+<B>alm1_out=</B>
+<DD>output alm of 1st map, must be a FITS file          <b>default:</b>alm not kept
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:help"></A>/HELP</B>
-<DD>Prints out the documentation header 
+<B>alm2_out=</B>
+<DD>output alm of 2nd map (if any, must be a FITS file) <b>default:</b>alm not kept
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:kml"></A>KML =</B>
-<DD>Name of the KML file to be created (if the <TT>.kml</TT> suffix is missing,
-     it will be added automatically)
-     <b>default:</b><TT>'hpx2googlesky.kml'</TT>
+<B>binpath=</B>
+<DD>full path to back-end routine <b>default:</b>$HEXE/anafast, then $HEALPIX/bin/anafast 
+                or $HEALPIX/src/cxx/$HEALPIX_TARGET/bin/anafast_cxx, then $HEALPIX/src/cxx/generic_gcc/bin/anafast_cxx if cxx is set
+<BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg57.png"
+ ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
+<BR>              - a binpath starting with ./ is interpreted as relative to current directory
+<BR>              - all other binpathes are relative to $HEALPIX
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:png"></A>PNG =</B>
-<DD>Name of the PNG overlay file to be created. Only to be used if you want the
-     filename to be different from the default 
-	(<b>default:</b> same as KML file, with a <TT>.png</TT> suffix instead
-     of <TT>.kml</TT>)
+<B>/cxx</B>
+<DD>if set, the C++ back-end anafast_cxx is invoked instead of F90 anafast,
+           AND the parameter file is written accordingly
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:reso_arcmin"></A>RESO_ARCMIN =</B>
-<DD>Pixel angular size in arcmin (at the equator) of the cartesian
-     map generated <b>default:</b>30
+<B>/double</B>
+<DD>if set, I/O is done in double precision <b>default:</b>single precision I/O
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:subtitle"></A>SUBTITLE =</B>
-<DD>information on the data, 
-will appear in KML file <TT>GroundOverlay
-     description</TT> field
+<B>/help</B>
+<DD>if set, prints extended help
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:titleplot"></A>TITLEPLOT =</B>
-<DD>information on the data, 
-will appear in KML file <TT>GroundOverlay
-     name</TT> field
+<B>healpix_data=</B>
+<DD>directory with Healpix precomputed files (only for C++ back_end when weighted=1)
+     <b>default:</b>$HEALPIX/data
 
 <P>
 <DT>
-<B><A NAME="idl:hpx2gs:other_keywords"></A>
-<A HREF="idlnode43.htm#idl:mollview:asinh">/ASINH</A>, </B>
-<DD><DT>
-<B><A HREF="idlnode43.htm#idl:mollview:colt">COLT</A>=,
-<A HREF="idlnode43.htm#idl:mollview:factor">FACTOR</A>=,
-<A HREF="idlnode43.htm#idl:mollview:flip">/FLIP</A>,
-<A HREF="idlnode43.htm#idl:mollview:glsize">GLSIZE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:graticule">GRATICULE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:hbound">HBOUND</A>=,</B>
-<DD><DT>
-<B><A HREF="idlnode43.htm#idl:mollview:hist_equal">/HIST_EQUAL</A>,
-<A HREF="idlnode43.htm#idl:mollview:iglsize">IGLSIZE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:igraticule">IGRATICULE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:log">/LOG</A>,
-<A HREF="idlnode43.htm#idl:mollview:max">MAX</A>=,
-<A HREF="idlnode43.htm#idl:mollview:min">MIN</A>=, </B>
-<DD><DT>
-<B><A HREF="idlnode43.htm#idl:mollview:nested">/NESTED</A>,
-<A HREF="idlnode43.htm#idl:mollview:offset">OFFSET</A>=, </B>
-<DD><DT>
-<B><A HREF="idlnode43.htm#idl:mollview:outline">OUTLINE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:polarization">POLARIZATION</A>=,
-<A HREF="idlnode43.htm#idl:mollview:preview">/PREVIEW</A>,</B>
-<DD><DT>
-<B><A HREF="#idl:mollview:quadcube">/QUADCUBE</A>,
-<A HREF="idlnode43.htm#idl:mollview:save">SAVE</A>=,
-<A HREF="idlnode43.htm#idl:mollview:silent">/SILENT</A>, </B>
-<DD><DT>
-<B><A HREF="idlnode43.htm#idl:mollview:truecolors">TRUECOLORS</A>=</B>
-<DD>those keywords have the same meaning as in
-<A HREF="idlnode18.htm#idl:cartview">cartview</A> and 
-<A HREF="idlnode43.htm#idl:mollview">mollview</A>
+<B>iter_order=</B>
+<DD>order of iteration in the analysis <b>default:</b>0
+
+<P>
+<DT>
+<B>/keep_tmp_files</B>
+<DD>if set, temporary files are not discarded at the end of the
+                  run
+
+<P>
+<DT>
+<B>map2_in=</B>
+<DD>2nd input map (FITS file or array), if provided, Cl_out will
+  contain the cross power spectra of the 2 maps <b>default:</b>no 2nd map
+
+<P>
+<DT>
+<B>maskfile=</B>
+<DD>pixel mask (FITS file or array)   <b>default:</b>no mask
+
+<P>
+<DT>
+<B>/nested=</B>
+<DD>if set, signals that *all* maps and mask read online are in
+   NESTED scheme (does not apply to FITS file), see also /ring and Ordering
+
+<P>
+<DT>
+<B>nlmax=</B>
+<DD>maximum multipole of analysis, *required* for C++ anafast_cxx,
+      optional for F90 anafast
+
+<P>
+<DT>
+<B>nmmax=</B>
+<DD>maximum degree m, only valid for C++ anafast_cxx <b>default:</b>nlmax
+
+<P>
+<DT>
+<B>ordering=</B>
+<DD>either 'RING' or 'NESTED', ordering of online maps and masks,
+ see /nested and /ring
+
+<P>
+<DT>
+<B>plmfile=</B>
+<DD>FITS file containing precomputed Spherical Harmonics (deprecated) <b>default:</b>no file
+
+<P>
+<DT>
+<B>/polarisation</B>
+<DD>if set analyze temperature + polarization (same as simul_type = 2)
+
+<P>
+<DT>
+<B>regression=</B>
+<DD>0, 1 or 2, regress out best fit monopole and/or dipole before
+    alm analysis
+  <b>default:</b>0, analyze raw map 
+
+<P>
+<DT>
+<B>/ring</B>
+<DD>see /nested and ordering above
+
+<P>
+<DT>
+<B>/show_cl</B>
+<DD>if set, and <TT>cl_out</TT> is defined, the produced <!-- MATH
+ $l (l+1) C(l)/2\pi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg46.png"
+ ALT="$l(l+1)C(l)/2\pi$"></SPAN> will
+be plotted
+
+<P>
+<DT>
+<B>simul_type=</B>
+<DD>1 or 2, analyze temperature only or temperature + polarization
+
+<P>
+<DT>
+<B>/silent</B>
+<DD>if set, works silently
+
+<P>
+<DT>
+<B>theta_cut_deg=</B>
+<DD>cut around the equatorial plane 
+
+<P>
+<DT>
+<B>tmpdir=</B>
+<DD>directory in which are written temporary files 
+<b>default:</b>IDL_TMPDIR (see IDL documentation)
+
+<P>
+<DT>
+<B>/weighted</B>
+<DD>same as won
+    <b>default:</b>apply weighting
+
+<P>
+<DT>
+<B>/won</B>
+<DD>if set, a weighting scheme is used to improve the quadrature
+    <b>default:</b>apply weighting
+
+<P>
+<DT>
+<B>w8file=</B>
+<DD>FITS file containing weights 
+     <b>default:</b>determined automatically by back-end routine.
+   Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>w8dir=</B>
+<DD>directory where the weights are to be found 
+        <b>default:</b>determined automatically by back-end routine
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
-
+<SMALL CLASS="FOOTNOTESIZE">  
+</SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-<FONT COLOR="#CC0000">hpx2gs</FONT> reads in a <b>HEALPix</b> sky map in FITS format or from a memory array and generates a
-cartesian projection of it in a PNG file, as well as a Google Sky compatible 
-<A NAME="tex2html9"
-  HREF="http://earth.google.com/kml">KML</A>
-file. Missing or unobserved pixels in the input data will be
-   totally 'transparent' in the output file.
-
+<FONT COLOR="#CC0000">ianafast</FONT> is an interface to 'anafast' F90 and 'anafast_cxx' C++
+facilities. It
+requires some disk space on which to write the parameter file and the other
+temporary files. Most data can be provided/generated as an external FITS
+file, or as a memory array.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">hpx2gs</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ianafast</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<DD>see <A HREF="idlnode18.htm#idl:cartview">cartview</A>
-  <DT>
-<B><A HREF="idlnode32.htm#idl:hpx2dm">hpx2dm</A></B>
-<DD>turns Healpix maps into DomeMaster images
-  </DL><SMALL CLASS="FOOTNOTESIZE">
+<B>idl</B>
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">ianafast</FONT>.
+    <DT>
+<B>anafast</B>
+<DD>F90 facility called by <FONT COLOR="#CC0000">ianafast</FONT>.
+    <DT>
+<B>anafast_cxx</B>
+<DD>C++ called by <FONT COLOR="#CC0000">ianafast</FONT>.
+    <DT>
+<B><A HREF="idlnode36.htm#idl:iprocess_mask">iprocess_mask</A></B>
+<DD>IDL Interface to F90 process_mask
+    <DT>
+<B><A HREF="idlnode37.htm#idl:ismoothing">ismoothing</A></B>
+<DD>IDL Interface to F90 smoothing
+    <DT>
+<B><A HREF="idlnode38.htm#idl:isynfast">isynfast</A></B>
+<DD>IDL Interface to F90 synfast
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
+whitenoise = randomn(seed, <A HREF="idlnode46.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">hpx2gs</FONT>, map, kml='my_map.kml',title='my map in Google'</SMALL></TD>
+ <FONT COLOR="#CC0000">ianafast</FONT>, whitenoise, cl, /ring, /silent  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+ plot, cl[*,0]  
+</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
-<BR><blockquote>produces in <TT>my_map.kml</TT> and in <TT>my_map.png</TT> an image of the input map that can be seen with
-Google Sky.
-To do so, start GoogleEarth or GoogleSky and open <TT>my_map.kml</TT>. Under
-MacOSX, simply type <TT>open my_map.kml</TT> on the command line.
+<BR><blockquote>
+ will plot the power spectrum of a white noise map
 </blockquote>
 <P>
-<SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -258,32 +319,32 @@ MacOSX, simply type <TT>open my_map.kml</TT> on the command line.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html569"
+<A NAME="tex2html578"
   HREF="idlnode32.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html575"
+<A NAME="tex2html584"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html579"
+<A NAME="tex2html588"
   HREF="idlnode34.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html577"
+<A NAME="tex2html586"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html570"
-  HREF="idlnode32.htm">hpx2dm</A>
+<B> Previous:</B> <A NAME="tex2html579"
+  HREF="idlnode32.htm">hpx2gs</A>
 
-<B>Up:</B> <A NAME="tex2html576"
+<B>Up:</B> <A NAME="tex2html585"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html580"
-  HREF="idlnode34.htm">ianafast</A>
+<B> Next:</B> <A NAME="tex2html589"
+  HREF="idlnode34.htm">index2lm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

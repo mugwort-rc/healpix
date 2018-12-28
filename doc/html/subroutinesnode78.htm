@@ -61,14 +61,14 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <P>
 <b><font size=+6><FONT COLOR="#CC0000">plm_gen</FONT></font></b><hr><H2>This routine computes the latitude dependent part <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> of the
   spherical harmonics (<!-- MATH
  $Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="186" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg102.png"
+ SRC="subroutinesimg103.png"
  ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$"></SPAN>) of spin 0 and 2
   (see <b>HEALPix</b> primer)
   used to synthetize or analyze <b>HEALPix</b> maps of temperature and polarisation.
@@ -108,7 +108,7 @@ nsmax</TD>
  SRC="subroutinesimg12.png"
  ALT="${N_{\rm side}}$"></SPAN> value for which to compute the <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
@@ -116,7 +116,7 @@ nsmax</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum multipole order <SPAN CLASS="MATH"><I>l</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
@@ -124,7 +124,7 @@ nsmax</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The maximum degree <SPAN CLASS="MATH"><I>m</I></SPAN> of the generated <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN>.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:n_plm-1, 1:p)</TD>
@@ -132,12 +132,12 @@ nsmax</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> values, either for temperature only
                    (<SPAN CLASS="MATH"><I>p</I>=1</SPAN>) or temperature and polarisation (<SPAN CLASS="MATH"><I>p</I>=3</SPAN>). The number
                     of <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> is n_plm =
                     nsmax*(nmmax+1)*(2*nlmax-nmmax+2). They are stored in the
                     order of increasing order <SPAN CLASS="MATH"><I>l</I></SPAN>, increasing degree <SPAN CLASS="MATH"><I>m</I></SPAN>, for
@@ -150,39 +150,39 @@ nsmax</TD>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg103.png"
+ SRC="subroutinesimg104.png"
  ALT="$\lambda_{00}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{10}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg104.png"
+ SRC="subroutinesimg105.png"
  ALT="$\lambda_{10}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{20}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg105.png"
+ SRC="subroutinesimg106.png"
  ALT="$\lambda_{20}(\theta_1)$"></SPAN>,
                     ..., <!-- MATH
  $\lambda_{11}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg106.png"
+ SRC="subroutinesimg107.png"
  ALT="$\lambda_{11}(\theta_1)$"></SPAN>, <!-- MATH
  $\lambda_{21}(\theta_1)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg107.png"
+ SRC="subroutinesimg108.png"
  ALT="$\lambda_{21}(\theta_1)$"></SPAN>;
                     ...,  <!-- MATH
  $\lambda_{00}(\theta_2)$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg108.png"
+ SRC="subroutinesimg109.png"
  ALT="$\lambda_{00}(\theta_2)$"></SPAN> ...</TD>
 </TR>
 </TABLE>
@@ -224,7 +224,7 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
 <DD>Ancillary routines used
   for <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> recursion
   <DT>
 <B><SPAN  CLASS="textbf">misc_utils</SPAN></B>
@@ -247,7 +247,7 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
    <DT>
 <B><A HREF="subroutinesnode51.htm#sub:map2alm">map2alm</A></B>
@@ -258,13 +258,13 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> generated by <FONT COLOR="#CC0000">plm_gen</FONT>
   <DT>
 <B>plmgen</B>
 <DD>executable using <FONT COLOR="#CC0000">plm_gen</FONT> to compute the <SPAN CLASS="MATH"><IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg101.png"
+ SRC="subroutinesimg102.png"
  ALT="$\lambda_{lm}$"></SPAN> and
   writting them on disc 
 </DL>
@@ -305,7 +305,7 @@ Computes the spherical harmonics for temperature and polarisation for <SPAN CLAS
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

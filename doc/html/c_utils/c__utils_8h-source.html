@@ -13,7 +13,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_db9afe51a7aa9afa58c462931c34d8d5.html">c_utils</a>
+  <div class="navpath"><a class="el" href="dir_18a7a5b7fc2939fe90bbb2492d596afd.html">c_utils</a>
   </div>
 </div>
 <div class="contents">
@@ -65,112 +65,108 @@
 <a name="l00046"></a>00046 <span class="keywordtype">void</span> *util_malloc_ (<span class="keywordtype">size_t</span> sz);
 <a name="l00047"></a>00047 <span class="keywordtype">void</span> util_free_ (<span class="keywordtype">void</span> *ptr);
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049 <span class="keywordtype">void</span> announce_c (<span class="keyword">const</span> <span class="keywordtype">char</span> *name);
-<a name="l00050"></a>00050 <span class="keywordtype">void</span> module_startup_c (<span class="keyword">const</span> <span class="keywordtype">char</span> *name, <span class="keywordtype">int</span> argc, <span class="keywordtype">int</span> argc_expected,
-<a name="l00051"></a>00051   <span class="keyword">const</span> <span class="keywordtype">char</span> *argv_expected, <span class="keywordtype">int</span> verbose);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="preprocessor">#if defined (__GNUC__)</span>
-<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="preprocessor">#define UTIL_FUNC_NAME__ __func__</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#define UTIL_FUNC_NAME__ "unknown"</span>
-<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="comment"></span>
-<a name="l00059"></a>00059 <span class="comment">/*! \def UTIL_ASSERT(cond,msg)</span>
-<a name="l00060"></a>00060 <span class="comment">    If \a cond is false, print an error message containing function name,</span>
-<a name="l00061"></a>00061 <span class="comment">    source file name and line number of the call, as well as \a msg;</span>
-<a name="l00062"></a>00062 <span class="comment">    then exit the program with an error status. */</span>
-<a name="l00063"></a><a class="code" href="c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">00063</a> <span class="preprocessor">#define UTIL_ASSERT(cond,msg) \</span>
-<a name="l00064"></a>00064 <span class="preprocessor">  if(!(cond)) util_fail_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
-<a name="l00065"></a>00065 <span class="preprocessor"></span><span class="comment">/*! \def UTIL_WARN(cond,msg)</span>
-<a name="l00066"></a>00066 <span class="comment">    If \a cond is false, print an warning containing function name,</span>
-<a name="l00067"></a>00067 <span class="comment">    source file name and line number of the call, as well as \a msg. */</span>
-<a name="l00068"></a><a class="code" href="c__utils_8h.html#32cf20e0fef97cea4beda8554d5e7fcb">00068</a> <span class="preprocessor">#define UTIL_WARN(cond,msg) \</span>
-<a name="l00069"></a>00069 <span class="preprocessor">  if(!(cond)) util_warn_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
-<a name="l00070"></a>00070 <span class="preprocessor"></span><span class="comment">/*! \def UTIL_FAIL(msg)</span>
-<a name="l00071"></a>00071 <span class="comment">    Print an error message containing function name,</span>
-<a name="l00072"></a>00072 <span class="comment">    source file name and line number of the call, as well as \a msg;</span>
-<a name="l00073"></a>00073 <span class="comment">    then exit the program with an error status. */</span>
-<a name="l00074"></a><a class="code" href="c__utils_8h.html#ccbadd55d2cd6ffc79ccf07121ee6fee">00074</a> <span class="preprocessor">#define UTIL_FAIL(msg) \</span>
-<a name="l00075"></a>00075 <span class="preprocessor">  util_fail_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
-<a name="l00076"></a>00076 <span class="preprocessor"></span><span class="comment"></span>
-<a name="l00077"></a>00077 <span class="comment">/*! \def ALLOC(ptr,type,num)</span>
-<a name="l00078"></a>00078 <span class="comment">    Allocate space for \a num objects of type \a type. Make sure that the</span>
-<a name="l00079"></a>00079 <span class="comment">    allocation succeeded, else stop the program with an error. Return the</span>
-<a name="l00080"></a>00080 <span class="comment">    resulting pointer in \a ptr. */</span>
-<a name="l00081"></a><a class="code" href="c__utils_8h.html#baadc4db1ec458c3c56b32ef992e8f72">00081</a> <span class="preprocessor">#define ALLOC(ptr,type,num) \</span>
-<a name="l00082"></a>00082 <span class="preprocessor">  do { (ptr)=(type *)util_malloc_((num)*sizeof(type)); } while (0)</span>
-<a name="l00083"></a>00083 <span class="preprocessor"></span><span class="comment">/*! \def RALLOC(type,num)</span>
-<a name="l00084"></a>00084 <span class="comment">    Allocate space for \a num objects of type \a type. Make sure that the</span>
-<a name="l00085"></a>00085 <span class="comment">    allocation succeeded, else stop the program with an error. Cast the</span>
-<a name="l00086"></a>00086 <span class="comment">    resulting pointer to \a (type*). */</span>
-<a name="l00087"></a><a class="code" href="c__utils_8h.html#4401ca97f0ff28d4a6ad575926f46c8f">00087</a> <span class="preprocessor">#define RALLOC(type,num) \</span>
-<a name="l00088"></a>00088 <span class="preprocessor">  ((type *)util_malloc_((num)*sizeof(type)))</span>
-<a name="l00089"></a>00089 <span class="preprocessor"></span><span class="comment">/*! \def DEALLOC(ptr)</span>
-<a name="l00090"></a>00090 <span class="comment">    Deallocate \a ptr. It must have been allocated using \a ALLOC or</span>
-<a name="l00091"></a>00091 <span class="comment">    \a RALLOC. */</span>
-<a name="l00092"></a><a class="code" href="c__utils_8h.html#6a51c00769fae114ce43174952dc9493">00092</a> <span class="preprocessor">#define DEALLOC(ptr) \</span>
-<a name="l00093"></a>00093 <span class="preprocessor">  do { util_free_(ptr); (ptr)=NULL; } while(0)</span>
-<a name="l00094"></a>00094 <span class="preprocessor"></span><span class="preprocessor">#define RESIZE(ptr,type,num) \</span>
-<a name="l00095"></a>00095 <span class="preprocessor">  do { util_free_(ptr); ALLOC(ptr,type,num); } while(0)</span>
-<a name="l00096"></a>00096 <span class="preprocessor"></span><span class="preprocessor">#define GROW(ptr,type,sz_old,sz_new) \</span>
-<a name="l00097"></a>00097 <span class="preprocessor">  do { \</span>
-<a name="l00098"></a>00098 <span class="preprocessor">    if ((sz_new)&gt;(sz_old)) \</span>
-<a name="l00099"></a>00099 <span class="preprocessor">      { RESIZE(ptr,type,2*(sz_new));sz_old=2*(sz_new); } \</span>
-<a name="l00100"></a>00100 <span class="preprocessor">  } while(0)</span>
-<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="comment">/*! \def SET_ARRAY(ptr,i1,i2,val)</span>
-<a name="l00102"></a>00102 <span class="comment">    Set the entries \a ptr[i1] ... \a ptr[i2-1] to \a val. */</span>
-<a name="l00103"></a><a class="code" href="c__utils_8h.html#cdb05365d9c493b4c29eb8528fab76b5">00103</a> <span class="preprocessor">#define SET_ARRAY(ptr,i1,i2,val) \</span>
-<a name="l00104"></a>00104 <span class="preprocessor">  do { \</span>
-<a name="l00105"></a>00105 <span class="preprocessor">    ptrdiff_t cnt_; \</span>
-<a name="l00106"></a>00106 <span class="preprocessor">    for (cnt_=(i1);cnt_&lt;(i2);++cnt_) (ptr)[cnt_]=(val); \</span>
-<a name="l00107"></a>00107 <span class="preprocessor">    } while(0)</span>
-<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="comment">/*! \def COPY_ARRAY(src,dest,i1,i2)</span>
-<a name="l00109"></a>00109 <span class="comment">    Copy the entries \a src[i1] ... \a src[i2-1] to</span>
-<a name="l00110"></a>00110 <span class="comment">    \a dest[i1] ... \a dest[i2-1]. */</span>
-<a name="l00111"></a><a class="code" href="c__utils_8h.html#b93a138d880c525dedb6d4e3be898ebe">00111</a> <span class="preprocessor">#define COPY_ARRAY(src,dest,i1,i2) \</span>
-<a name="l00112"></a>00112 <span class="preprocessor">  do { \</span>
-<a name="l00113"></a>00113 <span class="preprocessor">    ptrdiff_t cnt_; \</span>
-<a name="l00114"></a>00114 <span class="preprocessor">    for (cnt_=(i1);cnt_&lt;(i2);++cnt_) (dest)[cnt_]=(src)[cnt_]; \</span>
-<a name="l00115"></a>00115 <span class="preprocessor">    } while(0)</span>
-<a name="l00116"></a>00116 <span class="preprocessor"></span>
-<a name="l00117"></a>00117 <span class="preprocessor">#define ALLOC2D(ptr,type,num1,num2) \</span>
-<a name="l00118"></a>00118 <span class="preprocessor">  do { \</span>
-<a name="l00119"></a>00119 <span class="preprocessor">    size_t cnt_, num1_=(num1), num2_=(num2); \</span>
-<a name="l00120"></a>00120 <span class="preprocessor">    ALLOC((ptr),type *,num1_); \</span>
-<a name="l00121"></a>00121 <span class="preprocessor">    ALLOC((ptr)[0],type,num1_*num2_); \</span>
-<a name="l00122"></a>00122 <span class="preprocessor">    for (cnt_=1; cnt_&lt;num1_; ++cnt_) \</span>
-<a name="l00123"></a>00123 <span class="preprocessor">      (ptr)[cnt_]=(ptr)[cnt_-1]+num2_; \</span>
-<a name="l00124"></a>00124 <span class="preprocessor">    } while(0)</span>
-<a name="l00125"></a>00125 <span class="preprocessor"></span><span class="preprocessor">#define DEALLOC2D(ptr) \</span>
-<a name="l00126"></a>00126 <span class="preprocessor">  do { if(ptr) DEALLOC((ptr)[0]); DEALLOC(ptr); } while(0)</span>
-<a name="l00127"></a>00127 <span class="preprocessor"></span>
-<a name="l00128"></a>00128 <span class="preprocessor">#define FAPPROX(a,b,eps) \</span>
-<a name="l00129"></a>00129 <span class="preprocessor">  (fabs((a)-(b))&lt;((eps)*fabs(b)))</span>
-<a name="l00130"></a>00130 <span class="preprocessor"></span><span class="preprocessor">#define ABSAPPROX(a,b,eps) \</span>
-<a name="l00131"></a>00131 <span class="preprocessor">  (fabs((a)-(b))&lt;(eps))</span>
-<a name="l00132"></a>00132 <span class="preprocessor"></span><span class="preprocessor">#define IMAX(a,b) \</span>
-<a name="l00133"></a>00133 <span class="preprocessor">  (((a)&gt;(b)) ? (a) : (b))</span>
-<a name="l00134"></a>00134 <span class="preprocessor"></span><span class="preprocessor">#define IMIN(a,b) \</span>
-<a name="l00135"></a>00135 <span class="preprocessor">  (((a)&lt;(b)) ? (a) : (b))</span>
-<a name="l00136"></a>00136 <span class="preprocessor"></span>
-<a name="l00137"></a>00137 <span class="preprocessor">#define SWAP(a,b,type) \</span>
-<a name="l00138"></a>00138 <span class="preprocessor">  do { type tmp_=(a); (a)=(b); (b)=tmp_; } while(0)</span>
-<a name="l00139"></a>00139 <span class="preprocessor"></span>
-<a name="l00140"></a>00140 <span class="preprocessor">#define CHECK_STACK_ALIGN(align) \</span>
-<a name="l00141"></a>00141 <span class="preprocessor">  do { \</span>
-<a name="l00142"></a>00142 <span class="preprocessor">    double foo; \</span>
-<a name="l00143"></a>00143 <span class="preprocessor">    UTIL_WARN((((size_t)(&amp;foo))&amp;(align-1))==0, \</span>
-<a name="l00144"></a>00144 <span class="preprocessor">      "WARNING: stack not sufficiently aligned!"); \</span>
-<a name="l00145"></a>00145 <span class="preprocessor">    } while(0)</span>
+<a name="l00049"></a>00049 <span class="preprocessor">#if defined (__GNUC__)</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span><span class="preprocessor">#define UTIL_FUNC_NAME__ __func__</span>
+<a name="l00051"></a>00051 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00052"></a>00052 <span class="preprocessor"></span><span class="preprocessor">#define UTIL_FUNC_NAME__ "unknown"</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="comment"></span>
+<a name="l00055"></a>00055 <span class="comment">/*! \def UTIL_ASSERT(cond,msg)</span>
+<a name="l00056"></a>00056 <span class="comment">    If \a cond is false, print an error message containing function name,</span>
+<a name="l00057"></a>00057 <span class="comment">    source file name and line number of the call, as well as \a msg;</span>
+<a name="l00058"></a>00058 <span class="comment">    then exit the program with an error status. */</span>
+<a name="l00059"></a><a class="code" href="c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">00059</a> <span class="preprocessor">#define UTIL_ASSERT(cond,msg) \</span>
+<a name="l00060"></a>00060 <span class="preprocessor">  if(!(cond)) util_fail_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
+<a name="l00061"></a>00061 <span class="preprocessor"></span><span class="comment">/*! \def UTIL_WARN(cond,msg)</span>
+<a name="l00062"></a>00062 <span class="comment">    If \a cond is false, print an warning containing function name,</span>
+<a name="l00063"></a>00063 <span class="comment">    source file name and line number of the call, as well as \a msg. */</span>
+<a name="l00064"></a><a class="code" href="c__utils_8h.html#32cf20e0fef97cea4beda8554d5e7fcb">00064</a> <span class="preprocessor">#define UTIL_WARN(cond,msg) \</span>
+<a name="l00065"></a>00065 <span class="preprocessor">  if(!(cond)) util_warn_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
+<a name="l00066"></a>00066 <span class="preprocessor"></span><span class="comment">/*! \def UTIL_FAIL(msg)</span>
+<a name="l00067"></a>00067 <span class="comment">    Print an error message containing function name,</span>
+<a name="l00068"></a>00068 <span class="comment">    source file name and line number of the call, as well as \a msg;</span>
+<a name="l00069"></a>00069 <span class="comment">    then exit the program with an error status. */</span>
+<a name="l00070"></a><a class="code" href="c__utils_8h.html#ccbadd55d2cd6ffc79ccf07121ee6fee">00070</a> <span class="preprocessor">#define UTIL_FAIL(msg) \</span>
+<a name="l00071"></a>00071 <span class="preprocessor">  util_fail_(__FILE__,__LINE__,UTIL_FUNC_NAME__,msg)</span>
+<a name="l00072"></a>00072 <span class="preprocessor"></span><span class="comment"></span>
+<a name="l00073"></a>00073 <span class="comment">/*! \def ALLOC(ptr,type,num)</span>
+<a name="l00074"></a>00074 <span class="comment">    Allocate space for \a num objects of type \a type. Make sure that the</span>
+<a name="l00075"></a>00075 <span class="comment">    allocation succeeded, else stop the program with an error. Return the</span>
+<a name="l00076"></a>00076 <span class="comment">    resulting pointer in \a ptr. */</span>
+<a name="l00077"></a><a class="code" href="c__utils_8h.html#baadc4db1ec458c3c56b32ef992e8f72">00077</a> <span class="preprocessor">#define ALLOC(ptr,type,num) \</span>
+<a name="l00078"></a>00078 <span class="preprocessor">  do { (ptr)=(type *)util_malloc_((num)*sizeof(type)); } while (0)</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span><span class="comment">/*! \def RALLOC(type,num)</span>
+<a name="l00080"></a>00080 <span class="comment">    Allocate space for \a num objects of type \a type. Make sure that the</span>
+<a name="l00081"></a>00081 <span class="comment">    allocation succeeded, else stop the program with an error. Cast the</span>
+<a name="l00082"></a>00082 <span class="comment">    resulting pointer to \a (type*). */</span>
+<a name="l00083"></a><a class="code" href="c__utils_8h.html#4401ca97f0ff28d4a6ad575926f46c8f">00083</a> <span class="preprocessor">#define RALLOC(type,num) \</span>
+<a name="l00084"></a>00084 <span class="preprocessor">  ((type *)util_malloc_((num)*sizeof(type)))</span>
+<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="comment">/*! \def DEALLOC(ptr)</span>
+<a name="l00086"></a>00086 <span class="comment">    Deallocate \a ptr. It must have been allocated using \a ALLOC or</span>
+<a name="l00087"></a>00087 <span class="comment">    \a RALLOC. */</span>
+<a name="l00088"></a><a class="code" href="c__utils_8h.html#6a51c00769fae114ce43174952dc9493">00088</a> <span class="preprocessor">#define DEALLOC(ptr) \</span>
+<a name="l00089"></a>00089 <span class="preprocessor">  do { util_free_(ptr); (ptr)=NULL; } while(0)</span>
+<a name="l00090"></a>00090 <span class="preprocessor"></span><span class="preprocessor">#define RESIZE(ptr,type,num) \</span>
+<a name="l00091"></a>00091 <span class="preprocessor">  do { util_free_(ptr); ALLOC(ptr,type,num); } while(0)</span>
+<a name="l00092"></a>00092 <span class="preprocessor"></span><span class="preprocessor">#define GROW(ptr,type,sz_old,sz_new) \</span>
+<a name="l00093"></a>00093 <span class="preprocessor">  do { \</span>
+<a name="l00094"></a>00094 <span class="preprocessor">    if ((sz_new)&gt;(sz_old)) \</span>
+<a name="l00095"></a>00095 <span class="preprocessor">      { RESIZE(ptr,type,2*(sz_new));sz_old=2*(sz_new); } \</span>
+<a name="l00096"></a>00096 <span class="preprocessor">  } while(0)</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span><span class="comment">/*! \def SET_ARRAY(ptr,i1,i2,val)</span>
+<a name="l00098"></a>00098 <span class="comment">    Set the entries \a ptr[i1] ... \a ptr[i2-1] to \a val. */</span>
+<a name="l00099"></a><a class="code" href="c__utils_8h.html#cdb05365d9c493b4c29eb8528fab76b5">00099</a> <span class="preprocessor">#define SET_ARRAY(ptr,i1,i2,val) \</span>
+<a name="l00100"></a>00100 <span class="preprocessor">  do { \</span>
+<a name="l00101"></a>00101 <span class="preprocessor">    ptrdiff_t cnt_; \</span>
+<a name="l00102"></a>00102 <span class="preprocessor">    for (cnt_=(i1);cnt_&lt;(i2);++cnt_) (ptr)[cnt_]=(val); \</span>
+<a name="l00103"></a>00103 <span class="preprocessor">    } while(0)</span>
+<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="comment">/*! \def COPY_ARRAY(src,dest,i1,i2)</span>
+<a name="l00105"></a>00105 <span class="comment">    Copy the entries \a src[i1] ... \a src[i2-1] to</span>
+<a name="l00106"></a>00106 <span class="comment">    \a dest[i1] ... \a dest[i2-1]. */</span>
+<a name="l00107"></a><a class="code" href="c__utils_8h.html#b93a138d880c525dedb6d4e3be898ebe">00107</a> <span class="preprocessor">#define COPY_ARRAY(src,dest,i1,i2) \</span>
+<a name="l00108"></a>00108 <span class="preprocessor">  do { \</span>
+<a name="l00109"></a>00109 <span class="preprocessor">    ptrdiff_t cnt_; \</span>
+<a name="l00110"></a>00110 <span class="preprocessor">    for (cnt_=(i1);cnt_&lt;(i2);++cnt_) (dest)[cnt_]=(src)[cnt_]; \</span>
+<a name="l00111"></a>00111 <span class="preprocessor">    } while(0)</span>
+<a name="l00112"></a>00112 <span class="preprocessor"></span>
+<a name="l00113"></a>00113 <span class="preprocessor">#define ALLOC2D(ptr,type,num1,num2) \</span>
+<a name="l00114"></a>00114 <span class="preprocessor">  do { \</span>
+<a name="l00115"></a>00115 <span class="preprocessor">    size_t cnt_, num1_=(num1), num2_=(num2); \</span>
+<a name="l00116"></a>00116 <span class="preprocessor">    ALLOC((ptr),type *,num1_); \</span>
+<a name="l00117"></a>00117 <span class="preprocessor">    ALLOC((ptr)[0],type,num1_*num2_); \</span>
+<a name="l00118"></a>00118 <span class="preprocessor">    for (cnt_=1; cnt_&lt;num1_; ++cnt_) \</span>
+<a name="l00119"></a>00119 <span class="preprocessor">      (ptr)[cnt_]=(ptr)[cnt_-1]+num2_; \</span>
+<a name="l00120"></a>00120 <span class="preprocessor">    } while(0)</span>
+<a name="l00121"></a>00121 <span class="preprocessor"></span><span class="preprocessor">#define DEALLOC2D(ptr) \</span>
+<a name="l00122"></a>00122 <span class="preprocessor">  do { if(ptr) DEALLOC((ptr)[0]); DEALLOC(ptr); } while(0)</span>
+<a name="l00123"></a>00123 <span class="preprocessor"></span>
+<a name="l00124"></a>00124 <span class="preprocessor">#define FAPPROX(a,b,eps) \</span>
+<a name="l00125"></a>00125 <span class="preprocessor">  (fabs((a)-(b))&lt;((eps)*fabs(b)))</span>
+<a name="l00126"></a>00126 <span class="preprocessor"></span><span class="preprocessor">#define ABSAPPROX(a,b,eps) \</span>
+<a name="l00127"></a>00127 <span class="preprocessor">  (fabs((a)-(b))&lt;(eps))</span>
+<a name="l00128"></a>00128 <span class="preprocessor"></span><span class="preprocessor">#define IMAX(a,b) \</span>
+<a name="l00129"></a>00129 <span class="preprocessor">  (((a)&gt;(b)) ? (a) : (b))</span>
+<a name="l00130"></a>00130 <span class="preprocessor"></span><span class="preprocessor">#define IMIN(a,b) \</span>
+<a name="l00131"></a>00131 <span class="preprocessor">  (((a)&lt;(b)) ? (a) : (b))</span>
+<a name="l00132"></a>00132 <span class="preprocessor"></span>
+<a name="l00133"></a>00133 <span class="preprocessor">#define SWAP(a,b,type) \</span>
+<a name="l00134"></a>00134 <span class="preprocessor">  do { type tmp_=(a); (a)=(b); (b)=tmp_; } while(0)</span>
+<a name="l00135"></a>00135 <span class="preprocessor"></span>
+<a name="l00136"></a>00136 <span class="preprocessor">#define CHECK_STACK_ALIGN(align) \</span>
+<a name="l00137"></a>00137 <span class="preprocessor">  do { \</span>
+<a name="l00138"></a>00138 <span class="preprocessor">    double foo; \</span>
+<a name="l00139"></a>00139 <span class="preprocessor">    UTIL_WARN((((size_t)(&amp;foo))&amp;(align-1))==0, \</span>
+<a name="l00140"></a>00140 <span class="preprocessor">      "WARNING: stack not sufficiently aligned!"); \</span>
+<a name="l00141"></a>00141 <span class="preprocessor">    } while(0)</span>
+<a name="l00142"></a>00142 <span class="preprocessor"></span>
+<a name="l00143"></a>00143 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00144"></a>00144 <span class="preprocessor"></span>}
+<a name="l00145"></a>00145 <span class="preprocessor">#endif</span>
 <a name="l00146"></a>00146 <span class="preprocessor"></span>
-<a name="l00147"></a>00147 <span class="preprocessor">#ifdef __cplusplus</span>
-<a name="l00148"></a>00148 <span class="preprocessor"></span>}
-<a name="l00149"></a>00149 <span class="preprocessor">#endif</span>
-<a name="l00150"></a>00150 <span class="preprocessor"></span>
-<a name="l00151"></a>00151 <span class="preprocessor">#endif</span>
+<a name="l00147"></a>00147 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Nov 30 17:59:22 2012 for LevelS C support library
+Generated on Fri Mar 22 17:52:44 2013 for LevelS C support library
 </a> </small></address>
 </body>
 </html>

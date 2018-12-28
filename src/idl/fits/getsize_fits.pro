@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2013  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,10 +25,10 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, ordering = order, obs_npix =obs_npix, type = type, header = header, tags = tags, extension=extension_id
+function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, ordering = order, obs_npix =obs_npix, type = type, header = header, tags = tags, extension=extension_id, help=help
 ;+
 ;  result = getsize_fits(filename, [nmaps=, nside=, mlpol=, ordering=,
-;  obs_npix=, type=, header=, tags=, extension=])
+;  obs_npix=, type=, header=, tags=, extension=, help=])
 ;
 ;     Get the number of pixels stored in a map FITS file.
 ;     Each pixel is counted only once 
@@ -43,9 +43,15 @@ function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, or
 ;     filename = (IN) name of the (compressed) FITS file containing the map
 ;
 ;  OPTIONAL INPUT
-;     extension = (IN) number of extension (0 based) to read data from
-;     /header   = (IN) if set, filename is indeed as FITS header instead of a
+;      Extension : extension unit to be read from FITS file: 
+;        either its 0-based ID number (ie, 0 for first extension after primary array)
+;        or the case-insensitive value of its EXTNAME keyword.
+;	 If absent, first extension (=0) will be read
+;
+;     /header   = (IN) if set, filename is actually a FITS header instead of a
 ;          FITS file
+;
+;     /help: if set, this header is printed out and the routine exits
 ;
 ;  OPTIONAL OUTPUT
 ;     nmaps = (OPTIONAL, OUT) number of maps in the file
@@ -73,12 +79,21 @@ function getsize_fits, filename, nmaps = nmaps, nside = nside, mlpol = mlpol, or
 ;      EH, 2000-11
 ;      2008-04-01: accepts compressed files
 ;       Jan 2009: calls init_astrolib
+;      2013-01-11: parse header for LMAX (on top of MAX-LPOL)
+;            Extension can now be a string as well as a number
 ;-
 
 routine = 'getsize_fits'
+syntax = 'Syntax : size='+routine+'(filename, [nmaps= , nside= , mlpol= , ordering= , obs_npix=, type= , header=, tags=, extension=, help=])'
+
+if (keyword_set(help)) then begin
+    doc_library,routine
+    return,-1
+endif
+
 if n_params() eq 0 then begin
-    print,'Syntax : size='+routine+'(filename, nmaps= , nside= , mlpol= , ordering= , obs_npix=, type= , header=, tags=, extension=)'
-    message,'Abort'
+    print,syntax
+    ; message,'Abort'
     return,-1
 endif
 
@@ -99,10 +114,11 @@ if keyword_set(header) then begin
     from_header = 1
     fits_header = filename
 endif
-from_file = 1- from_header
+from_file = ~from_header
 
 if (from_file) then begin
 ; get the primary header information
+    if ~file_test(filename) then message,'file '+filename+' not found'
     hdr = headfits(filename, errmsg = errmsg)
     if (strtrim(errmsg) ne '') then begin
         print,errmsg          ; stop execution
@@ -167,21 +183,27 @@ if (n_ext eq 0) then begin
     return, npix
 endif else begin
     type = 999
-    if undefined(extension_id) then extension_id = 0
+
     if (from_file) then begin
-        if (extension_id + 1) gt n_ext then begin
-            print,' Requested extension ',extension_id,' (0 based) from ',filename
-            print,' Only found ',n_ext,' extensions.'
-            message,' Abort'
-        endif 
+        if size(extension_id,/TNAME) eq 'STRING' then begin
+            extension_idp1 = extension_id[0]
+        endif else begin
+            extension_idp1 = defined(extension_id) ? extension_id[0] + 1 : 1
+            if (extension_idp1) gt n_ext then begin
+                print,' Requested extension ',extension_idp1-1,' (0 based) from '+filename
+                print,' Only found ',n_ext,' extensions.'
+                message,' Abort'
+            endif 
+        endelse
                                 ; open extension 1 and get header
         errmsg=''
         use_fxb = 1
-        fxbopen, lun, filename, extension_id+1, xhdr, errmsg=errmsg
+        fxbopen, lun, filename, extension_idp1, xhdr, errmsg=errmsg
         if (errmsg ne '') then begin ; maybe is it compressed ?
-            xhdr = headfits(filename, exten=extension_id+1, /silent)
+            xhdr = headfits(filename, exten=extension_idp1, /silent)
             use_fxb = 0
         endif
+        if size(xhdr,/TNAME) ne 'STRING' then message,'Can not read header of requested extension from '+filename
     endif else begin
         xhdr = fits_header
     endelse
@@ -210,6 +232,8 @@ endif else begin
     junk  = LONG(sxpar(xhdr,'NSIDE',count=countfits,/silent))
     if (countfits ne 0) then nside = junk[0]
 
+    junk  = LONG(sxpar(xhdr,'LMAX',count=countfits))
+    if (countfits ne 0) then mlpol = junk[0]
     junk  = LONG(sxpar(xhdr,'MAX-LPOL',count=countfits))
     if (countfits ne 0) then mlpol = junk[0]
 

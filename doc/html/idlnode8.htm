@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>alm_t2i</TITLE>
-<META NAME="description" CONTENT="alm_t2i">
+<TITLE>alm2fits</TITLE>
+<META NAME="description" CONTENT="alm2fits">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,142 +28,162 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html269"
+<A NAME="tex2html278"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html275"
+<A NAME="tex2html284"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html288"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html277"
+<A NAME="tex2html286"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html270"
-  HREF="idlnode7.htm">alm_i2t</A>
+<B> Previous:</B> <A NAME="tex2html279"
+  HREF="idlnode7.htm">alm_t2i</A>
 
-<B>Up:</B> <A NAME="tex2html276"
+<B>Up:</B> <A NAME="tex2html285"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html280"
-  HREF="idlnode9.htm">alm2fits</A>
+<B> Next:</B> <A NAME="tex2html289"
+  HREF="idlnode9.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00080000000000000000"></A>
-<A NAME="idl:alm_t2i"></A>
+<A NAME="idl:alm2fits"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">alm_t2i</FONT></font></b><hr><H2>This IDL facility turns a tabular (real or complex) a(l,m) array into an
-indexed list of alm that can be written into a FITS file with <A HREF="idlnode9.htm#idl:alm2fits">alm2fits</A></H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/alm_t2i.pro
+<b><font size=+6><FONT COLOR="#CC0000">alm2fits</FONT></font></b><hr><H2>This IDL routine provides a means to write 
+spherical harmonic coefficients (and optional errors) and their index label
+to a FITS file. Each signal is written to a separate binary table
+extension. The routine also writes header information if required.
+The facility is primarily designed to allow the user to write 
+a FITS files containing constraints for a constrained realisation
+performed by the <b>HEALPix</b> facility <SPAN  CLASS="textbf">synfast</SPAN>.
+</H2><br>Location in HEALPix directory tree: <b>src/idl/fits/alm2fits.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-<FONT COLOR="#CC0000">alm_t2i</FONT>, <A HREF="#idl:alm_t2i:alm_table">Alm_table</A>,
-<A HREF="#idl:alm_t2i:index">Index</A>, 
-<A HREF="#idl:alm_t2i:alm_vec">Alm_vec</A>,
-[<A HREF="#idl:alm_t2i:help">/HELP</A>,
-<A HREF="#idl:alm_t2i:mfirst">/MFIRST</A>])
+ALM2FITS, 
+<A HREF="#idl:alm2fits:index">index</A>, 
+<A HREF="#idl:alm2fits:alm_array">alm_array</A>, 
+<A HREF="#idl:alm2fits:fitsfile">fitsfile</A>, [<A HREF="#idl:alm2fits:hdr">HDR=</A>, 
+<A HREF="#idl:alm2fits:help">/HELP</A>, 
+<A HREF="#idl:alm2fits:xhdr">XHDR=</A>]
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>Alm_table</B>
-<DD><A NAME="idl:alm_t2i:alm_table"></A>Input real or complex array, containing all the <SPAN CLASS="MATH"><I>a</I><SUP><I>s</I></SUP><SUB><I>lm</I></SUB></SPAN> for <SPAN CLASS="MATH"><I>l</I></SPAN>
-         in [0,<SPAN CLASS="MATH"><IMG
- WIDTH="36" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg8.png"
- ALT="$l_{\rm max}$"></SPAN>] and <SPAN CLASS="MATH"><I>m</I></SPAN> in [0,<SPAN CLASS="MATH"><IMG
- WIDTH="47" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg9.png"
- ALT="$m_{\rm max}$"></SPAN>] 
-(and <SPAN CLASS="MATH"><I>s</I></SPAN> in [0,<SPAN CLASS="MATH"><IMG
- WIDTH="39" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg10.png"
- ALT="$s_{\rm max}$"></SPAN>] if applicable)
-<BR>
-if REAL    it has 3 (or 4) dimensions,
-<BR>
-if COMPLEX is has 2 (or 3) dimensions
-
-<P>
-<DT>
-<B>Index</B>
-<DD><A NAME="idl:alm_t2i:index"></A>Output integer vector of size ni containing the index <SPAN CLASS="MATH"><I>i</I></SPAN> of the 
-            of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients, related to <SPAN CLASS="MATH">{l,<I>m</I>}</SPAN> by 
-             <!-- MATH
- $i = l^2 + l + m + 1$
- -->
-<SPAN CLASS="MATH"><I>i</I> = <I>l</I><SUP>2</SUP> + <I>l</I> + <I>m</I> + 1</SPAN>
+<B>index</B>
+<DD><A NAME="idl:alm2fits:index"></A>Long array containing the index for the corresponding
+                 array of alm coefficients (and erralm if required). The
+                 index <SPAN CLASS="MATH"><I>i</I></SPAN> is related to <SPAN CLASS="MATH"><I>l</I>,<I>m</I></SPAN> by the relation <BR>
+                 <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1
     <DT>
-<B>Alm_vec</B>
-<DD><A NAME="idl:alm_t2i:alm_vec"></A>Output array of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients, with dimension (ni, 2 [,<SPAN CLASS="MATH"><IMG
- WIDTH="72" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg11.png"
- ALT="$s_{\rm max}+1$"></SPAN>])
-     where
+<B>alm_array</B>
+<DD><A NAME="idl:alm2fits:alm_array"></A>Real array of alm coefficients written to the
+      file. This has dimension (nl,nalm,nsig) - corresponding to
 <BR>
-ni   = number of <SPAN CLASS="MATH"><I>i</I></SPAN> indices
-<BR>
-2 for real and imaginary parts of alm coefficients
-<BR>           <SPAN CLASS="MATH"><IMG
- WIDTH="72" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg11.png"
- ALT="$s_{\rm max}+1$"></SPAN> = number of signals (usually 1 for any of T E B
-                  or 3 for T,E,B together)
-</DL><SMALL CLASS="FOOTNOTESIZE">
+nl   = number of l,m indices <BR>
+nalm = 2 for real and imaginary parts of alm coefficients or
+             4 for above plus corresponding error values <BR>
+nsig = number of signals to be written (1 for any of T E B
+             or 3 if ALL to be written). Each signal is stored
+             in a separate extension.
+    <DT>
+<B>fitsfile</B>
+<DD><A NAME="idl:alm2fits:fitsfile"></A>String containing the name of the file to be
+      written.
+  </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>/HELP</B>
-<DD><A NAME="idl:alm_t2i:help"></A>if set, prints out the help header and exits
+<B>HDR =</B>
+<DD><A NAME="idl:alm2fits:hdr"></A>String array containing the primary header to be written in the FITS
+      file. 
     <DT>
-<B>/MFIRST</B>
-<DD><A NAME="idl:alm_t2i:mfirst"></A>if set, the input array is a(m,l) instead of a(l,m)
+<B>/HELP</B>
+<DD><A NAME="idl:alm2fits:help"></A>If set, the routine documentation header is shown and the routine exits	
+    <DT>
+<B>XHDR =</B>
+<DD><A NAME="idl:alm2fits:xhdr"></A>String array containing the extension header. If
+                  ALL signals are required, then each extension table
+                  is given this header.
+    <DT>
+<DD>NOTE: optional header strings should NOT include the
+             header keywords explicitly written by this routine.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-<FONT COLOR="#CC0000">alm_t2i</FONT> turns a real or complex tabular array of a(l,m) (or a(m,l) is <A HREF="#idl:alm_t2i:mfirst"><TT>MFIRST</TT></A> is
-set) into a real list of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (with the real and imaginary parts separated)
-and its index <SPAN CLASS="MATH"><I>i</I>=<I>l</I><SUP>2</SUP>+<I>l</I>+<I>m</I>+1</SPAN>. The unphysical <SPAN CLASS="MATH"><I>m</I>&gt;<I>l</I></SPAN> elements of the input
-table are dropped from the output list.
+<FONT COLOR="#CC0000">alm2fits</FONT> writes the input alm coefficients (and associated errors if 
+required) into a FITS file. Each signal type is written as a separate
+binary table extension. Optional headers conforming
+to the FITS convention can also be written to the output file. All
+required FITS header keywords are automatically generated by the
+routine and should NOT be duplicated in the optional header inputs.
+The keywords EXTNAME and TTYPE* are now also automatically generated.
 
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm_t2i</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2fits</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">alm_t2i</FONT>.
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">alm2fits</FONT>.
     <DT>
-<B><A HREF="idlnode7.htm#idl:alm_i2t">alm_i2t</A></B>
-<DD>this function is complementary to
-<FONT COLOR="#CC0000">alm_t2i</FONT>and
-turns an indexed list of alm (as generated by
-<A HREF="idlnode23.htm#idl:fits2alm">fits2alm</A>) into a tabular (real or complex) a(l,m) array
-for easier manipulation
-  <DT>
-<B><A HREF="idlnode9.htm#idl:alm2fits">alm2fits</A>, <A HREF="idlnode23.htm#idl:fits2alm">fits2alm</A></B>
-<DD>routines to read and write <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> indexed lists from and to FITS files.
+<B><A HREF="idlnode22.htm#idl:fits2alm">fits2alm</A></B>
+<DD>provides the complimentary routine to read in 
+      alm coefficients from a FITS file.
+    <DT>
+<B><A HREF="idlnode6.htm#idl:alm_i2t">alm_i2t</A>, <A HREF="idlnode7.htm#idl:alm_t2i">alm_t2i</A></B>
+<DD>these facilities turn indexed lists of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> into 2D a(l,m) tables and back
+    <DT>
+<B><A HREF="idlnode39.htm#idl:lm2index">lm2index</A></B>
+<DD>converts the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> order and degree
+    <SPAN CLASS="MATH">(<I>l</I>, <I>m</I>)</SPAN> into the index <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 required by
+<FONT COLOR="#CC0000">alm2fits</FONT>.
+    <DT>
+<B><A HREF="idlnode19.htm#idl:cl2fits">cl2fits</A></B>
+<DD>routine to write a power spectrum into
+a FITS file.
+    <DT>
+<B><A HREF="idlnode23.htm#idl:fits2cl">fits2cl</A></B>
+<DD>routine to read/compute <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra from a file containing <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
+    <DT>
+<B>alteralm</B>
+<DD>utilises the output file generated by <FONT COLOR="#CC0000">alm2fits</FONT>.
+    <DT>
+<B>synfast</B>
+<DD>utilises the output file generated by <FONT COLOR="#CC0000">alm2fits</FONT>.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1></font></tt>
-<BR><blockquote>See <A HREF="idlnode7.htm#idl:alm_i2t:example">alm_i2t example</A>
-</blockquote>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<FONT COLOR="#CC0000">alm2fits</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr </SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
+</font></tt>
+<BR><blockquote>
+<FONT COLOR="#CC0000">alm2fits</FONT> writes the coefficients stored in the variable <TT>alm</TT>
+to the output FITS file <TT>alm.fits</TT> with optional headers
+passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>.
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
-<SMALL CLASS="FOOTNOTESIZE"></SMALL>
+
 <P>
 
 <P>
@@ -171,32 +191,32 @@ for easier manipulation
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html269"
+<A NAME="tex2html278"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html275"
+<A NAME="tex2html284"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html288"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html277"
+<A NAME="tex2html286"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html270"
-  HREF="idlnode7.htm">alm_i2t</A>
+<B> Previous:</B> <A NAME="tex2html279"
+  HREF="idlnode7.htm">alm_t2i</A>
 
-<B>Up:</B> <A NAME="tex2html276"
+<B>Up:</B> <A NAME="tex2html285"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html280"
-  HREF="idlnode9.htm">alm2fits</A>
+<B> Next:</B> <A NAME="tex2html289"
+  HREF="idlnode9.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

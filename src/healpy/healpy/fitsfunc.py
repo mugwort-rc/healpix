@@ -47,6 +47,7 @@ def read_cl(filename, dtype=np.float64, h=False):
     """
     hdulist=pf.open(filename)
     cl = [hdulist[1].data.field(n) for n in range(len(hdulist[1].data.columns))]
+    hdulist.close()
     if len(cl) == 1:
         return cl[0]
     else:
@@ -217,7 +218,7 @@ def read_map(filename,field=0,dtype=np.float64,nest=False,hdu=1,h=False,
     for ff in field:
         try:
             m=hdulist[hdu].data.field(ff).astype(dtype).ravel()
-        except pf.VerifyError as e:
+        except pf.VerifyError, e:
             print(e)
             print("Trying to fix a badly formatted header")
             m=hdulist[hdu].verify("fix")

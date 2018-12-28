@@ -2,6 +2,10 @@
 # Associate labels original text with physical files.
 
 
+$key = q/install:cpp:gccreleases/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/install:cpp:query/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";

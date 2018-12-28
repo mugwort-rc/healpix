@@ -1,7 +1,7 @@
-Healpix 3.00 Installation
+Healpix 3.10 Installation
 =========================
 
-Healpix 3.00 contains 5 independent packages (Fortran90, IDL, C, C++ and java) 
+Healpix 3.10 contains 5 independent packages (Fortran90, IDL, C, C++ and java) 
 whose installation procedure is summarized below.
 
 Every effort has been made to make the installation and usage of Healpix easy and straightforward.

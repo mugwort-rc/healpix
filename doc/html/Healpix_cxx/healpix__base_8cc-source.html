@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_43603e55c9d04d7e4ac4eacf65a335c5.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_b6b054b28e4d23f81826d2f9bee81c88.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -1301,22 +1301,102 @@
 <a name="l01279"></a>01279   <span class="keywordflow">return</span> max(hdist,vdist);
 <a name="l01280"></a>01280   }
 <a name="l01281"></a>01281 
-<a name="l01282"></a>01282 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt; <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;int&gt;</a> <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::swap_cycles</a>()<span class="keyword"> const</span>
-<a name="l01283"></a>01283 <span class="keyword">  </span>{
-<a name="l01284"></a>01284   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(order_&gt;=0, <span class="stringliteral">"need hierarchical map"</span>);
-<a name="l01285"></a>01285   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(order_&lt;=13, <span class="stringliteral">"map too large"</span>);
-<a name="l01286"></a>01286   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;int&gt;</a> result(swap_clen[order_]);
-<a name="l01287"></a>01287   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> ofs=0;
-<a name="l01288"></a>01288   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;order_;++m) ofs+=swap_clen[m];
-<a name="l01289"></a>01289   <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> m=0; m&lt;result.size();++m) result[m]=swap_cycle[m+ofs];
-<a name="l01290"></a>01290   <span class="keywordflow">return</span> result;
-<a name="l01291"></a>01291   }
-<a name="l01292"></a>01292 
-<a name="l01293"></a>01293 <span class="keyword">template</span> <span class="keyword">class </span><a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;int&gt;</a>;
-<a name="l01294"></a>01294 <span class="keyword">template</span> <span class="keyword">class </span><a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;int64&gt;</a>;
+<a name="l01282"></a>01282 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt; <span class="keywordtype">void</span> <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::xyf2loc</a> (<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y,
+<a name="l01283"></a>01283   <span class="keywordtype">int</span> face, <span class="keywordtype">double</span> &amp;z, <span class="keywordtype">double</span> &amp;phi, <span class="keywordtype">double</span> &amp;sth, <span class="keywordtype">bool</span> &amp;have_sth)<span class="keyword"> const</span>
+<a name="l01284"></a>01284 <span class="keyword">  </span>{
+<a name="l01285"></a>01285   have_sth = <span class="keyword">false</span>;
+<a name="l01286"></a>01286   <span class="keywordtype">double</span> jr = jrll[face] - x - y;
+<a name="l01287"></a>01287   <span class="keywordtype">double</span> nr;
+<a name="l01288"></a>01288   <span class="keywordflow">if</span> (jr&lt;1)
+<a name="l01289"></a>01289     {
+<a name="l01290"></a>01290     nr = jr;
+<a name="l01291"></a>01291     <span class="keywordtype">double</span> tmp = nr*nr/3.;
+<a name="l01292"></a>01292     z = 1 - tmp;
+<a name="l01293"></a>01293     <span class="keywordflow">if</span> (z &gt; 0.99)
+<a name="l01294"></a>01294       {
+<a name="l01295"></a>01295       sth = std::sqrt(tmp*(2.0-tmp));
+<a name="l01296"></a>01296       have_sth = <span class="keyword">true</span>;
+<a name="l01297"></a>01297       }
+<a name="l01298"></a>01298     }
+<a name="l01299"></a>01299   <span class="keywordflow">else</span> <span class="keywordflow">if</span> (jr&gt;3)
+<a name="l01300"></a>01300     {
+<a name="l01301"></a>01301     nr = 4-jr;
+<a name="l01302"></a>01302     <span class="keywordtype">double</span> tmp = nr*nr/3.;
+<a name="l01303"></a>01303     z = tmp - 1;
+<a name="l01304"></a>01304     <span class="keywordflow">if</span> (z&lt;-0.99)
+<a name="l01305"></a>01305       {
+<a name="l01306"></a>01306       sth = std::sqrt(tmp*(2.-tmp));
+<a name="l01307"></a>01307       have_sth = <span class="keyword">true</span>;
+<a name="l01308"></a>01308       }
+<a name="l01309"></a>01309     }
+<a name="l01310"></a>01310   <span class="keywordflow">else</span>
+<a name="l01311"></a>01311     {
+<a name="l01312"></a>01312     nr = 1;
+<a name="l01313"></a>01313     z = (2-jr)*2./3.;
+<a name="l01314"></a>01314     }
+<a name="l01315"></a>01315 
+<a name="l01316"></a>01316   <span class="keywordtype">double</span> tmp=jpll[face]*nr+x-y;
+<a name="l01317"></a>01317   <span class="keywordflow">if</span> (tmp&lt;0) tmp+=8;
+<a name="l01318"></a>01318   <span class="keywordflow">if</span> (tmp&gt;=8) tmp-=8;
+<a name="l01319"></a>01319   phi = (nr&lt;1e-15) ? 0 : (0.5*halfpi*tmp)/nr;
+<a name="l01320"></a>01320   }
+<a name="l01321"></a>01321 
+<a name="l01322"></a>01322 <span class="keyword">namespace </span>{
+<a name="l01323"></a>01323 
+<a name="l01324"></a>01324 <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html">vec3</a> locToVec3 (<span class="keywordtype">double</span> z, <span class="keywordtype">double</span> phi, <span class="keywordtype">double</span> sth, <span class="keywordtype">bool</span> have_sth)
+<a name="l01325"></a>01325   {
+<a name="l01326"></a>01326   <span class="keywordflow">if</span> (have_sth)
+<a name="l01327"></a>01327     <span class="keywordflow">return</span> <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__vec3group.html#g839ba79318b444208d63a657c01c836d">vec3</a>(sth*cos(phi),sth*sin(phi),z);
+<a name="l01328"></a>01328   <span class="keywordflow">else</span>
+<a name="l01329"></a>01329     {
+<a name="l01330"></a>01330     <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html">vec3</a> res;
+<a name="l01331"></a>01331     res.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classvec3__t.html#f31ab5e3edc8cacf121ce641a1b04531">set_z_phi</a> (z, phi);
+<a name="l01332"></a>01332     <span class="keywordflow">return</span> res;
+<a name="l01333"></a>01333     }
+<a name="l01334"></a>01334   }
+<a name="l01335"></a>01335 
+<a name="l01336"></a>01336 } <span class="comment">// unnamed namespace</span>
+<a name="l01337"></a>01337 
+<a name="l01338"></a>01338 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt; <span class="keywordtype">void</span> <a class="code" href="classT__Healpix__Base.html#d4e7b51650f15108271b5c8fb795c4d6">T_Healpix_Base&lt;I&gt;::boundaries</a>(I pix, <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> step,
+<a name="l01339"></a>01339   vector&lt;vec3&gt; &amp;out)<span class="keyword"> const</span>
+<a name="l01340"></a>01340 <span class="keyword">  </span>{
+<a name="l01341"></a>01341   out.resize(4*step);
+<a name="l01342"></a>01342   <span class="keywordtype">int</span> ix, iy, face;
+<a name="l01343"></a>01343   pix2xyf(pix, ix, iy, face);
+<a name="l01344"></a>01344   <span class="keywordtype">double</span> dc = 0.5 / nside_;
+<a name="l01345"></a>01345   <span class="keywordtype">double</span> xc = (ix + 0.5)/nside_, yc = (iy + 0.5)/nside_;
+<a name="l01346"></a>01346   <span class="keywordtype">double</span> d = 1.0/(step*nside_);
+<a name="l01347"></a>01347   <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> i=0; i&lt;step; ++i)
+<a name="l01348"></a>01348     {
+<a name="l01349"></a>01349     <span class="keywordtype">double</span> z, phi, sth;
+<a name="l01350"></a>01350     <span class="keywordtype">bool</span> have_sth;
+<a name="l01351"></a>01351     xyf2loc(xc+dc-i*d, yc+dc, face, z, phi, sth, have_sth);
+<a name="l01352"></a>01352     out[i] = locToVec3(z, phi, sth, have_sth);
+<a name="l01353"></a>01353     xyf2loc(xc-dc, yc+dc-i*d, face, z, phi, sth, have_sth);
+<a name="l01354"></a>01354     out[i+step] = locToVec3(z, phi, sth, have_sth);
+<a name="l01355"></a>01355     xyf2loc(xc-dc+i*d, yc-dc, face, z, phi, sth, have_sth);
+<a name="l01356"></a>01356     out[i+2*step] = locToVec3(z, phi, sth, have_sth);
+<a name="l01357"></a>01357     xyf2loc(xc+dc, yc-dc+i*d, face, z, phi, sth, have_sth);
+<a name="l01358"></a>01358     out[i+3*step] = locToVec3(z, phi, sth, have_sth);
+<a name="l01359"></a>01359     }
+<a name="l01360"></a>01360   }
+<a name="l01361"></a>01361 
+<a name="l01362"></a>01362 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt; <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;int&gt;</a> <a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;I&gt;::swap_cycles</a>()<span class="keyword"> const</span>
+<a name="l01363"></a>01363 <span class="keyword">  </span>{
+<a name="l01364"></a>01364   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(order_&gt;=0, <span class="stringliteral">"need hierarchical map"</span>);
+<a name="l01365"></a>01365   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/group__errorgroup.html#gad84f2bf5d93ccf2837650b21b07a38d">planck_assert</a>(order_&lt;=13, <span class="stringliteral">"map too large"</span>);
+<a name="l01366"></a>01366   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr&lt;int&gt;</a> result(swap_clen[order_]);
+<a name="l01367"></a>01367   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> ofs=0;
+<a name="l01368"></a>01368   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;order_;++m) ofs+=swap_clen[m];
+<a name="l01369"></a>01369   <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> m=0; m&lt;result.size();++m) result[m]=swap_cycle[m+ofs];
+<a name="l01370"></a>01370   <span class="keywordflow">return</span> result;
+<a name="l01371"></a>01371   }
+<a name="l01372"></a>01372 
+<a name="l01373"></a>01373 <span class="keyword">template</span> <span class="keyword">class </span><a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;int&gt;</a>;
+<a name="l01374"></a>01374 <span class="keyword">template</span> <span class="keyword">class </span><a class="code" href="classT__Healpix__Base.html">T_Healpix_Base&lt;int64&gt;</a>;
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
+Generated on Fri Mar 22 17:52:48 2013 for Healpix C++
 </a> </small></address>
 </body>
 </html>

@@ -118,8 +118,8 @@ filename(len=<tt>filenamelen</tt>)</TD>
 <i><font color="#224422">fmissval</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value to be given to missing pixels, its default
-                   value is 0</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value to be given to missing pixels,
+<b>default:</b>0</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header</font></i>(LEN=80)(1:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
@@ -152,10 +152,18 @@ npix = nside2npix(nside)
 <BR>
 allocate(map(0:npix-1,1:nmaps)) 
 <BR>
-call input_map('map.fits', map, npix, nmaps)  
+call input_map('map.fits', map, npix, nmaps, fmissval=0.)  
 <BR></font></tt>
 <BR><blockquote>
-Reads into <TT>map</TT> the content of the FITS file 'map.fits'
+Reads into <TT>map</TT> the content of the FITS file 'map.fits'.
+If there are
+missing pixels in the input file (ie, having value <TT>NaN</TT> (Not of Number),
+<SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg83.png"
+ ALT="$\pm$"></SPAN> <TT>Infinity</TT> or matching the FITS keyword <TT>BAD_DATA</TT>) they will
+take on output the value provided in optional <TT>fmissval</TT> (here 0, which also
+is its default value).
 </blockquote>
 <hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">input_map*</FONT>.</h2>
   <DL COMPACT><DT>
@@ -239,7 +247,7 @@ Reads into <TT>map</TT> the content of the FITS file 'map.fits'
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

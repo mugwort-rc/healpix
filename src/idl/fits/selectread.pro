@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2013  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,7 +25,7 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=extension_id, poltype=poltype, tonan=tonan, offset=offset, factor=factor, flip = flip, no_pdu= no_pdu
+pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=extension_id, poltype=poltype, tonan=tonan, offset=offset, factor=factor, flip = flip, no_pdu= no_pdu, help=help
 ;+
 ; NAME:
 ;    selectread
@@ -39,7 +39,7 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;
 ; CALLING SEQUENCE:
 ;    selectread, File, Array, [Polvec, HEADER=, COLUMNS=, EXTENSION=, POLTYPE=,
-;    TONAN=, OFFSET=, FACTOR=, FLIP=, NO_PDU=]
+;    TONAN=, OFFSET=, FACTOR=, FLIP=, NO_PDU=, HELP=]
 ;
 ; INPUTS:
 ;     File : string containing FITS file name
@@ -52,7 +52,10 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;       By default all columns are read, unless POLTYPE is set, in which case
 ;       only the relevant columns are read and processed
 ;
-;     EXTENSION= extension to be read (0 based)
+;     EXTENSION : extension unit to be read from FITS file: 
+;       either its 0-based ID number (ie, 0 for first extension after primary array)
+;       or the case-insensitive value of its EXTNAME keyword.
+;	If absent, first extension (=0) will be read
 ;
 ;     POLTYPE= processing to apply to polarised data before output
 ;        0: do nothing: output selected column(s) as read (after application of
@@ -67,7 +70,7 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;                 norm=sqrt(U^2+Q^2) * factor    and 
 ;                 psi=1/2 atan(U/Q)
 ;
-;     TONAN= set flagged pixel to NaN. Is set whn FACTOR and/or OFFSET are set
+;     TONAN= set flagged pixel to NaN. Is set when FACTOR and/or OFFSET are set
 ;
 ;     FACTOR= multiplicative factor applied to data, default = 1.
 ;
@@ -79,6 +82,8 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;
 ;     NO_PDU= if set, the primary data unit header is not included in the
 ;     returned header
+;
+;     HELP= if set, print out this help header and exit
 ;
 ; OUTPUTS:
 ;     Array: array of size (np, ncols) 
@@ -116,11 +121,20 @@ pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=e
 ;  Oct 2008, EH: allows offsetting of polarization norm when poltype=1
 ;  Dec 2008, EH: use OR instead of '||' for non-scalar tests
 ;  Nov 2009, EH: accepts non-scalar Offset and Factor
+;  Jan 2013, EH: accepts string type EXTENSION keyword
+;  Mar 2013, EH: added HELP keyword
 ;-
 
+code = 'selectread'
+syntax = [code+', File, Array, [Polvec, HEADER=, COLUMNS=, EXTENSION=, EXTNAME= POLTYPE=,','                                  TONAN=, OFFSET=, FACTOR=, FLIP=, NO_PDU=, HELP=]']
+
+if keyword_set(help) then begin
+    doc_library,code
+    return
+endif
+
 if (n_params() lt 2) then begin
-    print,'selectread, File, Array, [Polvec, HEADER=, COLUMNS=, EXTENSION=, POLTYPE=,'
-    print,'                                  TONAN=, OFFSET=, FACTOR=, FLIP=, NO_PDU=]'
+    print,syntax,form='(a)'
     return
 endif
 
@@ -128,32 +142,47 @@ defsysv, '!healpix', exists = exists
 if (exists ne 1) then init_healpix
 
 do_rescale = (keyword_set(tonan) || keyword_set(offset) || keyword_set(factor))
-xtn   = (keyword_set(extension_id)) ? (extension_id+1) : 1
 polar = (keyword_set(poltype))      ? poltype          : 0
 flipconv = (keyword_set(flip))      ? 1                : -1
 
 ; open file
 fits_open, file, fcb
 
-; find number of words in extension
-if (xtn gt fcb.nextend) then begin
-    message,'not enough extensions in '+file
-endif
+; identify right extension
+if size(extension_id,/tname) eq 'STRING' then begin ; by name, if provided
+    sxn = strupcase(extension_id)
+    xtnum = (where(strupcase(fcb.extname) eq sxn, count))[0] ; 1 based extension number
+    if count gt 1 then begin
+        print,'WARNING: '+strtrim(count,2)+' extensions matching '+sxn+' found in '+file+'. The first one will be read.'
+    endif
+    if count eq 0 then begin
+        message,/info,'Valid (case un-sensitive) EXTNAME choices in '+file+' are'
+        print,' 0-based #          EXTNAME                    (XTENSION):'
+        for i=1,fcb.nextend do print,string(i-1,'(i6)')+' '+string(fcb.extname[i],'(a30)')$
+          +'          ('+fcb.xtension[i]+')'
+        message,/info,'Extension matching '+sxn+' not found in '+file
+        message,'Aborting.'
+    endif
+endif else begin ; otherwise by number, taking the first one by default
+    xtnum   = (keyword_set(extension_id)) ? (extension_id+1) : 1 ; 1 based extension number
+    if (xtnum gt fcb.nextend) then message,'Only '+strtrim(fcb.nextend,2)+' extensions in '+file
+endelse
 
-n_wpr  = (fcb.axis)[0,xtn] ; words per row in extension
-n_rows = long64((fcb.axis)[1,xtn]) ; number of rows
+; find number of words in extension
+n_wpr  = (fcb.axis)[0,xtnum] ; words per row in extension
+n_rows = long64((fcb.axis)[1,xtnum]) ; number of rows
 n_words = n_wpr * n_rows
 
 ; read header for extension + optionally PDU
-fits_read, fcb, void, exthdr, exten_no = xtn, /header_only, no_pdu = no_pdu
+fits_read, fcb, void, exthdr, exten_no = xtnum, /header_only, no_pdu = no_pdu
 tfields  = round(float(sxpar(exthdr,'TFIELDS')))
 bad_data =       float(sxpar(exthdr,'BAD_DATA', count=nbd))
 if (nbd eq 0) then bad_data = !healpix.bad_value
 
 ; read image if file is in deprecated format
-if (xtn eq 0 && fcb.nextend eq 0) then begin
+if (xtnum eq 0 && fcb.nextend eq 0) then begin
     if polar gt 0 then message,'no polarisation information found in '+file
-    fits_read, fcb, array, exten_no = xtn
+    fits_read, fcb, array, exten_no = xtnum
     if (do_rescale) then begin
         bad_pixels = where(array le (bad_data*0.9) or finite(array,/nan), nbad)
         if (nbad gt 0)    then array[bad_pixels] = !values.f_nan
@@ -216,7 +245,7 @@ n_offsets = n_elements(offset)
 while (w_start LE (n_words-1) ) do begin
     ; read one piece
     w_end = (w_start + stride - 1L) < (n_words-1)
-    fits_read, fcb, data, exten_no = xtn, first=w_start, last=w_end
+    fits_read, fcb, data, exten_no = xtnum, first=w_start, last=w_end
     nr = (w_end - w_start + 1) / n_wpr ; number of rows read
     np = nr * nentry ; number of pixels read
     data = reform(data, n_wpr, nr, /overwrite) ; required by tbget

@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Older Changes</TITLE>
-<META NAME="description" CONTENT="Older Changes">
+<TITLE>Changes between releases 2.20 and 3.00</TITLE>
+<META NAME="description" CONTENT="Changes between releases 2.20 and 3.00">
 <META NAME="keywords" CONTENT="facilities">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -18,7 +18,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="STYLESHEET" HREF="facilities.css">
 
-<LINK REL="next" HREF="facilitiesnode9.htm">
+<LINK REL="next" HREF="facilitiesnode5.htm">
 <LINK REL="previous" HREF="facilitiesnode3.htm">
 <LINK REL="up" HREF="facilities.htm">
 <LINK REL="next" HREF="facilitiesnode5.htm">
@@ -28,77 +28,82 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html91"
+<A NAME="tex2html99"
   HREF="facilitiesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html97"
+<A NAME="tex2html105"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html101"
+<A NAME="tex2html109"
   HREF="facilitiesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html99"
+<A NAME="tex2html107"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html92"
-  HREF="facilitiesnode3.htm">Changes between releases 2.20</A>
+<B> Previous:</B> <A NAME="tex2html100"
+  HREF="facilitiesnode3.htm">Changes between releases 3.00</A>
 
-<B>Up:</B> <A NAME="tex2html98"
+<B>Up:</B> <A NAME="tex2html106"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html102"
-  HREF="facilitiesnode5.htm">Changes between releases 2.14</A>
+<B> Next:</B> <A NAME="tex2html110"
+  HREF="facilitiesnode5.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00040000000000000000">
-Older Changes</A>
+Changes between releases 2.20 and 3.00</A>
 </H1>
-<BR><HR>
-<!--Table of Child-Links-->
-<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ all <EM>input</EM> FITS files can now be compressed (with a 
+<TT>.gz</TT>, <TT>.Z</TT>, <TT>.z</TT>, or <TT>.zip</TT> 
+extension) and/or remotely located (with a <TT>ftp://</TT> or <TT>http://</TT> prefix).
+<EM>Version 3.14 (March 2009) or newer of CFITSIO is required for <b>HEALPix</b> 3.0.</EM>
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ introduction of <A HREF="facilitiesnode16.htm#fac:process_mask"><TT>process_mask</TT></A> 
+facility to compute the angular distance of valid
+pixels to the closest invalid pixels for a input binary mask,
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="facilitiesnode18.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
+of the spatial derivatives of the non Gaussian map being produced, and the
+output of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients of that map,
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="facilitiesnode11.htm#fac:anafast"><TT>anafast</TT></A> now allows the
+pro/down-grading of the input mask to match the resolution of the map(s) being
+analyzed.
+</DL>
 
-<UL CLASS="ChildLinks">
-<LI><A NAME="tex2html103"
-  HREF="facilitiesnode5.htm">Changes between releases 2.14 and 2.20</A>
-<LI><A NAME="tex2html104"
-  HREF="facilitiesnode6.htm">Changes between releases 2.13 and 2.14</A>
-<LI><A NAME="tex2html105"
-  HREF="facilitiesnode7.htm">Changes between releases 2.0 and 2.1</A>
-<LI><A NAME="tex2html106"
-  HREF="facilitiesnode8.htm">Changes between releases 1.2 and 2.0</A>
-</UL>
-<!--End of Table of Child-Links-->
-
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html91"
+<A NAME="tex2html99"
   HREF="facilitiesnode3.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html97"
+<A NAME="tex2html105"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html101"
+<A NAME="tex2html109"
   HREF="facilitiesnode5.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html99"
+<A NAME="tex2html107"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html92"
-  HREF="facilitiesnode3.htm">Changes between releases 2.20</A>
+<B> Previous:</B> <A NAME="tex2html100"
+  HREF="facilitiesnode3.htm">Changes between releases 3.00</A>
 
-<B>Up:</B> <A NAME="tex2html98"
+<B>Up:</B> <A NAME="tex2html106"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html102"
-  HREF="facilitiesnode5.htm">Changes between releases 2.14</A>
+<B> Next:</B> <A NAME="tex2html110"
+  HREF="facilitiesnode5.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

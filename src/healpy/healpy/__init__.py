@@ -47,12 +47,16 @@ from pixelfunc import (ma, mask_good, mask_bad,
 from sphtfunc import (anafast, map2alm,
                       alm2map, Alm, synalm, synfast,
                       smoothing, smoothalm, almxfl, alm2cl,
-                      pixwin, alm2map_der1)
+                      pixwin, alm2map_der1, gauss_beam)
 
 try:
-    from _query_disc import query_disc, query_strip, query_polygon
+    from _query_disc import query_disc, query_strip, query_polygon, boundaries
 except ImportError:
     warnings.warn('Warning: cannot import query disc module')
+try:
+    from _pixelfunc import ringinfo, pix2ring
+except ImportError:
+    warnings.warn('Warning: cannot import pixelfunc module')
 
 from zoomtool import mollzoom,set_g_clim
 

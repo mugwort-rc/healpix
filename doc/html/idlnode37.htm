@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>iprocess_mask</TITLE>
-<META NAME="description" CONTENT="iprocess_mask">
+<TITLE>ismoothing</TITLE>
+<META NAME="description" CONTENT="ismoothing">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,80 +28,91 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html617"
+<A NAME="tex2html626"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html632"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html636"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html625"
+<A NAME="tex2html634"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html618"
-  HREF="idlnode36.htm">init_healpix and !healpix system</A>
+<B> Previous:</B> <A NAME="tex2html627"
+  HREF="idlnode36.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html624"
+<B>Up:</B> <A NAME="tex2html633"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html628"
-  HREF="idlnode38.htm">ismoothing</A>
+<B> Next:</B> <A NAME="tex2html637"
+  HREF="idlnode38.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000370000000000000000"></A>
-<A NAME="idl:iprocess_mask"></A>
+<A NAME="idl:ismoothing"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">iprocess_mask</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'process_mask' facility. For a
-given input binary mask, it can determine the angular distance in Radians of each valid (1 valued)
-pixel to the closest invalid (0 valued) pixel, with the option of ignoring small
-clusters of invalid pixels. The distance map can then be used to generate an
-apodized mask.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/interfaces/iprocess_mask.pro
+<b><font size=+6><FONT COLOR="#CC0000">ismoothing</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'smoothing' facility. It can be
+used to smooth a <b>HEALPix</b> map by an arbitrary circular 'beam' defined by its
+Legendre window function (or its FWHM if it is assumed Gaussian)</H2><br>Location in HEALPix directory tree: <b>
+src/idl/interfaces/ismoothing.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-IPROCESS_MASK, 
-<A HREF="#idl:iprocess_mask:mask_in">mask_in</A>,  
-<A HREF="#idl:iprocess_mask:distance_map">distance_map</A>,[
-<A HREF="#idl:iprocess_mask:binpath">binpath=</A>,
-<A HREF="#idl:iprocess_mask:filled_mask">filled_mask=</A>,
-<A HREF="#idl:iprocess_mask:help">/help</A>,
-<A HREF="#idl:iprocess_mask:hole_arcmin2">hole_arcmin2=</A>,
-<A HREF="#idl:iprocess_mask:hole_pixels">hole_pixels=</A>,
-<A HREF="#idl:iprocess_mask:keep_tmp_files">keep_tmp_files=</A>, 
-<A HREF="#idl:iprocess_mask:nested">/nested</A>,
-<A HREF="#idl:iprocess_mask:ordering">ordering=</A>, 
-<A HREF="#idl:iprocess_mask:ring">/ring</A>,
-<A HREF="#idl:iprocess_mask:silent">/silent</A>,
-<A HREF="#idl:iprocess_mask:tmpdir">tmpdir=</A>]
+ISMOOTHING, 
+<A HREF="#idl:ismoothing:map1_in">map1_in</A>,  
+<A HREF="#idl:ismoothing:map2_out">map2_out</A>,[
+<A HREF="#idl:ismoothing:beam_file">beam_file=</A>,
+<A HREF="#idl:ismoothing:binpath">binpath=</A>,
+<A HREF="#idl:ismoothing:double">/double</A>,
+<A HREF="#idl:ismoothing:fwhm_arcmin">fwhm_arcmin=</A>,
+<A HREF="#idl:ismoothing:help">/help</A>,
+<A HREF="#idl:ismoothing:iter_order">iter_order=</A>,
+<A HREF="#idl:ismoothing:keep_tmp_files">keep_tmp_files=</A>, 
+<A HREF="#idl:ismoothing:lmax">lmax=</A>,
+<A HREF="#idl:ismoothing:lmax">nlmax=</A>,
+<A HREF="#idl:ismoothing:nested">/nested</A>,
+<A HREF="#idl:ismoothing:ordering">ordering=</A>, 
+<A HREF="#idl:ismoothing:plmfile">plmfile=</A>,
+<A HREF="#idl:ismoothing:regression">regression=</A>,
+<A HREF="#idl:ismoothing:ring">/ring</A>,
+<A HREF="#idl:ismoothing:simul_type">simul_type=</A>,
+<A HREF="#idl:ismoothing:silent">/silent</A>,
+<A HREF="#idl:ismoothing:theta_cut_deg">theta_cut_deg=</A>,  
+<A HREF="#idl:ismoothing:tmpdir">tmpdir=</A>,
+<A HREF="#idl:ismoothing:won">/won</A>,
+<A HREF="#idl:ismoothing:w8file">w8file=</A>,
+<A HREF="#idl:ismoothing:w8dir">w8dir=</A>]
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>mask_in</B>
-<DD><A NAME="idl:iprocess_mask:mask_in"></A> required input: input binary
-mask. It can be a FITS file, or a memory array containing the mask to process.
+<B>map1_in</B>
+<DD><A NAME="idl:ismoothing:map1_in"></A> required input: input map, can be a FITS file, or a memory array containing the
+        map to smooth
     <DT>
-<B>distance_map</B>
-<DD><A NAME="idl:iprocess_mask:distance_map"></A> optional
-output: double precision angular distance map in Radians. It can be a FITS file, or a
-   memory array. It will have the same ordering as the input mask.
+<B>map2_out</B>
+<DD><A NAME="idl:ismoothing:map2_out"></A> required output: output smoothed map, can be a FITS file, or a memory array
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
+<B>beam_file=</B>
+<DD><A NAME="idl:ismoothing:beam_file"></A> beam window function, either a FITS file or an array
+
+<P>
+<DT>
 <B>binpath=</B>
-<DD><A NAME="idl:iprocess_mask:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/process_mask, then $HEALPIX/bin/process_mask
+<DD><A NAME="idl:ismoothing:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/smoothing, then $HEALPIX/bin/smoothing
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg57.png"
@@ -111,72 +122,109 @@ output: double precision angular distance map in Radians. It can be a FITS file,
 
 <P>
 <DT>
-<B>filled_mask=</B>
-<DD><A NAME="idl:iprocess_mask:filled_mask"></A> optional output
-mask with holes smaller than 
-<A HREF="#idl:iprocess_mask:hole_arcmin2"><TT>hole_arcmin2</TT></A> or 
-<A HREF="#idl:iprocess_mask:hole_pixels"><TT>hole_pixels</TT></A> filled in.
-     Will have the same ordering as the input mask
+<B>/double</B>
+<DD><A NAME="idl:ismoothing:double"></A> if set, I/O is done in double precision <b>default:</b>single precision I/O
+
+<P>
+<DT>
+<B>fwhm_arcmin=</B>
+<DD><A NAME="idl:ismoothing:fwhm_arcmin"></A> gaussian beam Full Width Half Maximum in arc-minutes <b>default:</b>0
 
 <P>
 <DT>
 <B>/help</B>
-<DD><A NAME="idl:iprocess_mask:help"></A> if set, prints extended help
+<DD><A NAME="idl:ismoothing:help"></A> if set, prints extended help
 
 <P>
 <DT>
-<B>hole_arcmin2</B>
-<DD><A NAME="idl:iprocess_mask:hole_arcmin2"></A> Minimal size
-(in arcmin<SPAN CLASS="MATH"><SUP>2</SUP></SPAN>) of invalid regions to be kept 
-    (can be used together with <A HREF="#idl:iprocess_mask:hole_pixels"><TT>hole_pixels</TT></A>, 
-     the result will be the largest of the two). <b>default:</b>0.0
-
-<P>
-<DT>
-<B>hole_pixels</B>
-<DD><A NAME="idl:iprocess_mask:hole_pixels"></A> Minimal size (in pixels) of invalid regions to be kept 
-    (can be used together with <A HREF="#idl:iprocess_mask:hole_arcmin2"><TT>hole_arcmin2</TT></A>, 
-     the result will be the largest of the two). <b>default:</b>0
+<B>iter_order=</B>
+<DD><A NAME="idl:ismoothing:iter_order"></A> order of iteration in the analysis <b>default:</b>0
 
 <P>
 <DT>
 <B>/keep_tmp_files</B>
-<DD><A NAME="idl:iprocess_mask:keep_tmp_files"></A> if set,
-temporary files are not discarded at the end of the run
+<DD><A NAME="idl:ismoothing:keep_tmp_files"></A> if set, temporary files are not discarded at the end of the
+                  run
+
+<P>
+<DT>
+<B>lmax=, nlmax=</B>
+<DD><A NAME="idl:ismoothing:lmax"></A> maximum multipole of smoothing <b>default:</b>determined by back-end routine (ie, smoothing)
 
 <P>
 <DT>
 <B>/nested</B>
-<DD><A NAME="idl:iprocess_mask:nested"></A> if set, signals that the mask read online is in
-   NESTED scheme (does not apply to FITS file), see also
-<A HREF="#idl:iprocess_mask:ring"><TT>/ring</TT></A> and 
-<A HREF="#idl:iprocess_mask:ordering"><TT>Ordering</TT></A>
+<DD><A NAME="idl:ismoothing:nested"></A> if set, signals that *all* maps and mask read online are in
+   NESTED scheme (does not apply to FITS file), 
+<A HREF="#idl:smoothing:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:smoothing:ordering"><TT>Ordering</TT></A>
 
 <P>
 <DT>
 <B>ordering=</B>
-<DD><A NAME="idl:iprocess_mask:ordering"></A> either 'RING' or 'NESTED', ordering of online mask,
- see 
-<A HREF="#idl:iprocess_mask:ring"><TT>/ring</TT></A> and 
-<A HREF="#idl:iprocess_mask:nested"><TT>/nested</TT></A>
+<DD><A NAME="idl:ismoothing:ordering"></A> either 'RING' or 'NESTED', ordering of online maps and masks,
+see 
+<A HREF="#idl:smoothing:ring"><TT>/ring</TT></A> and 
+<A HREF="#idl:smoothing:nested"><TT>/nested</TT></A>
+
+<P>
+<DT>
+<B>plmfile=</B>
+<DD><A NAME="idl:ismoothing:plmfile"></A> FITS file containing precomputed Spherical Harmonics (deprecated) <b>default:</b>no file
+
+<P>
+<DT>
+<B>regression=</B>
+<DD><A NAME="idl:ismoothing:regression"></A> 0, 1 or 2, regress out best fit monopole and/or dipole before
+    alm analysis
+  <b>default:</b>0, analyze raw map 
 
 <P>
 <DT>
 <B>/ring</B>
-<DD><A NAME="idl:iprocess_mask:ring"></A> see 
-<A HREF="#idl:iprocess_mask:nested"><TT>/nested</TT></A> and 
-<A HREF="#idl:iprocess_mask:ordering"><TT>Ordering</TT></A> above
+<DD><A NAME="idl:ismoothing:ring"></A> see 
+<A HREF="#idl:smoothing:nested"><TT>/nested</TT></A> and 
+<A HREF="#idl:smoothing:ordering"><TT>Ordering</TT></A> above
+
+<P>
+<DT>
+<B>simul_type=</B>
+<DD><A NAME="idl:ismoothing:simul_type"></A> 1 or 2, analyze temperature only or temperature + polarization
 
 <P>
 <DT>
 <B>/silent</B>
-<DD><A NAME="idl:iprocess_mask:silent"></A> if set, works silently
+<DD><A NAME="idl:ismoothing:silent"></A> if set, works silently
+
+<P>
+<DT>
+<B>theta_cut_deg=</B>
+<DD><A NAME="idl:ismoothing:theta_cut_deg"></A> cut around the equatorial plane 
 
 <P>
 <DT>
 <B>tmpdir=</B>
-<DD><A NAME="idl:iprocess_mask:tmpdir"></A> directory in which are written temporary files 
+<DD><A NAME="idl:ismoothing:tmpdir"></A> directory in which are written temporary files 
 <b>default:</b>IDL_TMPDIR (see IDL documentation)
+
+<P>
+<DT>
+<B>/won</B>
+<DD><A NAME="idl:ismoothing:won"></A> if set, a weighting scheme is used to improve the quadrature
+    <b>default:</b>apply weighting
+
+<P>
+<DT>
+<B>w8file=</B>
+<DD><A NAME="idl:ismoothing:w8file"></A> FITS file containing weights 
+     <b>default:</b>determined automatically by back-end routine.
+   Do not set this keyword unless you really know what you are doing
+
+<P>
+<DT>
+<B>w8dir=</B>
+<DD><A NAME="idl:ismoothing:w8dir"></A> directory where the weights are to be found 
+        <b>default:</b>determined automatically by back-end routine
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -185,53 +233,59 @@ temporary files are not discarded at the end of the run
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-<FONT COLOR="#CC0000">iprocess_mask</FONT> is an interface to 'process_mask' F90 facility. It
+<FONT COLOR="#CC0000">ismoothing</FONT> is an interface to 'smoothing' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
 file, or as a memory array.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">iprocess_mask</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ismoothing</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">iprocess_mask</FONT>.
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">ismoothing</FONT>.
     <DT>
-<B>process_mask</B>
-<DD>F90 facility called by <FONT COLOR="#CC0000">iprocess_mask</FONT>.
+<B>smoothing</B>
+<DD>F90 facility called by <FONT COLOR="#CC0000">ismoothing</FONT>.
     <DT>
-<B><A HREF="idlnode34.htm#idl:ianafast">ianafast</A></B>
+<B><A HREF="idlnode12.htm#idl:beam2bl">beam2bl</A></B>
+<DD>This IDL facility computes a transfer
+(or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> (such as the ones required by <FONT COLOR="#CC0000">ismoothing</FONT>) for a given
+circular beam profile <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN>
+    <DT>
+<B><A HREF="idlnode33.htm#idl:ianafast">ianafast</A></B>
 <DD>IDL Interface to F90 anafast and C++ anafast_cxx
     <DT>
-<B><A HREF="idlnode39.htm#idl:isynfast">isynfast</A></B>
+<B><A HREF="idlnode38.htm#idl:isynfast">isynfast</A></B>
 <DD>IDL Interface to F90 synfast
     <DT>
-<B><A HREF="idlnode38.htm#idl:ismoothing">ismoothing</A></B>
-<DD>IDL Interface to F90 smoothing
+<B><A HREF="idlnode36.htm#idl:iprocess_mask">iprocess_mask</A></B>
+<DD>IDL Interface to F90 process_mask
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-npix = nside2npix(256) </SMALL></TD>
+whitenoise = randomn(seed, <A HREF="idlnode46.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- mask = replicate(1, npix) &amp; mask[randomu(seed,100)*npix] = 0 </SMALL></TD>
+ <FONT COLOR="#CC0000">ismoothing</FONT>, whitenoise, rednoise, fwhm=120, /ring, simul=1,/silent  </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- <FONT COLOR="#CC0000">iprocess_mask</FONT>, mask, distance, /ring, /silent </SMALL></TD>
+ <A HREF="idlnode42.htm#idl:mollview">mollview</A>, whitenoise,title='White noise'  </SMALL></TD>
 </TR>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- mollview, distance
+ <A HREF="idlnode42.htm#idl:mollview">mollview</A>, rednoise,  title='Smoothed white Noise'  
 </SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
-A binary mask in which 100 randomly located pixels are 0-valued
-(=invalid) is generated. Then the distance (in Radians) of the valid pixels to
-the closest invalid pixels is computed and plotted.
+will generate and plot a white noise map and its smoothed version
 </blockquote>
 <P>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL>
@@ -242,32 +296,32 @@ the closest invalid pixels is computed and plotted.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html617"
+<A NAME="tex2html626"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html623"
+<A NAME="tex2html632"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html627"
+<A NAME="tex2html636"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html625"
+<A NAME="tex2html634"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html618"
-  HREF="idlnode36.htm">init_healpix and !healpix system</A>
+<B> Previous:</B> <A NAME="tex2html627"
+  HREF="idlnode36.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html624"
+<B>Up:</B> <A NAME="tex2html633"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html628"
-  HREF="idlnode38.htm">ismoothing</A>
+<B> Next:</B> <A NAME="tex2html637"
+  HREF="idlnode38.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

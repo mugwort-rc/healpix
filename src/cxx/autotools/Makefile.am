@@ -112,7 +112,7 @@ EXTRA_DIST = \
   libfftpack/fftpack_inc.c \
   libsharp/sharp_core_inc.c \
   libsharp/sharp_core_inc2.c \
-  libsharp/sharp_inchelper1.inc.c \
+  libsharp/sharp_core_inchelper.c \
   cxxsupport/font_data.inc
 include_HEADERS = \
   libsharp/sharp.h \
@@ -128,8 +128,12 @@ include_HEADERS = \
   cxxsupport/alloc_utils.h \
   cxxsupport/math_utils.h \
   cxxsupport/error_handling.h \
+  cxxsupport/lsconstants.h \
   cxxsupport/safe_cast.h \
   cxxsupport/vec3.h \
+  cxxsupport/wigner.h \
+  cxxsupport/rotmatrix.h \
+  cxxsupport/sse_utils_cxx.h \
   cxxsupport/string_utils.h \
   Healpix_cxx/alm.h \
   Healpix_cxx/alm_fitsio.h \
@@ -143,38 +147,56 @@ include_HEADERS = \
   Healpix_cxx/powspec.h \
   Healpix_cxx/powspec_fitsio.h
 libhealpix_cxx_la_SOURCES = $(src_c_utils) $(src_libfftpack) $(src_libsharp) $(src_cxxsupport) $(src_healpix_cxx)
-libhealpix_cxx_la_LIBADD = -lcfitsio
+libhealpix_cxx_la_LIBADD = $(CFITSIO_LIBS)
 
 bin_PROGRAMS = alm2map_cxx anafast_cxx calc_powspec hotspots_cxx map2tga \
   median_filter_cxx mult_alm rotalm_cxx smoothing_cxx syn_alm_cxx udgrade_cxx \
   udgrade_harmonic_cxx hpxtest
 alm2map_cxx_SOURCES = Healpix_cxx/alm2map_cxx.cc
 alm2map_cxx_LDADD = libhealpix_cxx.la
+alm2map_cxx_LDFLAGS = -static-libtool-libs
 anafast_cxx_SOURCES = Healpix_cxx/anafast_cxx.cc
 anafast_cxx_LDADD = libhealpix_cxx.la
+anafast_cxx_LDFLAGS = -static-libtool-libs
 calc_powspec_SOURCES = Healpix_cxx/calc_powspec.cc
 calc_powspec_LDADD = libhealpix_cxx.la
+calc_powspec_LDFLAGS = -static-libtool-libs
 hotspots_cxx_SOURCES = Healpix_cxx/hotspots_cxx.cc
 hotspots_cxx_LDADD = libhealpix_cxx.la
+hotspots_cxx_LDFLAGS = -static-libtool-libs
 map2tga_SOURCES = Healpix_cxx/map2tga.cc
 map2tga_LDADD = libhealpix_cxx.la
+map2tga_LDFLAGS = -static-libtool-libs
 median_filter_cxx_SOURCES = Healpix_cxx/median_filter_cxx.cc
 median_filter_cxx_LDADD = libhealpix_cxx.la
+median_filter_cxx_LDFLAGS = -static-libtool-libs
 mult_alm_SOURCES = Healpix_cxx/mult_alm.cc
 mult_alm_LDADD = libhealpix_cxx.la
+mult_alm_LDFLAGS = -static-libtool-libs
 rotalm_cxx_SOURCES = Healpix_cxx/rotalm_cxx.cc
 rotalm_cxx_LDADD = libhealpix_cxx.la
+rotalm_cxx_LDFLAGS = -static-libtool-libs
 smoothing_cxx_SOURCES = Healpix_cxx/smoothing_cxx.cc
 smoothing_cxx_LDADD = libhealpix_cxx.la
+smoothing_cxx_LDFLAGS = -static-libtool-libs
 syn_alm_cxx_SOURCES = Healpix_cxx/syn_alm_cxx.cc
 syn_alm_cxx_LDADD = libhealpix_cxx.la
+syn_alm_cxx_LDFLAGS = -static-libtool-libs
 udgrade_cxx_SOURCES = Healpix_cxx/udgrade_cxx.cc
 udgrade_cxx_LDADD = libhealpix_cxx.la
+udgrade_cxx_LDFLAGS = -static-libtool-libs
 udgrade_harmonic_cxx_SOURCES = Healpix_cxx/udgrade_harmonic_cxx.cc
 udgrade_harmonic_cxx_LDADD = libhealpix_cxx.la
+udgrade_harmonic_cxx_LDFLAGS = -static-libtool-libs
 hpxtest_SOURCES=Healpix_cxx/hpxtest.cc
 hpxtest_LDADD = libhealpix_cxx.la
+hpxtest_LDFLAGS = -static-libtool-libs
 
 TESTS=hpxtest
 
-AM_CPPFLAGS = -I$(top_srcdir)/c_utils -I$(top_srcdir)/libfftpack -I$(top_srcdir)/libsharp -I$(top_srcdir)/cxxsupport
+AM_CPPFLAGS = $(CFITSIO_CFLAGS) -I$(top_srcdir)/c_utils -I$(top_srcdir)/libfftpack -I$(top_srcdir)/libsharp -I$(top_srcdir)/cxxsupport
+
+pkgconfigdir = $(libdir)/pkgconfig
+nodist_pkgconfig_DATA = @PACKAGE_NAME@.pc
+
+DISTCLEANFILES=@PACKAGE_NAME@.pc @PACKAGE_NAME@.pc.in  @PACKAGE_NAME@-uninstalled.pc  @PACKAGE_NAME@-uninstalled.sh

@@ -70,7 +70,7 @@ static inline Tb Y(Tbprod)(Tb a, Tb b)
 static inline void Y(Tbmuleq)(Tb * restrict a, Tb b)
   { for (int i=0; i<nvec; ++i) vmuleq(a->v[i],b.v[i]); }
 
-static inline void Y(Tbnormalize) (Tb * restrict val, Tb * restrict scale,
+static void Y(Tbnormalize) (Tb * restrict val, Tb * restrict scale,
   double maxval)
   {
   const Tv vfsmall=vload(sharp_fsmall), vfbig=vload(sharp_fbig);
@@ -94,7 +94,7 @@ static inline void Y(Tbnormalize) (Tb * restrict val, Tb * restrict scale,
     }
   }
 
-static inline void Y(mypow) (Tb val, int npow, Tb * restrict resd,
+static void Y(mypow) (Tb val, int npow, Tb * restrict resd,
   Tb * restrict ress)
   {
   Tb scale=Y(Tbconst)(0.), scaleint=Y(Tbconst)(0.), res=Y(Tbconst)(1.);
@@ -168,7 +168,7 @@ static inline int Y(TballGe)(Tb a,double b)
   return vallTrue(res);
   }
 
-static inline void Y(getCorfac)(Tb scale, Tb * restrict corfac,
+static void Y(getCorfac)(Tb scale, Tb * restrict corfac,
   const double * restrict cf)
   {
   Y(Tbu) sc, corf;
@@ -220,7 +220,7 @@ static inline void Y(rec_step) (Tb * restrict rxp, Tb * restrict rxm,
     }
   }
 
-static void Y(iter_to_ieee_spin) (const Tb cth, int *l_,
+static void Y(iter_to_ieee_spin) (const Tb cth, const Tb sth, int *l_,
   Tb * rec1p_, Tb * rec1m_, Tb * rec2p_, Tb * rec2m_,
   Tb * scalep_, Tb * scalem_, const sharp_Ylmgen_C * restrict gen)
   {
@@ -232,6 +232,11 @@ static void Y(iter_to_ieee_spin) (const Tb cth, int *l_,
     cth2.v[i]=vmax(cth2.v[i],vload(1e-15));
     sth2.v[i]=vsqrt(vmul(vsub(vone,cth.v[i]),vload(0.5)));
     sth2.v[i]=vmax(sth2.v[i],vload(1e-15));
+    Tv mask=vlt(sth.v[i],vzero);
+    Tv cfct=vblend(vand(mask,vlt(cth.v[i],vzero)),vload(-1.),vone);
+    cth2.v[i]=vmul(cth2.v[i],cfct);
+    Tv sfct=vblend(vand(mask,vgt(cth.v[i],vzero)),vload(-1.),vone);
+    sth2.v[i]=vmul(sth2.v[i],sfct);
     }
 
   Tb ccp, ccps, ssp, ssps, csp, csps, scp, scps;

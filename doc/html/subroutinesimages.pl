@@ -8,10 +8,17 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg32.png"
  ALT="$ {_0}S^- = 0.$">|; 
 
+$key = q/%latex2htmlidmarker24854setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg63.png"
+ ALT="% latex2html id marker 24854
+\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
+
 $key = q/displaystylez=cos(theta)ge2slash3,;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="147" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg126.png"
+ SRC="|."$dir".q|subroutinesimg127.png"
  ALT="$\displaystyle z=\cos(\theta)\ge 2/3,$">|; 
 
 $key = q/(theta,phi);MSF=1.6;LFS=12;AAT/;
@@ -30,7 +37,7 @@ max}=m_{\rm max} = 128$">|;
 $key = q/{1,ldots,2^{28}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg89.png"
+ SRC="|."$dir".q|subroutinesimg90.png"
  ALT="$\{1,\ldots,2^{28}\}$">|; 
 
 $key = q/{N_{{rm{side}}=256;MSF=1.6;LFS=12;AAT/;
@@ -39,17 +46,17 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg54.png"
  ALT="${N_{\rm side}}=256$">|; 
 
-$key = q/varphi;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="17" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg58.png"
- ALT="$\varphi$">|; 
-
 $key = q/partial^2Xslash(partialthetapartialphisintheta);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="143" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg9.png"
  ALT="$\partial^2 X/(\partial\theta\partial\phi\sin\theta)$">|; 
+
+$key = q/varphi;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="17" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg58.png"
+ ALT="$\varphi$">|; 
 
 $key = q/4pi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -83,6 +90,13 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg11.png"
  ALT="$\!$">|; 
 
+$key = q/displaystyle<comment_mark>6592slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg130.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$">|; 
+
 $key = q/k=sum(x_i-m)^4slash(nsigma^4)-3;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="221" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
@@ -111,7 +125,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{displaymath}A_{ij}=sum_{pincal{P}}s_i(p)w(p)s_j(p),{displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="199" HEIGHT="52" BORDER="0"
- SRC="|."$dir".q|subroutinesimg117.png"
+ SRC="|."$dir".q|subroutinesimg118.png"
  ALT="\begin{displaymath}
 A_{ij} = \sum_{p \in \cal{P}} s_i(p) w(p) s_j(p),
 \end{displaymath}">|; 
@@ -131,7 +145,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{1,ldots,2^{28}=268435456};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="208" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg91.png"
+ SRC="|."$dir".q|subroutinesimg92.png"
  ALT="$\{1,\ldots,2^{28}=268435456\}$">|; 
 
 $key = q/sigma^2=sum(x_i-m)^2slash(n-1);MSF=1.6;LFS=12;AAT/;
@@ -139,6 +153,13 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="211" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg47.png"
  ALT="$\sigma^2 = \sum(x_i-m)^2/ (n-1)$">|; 
+
+$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>722;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg134.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+$">|; 
 
 $key = q/z=costheta;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -161,7 +182,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/2^{128}-1approx3.410^{38};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="150" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg111.png"
+ SRC="|."$dir".q|subroutinesimg112.png"
  ALT="$2^{128} - 1 \approx 3.4 10^{38}$">|; 
 
 $key = q/simeq3.4010^{38};MSF=1.6;LFS=12;AAT/;
@@ -185,14 +206,8 @@ on bi-pro (or dual core) computer}$">|;
 $key = q/{{bf{v}_1;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg134.png"
+ SRC="|."$dir".q|subroutinesimg135.png"
  ALT="${\bf v}_1$">|; 
-
-$key = q/a_{lm}^{{rm{(pix)};MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="44" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg96.png"
- ALT="$a_{lm}^{\rm (pix)}$">|; 
 
 $key = q/0<|s|le100;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -200,23 +215,29 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg6.png"
  ALT="$0 &lt; \vert s\vert \le 100$">|; 
 
+$key = q/a_{lm}^{{rm{(pix)};MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="44" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg97.png"
+ ALT="$a_{lm}^{\rm (pix)}$">|; 
+
 $key = q/psi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="17" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg56.png"
  ALT="$\psi$">|; 
 
-$key = q/lambda_{00}(theta_1);MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg103.png"
- ALT="$\lambda_{00}(\theta_1)$">|; 
-
 $key = q/x=sinthetacosphi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg38.png"
  ALT="$x = \sin\theta\cos\phi $">|; 
+
+$key = q/lambda_{00}(theta_1);MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg104.png"
+ ALT="$\lambda_{00}(\theta_1)$">|; 
 
 $key = q/{_0}S^+=T;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -227,7 +248,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{displaymath}m'(p)=m(p)-sum_{i=0}^{d^2-1}f_is_i(p).{displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="224" HEIGHT="60" BORDER="0"
- SRC="|."$dir".q|subroutinesimg120.png"
+ SRC="|."$dir".q|subroutinesimg121.png"
  ALT="\begin{displaymath}
 m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
 \end{displaymath}">|; 
@@ -235,22 +256,15 @@ m'(p) = m(p) - \sum_{i=0}^{d^2-1} f_i s_i(p).
 $key = q/z=sin({{rm{latitude})=cos(theta);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="214" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg87.png"
+ SRC="|."$dir".q|subroutinesimg88.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta)$">|; 
 
 $key = q/lambda_{10}(theta_1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg104.png"
+ SRC="|."$dir".q|subroutinesimg105.png"
  ALT="$\lambda_{10}(\theta_1)$">|; 
-
-$key = q/%latex2htmlidmarker24765setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg62.png"
- ALT="% latex2html id marker 24765
-\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
 
 $key = q/pislash4;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -267,13 +281,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/a_{lm}^{{rm{(pix)}=a_{lm}w_{{rm{pix}(l);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="149" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg97.png"
+ SRC="|."$dir".q|subroutinesimg98.png"
  ALT="$a_{lm}^{\rm (pix)}= a_{lm}w_{\rm pix}(l)$">|; 
 
 $key = q/T_{{rm{CPU}propto1+2times;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="127" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg85.png"
+ SRC="|."$dir".q|subroutinesimg86.png"
  ALT="$
 T_{\rm CPU} \propto 1 + 2 \times $">|; 
 
@@ -292,13 +306,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/3pislash4;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="44" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg110.png"
+ SRC="|."$dir".q|subroutinesimg111.png"
  ALT="$3\pi/4$">|; 
 
 $key = q/12{N_{{rm{side}}^2-1;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="102" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg131.png"
+ SRC="|."$dir".q|subroutinesimg132.png"
  ALT="$12{N_{\rm side}}^2-1$">|; 
 
 $key = q/{_s}Y_{lm};MSF=1.6;LFS=12;AAT/;
@@ -310,7 +324,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/lambda_{11}(theta_1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg106.png"
+ SRC="|."$dir".q|subroutinesimg107.png"
  ALT="$\lambda_{11}(\theta_1)$">|; 
 
 $key = q/lin{;MSF=1.6;LFS=12;AAT/;
@@ -328,20 +342,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/propto1024;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="62" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg137.png"
+ SRC="|."$dir".q|subroutinesimg138.png"
  ALT="$\propto 1024$">|; 
-
-$key = q/displaystyle<comment_mark>7192slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg132.png"
- ALT="$\displaystyle %[Nside*(Nside+2)/4]
-2/3 &gt; z \geq 0,$">|; 
 
 $key = q/10^circ;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="31" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg84.png"
+ SRC="|."$dir".q|subroutinesimg85.png"
  ALT="$10^\circ$">|; 
 
 $key = q/htmlref{convert_nest2ring}{sub:convert_nest2ring};MSF=1.6;LFS=12;AAT/;
@@ -353,13 +360,13 @@ $cached_env_img{$key} = q|<IMG
 $key = q/s_1(p)=x,s_2(p)=y,s_3(p)=z;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="260" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg119.png"
+ SRC="|."$dir".q|subroutinesimg120.png"
  ALT="$s_1(p)=x, s_2(p)=y, s_3(p)=z$">|; 
 
 $key = q/lambda_{21}(theta_1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg107.png"
+ SRC="|."$dir".q|subroutinesimg108.png"
  ALT="$\lambda_{21}(\theta_1)$">|; 
 
 $key = q/backslash;MSF=1.6;LFS=12;AAT/;
@@ -377,7 +384,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/cal{P};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="19" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg118.png"
+ SRC="|."$dir".q|subroutinesimg119.png"
  ALT="$\cal{P}$">|; 
 
 $key = q/C_{12}(l)=sum_{m=-l}^{l}a_{1,lm}a_{2,lm}^*slash(2l+1);MSF=1.6;LFS=12;AAT/;
@@ -396,7 +403,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/displaystyle0<phileqpislash2,;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="111" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg128.png"
+ SRC="|."$dir".q|subroutinesimg129.png"
  ALT="$\displaystyle 0&lt; \phi \leq \pi/2,$">|; 
 
 $key = q/{displaymath}{_s}S(p)=sum_{lm}{_s}a_{lm}{_s}Y_{lm}(p){displaymath};MSF=1.6;LFS=12;AAT/;
@@ -407,13 +414,6 @@ $cached_env_img{$key} = q|<IMG
 {_s}S(p) = \sum_{lm} {_s}a_{lm}  {_s}Y_{lm}(p)
 \end{displaymath}">|; 
 
-$key = q/%latex2htmlidmarker25956setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg100.png"
- ALT="% latex2html id marker 25956
-\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
-
 $key = q/mathbf{theta};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
@@ -423,7 +423,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/0dots;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="39" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg121.png"
+ SRC="|."$dir".q|subroutinesimg122.png"
  ALT="$0\dots$">|; 
 
 $key = q/m=sum_ix_islashn;MSF=1.6;LFS=12;AAT/;
@@ -441,7 +441,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/propto1slashsqrt{{{rm{n_obs}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg114.png"
+ SRC="|."$dir".q|subroutinesimg115.png"
  ALT="$ \propto 1/\sqrt{{\rm n\_obs}}$">|; 
 
 $key = q/psi,theta,varphi;MSF=1.6;LFS=12;AAT/;
@@ -457,10 +457,17 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg12.png"
  ALT="${N_{\rm side}}$">|; 
 
+$key = q/%latex2htmlidmarker24889setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg68.png"
+ ALT="% latex2html id marker 24889
+\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
+
 $key = q/{displaymath}sum_{j=0}^{d^2-1}A_{ij}f_j=b_i{displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="125" HEIGHT="63" BORDER="0"
- SRC="|."$dir".q|subroutinesimg115.png"
+ SRC="|."$dir".q|subroutinesimg116.png"
  ALT="\begin{displaymath}
 \sum_{j=0}^{d^2-1} A_{ij} f_j = b_i
 \end{displaymath}">|; 
@@ -471,17 +478,10 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg26.png"
  ALT="$l \ge \vert m\vert, l \ge \vert s\vert$">|; 
 
-$key = q/%latex2htmlidmarker24847setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg68.png"
- ALT="% latex2html id marker 24847
-\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
-
 $key = q/{{bf{v}_3={{bf{v}_1times{{bf{v}_2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="110" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg136.png"
+ SRC="|."$dir".q|subroutinesimg137.png"
  ALT="${\bf v}_3 = {\bf v}_1 \times {\bf v}_2$">|; 
 
 $key = q/mge0;MSF=1.6;LFS=12;AAT/;
@@ -493,7 +493,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{displaymath}{N_{{rm{templates}}=frac{1+{N_{{rm{side}}({N_{{rm{side}}+6)}{4}{displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="256" HEIGHT="47" BORDER="0"
- SRC="|."$dir".q|subroutinesimg93.png"
+ SRC="|."$dir".q|subroutinesimg94.png"
  ALT="\begin{displaymath}{N_{\rm templates}}=\frac{1+{N_{\rm side}}({N_{\rm side}}+6)}{4}\end{displaymath}">|; 
 
 $key = q/sigma;MSF=1.6;LFS=12;AAT/;
@@ -505,7 +505,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/pislash5;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="35" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg109.png"
+ SRC="|."$dir".q|subroutinesimg110.png"
  ALT="$\pi/5$">|; 
 
 $key = q/phiin[0,2pi[;MSF=1.6;LFS=12;AAT/;
@@ -513,6 +513,13 @@ $cached_env_img{$key} = q|<IMG
  WIDTH="88" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg4.png"
  ALT="$\phi\in[0,2\pi[$">|; 
+
+$key = q/%latex2htmlidmarker24949setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg78.png"
+ ALT="% latex2html id marker 24949
+\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
 
 $key = q/theta;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -529,7 +536,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/psi=pislash3,theta=0.5,varphi=0;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="194" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg125.png"
+ SRC="|."$dir".q|subroutinesimg126.png"
  ALT="$\psi=\pi/3, \theta=0.5, \varphi=0 $">|; 
 
 $key = q/180slashpi;MSF=1.6;LFS=12;AAT/;
@@ -541,32 +548,25 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{{bf{v}_2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg135.png"
+ SRC="|."$dir".q|subroutinesimg136.png"
  ALT="${\bf v}_2$">|; 
-
-$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>720;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg133.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
-$">|; 
 
 $key = q/{N_{{rm{pix}}=12{N_{{rm{side}}^2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="129" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg92.png"
+ SRC="|."$dir".q|subroutinesimg93.png"
  ALT="${N_{\rm pix}}=12{N_{\rm side}}^2$">|; 
 
 $key = q/Y_{lm}(theta,phi)=lambda_{lm}(theta)e^{imphi};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="186" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg102.png"
+ SRC="|."$dir".q|subroutinesimg103.png"
  ALT="$Y_{lm}(\theta,\phi) = \lambda_{lm}(\theta) e^{i m \phi}$">|; 
 
 $key = q/lambda_{00}(theta_2);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg108.png"
+ SRC="|."$dir".q|subroutinesimg109.png"
  ALT="$\lambda_{00}(\theta_2)$">|; 
 
 $key = q/le4{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
@@ -578,7 +578,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/lleql_{{rm{max};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="68" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg122.png"
+ SRC="|."$dir".q|subroutinesimg123.png"
  ALT="$l\leq l_{\rm max}$">|; 
 
 $key = q/pi;MSF=1.6;LFS=12;AAT/;
@@ -590,47 +590,33 @@ $cached_env_img{$key} = q|<IMG
 $key = q/w_{{rm{pix}(l);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg95.png"
+ SRC="|."$dir".q|subroutinesimg96.png"
  ALT="$w_{\rm pix}(l)$">|; 
 
 $key = q/{N_{{rm{side}}=sqrt{{N_{{rm{pix}}slash12};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="146" HEIGHT="49" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg90.png"
+ SRC="|."$dir".q|subroutinesimg91.png"
  ALT="${N_{\rm side}}=\sqrt{{N_{\rm pix}}/12}$">|; 
-
-$key = q/%latex2htmlidmarker24812setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg63.png"
- ALT="% latex2html id marker 24812
-\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
 
 $key = q/l_{{rm{max}=m_{{rm{max}=64;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="147" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg124.png"
+ SRC="|."$dir".q|subroutinesimg125.png"
  ALT="$l_{\rm
 max}=m_{\rm max} = 64$">|; 
 
 $key = q/l_{{rm{max}leq4{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="109" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg98.png"
+ SRC="|."$dir".q|subroutinesimg99.png"
  ALT="$l_{\rm max}\leq 4{N_{\rm side}}$">|; 
 
 $key = q/P_{lm}!!;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="31" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg113.png"
+ SRC="|."$dir".q|subroutinesimg114.png"
  ALT="$P_{lm}\!\!$">|; 
-
-$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>658;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg130.png"
- ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
-$">|; 
 
 $key = q/left.{partial^2T}slash{partialphi^2}slashsin^2thetaright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -647,7 +633,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{pix}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg88.png"
+ SRC="|."$dir".q|subroutinesimg89.png"
  ALT="${N_{\rm pix}}$">|; 
 
 $key = q/_{0}a^-_{lm}=0;MSF=1.6;LFS=12;AAT/;
@@ -687,13 +673,6 @@ $cached_env_img{$key} = q|<IMG
  ALT="$l
 \leq 1024$">|; 
 
-$key = q/%latex2htmlidmarker24907setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
- SRC="|."$dir".q|subroutinesimg78.png"
- ALT="% latex2html id marker 24907
-\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
-
 $key = q/a_{lm}longrightarrowa_{lm}b(l);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="128" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
@@ -704,27 +683,20 @@ $cached_env_img{$key} = q|<IMG
 $key = q/lambda_{20}(theta_1);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="61" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg105.png"
+ SRC="|."$dir".q|subroutinesimg106.png"
  ALT="$\lambda_{20}(\theta_1)$">|; 
 
 $key = q/lambda_{lm};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="32" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg101.png"
+ SRC="|."$dir".q|subroutinesimg102.png"
  ALT="$\lambda_{lm}$">|; 
 
 $key = q/{N_{{rm{templates}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="78" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg94.png"
+ SRC="|."$dir".q|subroutinesimg95.png"
  ALT="${N_{\rm templates}}$">|; 
-
-$key = q/displaystyle<comment_mark>6572slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
-$cached_env_img{$key} = q|<IMG
- WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg129.png"
- ALT="$\displaystyle %[Nside*(Nside+2)/4]
-2/3 &gt; z \geq 0,$">|; 
 
 $key = q/y=sinthetasinphi;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -735,7 +707,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/=-1.637510^{30};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="130" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg86.png"
+ SRC="|."$dir".q|subroutinesimg87.png"
  ALT="$ = -1.6375 10^{30}$">|; 
 
 $key = q/left({partial^2T}slash{partialtheta^2},{partial^2Q}slash{partialtheta^2},{partial^2Q}slash{partialtheta^2},ldotsright);MSF=1.6;LFS=12;AAT/;
@@ -754,14 +726,14 @@ $cached_env_img{$key} = q|<IMG
 $key = q/z=sin({{rm{latitude})=cos(theta).;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg83.png"
+ SRC="|."$dir".q|subroutinesimg84.png"
  ALT="$z=\sin({\rm latitude}) =
 \cos(\theta).$">|; 
 
 $key = q/{displaymath}b_i=sum_{pincal{P}}s_i(p)w(p)m(p),{displaymath};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="187" HEIGHT="52" BORDER="0"
- SRC="|."$dir".q|subroutinesimg116.png"
+ SRC="|."$dir".q|subroutinesimg117.png"
  ALT="\begin{displaymath}
 b_i = \sum_{p \in \cal{P}} s_i(p) w(p) m(p),
 \end{displaymath}">|; 
@@ -778,6 +750,13 @@ $cached_env_img{$key} = q|<IMG
  SRC="|."$dir".q|subroutinesimg64.png"
  ALT="$2^{31}-1 \simeq 2.1 10^9$">|; 
 
+$key = q/%latex2htmlidmarker24807setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg62.png"
+ ALT="% latex2html id marker 24807
+\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
+
 $key = q/left.{partialT}slash{partialphi}slashsintheta,ldotsright);MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="148" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
@@ -785,11 +764,25 @@ $cached_env_img{$key} = q|<IMG
  ALT="$\left.{\partial T}/{\partial \phi}/\sin\theta, \ldots \right)
 $">|; 
 
+$key = q/displaystyle<comment_mark>7212slash3>zgeq0,;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="107" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg133.png"
+ ALT="$\displaystyle %[Nside*(Nside+2)/4]
+2/3 &gt; z \geq 0,$">|; 
+
 $key = q/1slashsqrt{4pi};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="60" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
  SRC="|."$dir".q|subroutinesimg75.png"
  ALT="$1/\sqrt{4\pi}$">|; 
+
+$key = q/%latex2htmlidmarker25999setcounter{footnote}{1}fnsymbol{footnote};LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="8" HEIGHT="8" ALIGN="BOTTOM" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg101.png"
+ ALT="% latex2html id marker 25999
+\setcounter{footnote}{1}\fnsymbol{footnote}">|; 
 
 $key = q/textstylemyequal;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
@@ -812,7 +805,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{pix}}-1;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="71" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg99.png"
+ SRC="|."$dir".q|subroutinesimg100.png"
  ALT="${N_{\rm pix}}-1$">|; 
 
 $key = q/a=sum_i|x_i-m|slashn;MSF=1.6;LFS=12;AAT/;
@@ -828,6 +821,13 @@ $cached_env_img{$key} = q|<IMG
  ALT="$\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right)
 $">|; 
 
+$key = q/displaystylephi=0,quad{{rm{or}quadphi=frac{pi}{4{N_{{rm{side}}}.<comment_mark>660;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="206" HEIGHT="51" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg131.png"
+ ALT="$\displaystyle \phi=0, \quad{\rm or}\quad \phi=\frac{\pi}{4{N_{\rm side}}}. %[Nside]
+$">|; 
+
 $key = q/partial^2Xslashpartialtheta^2;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="76" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
@@ -837,7 +837,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/textstyle;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="11" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg127.png"
+ SRC="|."$dir".q|subroutinesimg128.png"
  ALT="$\textstyle  $">|; 
 
 $key = q/phi;MSF=1.6;LFS=12;AAT/;
@@ -849,13 +849,19 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{side}}=32;MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg112.png"
+ SRC="|."$dir".q|subroutinesimg113.png"
  ALT="${N_{\rm side}}=32$">|; 
+
+$key = q/pm;MSF=1.6;LFS=12;AAT/;
+$cached_env_img{$key} = q|<IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="|."$dir".q|subroutinesimg83.png"
+ ALT="$\pm$">|; 
 
 $key = q/l^3_{{rm{max};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="36" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|subroutinesimg123.png"
+ SRC="|."$dir".q|subroutinesimg124.png"
  ALT="$l^3_{\rm max}$">|; 
 
 $key = q/left({partial^2T}slash{partialtheta^2},{partial^2T}slash{partialthetapartialphi}slashsintheta,right.;MSF=1.6;LFS=12;AAT/;

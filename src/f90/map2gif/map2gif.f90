@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2013 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -194,7 +194,7 @@ PROGRAM MAP2GIF
 !    nsmax = NINT(SQRT( npixtot / 12.) )
 !    call assert(npixtot == 12*nsmax*nsmax,'wrong number of pixels')
    nsmax = npix2nside(npixtot)
-   call assert(nsmax > 1, 'wrong number of pixels')
+   call assert(nsmax > 0, 'wrong number of pixels')
    chunk = 1024*512
    if (nsmax <= 256) chunk = 2
 
@@ -205,8 +205,7 @@ PROGRAM MAP2GIF
    call assert_alloc(status,'map2gif','map_IQU') 
 
    !--- read in the FITS file ---
-!   call input_map(input_file, map_IQU, npixtot, nmaps, fmissval=HPX_SBADVAL, extno=i_ext)
-   call read_bintab(input_file, map_IQU, npixtot, nmaps, fmissval, anynull, extno=i_ext) ! leave flagged pixels unchanged
+   call read_bintab(input_file, map_IQU, npixtot, nmaps, fmissval, anynull, extno=i_ext) ! flagged, NaN and Infinity pixels take same value of HPX_*BADVAL (returned in fmissval)
 !    call wall_clock_time(time1)
 !    print*,'file read:', time1-time0
 

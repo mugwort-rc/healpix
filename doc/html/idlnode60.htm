@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>remove_dipole</TITLE>
-<META NAME="description" CONTENT="remove_dipole">
+<TITLE>reorder </TITLE>
+<META NAME="description" CONTENT="reorder ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,197 +28,126 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html893"
+<A NAME="tex2html902"
   HREF="idlnode59.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html908"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html903"
+<A NAME="tex2html912"
   HREF="idlnode61.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html910"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html894"
-  HREF="idlnode59.htm">read_tqu</A>
+<B> Previous:</B> <A NAME="tex2html903"
+  HREF="idlnode59.htm">remove_dipole</A>
 
-<B>Up:</B> <A NAME="tex2html900"
+<B>Up:</B> <A NAME="tex2html909"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html904"
-  HREF="idlnode61.htm">reorder</A>
+<B> Next:</B> <A NAME="tex2html913"
+  HREF="idlnode61.htm">rotate_coord</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000600000000000000000"></A>
-<A NAME="idl:remove_dipole"></A>
+<A NAME="idl:reorder"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">remove_dipole</FONT></font></b><hr><H2>This IDL facility provides a means to fit and remove the dipole and monopole
-from a <b>HEALPix</b> map.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/remove_dipole.pro
+<b><font size=+6><FONT COLOR="#CC0000">reorder </FONT></font></b><hr><H2>This IDL facility allows the reordering of a full sky map from NESTED to RING
+scheme and vice-versa.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/toolkit/reorder.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-REMOVE_DIPOLE,
-<A HREF="#idl:remove_dipole:map"> Map</A> [,
-<A HREF="#idl:remove_dipole:weight"> Weight</A>,
-<A HREF="#idl:remove_dipole:bad_data">BAD_DATA=</A>,
-<A HREF="#idl:remove_dipole:gal_cut">GAL_CUT=</A>,
-<A HREF="#idl:remove_dipole:coord_in">COORD_IN=</A>,
-<A HREF="#idl:remove_dipole:coord_out">COORD_OUT=</A>,
-<A HREF="#idl:remove_dipole:covariance_matrix">Covariance_Matrix=</A>,
-<A HREF="#idl:remove_dipole:dipole">Dipole=</A>,
-<A HREF="#idl:remove_dipole:monopole">Monopole=</A>,
-<A HREF="#idl:remove_dipole:noremove">/NOREMOVE</A>,
-<A HREF="#idl:remove_dipole:nside">NSIDE=</A>,
-<A HREF="#idl:remove_dipole:onlymonopole">/ONLYMONOPOLE</A>,
-<A HREF="#idl:remove_dipole:ordering">ORDERING=</A>,
-<A HREF="#idl:remove_dipole:pixel">PIXEL=</A>,
-<A HREF="#idl:remove_dipole:silent">/SILENT</A>,
-<A HREF="#idl:remove_dipole:units">UNITS=</A>,
-<A HREF="#idl:remove_dipole:help">/HELP</A>]
+<A HREF="#idl:reorder:result">Result</A> = REORDER (<A HREF="#idl:reorder:input_map">Input_map</A> [, 
+<A HREF="#idl:reorder:help">/HELP</A>, 
+<A HREF="#idl:reorder:in">In</A>=, 
+<A HREF="#idl:reorder:out">Out</A>=, 
+<A HREF="#idl:reorder:n2r">/N2R</A>, 
+<A HREF="#idl:reorder:r2n">/R2N</A>])
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>Map</B>
-<DD><A NAME="idl:remove_dipole:map"></A> input and output, vector
-<BR>
-map from which monopole and dipole are to be removed
-      (also used for output).
-      Assumed to be a full sky data set, unless PIXEL is set and has the same
-      size as map
-    <DT>
-<B>Weight</B>
-<DD><A NAME="idl:remove_dipole:weight"></A> input, vector, optional
-<BR>
-same size as map,
-     describe weighting scheme to apply to each pixel for the fit 
-<BR>	<b>default:</b>uniform weight
-    <DT>
-<B>BAD_DATA =</B>
-<DD><A NAME="idl:remove_dipole:bad_data"></A> 
-    scalar float, value given on input to bad pixels 
-<BR>          <b>default:</b><TT>!healpix.bad_value</TT> <!-- MATH
- $\equiv -1.6375\ 10^{30}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="131" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg84.png"
- ALT="$\equiv -1.6375\ 10^{30}$"></SPAN>.
-    <DT>
-<B>GAL_CUT=</B>
-<DD><A NAME="idl:remove_dipole:gal_cut"></A> 
-    if set to a value larger than 0, the pixels with galactic
-    latitude <SPAN CLASS="MATH">|b|&lt;</SPAN>gal_cut degrees are not considered in the
-      fit. 
-<BR><B>NB:</B>
-      the cut is <EM>really</EM> done in Galactic coordinates. If the input
-      coordinates are different (see Coord_In), the map is rotated into galactic
-      before applying the cut.
-    <DT>
-<B>COORD_IN =</B>
-<DD><A NAME="idl:remove_dipole:coord_in"></A> 
-     string, map coordinate system (either 'Q' or 'C': equatorial,
-    'G': galactic or 'E': ecliptic; upper/lower case accepted)
-<BR>         <b>default:</b>'G' (galactic)
-    <DT>
-<B>COORD_OUT =</B>
-<DD><A NAME="idl:remove_dipole:coord_out"></A> 
-    string, coordinate system (see above) in which
-    to output dipole vector in variable Dipole 
-<BR>         <b>default:</b>same as coord_in
-    <DT>
-<B>Covariance_Matrix =</B>
-<DD><A NAME="idl:remove_dipole:covariance_matrix"></A> 
-    OUTPUT, scalar (or symmetric 4x4 matrix), 
-<BR>
-covariance
-     of the statistical errors made on monopole (and dipole) determination
-    <DT>
-<B>Dipole=</B>
-<DD><A NAME="idl:remove_dipole:dipole"></A> 
-	OUTPUT, 3d vector, 
-<BR>
-coordinates of best fit dipole (done simultaneously with monopole), same
-        units as input map
-    <DT>
-<B>Monopole=</B>
-<DD><A NAME="idl:remove_dipole:monopole"></A> 
-        OUTPUT, scalar float, 
-<BR>
-value found for the best fit monopole (done simultaneously with dipole),
-        same units as input map
-    <DT>
-<B>NSIDE=</B>
-<DD><A NAME="idl:remove_dipole:nside"></A> 
-    scalar integer, healpix resolution parameter
-    <DT>
-<B>ORDERING=</B>
-<DD><A NAME="idl:remove_dipole:ordering"></A> 
-    string, ordering scheme (either 'RING' or 'NESTED')
-    <DT>
-<B>PIXEL=</B>
-<DD><A NAME="idl:remove_dipole:pixel"></A> 
-    input, vector, gives the Healpix index of the pixels
-        whose temperature is actually given in map (for cut sky
-    maps). If present, must match Map in size. If absent, it is
-    assumed that the map covers the whole sky.
-    <DT>
-<B>UNITS=</B>
-<DD><A NAME="idl:remove_dipole:units"></A> 
-   string, units of the input map
-  </DL><SMALL CLASS="FOOTNOTESIZE">
+<B>Result</B>
+<DD><A NAME="idl:reorder:result"></A>	variable containing on output the reordered map
+
+<P>
+<DT>
+<B>Input_map</B>
+<DD><A NAME="idl:reorder:input_map"></A>          variable containing the input map
+
+<P>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>/NOREMOVE</B>
-<DD><A NAME="idl:remove_dipole:noremove"></A> 
-   if set, the best fit dipole and monopole are computed but not
-    removed (ie, Map is unchanged)
-    <DT>
-<B>/ONLYMONOPOLE</B>
-<DD><A NAME="idl:remove_dipole:onlymonopole"></A> 
-   if set, fit (and remove) only the monopole
-    <DT>
 <B>/HELP</B>
-<DD><A NAME="idl:remove_dipole:help"></A> 
-    if set, only display documentation header
-    <DT>
-<B>/SILENT</B>
-<DD><A NAME="idl:remove_dipole:silent"></A> 
-    if set, the routine works silently
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-<SMALL CLASS="FOOTNOTESIZE">  
-</SMALL>
+<DD><A NAME="idl:reorder:help"></A>	if set, the documentation header is printed out and the code exits
+
+<P>
+<DT>
+<B>In=</B>
+<DD><A NAME="idl:reorder:in"></A>	specifies the input ordering, can be either 'RING' or 'NESTED'
+
+<P>
+<DT>
+<B>Out=</B>
+<DD><A NAME="idl:reorder:out"></A>	specifies the output ordering, can be either 'RING' or 'NESTED'
+
+<P>
+<DT>
+<B>/N2R</B>
+<DD><A NAME="idl:reorder:n2r"></A>	  If set, does the NESTED to RING conversion, equivalent to In='NESTED'
+	  and Out='RING' 
+
+<P>
+<DT>
+<B>/R2N</B>
+<DD><A NAME="idl:reorder:r2n"></A>	  If set, does the RING to NESTED conversion, equivalent to 
+In='RING' and Out='NESTED'
+   </DL><SMALL CLASS="FOOTNOTESIZE">
+
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-remove_dipolemakes a simultaneous least square fit of the monopole and dipole on all the valid
-pixels of Map (those with a value different from BAD_DATA) with a galactic
-latitude larger in magnitude than GAL_CUT (in degrees). The position of the pixels
-on the sky is reconstructed from NSIDE and ORDERING.
-If Map does not cover the full sky, the actual indices of the concerned pixels should be given in PIXEL
+reorder allows the reordering of a full sky map from NESTED to RING
+scheme and vice-versa
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">remove_dipole</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">reorder </FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run remove_dipole.
-  </DL><SMALL CLASS="FOOTNOTESIZE">
+<DD>version 6.1 or more is necessary to run reorder <DT>
+<B><A HREF="idlnode64.htm#idl:ud_grade">ud_grade</A></B>
+<DD>downgrades or progrades a full-sky
+or cut-sky <b>HEALPix</b> map.
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+</SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+map_nest = reorder(map_ring, in='ring', out='nest') </SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
+</font></tt>
+<BR><blockquote>The RING ordered map <TT>map_ring</TT> is converted to the 
+NESTED map <TT>map_nest</TT>.
+</blockquote>
+<P>
 <SMALL CLASS="FOOTNOTESIZE"></SMALL>
+<P>
+
 <P>
 
 <P>
@@ -226,32 +155,32 @@ If Map does not cover the full sky, the actual indices of the concerned pixels s
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html893"
+<A NAME="tex2html902"
   HREF="idlnode59.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html908"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html903"
+<A NAME="tex2html912"
   HREF="idlnode61.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html910"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html894"
-  HREF="idlnode59.htm">read_tqu</A>
+<B> Previous:</B> <A NAME="tex2html903"
+  HREF="idlnode59.htm">remove_dipole</A>
 
-<B>Up:</B> <A NAME="tex2html900"
+<B>Up:</B> <A NAME="tex2html909"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html904"
-  HREF="idlnode61.htm">reorder</A>
+<B> Next:</B> <A NAME="tex2html913"
+  HREF="idlnode61.htm">rotate_coord</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

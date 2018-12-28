@@ -404,8 +404,8 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>
-Imports the map <em>orig</em> into the current map, adjusting the ordering scheme and the map resolution. <em>orig</em> must have higher resolution than the current map. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00118">118</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+Imports the map <em>orig</em> into the current map, adjusting the ordering scheme and the map resolution. <em>orig</em> must have lower resolution than the current map, and <em>this-&gt;<a class="el" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside()</a></em> must be an integer multiple of <em>orig.Nside()</em>. 
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00119">119</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -437,7 +437,7 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>
-Imports the map <em>orig</em> into the current map, adjusting the ordering scheme and the map resolution. <em>orig</em> must have higher resolution than the current map. <em>pessimistic</em> determines whether or not pixels are set to <em>Healpix_undef</em> when not all of the corresponding high-resolution pixels are defined.<p>
+Imports the map <em>orig</em> into the current map, adjusting the ordering scheme and the map resolution. <em>orig</em> must have higher resolution than the current map, and <em>orig.Nside()</em> must be an integer multiple of <em>this-&gt;<a class="el" href="classT__Healpix__Base.html#3d8d1fd800422b9c80b1676018ffd97a">Nside()</a></em>. <em>pessimistic</em> determines whether or not pixels are set to <em>Healpix_undef</em> when not all of the corresponding high-resolution pixels are defined.<p>
 This method is instantiated for <em>float</em> and <em>double</em> only. 
 <p>Definition at line <a class="el" href="healpix__map_8cc-source.html#l00037">37</a> of file <a class="el" href="healpix__map_8cc-source.html">healpix_map.cc</a>.</p>
 
@@ -473,7 +473,7 @@ template&lt;typename T&gt; </div>
 <p>
 Imports the map <em>orig</em> into the current map, adjusting the ordering scheme and the map resolution if necessary. When downgrading, <em>pessimistic</em> determines whether or not pixels are set to <em>Healpix_undef</em> when not all of the corresponding high-resolution pixels are defined.<p>
 This method is instantiated for <em>float</em> and <em>double</em> only. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00160">160</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00162">162</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -497,7 +497,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a constant reference to the pixel with the number <em>pix</em>. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00171">171</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00173">173</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -521,7 +521,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a reference to the pixel with the number <em>pix</em>. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00173">173</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00175">175</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -544,7 +544,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Swaps the map ordering from RING to NEST and vice versa. This is done in-place (i.e. with negligible space overhead). 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00177">177</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00179">179</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -577,7 +577,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 performs the actual interpolation using <em>pix</em> and <em>wgt</em>. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00202">202</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00204">204</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -601,7 +601,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the interpolated map value at <em>ptg</em> 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00216">216</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00218">218</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -624,7 +624,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a constant reference to the map data. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00225">225</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00227">227</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -682,7 +682,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Swaps the contents of two <a class="el" href="classHealpix__Map.html">Healpix_Map</a> objects. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00234">234</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00236">236</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -705,7 +705,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the average of all defined map pixels. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00241">241</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00243">243</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -729,7 +729,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Adds <em>val</em> to all defined map pixels. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00252">252</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00254">254</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -753,7 +753,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Multiplies all defined map pixels by <em>val</em>. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00260">260</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00262">262</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -776,7 +776,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the root mean square of the map, not counting undefined pixels. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00269">269</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00271">271</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -799,7 +799,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns the maximum absolute value in the map, ignoring undefined pixels. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00282">282</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00284">284</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -822,7 +822,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns <em>true</em>, if no pixel has the value <em>Healpix_undef</em>, else <em>false</em>. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00294">294</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00296">296</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -845,7 +845,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Sets all pixels with the value <em>Healpix_undef</em> to 0, and returns the number of modified pixels. 
-<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00303">303</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
+<p>Definition at line <a class="el" href="healpix__map_8h-source.html#l00305">305</a> of file <a class="el" href="healpix__map_8h-source.html">healpix_map.h</a>.</p>
 
 </div>
 </div><p>
@@ -853,7 +853,7 @@ Sets all pixels with the value <em>Healpix_undef</em> to 0, and returns the numb
 <li><a class="el" href="healpix__map_8h-source.html">healpix_map.h</a><li><a class="el" href="healpix__map_8cc-source.html">healpix_map.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
+Generated on Fri Mar 22 17:52:48 2013 for Healpix C++
 </a> </small></address>
 </body>
 </html>

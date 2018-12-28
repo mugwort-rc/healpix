@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 
-def is_clang_or_llvm_the_default_cc():
+def is_clang_the_default_cc():
     """Check if the cc command runs clang or not. Return true if it does.
     """
     from distutils import sysconfig
@@ -24,7 +24,7 @@ def is_clang_or_llvm_the_default_cc():
     if p.returncode:
         return False
 
-    return ('clang' in cc_output or 'llvm' in cc_output)
+    return ('clang' in cc_output)
 
 TARGET_DICT = {
     'linux': 'healpy',
@@ -54,8 +54,8 @@ try:
 except KeyError:
     raise AssertionError ('Unsupported platform: %s' % SYSTEM_STRING)
 
-if is_clang_or_llvm_the_default_cc():
-    print ("Detected clang/llvm compiler, disabling openMP, as it is currently unsupported")
+if is_clang_the_default_cc():
+    print ("Detected clang compiler, disabling openMP, as it is currently unsupported")
     default_options['openmp'] = False
 
 
@@ -107,9 +107,9 @@ try:
     if not os.path.exists('healpy/src/_query_disc.pyx'): #pypi source package does contain the pyx files
         raise
     from Cython.Distutils import build_ext
-    import Cython.Compiler.Version
-    version = [int(v) for v in Cython.Compiler.Version.version.split(".")]
-    assert version[1]>=14
+    import Cython.Compiler.Version as CythonVersion
+    from distutils.version import LooseVersion
+    assert LooseVersion(CythonVersion.version) >= LooseVersion("0.14")
     ext = "pyx"
     extcpp = "pyx"
 except:
@@ -124,6 +124,9 @@ else:
     from numpy import get_include
     numpy_inc = get_include()
 
+HEALPIX_FOLDER = 'healpixcxx'
+HEALPIX_CXX_FOLDER = os.path.join(HEALPIX_FOLDER, "src", "cxx") 
+
 class build_healpix(build_clib):
     def build_libraries(self, libraries):
         if 'HEALPIX_EXT_PREFIX' in os.environ:
@@ -133,7 +136,15 @@ class build_healpix(build_clib):
             cxx = self.compiler.compiler_cxx[0]
             build_temp = os.path.realpath(self.build_temp)
             build_clib = os.path.realpath(self.build_clib)
-            cmdline = ['make', '-w', '-C', 'hpbeta',
+            if not os.path.exists(os.path.join(HEALPIX_CXX_FOLDER, "Makefile")):
+                print """Missing Makefile from the healpix submodule folder,
+healpy includes healpix using git submodule, you need to go in the root folder
+of the git repository and run:
+    git submodule init
+    git submodule update
+    """
+                sys.exit(1)
+            cmdline = ['make', '-w', '-C', HEALPIX_CXX_FOLDER,
                 'HEALPIX_TARGET=%s' % HEALPIX_TARGET,
                 'HEALPIX_EXTRAFLAGS=%s' % HEALPIX_EXTRAFLAGS,
                 'CC=%s' % cc,
@@ -167,33 +178,43 @@ def get_version():
                          'healpy/version.py')
     return __version__
 
-
 healpy_pixel_lib_src = '_healpy_pixel_lib.cc'
 healpy_spht_src = '_healpy_sph_transform_lib.cc'
 healpy_fitsio_src = '_healpy_fitsio_lib.cc'
 
 library_dirs = []
 include_dirs = [numpy_inc]
-# cfitsio needs to be last in order to correctly link the healpix libraries
-# so needs to go in extra_link instead of libraries
-extra_link = ['-lcfitsio']
-healpix_libs = []
+extra_link = []
 
-if 'CFITSIO_EXT_PREFIX' in os.environ:
-    cfitsio_inc_dir = os.path.join(os.environ['CFITSIO_EXT_PREFIX'], 'include')
-    cfitsio_lib_dir = os.path.join(os.environ['CFITSIO_EXT_PREFIX'], 'lib')
-    include_dirs.append(cfitsio_inc_dir)
-    library_dirs.append(cfitsio_lib_dir)
+if not 'HEALPIX_EXT_PREFIX' in os.environ and not (
+    ('CFITSIO_EXT_PREFIX' in os.environ) or 
+    ('CFITSIO_EXT_LIB' in os.environ and 'CFITSIO_EXT_INC' in os.environ)
+    ):
+    print """WARNING: In order to build HEALPIX C++ it is necessary either
+to create the environment variable:
 
-# Standard system libraries in /usr are included, as in most linux distribution
-# the cfitsio package installed via package manager is located there;
-# this way install should work often without specifying CFITSIO_EXT_PREFIX
-if not library_dirs:
-    print ("""CFITSIO_EXT_PREFIX environment variable not set,
-    trying with the default /usr/,
-    if healpy fails at runtime, please see INSTALL""")
-    include_dirs.append("/usr/include/")
-    library_dirs.append("/usr/lib/")
+* CFITSIO_EXT_PREFIX with the path to the location of cfitsio as
+CFITSIO_EXT_PREFIX/include/fitsio.h and CFITSIO_EXT_PREFIX/lib/libcfitsio.* 
+
+or:
+
+* CFITSIO_EXT_INC with the include folder and CFITSIO_EXT_LIB with full path 
+to the libcfitsio.* library with full filename
+
+"""
+else:
+    if 'CFITSIO_EXT_PREFIX' in os.environ:
+        cfitsio_inc_dir = os.path.join(os.environ['CFITSIO_EXT_PREFIX'], 'include')
+        cfitsio_lib_dir = os.path.join(os.environ['CFITSIO_EXT_PREFIX'], 'lib')
+        include_dirs.append(cfitsio_inc_dir)
+        library_dirs.append(cfitsio_lib_dir)
+        # cfitsio needs to be last in order to correctly link the healpix libraries
+        # so needs to go in extra_link instead of libraries
+        extra_link.append('-lcfitsio')
+    else:
+        include_dirs.append(os.environ['CFITSIO_EXT_INC'])
+        # works both in the form -Lfolder -lcfitsio and full path to library
+        extra_link.append(os.environ['CFITSIO_EXT_LIB'].strip())
 
 if 'HEALPIX_EXT_PREFIX' in os.environ:
     healpix_inc_dir = os.path.join(os.environ['HEALPIX_EXT_PREFIX'], 'include')
@@ -213,7 +234,6 @@ pixel_lib = Extension('healpy._healpy_pixel_lib',
                       sources=[join('healpy','src', healpy_pixel_lib_src)],
                       include_dirs=include_dirs,
                       library_dirs=library_dirs,
-                      libraries=healpix_libs,
                       extra_compile_args = healpix_args,
                       extra_link_args = extra_link
                       )
@@ -222,7 +242,6 @@ spht_lib = Extension('healpy._healpy_sph_transform_lib',
                      sources=[join('healpy','src', healpy_spht_src)],
                      include_dirs=include_dirs,
                      library_dirs=library_dirs,
-                     libraries=healpix_libs,
                      extra_compile_args=healpix_args,
                      extra_link_args = extra_link
                      )
@@ -231,12 +250,9 @@ hfits_lib = Extension('healpy._healpy_fitsio_lib',
                       sources=[join('healpy','src', healpy_fitsio_src)],
                       include_dirs=include_dirs,
                       library_dirs=library_dirs,
-                      libraries=healpix_libs,
                       extra_compile_args=healpix_args,
                       extra_link_args = extra_link
                       )
-
-# 
 
 if on_rtd:
     libraries = []
@@ -245,30 +261,31 @@ if on_rtd:
 else:
     libraries = [('healpix_cxx', {'sources':[]}),
                  ('cxxsupport', {'sources':[]}),
-                 ('psht', {'sources':[]}),
+                 ('sharp', {'sources':[]}),
                  ('fftpack', {'sources':[]}),
                  ('c_utils', {'sources':[]})]
     cmdclass = {'build_ext': custom_build_ext, 'build_clib': build_healpix}
     extension_list = [pixel_lib, spht_lib, hfits_lib,
-                      Extension("healpy.pshyt", ["pshyt/pshyt."+ext],
-                                include_dirs = [numpy_inc] + include_dirs,
-                                library_dirs = library_dirs,
-                                extra_link_args = extra_link),
                       Extension("healpy._query_disc",
                                 ['healpy/src/_query_disc.'+extcpp],
                                 include_dirs = [numpy_inc] + include_dirs,
-                                libraries = healpix_libs,
                                 library_dirs = library_dirs,
                                 extra_link_args = extra_link,
                                 language='c++'),
                       Extension("healpy._sphtools", 
                                 ['healpy/src/_sphtools.'+extcpp],
                                 include_dirs = [numpy_inc] + include_dirs,
-                                libraries = healpix_libs,
                                 library_dirs = library_dirs,
                                 extra_compile_args = healpix_args,
                                 extra_link_args = extra_link,
-                                language='c++')
+                                language='c++'),
+                      Extension("healpy._pixelfunc", 
+                                ['healpy/src/_pixelfunc.'+extcpp],
+                                include_dirs = [numpy_inc] + include_dirs,
+                                library_dirs = library_dirs,
+                                extra_compile_args = healpix_args,
+                                extra_link_args = extra_link,
+                                language='c++'),
                       ]
     for e in extension_list[-3:]: #extra setup for Cython extensions
         e.pyrex_directives = {"embedsignature": True}

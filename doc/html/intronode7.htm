@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Angular power spectrum conventions</TITLE>
-<META NAME="description" CONTENT="Angular power spectrum conventions">
+<TITLE>Pixel window functions</TITLE>
+<META NAME="description" CONTENT="Pixel window functions">
 <META NAME="keywords" CONTENT="intro">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -20,7 +20,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="next" HREF="intronode8.htm">
 <LINK REL="previous" HREF="intronode6.htm">
-<LINK REL="up" HREF="intronode6.htm">
+<LINK REL="up" HREF="intro.htm">
 <LINK REL="next" HREF="intronode8.htm">
 </HEAD>
 
@@ -32,7 +32,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
 <A NAME="tex2html143"
-  HREF="intronode6.htm">
+  HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
 <A NAME="tex2html147"
   HREF="intronode8.htm">
@@ -45,114 +45,309 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   HREF="intronode6.htm">HEALPix conventions</A>
 
 <B>Up:</B> <A NAME="tex2html144"
-  HREF="intronode6.htm">HEALPix conventions</A>
+  HREF="intro.htm">Introduction to Healpix</A>
 
 <B> Next:</B> <A NAME="tex2html148"
-  HREF="intronode8.htm">HEALPix and CMBFAST</A>
+  HREF="intronode8.htm">A Comment on the</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H2><A NAME="SECTION00061000000000000000">
-Angular power spectrum conventions</A>
-</H2>
-These <SPAN CLASS="MATH"><IMG
- WIDTH="31" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg21.png"
- ALT="$\hat{a}_{lm}$"></SPAN> can be used to compute estimates of the angular power spectrum
- <SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg22.png"
- ALT="$\hat{C}_l$"></SPAN> as 
+<H1><A NAME="SECTION00070000000000000000">
+Pixel window functions</A>
+</H1>
+
+<P>
+A pixelised signal <SPAN CLASS="MATH"><I>f</I>(<I>p</I>)</SPAN> is the average within each pixel <SPAN CLASS="MATH"><I>p</I></SPAN> (with surface
+area <!-- MATH
+ ${\Omega_{\rm pix}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg138.png"
+ ALT="${\Omega_{\rm pix}}$"></SPAN>) of the underlying signal 
 <BR>
-<DIV ALIGN="CENTER"><A NAME="eq:hatC"></A>
+<DIV ALIGN="CENTER">
+
 <!-- MATH
  \begin{eqnarray}
-\hat{C}_l&\myequal &\frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.
+f(p) &\myequal & \int d\u w_p(\u )f(\u )
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
-<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
- WIDTH="23" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg23.png"
- ALT="$\displaystyle \hat{C}_l$"></TD>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>f</I>(<I>p</I>)</TD>
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
  ALT="$\textstyle \myequal $"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
- WIDTH="136" HEIGHT="59" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg24.png"
- ALT="$\displaystyle \frac{1}{2l +1}\sum_{m} \vert\hat{a}_{lm}\vert^2.$"></TD>
+ WIDTH="131" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg139.png"
+ ALT="$\displaystyle \int d\u w_p(\u )f(\u )$"></TD>
 <TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
-(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
+(<SPAN CLASS="arabic">26</SPAN>)</TD></TR>
 </TABLE></DIV>
 <BR CLEAR="ALL"><P></P>
-
-<P>
-The <b>HEALPix</b> package contains the Fortran90 facility <TT>synfast</TT>
-which takes as input a power spectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> and generates a realisation of
-<SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg25.png"
- ALT="$f(\gamma_p)$"></SPAN>
-on the <b>HEALPix</b> grid.  The convention for power spectrum input into
-<TT>synfast</TT> is straightforward: each <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> is just the expected
-variance of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> at that <SPAN CLASS="MATH"><I>l</I></SPAN>. 
-
-<P>
-<BLOCKQUOTE>
-<B>Example</B>: The spherical harmonic coefficient <SPAN CLASS="MATH"><I>a</I><SUB>00</SUB></SPAN> is the
-integral of the <!-- MATH
- $f(\gamma)/\sqrt{4 \pi}$
+where <SPAN CLASS="MATH"><I>w</I><SUB><I>p</I></SUB></SPAN> is equal to <!-- MATH
+ $1/{\Omega_{\rm pix}}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="87" HEIGHT="43" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg26.png"
- ALT="$f(\gamma)/\sqrt{4 \pi}$"></SPAN> over the sphere. To 
-obtain realisations of functions which have <SPAN CLASS="MATH"><I>a</I><SUB>00</SUB></SPAN> distributed as a Gaussian
-with zero mean and variance 1, set <SPAN CLASS="MATH"><I>C</I><SUB>0</SUB></SPAN> to 1.  The value of the
-synthesised function at each pixel will
-be Gaussian distributed with mean zero and variance <SPAN CLASS="MATH"><IMG
- WIDTH="58" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg27.png"
- ALT="$1/(4\pi)$"></SPAN>. 
-As required,  the integral of <SPAN CLASS="MATH"><IMG
- WIDTH="41" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg28.png"
- ALT="$f(\gamma)$"></SPAN> over the full <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="introimg29.png"
- ALT="$4\pi$"></SPAN>
-solid angle of the sphere has zero mean and variance <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="introimg29.png"
- ALT="$4\pi$"></SPAN>. 
+ WIDTH="56" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg140.png"
+ ALT="$1/{\Omega_{\rm pix}}$"></SPAN> within the pixel, and equal to 0 outside, so
+that <!-- MATH
+ $\int d\u w_p(\u ) = 1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="122" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg141.png"
+ ALT="$\int d\u w_p(\u ) = 1$"></SPAN>.
+Eq.&nbsp;(<A HREF="intronode6.htm#eq:alms">1</A>) then becomes
+<BR>
+<DIV ALIGN="CENTER">
 
-</BLOCKQUOTE>
-Note that this definition implies the standard result that the total power
-at the angular wavenumber <SPAN CLASS="MATH"><I>l</I></SPAN> is <SPAN CLASS="MATH">(2<I>l</I>+1)<I>C</I><SUB><I>l</I></SUB></SPAN>, because there are
-<SPAN CLASS="MATH">2<I>l</I>+1</SPAN> modes for each  <SPAN CLASS="MATH"><I>l</I></SPAN>. 
+<!-- MATH
+ \begin{eqnarray}
+f(p)&\myequal &\sum_{l=0}^{l_{max}}\sum_{m}a_{lm}w_{lm}(p),
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>f</I>(<I>p</I>)</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="149" HEIGHT="71" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg142.png"
+ ALT="$\displaystyle \sum_{l=0}^{l_{max}}\sum_{m}a_{lm}w_{lm}(p),$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">27</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+where
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:pixel_lmp"></A>
+<!-- MATH
+ \begin{eqnarray}
+w_{lm}(p) &\myequal & \int d\u w_p(\u ) Y_{lm}(\u ),
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>w</I><SUB><I>lm</I></SUB>(<I>p</I>)</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="152" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg143.png"
+ ALT="$\displaystyle \int d\u w_p(\u ) Y_{lm}(\u ),$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">28</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+is the Spherical Harmonic Transform of the pixel <SPAN CLASS="MATH"><I>p</I></SPAN>.
 
 <P>
-This defines unambiguously how the <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> have to be defined given the
-units of the physical  quantity <SPAN CLASS="MATH"><I>f</I></SPAN>. In  cosmic
-microwave background research,
-popular choices for simulated maps are 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <SPAN CLASS="MATH"><IMG
- WIDTH="56" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg30.png"
- ALT="$\Delta T/T $"></SPAN>, a dimensionless quantity measuring relative
-fluctuations about the average CMB temperature.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- The absolute quantity <SPAN CLASS="MATH"><IMG
- WIDTH="34" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
- SRC="introimg31.png"
- ALT="$\Delta T$"></SPAN> in <SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="introimg32.png"
- ALT="$\mu K$"></SPAN> or <SPAN CLASS="MATH"><I>K</I></SPAN>.
-</DL>
+However, complete analysis of a pixelised map with the exact <SPAN CLASS="MATH"><I>w</I><SUB><I>lm</I></SUB>(<I>p</I>)</SPAN>
+defined above would be computationally intractable (because of azimutal
+variation of pixel shape over the polar caps of the <b>HEALPix</b> grid), 
+and some simplifying asumptions have to be
+made. If the pixel is small compared to the signal correlation length
+(determined by the beam size), the exact structure of the pixel can be ignored
+in the subsequent analysis and we can <EM>assume</EM>
+<BR>
+<DIV ALIGN="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+w_{lm}(p) = w_l(p) Y_{lm}(p)
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>w</I><SUB><I>lm</I></SUB>(<I>p</I>) = <I>w</I><SUB><I>l</I></SUB>(<I>p</I>) <I>Y</I><SUB><I>lm</I></SUB>(<I>p</I>)</TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">29</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+where we introduced the <SPAN CLASS="MATH"><I>m</I></SPAN>-averaged window function
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:pixel_lp"></A>
+<!-- MATH
+ \begin{eqnarray}
+w_{l}(p) &\myequal & \left(\frac{4 \pi}{2l+1}\sum_{m=-l}^{l} \left|w_{lm}(p)\right|^2\right)^{1/2},
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>w</I><SUB><I>l</I></SUB>(<I>p</I>)</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="229" HEIGHT="86" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg144.png"
+ ALT="$\displaystyle \left(\frac{4 \pi}{2l+1}\sum_{m=-l}^{l} \left\vert w_{lm}(p)\right\vert^2\right)^{1/2},$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">30</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+which is independent of the pixel location on the sky.
+
+<P>
+If we assume all the pixels to be identical, the power spectrum of the
+pixelized map, <!-- MATH
+ $C_{l}^{\rm pix}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg145.png"
+ ALT="$C_{l}^{\rm pix}$"></SPAN>, is related to the hypothetical unpixelized
+one, <!-- MATH
+ $C_{l}^{\rm unpix}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="54" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg146.png"
+ ALT="$C_{l}^{\rm unpix}$"></SPAN>, by 
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:cl_pixel"></A>
+<!-- MATH
+ \begin{eqnarray}
+C_{l}^{\rm pix} &\myequal & w^2_{l} C_{l}^{\rm unpix}
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="39" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg147.png"
+ ALT="$\displaystyle C_{l}^{\rm pix}$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="75" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg148.png"
+ ALT="$\displaystyle w^2_{l} C_{l}^{\rm unpix}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">31</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+where the effective pixel window function <SPAN CLASS="MATH"><I>w</I><SUB><I>l</I></SUB></SPAN> is defined as
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:pixel_l"></A>
+<!-- MATH
+ \begin{eqnarray}
+w_{l} &\myequal & \left(\frac{1}{{N_{\rm pix}}}\sum_{p=0}^{{N_{\rm pix}}-1} w^2_{l}(p)\right)^{1/2}.
+\end{eqnarray}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><I>w</I><SUB><I>l</I></SUB></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg10.png"
+ ALT="$\textstyle \myequal $"></TD>
+<TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
+ WIDTH="196" HEIGHT="86" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg149.png"
+ ALT="$\displaystyle \left(\frac{1}{{N_{\rm pix}}}\sum_{p=0}^{{N_{\rm pix}}-1} w^2_{l}(p)\right)^{1/2}.$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">32</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+This function is provided with the <b>HEALPix</b> package for <!-- MATH
+ $l\le 4{N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="84" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg150.png"
+ ALT="$l\le 4{N_{\rm side}}$"></SPAN> for each
+resolution parameter <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg151.png"
+ ALT="${N_{\rm side}}$"></SPAN>.
+
+<P>
+The pixel window functions are now available for both temperature and
+polarization.
+
+<P>
+For <!-- MATH
+ ${N_{\rm side}}\le 128$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg152.png"
+ ALT="${N_{\rm side}}\le 128$"></SPAN>, those window functions are computed exactly using
+Eqs.&nbsp;(<A HREF="#eq:pixel_lp">30</A>) and (<A HREF="#eq:pixel_l">32</A>). For <!-- MATH
+ ${N_{\rm side}}> 128$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg153.png"
+ ALT="${N_{\rm side}}&gt; 128$"></SPAN> the
+calculations are too costly to be done exactly at all <SPAN CLASS="MATH"><I>l</I></SPAN>. The temperature
+windows are
+extrapolated from the case <!-- MATH
+ ${N_{\rm side}}= 128$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg154.png"
+ ALT="${N_{\rm side}}= 128$"></SPAN> assuming a scaling in <SPAN CLASS="MATH"><I>l</I></SPAN> similar
+to the one exhibited by the window of a tophat pixel. The polarization
+windows are assumed to be proportional to those for temperature, with a
+proportionality factor given by the exact calculation of <SPAN CLASS="MATH"><I>w</I><SUB><I>l</I></SUB></SPAN> at low
+<SPAN CLASS="MATH"><I>l</I></SPAN>.
+
+<P>
+Because of a change of the extrapolation scheme used, the temperature window
+functions provided with <b>HEALPix</b> 1.2 and higher for <!-- MATH
+ ${N_{\rm side}}> 128$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg153.png"
+ ALT="${N_{\rm side}}&gt; 128$"></SPAN> are slighty different from those
+provided with <b>HEALPix</b> 1.1. For a given <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg151.png"
+ ALT="${N_{\rm side}}$"></SPAN>, the relative difference
+increases almost linearly with <SPAN CLASS="MATH"><I>l</I></SPAN>, and is of the order of <!-- MATH
+ $\Delta w/w < 7\ 10^{-4}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="135" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg155.png"
+ ALT="$\Delta w/w &lt; 7\ 10^{-4}$"></SPAN> at
+<!-- MATH
+ $l=2{N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="83" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg156.png"
+ ALT="$l=2{N_{\rm side}}$"></SPAN> and <!-- MATH
+ $\Delta w/w < 1.7\ 10^{-3}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="149" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg157.png"
+ ALT="$\Delta w/w &lt; 1.7\ 10^{-3}$"></SPAN> at <!-- MATH
+ $l=4{N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="83" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="introimg158.png"
+ ALT="$l=4{N_{\rm side}}$"></SPAN>.
 
 <P>
 
@@ -162,7 +357,7 @@ fluctuations about the average CMB temperature.
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
 <A NAME="tex2html143"
-  HREF="intronode6.htm">
+  HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
 <A NAME="tex2html147"
   HREF="intronode8.htm">
@@ -175,15 +370,15 @@ fluctuations about the average CMB temperature.
   HREF="intronode6.htm">HEALPix conventions</A>
 
 <B>Up:</B> <A NAME="tex2html144"
-  HREF="intronode6.htm">HEALPix conventions</A>
+  HREF="intro.htm">Introduction to Healpix</A>
 
 <B> Next:</B> <A NAME="tex2html148"
-  HREF="intronode8.htm">HEALPix and CMBFAST</A>
+  HREF="intronode8.htm">A Comment on the</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2012-11-30
+2013-03-22
 </ADDRESS>
 </BODY>
 </HTML>

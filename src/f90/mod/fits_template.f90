@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2013 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -52,6 +52,60 @@
 ! 2008-10-14: corrected bug introduced in write_asctab
 ! 2012-02-23: correction of a possible bug with index writing in dump_alms and write_alms
 !
+
+!=======================================================================
+! map_bad_pixels(map, fin, fout, nbads, verbose)
+!   map: input data (2D)
+!   fin: input value of 'bad' pixels
+!   fout: output value of same 'bad' pixels
+!   nbads: number of bad pixels found
+!   verbose: OPTIONAL, if set, be verbose
+!=======================================================================
+
+subroutine map_bad_pixels_KLOAD(map, fin, fout, nbads, verbose)
+  use long_intrinsic, only: long_size
+  real(KMAP), dimension(0:,1:), intent(inout) :: map
+  real(KMAP),                   intent(in)    :: fin, fout
+  integer(I8B),                 intent(out)   :: nbads
+  logical(LGT),     optional,   intent(in)    :: verbose
+  integer(I8B) :: i, npix
+  integer(I8B), dimension(1:100) :: imiss
+  integer(I4B) :: imap, nmaps
+  logical(LGT) :: be_verbose
+  real(KMAP) :: threshold
+  !-----------------------------------------
+  
+  npix  = long_size(map, 1)
+  nmaps = long_size(map, 2)
+  threshold = abs(fin * 1.e-5_KMAP)
+  
+  imiss(:) = 0
+  do imap = 1, nmaps
+     do i=0,npix-1
+        if ( abs( map(i,imap) - fin ) < threshold ) then
+           map(i,imap) = fout
+           imiss(imap) = imiss(imap)+1
+        endif
+     enddo
+  enddo
+  nbads = sum(imiss)
+  
+  be_verbose = .false.
+  if (present(verbose)) be_verbose=verbose
+  if (be_verbose) then
+     write(*,'(a,1pe11.4)') 'blank value : ' ,fin
+     do imap = 1, nmaps
+        if (imiss(imap) > 0) then
+           write(*,'(i7,a,f7.3,a,1pe11.4)') &
+                &           imiss(imap),' missing pixels (', &
+                &           (100.0_KMAP*imiss(imap))/npix,' %),'// &
+                &           ' have been set to : ',fout
+        endif
+     enddo
+  endif
+  
+  return
+end subroutine map_bad_pixels_KLOAD
 !=======================================================================
 ! input_map
 !     reads fits file
@@ -150,18 +204,19 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
        if (present(units)) then
           units(1:size(units)) = unitsm(1:size(units))
        endif
-       do imap = 1, nmaps
-          anynull = .true.
-          if (anynull) then
-             imissing = 0
-             do i=0,npixtot-1
-                if ( ABS(map(i,imap)/fmissing -1.) < 1.e-5 ) then
-                   map(i,imap) = fmiss_effct
-                   imissing = imissing + 1
-                endif
-             enddo
-          endif
-       enddo
+       call map_bad_pixels(map, fmissing, fmiss_effct, imissing, verbose=.false.)
+!        do imap = 1, nmaps
+!           anynull = .true.
+!           if (anynull) then
+!              imissing = 0
+!              do i=0,npixtot-1
+!                 if ( ABS(map(i,imap)/fmissing -1.) < 1.e-5 ) then
+!                    map(i,imap) = fmiss_effct
+!                    imissing = imissing + 1
+!                 endif
+!              enddo
+!           endif
+!        enddo
        if (imissing > 0) write(*,'(a,1pe11.4)') 'blank value : ' ,fmissing
     else if (type_fits == 3 .and. (nmaps == 1 .or. nmaps == 3)) then
        do imap = 1, nmaps
@@ -247,7 +302,7 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     real(DP)     :: bscale,bzero
     character(len=80) :: comment
     logical(LGT) :: extend
-    integer(I4B) :: nmove, hdutype
+    integer(I4B) :: nmove, hdutype, hdunum
     integer(I4B) :: frow, imap
     integer(I4B) :: datacode, width
     LOGICAL(LGT) ::  anynull_i
@@ -294,20 +349,27 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
     endif
 
     readwrite=0
-    call ftopen(unit,filename,readwrite,blocksize,status)
+    !call ftopen(unit,filename,readwrite,blocksize,status)
+    call ftnopn(unit,filename,readwrite, status) !open primary HDU or specified HDU
     if (status > 0) call printerror(status)
     !     -----------------------------------------
+    call ftghdn(unit, hdunum)
 
-    !     determines the presence of image
-    call ftgkyj(unit,'NAXIS', naxis, comment, status)
-    if (status > 0) call printerror(status)
+    if (hdunum == 1) then  ! in primary HDU
+       !     determines the presence of image
+       call ftgkyj(unit,'NAXIS', naxis, comment, status)
+       if (status > 0) call printerror(status)
 
-    !     determines the presence of an extension
-    call ftgkyl(unit,'EXTEND', extend, comment, status)
-    if (status > 0) status = 0 ! no extension : 
-    !     to be compatible with first version of the code
+       !     determines the presence of an extension
+       call ftgkyl(unit,'EXTEND', extend, comment, status)
+       if (status > 0) then
+          extend = .false.
+          status = 0 ! no extension : 
+       !     to be compatible with first version of the code
+       endif
+    endif
 
-    if (naxis > 0) then ! there is an image
+    if (naxis > 0 .and. .not.extend .and. hdunum==1) then ! there is an image
        !        determine the size of the image (look naxis1 and naxis2)
        call ftgknj(unit,'NAXIS',1_i4b,2_i4b,naxes,nfound,status)
 
@@ -343,12 +405,6 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
           status = 0
        endif
        call f90ftgky_(unit, 'BLANK', blank, comment, status)
-!        if (KMAP == SP) then
-!           call ftgkye(unit, 'BLANK', sdummy, comment, status) ; blank = sdummy
-!        endif
-!        if (KMAP == DP) then
-!           call ftgkyd(unit, 'BLANK', ddummy, comment, status) ; blank = ddummy
-!        endif
        if (status == 202) then ! BLANK not found 
           ! (according to fitsio BLANK is integer)
           blank = -2.e25
@@ -375,10 +431,14 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
        enddo
 111    continue
 
-    else if (extend) then ! there is an extension
-       nmove = +1
-       if (present(extno)) nmove = +1 + extno
-       call ftmrhd(unit, nmove, hdutype, status)
+    else if (extend .or. hdunum>1) then
+       if (hdunum == 1) then
+          nmove = +1
+          if (present(extno)) nmove = +1 + extno
+          call ftmrhd(unit, nmove, hdutype, status)
+       else
+          call ftghdt(unit, hdutype, status)
+       endif
 
        call assert (hdutype==2, 'this is not a binary table')
 
@@ -455,7 +515,7 @@ subroutine input_map8_KLOAD(filename, map, npixtot, nmaps, fmissval, header, uni
        enddo
 
     else ! no image no extension, you are dead, man
-       call fatal_error(' No image, no extension')
+       call fatal_error(' No image, no extension in '//trim(filename))
     endif
     !     close the file
     call ftclos(unit, status)

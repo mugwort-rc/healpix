@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2013 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -738,7 +738,7 @@ contains
 
     phi0 = zero
     if ((x0 /= zero).or.(y0 /= zero)) phi0 = atan2(y0, x0)  ! in ]-Pi, Pi]
-    cosphi0 = cos(phi0)
+    !cosphi0 = cos(phi0)
     a = x0*x0 + y0*y0   ! sin(theta0)^2  
 
     do i=1, nz
