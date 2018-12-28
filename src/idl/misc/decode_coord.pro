@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 function decode_coord, coord_code, nlong=nlong, nlat=nlat, flong=flong, flat = flat, error = error

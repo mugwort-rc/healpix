@@ -22,6 +22,10 @@ $key = q/sec:using_gdl/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:general3p11/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/page:dirtree/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
@@ -67,6 +71,10 @@ $noresave{$key} = "$nosave";
 
 $key = q/sec:using_gdl/;
 $external_latex_labels{$key} = q|6.8|; 
+$noresave{$key} = "$nosave";
+
+$key = q/sec:general3p11/;
+$external_latex_labels{$key} = q|7.1.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/page:dirtree/;

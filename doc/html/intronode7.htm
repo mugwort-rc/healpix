@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html137"
+<A NAME="tex2html140"
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html143"
+<A NAME="tex2html146"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html147"
+<A NAME="tex2html150"
   HREF="intronode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html145"
+<A NAME="tex2html148"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html138"
+<B> Previous:</B> <A NAME="tex2html141"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B>Up:</B> <A NAME="tex2html144"
-  HREF="intro.htm">Introduction to Healpix</A>
+<B>Up:</B> <A NAME="tex2html147"
+  HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html148"
+<B> Next:</B> <A NAME="tex2html151"
   HREF="intronode8.htm">A Comment on the</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -57,7 +57,7 @@ Pixel window functions</A>
 </H1>
 
 <P>
-A pixelised signal <SPAN CLASS="MATH"><I>f</I>(<I>p</I>)</SPAN> is the average within each pixel <SPAN CLASS="MATH"><I>p</I></SPAN> (with surface
+A pixelated signal <SPAN CLASS="MATH"><I>f</I>(<I>p</I>)</SPAN> is the average within each pixel <SPAN CLASS="MATH"><I>p</I></SPAN> (with surface
 area <!-- MATH
  ${\Omega_{\rm pix}}$
  -->
@@ -70,7 +70,7 @@ area <!-- MATH
 
 <!-- MATH
  \begin{eqnarray}
-f(p) &\myequal & \int d\u w_p(\u )f(\u )
+f(p) &\myequal& \int d\u w_p(\u )f(\u )
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -78,7 +78,7 @@ f(p) &\myequal & \int d\u w_p(\u )f(\u )
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="131" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg139.png"
@@ -107,7 +107,7 @@ Eq.&nbsp;(<A HREF="intronode6.htm#eq:alms">1</A>) then becomes
 
 <!-- MATH
  \begin{eqnarray}
-f(p)&\myequal &\sum_{l=0}^{l_{max}}\sum_{m}a_{lm}w_{lm}(p),
+f(p)&\myequal&\sum_{l=0}^{l_{max}}\sum_{m}a_{lm}w_{lm}(p),
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -115,7 +115,7 @@ f(p)&\myequal &\sum_{l=0}^{l_{max}}\sum_{m}a_{lm}w_{lm}(p),
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="149" HEIGHT="71" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg142.png"
@@ -129,7 +129,7 @@ where
 <DIV ALIGN="CENTER"><A NAME="eq:pixel_lmp"></A>
 <!-- MATH
  \begin{eqnarray}
-w_{lm}(p) &\myequal & \int d\u w_p(\u ) Y_{lm}(\u ),
+w_{lm}(p) &\myequal& \int d\u w_p(\u ) Y_{lm}(\u ),
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -137,7 +137,7 @@ w_{lm}(p) &\myequal & \int d\u w_p(\u ) Y_{lm}(\u ),
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="152" HEIGHT="55" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg143.png"
@@ -149,7 +149,7 @@ w_{lm}(p) &\myequal & \int d\u w_p(\u ) Y_{lm}(\u ),
 is the Spherical Harmonic Transform of the pixel <SPAN CLASS="MATH"><I>p</I></SPAN>.
 
 <P>
-However, complete analysis of a pixelised map with the exact <SPAN CLASS="MATH"><I>w</I><SUB><I>lm</I></SUB>(<I>p</I>)</SPAN>
+However, complete analysis of a pixelated map with the exact <SPAN CLASS="MATH"><I>w</I><SUB><I>lm</I></SUB>(<I>p</I>)</SPAN>
 defined above would be computationally intractable (because of azimutal
 variation of pixel shape over the polar caps of the <b>HEALPix</b> grid), 
 and some simplifying asumptions have to be
@@ -177,7 +177,7 @@ where we introduced the <SPAN CLASS="MATH"><I>m</I></SPAN>-averaged window funct
 <DIV ALIGN="CENTER"><A NAME="eq:pixel_lp"></A>
 <!-- MATH
  \begin{eqnarray}
-w_{l}(p) &\myequal & \left(\frac{4 \pi}{2l+1}\sum_{m=-l}^{l} \left|w_{lm}(p)\right|^2\right)^{1/2},
+w_{l}(p) &\myequal& \left(\frac{4 \pi}{2l+1}\sum_{m=-l}^{l} \left|w_{lm}(p)\right|^2\right)^{1/2},
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -185,7 +185,7 @@ w_{l}(p) &\myequal & \left(\frac{4 \pi}{2l+1}\sum_{m=-l}^{l} \left|w_{lm}(p)\rig
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="229" HEIGHT="86" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg144.png"
@@ -198,13 +198,13 @@ which is independent of the pixel location on the sky.
 
 <P>
 If we assume all the pixels to be identical, the power spectrum of the
-pixelized map, <!-- MATH
+pixelated map, <!-- MATH
  $C_{l}^{\rm pix}$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="39" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg145.png"
- ALT="$C_{l}^{\rm pix}$"></SPAN>, is related to the hypothetical unpixelized
+ ALT="$C_{l}^{\rm pix}$"></SPAN>, is related to the hypothetical unpixelated
 one, <!-- MATH
  $C_{l}^{\rm unpix}$
  -->
@@ -216,7 +216,7 @@ one, <!-- MATH
 <DIV ALIGN="CENTER"><A NAME="eq:cl_pixel"></A>
 <!-- MATH
  \begin{eqnarray}
-C_{l}^{\rm pix} &\myequal & w^2_{l} C_{l}^{\rm unpix}
+C_{l}^{\rm pix} &\myequal& w^2_{l} C_{l}^{\rm unpix}
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -227,7 +227,7 @@ C_{l}^{\rm pix} &\myequal & w^2_{l} C_{l}^{\rm unpix}
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="75" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg148.png"
@@ -241,7 +241,7 @@ where the effective pixel window function <SPAN CLASS="MATH"><I>w</I><SUB><I>l</
 <DIV ALIGN="CENTER"><A NAME="eq:pixel_l"></A>
 <!-- MATH
  \begin{eqnarray}
-w_{l} &\myequal & \left(\frac{1}{{N_{\rm pix}}}\sum_{p=0}^{{N_{\rm pix}}-1} w^2_{l}(p)\right)^{1/2}.
+w_{l} &\myequal& \left(\frac{1}{{N_{\rm pix}}}\sum_{p=0}^{{N_{\rm pix}}-1} w^2_{l}(p)\right)^{1/2}.
 \end{eqnarray}
  -->
 <TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
@@ -249,7 +249,7 @@ w_{l} &\myequal & \left(\frac{1}{{N_{\rm pix}}}\sum_{p=0}^{{N_{\rm pix}}-1} w^2_
 <TD ALIGN="CENTER" NOWRAP><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg10.png"
- ALT="$\textstyle \myequal $"></TD>
+ ALT="$\textstyle \myequal$"></TD>
 <TD ALIGN="LEFT" WIDTH="50%" NOWRAP><IMG
  WIDTH="196" HEIGHT="86" ALIGN="MIDDLE" BORDER="0"
  SRC="introimg149.png"
@@ -353,32 +353,31 @@ increases almost linearly with <SPAN CLASS="MATH"><I>l</I></SPAN>, and is of the
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html137"
+<A NAME="tex2html140"
   HREF="intronode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html143"
+<A NAME="tex2html146"
   HREF="intro.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html147"
+<A NAME="tex2html150"
   HREF="intronode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html145"
+<A NAME="tex2html148"
   HREF="intronode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html138"
+<B> Previous:</B> <A NAME="tex2html141"
   HREF="intronode6.htm">HEALPix conventions</A>
 
-<B>Up:</B> <A NAME="tex2html144"
-  HREF="intro.htm">Introduction to Healpix</A>
+<B>Up:</B> <A NAME="tex2html147"
+  HREF="intro.htm">Introduction to HEALPix</A>
 
-<B> Next:</B> <A NAME="tex2html148"
+<B> Next:</B> <A NAME="tex2html151"
   HREF="intronode8.htm">A Comment on the</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 function hpx_add_parameter, keyword, value, default=default, expand_path=expand, skip_if_not_set = skip, ifempty=ifempty, force_output=force_output

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html986"
+<A NAME="tex2html989"
   HREF="idlnode66.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html992"
+<A NAME="tex2html995"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html996"
+<A NAME="tex2html999"
   HREF="idlnode68.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html994"
+<A NAME="tex2html997"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html987"
+<B> Previous:</B> <A NAME="tex2html990"
   HREF="idlnode66.htm">write_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html993"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html996"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html997"
+<B> Next:</B> <A NAME="tex2html1000"
   HREF="idlnode68.htm">write_fits_sb</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,19 +58,20 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_fits_map </FONT></font></b><hr><H2>This IDL facility writes out a <b>HEALPix</b> map into a FITS file according to
-the <b>HEALPix</b> convention</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/write_fits_map.pro
-</b>
+<b><font size=+6><FONT COLOR="#CC0000">write_fits_map </FONT></font></b><hr>
+<H3>This IDL facility writes out a <b>HEALPix</b> map into a FITS file according to
+the <b>HEALPix</b> convention</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/write_fits_map.pro"><b>src/idl/fits/write_fits_map.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 WRITE_FITS_MAP , File, T_sky, [Header, Coordsys=, Error=, Help=, Nested=, Ring=,
 Ordering=, Units=]
 
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>File</B>
 <DD>name of a FITS file in which the map is to be written
@@ -127,7 +128,7 @@ string describing the physical units of the data set
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>Help</B>
 <DD>if set, an extensive help is displayed and no
@@ -145,8 +146,9 @@ string describing the physical units of the data set
    </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 write_fits_map writes out the full sky <b>HEALPix</b> map <TT>T_sky</TT> into the FITS file
 <TT>File</TT>. Extra information about the map can be given in <TT>Header</TT> according to the FITS header conventions. Coordinate systems 
 can also be specified by <TT>Coordsys</TT>. Specifying the
@@ -157,7 +159,7 @@ its value overrides what is given in <TT>Header</TT>.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_fits_map </FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run write_fits_map <DT>
@@ -186,14 +188,12 @@ arbitrary data sets into FITS files
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-write_fits_map, 'file.fits', map, coordsys='G', ordering='ring' </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> write_fits_map, 'file.fits', map, coordsys='G', ordering='ring' </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>write_fits_sb writes out the RING ordered map <TT>map</TT> in Galactic
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>write_fits_sb writes out the RING ordered map <TT>map</TT> in Galactic
 coordinates into the file <TT>file.fits</TT>.
 </blockquote>
 <P>
@@ -203,32 +203,31 @@ coordinates into the file <TT>file.fits</TT>.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html986"
+<A NAME="tex2html989"
   HREF="idlnode66.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html992"
+<A NAME="tex2html995"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html996"
+<A NAME="tex2html999"
   HREF="idlnode68.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html994"
+<A NAME="tex2html997"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html987"
+<B> Previous:</B> <A NAME="tex2html990"
   HREF="idlnode66.htm">write_fits_cut4</A>
 
-<B>Up:</B> <A NAME="tex2html993"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html996"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html997"
+<B> Next:</B> <A NAME="tex2html1000"
   HREF="idlnode68.htm">write_fits_sb</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

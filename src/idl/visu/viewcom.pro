@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 ;+
@@ -33,4 +33,6 @@
 common view_data, data_plot, $
    pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, sunits, do_flip, $
    polar_type, w_num, projection, do_fullsky, pixel_list, indlist
+
+if is_gdl() then test_preview
 

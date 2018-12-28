@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html674"
+<A NAME="tex2html677"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html680"
+<A NAME="tex2html683"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html684"
+<A NAME="tex2html687"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html682"
+<A NAME="tex2html685"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html675"
+<B> Previous:</B> <A NAME="tex2html678"
   HREF="idlnode40.htm">median_filter</A>
 
-<B>Up:</B> <A NAME="tex2html681"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html684"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html685"
+<B> Next:</B> <A NAME="tex2html688"
   HREF="idlnode42.htm">mollview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,18 +58,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mollcursor</FONT></font></b><hr><H2>This IDL facility provides a point-and-click interface for finding
+<b><font size=+6><FONT COLOR="#CC0000">mollcursor</FONT></font></b><hr>
+<H3>This IDL facility provides a point-and-click interface for finding
 the astronomical location, value and pixel index of the pixels nearest 
-to the pointed position on a Mollweide projection of a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/mollcursor.pro
-</b>
+to the pointed position on a Mollweide projection of a <b>HEALPix</b> map.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/visu/mollcursor.pro"><b>src/idl/visu/mollcursor.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 MOLLCURSOR, [cursor_type=, file_out=]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>cursor_type=</B>
 <DD>cursor type to be used 
@@ -86,24 +87,19 @@ If set to a non-empty character string, the file name will be that string
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 mollcursor should be run immediately following mollview. It gives the
 longitude, latitude, map value and pixel number
 corresponding to the cursor position in the window containing the map generated
 by mollview. Mouse buttons are used to select the function :  
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">left button = display the information relative to the current cursor position, 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">middle button = print out this information in the IDL command window 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">right button = quit mollcursor
+<br><br>left button = display the information relative to the current cursor position, 
+<br><br>middle button = print out this information in the IDL command window 
+<br><br>right button = quit mollcursor
 <BR>
-<BR><B>Note on Mac OS X, X11 and IDL cursor:</B> on some versions<A NAME="tex2html14"
-  HREF="idlfootnode.htm#foot8215"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>of Mac OS X
+<BR><B>Note on Mac OS X, X11 and IDL cursor:</B> on some versions<A NAME="tex2html15"
+  HREF="idlfootnode.htm#foot8234"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>of Mac OS X
 , starting with Tiger (ie,
 10.4.*), the IDL function <TT>cursor</TT>, and therefore <b>HEALPix</b> <FONT COLOR="#CC0000">mollcursor</FONT>,
 gnomcursor, <SPAN CLASS="MATH"><IMG
@@ -119,10 +115,10 @@ or, under Leopard (10.5), Snow Leopard (10.6), Lion (10.7):
 <BR><SMALL CLASS="SMALL"><TT>defaults write org.x.x11 wm_click_through -bool true</TT></SMALL> 
 <BR>
 at your X11 prompt and restart X11 (tips found respectively at
-<A NAME="tex2html15"
+<A NAME="tex2html16"
   HREF="http://marc.sauvage.free.fr/SApMUG/Xnotes.html"><SMALL CLASS="SMALL">http://marc.sauvage.free.fr/SApMUG/Xnotes.html</SMALL></A>
 and 
-<A NAME="tex2html16"
+<A NAME="tex2html17"
   HREF="https://sympa.obspm.fr/wws/arc/micros-mac/2008-06/msg00001.html"><SMALL CLASS="SMALL">https://sympa.obspm.fr/wws/arc/micros-mac/2008-06/msg00001.html</SMALL></A>). 
 To make the patch permanent, add the line above into your .bashrc (or
 .cshrc, depending on your shell) file, and restart X11.
@@ -133,7 +129,7 @@ which can be done in the X11 Preferences menu.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mollcursor</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">mollcursor</FONT>
@@ -181,16 +177,13 @@ which can be done in the X11 Preferences menu.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-mollcursor </SMALL></TD>
-<TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  
-</SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> mollcursor </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>After mollview reads in a map and generates
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>After mollview reads in a map and generates
 its mollweide projection, mollcursor is run to know the
 position and flux of bright synchrotron sources, for example.</blockquote>
 <P>
@@ -201,32 +194,31 @@ position and flux of bright synchrotron sources, for example.</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html674"
+<A NAME="tex2html677"
   HREF="idlnode40.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html680"
+<A NAME="tex2html683"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html684"
+<A NAME="tex2html687"
   HREF="idlnode42.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html682"
+<A NAME="tex2html685"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html675"
+<B> Previous:</B> <A NAME="tex2html678"
   HREF="idlnode40.htm">median_filter</A>
 
-<B>Up:</B> <A NAME="tex2html681"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html684"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html685"
+<B> Next:</B> <A NAME="tex2html688"
   HREF="idlnode42.htm">mollview</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

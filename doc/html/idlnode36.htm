@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html614"
+<A NAME="tex2html617"
   HREF="idlnode35.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html620"
+<A NAME="tex2html623"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html624"
+<A NAME="tex2html627"
   HREF="idlnode37.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html622"
+<A NAME="tex2html625"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html615"
+<B> Previous:</B> <A NAME="tex2html618"
   HREF="idlnode35.htm">init_healpix and !healpix system</A>
 
-<B>Up:</B> <A NAME="tex2html621"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html624"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html625"
+<B> Next:</B> <A NAME="tex2html628"
   HREF="idlnode37.htm">ismoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,15 +58,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">iprocess_mask</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'process_mask' facility. For a
+<b><font size=+6><FONT COLOR="#CC0000">iprocess_mask</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to F90 'process_mask' facility. For a
 given input binary mask, it can determine the angular distance in Radians of each valid (1 valued)
 pixel to the closest invalid (0 valued) pixel, with the option of ignoring small
 clusters of invalid pixels. The distance map can then be used to generate an
-apodized mask.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/interfaces/iprocess_mask.pro
-</b>
+apodized mask.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/interfaces/iprocess_mask.pro"><b>src/idl/interfaces/iprocess_mask.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 IPROCESS_MASK, 
 <A HREF="#idl:iprocess_mask:mask_in">mask_in</A>,  
 <A HREF="#idl:iprocess_mask:distance_map">distance_map</A>,[
@@ -81,10 +81,11 @@ IPROCESS_MASK,
 <A HREF="#idl:iprocess_mask:ring">/ring</A>,
 <A HREF="#idl:iprocess_mask:silent">/silent</A>,
 <A HREF="#idl:iprocess_mask:tmpdir">tmpdir=</A>]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>mask_in</B>
 <DD><A NAME="idl:iprocess_mask:mask_in"></A> required input: input binary
@@ -98,13 +99,13 @@ output: double precision angular distance map in Radians. It can be a FITS file,
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>binpath=</B>
 <DD><A NAME="idl:iprocess_mask:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/process_mask, then $HEALPIX/bin/process_mask
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg57.png"
+ SRC="idlimg56.png"
  ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
 <BR>              - a binpath starting with ./ is interpreted as relative to current directory
 <BR>              - all other binpathes are relative to $HEALPIX
@@ -183,8 +184,9 @@ temporary files are not discarded at the end of the run
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">iprocess_mask</FONT> is an interface to 'process_mask' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
@@ -192,7 +194,7 @@ file, or as a memory array.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">iprocess_mask</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">iprocess_mask</FONT>.
@@ -211,24 +213,18 @@ file, or as a memory array.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-npix = nside2npix(256) </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> npix = nside2npix(256) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- mask = replicate(1, npix) &amp; mask[randomu(seed,100)*npix] = 0 </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  mask = replicate(1, npix) &amp; mask[randomu(seed,100)*npix] = 0 </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- <FONT COLOR="#CC0000">iprocess_mask</FONT>, mask, distance, /ring, /silent </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <FONT COLOR="#CC0000">iprocess_mask</FONT>, mask, distance, /ring, /silent </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- mollview, distance
-</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  mollview, distance</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 A binary mask in which 100 randomly located pixels are 0-valued
 (=invalid) is generated. Then the distance (in Radians) of the valid pixels to
 the closest invalid pixels is computed and plotted.
@@ -242,32 +238,31 @@ the closest invalid pixels is computed and plotted.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html614"
+<A NAME="tex2html617"
   HREF="idlnode35.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html620"
+<A NAME="tex2html623"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html624"
+<A NAME="tex2html627"
   HREF="idlnode37.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html622"
+<A NAME="tex2html625"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html615"
+<B> Previous:</B> <A NAME="tex2html618"
   HREF="idlnode35.htm">init_healpix and !healpix system</A>
 
-<B>Up:</B> <A NAME="tex2html621"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html624"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html625"
+<B> Next:</B> <A NAME="tex2html628"
   HREF="idlnode37.htm">ismoothing</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

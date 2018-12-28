@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 pro selectread, file, array, polvec, header=exthdr, columns=columns, extension=extension_id, poltype=poltype, tonan=tonan, offset=offset, factor=factor, flip = flip, no_pdu= no_pdu, help=help

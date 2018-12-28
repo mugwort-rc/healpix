@@ -22,7 +22,7 @@
 !  along with HEALPix; if not, write to the Free Software
 !  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 !
-!  For more information about HEALPix see http://healpix.jpl.nasa.gov
+!  For more information about HEALPix see http://healpix.sourceforge.net
 !
 !-----------------------------------------------------------------------------
 MODULE healpix_types
@@ -39,7 +39,7 @@ MODULE healpix_types
   !            Mars 2008: i8b same as i4b on machines not supporting 64 bits (NO64BITS flag set)
   !            Feb  2009: introduce healpix_version
   !
-  character(len=*), PARAMETER, public :: healpix_version = '3.10'
+  character(len=*), PARAMETER, public :: healpix_version = '3.11'
   INTEGER, PARAMETER, public :: i4b = SELECTED_INT_KIND(9)
 #ifdef NO64BITS
   INTEGER, PARAMETER, public :: i8b = i4b

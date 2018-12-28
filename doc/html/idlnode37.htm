@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html626"
+<A NAME="tex2html629"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html632"
+<A NAME="tex2html635"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html636"
+<A NAME="tex2html639"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html634"
+<A NAME="tex2html637"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html627"
+<B> Previous:</B> <A NAME="tex2html630"
   HREF="idlnode36.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html633"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html636"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html637"
+<B> Next:</B> <A NAME="tex2html640"
   HREF="idlnode38.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,13 +58,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ismoothing</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'smoothing' facility. It can be
+<b><font size=+6><FONT COLOR="#CC0000">ismoothing</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to F90 'smoothing' facility. It can be
 used to smooth a <b>HEALPix</b> map by an arbitrary circular 'beam' defined by its
-Legendre window function (or its FWHM if it is assumed Gaussian)</H2><br>Location in HEALPix directory tree: <b>
-src/idl/interfaces/ismoothing.pro
-</b>
+Legendre window function (or its FWHM if it is assumed Gaussian)</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/interfaces/ismoothing.pro"><b>src/idl/interfaces/ismoothing.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 ISMOOTHING, 
 <A HREF="#idl:ismoothing:map1_in">map1_in</A>,  
 <A HREF="#idl:ismoothing:map2_out">map2_out</A>,[
@@ -89,10 +89,11 @@ ISMOOTHING,
 <A HREF="#idl:ismoothing:won">/won</A>,
 <A HREF="#idl:ismoothing:w8file">w8file=</A>,
 <A HREF="#idl:ismoothing:w8dir">w8dir=</A>]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>map1_in</B>
 <DD><A NAME="idl:ismoothing:map1_in"></A> required input: input map, can be a FITS file, or a memory array containing the
@@ -104,7 +105,7 @@ ISMOOTHING,
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>beam_file=</B>
 <DD><A NAME="idl:ismoothing:beam_file"></A> beam window function, either a FITS file or an array
@@ -115,7 +116,7 @@ ISMOOTHING,
 <DD><A NAME="idl:ismoothing:binpath"></A> full path to back-end routine <b>default:</b>$HEXE/smoothing, then $HEALPIX/bin/smoothing
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg57.png"
+ SRC="idlimg56.png"
  ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
 <BR>              - a binpath starting with ./ is interpreted as relative to current directory
 <BR>              - all other binpathes are relative to $HEALPIX
@@ -231,8 +232,9 @@ see
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">ismoothing</FONT> is an interface to 'smoothing' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
@@ -240,7 +242,7 @@ file, or as a memory array.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ismoothing</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">ismoothing</FONT>.
@@ -267,24 +269,18 @@ circular beam profile <SPAN CLASS="MATH"><IMG
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-whitenoise = randomn(seed, <A HREF="idlnode46.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> whitenoise = randomn(seed, <A HREF="idlnode46.htm#idl:nside2npix">nside2npix</A>(256))  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- <FONT COLOR="#CC0000">ismoothing</FONT>, whitenoise, rednoise, fwhm=120, /ring, simul=1,/silent  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <FONT COLOR="#CC0000">ismoothing</FONT>, whitenoise, rednoise, fwhm=120, /ring, simul=1,/silent  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- <A HREF="idlnode42.htm#idl:mollview">mollview</A>, whitenoise,title='White noise'  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <A HREF="idlnode42.htm#idl:mollview">mollview</A>, whitenoise,title='White noise'  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- <A HREF="idlnode42.htm#idl:mollview">mollview</A>, rednoise,  title='Smoothed white Noise'  
-</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  <A HREF="idlnode42.htm#idl:mollview">mollview</A>, rednoise,  title='Smoothed white Noise'  </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 will generate and plot a white noise map and its smoothed version
 </blockquote>
 <P>
@@ -296,32 +292,31 @@ will generate and plot a white noise map and its smoothed version
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html626"
+<A NAME="tex2html629"
   HREF="idlnode36.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html632"
+<A NAME="tex2html635"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html636"
+<A NAME="tex2html639"
   HREF="idlnode38.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html634"
+<A NAME="tex2html637"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html627"
+<B> Previous:</B> <A NAME="tex2html630"
   HREF="idlnode36.htm">iprocess_mask</A>
 
-<B>Up:</B> <A NAME="tex2html633"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html636"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html637"
+<B> Next:</B> <A NAME="tex2html640"
   HREF="idlnode38.htm">isynfast</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

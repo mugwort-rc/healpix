@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 PRO CL2FITS, cl_array, fitsfile, HDR = hdr, HELP = help, XHDR = xhdr, CMBFAST = cmbfast, UNITS = units, BEAMWINDOW = beamwindow

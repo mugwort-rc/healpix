@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between releases 2.20 and 3.10</TITLE>
-<META NAME="description" CONTENT="Changes between releases 2.20 and 3.10">
+<TITLE>Changes between releases 3.00 and 3.11</TITLE>
+<META NAME="description" CONTENT="Changes between releases 3.00 and 3.11">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,99 +28,112 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html269"
+<A NAME="tex2html281"
   HREF="subroutinesnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html275"
+<A NAME="tex2html287"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html291"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html277"
+<A NAME="tex2html289"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html270"
+<B> Previous:</B> <A NAME="tex2html282"
   HREF="subroutinesnode2.htm">Conventions</A>
 
-<B>Up:</B> <A NAME="tex2html276"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html288"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html280"
+<B> Next:</B> <A NAME="tex2html292"
   HREF="subroutinesnode4.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
-<H1><A NAME="SECTION00030000000000000000"></A>
-<A NAME="sub:new3p00"></A>
-<BR>
-Changes between releases 2.20 and
-3.10
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html293"
+  HREF="subroutinesnode3.htm#SECTION00031000000000000000">Version 3.11</A>
+<LI><A NAME="tex2html294"
+  HREF="subroutinesnode3.htm#SECTION00032000000000000000">Version 3.10</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00030000000000000000">
+Changes between releases 3.00 and
+3.11</A>
 </H1>
+
+<H2><A NAME="SECTION00031000000000000000"></A>
+<A NAME="sub:new3p11"></A>
+<BR>
+Version 3.11
+</H2>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- all <EM>input</EM> FITS files can now be compressed (with a 
-<TT>.gz</TT>, <TT>.Z</TT>, <TT>.z</TT>, or <TT>.zip</TT> 
-extension) and/or remotely located (with a <TT>ftp://</TT> or <TT>http://</TT>
-prefix). Besides, the <A HREF="subroutinesnode35.htm#sub:fits2cl">fits2cl</A> routine, used to read
-external beam window functions from FITS files, supports (part of) the CFTISIO 
-<A NAME="tex2html1"
-  HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/c/c_user/node81.html">Extended File Name Syntax</A>
-in
-order to read an arbitrary extension identified by its number or its name. 
-<BR><EM>Version 3.14 (March 2009) or newer of CFITSIO is required for <b>HEALPix</b> 3.10.</EM>
+ <TT>libsharp</TT> C routines used for Spherical Harmonics Transforms 
+	and introduced in <b>HEALPix</b>  3.10
+	can now be compiled with any <TT>gcc</TT> version.
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- new code <TT>process_mask</TT> and new module <TT>mask_tools</TT> containing the routines
-<A HREF="subroutinesnode31.htm#sub:dist2holes_nest">dist2holes_nest</A>, 
-<A HREF="subroutinesnode33.htm#sub:fill_holes_nest">fill_holes_nest</A>, 
-<A HREF="subroutinesnode54.htm#sub:maskborder_nest">maskborder_nest</A>,
-<A HREF="subroutinesnode100.htm#sub:size_holes_nest">size_holes_nest</A> useful for mask apodization,
+ bug correction in <A HREF="subroutinesnode74.htm#sub:query_disc"><TT>query_disc</TT></A>
+	routine in <TT>inclusive</TT> mode
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- improved accuracy of the co-latitude calculation in the vicinity
-of the poles at high resolution in <A HREF="subroutinesnode76.htm#sub:pix_tools"><TT>nest2ring, ring2nest,
-pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg5.png"
- ALT="$\ldots$"></SPAN></TT></A>,
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the pixel query routine
- <A HREF="subroutinesnode79.htm#sub:query_disc"><TT>query_disc</TT></A> 
-has been improved and will return fewer
-false positive pixels in the 
-inclusive
-mode.
+ bug correction in <A HREF="subroutinesnode10.htm#sub:alm2map_spin"><TT>alm2map_spin</TT></A> 
+	routine, which had its <TT>spin</TT> value set to 2
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000"></A>
+<A NAME="sub:new3p10"></A>
+<BR>
+Version 3.10
+</H2>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Support for <TT>cfitsio</TT> 'Extended File Name Syntax'', and usage of <TT>libsharp</TT> Spherical Harmonics Transform library. See <A NAME="tex2html3"
+  HREF="facilities.htm">''Fortran
+Facilities''</A>
+for details.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Faster Spherical Harmonics Transform routines 
+thanks to <A NAME="tex2html4"
+  HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
+C routines<A NAME="tex2html2"
+  HREF="subroutinesfootnode.htm#foot481"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>.
 </DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html269"
+<A NAME="tex2html281"
   HREF="subroutinesnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html275"
+<A NAME="tex2html287"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html279"
+<A NAME="tex2html291"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html277"
+<A NAME="tex2html289"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html270"
+<B> Previous:</B> <A NAME="tex2html282"
   HREF="subroutinesnode2.htm">Conventions</A>
 
-<B>Up:</B> <A NAME="tex2html276"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html288"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html280"
+<B> Next:</B> <A NAME="tex2html292"
   HREF="subroutinesnode4.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

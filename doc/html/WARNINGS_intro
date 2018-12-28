@@ -5,6 +5,8 @@ redefining command \contentsname
 
 redefining command \u 
 
+*** wrap_cmd_myequal not defined, cannot wrap \myequal 
+
 ? brace missing for \
 
 Substitution of arg to newlabelxx delayed.

@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 pro find_in_path, file, finalpath, count, crash_on_error=crash
@@ -63,8 +63,8 @@ endelse
 comments=["-----------------------------------------------------------------------------",$
           "You can choose the facilities used to visualize Postscript, PNG and GIF files",$
           "and the hard copy paper size,",$
-          "by running the configure script in Healpix main directory (submenu: IDL).",$
-          "           (no need to restart IDL ;-)",$
+          "by running the configure script in HEALPix main directory (submenu: IDL).",$
+          "           (no need to restart IDL or GDL ;-)",$
           "-----------------------------------------------------------------------------"]
 
 print,comments,form='(a)'

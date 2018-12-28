@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 pro write_tqu, fitsfile, TQU, Coordsys=coordsys, Nested=nested, Ring=ring, Ordering=ordering, Extension=extension_id, Hdr=hdr, Xhdr=xhdr, Units=units, Help=help, Error=error

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html518"
+<A NAME="tex2html521"
   HREF="idlnode27.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html524"
+<A NAME="tex2html527"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html528"
+<A NAME="tex2html531"
   HREF="idlnode29.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html526"
+<A NAME="tex2html529"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html519"
+<B> Previous:</B> <A NAME="tex2html522"
   HREF="idlnode27.htm">gnomcursor</A>
 
-<B>Up:</B> <A NAME="tex2html525"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html528"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html529"
+<B> Next:</B> <A NAME="tex2html532"
   HREF="idlnode29.htm">healpix_doc: PDF and HTML</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,17 +58,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">gnomview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a Gnomonic projection 
+<b><font size=+6><FONT COLOR="#CC0000">gnomview</FONT></font></b><hr>
+<H3>This IDL facility provides a means to visualise a Gnomonic projection 
 (radial projection onto a tangent plane) of
 <b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. 
 It also offers the possibility to
 generate GIF, PNG and Postscript color-coded images of the projected map.
 The projected (but not color-coded) data can also be output in FITS files and
-IDL arrays.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/gnomview.pro
-</b>
+IDL arrays.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/visu/gnomview.pro"><b>src/idl/visu/gnomview.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 GNOMVIEW, 
 </SMALL>
 <A HREF="idlnode42.htm#idl:mollview:file">File</A>, 
@@ -129,24 +129,26 @@ GNOMVIEW,
 <A HREF="idlnode42.htm#idl:mollview:xpos">XPOS=</A>, 
 <A HREF="idlnode42.htm#idl:mollview:ypos">YPOS=</A>]
 <SMALL CLASS="FOOTNOTESIZE">
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <DD>For a full list of qualifiers see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <DD>For a full list of keywords see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 gnomview reads in a <b>HEALPix</b> sky map in FITS format and generates a
 Gnomonic projection of it, that can be visualized on the screen or
 exported in a GIF, PNG, Postscript or FITS file. gnomview allows the selection of
@@ -158,78 +160,69 @@ polarization field.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">gnomview</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <DD>see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-gnomview,  'planck100GHZ-LFI.fits', rot=[160,-30], reso_arcmin=2., $ </SMALL></TD>
+<hr><H1>EXAMPLE # 1:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> gnomview,  'planck100GHZ-LFI.fits', rot=[160,-30], reso_arcmin=2., $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN> pxsize = 500., $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN> title='Simulated Planck LFI Sky Map at 100GHz',  $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN> min=-100,max=100</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote>gnomview reads in the map 'planck100GHZ-LFI.fits' and generates
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>gnomview reads in the map 'planck100GHZ-LFI.fits' and generates
 an output image of the size of 500<SPAN CLASS="MATH"> x </SPAN>500 screen pixels, 
 with a resolution of 2 arcmin/screen pixel at the center.
 The temperature scale has been set to lie between <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg53.png"
+ SRC="idlimg52.png"
  ALT="$\pm$"></SPAN> 100, and the units will
 show as <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg54.png"
+ SRC="idlimg53.png"
  ALT="$\mu$"></SPAN>K.
 The title 'Simulated Planck
 LFI Sky Map at 100GHz' has been appended to the image. 
 The map is centered at (<SPAN CLASS="MATH"><I>l</I>=</SPAN>160, <SPAN CLASS="MATH"><I>b</I>=</SPAN>-30) </blockquote>
 <P>
-<hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-</SMALL>
+<hr><H1>EXAMPLE # 2:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-gnomview,map,/online,res=25,graticule=[45,30],rot=[10,20,30],$ </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> gnomview,map,/online,res=25,graticule=[45,30],rot=[10,20,30],$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN>	   title='Gnomic projection',subtitle='gnomview', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN> outline=triangle </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote>makes a gnomic projection of map (see Figure&nbsp;<A HREF="idlnode42.htm#fig:plot_visu">1</A>b on
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>makes a gnomic projection of map (see Figure&nbsp;<A HREF="idlnode42.htm#fig:plot_visu">1</A>b on
 page&nbsp;<A HREF="idlnode42.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote><SMALL CLASS="FOOTNOTESIZE">
 </SMALL>
@@ -240,32 +233,31 @@ page&nbsp;<A HREF="idlnode42.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html518"
+<A NAME="tex2html521"
   HREF="idlnode27.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html524"
+<A NAME="tex2html527"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html528"
+<A NAME="tex2html531"
   HREF="idlnode29.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html526"
+<A NAME="tex2html529"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html519"
+<B> Previous:</B> <A NAME="tex2html522"
   HREF="idlnode27.htm">gnomcursor</A>
 
-<B>Up:</B> <A NAME="tex2html525"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html528"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html529"
+<B> Next:</B> <A NAME="tex2html532"
   HREF="idlnode29.htm">healpix_doc: PDF and HTML</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

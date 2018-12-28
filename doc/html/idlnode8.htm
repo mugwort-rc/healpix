@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html278"
+<A NAME="tex2html281"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html284"
+<A NAME="tex2html287"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html288"
+<A NAME="tex2html291"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html286"
+<A NAME="tex2html289"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html279"
+<B> Previous:</B> <A NAME="tex2html282"
   HREF="idlnode7.htm">alm_t2i</A>
 
-<B>Up:</B> <A NAME="tex2html285"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html288"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html289"
+<B> Next:</B> <A NAME="tex2html292"
   HREF="idlnode9.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,27 +58,29 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">alm2fits</FONT></font></b><hr><H2>This IDL routine provides a means to write 
+<b><font size=+6><FONT COLOR="#CC0000">alm2fits</FONT></font></b><hr>
+<H3>This IDL routine provides a means to write 
 spherical harmonic coefficients (and optional errors) and their index label
 to a FITS file. Each signal is written to a separate binary table
 extension. The routine also writes header information if required.
 The facility is primarily designed to allow the user to write 
 a FITS files containing constraints for a constrained realisation
 performed by the <b>HEALPix</b> facility <SPAN  CLASS="textbf">synfast</SPAN>.
-</H2><br>Location in HEALPix directory tree: <b>src/idl/fits/alm2fits.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/alm2fits.pro"><b>src/idl/fits/alm2fits.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 ALM2FITS, 
 <A HREF="#idl:alm2fits:index">index</A>, 
 <A HREF="#idl:alm2fits:alm_array">alm_array</A>, 
 <A HREF="#idl:alm2fits:fitsfile">fitsfile</A>, [<A HREF="#idl:alm2fits:hdr">HDR=</A>, 
 <A HREF="#idl:alm2fits:help">/HELP</A>, 
 <A HREF="#idl:alm2fits:xhdr">XHDR=</A>]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>index</B>
 <DD><A NAME="idl:alm2fits:index"></A>Long array containing the index for the corresponding
@@ -104,7 +106,7 @@ nsig = number of signals to be written (1 for any of T E B
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>HDR =</B>
 <DD><A NAME="idl:alm2fits:hdr"></A>String array containing the primary header to be written in the FITS
@@ -124,8 +126,9 @@ nsig = number of signals to be written (1 for any of T E B
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">alm2fits</FONT> writes the input alm coefficients (and associated errors if 
 required) into a FITS file. Each signal type is written as a separate
 binary table extension. Optional headers conforming
@@ -137,7 +140,7 @@ The keywords EXTNAME and TTYPE* are now also automatically generated.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2fits</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">alm2fits</FONT>.
@@ -169,14 +172,12 @@ a FITS file.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">alm2fits</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">alm2fits</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 <FONT COLOR="#CC0000">alm2fits</FONT> writes the coefficients stored in the variable <TT>alm</TT>
 to the output FITS file <TT>alm.fits</TT> with optional headers
 passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>.
@@ -191,32 +192,31 @@ passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html278"
+<A NAME="tex2html281"
   HREF="idlnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html284"
+<A NAME="tex2html287"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html288"
+<A NAME="tex2html291"
   HREF="idlnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html286"
+<A NAME="tex2html289"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html279"
+<B> Previous:</B> <A NAME="tex2html282"
   HREF="idlnode7.htm">alm_t2i</A>
 
-<B>Up:</B> <A NAME="tex2html285"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html288"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html289"
+<B> Next:</B> <A NAME="tex2html292"
   HREF="idlnode9.htm">ang2vec</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

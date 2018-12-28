@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>dump_alms*</TITLE>
-<META NAME="description" CONTENT="dump_alms*">
+<TITLE>generate_beam</TITLE>
+<META NAME="description" CONTENT="generate_beam">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,48 +28,47 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html620"
+<A NAME="tex2html637"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html626"
+<A NAME="tex2html643"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html630"
+<A NAME="tex2html647"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html628"
+<A NAME="tex2html645"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html621"
-  HREF="subroutinesnode31.htm">dist2holes_nest</A>
+<B> Previous:</B> <A NAME="tex2html638"
+  HREF="subroutinesnode31.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html627"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html644"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html631"
-  HREF="subroutinesnode33.htm">fill_holes_nest</A>
+<B> Next:</B> <A NAME="tex2html648"
+  HREF="subroutinesnode33.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000270000000000000000"></A>
-<A NAME="sub:dump_alms"></A>
+<H1><A NAME="SECTION000320000000000000000"></A>
+<A NAME="sub:generate_beam"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">dump_alms*</FONT></font></b><hr><H2>This routine stores  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values in a binary FITS file. The FITS file created will contain one integer column with <!-- MATH
- $index=l^2+l+m+1$
- -->
-<SPAN CLASS="MATH"><I>index</I>=<I>l</I><SUP>2</SUP>+<I>l</I>+<I>m</I>+1</SPAN> and 2 single precision columns with real/imaginary  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values. One can store temperature <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or polarisation, <SPAN CLASS="MATH"><I>a</I><SUP><I>E</I></SUP><SUB><I>lm</I></SUB></SPAN> or <SPAN CLASS="MATH"><I>a</I><SUP><I>B</I></SUP><SUB><I>lm</I></SUB></SPAN>. If temperature is specified, a FITS file is created. If polarisation is specified, an old FITS file is opened and extra extensions is created.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.F90
-</b>
+<b><font size=+6><FONT COLOR="#CC0000">generate_beam</FONT></font></b><hr>
+<H3>This routine generates the beam window function in multipole space. It is
+  either a gaussian parametrized by its FWHM in arcmin in real space, or it is
+  read from an external file.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">dump_alms*</FONT>(
-filename, alms, nlmax, header, nlheader, extno
-)</h2></blockquote>
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">generate_beam</FONT>(
+fwhm_arcmin, lmax, beam [, beam_file]
+)</h3></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -86,104 +85,105 @@ filename, alms, nlmax, header, nlheader, extno
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-filename(LEN=<tt>filenamelen</tt>)</TD>
+fwhm_arcmin</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>fwhm size of the gaussian beam in arcminutes.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value of the window function.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam(0:lmax,1:p)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>beam window function generated. The second index runs form 1:1 for temperature only, and 1:3 for polarisation. In the latter case, 1=T, 2=E, 3=B.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>beam_file(LEN=<tt>filenamelen</tt>) (OPTIONAL)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>filename for the FITS-file to store the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> in.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value to store.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alms(0:nlmax,0:nlmax)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>array with <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, in the format used
-by eg. <A HREF="subroutinesnode51.htm#sub:map2alm">map2alm</A>, so <TT>alms(l,m)</TT> corresponds to  <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>extno</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>extension number. If 0 is specified, a FITS file is created and <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> is stored in the first FITS extension as temperature <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. If 1 or 2 is specified, an already existing file is opened and a 2nd or 3rd extension is created, treating <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> as <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB><SUP><I>E</I></SUP></SPAN> or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB><SUP><I>B</I></SUP></SPAN>.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number of header lines to write to the file.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80) (1:nlheader)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the header to the FITS-file.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>name of the file containing
+the (non necessarily gaussian) window function <SPAN CLASS="MATH"><I>B</I><SUB><I>l</I></SUB></SPAN> of a circular beam. If present, it will override
+the argument <TT>fwhm_arcmin</TT>.</TD>
 </TR>
 </TABLE>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call dump_alms ('alms.fits', alms, 64, header, 100, 1)  
-<BR></font></tt>
-<BR><blockquote>
-Opens an already existing FITS file which contains temperature <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>. An extra extension is added to the file where the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> array are written in a three-column format as described above. 100 header lines are written to the file from the array header(1:80). 
+<HR><H1>EXAMPLE:</H1> 
+<tt>call generate_beam(5.0_dp, 1024, beam)  
+<BR></tt>
+<blockquote>
+Generates the window function of a gaussian beam of FWHM = 5 arcmin, for <SPAN CLASS="MATH"><IMG
+ WIDTH="73" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg60.png"
+ ALT="$l
+\leq 1024$"></SPAN>.
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">dump_alms*</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">generate_beam</FONT>.</h3>
   <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
+<B><SPAN  CLASS="textbf">alm_tools</SPAN></B>
 <DD>module, containing:
-  <DT>
-<B>printerror</B>
-<DD>routine for printing FITS error messages.
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.		
+	<DT>
+<B><A HREF="subroutinesnode31.htm#sub:gaussbeam">gaussbeam</A></B>
+<DD>routine to generate a gaussian beam
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">dump_alms*</FONT></b></h3>
-<BR> 
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">generate_beam</FONT></b></h3>
+ 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode34.htm#sub:fits2alms">fits2alms</A>, <A HREF="subroutinesnode88.htm#sub:read_conbintab">read_conbintab</A></B>
-<DD>routines to read <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from a FITS-file 
+<B><A HREF="subroutinesnode24.htm#sub:create_alm">create_alm</A></B>
+<DD>Routine to create <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients using <FONT COLOR="#CC0000">generate_beam</FONT>.
   <DT>
-<B><A HREF="subroutinesnode16.htm#sub:alms2fits">alms2fits</A></B>
-<DD>has the same function as <FONT COLOR="#CC0000">dump_alms*</FONT> but is more general.
+<B><A HREF="subroutinesnode12.htm#sub:alter_alm">alter_alm</A></B>
+<DD>Routine to alter <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients  using <FONT COLOR="#CC0000">generate_beam</FONT>.
+  <DT>
+<B><A HREF="subroutinesnode70.htm#sub:pixel_window">pixel_window</A></B>
+<DD>Routine returning a pixel
+  window function.
   </DL>
 
 <P>
 
 <P>
 
+
+<P>
+
+<P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html620"
+<A NAME="tex2html637"
   HREF="subroutinesnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html626"
+<A NAME="tex2html643"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html630"
+<A NAME="tex2html647"
   HREF="subroutinesnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html628"
+<A NAME="tex2html645"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html621"
-  HREF="subroutinesnode31.htm">dist2holes_nest</A>
+<B> Previous:</B> <A NAME="tex2html638"
+  HREF="subroutinesnode31.htm">gaussbeam</A>
 
-<B>Up:</B> <A NAME="tex2html627"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html644"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html631"
-  HREF="subroutinesnode33.htm">fill_holes_nest</A>
+<B> Next:</B> <A NAME="tex2html648"
+  HREF="subroutinesnode33.htm">get_card</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

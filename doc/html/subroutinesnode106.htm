@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>vec2ang</TITLE>
-<META NAME="description" CONTENT="vec2ang">
+<TITLE>write_dbintab</TITLE>
+<META NAME="description" CONTENT="write_dbintab">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,121 +28,53 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1508"
+<A NAME="tex2html1525"
   HREF="subroutinesnode105.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1514"
+<A NAME="tex2html1531"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1518"
+<A NAME="tex2html1535"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1516"
+<A NAME="tex2html1533"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1509"
-  HREF="subroutinesnode105.htm">udgrade_ring*</A>
+<B> Previous:</B> <A NAME="tex2html1526"
+  HREF="subroutinesnode105.htm">write_bintabh</A>
 
-<B>Up:</B> <A NAME="tex2html1515"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html1532"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1519"
-  HREF="subroutinesnode107.htm">vect_prod</A>
+<B> Next:</B> <A NAME="tex2html1536"
+  HREF="subroutinesnode107.htm">write_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION0001010000000000000000"></A>
-<A NAME="sub:vec2ang"></A>
+<H1><A NAME="SECTION0001060000000000000000"></A>
+<A NAME="sub:write_dbintab"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">vec2ang</FONT></font></b><hr><H2>Routine to convert the 3D position vector <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> of point into its position
-  angles  <SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg37.png"
- ALT="$(\theta,\phi) $"></SPAN> on the sphere with
-<!-- MATH
- $x = \sin\theta\cos\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg38.png"
- ALT="$x = \sin\theta\cos\phi $"></SPAN>, <!-- MATH
- $y=\sin\theta\sin\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg39.png"
- ALT="$y=\sin\theta\sin\phi $"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg40.png"
- ALT="$z=\cos\theta $"></SPAN>.
-</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/pix_tools.F90
-</b>
+<b><font size=+6><FONT COLOR="#CC0000">write_dbintab</FONT></font></b><hr>
+<H3>This routine is obsolete. 
+<BR>
+To write <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> polynoms into a FITS file,
+use 
+<A HREF="subroutinesnode109.htm#sub:write_plm">write_plm</A> 
+instead. 
+<BR>
+To write a Healpix map into a FITS file,
+use 
+<A HREF="subroutinesnode104.htm#sub:write_bintab">write_bintab</A> 
+or 
+<A HREF="subroutinesnode68.htm#sub:output_map">output_map</A>.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/fitstools.F90"><b>src/f90/mod/fitstools.F90</b></a>&nbsp;  
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">vec2ang</FONT>(
-vector, theta, phi
-)</h2></blockquote>
-
-<P>
-<hr><H1>ARGUMENTS</H1>
-
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-vector(3)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>three dimensional cartesian position vector
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN>. The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>theta</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>colatitude in radians measured southward from north pole (in
-    [0,<SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg2.png"
- ALT="$\pi$"></SPAN>]).</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>longitude in radians measured eastward (in [0, <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg71.png"
- ALT="$2\pi$"></SPAN>]).</TD>
-</TR>
-</TABLE>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">vec2ang</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode18.htm#sub:ang2vec">ang2vec</A></B>
-<DD>converts the position angles of a point on the sphere 
-into its 3D position vector.
-  <DT>
-<B><A HREF="subroutinesnode19.htm#sub:angdist">angdist</A></B>
-<DD>computes the angular distance between 2 vectors
-  <DT>
-<B><A HREF="subroutinesnode107.htm#sub:vect_prod">vect_prod</A></B>
-<DD>computes the vector product between two 3D vectors
-  </DL>
 
 <P>
 
@@ -153,32 +85,31 @@ into its 3D position vector.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1508"
+<A NAME="tex2html1525"
   HREF="subroutinesnode105.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1514"
+<A NAME="tex2html1531"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1518"
+<A NAME="tex2html1535"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1516"
+<A NAME="tex2html1533"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1509"
-  HREF="subroutinesnode105.htm">udgrade_ring*</A>
+<B> Previous:</B> <A NAME="tex2html1526"
+  HREF="subroutinesnode105.htm">write_bintabh</A>
 
-<B>Up:</B> <A NAME="tex2html1515"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html1532"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1519"
-  HREF="subroutinesnode107.htm">vect_prod</A>
+<B> Next:</B> <A NAME="tex2html1536"
+  HREF="subroutinesnode107.htm">write_fits_cut4</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

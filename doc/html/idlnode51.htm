@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html794"
+<A NAME="tex2html797"
   HREF="idlnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html800"
+<A NAME="tex2html803"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html804"
+<A NAME="tex2html807"
   HREF="idlnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html802"
+<A NAME="tex2html805"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html795"
+<B> Previous:</B> <A NAME="tex2html798"
   HREF="idlnode50.htm">pix2xxx, ang2xxx, vec2xxx, nest2ring,ring2nest</A>
 
-<B>Up:</B> <A NAME="tex2html801"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html804"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html805"
+<B> Next:</B> <A NAME="tex2html808"
   HREF="idlnode52.htm">query_polygon</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,13 +58,13 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">query_disc </FONT></font></b><hr><H2>This IDL facility provides a means to find the index of all pixels within an
+<b><font size=+6><FONT COLOR="#CC0000">query_disc </FONT></font></b><hr>
+<H3>This IDL facility provides a means to find the index of all pixels within an
 angular distance <TT>Radius</TT> from a defined center.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/query_disc.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/query_disc.pro"><b>src/idl/toolkit/query_disc.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 query_disc , 
 <A HREF="#idl:query_disc:nside">Nside</A>, 
 <A HREF="#idl:query_disc:vector0">Vector0</A>, 
@@ -74,10 +74,11 @@ query_disc ,
 <A HREF="#idl:query_disc:deg">/DEG</A>, 
 <A HREF="#idl:query_disc:nested">/NESTED</A>, 
 <A HREF="#idl:query_disc:inclusive">/INCLUSIVE</A>]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B><A NAME="idl:query_disc:nside"></A>Nside</B>
 <DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
@@ -104,7 +105,7 @@ query_disc ,
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B><A NAME="idl:query_disc:deg"></A>/DEG</B>
 <DD>if set <A HREF="#idl:query_disc:radius"><TT>Radius</TT></A> is in degrees instead of radians
@@ -121,15 +122,16 @@ query_disc ,
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 query_disc finds the pixels within the given disc in a selective way WITHOUT
 scanning all the sky pixels. The numbering scheme of the output list and the
 inclusiveness of the disc can be changed
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_disc </FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run query_disc .
@@ -148,15 +150,12 @@ inclusiveness of the disc can be changed
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-query_disc , 256L, [.5,.5,0.], 10., listpix, nlist, /Deg, /Nest
-</SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> query_disc , 256L, [.5,.5,0.], 10., listpix, nlist, /Deg, /Nest</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 On return listpix contains the index of the (5982) pixels within 10 degrees from
 the point on the sphere having the direction [.5,.5,0.].
 The pixel indices correspond to the Nested scheme with resolution 256.
@@ -170,32 +169,31 @@ The pixel indices correspond to the Nested scheme with resolution 256.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html794"
+<A NAME="tex2html797"
   HREF="idlnode50.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html800"
+<A NAME="tex2html803"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html804"
+<A NAME="tex2html807"
   HREF="idlnode52.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html802"
+<A NAME="tex2html805"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html795"
+<B> Previous:</B> <A NAME="tex2html798"
   HREF="idlnode50.htm">pix2xxx, ang2xxx, vec2xxx, nest2ring,ring2nest</A>
 
-<B>Up:</B> <A NAME="tex2html801"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html804"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html805"
+<B> Next:</B> <A NAME="tex2html808"
   HREF="idlnode52.htm">query_polygon</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

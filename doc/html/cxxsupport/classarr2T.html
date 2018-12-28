@@ -63,6 +63,8 @@ Inherited by <a class="el" href="classarr2.html">arr2&lt; Colour8 &gt;</a>, and 
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#e87ff820f44d37aa48c228156744935b">fill</a> (const T &amp;val)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#7bf21f8d13e4369d10cdbdd91fc688ab">scale</a> (const T &amp;val)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classarr2T.html">arr2T</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarr2T.html#677f625bdb58abba5e3f1eb277ba04a7">operator=</a> (const <a class="el" href="classarr2T.html">arr2T</a> &amp;orig)</td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
@@ -456,6 +458,30 @@ Sets all array elements to <em>val</em>.
 
 </div>
 </div><p>
+<a class="anchor" name="7bf21f8d13e4369d10cdbdd91fc688ab"></a><!-- doxytag: member="arr2T::scale" ref="7bf21f8d13e4369d10cdbdd91fc688ab" args="(const T &amp;val)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename storageManager&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classarr2T.html">arr2T</a>&lt; T, storageManager &gt;::scale           </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&nbsp;</td>
+          <td class="paramname"> <em>val</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Multiplies all array elements by <em>val</em>. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00413">413</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+
+</div>
+</div><p>
 <a class="anchor" name="677f625bdb58abba5e3f1eb277ba04a7"></a><!-- doxytag: member="arr2T::operator=" ref="677f625bdb58abba5e3f1eb277ba04a7" args="(const arr2T &amp;orig)" -->
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +502,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Changes the array to be a copy of <em>orig</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00413">413</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00417">417</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -502,7 +528,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Returns a pointer to the beginning of slice <em>n</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00422">422</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00426">426</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -528,7 +554,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Returns a constant pointer to the beginning of slice <em>n</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00424">424</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00428">428</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -563,7 +589,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns a reference to the element with the indices <em>n1</em> and <em>n2</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00427">427</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00431">431</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -598,7 +624,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns a constant reference to the element with the indices <em>n1</em> and <em>n2</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00431">431</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00435">435</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -631,7 +657,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Returns the minimum and maximum entry in <em>minv</em> and <em>maxv</em>, respectively. Throws an exception if the array is zero-sized. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00436">436</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00440">440</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -655,7 +681,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Swaps contents and sizes with <em>other</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00449">449</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00453">453</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -681,7 +707,7 @@ template&lt;typename T2, typename T3&gt; </div>
 
 <p>
 Returns <code>true</code> if the array and <em>other</em> have the same dimensions, else <code>false</code>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00459">459</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00463">463</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -689,7 +715,7 @@ Returns <code>true</code> if the array and <em>other</em> have the same dimensio
 <li><a class="el" href="arr_8h-source.html">arr.h</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Fri Mar 22 17:52:47 2013 for LevelS C++ support library
+Generated on Wed Apr 24 11:31:17 2013 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

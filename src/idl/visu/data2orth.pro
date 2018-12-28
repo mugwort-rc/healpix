@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 pro data2orth, data, pol_data, pix_type, pix_param, do_conv, do_rot, coord_in, coord_out, eul_mat, $
@@ -109,7 +109,7 @@ vec_shine = vec_shine / sqrt(total(vec_shine^2))
 !P.COLOR = 0                    ; black foreground
 
 mode_col = keyword_set(hist_equal)
-mode_col = mode_col + 2*keyword_set(log) + 4*keyword_set(asinh)
+mode_col = mode_col + 2*keyword_set(log) + 4*keyword_value(asinh, default=0, min=0, max=2)
 
 sz = size(data)
 obs_npix = sz[1]

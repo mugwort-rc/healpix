@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html326"
+<A NAME="tex2html329"
   HREF="idlnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html335"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html336"
+<A NAME="tex2html339"
   HREF="idlnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html334"
+<A NAME="tex2html337"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html327"
+<B> Previous:</B> <A NAME="tex2html330"
   HREF="idlnode11.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html333"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html336"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html337"
+<B> Next:</B> <A NAME="tex2html340"
   HREF="idlnode13.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,15 +58,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">beam2bl</FONT></font></b><hr><H2>This IDL facility computes a transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> for a circular beam profile <SPAN CLASS="MATH"><IMG
+<b><font size=+6><FONT COLOR="#CC0000">beam2bl</FONT></font></b><hr>
+<H3>This IDL facility computes a transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> for a circular beam profile <SPAN CLASS="MATH"><IMG
  WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="idlimg28.png"
  ALT="$b(\theta)$"></SPAN>.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/beam2bl.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/misc/beam2bl.pro"><b>src/idl/misc/beam2bl.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 <A HREF="#idl:beam2bl:beam">beam</A>, 
 <A HREF="#idl:beam2bl:theta">theta</A>, 
@@ -75,10 +75,11 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 <A HREF="#idl:beam2bl:degrees">/DEGREES</A>, 
 <A HREF="#idl:beam2bl:help">/HELP</A>, 
 <A HREF="#idl:beam2bl:radians">/RADIANS</A>])
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>beam</B>
 <DD><A NAME="idl:beam2bl:beam"></A>input beam profile <SPAN CLASS="MATH"><IMG
@@ -102,7 +103,7 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>/ARCMIN</B>
 <DD><A NAME="idl:beam2bl:arcmin"></A>if set, <A HREF="#idl:beam2bl:theta"><SPAN CLASS="MATH"><IMG
@@ -128,8 +129,9 @@ bl=<FONT COLOR="#CC0000">beam2bl</FONT>(
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 Since the SH Transform of an arbitrary beam is
 </SMALL>
 <BR>
@@ -192,7 +194,7 @@ IDL's routine <TT>INT_TABULATED</TT> is used to perform the integration.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">beam2bl</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">beam2bl</FONT>.
@@ -210,26 +212,20 @@ function from a FITS file
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-bl = <A HREF="idlnode24.htm#idl:gaussbeam">gaussbeam</A>(15.d0, 4000, 1) </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> bl = <A HREF="idlnode24.htm#idl:gaussbeam">gaussbeam</A>(15.d0, 4000, 1) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-theta = dindgen(4000)/100. </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> theta = dindgen(4000)/100. </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-beam = <A HREF="idlnode14.htm#idl:bl2beam">bl2beam</A>(bl, theta, /arcmin)</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> beam = <A HREF="idlnode14.htm#idl:bl2beam">bl2beam</A>(bl, theta, /arcmin)</SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-bl1 = <FONT COLOR="#CC0000">beam2bl</FONT>(beam, theta, 4000, /arcmin) </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> bl1 = <FONT COLOR="#CC0000">beam2bl</FONT>(beam, theta, 4000, /arcmin) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-plot, bl1-bl</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> plot, bl1-bl</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 the example above generates a beam window function (defined for
 all <SPAN CLASS="MATH"><I>l</I></SPAN> in <!-- MATH
  $\{0,\ldots,4000\}$
@@ -252,32 +248,31 @@ window functions.</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html326"
+<A NAME="tex2html329"
   HREF="idlnode11.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html335"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html336"
+<A NAME="tex2html339"
   HREF="idlnode13.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html334"
+<A NAME="tex2html337"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html327"
+<B> Previous:</B> <A NAME="tex2html330"
   HREF="idlnode11.htm">azeqview</A>
 
-<B>Up:</B> <A NAME="tex2html333"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html336"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html337"
+<B> Next:</B> <A NAME="tex2html340"
   HREF="idlnode13.htm">bin_llcl</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

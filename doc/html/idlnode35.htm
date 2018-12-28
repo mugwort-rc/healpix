@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html602"
+<A NAME="tex2html605"
   HREF="idlnode34.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html608"
+<A NAME="tex2html611"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html612"
+<A NAME="tex2html615"
   HREF="idlnode36.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html610"
+<A NAME="tex2html613"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html603"
+<B> Previous:</B> <A NAME="tex2html606"
   HREF="idlnode34.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html609"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html612"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html613"
+<B> Next:</B> <A NAME="tex2html616"
   HREF="idlnode36.htm">iprocess_mask</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,17 +58,17 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">init_healpix</FONT></font></b><hr><H2>This IDL facility creates an IDL system variable (!HEALPIX) containing various
-<b>HEALPix</b> related quantities</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/init_healpix.pro
-</b>
+<b><font size=+6><FONT COLOR="#CC0000">init_healpix</FONT></font></b><hr>
+<H3>This IDL facility creates an IDL system variable (!HEALPIX) containing various
+<b>HEALPix</b> related quantities</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/misc/init_healpix.pro"><b>src/idl/misc/init_healpix.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 INIT_HEALPIX [,VERBOSE=]
-</h2>
+</h3>
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>VERBOSE =</B>
 <DD>if set, turn on the verbose mode, giving a short
@@ -77,15 +77,16 @@ INIT_HEALPIX [,VERBOSE=]
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">init_healpix</FONT>  defines the IDL system variable and structure !HEALPIX
 containing several quantities and character string necessary to <b>HEALPix</b> , eg : allowed
 resolution parameters Nside, full path to package directory, package version...
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">init_healpix</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">init_healpix</FONT>.	
@@ -95,15 +96,13 @@ resolution parameters Nside, full path to package directory, package version...
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">init_healpix</FONT>,/verbose
-</SMALL></TD>
+<hr><H1>EXAMPLE # 1:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">init_healpix</FONT>,/verbose</SMALL></TD>
 <TD></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote><FONT COLOR="#CC0000">init_healpix</FONT>  will create the system variable !Healpix, and give a short
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote><FONT COLOR="#CC0000">init_healpix</FONT>  will create the system variable !Healpix, and give a short
 description of the tags available, as shown below
 </SMALL>
 <P>
@@ -135,15 +134,13 @@ This system variable contains some information on Healpix : <BR>
 <BR>
 !HEALPIX.COMMENT   = this description.
 </SMALL></TT>
-</blockquote><SMALL CLASS="FOOTNOTESIZE"></SMALL><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-help, !healpix, /structure
-</SMALL></TD>
+</blockquote><SMALL CLASS="FOOTNOTESIZE"></SMALL><hr><H1>EXAMPLE # 2:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> help, !healpix, /structure</SMALL></TD>
 <TD></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote>will print the content of the !Healpix system structure.
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>will print the content of the !Healpix system structure.
 </blockquote><SMALL CLASS="FOOTNOTESIZE">
 </SMALL>
 <P>
@@ -153,32 +150,31 @@ help, !healpix, /structure
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html602"
+<A NAME="tex2html605"
   HREF="idlnode34.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html608"
+<A NAME="tex2html611"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html612"
+<A NAME="tex2html615"
   HREF="idlnode36.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html610"
+<A NAME="tex2html613"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html603"
+<B> Previous:</B> <A NAME="tex2html606"
   HREF="idlnode34.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html609"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html612"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html613"
+<B> Next:</B> <A NAME="tex2html616"
   HREF="idlnode36.htm">iprocess_mask</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 PRO pix2ang_nest, nside, ipix, theta, phi
@@ -59,6 +59,7 @@ PRO pix2ang_nest, nside, ipix, theta, phi
 ;    Aug 2011, EH, IAP: more precise theta determination close to pole;
 ;        sligtly faster by not using kshift
 ;    Sep 2011, EH, IAP: use HISTOGRAM instead of multiple WHEREs
+;    Apr 2013, EH, IAP: works with scalar ipix
 ;
 ;-
 ;*****************************************************************************
@@ -145,6 +146,7 @@ PRO pix2ang_nest, nside, ipix, theta, phi
   nr     = LONARR(np, /NOZERO)
   theta  = DBLARR(np, /NOZERO)
 
+  if (n_elements(jr) eq 1) then jr=[jr] ; make sure jr is an array (for HISTOGRAM)
   hist = HISTOGRAM(jr, min=-nl1, max=nl4, binsize=2L*nl1, reverse=rev)
   if (hist[0]+hist[1]+hist[2]) NE np THEN message,'error in '+routine
 

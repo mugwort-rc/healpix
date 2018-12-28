@@ -22,7 +22,7 @@
 ;  along with HEALPix; if not, write to the Free Software
 ;  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ;
-;  For more information about HEALPix see http://healpix.jpl.nasa.gov
+;  For more information about HEALPix see http://healpix.sourceforge.net
 ;
 ; -----------------------------------------------------------------------------
 pro write_fits_sb, filename, prim_st, exten_st, Coordsys=coordsys, Nested=nested, Ring=ring, Ordering=ordering, Partial=Partial_usr, Nside=nside_usr, Extension=extension_id, Nothealpix=nothealpix, help=help
@@ -106,7 +106,7 @@ pro write_fits_sb, filename, prim_st, exten_st, Coordsys=coordsys, Nested=nested
 ; ----
 ; for consistency with Healpix format the user should 
 ; give missing pixels
-; the value -1.6375e30 in the array data
+; the value !healpix.bad_value = -1.6375e30 in the array data
 ;
 ; MODIFICATION HISTORY:
 ;    written by Eric Hivon, IAP, Nov 11 1997

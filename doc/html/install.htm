@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Installing Healpix</TITLE>
-<META NAME="description" CONTENT="Installing Healpix">
+<TITLE>Installing HEALPix</TITLE>
+<META NAME="description" CONTENT="Installing HEALPix">
 <META NAME="keywords" CONTENT="install">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -25,26 +25,33 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
-<A NAME="tex2html70"
+<A NAME="tex2html73"
   HREF="main.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png">   
+<A NAME="tex2html71"
+  HREF="main.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="nx_grp.png"></A>   
 <BR>
-<B>Up:</B> <A NAME="tex2html71"
+<B>Up:</B> <A NAME="tex2html74"
   HREF="main.htm">Main Page</A>
 
+<B> Next:</B> <A NAME="tex2html72"
+  HREF="main.htm">Main Page</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <P>
 
+
+
 <P>
 <H1 ALIGN=CENTER><b>HEALPix</b> Facility Installation Guidelines</H1>
-<DIV>
-This document describes the installation for the <b>HEALPix</b> facilities.</DIV>
+<div id=abstract align=center>This document describes the installation for the <b>HEALPix</b> facilities.</div>
 <P ALIGN=CENTER><STRONG>Eric Hivon, Anthony J.&nbsp;Banday, Matthias Bartelmann, Benjamin D.&nbsp;Wandelt,
 Frode K.&nbsp;Hansen and Krzysztof M.&nbsp;G&#243;rski</STRONG></P>
-<BR><P ALIGN=CENTER><I>Revision: </I>Version 3.10; March 22, 2013</P>
+<BR><P ALIGN=CENTER><I>Revision: </I>Version 3.11; April 24, 2013</P>
+<P ALIGN=CENTER><A NAME="tex2html1"
+  HREF="http://healpix.sf.net">http://healpix.sf.net</A></P>
 
 <BR>
 
@@ -54,92 +61,105 @@ TABLE OF CONTENTS</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html115"
+<LI><A NAME="tex2html123"
   HREF="install.htm#SECTION00010000000000000000">TABLE OF CONTENTS</A>
-<LI><A NAME="tex2html116"
+<LI><A NAME="tex2html124"
   HREF="install.htm#SECTION00020000000000000000">Introduction</A>
-<LI><A NAME="tex2html117"
+<LI><A NAME="tex2html125"
   HREF="install.htm#SECTION00030000000000000000">Installation Requirements</A>
-<LI><A NAME="tex2html118"
+<LI><A NAME="tex2html126"
   HREF="install.htm#SECTION00040000000000000000">healpix_doc: an easy access to HEALPix documentation</A>
-<LI><A NAME="tex2html119"
+<LI><A NAME="tex2html127"
   HREF="install.htm#SECTION00050000000000000000">The Installation Procedure</A>
 <UL>
-<LI><A NAME="tex2html120"
+<LI><A NAME="tex2html128"
   HREF="install.htm#SECTION00051000000000000000">./configure [-L]</A>
 <UL>
-<LI><A NAME="tex2html121"
+<LI><A NAME="tex2html129"
   HREF="install.htm#SECTION00051100000000000000">Configuration profile</A>
-<LI><A NAME="tex2html122"
+<LI><A NAME="tex2html130"
   HREF="install.htm#SECTION00051200000000000000">C configuration</A>
-<LI><A NAME="tex2html123"
+<LI><A NAME="tex2html131"
   HREF="install.htm#SECTION00051300000000000000">C++ configuration</A>
-<LI><A NAME="tex2html124"
+<LI><A NAME="tex2html132"
   HREF="install.htm#SECTION00051400000000000000">Fortran 90 configuration</A>
-<LI><A NAME="tex2html125"
+<LI><A NAME="tex2html133"
   HREF="install.htm#SECTION00051500000000000000">IDL configuration</A>
-<LI><A NAME="tex2html126"
+<LI><A NAME="tex2html134"
   HREF="install.htm#SECTION00051600000000000000">Java installation</A>
-<LI><A NAME="tex2html127"
+<LI><A NAME="tex2html135"
   HREF="install.htm#SECTION00051700000000000000">Python installation</A>
 </UL>
-<LI><A NAME="tex2html128"
+<LI><A NAME="tex2html136"
   HREF="install.htm#SECTION00052000000000000000">Compilation and installation</A>
-<LI><A NAME="tex2html129"
+<LI><A NAME="tex2html137"
   HREF="install.htm#SECTION00053000000000000000">Testing the installation</A>
-<LI><A NAME="tex2html130"
+<LI><A NAME="tex2html138"
   HREF="install.htm#SECTION00054000000000000000">Cleaning up</A>
 </UL>
 <BR>
-<LI><A NAME="tex2html131"
+<LI><A NAME="tex2html139"
   HREF="install.htm#SECTION00060000000000000000">A Note on Re-installation</A>
-<LI><A NAME="tex2html132"
+<LI><A NAME="tex2html140"
   HREF="install.htm#SECTION00070000000000000000">Troubleshooting and further information</A>
 <UL>
-<LI><A NAME="tex2html133"
+<LI><A NAME="tex2html141"
   HREF="install.htm#SECTION00071000000000000000">Free Fortran90/95 Compilers</A>
-<LI><A NAME="tex2html134"
+<LI><A NAME="tex2html142"
   HREF="install.htm#SECTION00072000000000000000">Installation under Microsoft Windows</A>
-<LI><A NAME="tex2html135"
+<LI><A NAME="tex2html143"
   HREF="install.htm#SECTION00073000000000000000">Problems with CFITSIO</A>
-<LI><A NAME="tex2html136"
+<LI><A NAME="tex2html144"
   HREF="install.htm#SECTION00074000000000000000">diff shows that the test files are different from
 the supplied files</A>
-<LI><A NAME="tex2html137"
+<LI><A NAME="tex2html145"
   HREF="install.htm#SECTION00075000000000000000">Try unlimit</A>
-<LI><A NAME="tex2html138"
+<LI><A NAME="tex2html146"
   HREF="install.htm#SECTION00076000000000000000">hidl usage</A>
-<LI><A NAME="tex2html139"
+<LI><A NAME="tex2html147"
   HREF="install.htm#SECTION00077000000000000000">Mac OS X, X11 and IDL cursor</A>
-<LI><A NAME="tex2html140"
+<LI><A NAME="tex2html148"
   HREF="install.htm#SECTION00078000000000000000">Using GDL instead of IDL</A>
 </UL>
 <BR>
-<LI><A NAME="tex2html141"
+<LI><A NAME="tex2html149"
   HREF="install.htm#SECTION00080000000000000000">Appendix I: Recent Changes and New Features</A>
 <UL>
-<LI><A NAME="tex2html142"
-  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 3.1</A>
+<LI><A NAME="tex2html150"
+  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 3.11</A>
 <UL>
-<LI><A NAME="tex2html143"
+<LI><A NAME="tex2html151"
   HREF="install.htm#SECTION00081100000000000000">General</A>
-<LI><A NAME="tex2html144"
-  HREF="install.htm#SECTION00081200000000000000">C</A>
-<LI><A NAME="tex2html145"
-  HREF="install.htm#SECTION00081300000000000000">C++</A>
-<LI><A NAME="tex2html146"
-  HREF="install.htm#SECTION00081400000000000000">Fortran 90 facilities
+<LI><A NAME="tex2html152"
+  HREF="install.htm#SECTION00081200000000000000">C++</A>
+<LI><A NAME="tex2html153"
+  HREF="install.htm#SECTION00081300000000000000">Fortran 90 facilities
 and subroutines</A>
-<LI><A NAME="tex2html147"
-  HREF="install.htm#SECTION00081500000000000000">IDL</A>
-<LI><A NAME="tex2html148"
-  HREF="install.htm#SECTION00081600000000000000">Java</A>
-<LI><A NAME="tex2html149"
-  HREF="install.htm#SECTION00081700000000000000">Python</A>
+<LI><A NAME="tex2html154"
+  HREF="install.htm#SECTION00081400000000000000">IDL</A>
+</UL>
+<LI><A NAME="tex2html155"
+  HREF="install.htm#SECTION00082000000000000000">Bug corrections and Improvements in Version 3.10 (2013-03)</A>
+<UL>
+<LI><A NAME="tex2html156"
+  HREF="install.htm#SECTION00082100000000000000">General</A>
+<LI><A NAME="tex2html157"
+  HREF="install.htm#SECTION00082200000000000000">C</A>
+<LI><A NAME="tex2html158"
+  HREF="install.htm#SECTION00082300000000000000">C++</A>
+<LI><A NAME="tex2html159"
+  HREF="install.htm#SECTION00082400000000000000">Fortran 90 facilities
+and subroutines</A>
+<LI><A NAME="tex2html160"
+  HREF="install.htm#SECTION00082500000000000000">IDL</A>
+<LI><A NAME="tex2html161"
+  HREF="install.htm#SECTION00082600000000000000">Java</A>
+<LI><A NAME="tex2html162"
+  HREF="install.htm#SECTION00082700000000000000">Python</A>
 </UL>
 </UL>
 <BR>
-<LI><A NAME="tex2html150"
+<LI><A NAME="tex2html163"
   HREF="install.htm#SECTION00090000000000000000">Appendix II: Older changes</A>
 </UL>
 <!--End of Table of Contents-->
@@ -161,17 +181,17 @@ A set of C subroutines and functions is also provided.
 <P>
 The distribution can be downloaded as a gzipped and tarred file,
 which can be unpacked by executing the commands <BR>
-<TT>% gunzip Healpix_3.10.tar.gz</TT>
-<BR><TT>% tar -xpf Healpix_3.10.tar</TT>
+<TT>% gunzip Healpix_3.11.tar.gz</TT>
+<BR><TT>% tar -xpf Healpix_3.11.tar</TT>
 <BR>
 <P>
 
-<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="862"></A>
+<DIV ALIGN="CENTER"><A NAME="page:dirtree"></A><A NAME="fig:dirtree"></A><A NAME="954"></A>
 <TABLE>
 <CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
 The directory structure for the <b>HEALPix</b> distribution. </CAPTION>
 <TR><TD>
-<DIV CLASS="centerline" ID="par3090" ALIGN="CENTER">
+<DIV CLASS="centerline" ID="par3161" ALIGN="CENTER">
 <IMG
   WIDTH="562" HEIGHT="478" ALIGN="BOTTOM" BORDER="0"
  SRC="./dir_tree.png"
@@ -207,7 +227,7 @@ Installation Requirements
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="864"></A>
+<DIV ALIGN="CENTER"><A NAME="956"></A>
 <TABLE>
 <CAPTION><STRONG>Table 1:</STRONG>
   Documentation on the installation and usage of the different packages</CAPTION>
@@ -223,10 +243,10 @@ Installation Requirements
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>
 Fortran 90</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html6"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html3"
   HREF="facilities.htm">''Fortran Facilities''</A>
 and 
-<A NAME="tex2html7"
+<A NAME="tex2html4"
   HREF="subroutines.htm">''Fortran Subroutines''</A>
 documents</TD>
 </TR>
@@ -236,7 +256,7 @@ documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>IDL</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html8"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html5"
   HREF="idl.htm">''IDL Facilities''</A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
@@ -245,7 +265,7 @@ documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>C++</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/cxx/README.compilation</TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html9"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html6"
   HREF="index_cxx.html">''C++ Facilities and Subroutines''</A>
 (HTML only)</TD>
 </TR>
@@ -255,7 +275,7 @@ documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>C</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/C/README</TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html10"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html7"
   HREF="csub.htm">''C Subroutines Overview''</A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>&nbsp;</TD>
@@ -264,7 +284,7 @@ documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>Java</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175><TT>src/java/README</TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html11"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html8"
   HREF="java/index.html">''Java Overview''</A>
 (HTML only)</TD>
 </TR>
@@ -274,7 +294,7 @@ documents</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=75>Python</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>This document, or  <TT>src/healpy/INSTALL</TT></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html12"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><A NAME="tex2html9"
   HREF="http://healpy.github.com/healpy">''Healpy
 Documentation''</A>
 (HTML only)</TD>
@@ -303,7 +323,7 @@ that at least version 6.1 is required), <SPAN  CLASS="textbf">Java</SPAN> and <S
 also available in <SPAN  CLASS="textbf">C</SPAN>. 
 <BR>
 Starting with version 3.0, the
-<A NAME="tex2html21"
+<A NAME="tex2html18"
   HREF="https://github.com/healpy/healpy">healpy</A>
 (HEALPix in Python) library has been integrated into <b>HEALPix</b> releases. Since it
 is, to a large extent, a
@@ -323,7 +343,7 @@ attempts to generate a <TT>Makefile</TT> which is tailored to one of
 the above Operating Systems (OS's) and using 
 <TT>Makefile.in</TT> as a template for non system-specific statements. 
 Only the basic UNIX make facility is required to build the software, although we do
-still recommend the GNU make facility (<A NAME="tex2html22"
+still recommend the GNU make facility (<A NAME="tex2html19"
   HREF="ftp://ftp.gnu.org/gnu/make/"><TT>ftp://ftp.gnu.org/gnu/make/</TT></A>).
 In addition, several environment configuration files and an IDL startup file are
 generated. These automatically establish
@@ -345,7 +365,7 @@ require the publicly available CFITSIO library. Note that the
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 CFITSIO V 3.14 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html14"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html11"
   HREF="http://heasarc.gsfc.nasa.gov/fitsio/"><TT>http://heasarc.gsfc.nasa.gov/fitsio/</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
@@ -374,7 +394,7 @@ available at
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 IDL V 6.1 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html15"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html12"
   HREF="http://www.exelisvis.com/"><TT>http://www.exelisvis.com/</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
@@ -401,7 +421,7 @@ caveats, see &#167;<A HREF="#sec:using_gdl">6.8</A>) and can be downloaded for f
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 GDL 0.9.2 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html16"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html13"
   HREF="http://sourceforge.net/projects/gnudatalanguage"><TT>http://sourceforge.net/projects/gnudatalanguage</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
@@ -419,13 +439,13 @@ GDL 0.9.2 or more</TD>
 <P>
 As it was already the case in version 1.20, users no longer need to acquire the
 <SPAN  CLASS="textbf">I</SPAN>DL
-Astronomy User's Library (<A NAME="tex2html23"
+Astronomy User's Library (<A NAME="tex2html20"
   HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>http://idlastro.gsfc.nasa.gov/homepage.html</TT></A>)
-or the COBE (IDL) Analysis Software (<A NAME="tex2html24"
+or the COBE (IDL) Analysis Software (<A NAME="tex2html21"
   HREF="http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm"><TT>http://lambda.gsfc.nasa.gov/product/cobe/cgis.cfm</TT></A>),
 although we do recommend these packages to the user.
-The 100-odd routines required for version 3.10 are contained in the
-subdirectory <TT>Healpix_3.10/src/idl/zzz_external</TT>.
+The 100-odd routines required for version 3.11 are contained in the
+subdirectory <TT>Healpix_3.11/src/idl/zzz_external</TT>.
 These procedures are included in the <b>HEALPix</b> package unchanged and 
 solely for the purpose of making it self contained. In this way,
 we remove the burden of installation of additional libraries from 
@@ -444,19 +464,19 @@ The  <SPAN  CLASS="textbf">Python</SPAN> <TT>healpy</TT> package requires
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
 Python 2.4 to 2.7</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html17"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html14"
   HREF="http://www.python.org"><TT>http://www.python.org</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>Numpy 1.0.1 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html18"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html15"
   HREF="http://numpy.scipy.org"><TT>http://numpy.scipy.org</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>Matplotlib 0.91.2 or more</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html19"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html16"
   HREF="http://matplotlib.sourceforge.net"><TT>http://matplotlib.sourceforge.net</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>PyFITS</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html20"
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=300><A NAME="tex2html17"
   HREF="http://www.stsci.edu/institute/software_hardware/pyfits"><TT>http://www.stsci.edu/institute/software_hardware/pyfits</TT></A></TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
@@ -473,10 +493,10 @@ Python 2.4 to 2.7</TD>
 
 <P>
 While not required, the 
-<TT>IPython</TT> (<A NAME="tex2html25"
+<TT>IPython</TT> (<A NAME="tex2html22"
   HREF="http://ipython.org"><TT>http://ipython.org</TT></A>)
 and 
-<TT>Cython</TT> (<A NAME="tex2html26"
+<TT>Cython</TT> (<A NAME="tex2html23"
   HREF="http://cython.org"><TT>http://cython.org</TT></A>)
 softwares can also be useful.
 
@@ -590,7 +610,7 @@ Using the <TT>-L</TT> option is recommended when doing a <EM>project</EM> or <EM
 An online help is available with 
 <TT>./configure&nbsp;-h</TT>, while 
 <TT>./configure&nbsp;-v</TT> 
-will return the <b>HEALPix</b> release number (currently 3.10) and exit.
+will return the <b>HEALPix</b> release number (currently 3.11) and exit.
 
 <P>
 
@@ -655,7 +675,7 @@ The <TT>./configure</TT> script will
 ask for the full path to an installed <TT>cfitsio</TT> library to link to, and then provide a choice of
 predefined targets corresponding to different combinations of C++ compilers and
 options. Each of those targets is defined in a configuration file located in
-<TT>Healpix_3.10/src/cxx/config/config.</TT><EM>target</EM>.
+<TT>Healpix_3.11/src/cxx/config/config.</TT><EM>target</EM>.
 The user can therefore add new targets or edit existing ones, and the
 <TT>./configure</TT> script will update its menu accordingly.
 If a fairly recent version
@@ -683,8 +703,8 @@ you will be prompted to enter compiler optimisation flags.
 We have not attempted to provide the best optimisation flags for all
 operating systems. The configure
 script will have a guess at optimisation options for some systems, but it
-is up to the user to figure out an optimal set<A NAME="tex2html27"
-  HREF="installfootnode.htm#foot883"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>. From our experience,
+is up to the user to figure out an optimal set<A NAME="tex2html24"
+  HREF="installfootnode.htm#foot975"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>. From our experience,
 we have not found significant accumulation of numerical error even
 when using the most aggressive optimisation level available. 
 <BR>
@@ -703,7 +723,7 @@ If the HEALPix configuration file is
 sourced as described in &#167;&nbsp;<A HREF="#subsub:conf">4.1.1</A>, the aliases <TT>hidl</TT> and <TT>hidle</TT>
 are also defined to give you access to HEALPIX routines from IDL.
 <BR>
-See the <A NAME="tex2html28"
+See the <A NAME="tex2html25"
   HREF="idl.html"><b>HEALPix</b> IDL Document</A>
 for more
 information on using <b>HEALPix</b> IDL together with other IDL libraries.
@@ -794,15 +814,16 @@ reference files.
 
 <P>
 <BR><P></P>
-<DIV ALIGN="CENTER"><A NAME="885"></A>
+<DIV ALIGN="CENTER"><A NAME="977"></A>
 <TABLE>
 <CAPTION><STRONG>Table 2:</STRONG>
 
  <SMALL CLASS="FOOTNOTESIZE">
 Data files and images produced by the Fortran codes during the tests,
 and the respective reference files to which they can be compared. All the files listed
-are located or produced in the <TT>Healpix_3.10/test</TT> directory. The GIF images of full sky maps were
-produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the data set is not a sky map</SMALL></CAPTION>
+are located or produced in the <TT>Healpix_3.11/test</TT> directory. The GIF images of full sky maps were
+produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the data set
+is not a sky map</SMALL></CAPTION>
 <TR><TD><TABLE CELLPADDING=3 BORDER="1">
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"><B>code</B>    &amp; parameter file </SMALL></TD>
 <TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> output data 		</SMALL></TD>
@@ -903,17 +924,17 @@ produced using <TT>map2gif</TT>. <EM>NA</EM>: No image available, because the da
 <P>
 <B>Notes:</B> 
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the input power spectrum (in <TT>Healpix_3.10/test/cl.fits</TT>) used to generate the Fortran90 test maps
+ the input power spectrum (in <TT>Healpix_3.11/test/cl.fits</TT>) used to generate the Fortran90 test maps
 is currently the WMAP 1yr best fit, in <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg4.png"
  ALT="$(\mu$"></SPAN>K<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN>, and is therefore different from the one
 included in releases 1.* (that can still be found in <TT>cl_old.fits</TT>).
-See <A NAME="tex2html30"
+See <A NAME="tex2html27"
   HREF="http://lambda.gsfc.nasa.gov/"><TT>http://lambda.gsfc.nasa.gov/</TT></A>
 for details on WMAP and its data products.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the file  <TT>Healpix_3.10/test/wmap_lcdm_sz_lens_wmap5_cl_v3.fits</TT>
+ the file  <TT>Healpix_3.11/test/wmap_lcdm_sz_lens_wmap5_cl_v3.fits</TT>
  was added for convenience, even though
  it is currently *NOT* used for any of the simulated test maps.
 
@@ -926,10 +947,10 @@ It has been adapted to run with <b>HEALPix</b> from WMAP 5yr best fit model for
  WIDTH="23" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
  SRC="installimg4.png"
  ALT="$(\mu$"></SPAN>K<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN> (input file: 
-<A NAME="tex2html31"
+<A NAME="tex2html28"
   HREF="http://lambda.gsfc.nasa.gov/data/map/dr3/dcp/params/c_l/wmap_lcdm_sz_lens_wmap5_cl_v3.dat"><SMALL CLASS="FOOTNOTESIZE"><TT>http://lambda.gsfc.nasa.gov/data/map/dr3/dcp/params/c_l/wmap_lcdm_sz_lens_wmap5_cl_v3.dat</TT></SMALL></A>).
  For the value of the cosmological parameters, see 
- <A NAME="tex2html32"
+ <A NAME="tex2html29"
   HREF="http://lambda.gsfc.nasa.gov/product/map/dr3/params/lcdm_sz_lens_wmap5.cfm"><SMALL CLASS="FOOTNOTESIZE"><TT>http://lambda.gsfc.nasa.gov/product/map/dr3/params/lcdm_sz_lens_wmap5.cfm</TT></SMALL></A>
 </DL>
 
@@ -983,7 +1004,7 @@ Troubleshooting and further information
 </H1>
 This section contains a list of difficulties which we have dealt
 with. It is by no means exhaustive. 
-In case of problems, see <A NAME="tex2html33"
+In case of problems, see <A NAME="tex2html30"
   HREF="http://healpix.sourceforge.net/support.php"><TT> http://healpix.sourceforge.net/support.php</TT></A>
 or contact <EM>healpix</EM> <TT>at</TT> <EM>jpl.nasa.gov</EM>
 
@@ -998,18 +1019,18 @@ The <B>free</B> Fortran90/95 compilers that can be used do compile <b>HEALPix</b
     <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>Intel Fortran</B> Compiler for Linux based computers (versions 11.*
 or 12.*) 
-<BR>         <A NAME="tex2html34"
+<BR>         <A NAME="tex2html31"
   HREF="http://software.intel.com/en-us/articles/intel-compilers/"><TT>        http://software.intel.com/en-us/articles/intel-compilers/</TT></A>
 
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>GNU Fortran 95</B> compiler (gfortran) included in GNU Compiler Collection <EM>GCC</EM> version 4.0.0
          and up and available for Linux, Mac OSX, Windows, Sun ... platforms
          
-<BR>          <A NAME="tex2html35"
+<BR>          <A NAME="tex2html32"
   HREF="http://www.gnu.org/software/gcc/fortran/"><TT>http://www.gnu.org/software/gcc/fortran/</TT></A>. 
 <BR>
 GFortran binaries for all platforms can also be downloaded from  
-<BR>          <A NAME="tex2html36"
+<BR>          <A NAME="tex2html33"
   HREF="http://gcc.gnu.org/wiki/GFortranBinaries"><TT>http://gcc.gnu.org/wiki/GFortranBinaries</TT></A>. 
 <BR>
 Please note that only the most recent versions of gfortran (Aug 2005
@@ -1018,7 +1039,7 @@ Please note that only the most recent versions of gfortran (Aug 2005
      <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <B>G95</B> compiler available for Linux, Mac OSX, Windows, Sun and HP platforms
          
-<BR><A NAME="tex2html37"
+<BR><A NAME="tex2html34"
   HREF="http://g95.sf.net"><TT>http://g95.sf.net</TT></A>
 </DL>
 
@@ -1034,22 +1055,22 @@ The installation and usage of HEALPix require many standard Unix/Linux tools
 C++ and Fortran compilers. To install it under Windows, you will need to
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Install Cygwin on your machine 
-(see <A NAME="tex2html38"
+(see <A NAME="tex2html35"
   HREF="http://cygwin.com/"><TT>http://cygwin.com/</TT></A>).
 In addition to the default packages, you need at least the <TT>binutils,
     coreutils, util-linux, bash, gawk, grep, make</TT> and <TT>sed</TT> packages, as
     well as <TT>gcc</TT> and gcc-g++ packages, all available at 
-<A NAME="tex2html39"
+<A NAME="tex2html36"
   HREF="http://cygwin.com/packages/"><TT>http://cygwin.com/packages/</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Install the latest gfortran binaries for Cygwin from 
-<A NAME="tex2html40"
+<A NAME="tex2html37"
   HREF="http://quatramaran.ens.fr/~coudert/gfortran/"><TT>http://quatramaran.ens.fr/<SPAN CLASS="MATH"><IMG
  WIDTH="7" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
  SRC="installimg6.png"
  ALT="$\tilde{}$"></SPAN>coudert/gfortran/</TT></A>, 
 following the instructions at 
-<A NAME="tex2html41"
+<A NAME="tex2html38"
   HREF="http://gcc.gnu.org/wiki/GFortranBinaries"><TT>http://gcc.gnu.org/wiki/GFortranBinaries</TT></A>.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Unpack the HEALPix software package
@@ -1245,7 +1266,7 @@ the user to access the <b>HEALPix</b> IDL procedures simply by invoking
 IDL. For example, in the typical installation documented
 above for a user running the tcsh shell, the command 
 <BR><TT>setenv IDL_STARTUP
-/disk1/user1/HEALPix_3.10/src/idl/HEALPix_startup</TT>
+/disk1/user1/HEALPix_3.11/src/idl/HEALPix_startup</TT>
 
 <BR>
 should be issued (or added to the user's shell profile).
@@ -1278,7 +1299,7 @@ If the IDL cursor does not work correctly on X11 windows under Mac OS X, and the
 <BR> <TT>defaults write org.x.x11 wm_click_through -bool true</TT>
 </DL>
 at your X11 prompt and restart X11.
-(See also <A HREF="./idlnode41.htm#idl:mollcursor"><TT>mollcursor</TT></A> documentation in <A NAME="tex2html42"
+(See also <A HREF="./idlnode41.htm#idl:mollcursor"><TT>mollcursor</TT></A> documentation in <A NAME="tex2html39"
   HREF="idl.htm">''IDL
 Facilities''</A>).
 
@@ -1292,14 +1313,14 @@ Using GDL instead of IDL
 
 <P>
 GNU Data Language (GDL), is a <EM>free</EM> clone of IDL 6.0 (for more information see
-<A NAME="tex2html44"
+<A NAME="tex2html41"
   HREF="http://gnudatalanguage.sourceforge.net"><TT>http://gnudatalanguage.sourceforge.net</TT></A>).
 Both the source code and precompiled executables for various platforms are available.
 
 <P>
 When used to run IDL-Healpix routines, GDL 0.9.2 or more gives
-satisfactory results<A NAME="tex2html43"
-  HREF="installfootnode.htm#foot907"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. The calculations agree with those done under IDL, with
+satisfactory results<A NAME="tex2html40"
+  HREF="installfootnode.htm#foot999"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>. The calculations agree with those done under IDL, with
 comparable computation times, but a few features are missing in the production
 of Postscript, GIF and PNG files, as described below.
 
@@ -1318,7 +1339,7 @@ Among those is
  <TT>congrid.pro</TT>,
 </DL>
 which can be downloaded from
-<A NAME="tex2html45"
+<A NAME="tex2html42"
   HREF="http://idlastro.gsfc.nasa.gov/idllibsrch.html"><TT>http://idlastro.gsfc.nasa.gov/idllibsrch.html</TT></A>.
 
 <P>
@@ -1328,7 +1349,7 @@ Among those is
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>swap_endian_inplace.pro</TT>,
 </DL>
-which should be replaced with the original IDL version found at the same location as above, or with the patch found in <A NAME="tex2html46"
+which should be replaced with the original IDL version found at the same location as above, or with the patch found in <A NAME="tex2html43"
   HREF="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=3454317&amp;group_id=97659&amp;atid=618683">GDL Bugs monitor</A>.
 
 <P>
@@ -1401,16 +1422,65 @@ Appendix I: Recent Changes and New Features
 </H1>
 
 <H2><A NAME="SECTION00081000000000000000">
-Bug corrections and Improvements in Version 3.1</A>
+Bug corrections and Improvements in Version 3.11</A>
 </H2>
 
-<H3><A NAME="SECTION00081100000000000000">
+<P>
+
+<H3><A NAME="SECTION00081100000000000000"></A>
+<A NAME="sec:general3p11"></A>
+<BR>
+General
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A NAME="tex2html44"
+  HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
+C library used for Spherical Harmonics Transforms 
+in Fortran and C++ since <b>HEALPix</b>  3.10
+can now be compiled with <EM>any</EM> <TT>gcc</TT> version.
+</DL>
+<H3><A NAME="SECTION00081200000000000000">
+C++</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ See General section above
+</DL>
+<H3>Fortran 90 <A NAME="tex2html45"
+  HREF="facilities.htm">facilities</A>
+and
+	<A NAME="tex2html46"
+  HREF="subroutines.htm">subroutines</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ bug correction in <A HREF="./subroutinesnode74.htm#sub:query_disc"><TT>query_disc</TT></A> 
+	routine in <TT>inclusive</TT> mode
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ bug correction in <A HREF="./subroutinesnode10.htm#sub:alm2map_spin"><TT>alm2map_spin</TT></A> 
+	routine, which had its <TT>spin</TT> value set to 2
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ See General section above
+</DL>
+<H3><A NAME="SECTION00081400000000000000"></A>
+<BR>
+<A NAME="tex2html47"
+  HREF="idl.htm">IDL</A>
+</H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="./idlnode50.htm#idl:pix_tools"><TT>ang2pix_ring</TT></A> and
+		<A HREF="./idlnode50.htm#idl:pix_tools"><TT>pix2ang_nest</TT></A>
+		routines now accept scalar arguments
+</DL>
+<H2><A NAME="SECTION00082000000000000000">
+Bug corrections and Improvements in Version 3.10 (2013-03)</A>
+</H2>
+
+<H3><A NAME="SECTION00082100000000000000">
 General</A>
 </H3>
 N/A
-<H3><A NAME="SECTION00081200000000000000"></A>
+<H3><A NAME="SECTION00082200000000000000"></A>
 <BR>
-<A NAME="tex2html47"
+<A NAME="tex2html48"
   HREF="csub.htm">C</A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1420,16 +1490,16 @@ configuration script remains available
 
 <P>
 
-<H3><A NAME="SECTION00081300000000000000">
+<H3><A NAME="SECTION00082300000000000000">
 C++</A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Spherical Harmonics Transform library <TT>libpsht</TT> replaced by <A NAME="tex2html49"
+ Spherical Harmonics Transform library <TT>libpsht</TT> replaced by <A NAME="tex2html50"
   HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
-(<A NAME="tex2html50"
+(<A NAME="tex2html51"
   HREF="http://arxiv.org/abs/1303.4945">Reinecke &amp; Seljebotn, 2013</A>). 
 <BR><EM><A NAME="install:cpp:gccreleases"></A>Note that 
-some <A NAME="tex2html48"
+some <A NAME="tex2html49"
   HREF="http://gcc.gnu.org/releases.html"><TT>gcc</TT> versions</A>
 (4.4.1 to 4.4.6) crash with an internal compiler error during compilation of <TT>libsharp</TT></EM>. 
 The problem has been fixed in <TT>gcc</TT> 4.4.7, 4.5.*, 4.6.*, 4.7.* and
@@ -1443,29 +1513,29 @@ configuration script remains available
 
 <P>
 
-<H3>Fortran 90 <A NAME="tex2html51"
+<H3>Fortran 90 <A NAME="tex2html52"
   HREF="facilities.htm">facilities</A>
 and
-	<A NAME="tex2html52"
+	<A NAME="tex2html53"
   HREF="subroutines.htm">subroutines</A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- all Fortran facilities now support most of <TT>cfitsio</TT>'s ``<A NAME="tex2html53"
+ all Fortran facilities now support most of <TT>cfitsio</TT>'s ``<A NAME="tex2html54"
   HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/filters.html">Extended File
 Name Syntax</A>'' features,
 allowing the reading and processing of an arbitrary HDU and table column out of
 remote, compressed FITS files. For example, setting 
 <BR><TT>infile = ftp://</TT><I>url/file.fits</I><TT>.gz[</TT><I>extn</I><TT>][col </TT><I>colname</I><TT>]</TT>  
 <BR>
-in <A HREF="./facilitiesnode11.htm#fac:anafast"><TT>anafast</TT></A>
+in <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A>
 will download the FITS file <I>file.fits.gz</I> from <I>url</I>, 
 uncompress it, open the HDU (extension) featuring keyword <TT>EXTNAME=</TT><I>extn</I>, or the one with 1-based rank number <I>extn</I>, read the table column
 with <TT>TTYPE*=</TT><I>colname</I> out of it and will analyze it.
 <BR>
-It is also possible to perform a remote <A HREF="./facilitiesnode11.htm#fac:anafast"><TT>anafast</TT></A> analysis of a 
-<A NAME="tex2html54"
+It is also possible to perform a remote <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A> analysis of a 
+<A NAME="tex2html55"
   HREF="http://www.sciops.esa.int/index.php?project=planck&amp;page=Planck_Legacy_Archive">Planck Legacy Archive (PLA)</A>
-sky map named <I>map.fits</I> via the PLA <A NAME="tex2html55"
+sky map named <I>map.fits</I> via the PLA <A NAME="tex2html56"
   HREF="http://pla.esac.esa.int/pla/aio/">AIO
 Subsystem</A>
 by simply setting
@@ -1473,9 +1543,9 @@ by simply setting
 as input map file.
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  yet faster 
-<A HREF="./facilitiesnode19.htm#fac:synfast"><TT>synfast</TT></A>,
-<A HREF="./facilitiesnode11.htm#fac:anafast"><TT>anafast</TT></A>,
-<A HREF="./facilitiesnode17.htm#fac:smoothing"><TT>smoothing</TT></A> thanks to <A NAME="tex2html56"
+<A HREF="./facilitiesnode14.htm#fac:synfast"><TT>synfast</TT></A>,
+<A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A>,
+<A HREF="./facilitiesnode12.htm#fac:smoothing"><TT>smoothing</TT></A> thanks to <A NAME="tex2html57"
   HREF="http://sourceforge.net/projects/libsharp"><TT>libsharp</TT></A>
 routines (see <A HREF="#install:cpp:gccreleases">warning on
 gcc releases above</A>).
@@ -1483,9 +1553,9 @@ gcc releases above</A>).
 
 <P>
 
-<H3><A NAME="SECTION00081500000000000000"></A>
+<H3><A NAME="SECTION00082500000000000000"></A>
 <BR>
-<A NAME="tex2html57"
+<A NAME="tex2html58"
   HREF="idl.htm">IDL</A>
 </H3>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1519,26 +1589,28 @@ gcc releases above</A>).
 <P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  update of the required
-	<A NAME="tex2html58"
+	<A NAME="tex2html59"
   HREF="http://idlastro.gsfc.nasa.gov/homepage.html"><TT>IDL-astron</TT> library</A>
-routines, and their supporting <A NAME="tex2html59"
+routines, and their supporting <A NAME="tex2html60"
   HREF="http://www.idlcoyote.com"><TT>Coyote</TT></A>
 routines (2013-02-08).
 </DL>
 
 <P>
 
-<H3><A NAME="SECTION00081600000000000000">
+<H3><A NAME="SECTION00082600000000000000">
 Java</A>
 </H3>
 N/A
-<H3><A NAME="SECTION00081700000000000000">
+<H3><A NAME="SECTION00082700000000000000">
 Python</A>
 </H3>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
 	switch to <TT>healpy 1.5.0</TT>: addition of 
-<A NAME="tex2html60"
+<A NAME="tex2html61"
   HREF="https://healpy.readthedocs.org/en/1.5.0/generated/healpy.sphtfunc.gauss_beam.html"><TT>gauss_beam</TT></A>
 to generate Gaussian beam window function.
+</DL>
 
 <P>
 
@@ -1554,7 +1626,7 @@ Introduction of the script <TT>healpix_doc</TT> for easy access to the <b>HEALPi
 PDF and HTML documentation.
 
 <P>
-<b><A NAME="tex2html61"
+<b><A NAME="tex2html62"
   HREF="csub.htm">C</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Interface has remained unchanged, but the code has been replaced by a C port
@@ -1631,10 +1703,10 @@ Facilities now check input maps for undefined pixels before calling map2alm().
 </DL>
 
 <P>
-<b>Fortran 90 <A NAME="tex2html62"
+<b>Fortran 90 <A NAME="tex2html63"
   HREF="facilities.htm">facilities</A>
 and
-<A NAME="tex2html63"
+<A NAME="tex2html64"
   HREF="subroutines.htm">subroutines</A>
 </b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1642,42 +1714,42 @@ and
 read. CFITSIO 3.14 or more is now required;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  introduction of the 
-<A HREF="./facilitiesnode16.htm#fac:process_mask"><TT>process_mask</TT></A>
+<A HREF="./facilitiesnode11.htm#fac:process_mask"><TT>process_mask</TT></A>
 facility to compute the angular distance of valid
 pixels to the closest invalid pixels for a input binary mask, and of the
 supporting routines 
-<A HREF="./subroutinesnode31.htm#sub:dist2holes_nest"><TT>dist2holes_nest</TT></A>, 
-<A HREF="./subroutinesnode33.htm#sub:fill_holes_nest"><TT>fill_holes_nest</TT></A>, 
-<A HREF="./subroutinesnode54.htm#sub:maskborder_nest"><TT>maskborder_nest</TT></A>,
-<A HREF="./subroutinesnode100.htm#sub:size_holes_nest">size_holes_nest</A>;
+<A HREF="./subroutinesnode26.htm#sub:dist2holes_nest"><TT>dist2holes_nest</TT></A>, 
+<A HREF="./subroutinesnode28.htm#sub:fill_holes_nest"><TT>fill_holes_nest</TT></A>, 
+<A HREF="./subroutinesnode49.htm#sub:maskborder_nest"><TT>maskborder_nest</TT></A>,
+<A HREF="./subroutinesnode95.htm#sub:size_holes_nest">size_holes_nest</A>;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the pixel query routine
- <A HREF="./subroutinesnode79.htm#sub:query_disc"><TT>query_disc</TT></A>
+ <A HREF="./subroutinesnode74.htm#sub:query_disc"><TT>query_disc</TT></A>
 has been improved and will return fewer
 false positive pixels in the 
 inclusive mode;
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  improved accuracy of the co-latitude calculation in the vicinity
 of the poles at high resolution in 
-<A HREF="./subroutinesnode76.htm#sub:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
+<A HREF="./subroutinesnode71.htm#sub:pix_tools"><TT>nest2ring, ring2nest, pix2ang_*, pix2vec_*, <SPAN CLASS="MATH"><IMG
  WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="installimg7.png"
  ALT="$\ldots$"></SPAN></TT></A>;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./facilitiesnode18.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
+ <A HREF="./facilitiesnode13.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
 of the spatial derivatives of the non Gaussian map being produced, and the
 output of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients of that map;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="./facilitiesnode11.htm#fac:anafast"><TT>anafast</TT></A> now allows the
+ <A HREF="./facilitiesnode6.htm#fac:anafast"><TT>anafast</TT></A> now allows the
 pro/down-grading of the input mask to match the resolution of the map(s) being
 analyzed;
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- the median filter routine <A HREF="./subroutinesnode55.htm#sub:medfiltmap"><TT>medfiltmap</TT></A>, used by the facility
-<A HREF="./facilitiesnode14.htm#fac:median_filter"><TT>median_filter</TT></A> is now parallelized.
+ the median filter routine <A HREF="./subroutinesnode50.htm#sub:medfiltmap"><TT>medfiltmap</TT></A>, used by the facility
+<A HREF="./facilitiesnode9.htm#fac:median_filter"><TT>median_filter</TT></A> is now parallelized.
 </DL>
 
 <P>
-<b><A NAME="tex2html64"
+<b><A NAME="tex2html65"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  New routines to go from circular beam profile to transfer function
@@ -1789,7 +1861,7 @@ as the C++ implementation (see <A HREF="#install:cpp:query">above</A>).
 <b>Python</b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  the 
-<A NAME="tex2html69"
+<A NAME="tex2html70"
   HREF="https://github.com/healpy/healpy"><TT>healpy</TT></A>
 package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b> 
 </DL>
@@ -1817,7 +1889,7 @@ package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b>
 </DL>
 
 <P>
-<b><A NAME="tex2html65"
+<b><A NAME="tex2html66"
   HREF="subroutines.htm">Fortran 90</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  Faster Spherical Harmonics Transforms thanks to <TT>libpsht</TT> routines
@@ -1836,7 +1908,7 @@ package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b>
 </DL>
 
 <P>
-<b><A NAME="tex2html66"
+<b><A NAME="tex2html67"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>fits2cl</TT>: addition of the WMAP1 and WMAP5 keywords to read
@@ -1855,7 +1927,7 @@ package (C. Rosset, A. Zonca et al.) is now part of <b>HEALPix</b>
 <P>
 <b>Bug corrections and Improvements in Versions 2.15 and 2.15a (2010-06)</b> 
 <P>
-<b><A NAME="tex2html67"
+<b><A NAME="tex2html68"
   HREF="subroutines.htm">Fortran 90</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>remove_dipole</TT>: removed confusing warning messages about
@@ -1863,7 +1935,7 @@ unused masks and weights.
 </DL>
 
 <P>
-<b><A NAME="tex2html68"
+<b><A NAME="tex2html69"
   HREF="idl.htm">IDL</A></b>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
  <TT>cartview, gnomview, mollview, orthview</TT>:
@@ -1916,7 +1988,7 @@ affecting
  ALT="$\partial^2 X/\partial \theta^2$"></SPAN>, 
 for <SPAN CLASS="MATH"><I>X</I>=<I>Q</I>,<I>U</I></SPAN> produced by <TT>synfast</TT>  (bug detected by Wen Zhao,
 Cardiff University). See 
-<A HREF="./facilitiesnode21.htm#fac:appendix">''Fortran Facilities'' Appendix</A> for details.
+<A HREF="./facilitiesnode16.htm#fac:appendix">''Fortran Facilities'' Appendix</A> for details.
  </DL>
 <b>IDL</b>
  <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
@@ -1992,117 +2064,129 @@ Copyright &#169; 1997, 1998, 1999,
 Mathematics Department, Macquarie University, Sydney.
 <P>
 The command line arguments were: <BR>
- <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html/ -up_url main.htm -up_title 'Main Page' -math -html_version 4.0 -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -split 3 -prefix install -t 'Installing Healpix' install</TT>
+ <STRONG>latex2html</STRONG> <TT>-dir ../../healpix-dynamicPages/html/ -up_url main.htm -up_title 'Main Page' -down_url main.htm -down_title 'Main Page' -math -html_version 4.1 -bottom_navigation -short_extn -white -local_icons -noexternal_images -toc_depth 8 -address 'Version 3.11, 2013-04-24' -info 1 -split 3 -prefix install -t 'Installing HEALPix' install</TT>
 <P>
-The translation was initiated by Eric Hivon on 2013-03-22
+The translation was initiated by Eric Hivon on 2013-04-24
 <BR><HR>
 <!--Table of Child-Links-->
 <A NAME="CHILD_LINKS"></A>
 
 <UL CLASS="ChildLinks">
-<LI><A NAME="tex2html72"
-  HREF="install.htm#SECTION00010000000000000000">TABLE OF CONTENTS</A>
-<LI><A NAME="tex2html73"
-  HREF="install.htm#SECTION00020000000000000000">Introduction</A>
-<LI><A NAME="tex2html74"
-  HREF="install.htm#SECTION00030000000000000000">Installation Requirements</A>
 <LI><A NAME="tex2html75"
-  HREF="install.htm#SECTION00040000000000000000"><TT>healpix_doc</TT>: an easy access to <b>HEALPix</b> documentation</A>
+  HREF="install.htm#SECTION00010000000000000000">TABLE OF CONTENTS</A>
 <LI><A NAME="tex2html76"
+  HREF="install.htm#SECTION00020000000000000000">Introduction</A>
+<LI><A NAME="tex2html77"
+  HREF="install.htm#SECTION00030000000000000000">Installation Requirements</A>
+<LI><A NAME="tex2html78"
+  HREF="install.htm#SECTION00040000000000000000"><TT>healpix_doc</TT>: an easy access to <b>HEALPix</b> documentation</A>
+<LI><A NAME="tex2html79"
   HREF="install.htm#SECTION00050000000000000000">The Installation Procedure</A>
 <UL>
-<LI><A NAME="tex2html77"
+<LI><A NAME="tex2html80"
   HREF="install.htm#SECTION00051000000000000000">./configure [-L]</A>
 <UL>
-<LI><A NAME="tex2html78"
-  HREF="install.htm#SECTION00051100000000000000">Configuration profile</A>
-<LI><A NAME="tex2html79"
-  HREF="install.htm#SECTION00051200000000000000">C configuration</A>
-<LI><A NAME="tex2html80"
-  HREF="install.htm#SECTION00051300000000000000">C++ configuration</A>
 <LI><A NAME="tex2html81"
-  HREF="install.htm#SECTION00051400000000000000">Fortran 90 configuration</A>
+  HREF="install.htm#SECTION00051100000000000000">Configuration profile</A>
 <LI><A NAME="tex2html82"
-  HREF="install.htm#SECTION00051500000000000000">IDL configuration</A>
+  HREF="install.htm#SECTION00051200000000000000">C configuration</A>
 <LI><A NAME="tex2html83"
-  HREF="install.htm#SECTION00051600000000000000">Java installation</A>
+  HREF="install.htm#SECTION00051300000000000000">C++ configuration</A>
 <LI><A NAME="tex2html84"
+  HREF="install.htm#SECTION00051400000000000000">Fortran 90 configuration</A>
+<LI><A NAME="tex2html85"
+  HREF="install.htm#SECTION00051500000000000000">IDL configuration</A>
+<LI><A NAME="tex2html86"
+  HREF="install.htm#SECTION00051600000000000000">Java installation</A>
+<LI><A NAME="tex2html87"
   HREF="install.htm#SECTION00051700000000000000">Python installation</A>
 </UL>
-<LI><A NAME="tex2html85"
+<LI><A NAME="tex2html88"
   HREF="install.htm#SECTION00052000000000000000">Compilation and installation</A>
-<LI><A NAME="tex2html86"
+<LI><A NAME="tex2html89"
   HREF="install.htm#SECTION00053000000000000000">Testing the installation</A>
-<LI><A NAME="tex2html87"
+<LI><A NAME="tex2html90"
   HREF="install.htm#SECTION00054000000000000000">Cleaning up</A>
 </UL>
 <BR>
-<LI><A NAME="tex2html88"
+<LI><A NAME="tex2html91"
   HREF="install.htm#SECTION00060000000000000000">A Note on <I>Re</I>-installation</A>
-<LI><A NAME="tex2html89"
+<LI><A NAME="tex2html92"
   HREF="install.htm#SECTION00070000000000000000">Troubleshooting and further information</A>
 <UL>
-<LI><A NAME="tex2html90"
+<LI><A NAME="tex2html93"
   HREF="install.htm#SECTION00071000000000000000">Free Fortran90/95 Compilers</A>
-<LI><A NAME="tex2html91"
+<LI><A NAME="tex2html94"
   HREF="install.htm#SECTION00072000000000000000">Installation under Microsoft Windows</A>
-<LI><A NAME="tex2html92"
+<LI><A NAME="tex2html95"
   HREF="install.htm#SECTION00073000000000000000">Problems with CFITSIO</A>
 <UL>
-<LI><A NAME="tex2html93"
-  HREF="install.htm#SECTION00073100000000000000">Compilation of CFITSIO Fortran wrappers</A>
-<LI><A NAME="tex2html94"
-  HREF="install.htm#SECTION00073200000000000000">CFITSIO problems on systems with 64 bit architecture</A>
-<LI><A NAME="tex2html95"
-  HREF="install.htm#SECTION00073300000000000000">CFITSIO linking problems</A>
 <LI><A NAME="tex2html96"
+  HREF="install.htm#SECTION00073100000000000000">Compilation of CFITSIO Fortran wrappers</A>
+<LI><A NAME="tex2html97"
+  HREF="install.htm#SECTION00073200000000000000">CFITSIO problems on systems with 64 bit architecture</A>
+<LI><A NAME="tex2html98"
+  HREF="install.htm#SECTION00073300000000000000">CFITSIO linking problems</A>
+<LI><A NAME="tex2html99"
   HREF="install.htm#SECTION00073400000000000000">CFITSIO and Debian/Linux</A>
 </UL>
-<LI><A NAME="tex2html97"
+<LI><A NAME="tex2html100"
   HREF="install.htm#SECTION00074000000000000000"><TT>diff</TT> shows that the test files are different from
 the supplied files</A>
-<LI><A NAME="tex2html98"
-  HREF="install.htm#SECTION00075000000000000000">Try <TT>unlimit</TT></A>
-<LI><A NAME="tex2html99"
-  HREF="install.htm#SECTION00076000000000000000"><TT>hidl</TT> usage</A>
-<LI><A NAME="tex2html100"
-  HREF="install.htm#SECTION00077000000000000000">Mac OS X,  X11 and IDL cursor</A>
 <LI><A NAME="tex2html101"
+  HREF="install.htm#SECTION00075000000000000000">Try <TT>unlimit</TT></A>
+<LI><A NAME="tex2html102"
+  HREF="install.htm#SECTION00076000000000000000"><TT>hidl</TT> usage</A>
+<LI><A NAME="tex2html103"
+  HREF="install.htm#SECTION00077000000000000000">Mac OS X,  X11 and IDL cursor</A>
+<LI><A NAME="tex2html104"
   HREF="install.htm#SECTION00078000000000000000">Using GDL instead of IDL</A>
 <UL>
-<LI><A NAME="tex2html102"
+<LI><A NAME="tex2html105"
   HREF="install.htm#SECTION00078100000000000000">Specific requirements</A>
-<LI><A NAME="tex2html103"
+<LI><A NAME="tex2html106"
   HREF="install.htm#SECTION00078200000000000000">Impact of GDL limitations on <b>HEALPix</b> </A>
 </UL>
 </UL>
 <BR>
-<LI><A NAME="tex2html104"
+<LI><A NAME="tex2html107"
   HREF="install.htm#SECTION00080000000000000000">Appendix I: Recent Changes and New Features</A>
 <UL>
-<LI><A NAME="tex2html105"
-  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 3.1</A>
-<UL>
-<LI><A NAME="tex2html106"
-  HREF="install.htm#SECTION00081100000000000000">General</A>
-<LI><A NAME="tex2html107"
-  HREF="install.htm#SECTION00081200000000000000">C</A>
 <LI><A NAME="tex2html108"
-  HREF="install.htm#SECTION00081300000000000000">C++</A>
+  HREF="install.htm#SECTION00081000000000000000">Bug corrections and Improvements in Version 3.11</A>
+<UL>
 <LI><A NAME="tex2html109"
-  HREF="install.htm#SECTION00081400000000000000">Fortran</A>
+  HREF="install.htm#SECTION00081100000000000000">General</A>
 <LI><A NAME="tex2html110"
-  HREF="install.htm#SECTION00081500000000000000">IDL</A>
+  HREF="install.htm#SECTION00081200000000000000">C++</A>
 <LI><A NAME="tex2html111"
-  HREF="install.htm#SECTION00081600000000000000">Java</A>
+  HREF="install.htm#SECTION00081300000000000000">Fortran</A>
 <LI><A NAME="tex2html112"
-  HREF="install.htm#SECTION00081700000000000000">Python</A>
+  HREF="install.htm#SECTION00081400000000000000">IDL</A>
+</UL>
+<LI><A NAME="tex2html113"
+  HREF="install.htm#SECTION00082000000000000000">Bug corrections and Improvements in Version 3.10 (2013-03)</A>
+<UL>
+<LI><A NAME="tex2html114"
+  HREF="install.htm#SECTION00082100000000000000">General</A>
+<LI><A NAME="tex2html115"
+  HREF="install.htm#SECTION00082200000000000000">C</A>
+<LI><A NAME="tex2html116"
+  HREF="install.htm#SECTION00082300000000000000">C++</A>
+<LI><A NAME="tex2html117"
+  HREF="install.htm#SECTION00082400000000000000">Fortran</A>
+<LI><A NAME="tex2html118"
+  HREF="install.htm#SECTION00082500000000000000">IDL</A>
+<LI><A NAME="tex2html119"
+  HREF="install.htm#SECTION00082600000000000000">Java</A>
+<LI><A NAME="tex2html120"
+  HREF="install.htm#SECTION00082700000000000000">Python</A>
 </UL>
 </UL>
 <BR>
-<LI><A NAME="tex2html113"
+<LI><A NAME="tex2html121"
   HREF="install.htm#SECTION00090000000000000000">Appendix II: Older changes</A>
-<LI><A NAME="tex2html114"
+<LI><A NAME="tex2html122"
   HREF="install.htm#SECTION000100000000000000000">About this document ...</A>
 </UL>
 <!--End of Table of Child-Links-->
@@ -2110,19 +2194,22 @@ the supplied files</A>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
-<A NAME="tex2html70"
+<A NAME="tex2html73"
   HREF="main.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive" SRC="nx_grp_g.png">   
+<A NAME="tex2html71"
+  HREF="main.htm">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="nx_grp.png"></A>   
 <BR>
-<B>Up:</B> <A NAME="tex2html71"
+<B>Up:</B> <A NAME="tex2html74"
   HREF="main.htm">Main Page</A>
 
+<B> Next:</B> <A NAME="tex2html72"
+  HREF="main.htm">Main Page</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

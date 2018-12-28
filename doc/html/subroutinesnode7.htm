@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between releases 2.0 and 2.13</TITLE>
-<META NAME="description" CONTENT="Changes between releases 2.0 and 2.13">
+<TITLE>alm2cl*</TITLE>
+<META NAME="description" CONTENT="alm2cl*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -20,7 +20,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="next" HREF="subroutinesnode8.htm">
 <LINK REL="previous" HREF="subroutinesnode6.htm">
-<LINK REL="up" HREF="subroutinesnode4.htm">
+<LINK REL="up" HREF="subroutines.htm">
 <LINK REL="next" HREF="subroutinesnode8.htm">
 </HEAD>
 
@@ -28,112 +28,190 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html322"
+<A NAME="tex2html337"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html328"
-  HREF="subroutinesnode4.htm">
+<A NAME="tex2html343"
+  HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html347"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html330"
+<A NAME="tex2html345"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html323"
-  HREF="subroutinesnode6.htm">Changes between releases 2.13</A>
+<B> Previous:</B> <A NAME="tex2html338"
+  HREF="subroutinesnode6.htm">add_dipole*</A>
 
-<B>Up:</B> <A NAME="tex2html329"
-  HREF="subroutinesnode4.htm">Older Changes</A>
+<B>Up:</B> <A NAME="tex2html344"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html333"
-  HREF="subroutinesnode8.htm">Changes between releases 1.2</A>
+<B> Next:</B> <A NAME="tex2html348"
+  HREF="subroutinesnode8.htm">alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H2><A NAME="SECTION00043000000000000000">
-Changes between releases 2.0 and 2.13</A>
-</H2>
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New functions in version 2.13: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode39.htm#sub:get_healpix_xxx_dir">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir </A> return full path to <b>HEALPix</b> directories.
-</DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.10: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode15.htm#sub:alm2map_spin">alm2map_spin</A>: synthesis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode52.htm#sub:map2alm_iterative">map2alm_iterative</A>: iterative analysis of map
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode53.htm#sub:map2alm_spin">map2alm_spin</A>: analysis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode45.htm#sub:healpix_modules">healpix_modules</A>: meta-module
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode113.htm#sub:write_minimal_header">write_minimal_header</A>: routine
-to write minimal FITS header
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode74.htm#sub:parse_xxx">parse_check_unused</A>: prints out
-parameters present in parameter file but not used by the code.
-</DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Improved routines:
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode81.htm#sub:query_strip">query_strip</A>: the <TT>inclusive</TT> option now
-returns <EM>all</EM> (and only) the pixels overlapping, even partially, with the
-strip
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode79.htm#sub:query_disc">query_disc</A>: when the disc center is on one of
-the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode93.htm#sub:remove_dipole">remove_dipole</A>: can now deal with non-uniform
-pixel weights.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode74.htm#sub:parse_xxx">parse_init</A>: silent mode
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode74.htm#sub:parse_xxx">parse_string</A>: can expand environment variables
-(${XXX}) and leading <code>~</code><SPAN CLASS="MATH"><IMG
- WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg11.png"
- ALT="$\!$"></SPAN><TT>/</TT>
-</DL>
+<H1><A NAME="SECTION00070000000000000000"></A>
+<A NAME="sub:alm2cl"></A>
+<BR>
+ 
+</H1>
 
 <P>
-</DL>
+<b><font size=+6><FONT COLOR="#CC0000">alm2cl*</FONT></font></b><hr>
+<H3>This routine computes the auto (or cross) power spectra of a one (or two) sets of spherical harmonics
+  coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.
+<!-- MATH
+ $C_{12}(l) = \sum_{m=-l}^{l} a_{1,lm}
+  a_{2,lm}^* / (2 l+1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="282" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg15.png"
+ ALT="$C_{12}(l) = \sum_{m=-l}^{l} a_{1,lm}
+a_{2,lm}^* / (2 l+1) $"></SPAN> </H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/alm_tools.F90"><b>src/f90/mod/alm_tools.F90</b></a>&nbsp;  
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">alm2cl*</FONT>(
+nlmax, nmmax, alm1, [alm2,] cl
+)</h3></blockquote>
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>
+nlmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>nmmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value used for the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm1(1:p, 0:nlmax, 0:nmmax)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>First set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values. <SPAN CLASS="MATH"><I>p</I></SPAN>
+                   is 3 or 1 depending on wether polarisation is included or
+                   not. In the former case, the first index runs from 1 to 3 corresponding to (T,E,B).</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>alm2(1:p, 0:nlmax, 0:nmmax) (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Second set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+                   values.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>cl(0:nlmax,1:d)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>resulting auto or cross power spectra. 
+                   If both <TT>alm1</TT> and <TT>alm2</TT> are present, <TT>cl</TT> will
+                   be their cross power spectrum. If only <TT>alm1</TT> is present,
+                   <TT>cl</TT> will be its power spectrum. 
+		   If <SPAN CLASS="MATH"><I>d</I>=1</SPAN>, only the temperature spectrum
+                   <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> will
+                   be output. If <SPAN CLASS="MATH"><I>d</I>=4</SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, the output will be <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>,
+                   <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
+ $C_l^{T\times E}$
+ -->
+<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>, and if <SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg16.png"
+ ALT="$d\geq 6$"></SPAN> and <SPAN CLASS="MATH"><I>p</I>=3</SPAN>, <!-- MATH
+ $C_l^{T\times
+                   B}$
+ -->
+<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x 
+ <I>B</I></SUP></SPAN> <!-- MATH
+ $C_l^{E\times B}$
+ -->
+<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I> x <I>B</I></SUP></SPAN> will also be output.</TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1> 
+<tt>lmax = 128 ; mmax = lmax 
+<BR>
+call alm2cl(lmax, mmax, alm1, cl_auto)  
+<BR>
+call alm2cl(lmax, mmax, alm1, alm2, cl_cross)  
+<BR></tt>
+<blockquote>
+<TT>cl_auto</TT> will contain the (auto) power spectrum of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>alm1</TT> up to <SPAN CLASS="MATH"><I>l</I>= 128</SPAN>,
+while <TT>cl_cross</TT> will be the cross power spectra of the two sets of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients <TT>  alm1</TT> and <TT>alm2</TT>.
+</blockquote>
+
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H3>This section lists the modules and routines used by <FONT COLOR="#CC0000">alm2cl*</FONT>.</h3>
+  <DL COMPACT><DT>
+<B>none</B>
+<DD></DL>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">alm2cl*</FONT></b></h3>
+ 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode46.htm#sub:map2alm">map2alm</A></B>
+<DD>routine extracting the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
+  coefficients from a <b>HEALPix</b> map
+  <DT>
+<B><A HREF="subroutinesnode24.htm#sub:create_alm">create_alm</A></B>
+<DD>routine to generate randomly
+  distributed <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients according to a given power spectrum
+  </DL>
+
+<P>
+
+<P>
+
+
+<P>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html322"
+<A NAME="tex2html337"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html328"
-  HREF="subroutinesnode4.htm">
+<A NAME="tex2html343"
+  HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html332"
+<A NAME="tex2html347"
   HREF="subroutinesnode8.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html330"
+<A NAME="tex2html345"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html323"
-  HREF="subroutinesnode6.htm">Changes between releases 2.13</A>
+<B> Previous:</B> <A NAME="tex2html338"
+  HREF="subroutinesnode6.htm">add_dipole*</A>
 
-<B>Up:</B> <A NAME="tex2html329"
-  HREF="subroutinesnode4.htm">Older Changes</A>
+<B>Up:</B> <A NAME="tex2html344"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html333"
-  HREF="subroutinesnode8.htm">Changes between releases 1.2</A>
+<B> Next:</B> <A NAME="tex2html348"
+  HREF="subroutinesnode8.htm">alm2map*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

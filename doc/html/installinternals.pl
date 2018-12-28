@@ -22,6 +22,10 @@ $key = q/sec:using_gdl/;
 $ref_files{$key} = "$dir".q|install.htm|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:general3p11/;
+$ref_files{$key} = "$dir".q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/page:dirtree/;
 $ref_files{$key} = "$dir".q|install.htm|; 
 $noresave{$key} = "$nosave";

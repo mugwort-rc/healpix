@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html638"
+<A NAME="tex2html641"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html644"
+<A NAME="tex2html647"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html648"
+<A NAME="tex2html651"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html646"
+<A NAME="tex2html649"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html639"
+<B> Previous:</B> <A NAME="tex2html642"
   HREF="idlnode37.htm">ismoothing</A>
 
-<B>Up:</B> <A NAME="tex2html645"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html648"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html649"
+<B> Next:</B> <A NAME="tex2html652"
   HREF="idlnode39.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,21 +58,22 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">isynfast</FONT></font></b><hr><H2>This IDL facility provides an interface to F90 'synfast' facility. It can be
+<b><font size=+6><FONT COLOR="#CC0000">isynfast</FONT></font></b><hr>
+<H3>This IDL facility provides an interface to F90 'synfast' facility. It can be
 used to generate sky maps and/or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from power spectra (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>), synthesize maps from
-<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or simulate maps from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> and constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/interfaces/isynfast.pro
-</b>
+<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> or simulate maps from <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> and constraining <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/interfaces/isynfast.pro"><b>src/idl/interfaces/isynfast.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 ISYNFAST, cl_in [, map_out,
       alm_in=,  alm_out=, apply_windows=, beam_file=, binpath=, double=, fwhm_arcmin=, help=,
       iseed=, keep_tmp_files=, lmax=, nlmax=, nside=, nsmax=, plmfile=,
       simul_type=, silent=, tmpdir=, windowfile=, winfiledir=]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>cl_in</B>
 <DD>input power spectrum, can be a FITS file, or a memory array containing the
@@ -87,7 +88,7 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>alm_in=</B>
 <DD>optional input (constraining) alm (must be a FITS file)           <b>default:</b>no alm
@@ -114,7 +115,7 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <DD>full path to back-end routine <b>default:</b>$HEXE/synfast, then $HEALPIX/bin/synfast
 <BR>              - a binpath starting with / (or <SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg57.png"
+ SRC="idlimg56.png"
  ALT="$\backslash$"></SPAN>), <SPAN CLASS="MATH">&nbsp;</SPAN> or $ is interpreted as absolute
 <BR>              - a binpath starting with ./ is interpreted as relative to current directory
 <BR>              - all other binpathes are relative to $HEALPIX
@@ -150,7 +151,7 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <B>lmax=, nlmax=</B>
 <DD>maximum multipole simulation <b>default:</b>2*<SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg59.png"
+ SRC="idlimg58.png"
  ALT="$N_{\rm side}$"></SPAN>
 
 <P>
@@ -158,7 +159,7 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <B>nside=, nsmax=</B>
 <DD>Healpix resolution parameter <SPAN CLASS="MATH"><IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg59.png"
+ SRC="idlimg58.png"
  ALT="$N_{\rm side}$"></SPAN>
 
 <P>
@@ -212,8 +213,9 @@ If empty quotes ('') or a zero (0) are provided, it will be interpreted as "No i
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">isynfast</FONT> is an interface to F90 'synfast' F90 facility. It
 requires some disk space on which to write the parameter file and the other
 temporary files. Most data can be provided/generated as an external FITS
@@ -221,7 +223,7 @@ file, or as a memory array.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">isynfast</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">isynfast</FONT>.
@@ -240,20 +242,16 @@ file, or as a memory array.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">isynfast</FONT>, '$HEALPIX/test/cl.fits', map, fwhm=30, nside=256, /silent  </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">isynfast</FONT>, '$HEALPIX/test/cl.fits', map, fwhm=30, nside=256, /silent  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 1, title='I'  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 1, title='I'  </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 2, title='Q'  </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <A HREF="idlnode42.htm#idl:mollview">mollview</A>, map, 2, title='Q'  </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 will synthetize and plot I and Q  maps consistent with WMAP-1yr best fit power
 spectrum and observed with a circular gaussian 30 arcmin beam.
 </blockquote>
@@ -266,32 +264,31 @@ spectrum and observed with a circular gaussian 30 arcmin beam.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html638"
+<A NAME="tex2html641"
   HREF="idlnode37.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html644"
+<A NAME="tex2html647"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html648"
+<A NAME="tex2html651"
   HREF="idlnode39.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html646"
+<A NAME="tex2html649"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html639"
+<B> Previous:</B> <A NAME="tex2html642"
   HREF="idlnode37.htm">ismoothing</A>
 
-<B>Up:</B> <A NAME="tex2html645"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html648"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html649"
+<B> Next:</B> <A NAME="tex2html652"
   HREF="idlnode39.htm">lm2index</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

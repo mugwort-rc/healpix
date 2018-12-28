@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html386"
+<A NAME="tex2html389"
   HREF="idlnode16.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html392"
+<A NAME="tex2html395"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html396"
+<A NAME="tex2html399"
   HREF="idlnode18.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html394"
+<A NAME="tex2html397"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html387"
+<B> Previous:</B> <A NAME="tex2html390"
   HREF="idlnode16.htm">cartcursor</A>
 
-<B>Up:</B> <A NAME="tex2html393"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html396"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html397"
+<B> Next:</B> <A NAME="tex2html400"
   HREF="idlnode18.htm">change_polcconv</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,18 +58,18 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">cartview</FONT></font></b><hr><H2>This IDL facility provides a means to visualise a cartesian projection 
+<b><font size=+6><FONT COLOR="#CC0000">cartview</FONT></font></b><hr>
+<H3>This IDL facility provides a means to visualise a cartesian projection 
 (where the longitude and latitude are treated as the cartesian abscissa and
 ordinate) of
 <b>HEALPix</b> and COBE Quad-Cube maps in an IDL environment. 
 It also offers the possibility to
 generate GIF, PNG and Postscript color-coded images of the projected map.
 The projected (but not color-coded) data can also be output in FITS files and
-IDL arrays.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/cartview.pro
-</b>
+IDL arrays.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/visu/cartview.pro"><b>src/idl/visu/cartview.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 CARTVIEW, 
 </SMALL>
 <A HREF="idlnode42.htm#idl:mollview:file">File</A>, 
@@ -130,24 +130,26 @@ CARTVIEW,
 <A HREF="idlnode42.htm#idl:mollview:xpos">XPOS=</A>, 
 <A HREF="idlnode42.htm#idl:mollview:ypos">YPOS=</A>]
 <SMALL CLASS="FOOTNOTESIZE">
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <DD>For a full list of qualifiers see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <DD>For a full list of keywords see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 cartview reads in a <b>HEALPix</b> sky map in FITS format and generates a
 cartesian projection of it, that can be visualized on the screen or
 exported in a GIF, PNG or Postscript file. cartview allows the selection of
@@ -159,40 +161,34 @@ polarization field.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">cartview</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <DD>see <A HREF="idlnode42.htm#idl:mollview">mollview</A>
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-</SMALL>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> </SMALL>
 <P>
 <SMALL CLASS="FOOTNOTESIZE">map  = findgen(48) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> triangle= create_struct('coord','G','ra',[0,80,0],'dec',[40,45,65]) </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-cartview,map,/online,res=45,graticule=[45,30],rot=[10,20,30],pysize=250,$ </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> cartview,map,/online,res=45,graticule=[45,30],rot=[10,20,30],pysize=250,$ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN>	   title='Cartesian cylindrical (full sky)',subtitle='cartview', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN CLASS="MATH"><IMG
  WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
  SRC="idlimg43.png"
  ALT="$\quad$"></SPAN> outline=triangle </SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>makes a cartesian cylindrical projection of map (see Figure&nbsp;<A HREF="idlnode42.htm#fig:plot_visu">1</A>a on
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>makes a cartesian cylindrical projection of map (see Figure&nbsp;<A HREF="idlnode42.htm#fig:plot_visu">1</A>a on
 page&nbsp;<A HREF="idlnode42.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>) after an arbitrary rotation, with a graticule grid
 (with a 45<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> step in longitude and 30<SPAN CLASS="MATH"><SUP><I>o</I></SUP></SPAN> in latitude) and an arbitrary triangular outline</blockquote>
 <P>
@@ -205,32 +201,31 @@ page&nbsp;<A HREF="idlnode42.htm#page:plot_visu"><IMG  ALIGN="BOTTOM" BORDER="1"
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html386"
+<A NAME="tex2html389"
   HREF="idlnode16.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html392"
+<A NAME="tex2html395"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html396"
+<A NAME="tex2html399"
   HREF="idlnode18.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html394"
+<A NAME="tex2html397"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html387"
+<B> Previous:</B> <A NAME="tex2html390"
   HREF="idlnode16.htm">cartcursor</A>
 
-<B>Up:</B> <A NAME="tex2html393"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html396"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html397"
+<B> Next:</B> <A NAME="tex2html400"
   HREF="idlnode18.htm">change_polcconv</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

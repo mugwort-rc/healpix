@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html458"
+<A NAME="tex2html461"
   HREF="idlnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html464"
+<A NAME="tex2html467"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html468"
+<A NAME="tex2html471"
   HREF="idlnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html466"
+<A NAME="tex2html469"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html459"
+<B> Previous:</B> <A NAME="tex2html462"
   HREF="idlnode22.htm">fits2alm</A>
 
-<B>Up:</B> <A NAME="tex2html465"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html468"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html469"
+<B> Next:</B> <A NAME="tex2html472"
   HREF="idlnode24.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,7 +58,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">fits2cl</FONT></font></b><hr><H2>This IDL facility provides a means to
+<b><font size=+6><FONT COLOR="#CC0000">fits2cl</FONT></font></b><hr>
+<H3>This IDL facility provides a means to
 read from a FITS file an ascii or binary table extension containing power 
 spectrum (<SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN>) or spherical harmonics (<SPAN CLASS="MATH"><I>a</I><SUB><I>l m</I></SUB></SPAN>) coefficients, and returns
 the corresponding power spectrum (<!-- MATH
@@ -66,15 +67,14 @@ the corresponding power spectrum (<!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="223" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg45.png"
+ SRC="idlimg44.png"
  ALT="$C(l) = \sum_m a_{lm}a^*_{lm} / (2l+1)$"></SPAN>). Reads primary and extension headers if
 required. The facility is intended to enable the user to read the
 output from the <b>HEALPix</b> facility <SPAN  CLASS="textbf">anafast</SPAN>.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/fits2cl.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/fits2cl.pro"><b>src/idl/fits/fits2cl.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 <FONT COLOR="#CC0000">fits2cl</FONT>, 
 <A HREF="#idl:fits2cl:cl_array">cl_array</A>, 
 [<A HREF="#idl:fits2cl:fitsfile">fitsfile</A>, <A HREF="#idl:fits2cl:extension">EXTENSION=</A> ,
@@ -91,10 +91,11 @@ src/idl/fits/fits2cl.pro
 <A HREF="#idl:fits2cl:wmap5">/WMAP5=</A>, 
 <A HREF="#idl:fits2cl:wmap7">/WMAP7=</A>, 
 <A HREF="#idl:fits2cl:xhdr">XHDR=</A>]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>cl_array</B>
 <DD><A NAME="idl:fits2cl:cl_array"></A>real array of <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB></SPAN> coefficients read or computed from the
@@ -118,7 +119,7 @@ must be set.
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>EXTENSION=</B>
 <DD><A NAME="idl:fits2cl:extension"></A>extension unit to be read from FITS file: 
@@ -170,7 +171,7 @@ See !healpix.path.test+'README' for details
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg46.png"
+ SRC="idlimg45.png"
  ALT="$l(l+1)C(l)/2\pi$"></SPAN> are plotted
     <DT>
 <B>/SILENT</B>
@@ -212,8 +213,9 @@ See !healpix.path.test+'README' for details
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 <FONT COLOR="#CC0000">fits2cl</FONT> reads the power spectrum coefficients from a FITS
 file containing an ascii table extension. Descriptive headers conforming
 to the FITS convention can also be read from the input file.
@@ -221,7 +223,7 @@ to the FITS convention can also be read from the input file.
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2cl</FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">fits2cl</FONT>.
@@ -249,21 +251,16 @@ that can be read by <FONT COLOR="#CC0000">fits2cl</FONT>.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">fits2cl</FONT>, pwrsp, '$HEALPIX/test/cl.fits', $ </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> <FONT COLOR="#CC0000">fits2cl</FONT>, pwrsp, '$HEALPIX/test/cl.fits', $ </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-	HDR=hdr, XHDR=xhdr, MULTI=l, LLFACT=fll </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 	HDR=hdr, XHDR=xhdr, MULTI=l, LLFACT=fll </SMALL></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-plot, l, powrsp[*,0]*fll
-</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> plot, l, powrsp[*,0]*fll</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 <FONT COLOR="#CC0000">fits2cl</FONT> reads a power spectrum <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> from the input FITS file 
 <TT>$HEALPIX/test/cl.fits</TT>
 into the variable <TT>pwrsp</TT>,  with optional headers
@@ -277,7 +274,7 @@ factors <SPAN CLASS="MATH"><IMG
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="129" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg46.png"
+ SRC="idlimg45.png"
  ALT="$l(l+1)C(l)/2\pi$"></SPAN> vs <SPAN CLASS="MATH"><I>l</I></SPAN> is then plotted.
 </blockquote>
 <P>
@@ -291,32 +288,31 @@ factors <SPAN CLASS="MATH"><IMG
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html458"
+<A NAME="tex2html461"
   HREF="idlnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html464"
+<A NAME="tex2html467"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html468"
+<A NAME="tex2html471"
   HREF="idlnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html466"
+<A NAME="tex2html469"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html459"
+<B> Previous:</B> <A NAME="tex2html462"
   HREF="idlnode22.htm">fits2alm</A>
 
-<B>Up:</B> <A NAME="tex2html465"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html468"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html469"
+<B> Next:</B> <A NAME="tex2html472"
   HREF="idlnode24.htm">gaussbeam</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

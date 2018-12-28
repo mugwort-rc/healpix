@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>compute_statistics*</TITLE>
-<META NAME="description" CONTENT="compute_statistics*">
+<TITLE>coordsys2euler_zyz</TITLE>
+<META NAME="description" CONTENT="coordsys2euler_zyz">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,192 +28,142 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html512"
+<A NAME="tex2html529"
   HREF="subroutinesnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html518"
+<A NAME="tex2html535"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html522"
+<A NAME="tex2html539"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html520"
+<A NAME="tex2html537"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html513"
-  HREF="subroutinesnode22.htm">complex_fft</A>
+<B> Previous:</B> <A NAME="tex2html530"
+  HREF="subroutinesnode22.htm">convert_ring2nest*</A>
 
-<B>Up:</B> <A NAME="tex2html519"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html536"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html523"
-  HREF="subroutinesnode24.htm">concatnl</A>
+<B> Next:</B> <A NAME="tex2html540"
+  HREF="subroutinesnode24.htm">create_alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000180000000000000000"></A>
-<A NAME="sub:compute_statistics"></A>
+<H1><A NAME="SECTION000230000000000000000"></A>
+<A NAME="sub:coordsys2euler_zyz"></A>
 <BR>
  
 </H1>
 
 <P>
+<b><font size=+6><FONT COLOR="#CC0000">coordsys2euler_zyz</FONT></font></b><hr>
+<H3>This routine returns the three Euler angles <!-- MATH
+ $\psi, \theta, \varphi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="56" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg55.png"
+ ALT="$\psi, \theta, \varphi
+$"></SPAN>, corresponding to a rotation between standard astronomical
+coordinate systems. This angles can then be used in rotate_alm</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/f90/mod/coord_v_convert.f90"><b>src/f90/mod/coord_v_convert.f90</b></a>&nbsp;  
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">compute_statistics*</FONT></font></b><hr><H2>This routine computes the min, max, absolute deviation and first four order moment of a data set</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/statistics.f90
-</b>
-
-<P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">compute_statistics*</FONT>(
-data ,stats <i><font color="#224422">[,&nbsp;badval]</font></i>
-)</h2></blockquote>
-Arguments appearing in <i><font color="#224422">italic</font></i> are
-optional.
+<hr><h1>FORMAT </h1><blockquote><h3>call <FONT COLOR="#CC0000">coordsys2euler_zyz</FONT>(
+iepoch, oepoch, isys, osys, psi, theta, phi
+)</h3></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=130><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=45><SPAN  CLASS="textbf">in/out</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-data(:)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>data set <SPAN CLASS="MATH">{x<SUB><I>i</I></SUB>}</SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>stats</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>tstats</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>structure containing the statistics of the
-                   data. The respective fields (stats%<EM>field</EM>) are:</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>ntot</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>total number of data points</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nvalid</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number <SPAN CLASS="MATH"><I>n</I></SPAN> of valid data points</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>mind, maxd</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>
+iepoch</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>minimum and maximum valid data</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the input astronomical coordinate system.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>average</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>oepoch</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>average of valid points <!-- MATH
- $m= \sum_i x_i / n$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="108" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg45.png"
- ALT="$m= \sum_i x_i / n$"></SPAN></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>epoch of the output astronomical coordinate system.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>absdev</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>isys(len=*)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>input coordinate system, should be one of 'E'=Ecliptic, 'G'=Galactic, 'C'/'Q'=Celestial/eQuatorial.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>osys(len=*)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>output coordinate system, same choice as above.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>psi</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>absolute deviation <!-- MATH
- $a= \sum_i|x_i-m|/n$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="152" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg46.png"
- ALT="$a= \sum_i\vert x_i-m\vert/n$"></SPAN></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>first Euler angle: rotation <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg56.png"
+ ALT="$\psi$"></SPAN> about the z-axis.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>theta</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>variance <!-- MATH
- $\sigma^2 = \sum(x_i-m)^2/ (n-1)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="211" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg47.png"
- ALT="$\sigma^2 = \sum(x_i-m)^2/ (n-1)$"></SPAN></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>second Euler angle: rotation <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg57.png"
+ ALT="$\theta$"></SPAN> about the original
+(unrotated) y-axis;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>rms</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=130>phi</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>standard deviation <SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg48.png"
- ALT="$\sigma$"></SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>skew</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>skewness factor <!-- MATH
- $s = \sum(x_i-m)^3 / (n\sigma^3)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="187" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg49.png"
- ALT="$s = \sum(x_i-m)^3 / (n\sigma^3)$"></SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>kurt</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>-</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>kurtosis factor <!-- MATH
- $k = \sum(x_i-m)^4 / (n\sigma^4) - 3$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="221" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg50.png"
- ALT="$k = \sum(x_i-m)^4 / (n\sigma^4) - 3$"></SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">badval</font></i> (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to bad data points. Data points with this
-                   value will be ignored during calculation of the statistics. If
-                   not set, all points will be considered. <B>Do not set to 0!</B>.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=45>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>third Euler angle: rotation <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg58.png"
+ ALT="$\varphi$"></SPAN> about the original (unrotated) z-axis;</TD>
 </TR>
 </TABLE>
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use statistics, only: compute_statistics, print_statistics, tstats 
+<HR><H1>EXAMPLE:</H1> 
+<tt>use coord_v_convert, only: coordsys2euler_zyz 
 <BR>
-type(tstats) :: stats 
-<BR>... 
+use alm_tools, only: rotate_alm 
+<BR>...
 <BR>
-compute_statistics(map, stats)  
+call coordsys2euler_zyz(2000.0_dp, 2000.0_dp, 'E', 'G', psi, theta, phi) 
 <BR>
-print*,stats%average, stats%rms
-<BR>
-print_statistics(stats) 
-<BR></font></tt>
-<BR><blockquote>
-Computes the statistics of <TT>map</TT>, prints its average and <EM>rms</EM> and
-prints the whole list of statistical measures.
+call rotate_alm(64, alm_TGC, psi, theta, phi)  
+<BR></tt>
+<blockquote>
+Rotate the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> from Ecliptic to Galactic coordinates.
 </blockquote>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">compute_statistics*</FONT></b></h3>
-<BR> 
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">coordsys2euler_zyz</FONT></b></h3>
+ 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode56.htm#sub:median">median</A></B>
-<DD>routine to compute median of a data set
+<B><A HREF="subroutinesnode92.htm#sub:rotate_alm">rotate_alm</A></B>
+<DD>apply arbitrary sky rotation to a
+  set of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
+  <DT>
+<B><A HREF="subroutinesnode110.htm#sub:xcc_v_convert">xcc_v_convert</A></B>
+<DD>rotates a 3D coordinate
+vector from one astronomical coordinate system to another.
   </DL>
 
 <P>
@@ -227,32 +177,31 @@ prints the whole list of statistical measures.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html512"
+<A NAME="tex2html529"
   HREF="subroutinesnode22.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html518"
+<A NAME="tex2html535"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html522"
+<A NAME="tex2html539"
   HREF="subroutinesnode24.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html520"
+<A NAME="tex2html537"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html513"
-  HREF="subroutinesnode22.htm">complex_fft</A>
+<B> Previous:</B> <A NAME="tex2html530"
+  HREF="subroutinesnode22.htm">convert_ring2nest*</A>
 
-<B>Up:</B> <A NAME="tex2html519"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html536"
+  HREF="subroutines.htm">HEALPix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html523"
-  HREF="subroutinesnode24.htm">concatnl</A>
+<B> Next:</B> <A NAME="tex2html540"
+  HREF="subroutinesnode24.htm">create_alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

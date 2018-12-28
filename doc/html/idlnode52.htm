@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html806"
+<A NAME="tex2html809"
   HREF="idlnode51.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html812"
+<A NAME="tex2html815"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html816"
+<A NAME="tex2html819"
   HREF="idlnode53.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html814"
+<A NAME="tex2html817"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html807"
+<B> Previous:</B> <A NAME="tex2html810"
   HREF="idlnode51.htm">query_disc</A>
 
-<B>Up:</B> <A NAME="tex2html813"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html816"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html817"
+<B> Next:</B> <A NAME="tex2html820"
   HREF="idlnode53.htm">query_strip</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,18 +58,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">query_polygon </FONT></font></b><hr><H2>This IDL facility provides a means to find the index of all pixels belonging to
+<b><font size=+6><FONT COLOR="#CC0000">query_polygon </FONT></font></b><hr>
+<H3>This IDL facility provides a means to find the index of all pixels belonging to
 a sperical polygon defined by its vertices
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/query_polygon.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/query_polygon.pro"><b>src/idl/toolkit/query_polygon.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 query_polygon , Nside, Vlist, Listpix, [Nlist, HELP=, NESTED=, INCLUSIVE=]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>Nside</B>
 <DD><b>HEALPix</b> resolution parameter used to index the pixel list (scalar integer)
@@ -89,7 +90,7 @@ query_polygon , Nside, Vlist, Listpix, [Nlist, HELP=, NESTED=, INCLUSIVE=]
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>HELP=</B>
 <DD>if set, the documentation header is printed out and the
@@ -107,8 +108,9 @@ routine exits
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 query_polygon finds the pixels within the given polygon in a selective way WITHOUT
 scanning all the sky pixels. The polygon should be convex, 
 or have only one concave vertex. The edges should not intersect each other. 
@@ -117,7 +119,7 @@ inclusiveness of the polygon can be changed
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">query_polygon </FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run query_polygon .
@@ -136,15 +138,12 @@ inclusiveness of the polygon can be changed
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-query_polygon ,  256L, [[0,1,1,0],[0,0,1,1],[1,0,-1,0]], listpix, nlist
-</SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> query_polygon ,  256L, [[0,1,1,0],[0,0,1,1],[1,0,-1,0]], listpix, nlist</SMALL></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>
 On return listpix contains the index of the (131191) pixels contained in the
 polygon with vertices of cartesian coordinates (0,0,1), (1,0,0), (1,1,-1) and (0,1,0).
 The pixel indices correspond to the RING scheme with resolution 256.
@@ -158,32 +157,31 @@ The pixel indices correspond to the RING scheme with resolution 256.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html806"
+<A NAME="tex2html809"
   HREF="idlnode51.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html812"
+<A NAME="tex2html815"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html816"
+<A NAME="tex2html819"
   HREF="idlnode53.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html814"
+<A NAME="tex2html817"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html807"
+<B> Previous:</B> <A NAME="tex2html810"
   HREF="idlnode51.htm">query_disc</A>
 
-<B>Up:</B> <A NAME="tex2html813"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html816"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html817"
+<B> Next:</B> <A NAME="tex2html820"
   HREF="idlnode53.htm">query_strip</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

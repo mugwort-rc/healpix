@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html290"
+<A NAME="tex2html293"
   HREF="idlnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html296"
+<A NAME="tex2html299"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html300"
+<A NAME="tex2html303"
   HREF="idlnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html298"
+<A NAME="tex2html301"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html291"
+<B> Previous:</B> <A NAME="tex2html294"
   HREF="idlnode8.htm">alm2fits</A>
 
-<B>Up:</B> <A NAME="tex2html297"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html300"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html301"
+<B> Next:</B> <A NAME="tex2html304"
   HREF="idlnode10.htm">angulardistance</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,18 +58,19 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">ang2vec </FONT></font></b><hr><H2>This IDL facility convert the position angles of points on the sphere 
+<b><font size=+6><FONT COLOR="#CC0000">ang2vec </FONT></font></b><hr>
+<H3>This IDL facility convert the position angles of points on the sphere 
 into their 3D position vectors.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/ang2vec.pro
-</b>
+</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/toolkit/ang2vec.pro"><b>src/idl/toolkit/ang2vec.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 ANG2VEC , Theta, Phi, Vector [, ASTRO=]
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>Theta</B>
 <DD>input: scalar or vector, 
@@ -110,7 +111,7 @@ three dimensional cartesian position vector
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>ASTRO =</B>
 <DD>if set Theta and Phi are the latitude and longitude in
@@ -119,8 +120,9 @@ three dimensional cartesian position vector
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 ang2vec performs the geometrical transform from the position angles of points 
 <SPAN CLASS="MATH"><IMG
  WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
@@ -146,7 +148,7 @@ into their position vectors <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPA
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ang2vec </FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run ang2vec .	
@@ -159,24 +161,19 @@ into their position vectors <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPA
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-lat = -45 ; latitude in degrees </SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> lat = -45 ; latitude in degrees </SMALL></TD>
 <TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-long = 120 ; longitude in degrees </SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> long = 120 ; longitude in degrees </SMALL></TD>
 <TD></TD>
 </TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-ang2vec, lat, lon, /astro, vec
-</SMALL></TD>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> ang2vec, lat, lon, /astro, vec</SMALL></TD>
 <TD></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>will return in <TT>vec</TT> the 3D cartesian position vector of the point of latitude -45 deg and longitude 120 deg
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote>will return in <TT>vec</TT> the 3D cartesian position vector of the point of latitude -45 deg and longitude 120 deg
 </blockquote><SMALL CLASS="FOOTNOTESIZE">
 </SMALL>
 <P>
@@ -186,32 +183,31 @@ ang2vec, lat, lon, /astro, vec
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html290"
+<A NAME="tex2html293"
   HREF="idlnode8.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html296"
+<A NAME="tex2html299"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html300"
+<A NAME="tex2html303"
   HREF="idlnode10.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html298"
+<A NAME="tex2html301"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html291"
+<B> Previous:</B> <A NAME="tex2html294"
   HREF="idlnode8.htm">alm2fits</A>
 
-<B>Up:</B> <A NAME="tex2html297"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html300"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html301"
+<B> Next:</B> <A NAME="tex2html304"
   HREF="idlnode10.htm">angulardistance</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>

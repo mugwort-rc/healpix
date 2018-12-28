@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN">
 
 <!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
@@ -28,26 +28,26 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html398"
+<A NAME="tex2html401"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html404"
+<A NAME="tex2html407"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html408"
+<A NAME="tex2html411"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html406"
+<A NAME="tex2html409"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html399"
+<B> Previous:</B> <A NAME="tex2html402"
   HREF="idlnode17.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html405"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html408"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html409"
+<B> Next:</B> <A NAME="tex2html412"
   HREF="idlnode19.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
@@ -58,20 +58,21 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr><H2>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
+<b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr>
+<H3>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
 The main effect is to change the sign of the U Stokes parameter,
 and add/update the POLCCONV FITS header with either
-COSMO or IAU value.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/change_polcconv.pro
-</b>
+COSMO or IAU value.</H3>
+Location in HEALPix directory tree: <a href="http://sourceforge.net/p/healpix/code/502/tree/trunk/src/idl/fits/change_polcconv.pro"><b>src/idl/fits/change_polcconv.pro</b></a>&nbsp;  
 <P>
-<hr><h1>FORMAT </h1><h2>IDL>
+<hr><h1>FORMAT </h1><h3>IDL>
 CHANGE_POLCCONV , File_In, File_Out [, /I2C, /C2I, /C2C, /I2I, /FORCE]
 
-</h2>
+</h3>
 <P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
+<hr>
+<H1>QUALIFIERS</H1>
+ 
   </SMALL><DL COMPACT><DT>
 <B>File_In</B>
 <DD>name of a FITS file to be read
@@ -87,7 +88,7 @@ CHANGE_POLCCONV , File_In, File_Out [, /I2C, /C2I, /C2C, /I2I, /FORCE]
 
 <P>
 <hr><H1>KEYWORDS</H1>
-<BR> 
+
   </SMALL><DL COMPACT><DT>
 <B>/I2C</B>
 <DD>changes from IAU to COSMO coordinate convention 
@@ -137,8 +138,9 @@ CHANGE_POLCCONV , File_In, File_Out [, /I2C, /C2I, /C2C, /I2I, /FORCE]
 </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
+<hr> 
+<H1>DESCRIPTION</H1> 
+<blockquote>
 This routine will change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameters (and related
 quantities, such as the <SPAN CLASS="MATH"><I>TU</I></SPAN> and <SPAN CLASS="MATH"><I>QU</I></SPAN> cross-correlations) and update the
 'POLCCONV' FITS keyword where applicable.
@@ -149,7 +151,7 @@ The recognised format are:
 </blockquote>
 <P>
 <hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">change_polcconv </FONT></b></h3>
-<BR> 
+ 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
 <DD>version 6.1 or more is necessary to run change_polcconv <DT>
@@ -176,16 +178,13 @@ The recognised format are:
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i
-</SMALL></TD>
+<HR><H1>EXAMPLE:</H1> 
+<tt></SMALL><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i</SMALL></TD>
 <TD></TD>
 </TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote> Modify the file 'map_cosmo.fits', which was using the 'COSMO' convention for
+</TABLE><SMALL CLASS="FOOTNOTESIZE"></tt>
+<blockquote> Modify the file 'map_cosmo.fits', which was using the 'COSMO' convention for
   polarisation coordinate convention into 'map_iau.fits' which uses the 'IAU' convention
 </blockquote>
 <P>
@@ -197,32 +196,31 @@ change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html398"
+<A NAME="tex2html401"
   HREF="idlnode17.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html404"
+<A NAME="tex2html407"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html408"
+<A NAME="tex2html411"
   HREF="idlnode19.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html406"
+<A NAME="tex2html409"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html399"
+<B> Previous:</B> <A NAME="tex2html402"
   HREF="idlnode17.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html405"
-  HREF="idl.htm">Healpix/IDL subroutines</A>
+<B>Up:</B> <A NAME="tex2html408"
+  HREF="idl.htm">HEALPix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html409"
+<B> Next:</B> <A NAME="tex2html412"
   HREF="idlnode19.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
-Eric Hivon
-2013-03-22
+Version 3.11, 2013-04-24
 </ADDRESS>
 </BODY>
 </HTML>
