@@ -310,9 +310,9 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		// the appropriately named .class file exists there. But
 		// this doesn't account for .zip files.
 		String path = System.getProperty("java.class.path");
-		Enumeration st = new StringTokenizer(path, ":");
+		StringTokenizer st = new StringTokenizer(path, ":");
 		while (st.hasMoreElements()) {
-			String dir = (String) st.nextElement();
+			String dir = st.nextToken();
 			String filename = dir + File.separatorChar + name + ".class";
 			File file = new File(filename);
 			if (file.exists()) {
@@ -366,7 +366,7 @@ public class MainFrame extends JFrame implements Runnable, AppletStub,
 		// I suspect that in a future release, JavaSoft will add an
 		// audio content handler which encapsulates this, and then
 		// we can just do a getContent just like for images.
-		return new sun.applet.AppletAudioClip(url);
+		return null;
 	}
 
 	/* (non-Javadoc)

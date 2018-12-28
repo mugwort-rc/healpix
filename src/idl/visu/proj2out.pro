@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -37,13 +37,15 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
               PROJECTION=projection, MOLLWEIDE=mollweide, GNOMIC=gnomic, CARTESIAN=cartesian, $
               ORTHOGRAPHIC=orthographic, FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, $
               IGRATICULE = igraticule, HBOUND = hbound, DIAMONDS = diamonds, WINDOW = window_user, $
-              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick
+              TRANSPARENT = transparent, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, IGLSIZE=iglsize, $
+              SHADEMAP=SHADEMAP, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick, $
+              STAGGER=stagger, AZEQ=azeq, JPEG=jpeg
 
 ;===============================================================================
 ;+
 ;  PROJ2OUT
-;  ouputs on X-screen or PS file or GIF or PNG file a gnomonic or
-;  mollweide or cartesian map
+;  ouputs on X-screen or PS, GIF, PNG or JPEG file a gnomonic,
+;  mollweide, cartesian, orthographic or azimuth equidistant map
 ;
 ;  IN:
 ;    planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, 
@@ -62,7 +64,7 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;              ORTHOGRAPHIC=orthographic, $
 ;              FLIP=flip, HALF_SKY=half_sky,COORD_IN=coord_in, IGRATICULE=,
 ;              HBOUND=, DIAMONDS =, WINDOW =, TRANSPARENT=, EXECUTE=, SILENT=
-;              GLSIZE=, IGLSIZE=, SHADEMAP=
+;              GLSIZE=, IGLSIZE=, SHADEMAP=, STAGGER=, AZEQ=, JPEG=
 ;
 ;   for more information, see Gnomview.pro Mollview.pro
 ;
@@ -87,30 +89,43 @@ pro proj2out, planmap, Tmax, Tmin, color_bar, dx, title_display, sunits, $
 ;   Mar 2010, EH, corrected bug with use_z_buffer
 ;   Apr 2010, EH, accepts array of OUTLINE;
 ;                  supports CHARTHICK
+;   Jan 2012, EH, turns off GRAT, IGRAT, HBOUND, OUTLINE when STAGGER is set
+;                 added support of AZEQ and JPEG
+;
+;
+; 2 problems with write_png,...,/transparent in GDL:
+;  - it is currently (v0.9.2) not supported
+;  - it expects a pixel mask (ie an array of the same size as the image) with
+;    values in [0,255] setting the opacity of each pixel
+;   while the IDL version expects a color mask (ie, a vector of size 255) with
+;   values in [0,255] setting the opacity of each color
 ;-
 ;===============================================================================
 
-identify_projection, projtype, projection=projection, mollweide=mollweide, gnomic=gnomic, cartesian=cartesian, orthographic=orthographic,  diamonds = diamonds
+identify_projection, projtype, projection=projection, mollweide=mollweide, gnomic=gnomic, cartesian=cartesian, orthographic=orthographic,  diamonds = diamonds, azeq=azeq
 do_gnom = 0
 do_moll = 0
 do_cart = 0
 do_orth = 0
+do_azeq = 0
 do_fullsky = 0 ; dummy, only matters for orthview
 do_gif = keyword_set(gif)
 do_png = keyword_set(png)
 do_ps  = keyword_set(ps)
-do_image = (do_gif || do_png)
+do_jpeg  = keyword_set(jpeg)
+do_image = (do_gif || do_png || do_jpeg)
 do_true = keyword_set(truecolors)
 do_crop = keyword_set(crop)
 
 if undefined(polarization) then polarization=0
-do_polamplitude = (polarization eq 1)
-do_poldirection = (polarization eq 2)
-do_polvector    = (polarization eq 3)
+do_polamplitude = (polarization[0] eq 1)
+do_poldirection = (polarization[0] eq 2)
+do_polvector    = (polarization[0] eq 3)
 ;-------------------------------------------------
 in_gdl = is_gdl()
 in_idl = ~in_gdl
-if (do_ps) then test_preview
+;if (do_ps) then 
+test_preview
 @idl_default_previewer ; defines the paper size
 if (do_ps and undefined(papersize)) then papersize = 'a4'
 
@@ -368,6 +383,56 @@ if (projtype eq 3) then begin
     ;yoffset = 1                 ; US (letter)
     endif
 endif
+
+if (projtype eq 6) then begin
+    ;------------ azimuthal equidistant projection ----------------
+    routine    = 'AZEQVIEW'
+    proj_small = 'azimequid'
+    proj_big   = 'AzimEquidistant'
+    do_cart    = 1
+    
+;     du_dv = 1.                  ; aspect ratio
+    du_dv = xsize/float(ysize)                  ; aspect ratio
+    fudge = 1.00                ; 
+    xc = (xsize-1)/2. & delta_x = (xsize-1 - xc)
+    yc = (ysize-1)/2. & delta_y = (ysize-1 - yc)
+; u and v range of the map
+    umin = - dx * xc * fudge & umax = dx * xc * fudge
+    vmin = - dx * yc * fudge & vmax = dx * yc * fudge
+; position of the rectangle in the final window
+    w_xll = 0.00 & w_xur = 1.00 & w_dx = w_xur - w_xll
+    w_yll = 0.10 & w_yur = 0.90 & w_dy = w_yur - w_yll
+    w_dx_dy = w_dx / w_dy       ; 1.4
+; color bar, position, dimension
+    cbar_dx = 1./3.
+    cbar_dy = 1./70.
+    cbar_xll = (1. - cbar_dx)/2.
+    cbar_xur = (1. + cbar_dx)/2.
+    cbar_yur = w_yll - cbar_dy
+    cbar_yll = cbar_yur - cbar_dy
+; polarisation color ring, position, dimension
+    cring_dx = 1./15.
+    cring_dy = 1./15.
+    cring_xll = .025
+    cring_yll = .025
+; location of astro. coordinate
+    x_aspos = 0.5
+    y_aspos = 0.04
+; pol vector scale
+    vscal_x = 0.05
+    vscal_y = 0.01
+; location of title and subtitle
+    x_title = 0.5 & y_title = 0.95
+    x_subtl = 0.5 & y_subtl = 0.915
+    if (do_ps) then begin
+; default X dimension of hardcopy (cm)
+        hxsize_def = 15.
+; offset along the long axis of the page
+        yoffset = (papersize eq 'a4') ? 2 : 1
+    ;yoffset = 2  ; Europe (A4)
+    ;yoffset = 1                 ; US (letter)
+    endif
+endif
 ;====================================================
 
 do_shade = (do_orth && defined(shademap))
@@ -375,10 +440,11 @@ do_shade = (do_orth && defined(shademap))
 ct          = defined(colt)     ? colt     : 33
 charsfactor = defined(charsize) ? charsize : 1.0
 mycharthick = defined(charthick)? charthick : 1.0
+be_verbose  = ~keyword_set(silent)
 
 ; alter the color table
 ; -----------------------
-if (~keyword_set(silent)) then print,'... computing the color table ...'
+if (be_verbose) then print,'... computing the color table ...'
 if (do_true) then begin
     loadct, 0, /silent
     tvlct,red,green,blue,/get
@@ -389,7 +455,13 @@ endif else begin
         one = replicate(1.,ncol)
         tvlct,[0,0,0,findgen(ncol-3)]/(ncol-3)*720,one,one,/hsv ; hue is in degrees
     endif else begin
-        LOADCT, abs(ct), /SILENT
+        loadct, get_names = color_names
+        nmax_col = n_elements(color_names)-1
+        if (abs(ct) le nmax_col) then begin
+            LOADCT, abs(ct), /SILENT
+        endif else begin
+            if (be_verbose) then print,'... color table '+strtrim(abs(ct),2)+' unknown, using current color table instead ...'
+        endelse
     endelse
     tvlct,red,green,blue,/get
     if (ct lt 0) then begin
@@ -411,7 +483,7 @@ TVLCT,red,green,blue
 old_device=!d.name
 my_background = !p.background
 my_color = !p.color
-if (~keyword_set(silent)) then print,'... here it is.'
+if (be_verbose) then print,'... here it is.'
 titlewindow = proj_big+' projection : ' + title_display
 back      = REPLICATE(BYTE(!P.BACKGROUND),xsize,(ysize*cbar_dy*w_dx_dy)>1)
 use_z_buffer = 0 ; set it to 0 (for postscript) 2010-03-18
@@ -431,14 +503,14 @@ if (do_ps) then begin
         do_landscape = 1
         DEVICE, /LANDSCAPE, XSIZE=hxsize, YSIZE=hxsize/du_dv*w_dx_dy, XOFFSET=4, YOFFSET=hxsize+yoffset
     endif
-    if (do_cart) then begin
+    if (do_cart || do_azeq) then begin
         do_landscape = 1
 ;         DEVICE, /LANDSCAPE, XSIZE=hxsize, YSIZE=hxsize/du_dv*w_dx_dy, XOFFSET=4, YOFFSET=hxsize+yoffset
         DEVICE, /LANDSCAPE, XSIZE=hxsize, YSIZE=hxsize/du_dv*w_dx_dy, XOFFSET=0, YOFFSET=hxsize+yoffset
     endif
     TVLCT,red,green,blue
     thick_dev = 2. ; device dependent thickness factor
-endif else begin ; X, png or gif output
+endif else begin ; X, png, gif or jpeg output
     idl_window = defined(window_user) ? window_user : 32 ; idl_window = 32 or window_user
     free_window    =  (idl_window gt 31) ; random  window if idl_window > 31
     virtual_window =  (idl_window lt 0)  ; virtual window if idl_window < 0
@@ -450,6 +522,7 @@ endif else begin ; X, png or gif output
         set_plot,'z'
         pixel_depth = (do_true) ? 24 : 8
         if (in_gdl) then begin
+; unresolved GDL0.9.2 bug: set_character_size ignored
             device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buffering=0
         endif else begin
             device,set_resolution= [xsize, ysize*w_dx_dy], set_character_size=character_size,z_buffering=0, set_pixel_depth=pixel_depth
@@ -459,9 +532,14 @@ endif else begin ; X, png or gif output
     ;;commented out 2009-10-28
     ;to_patch = ((!d.n_colors GT 256) && do_image  && ~do_crop)
     ;to_patch = ((!d.n_colors GT 256) && do_image && in_idl)
-    to_patch = ((!d.n_colors GT 256) && do_image)
+    n_colors = !d.n_colors
+    if (in_gdl && (!d.name eq 'X' || !d.name eq 'WIN')) then begin ; work-around for GDL0.9.2 bug (!d.n_colors gets correct only after first call to WINDOW)
+        device,get_visual_depth=gvd
+        n_colors = 2L^gvd
+    endif
+    to_patch = (n_colors GT 256 && do_image)
     if (in_gdl) then begin
-        device ; in GDL, Decomposed keyword is either ignored (device='X') or unvalid (device='Z') 
+        if (use_z_buffer) then device else device,decomposed=0 ; in GDL0.9.2, decomposed is only available (but ignored) when device='X', or unvalid when device='Z'
         if (to_patch) then loadct,0,/silent ; emulate decomposed
     endif else begin
         device, decomposed = use_z_buffer || to_patch
@@ -477,19 +555,18 @@ endif else begin ; X, png or gif output
                     RETAIN=window_retain
         endif
         if (~virtual_window && (!d.x_size lt long(xsize) || !d.y_size lt long(ysize*w_dx_dy))) then begin
-            message,level=-1,/info,'==========================================================='
-            message,level=-1,/info,'WARNING: Because of screen and window manager limitations,'
-            message,level=-1,/info,'         the actual window is not as large as expected !'
-            message,level=-1,/info,strtrim(!d.x_size,2)+'*'+  strtrim(!d.y_size,2)+'    <    '+  strtrim(long(xsize),2)+'*'+strtrim(long(ysize*w_dx_dy),2)
-            message,level=-1,/info,'         The result is unpredictable.'            
-            message,level=-1,/info,' If you are only interested in GIF/PNG output, you can use a virtual window (WINDOW<0) instead'            
-            message,level=-1,/info,'==========================================================='
+            message_patch,level=-1,/info,'==========================================================='
+            message_patch,level=-1,/info,'WARNING: Because of screen and window manager limitations,'
+            message_patch,level=-1,/info,'         the actual window is not as large as expected !'
+            message_patch,level=-1,/info,strtrim(!d.x_size,2)+'*'+  strtrim(!d.y_size,2)+'    <    '+  strtrim(long(xsize),2)+'*'+strtrim(long(ysize*w_dx_dy),2)
+            message_patch,level=-1,/info,'         The result is unpredictable.'            
+            message_patch,level=-1,/info,' If you are only interested in GIF/PNG/JPEG output, you can use a virtual window (WINDOW<0) instead'            
+            message_patch,level=-1,/info,'==========================================================='
         endif
     endelse
     if (in_idl) then TVLCT,red,green,blue
     thick_dev = 1. ; device dependent thickness factor
 endelse
-
 !p.background = my_background
 !p.color = my_color
 ; -------------------------------------------------------------
@@ -558,9 +635,13 @@ if (do_poldirection) then begin
 endif
 
 ; polarisation vector field
+pgparam=[1.,1.]; [scale, grid_step] of grid of headless vector
 if (do_polvector) then begin
-    dyg = 10. & dxg = dyg
-    pol_rescale = float(dyg)/ysize
+    pgparam = ([polarization[*], 1., 1.])[1:2] ; 2nd and 3rd elements of polarization (default:[1,1])
+    pgparam = pgparam*(pgparam gt 0) + (pgparam le 0) ; replace non-positive values by 1.
+    dyg = 10.
+    pol_rescale = float(dyg)/ysize * pgparam[0]
+    dyg *= pgparam[1] & dxg = dyg
     xg = (lindgen(xsize/dxg)+.5) #  replicate(dxg, ysize/dyg)
     yg = (lindgen(ysize/dyg)+.5) ## replicate(dyg, xsize/dxg)
     u = umin + xg * (umax-umin) / xsize
@@ -576,6 +657,7 @@ if (do_polvector) then begin
             if (norm gt 0) then plots, u[i]-norm*sin(angle)*[-.5,.5], v[i]+norm*cos(angle)*[-.5,.5]
         endelse
     endfor
+    xg = 0 & yg = 0 & u = 0 & v = 0
 endif
 
 ;  the color bar
@@ -600,11 +682,13 @@ endif
 
 ; the polarisation vector scale
 if (~keyword_set(nobar)  && do_polvector) then begin
-    plots, vscal_x*[1,1], vscal_y+[0, 5*pol_rescale]*w_dy, /normal
+    vp_plot = 5*pol_rescale[0] /pgparam[0]; length of ruler on plot
+    vp_phys = 5*vector_scale[0]/pgparam[0] ; 'physical' length of ruler
+    plots, vscal_x*[1,1], vscal_y+[0, vp_plot]*w_dy, /normal
     format = '(g10.2)'
-    if ((5*vector_scale) lt 1.e3 and (5*vector_scale) ge 10) then format = '(f5.1)'
-    if ((5*vector_scale) lt 10 and (5*vector_scale) gt 1.e-1) then format = '(f4.2)'
-    xyouts, vscal_x, vscal_y + .5*(5*pol_rescale)*w_dy, '!6  '+strtrim(string(5*vector_scale,form=format),2)+' '+sunits,ALIGN=0.,/normal, chars=1.1*charsfactor, charthick=mycharthick
+    if (vp_phys lt 1.e3 && vp_phys ge 10)    then format = '(f5.1)'
+    if (vp_phys lt 10   && vp_phys gt 1.e-1) then format = '(f4.2)'
+    xyouts, vscal_x, vscal_y + .5*(vp_plot)*w_dy, '!6  '+strtrim(string(vp_phys,form=format),2)+' '+sunits,ALIGN=0.,/normal, chars=1.1*charsfactor, charthick=mycharthick
 endif
 
 ;  the title
@@ -641,32 +725,45 @@ if (do_gnom) then begin
 
 endif
 
-grattwice=0
+; do not plot graticules, outlines or pixel boundaries in stagger mode (orthview)
+skip_oplots = do_orth && keyword_set(stagger) && $
+  ( keyword_set(graticule) || keyword_set(igraticule) || keyword_set(hbound) || keyword_set(outline))
+
+if (skip_oplots) then begin
+    message_patch,/info,level=-1,'*Warning*: GRAT, IGRAT, HBOUND and OUTLINE keywords are ignored in STAGGER mode'
+endif else begin
+    grattwice=0
 ;  the graticule in output astrophysical coordinates
-if (KEYWORD_SET(graticule)) then begin
-    grattwice =1
-    glabelsize = charsfactor * (keyword_set(glsize) ? glsize : 0 )
-    oplot_graticule, graticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0, charsize=glabelsize, reso_rad=dx
-endif 
+    if (KEYWORD_SET(graticule)) then begin
+        grattwice =1
+        glabelsize = charsfactor * (keyword_set(glsize) ? glsize : 0 )
+        oplot_graticule, graticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0, charsize=glabelsize, reso_rad=dx
+    endif 
 
 ;  the graticule in input coordinates
-if (KEYWORD_SET(igraticule)) then begin
-    lines_ig = 2*grattwice ; either 0 or 2
-    iglabelsize = charsfactor * (keyword_set(iglsize) ? iglsize : 0 )
-    oplot_graticule, igraticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lines_ig, coordsys=[coord_in,coord_out], charsize=iglabelsize, reso_rad=dx
-endif 
+    if (KEYWORD_SET(igraticule)) then begin
+        lines_ig = 2*grattwice  ; either 0 or 2
+        iglabelsize = charsfactor * (keyword_set(iglsize) ? iglsize : 0 )
+        oplot_graticule, igraticule, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lines_ig, coordsys=[coord_in,coord_out], charsize=iglabelsize, reso_rad=dx
+    endif 
 
 ; outlines on the map
-if (keyword_set(outline)) then begin
-    for iol=0, n_elements(outline)-1 do begin
-        outline_coord2uv, outline[iol], coord_out, eul_mat, projection=proj_small, flip = flip, /show, thick = 3.*thick_dev, half_sky=half_sky
-    endfor
-endif
+    if (keyword_set(outline)) then begin
+        for iol=0, n_elements(outline)-1 do begin
+            outline_coord2uv, outline[iol], coord_out, eul_mat, projection=proj_small, flip = flip, /show, thick = 3.*thick_dev, half_sky=half_sky
+        endfor
+    endif
 
 ; overplot pixel boundaries
-if keyword_set(hbound) then begin
-    if (hbound gt 0) then oplot_healpix_bounds, hbound, eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=0, coordsys=[coord_in,coord_out]
-endif
+    if keyword_set(hbound) then begin
+        nhbd = n_elements(hbound)
+        if (nhbd gt 3) then message_patch,/info,level=-1,'Hbound must have 3 elements at most'
+        lnst = [0,2,1]          ; solid (smallest Nside), dashes (median Nside), dots (largest Nside)
+        for i=0, (nhbd<3)-1 do begin
+            if (hbound[i] gt 0) then oplot_healpix_bounds, hbound[i], eul_mat, projection=proj_small, flip = flip, thick = 1.*thick_dev, color = !p.color, half_sky=half_sky, linestyle=lnst[i], coordsys=[coord_in,coord_out]
+        endfor
+    endif
+endelse
 
 ; overplot user defined commands
 if keyword_set(execute) then begin
@@ -676,11 +773,12 @@ if keyword_set(execute) then begin
 endif
 
 ; -----------------------------------------------
-;       output the PS/GIF/PNG
+;       output the PS/GIF/PNG/JPG
 ; -----------------------------------------------
 
-;  gif/png output
+;  gif/png/jpg output
 if do_image then begin
+    jquality = 100 ; JPEG quality in [0,100]
     valid_transparent = 0
     if (keyword_set(transparent)) then begin
         itr = nint(transparent)
@@ -690,11 +788,10 @@ if do_image then begin
         endif else valid_transparent = 1
     endif
 
-    if (do_gif) then begin
-        if (DATATYPE(gif) ne 'STR') then file_image = 'plot_'+proj_small+'.gif' else file_image = gif
-    endif else begin
-        if (DATATYPE(png) ne 'STR') then file_image = 'plot_'+proj_small+'.png' else file_image = png
-    endelse
+    if (do_gif)  then file_image = (datatype(gif)  ne 'STR') ? 'plot_'+proj_small+'.gif'  : gif
+    if (do_png)  then file_image = (datatype(png)  ne 'STR') ? 'plot_'+proj_small+'.png'  : png
+    if (do_jpeg) then file_image = (datatype(jpeg) ne 'STR') ? 'plot_'+proj_small+'.jpeg' : jpeg
+        
     image = (do_true) ? tvrd(true=3) : tvrd() ; a single call to tvrd()
     if (do_shade) then begin
         image3d  =   make_array(/uint, 3,!d.x_size,!d.y_size)
@@ -743,10 +840,18 @@ if do_image then begin
                 write_png, file_image, image3d[*,*,y_crop_low:y_crop_hi]
             endif else begin
                 if (keyword_set(transparent)) then begin
-                    write_png,file_image,cropped,red,green,blue, transparent=transp_colors
+                    mytransp = (in_idl) ? transp_colors  :  0 ; transp_colors[cropped]
+                    write_png,file_image,cropped,red,green,blue, transparent=mytransp
                 endif else begin
                     write_png,file_image,cropped,red,green,blue
                 endelse
+            endelse
+        endif
+        if do_jpeg then begin
+            if (do_shade || do_true) then begin
+                write_jpg_custom, file_image, image3d[*,*,y_crop_low:y_crop_hi], true=1, quality=jquality
+            endif else begin
+                write_jpg_custom, file_image, cropped, red, green, blue,                 quality=jquality
             endelse
         endif
     endif else begin ; uncropped
@@ -756,15 +861,26 @@ if do_image then begin
                 write_png, file_image, image3d
             endif else begin
                 if (keyword_set(transparent)) then begin
-                    write_png,file_image, image,red,green,blue, transparent=transp_colors
+                    mytransp = (in_idl) ? transp_colors  : 0 ; transp_colors[image]
+                    write_png,file_image, image,red,green,blue, transparent=mytransp
                 endif else begin
                     write_png,file_image, image,red,green,blue
                 endelse
             endelse
         endif
+        if do_jpeg then begin
+            if (do_shade || do_true) then begin
+                write_jpg_custom, file_image, image3d,             true=1, quality=jquality
+            endif else begin
+                write_jpg_custom, file_image, image,red,green,blue,        quality=jquality
+            endelse
+        endif
     endelse
     if (to_patch && ~use_z_buffer) then begin 
         if (in_gdl) then begin
+; unresolved GDL0.9.2 bug: if a window is already open for a given color table
+; (selected with loadct) subsequent tvlct are ignored for that window. Only a
+; new loadct will do the job.
             device, decomposed=0
             tvlct,red,green,blue ; revert to custom color table
         endif else begin
@@ -777,13 +893,14 @@ if do_image then begin
         endelse
     endif
     image = 0
-    if (~keyword_set(silent)) then print,'IMAGE file is in '+file_image
+    if (be_verbose) then print,'IMAGE file is in '+file_image
     if (keyword_set(preview)) then begin
         test_preview, found_preview ;, /crash
         if (found_preview gt 0) then begin
             resolve_routine,'preview_file',/either ; ,compile_full_file=in_idl
             if do_gif then preview_file, file_image, /gif
             if do_png then preview_file, file_image, /png
+            if do_jpeg then preview_file, file_image, /jpeg
         endif
     endif
 endif
@@ -792,7 +909,7 @@ endif
 if (do_ps) then begin
     device,/close
     set_plot,old_device
-    if (~keyword_set(silent)) then print,'PS file is in '+file_ps
+    if (be_verbose) then print,'PS file is in '+file_ps
     if (keyword_set(preview)) then begin
         test_preview, found_preview ;, /crash
         if (found_preview gt 0) then begin

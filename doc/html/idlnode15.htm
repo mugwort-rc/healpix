@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>fits2alm</TITLE>
-<META NAME="description" CONTENT="fits2alm">
+<TITLE>bl2beam</TITLE>
+<META NAME="description" CONTENT="bl2beam">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,162 +28,215 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html311"
+<A NAME="tex2html353"
   HREF="idlnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html317"
+<A NAME="tex2html359"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html321"
+<A NAME="tex2html363"
   HREF="idlnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html361"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html312"
-  HREF="idlnode14.htm">euler_matrix_new</A>
+<B> Previous:</B> <A NAME="tex2html354"
+  HREF="idlnode14.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html318"
+<B>Up:</B> <A NAME="tex2html360"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html322"
-  HREF="idlnode16.htm">fits2cl</A>
+<B> Next:</B> <A NAME="tex2html364"
+  HREF="idlnode16.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000150000000000000000"></A>
-<A NAME="idl:fits2alm"></A>
+<A NAME="idl:bl2beam"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">fits2alm</FONT></font></b><hr><H2>This IDL routine provides a means to 
-read from a FITS file binary table extension(s) containing spherical
-harmonic coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (and optional errors) and their index. Reads
-header information if required. The facility is intended to enable 
-the user to read the output from the <b>HEALPix</b> facilities <SPAN  CLASS="textbf">anafast</SPAN> and <SPAN  CLASS="textbf">synfast</SPAN>.
+<b><font size=+6><FONT COLOR="#CC0000">bl2beam</FONT></font></b><hr><H2>This IDL facility computes a circular beam profile <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> from its transfer (or window) function <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN>.
 </H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/fits2alm.pro
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"></b>
+src/idl/misc/bl2beam.pro
+</b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-FITS2ALM, index, alm_array, fitsfile, [signal, /HELP, HDR=, LMAX=, LMIN=, XHDR= ]
+beam=<FONT COLOR="#CC0000">bl2beam</FONT>(
+<A HREF="#idl:bl2beam:bl">bl</A>, 
+<A HREF="#idl:bl2beam:theta">theta</A>, [<A HREF="#idl:bl2beam:arcmin">/ARCMIN</A> ,
+<A HREF="#idl:bl2beam:degrees">/DEGREES</A>, 
+<A HREF="#idl:bl2beam:help">/HELP</A>, 
+<A HREF="#idl:bl2beam:radians">/RADIANS</A>])
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>index</B>
-<DD>Long array containing the index for the corresponding
-                 array of <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients (and errors if required). The
-                 index <SPAN CLASS="MATH"><I>i</I></SPAN> is related to <SPAN CLASS="MATH">(<I>l</I>,<I>m</I>)</SPAN> by the relation <BR>
-                 <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1. <BR>
-This has dimension
-    nl (see below).
+<B>bl</B>
+<DD><A NAME="idl:bl2beam:bl"></A>input <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function of beam (defined for all integer multipoles <SPAN CLASS="MATH"><I>l</I></SPAN> starting at 0)
     <DT>
-<B>alm_array</B>
-<DD>Real or double array of alm coefficients read from the
-      file. This has dimension (nl,nalm,nsig) - corresponding to
-<BR>
-nl   = number of <SPAN CLASS="MATH">(<I>l</I>,<I>m</I>)</SPAN> indices <BR>
-nalm = 2 for real and imaginary parts of alm coefficients or
-             4 for above plus corresponding error values <BR>
-nsig = number of signals to be written (1 for any of T E B
-             or 3 if ALL to be written). Each signal is stored
-             in a separate extension.
-    <DT>
-<B>fitsfile</B>
-<DD>String containing the name of the file to be
-      read.
-    <DT>
-<B>signal</B>
-<DD>String defining the signal coefficients to read
-                  Valid options: 'T', 'E', 'B' or 'ALL' <BR>
-	<b>default:</b>'T'.  
+<B>theta</B>
+<DD><A NAME="idl:bl2beam:theta"></A>angles <SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN> (in arcmin, degrees or radians) 
+  at which the output beam <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg28.png"
+ ALT="$b(\theta)$"></SPAN> is to be computed.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>HDR=</B>
-<DD>String array containing the primary header read from the FITS
-      file. 
+<B>/ARCMIN</B>
+<DD><A NAME="idl:bl2beam:arcmin"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in arcmin
+    <DT>
+<B>/DEGREES</B>
+<DD><A NAME="idl:bl2beam:degrees"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in degrees
     <DT>
 <B>/HELP</B>
-<DD>If set, the routine documentation header is shown and the routine exits	
+<DD><A NAME="idl:bl2beam:help"></A>if set, prints out the help header and exits
     <DT>
-<B>LMAX=</B>
-<DD>Largest <SPAN CLASS="MATH"><I>l</I></SPAN> multipole  to be output
-    <DT>
-<B>LMIN=</B>
-<DD>Smallest <SPAN CLASS="MATH"><I>l</I></SPAN> multipole to be output. If LMIN (resp. LMAX) is below (above) the range of <SPAN CLASS="MATH"><I>l</I></SPAN>'s present in the file,
-              it will be silently ignored
-    <DT>
-<B>XHDR=</B>
-<DD>String array containing the read extension header(s). If
-                  ALL signals are required, then the three extension 
-                  headers are returned appended into one string array.
+<B>/RADIANS</B>
+<DD><A NAME="idl:bl2beam:radians"></A>if set, <A HREF="#idl:bl2beam:theta"><SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg29.png"
+ ALT="$\theta$"></SPAN></A> is in radians
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-<FONT COLOR="#CC0000">fits2alm</FONT> reads binary table extension(s) 
-which contain the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients (and associated errors if present)
-from a FITS file. FITS headers can also optionally be read from the 
-input file. 
+Since an arbitrary beam is related to its SH Transform via
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
 
+<!-- MATH
+ \begin{equation}
+b({\bf {r}}) = \sum_{lm} b_{lm} Y_{lm}({\bf {r}}),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="162" HEIGHT="49" BORDER="0"
+ SRC="idlimg39.png"
+ ALT="\begin{displaymath}
+b({\bf {r}}) = \sum_{lm} b_{lm} Y_{lm}({\bf {r}}),
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">3</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+a circular beam has a radial profile (as returned by <FONT COLOR="#CC0000">bl2beam</FONT>)
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+b(\theta) = \sum_l  b(l) P_l(\theta) \frac{2l+1}{4 \pi},
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="207" HEIGHT="54" BORDER="0"
+ SRC="idlimg40.png"
+ ALT="\begin{displaymath}
+b(\theta) = \sum_l b(l) P_l(\theta) \frac{2l+1}{4 \pi},
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">4</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+where <SPAN CLASS="MATH"><I>P</I><SUB><I>l</I></SUB></SPAN> is Legendre Polynomial and 
+</SMALL>
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+
+<!-- MATH
+ \begin{equation}
+b(l)=b_{l0} \sqrt{\frac{4 \pi}{2l+1}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="141" HEIGHT="55" BORDER="0"
+ SRC="idlimg41.png"
+ ALT="\begin{displaymath}
+b(l)=b_{l0} \sqrt{\frac{4 \pi}{2l+1}}
+\end{displaymath}"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+(<SPAN CLASS="arabic">5</SPAN>)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P><SMALL CLASS="FOOTNOTESIZE">
+is the beam window (or transfer)
+function, expected as input to <FONT COLOR="#CC0000">bl2beam</FONT>.
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">fits2alm</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">bl2beam</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">fits2alm</FONT>.
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">bl2beam</FONT>.
     <DT>
-<B><A HREF="idlnode5.htm#idl:alm2fits">alm2fits</A></B>
-<DD>provides the complimentary routine to write
-      <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients into a FITS file.
+<B><A HREF="idlnode13.htm#idl:beam2bl">beam2bl</A></B>
+<DD>facility to perform the inverse
+transform to <FONT COLOR="#CC0000">bl2beam</FONT>.
     <DT>
-<B><A HREF="idlnode28.htm#idl:index2lm">index2lm</A></B>
-<DD>converts the index <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> +
-    <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 returned by <FONT COLOR="#CC0000">fits2alm</FONT> into <SPAN CLASS="MATH"><I>l</I></SPAN> and <SPAN CLASS="MATH"><I>m</I></SPAN>
+<B><A HREF="idlnode16.htm#idl:bl2fits">bl2fits</A></B>
+<DD>facility to write a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window function into a FITS file.
     <DT>
-<B><A HREF="idlnode30.htm#idl:lm2index">lm2index</A></B>
-<DD>converts (<SPAN CLASS="MATH"><I>l</I></SPAN>, <SPAN CLASS="MATH"><I>m</I></SPAN>) vectors into <SPAN CLASS="MATH"><I>i</I></SPAN> = <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> +
-    <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1
-    <DT>
-<B><A HREF="idlnode16.htm#idl:fits2cl">fits2cl</A></B>
-<DD>routine to read/compute <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> power spectra from a file containing <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> or <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
-<DT>
-<B><A HREF="idlnode25.htm#idl:ianafast">ianafast</A>, <A HREF="idlnode27.htm#idl:isynfast">isynfast</A></B>
-<DD>IDL routine providing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
-    <DT>
-<B>alteralm, anafast, synfast</B>
-<DD>F90 facilities providing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients file to be read by <FONT COLOR="#CC0000">fits2alm</FONT>.
+<B><A HREF="idlnode24.htm#idl:fits2cl">fits2cl</A></B>
+<DD>facility to read a <SPAN CLASS="MATH"><I>b</I>(<I>l</I>)</SPAN> window
+function from a FITS file
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">fits2alm</FONT>, index, alm, 'alm.fits', HDR = hdr, XHDR = xhdr </SMALL></TD>
+bl = <A HREF="idlnode25.htm#idl:gaussbeam">gaussbeam</A>(15.d0, 4000, 1) </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+theta = dindgen(3000)/100. </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+beam = <FONT COLOR="#CC0000">bl2beam</FONT>(bl, theta, /arcmin)</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+plot, theta, beam</SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
 <BR><blockquote>
-<FONT COLOR="#CC0000">fits2alm</FONT> reads from the input FITS file <TT>alm.fits</TT> 
-the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients into the variable <TT>alm</TT>  with optional headers
-passed by the string variables <TT>hdr</TT> and <TT>xhdr</TT>. Upon return <TT>index</TT>
-will contain the value of <SPAN CLASS="MATH"><I>l</I><SUP>2</SUP></SPAN> + <SPAN CLASS="MATH"><I>l</I></SPAN> + <SPAN CLASS="MATH"><I>m</I></SPAN> + 1 for each <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-found in the file.
-</blockquote><SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+the example above generates a beam window function (defined for
+all <SPAN CLASS="MATH"><I>l</I></SPAN> in <!-- MATH
+ $\{0,\ldots,4000\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg33.png"
+ ALT="$\{0,\ldots,4000\}$"></SPAN>) for a 15arcmin-FWHM gaussian beam, computes the
+beam profile for angles in <SPAN CLASS="MATH">[0,30]</SPAN> arcmin and then plots it.
+</blockquote>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -191,32 +244,32 @@ found in the file.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html311"
+<A NAME="tex2html353"
   HREF="idlnode14.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html317"
+<A NAME="tex2html359"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html321"
+<A NAME="tex2html363"
   HREF="idlnode16.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html319"
+<A NAME="tex2html361"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html312"
-  HREF="idlnode14.htm">euler_matrix_new</A>
+<B> Previous:</B> <A NAME="tex2html354"
+  HREF="idlnode14.htm">bin_llcl</A>
 
-<B>Up:</B> <A NAME="tex2html318"
+<B>Up:</B> <A NAME="tex2html360"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html322"
-  HREF="idlnode16.htm">fits2cl</A>
+<B> Next:</B> <A NAME="tex2html364"
+  HREF="idlnode16.htm">bl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

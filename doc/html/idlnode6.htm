@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>ang2vec </TITLE>
-<META NAME="description" CONTENT="ang2vec ">
+<TITLE>Changes between release 1.2 and 2.0</TITLE>
+<META NAME="description" CONTENT="Changes between release 1.2 and 2.0">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,159 +28,93 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html203"
+<A NAME="tex2html245"
   HREF="idlnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html209"
+<A NAME="tex2html251"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html213"
+<A NAME="tex2html255"
   HREF="idlnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html211"
+<A NAME="tex2html253"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html204"
-  HREF="idlnode5.htm">alm2fits</A>
+<B> Previous:</B> <A NAME="tex2html246"
+  HREF="idlnode5.htm">Changes between release 2.0</A>
 
-<B>Up:</B> <A NAME="tex2html210"
+<B>Up:</B> <A NAME="tex2html252"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html214"
-  HREF="idlnode7.htm">bin_llcl</A>
+<B> Next:</B> <A NAME="tex2html256"
+  HREF="idlnode7.htm">alm_i2t</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION00060000000000000000"></A>
-<A NAME="idl:ang2vec"></A>
-<BR>
+<H1><A NAME="SECTION00060000000000000000">
+Changes between release 1.2 and 2.0</A>
+</H1><SMALL CLASS="FOOTNOTESIZE">
+Some new routines have been introduced since version 1.2, as listed below.
+Most of the routines that already existed now have extended
+capabilities.
+Those of them with improved or extended user interface are listed
+below. They all remain backward compatible (ie, they can be used with codes written
+around version 1.1 and 1.2 without any edition).
+</SMALL>
+<P>
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New routines in version 2.0 include
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode41.htm#idl:median_filter"><TT>median_filter</TT></A>
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode48.htm#idl:nside2ntemplates"><TT>nside2templates</TT></A>,
+  <A HREF="idlnode63.htm#idl:same_shape_pixels_xxx"><TT>same_shape_pixels_ring</TT></A>, 
+  <A HREF="idlnode63.htm#idl:same_shape_pixels_xxx"><TT>same_shape_pixels_nest</TT></A>,
+  <A HREF="idlnode64.htm#idl:template_pixel_xxx"><TT>template_pixel_ring</TT></A>, 
+  <A HREF="idlnode64.htm#idl:template_pixel_xxx"><TT>template_pixel_nest</TT></A>
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <TT>loaddata_healpix</TT>: replaces loaddata to avoid conflict with other
+  libraries
+ <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ ...
+</DL>
+
+<P>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Routines with extended/improved user interface or new functionalities include
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode24.htm#idl:fits2cl"><TT>fits2cl</TT></A>: addition of /RSHOW, /SHOW keywords to plot
+  power spectra while they are read; possibility to read power spectra from a
+file containing <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode43.htm#idl:mollview"><TT>gnomview</TT></A>, <A HREF="idlnode43.htm#idl:mollview"><TT>mollview</TT></A>,
+  <A HREF="idlnode43.htm#idl:mollview"><TT>orthview</TT></A>, <A HREF="idlnode43.htm#idl:mollview"><TT>cartview</TT></A>
+  faster FITS file reading (by up to a factor 6);
+  can deal with WMAP polarized maps FITS format; extension
+  of the OUTLINE keyword to plot set of points; addition of the HBOUND keyword
+  to overplot pixel boundaries; ...
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode59.htm#idl:read_tqu"><TT>read_tqu</TT></A>,
+  <A HREF="idlnode56.htm#idl:read_fits_cut4"><TT>read_fits_cut4</TT></A>,
+  <A HREF="idlnode57.htm#idl:read_fits_map"><TT>read_fits_map</TT></A>: 
+   addition of output keywords   NSIDE, ORDERING, COORDSYS
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode61.htm#idl:reorder"><TT>reorder</TT></A>: simpler interface to ordering
+  conversion with addition of /N2R and /R2N keywords
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="idlnode70.htm#idl:write_tqu">write_tqu</A>,
+<A HREF="idlnode67.htm#idl:write_fits_cut4">write_fits_cut4</A>,
+	<A HREF="idlnode69.htm#idl:write_fits_sb">write_fits_sb</A>: faster FITS file writing
+(by a factor 10 or more);
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ ...
+</DL></DL><SMALL CLASS="FOOTNOTESIZE">
  
-</H1>
-<P>
-<b><font size=+6><FONT COLOR="#CC0000">ang2vec </FONT></font></b><hr><H2>This IDL facility convert the position angles of points on the sphere 
-into their 3D position vectors.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/ang2vec.pro
-</b>
-<P>
-<hr><h1>FORMAT </h1><h2>IDL>
-ANG2VEC , Theta, Phi, Vector [, ASTRO=]
-</h2>
-<P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
-  </SMALL><DL COMPACT><DT>
-<B>Theta</B>
-<DD>input: scalar or vector, 
-<BR>
-colatitude in radians measured southward from north pole (in
-    [0,<SPAN CLASS="MATH"><IMG
- WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg2.png"
- ALT="$\pi$"></SPAN>]).
-<BR>
-If ASTRO is set, Theta is the latitude in degrees measured 
-       northward from the equator (in [-90, 90]).
-    <DT>
-<B>Phi</B>
-<DD>input: scalar or vector of same size as Theta, 
-<BR>
-longitude in radians measured eastward (in [0, <SPAN CLASS="MATH"><IMG
- WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg3.png"
- ALT="$2\pi$"></SPAN>]).
-<BR>
-If ASTRO is set, it is the longitude in degree measured eastward (in
-    [0,360]).
-    <DT>
-<B>Vector</B>
-<DD>output : array, 
-<BR>
-three dimensional cartesian position vector
-                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> normalised to unity. The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN>. 
-	The coordinates are ordered as follows
-                   <!-- MATH
- $x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="466" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg4.png"
- ALT="$x(0),\ldots,x(n-1),\ y(0),\ldots,y(n-1),\ z(0),\ldots,z(n-1)$"></SPAN></DL><SMALL CLASS="FOOTNOTESIZE">
-
-<P>
-<hr><H1>KEYWORDS</H1>
-<BR> 
-  </SMALL><DL COMPACT><DT>
-<B>ASTRO =</B>
-<DD>if set Theta and Phi are the latitude and longitude in
-    degrees instead of the colatitude and longitude in radians.
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-<SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
-<hr><H1>DESCRIPTION</H1>
-<BR> <blockquote>
-ang2vec performs the geometrical transform from the position angles of points 
-<SPAN CLASS="MATH"><IMG
- WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg5.png"
- ALT="$(\theta,\phi)$"></SPAN>
-into their position vectors <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN>:
-<!-- MATH
- $x = \sin\theta\cos\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg6.png"
- ALT="$x = \sin\theta\cos\phi$"></SPAN>, <!-- MATH
- $y=\sin\theta\sin\phi$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg7.png"
- ALT="$y=\sin\theta\sin\phi$"></SPAN>, <SPAN CLASS="MATH"><IMG
- WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg8.png"
- ALT="$z=\cos\theta$"></SPAN>
-</blockquote>
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">ang2vec </FONT></b></h3>
-<BR> 
-  </SMALL><DL COMPACT><DT>
-<B>idl</B>
-<DD>version 6.1 or more is necessary to run ang2vec .	
-    <DT>
-<B><A HREF="idlnode41.htm#idl:pix_tools">pix2xxx</A>, ... </B>
-<DD>conversion between vector or angles and pixel index
-    <DT>
-<B><A HREF="idlnode56.htm#idl:vec2ang">vec2ang</A></B>
-<DD>conversion from position vectors to angles
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-
-<P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-lat = -45 ; latitude in degrees </SMALL></TD>
-<TD></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-long = 120 ; longitude in degrees </SMALL></TD>
-<TD></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-ang2vec, lat, lon, /astro, vec
-</SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>will return in <TT>vec</TT> the 3D cartesian position vector of the point of latitude -45 deg and longitude 120 deg
-</blockquote><SMALL CLASS="FOOTNOTESIZE">
+<SMALL CLASS="FOOTNOTESIZE">
 </SMALL>
-<P>
-
 <P>
 
 <P>
@@ -188,32 +122,32 @@ ang2vec, lat, lon, /astro, vec
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html203"
+<A NAME="tex2html245"
   HREF="idlnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html209"
+<A NAME="tex2html251"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html213"
+<A NAME="tex2html255"
   HREF="idlnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html211"
+<A NAME="tex2html253"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html204"
-  HREF="idlnode5.htm">alm2fits</A>
+<B> Previous:</B> <A NAME="tex2html246"
+  HREF="idlnode5.htm">Changes between release 2.0</A>
 
-<B>Up:</B> <A NAME="tex2html210"
+<B>Up:</B> <A NAME="tex2html252"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html214"
-  HREF="idlnode7.htm">bin_llcl</A>
+<B> Next:</B> <A NAME="tex2html256"
+  HREF="idlnode7.htm">alm_i2t</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

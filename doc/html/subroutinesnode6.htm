@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between releases 1.2 and 2.0</TITLE>
-<META NAME="description" CONTENT="Changes between releases 1.2 and 2.0">
+<TITLE>Changes between releases 2.13 and 2.14</TITLE>
+<META NAME="description" CONTENT="Changes between releases 2.13 and 2.14">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -20,7 +20,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="next" HREF="subroutinesnode7.htm">
 <LINK REL="previous" HREF="subroutinesnode5.htm">
-<LINK REL="up" HREF="subroutines.htm">
+<LINK REL="up" HREF="subroutinesnode4.htm">
 <LINK REL="next" HREF="subroutinesnode7.htm">
 </HEAD>
 
@@ -28,128 +28,92 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html291"
+<A NAME="tex2html310"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html297"
-  HREF="subroutines.htm">
+<A NAME="tex2html316"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html301"
+<A NAME="tex2html320"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html299"
+<A NAME="tex2html318"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html292"
-  HREF="subroutinesnode5.htm">Changes between releases 2.0</A>
+<B> Previous:</B> <A NAME="tex2html311"
+  HREF="subroutinesnode5.htm">Changes between releases 2.14</A>
 
-<B>Up:</B> <A NAME="tex2html298"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html317"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html302"
-  HREF="subroutinesnode7.htm">Changes between releases 1.1</A>
+<B> Next:</B> <A NAME="tex2html321"
+  HREF="subroutinesnode7.htm">Changes between releases 2.0</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION00060000000000000000">
-Changes between releases 1.2 and 2.0</A>
-</H1>
-Some new features have been added
+<H2><A NAME="SECTION00042000000000000000">
+Changes between releases 2.13 and 2.14</A>
+</H2>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Most routines dealing with maps and <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (eg, create_alm, map2alm, alm2map,
-  convert_inplace, convert_nest2ring, udgrade_nest, udgrade_ring) or inputting or outputting  data (read_*, write_*)
- now accept both single and double precision arguments.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- The routines <A HREF="subroutinesnode47.htm#sub:map2alm"><TT>map2alm</TT></A> and  <A HREF="subroutinesnode88.htm#sub:remove_dipole"><TT>remove_dipole</TT></A> can now deal with
-  <EM>non-symmetric</EM> azimuthal cut sky. For backward compatibility, the former calling sequence
-  is still accepted.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- most routines are now parallelized with OpenMP (for shared memory architecture), and some of them are
-also parallelized with MPI (for distributed memory architecture)
-</DL>
-
-<P>
-Some new routines have been introduced since version 1.2, as listed below.
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.0
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode9.htm#sub:add_dipole">add_dipole</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode10.htm#sub:alm2cl">alm2cl</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode12.htm#sub:alm2map_der">alm2map_der</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode31.htm#sub:fits2cl">fits2cl</A> (replaces read_asctab)
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode66.htm#sub:nside2ntemplates">nside2ntemplates</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode73.htm#sub:plm_gen">plm_gen</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode78.htm#sub:rand_gauss">rand_gauss</A>, <A HREF="subroutinesnode79.htm#sub:rand_init">rand_init</A>, <A HREF="subroutinesnode80.htm#sub:rand_uni">rand_uni</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode93.htm#sub:same_shape_pixels_xxx">same_shape_pixels_nest</A>, <A HREF="subroutinesnode93.htm#sub:same_shape_pixels_xxx">same_shape_pixels_ring</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode97.htm#sub:template_pixel_xxx">template_pixel_nest</A>, <A HREF="subroutinesnode97.htm#sub:template_pixel_xxx">template_pixel_ring</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode108.htm#sub:write_plm">write_plm</A> (replaces write_dbintab)
-</DL>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New modules or modules with new name
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <SPAN  CLASS="textbf">misc_utils:</SPAN> fatal_error, <A HREF="subroutinesnode18.htm#sub:assert">assert</A>, assert_present, assert_not_present, 
-       assert_alloc, file_present, assert_directory_present, 
-<A HREF="subroutinesnode95.htm#sub:string">string</A>
-<A HREF="subroutinesnode95.htm#sub:string">strupcase</A>
-<A HREF="subroutinesnode95.htm#sub:string">strlowcase</A>
-, upcase, lowcase, wall_clock_time, 
-<A HREF="subroutinesnode19.htm#sub:brag_openmp">brag_openmp</A>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <SPAN  CLASS="textbf">rngmod:</SPAN> <A HREF="subroutinesnode78.htm#sub:rand_gauss">rand_gauss</A>, <A HREF="subroutinesnode79.htm#sub:rand_init">rand_init</A>, <A HREF="subroutinesnode80.htm#sub:rand_uni">rand_uni</A>
-</DL>
-
-<P>
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- The following routines are superseded.
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- read_asctab (replaced by <A HREF="subroutinesnode31.htm#sub:fits2cl">fits2cl</A>)
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- write_dbintab (replaced by <A HREF="subroutinesnode108.htm#sub:write_plm">write_plm</A>)
-</DL>
-
-<P>
+ In <A HREF="subroutinesnode14.htm#sub:alm2map_der">alm2map_der</A> routine, a numerical bug affecting the accuracy of the Stokes parameter derivatives 
+<!-- MATH
+ $\partial X/\partial\theta$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="60" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg8.png"
+ ALT="$\partial X/\partial\theta$"></SPAN>, 
+<!-- MATH
+ $\partial^2 X/(\partial\theta\partial\phi\sin\theta)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="143" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg9.png"
+ ALT="$\partial^2 X/(\partial\theta\partial\phi\sin\theta)$"></SPAN>, 
+<!-- MATH
+ $\partial^2 X/\partial \theta^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="76" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg10.png"
+ ALT="$\partial^2 X/\partial \theta^2$"></SPAN>, 
+for <SPAN CLASS="MATH"><I>X</I>=<I>Q</I>,<I>U</I></SPAN> has been corrected. See <A NAME="tex2html4"
+  HREF="facilities.htm">''Fortran
+Facilities''</A>
+Appendix for details.
 </DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html291"
+<A NAME="tex2html310"
   HREF="subroutinesnode5.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html297"
-  HREF="subroutines.htm">
+<A NAME="tex2html316"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html301"
+<A NAME="tex2html320"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html299"
+<A NAME="tex2html318"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html292"
-  HREF="subroutinesnode5.htm">Changes between releases 2.0</A>
+<B> Previous:</B> <A NAME="tex2html311"
+  HREF="subroutinesnode5.htm">Changes between releases 2.14</A>
 
-<B>Up:</B> <A NAME="tex2html298"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html317"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html302"
-  HREF="subroutinesnode7.htm">Changes between releases 1.1</A>
+<B> Next:</B> <A NAME="tex2html321"
+  HREF="subroutinesnode7.htm">Changes between releases 2.0</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

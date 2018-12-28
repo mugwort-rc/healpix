@@ -15,7 +15,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_038dec09ca34cdff7797ea20e0152b70.html">cxxsupport</a>
+  <div class="navpath"><a class="el" href="dir_cac88011186692732a8b7a313a7c72cd.html">cxxsupport</a>
   </div>
 </div>
 <div class="contents">
@@ -47,7 +47,7 @@
 <a name="l00026"></a>00026 <span class="comment"> *  Class for representing complex numbers, strongly inspired by C++'s</span>
 <a name="l00027"></a>00027 <span class="comment"> *  std::complex</span>
 <a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> *  Copyright (C) 2003-2010 Max-Planck-Society</span>
+<a name="l00029"></a>00029 <span class="comment"> *  Copyright (C) 2003-2011 Max-Planck-Society</span>
 <a name="l00030"></a>00030 <span class="comment"> *  \author Martin Reinecke</span>
 <a name="l00031"></a>00031 <span class="comment"> */</span>
 <a name="l00032"></a>00032 
@@ -130,15 +130,15 @@
 <a name="l00109"></a>00109 <span class="comment">    /*! Multiplies \a *this by \a b. */</span>
 <a name="l00110"></a><a class="code" href="classxcomplex.html#ff5d02ad92dbcc661175b0e20bd77143">00110</a>     <a class="code" href="classxcomplex.html">xcomplex</a> &amp;operator*= (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex</a> &amp;b)
 <a name="l00111"></a>00111       {
-<a name="l00112"></a>00112       T tmp=re;
-<a name="l00113"></a>00113       re=tmp*b.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>-im*b.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>; im=tmp*b.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>+im*b.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>;
+<a name="l00112"></a>00112       T tr=re*b.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>-im*b.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>, ti=re*b.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>+im*b.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>;
+<a name="l00113"></a>00113       re=tr; im=ti;
 <a name="l00114"></a>00114       <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00115"></a>00115       }<span class="comment"></span>
 <a name="l00116"></a>00116 <span class="comment">    /*! Divides \a *this by \a b. */</span>
 <a name="l00117"></a><a class="code" href="classxcomplex.html#eadcf185273c3c9027212d27e8f5a3d5">00117</a>     <a class="code" href="classxcomplex.html">xcomplex</a> &amp;operator/= (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex</a> &amp;b)
 <a name="l00118"></a>00118       {
 <a name="l00119"></a>00119       std::complex&lt;T&gt; tmp=*<span class="keyword">this</span>;
-<a name="l00120"></a>00120       tmp /= b;
+<a name="l00120"></a>00120       tmp /= std::complex&lt;T&gt;(b);
 <a name="l00121"></a>00121       *<span class="keyword">this</span>=tmp;
 <a name="l00122"></a>00122       <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00123"></a>00123       }<span class="comment"></span>
@@ -187,48 +187,62 @@
 <a name="l00166"></a><a class="code" href="classxcomplex.html#1f9a573754a515d4847c1c1084b26f6f">00166</a>     <a class="code" href="classxcomplex.html">xcomplex</a> <a class="code" href="group__complexgroup.html#g1e80bc0323f1179f51de0aa539c40449">conj</a>()<span class="keyword"> const</span>
 <a name="l00167"></a>00167 <span class="keyword">      </span>{ <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex</a> (re,-im); }
 <a name="l00168"></a>00168 <span class="comment"></span>
-<a name="l00169"></a>00169 <span class="comment">    /*! Returns the norm of \a *this. */</span>
-<a name="l00170"></a><a class="code" href="classxcomplex.html#70614aaf2bf36b2270fc9a4a23080fdc">00170</a>     T <a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">norm</a>()<span class="keyword"> const</span>
-<a name="l00171"></a>00171 <span class="keyword">      </span>{ <span class="keywordflow">return</span> re*re + im*im; }
-<a name="l00172"></a>00172   };
-<a name="l00173"></a>00173 <span class="comment"></span>
-<a name="l00174"></a>00174 <span class="comment">/*! Returns the complex conjugate of \a num.</span>
-<a name="l00175"></a>00175 <span class="comment">    \relates xcomplex */</span>
-<a name="l00176"></a><a class="code" href="group__complexgroup.html#g1e80bc0323f1179f51de0aa539c40449">00176</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <a class="code" href="group__complexgroup.html#g1e80bc0323f1179f51de0aa539c40449">conj</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
-<a name="l00177"></a>00177   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> (num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>, -num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>); }<span class="comment"></span>
-<a name="l00178"></a>00178 <span class="comment">/*! Returns the norm of \a num.</span>
+<a name="l00169"></a>00169 <span class="comment">    /*! Returns \a *this*i. */</span>
+<a name="l00170"></a><a class="code" href="classxcomplex.html#d58ae0347b864c942f6468a817f200c3">00170</a>     <a class="code" href="classxcomplex.html">xcomplex</a> times_i()<span class="keyword"> const</span>
+<a name="l00171"></a>00171 <span class="keyword">      </span>{ <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex</a> (-im,re); }
+<a name="l00172"></a>00172 <span class="comment"></span>
+<a name="l00173"></a>00173 <span class="comment">    /*! Returns the norm of \a *this. */</span>
+<a name="l00174"></a><a class="code" href="classxcomplex.html#70614aaf2bf36b2270fc9a4a23080fdc">00174</a>     T <a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">norm</a>()<span class="keyword"> const</span>
+<a name="l00175"></a>00175 <span class="keyword">      </span>{ <span class="keywordflow">return</span> re*re + im*im; }
+<a name="l00176"></a>00176   };
+<a name="l00177"></a>00177 <span class="comment"></span>
+<a name="l00178"></a>00178 <span class="comment">/*! Returns the complex conjugate of \a num.</span>
 <a name="l00179"></a>00179 <span class="comment">    \relates xcomplex */</span>
-<a name="l00180"></a><a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">00180</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">norm</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
-<a name="l00181"></a>00181   { <span class="keywordflow">return</span> num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>*num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a> + num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>*num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>; }<span class="comment"></span>
-<a name="l00182"></a>00182 <span class="comment">/*! Returns the absolute value of \a num.</span>
+<a name="l00180"></a><a class="code" href="group__complexgroup.html#g1e80bc0323f1179f51de0aa539c40449">00180</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <a class="code" href="group__complexgroup.html#g1e80bc0323f1179f51de0aa539c40449">conj</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
+<a name="l00181"></a>00181   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> (num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>, -num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>); }<span class="comment"></span>
+<a name="l00182"></a>00182 <span class="comment">/*! Returns the norm of \a num.</span>
 <a name="l00183"></a>00183 <span class="comment">    \relates xcomplex */</span>
-<a name="l00184"></a><a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">00184</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
-<a name="l00185"></a>00185   {
-<a name="l00186"></a>00186   <span class="keyword">using namespace </span>std;
-<a name="l00187"></a>00187   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(complex&lt;T&gt;(num));
-<a name="l00188"></a>00188   }<span class="comment"></span>
-<a name="l00189"></a>00189 <span class="comment">/*! Returns \a f1*f2.</span>
-<a name="l00190"></a>00190 <span class="comment">    \relates xcomplex */</span>
-<a name="l00191"></a>00191 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <span class="keyword">operator</span>*
-<a name="l00192"></a><a class="code" href="group__complexgroup.html#g97e998f8cbd10fa3d0f151657fee3ec1">00192</a>   (<span class="keyword">const</span> T &amp;f1, <span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;f2)
-<a name="l00193"></a>00193   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> (f1*f2.re, f1*f2.im); }<span class="comment"></span>
-<a name="l00194"></a>00194 <span class="comment">/*! Returns \a f1/f2.</span>
-<a name="l00195"></a>00195 <span class="comment">    \relates xcomplex */</span>
-<a name="l00196"></a>00196 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <span class="keyword">operator</span>/
-<a name="l00197"></a><a class="code" href="group__complexgroup.html#gdbb43ff7d8ee8adca0230d7ef12c0041">00197</a>   (<span class="keyword">const</span> T &amp;f1, <span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;f2)
-<a name="l00198"></a>00198   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a>(f1)/f2; }<span class="comment"></span>
-<a name="l00199"></a>00199 <span class="comment">/*! Writes \a val to \a os.</span>
-<a name="l00200"></a>00200 <span class="comment">    \relates xcomplex */</span>
-<a name="l00201"></a>00201 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00202"></a><a class="code" href="group__complexgroup.html#g319e0258f6c209a58d907b6981f6118e">00202</a>   <span class="keyword">inline</span> std::ostream &amp;operator&lt;&lt; (std::ostream &amp;os, const xcomplex&lt;T&gt; &amp;val)
-<a name="l00203"></a>00203   { os &lt;&lt; <span class="stringliteral">"("</span> &lt;&lt; val.re &lt;&lt; <span class="stringliteral">","</span> &lt;&lt; val.im &lt;&lt; <span class="stringliteral">")"</span>; <span class="keywordflow">return</span> os; }
-<a name="l00204"></a>00204 <span class="comment"></span>
-<a name="l00205"></a>00205 <span class="comment">/*! \} */</span>
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207 <span class="preprocessor">#endif</span>
+<a name="l00184"></a><a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">00184</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code" href="group__complexgroup.html#g97fccc0fa5b82a68468d99ed260749f9">norm</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
+<a name="l00185"></a>00185   { <span class="keywordflow">return</span> num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>*num.<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a> + num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>*num.<a class="code" href="classxcomplex.html#8587197e3c2c77a081dc22b38851ed3e">im</a>; }<span class="comment"></span>
+<a name="l00186"></a>00186 <span class="comment">/*! Returns the absolute value of \a num.</span>
+<a name="l00187"></a>00187 <span class="comment">    \relates xcomplex */</span>
+<a name="l00188"></a><a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">00188</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
+<a name="l00189"></a>00189   {
+<a name="l00190"></a>00190   <span class="keyword">using namespace </span>std;
+<a name="l00191"></a>00191   <span class="keywordflow">return</span> <a class="code" href="group__complexgroup.html#ga68077b303a0336cb565af0597a6d92b">abs</a>(complex&lt;T&gt;(num));
+<a name="l00192"></a>00192   }<span class="comment"></span>
+<a name="l00193"></a>00193 <span class="comment">/*! Returns the exponential of \a num.</span>
+<a name="l00194"></a>00194 <span class="comment">    \relates xcomplex */</span>
+<a name="l00195"></a><a class="code" href="group__complexgroup.html#gfdbc134d0927e9075a10b9f8ac343f66">00195</a> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <a class="code" href="group__complexgroup.html#gfdbc134d0927e9075a10b9f8ac343f66">exp</a> (<span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;num)
+<a name="l00196"></a>00196   {
+<a name="l00197"></a>00197   <span class="keyword">using namespace </span>std;
+<a name="l00198"></a>00198   <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a>(<a class="code" href="group__complexgroup.html#gfdbc134d0927e9075a10b9f8ac343f66">exp</a>(complex&lt;T&gt;(num)));
+<a name="l00199"></a>00199   }<span class="comment"></span>
+<a name="l00200"></a>00200 <span class="comment">/*! Returns \a f1*f2.</span>
+<a name="l00201"></a>00201 <span class="comment">    \relates xcomplex */</span>
+<a name="l00202"></a>00202 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <span class="keyword">operator</span>*
+<a name="l00203"></a><a class="code" href="group__complexgroup.html#g97e998f8cbd10fa3d0f151657fee3ec1">00203</a>   (<span class="keyword">const</span> T &amp;f1, <span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;f2)
+<a name="l00204"></a>00204   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> (f1*f2.re, f1*f2.im); }<span class="comment"></span>
+<a name="l00205"></a>00205 <span class="comment">/*! Returns \a f1/f2.</span>
+<a name="l00206"></a>00206 <span class="comment">    \relates xcomplex */</span>
+<a name="l00207"></a>00207 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> <span class="keyword">operator</span>/
+<a name="l00208"></a><a class="code" href="group__complexgroup.html#gdbb43ff7d8ee8adca0230d7ef12c0041">00208</a>   (<span class="keyword">const</span> T &amp;f1, <span class="keyword">const</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a> &amp;f2)
+<a name="l00209"></a>00209   { <span class="keywordflow">return</span> <a class="code" href="classxcomplex.html">xcomplex&lt;T&gt;</a>(f1)/f2; }<span class="comment"></span>
+<a name="l00210"></a>00210 <span class="comment">/*! Writes \a val to \a os.</span>
+<a name="l00211"></a>00211 <span class="comment">    \relates xcomplex */</span>
+<a name="l00212"></a>00212 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00213"></a><a class="code" href="group__complexgroup.html#g319e0258f6c209a58d907b6981f6118e">00213</a>   <span class="keyword">inline</span> std::ostream &amp;operator&lt;&lt; (std::ostream &amp;os, const xcomplex&lt;T&gt; &amp;val)
+<a name="l00214"></a>00214   { os &lt;&lt; <span class="stringliteral">"("</span> &lt;&lt; val.re &lt;&lt; <span class="stringliteral">","</span> &lt;&lt; val.im &lt;&lt; <span class="stringliteral">")"</span>; <span class="keywordflow">return</span> os; }
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216 <span class="keyword">typedef</span> <a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> <a class="code" href="classxcomplex.html">dcomplex</a>;
+<a name="l00217"></a>00217 <span class="keyword">typedef</span> <a class="code" href="classxcomplex.html">xcomplex&lt;float&gt;</a>  <a class="code" href="classxcomplex.html">fcomplex</a>;
+<a name="l00218"></a>00218 <span class="comment"></span>
+<a name="l00219"></a>00219 <span class="comment">/*! \} */</span>
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:06 2011 for LevelS C++ support library
+Generated on Fri Nov 30 17:59:26 2012 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

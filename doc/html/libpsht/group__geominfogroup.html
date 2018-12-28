@@ -31,7 +31,11 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geominfogroup.html#gde2ca6547fec343c63078d6840fc147e">psht_make_gauss_geom_info</a> (int nrings, int nphi, int stride, <a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geominfogroup.html#g7446d105678f6fcc34a12b28af7c32f6">psht_make_gauss_geom_info_2</a> (int nrings, int nphi, int stride_lon, int stride_lat, <a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geominfogroup.html#g1b1974ae49d77cfd181583a62a300013">psht_make_ecp_geom_info</a> (int nrings, int nphi, double phi0, int stride, <a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geominfogroup.html#g89f636fdce073155edc101c2d6d5c3de">psht_make_ecp_geom_info_2</a> (int nrings, int nphi, double phi0, int stride_lon, int stride_lat, <a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -247,7 +251,56 @@ Creates a geometry information describing a HEALPix map with an Nside parameter 
 <div class="memdoc">
 
 <p>
-Creates a geometry information describing a Gaussian map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is 0. 
+Creates a geometry information describing a Gaussian map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is 0.<p>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd></dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g7446d105678f6fcc34a12b28af7c32f6"></a><!-- doxytag: member="psht_geomhelpers.h::psht_make_gauss_geom_info_2" ref="g7446d105678f6fcc34a12b28af7c32f6" args="(int nrings, int nphi, int stride_lon, int stride_lat, psht_geom_info **geom_info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void psht_make_gauss_geom_info_2           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nrings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nphi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stride_lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stride_lat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **&nbsp;</td>
+          <td class="paramname"> <em>geom_info</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Creates a geometry information describing a Gaussian map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is 0. The index difference between two adjacent pixels in an iso-latitude ring is <em>stride_lon</em>, the index difference between the two start pixels in consecutive iso-latitude rings is <em>stride_lat</em>. 
 </div>
 </div><p>
 <a class="anchor" name="g1b1974ae49d77cfd181583a62a300013"></a><!-- doxytag: member="psht_geomhelpers.h::psht_make_ecp_geom_info" ref="g1b1974ae49d77cfd181583a62a300013" args="(int nrings, int nphi, double phi0, int stride, psht_geom_info **geom_info)" -->
@@ -294,12 +347,72 @@ Creates a geometry information describing a Gaussian map with <em>nrings</em> is
 <div class="memdoc">
 
 <p>
-Creates a geometry information describing an ECP map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is <em>phi0</em> (in radians). 
+Creates a geometry information describing an ECP map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is <em>phi0</em> (in radians). <dl class="note" compact><dt><b>Note:</b></dt><dd>The spacing of pixel centers is equidistant in colatitude and longitude. <p>
+<em>nrings</em> must be an even number. <p>
+The sphere is pixelized in a way that the colatitude of the first ring is <em>0.5*</em>(pi/nrings). There are no pixel centers at the poles.</dd></dl>
+<dl compact><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd></dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g89f636fdce073155edc101c2d6d5c3de"></a><!-- doxytag: member="psht_geomhelpers.h::psht_make_ecp_geom_info_2" ref="g89f636fdce073155edc101c2d6d5c3de" args="(int nrings, int nphi, double phi0, int stride_lon, int stride_lat, psht_geom_info **geom_info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void psht_make_ecp_geom_info_2           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nrings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nphi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>phi0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stride_lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stride_lat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpsht__geom__info.html">psht_geom_info</a> **&nbsp;</td>
+          <td class="paramname"> <em>geom_info</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Creates a geometry information describing an ECP map with <em>nrings</em> iso-latitude rings and <em>nphi</em> pixels per ring. The azimuth of the first pixel in each ring is <em>phi0</em> (in radians). The index difference between two adjacent pixels in an iso-latitude ring is <em>stride_lon</em>, the index difference between the two start pixels in consecutive iso-latitude rings is <em>stride_lat</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd>The spacing of pixel centers is equidistant in colatitude and longitude. <p>
+<em>nrings</em> must be an even number. <p>
+The sphere is pixelized in a way that the colatitude of the first ring is <em>0.5*</em>(pi/nrings). There are no pixel centers at the poles. </dd></dl>
+
 </div>
 </div><p>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:05 2011 for LevelS SHT library
+Generated on Fri Nov 30 17:59:25 2012 for LevelS SHT library
 </a> </small></address>
 </body>
 </html>

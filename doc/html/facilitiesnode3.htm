@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between releases 2.14 and 2.20</TITLE>
-<META NAME="description" CONTENT="Changes between releases 2.14 and 2.20">
+<TITLE>Changes between releases 2.20 and 3.00</TITLE>
+<META NAME="description" CONTENT="Changes between releases 2.20 and 3.00">
 <META NAME="keywords" CONTENT="facilities">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,84 +28,83 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html70"
+<A NAME="tex2html79"
   HREF="facilitiesnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html76"
+<A NAME="tex2html85"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html80"
+<A NAME="tex2html89"
   HREF="facilitiesnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html78"
+<A NAME="tex2html87"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html71"
+<B> Previous:</B> <A NAME="tex2html80"
   HREF="facilitiesnode2.htm">Using the HEALPix Fortran</A>
 
-<B>Up:</B> <A NAME="tex2html77"
+<B>Up:</B> <A NAME="tex2html86"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html81"
-  HREF="facilitiesnode4.htm">Changes between releases 2.13</A>
+<B> Next:</B> <A NAME="tex2html90"
+  HREF="facilitiesnode4.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION00030000000000000000">
-Changes between releases 2.14 and
-2.20</A>
+Changes between releases 2.20 and
+3.00</A>
 </H1>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- faster 
-<A HREF="facilitiesnode15.htm#fac:synfast"><TT>synfast</TT></A>,
-<A HREF="facilitiesnode8.htm#fac:anafast"><TT>anafast</TT></A>,
-<A HREF="facilitiesnode13.htm#fac:smoothing"><TT>smoothing</TT></A> thanks to <TT>libpsht</TT> routines. 
+ all <EM>input</EM> FITS files can now be compressed (with a 
+<TT>.gz</TT>, <TT>.Z</TT>, <TT>.z</TT>, or <TT>.zip</TT> 
+extension) and/or remotely located (with a <TT>ftp://</TT> or <TT>http://</TT> prefix).
+<EM>Version 3.14 (March 2009) or newer of CFITSIO is required for <b>HEALPix</b> 3.00.</EM>
 	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- most facilities can handle maps with <!-- MATH
- ${N_{\rm side}}> 8192$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="106" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="facilitiesimg1.png"
- ALT="${N_{\rm side}}&gt; 8192$"></SPAN>, ie more than
-805,306,368 pixels.
+ introduction of <A HREF="facilitiesnode15.htm#fac:process_mask"><TT>process_mask</TT></A> 
+facility to compute the angular distance of valid
+pixels to the closest invalid pixels for a input binary mask,
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="facilitiesnode17.htm#fac:sky_ng_sim"><TT>sky_ng_sim</TT></A> now allows the computation
+of the spatial derivatives of the non Gaussian map being produced, and the
+output of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients of that map,
+	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="facilitiesnode10.htm#fac:anafast"><TT>anafast</TT></A> now allows the
+pro/down-grading of the input mask to match the resolution of the map(s) being
+analyzed.
 </DL>
-See
-<A NAME="tex2html1"
-  HREF="subroutines.htm">``F90 Subroutines Overview''</A>
-for details.
 
 <P>
-
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html70"
+<A NAME="tex2html79"
   HREF="facilitiesnode2.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html76"
+<A NAME="tex2html85"
   HREF="facilities.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html80"
+<A NAME="tex2html89"
   HREF="facilitiesnode4.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html78"
+<A NAME="tex2html87"
   HREF="facilitiesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html71"
+<B> Previous:</B> <A NAME="tex2html80"
   HREF="facilitiesnode2.htm">Using the HEALPix Fortran</A>
 
-<B>Up:</B> <A NAME="tex2html77"
+<B>Up:</B> <A NAME="tex2html86"
   HREF="facilities.htm">Healpix/F90 facilities</A>
 
-<B> Next:</B> <A NAME="tex2html81"
-  HREF="facilitiesnode4.htm">Changes between releases 2.13</A>
+<B> Next:</B> <A NAME="tex2html90"
+  HREF="facilitiesnode4.htm">Older Changes</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

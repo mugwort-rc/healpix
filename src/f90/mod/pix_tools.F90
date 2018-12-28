@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -51,6 +51,10 @@ module pix_tools
 !              largest supported Nside is now 2^28 instead of 2^13
 !             Note: the theoretical limit Nside=2^29 is not implemented to avoid
 !               dealing with too many 64 bit integer variables that slow down execution
+!    2011-08-25 : 2011-08-*: improves accuracy of pixel routines close to Poles
+!    2011-10-13: improved query_triangle, introduced process_intervals
+!    2012-07-17: Parallel OpenMP implementation of medfiltmap
+!    2012-08-27: correction of a bug affecting neighbours_nest and next_in_line_nest at Nside>8192
 !==================================================================
   ! subroutine query_strip                          Done (To be Tested) depends on in_ring
   ! subroutine query_polygon                        Done (To be Tested) depends on isort
@@ -61,7 +65,9 @@ module pix_tools
   ! function ring2z                                 Done  
   ! subroutine in_ring                              Done (To be Tested) depends in next_in_line_nest
   ! subroutine intrs_intrv                                OK
-  ! subroutine correct_ring_phi                           OK
+  ! subroutine process_intervals               ok
+  ! function fudge_query_radius                ok
+  !!!!!! subroutine correct_ring_phi                           OK
   !                                         
   ! subroutine pix2ang_ring                          Done  
   ! subroutine pix2vec_ring                          Done  
@@ -126,7 +132,22 @@ module pix_tools
   ! subroutine template_pixel_ring                  Done (to be tested)               
   ! subroutine same_shape_pixels_ring               Done (to be tested)               
   ! subroutine template_pixel_nest                  Done (to be tested)               
-  ! subroutine same_shape_pixels_nest               Done (to be tested)               
+  ! subroutine same_shape_pixels_nest               Done (to be tested)
+! 
+! 2011-08-*: improves accuracy close to Poles
+! ang2pix_nest  small
+! ang2pix_ring  small
+! ang2vec     OK      
+! angdist     Done  
+! pix2ang_nest  small, kshift
+! pix2ang_ring  isqrt, small 
+! pix2vec_nest  small,  [kshift TODO]
+! pix2vec_ring  isqrt, small
+! cheap_isqrt Added     
+! vec2ang     Done
+! vec2pix_nest  small
+! vec2pix_ring  small
+! ring2nest     isqrt
 
   USE healpix_types
   USE misc_utils
@@ -249,6 +270,9 @@ module pix_tools
   interface query_strip
      module procedure query_strip
   end interface
+  interface query_disc_old ! <<<<<<<<<<<<<<<<<<<<<<
+     module procedure query_disc_old
+  end interface
   interface query_disc
      module procedure query_disc
   end interface
@@ -281,6 +305,12 @@ module pix_tools
   end interface
   interface same_shape_pixels_nest
      module procedure same_shape_pixels_nest
+  end interface
+  interface cheap_isqrt
+     module procedure cheap_isqrt_4
+  end interface
+  interface discedge2fulldisc
+     module procedure discedge2fulldisc
   end interface
 #else
   interface npix2nside
@@ -325,6 +355,9 @@ module pix_tools
   interface query_strip
      module procedure query_strip, query_strip_8
   end interface
+  interface query_disc_old ! <<<<<<<<<<<<<<<<<<<<<<
+     module procedure query_disc_old, query_disc_old_8
+  end interface
   interface query_disc
      module procedure query_disc, query_disc_8
   end interface
@@ -358,6 +391,12 @@ module pix_tools
   interface same_shape_pixels_nest
      module procedure same_shape_pixels_nest, same_shape_pixels_nest_8
   end interface
+  interface cheap_isqrt
+     module procedure cheap_isqrt_4, cheap_isqrt_8
+  end interface
+  interface discedge2fulldisc
+     module procedure discedge2fulldisc, discedge2fulldisc_8
+  end interface
 #endif
 
   private
@@ -387,6 +426,8 @@ module pix_tools
 !        template_pixel_ring_old, same_shape_pixels_ring_old, &
 !        template_pixel_nest_old, same_shape_pixels_nest_old
 
+  public :: query_disc_old
+
   public :: nside2ntemplates, &
        & template_pixel_ring, same_shape_pixels_ring, &
        & template_pixel_nest, same_shape_pixels_nest
@@ -394,6 +435,7 @@ module pix_tools
   public :: medfiltmap
 
   public :: intrs_intrv, in_ring, ring_num, ring2z ! arcane usage
+  public :: process_intervals, fudge_query_radius, discphirange_at_z
 
   public :: getdisc_ring  ! obsolete
 
@@ -401,7 +443,49 @@ module pix_tools
 contains
 
 
+!   !=======================================================================
+!   function discphirange_at_z (vcenter, radius, z, phi0) result(dphi)
+!     !=======================================================================
+!     !  for a disc centered on  vcenter and given radius,
+!     !  and for location z=cos(theta)
+!     !  returns dphi such that the disc has   abs(phi-phi0) <= dphi
+!     !
+!     ! solving disc equation on sphere:
+!     !  sin(theta) sin(theta0) cos(phi-phi0) + cos(theta) cos(theta0) >= cos(radius)
+!     !
+!     ! 2011-06-21: adapted from IDL routine of same name
+!     !=======================================================================
+!     real(DP), dimension(1:), intent(in)      :: vcenter
+!     real(DP),                intent(in)      :: radius, z
+!     real(DP),                intent(out)     :: phi0
+!     real(DP) :: dphi 
+!     !
+!     real(DP) :: cosang, cosdphi, norm, x0, y0, z0, st0, diff, st
+!     real(DP), parameter :: zero=0.0_dp, one=1.0_dp
 
+!     cosang = cos(radius)
+!     norm = sqrt(sum(vcenter(1:3)**2))
+!     x0 = vcenter(1) / norm
+!     y0 = vcenter(2) / norm
+!     z0 = vcenter(3) / norm
+
+!     phi0 = zero
+!     if ((x0 /= zero) .or. (y0 /= zero)) phi0 = atan2(y0, x0)
+
+!     st0 = x0*x0 + y0*y0 ! sin(theta0)^2
+!     diff = cosang - z*z0 ! cos(rad) - cos(theta)cos(theta0)
+    
+!     dphi = -1000.0_dp ! out of disc
+!     if (st0 == zero) then ! polar cap
+!        if (diff <= zero) dphi = PI ! fully in cap
+!     else
+!        st = max(one - z*z, 1.0e-12_dp)! sin(theta)^2
+!        cosdphi = diff/sqrt(st0*st)
+!        if (cosdphi < -one) dphi = PI ! fully in disc
+!        if (abs(cosdphi) <= one) dphi = acos(cosdphi)
+!     endif
+
+!   end function discphirange_at_z
   !=======================================================================
   function ring_num (nside, z, shift) result(ring_num_result)
     !=======================================================================
@@ -509,19 +593,19 @@ contains
     dk(1:4) = -1.0e9_dp
 
 
-    if ((tr34.AND.tr31.AND.tr14) .OR. (tr43.AND.(tr31.OR.tr14))) then
+    if ((tr31.AND.tr14) .OR. (tr43.AND.(tr31.OR.tr14))) then
        ik = ik + 1
        dk(ik) = d1(1)  ! a1
     endif
-    if ((tr12.AND.tr13.AND.tr32) .OR. (tr21.AND.(tr13.OR.tr32))) then
+    if ((tr13.AND.tr32) .OR. (tr21.AND.(tr13.OR.tr32))) then
        ik = ik + 1
        dk(ik) = d2(1)  ! a2
     endif
-    if ((tr34.AND.tr32.AND.tr24) .OR. (tr43.AND.(tr32.OR.tr24))) then
+    if ((tr32.AND.tr24) .OR. (tr43.AND.(tr32.OR.tr24))) then
        ik = ik + 1
        dk(ik) = d1(2)  ! b1
     endif
-    if ((tr12.AND.tr14.AND.tr42) .OR. (tr21.AND.(tr14.OR.tr42))) then
+    if ((tr14.AND.tr42) .OR. (tr21.AND.(tr14.OR.tr42))) then
        ik = ik + 1
        dk(ik) =  d2(2)  ! b2
     endif
@@ -546,24 +630,384 @@ contains
   end subroutine intrs_intrv
 
   !=======================================================================
-  subroutine correct_ring_phi(location, iring, iphi)
+  subroutine process_intervals(interval1, interval_list, interval_out, n_out)
+  !=======================================================================
+    ! intersection of 1 interval (defined by its 2 boundaries)
+    ! with an arbitrary list of intervals (defined as n*2 boundaries)
     !=======================================================================
-    integer(i4b), intent(in)    :: location !+1:North, -1:South
-    integer(i4b), intent(inout) :: iring, iphi
-    integer(i4b) :: delta
-    !-----------------------------------------------------------------------
-    delta = 0
-    if (iphi < 0)        delta =  +1
-    if (iphi >= 4*iring) delta =  -1
-    if (delta /= 0) then
-       if (abs(location) /= 1) then 
-          stop 'wrong location'
+    real(dp), dimension(1:), intent(in) :: interval1
+    real(dp), dimension(1:), intent(in) :: interval_list
+    real(dp), dimension(1:), intent(out):: interval_out
+    integer(i4b),          intent(out) :: n_out
+    !
+    integer(i4b) :: n_in, i_in, n_tmp_out
+    real(dp), dimension(1:4) :: w4
+    real(dp), dimension(1:30) :: work
+    !=======================================================================
+
+    n_out = 0
+    interval_out = 0.d0
+    n_in = size(interval_list)/2
+    work(1:2*n_in) = interval_list(1:2*n_in) ! copy input array to avoid overwritting it
+
+    if (n_in > 0) then
+       do i_in=0, n_in-1
+          ! intersection of 2 intervals -> 0,1,2 intervals
+          call intrs_intrv(interval1, work(1+2*i_in:2+2*i_in), w4, n_tmp_out)
+          if (n_tmp_out > 0) then ! n_tmp_out = 1 or 2
+             interval_out(2*n_out+1: 2*(n_out+n_tmp_out)) = w4(1:2*n_tmp_out)
+             n_out = n_out + n_tmp_out
+          endif
+       enddo
+    endif
+    
+    return
+  end subroutine process_intervals
+  !=======================================================================
+  function fudge_query_radius(nside, radius_in, quadratic) result(radius_out)
+  !=======================================================================
+    !  radius_out = fudge_query_radius( nside, radius_in, QUADRATIC=)
+    ! 
+    !  with 
+    !    radius_out = radius_in + fudge            (default)
+    !  or
+    !    radius_out = sqrt(radius_in^2 + fudge^2)  (quadratic)
+    ! 
+    !  if absent, radius_in = 0
+    ! where
+    !    fudge = factor(nside) * Pi / (4 *Nside)
+    !  with factor = sqrt( 5/9 + (8/Pi)^2 / 5 * (1-1/(2*Nside)) )
+    ! 
+    !  an upper bound of the actual largest radius 
+    !  (determined by pixel located at z=2/3 and its North corner).
+    !  
+    ! 
+    !  2011-10-14, EH, v1.0
+    !=======================================================================
+    integer(i4b), intent(in)           :: nside
+    real(dp),     intent(in), optional :: radius_in
+    logical(lgt), intent(in), optional :: quadratic
+    real(dp)                           :: radius_out
+    logical(LGT)                       :: do_quad
+    real(dp)                           :: factor, fudge
+    !=======================================================================
+    radius_out = 0.0_dp
+    if (present(radius_in)) radius_out = radius_in
+    do_quad = .false.
+    if (present(quadratic)) do_quad = quadratic
+
+    factor = sqrt( 0.55555555555555555555_dp + 1.29691115062192347448165712908_dp*(1.0_dp-0.5_dp/nside) )
+    fudge  = factor * PI / (4.0_dp * nside) ! increase effective radius
+
+    if (do_quad) then 
+       radius_out = sqrt(radius_out**2 + fudge**2)
+    else
+       radius_out = radius_out + fudge
+    endif
+    radius_out = min(radius_out, PI)
+
+    return
+  end function fudge_query_radius
+  !=======================================================================
+  subroutine discphirange_at_z(vector0, radius, z, nz, dphi, phi0)
+    !=======================================================================
+    !  for a disc centered on  vcenter and given radius,
+    !  and for location z=cos(theta)
+    !  returns dphi such that the disc has   abs(phi-phi0) <= dphi
+    !
+    ! solving disc equation on sphere:
+    !  sin(theta) sin(theta0) cos(phi-phi0) + cos(theta) cos(theta0) >= cos(radius)
+    !
+    !=======================================================================
+    real(dp), dimension(1:3), intent(in) :: vector0
+    real(dp),                 intent(in) :: radius
+    real(dp), dimension(1:),  intent(in) :: z
+    integer(i4b),             intent(in) :: nz
+    real(dp), dimension(1:),  intent(out) :: dphi
+    real(dp),                 intent(out) :: phi0
+    !
+    real(dp) :: cosang, cosphi0, x0, y0, z0, a, b, c, cosdphi, norm
+    integer(i4b) ::  i
+    real(DP), parameter :: zero=0.0_dp, one=1.0_dp
+    
+    cosang = cos(radius)
+    norm =  sqrt(sum(vector0(1:3)**2))
+    x0 = vector0(1) / norm
+    y0 = vector0(2) / norm
+    z0 = vector0(3) / norm
+
+    phi0 = zero
+    if ((x0 /= zero).or.(y0 /= zero)) phi0 = atan2(y0, x0)  ! in ]-Pi, Pi]
+    cosphi0 = cos(phi0)
+    a = x0*x0 + y0*y0   ! sin(theta0)^2  
+
+    do i=1, nz
+       dphi(i) = -1000.0_dp ! default value for out of disc
+
+       b = cosang - z(i)*z0   ! cos(rad) - cos(theta)cos(theta0)
+       if (a == zero) then ! poles
+          if (b <= zero) dphi(i) = PI
+       else
+          c = max(one - z(i)*z(i), 1.0e-12_dp) ! sin(theta)^2
+          cosdphi = b / sqrt(a*c)
+          if (cosdphi      < -one) dphi(i) = PI ! all the pixels at this elevation are in the disc
+          if (abs(cosdphi) <= one) dphi(i) = acos(cosdphi) ! in [0,Pi]
        endif
-       iring = iring - location * delta
-       iphi  = iphi  +            delta * (4*iring)
+
+    enddo
+
+    return
+  end subroutine discphirange_at_z
+  !=======================================================================
+  subroutine pixels_on_edge(nside, irmin, irmax, phi0, dphi, ringphi, ngr)
+  !=======================================================================
+  !=======================================================================
+    integer(i4b),                intent(in) :: nside, irmin, irmax
+    real(dp),                    intent(in) :: phi0
+    real(dp),     dimension(1:), intent(in) :: dphi
+    integer(i4b), dimension(1:,1:), intent(out) :: ringphi
+    integer(i4b),                   intent(out) :: ngr
+    integer(i4b), parameter :: badvalue = -9999
+    integer(i4b) :: nrings, ir, k, thisring, npr
+    real(dp)    , parameter :: zero = 0.0_dp
+    integer(i4b) :: iphi_low, iphi_hi, kshift
+    real(dp) :: shift
+
+    nrings = irmax - irmin + 1
+
+    ngr = 0
+    do thisring = irmin, irmax
+       ir = thisring - irmin + 1
+       call pixels_per_ring(nside, thisring, npr, kshift)
+       if (dphi(ir) >= PI) then ! full ring
+          ngr = ngr + 1
+          ringphi(1, ngr) = thisring
+          ringphi(2, ngr) = 0
+          ringphi(3, ngr) = npr-1
+       elseif (dphi(ir) >= zero) then ! partial ring
+          shift = kshift * 0.5_dp
+          iphi_low = ceiling (npr * (phi0 - dphi(ir)) / TWOPI - shift)
+          iphi_hi  = floor   (npr * (phi0 + dphi(ir)) / TWOPI - shift)
+          if (iphi_hi >= iphi_low) then ! pixel center in range
+             ngr = ngr + 1
+             ringphi(1, ngr) = thisring
+             ringphi(2, ngr) = modulo(iphi_low, npr)
+             ringphi(3, ngr) = modulo(iphi_hi,  npr)
+          endif
+       endif
+    enddo
+
+  end subroutine pixels_on_edge
+  !=======================================================================
+  subroutine pixels_per_ring(nside, ring, npr, kshift, npnorth)
+  !=======================================================================
+    ! for a given Nside and ring index in [1,4*Nside-1], 
+    ! returns the number of pixels in ring, their shift (0 or 1) in azimuth
+    ! and the number of pixels in current ring and above (=North)
+    !
+    ! NB: 'rings' 0 and 4*Nside respectively are North and South Poles
+    !=======================================================================
+    integer(i4b), intent(in) :: nside, ring
+    integer(i4b), intent(out) :: npr, kshift
+    integer(i8b), intent(out), optional :: npnorth
+    integer(i8b) :: ncap, npix, ir
+    
+    ! number of pixels in current ring
+    npr = min(nside, ring, 4*nside-ring) * 4
+    ! shift
+    kshift = mod(ring + 1, 2) ! 1 for even, 0 for odd
+    if (nside == 1) kshift = 1 - kshift ! except for Nside=1
+    if (npr < 4*nside) kshift = 1 ! 1 on polar cap
+    ! Number of pixels in current ring and above
+    if (present(npnorth)) then
+       if (ring <= nside) then ! in North cap
+          npnorth = ring*(ring+1_i8b)*2_i8b
+       elseif (ring <= 3*nside) then ! in Equatorial region
+          ncap = nside*(nside+1_i8b)*2_i8b
+          ir = ring-nside
+          npnorth = ncap + 4_i8b*nside*ir
+       else ! in South cap
+          npix = nside2npix(nside)
+          ir = 4_i8b*nside-ring - 1 ! count ring from south
+          npnorth = npix - ir*(ir+1_i8b)*2_i8b
+       endif
     endif
     return
-  end subroutine correct_ring_phi
+  end subroutine pixels_per_ring
+  !=======================================================================
+  subroutine check_edge_pixels(nside, nsboost, irmin, irmax, phi0, dphi, ringphi, ngr)
+  !=======================================================================
+    integer(i4b), intent(in) :: nside, nsboost, irmin, irmax
+    real(dp),                       intent(in) :: phi0
+    real(dp),     dimension(1:),    intent(in) :: dphi
+    integer(i4b), dimension(1:,1:), intent(inout) :: ringphi
+    integer(i4b),                   intent(inout) :: ngr
+
+    integer(i4b) :: i, j, k, kk, ngr_out, diff, iphi, i0
+    real(dp), dimension(1:2*nsboost+1) :: phiw, phie
+    real(dp) :: dd, dph, phic
+
+  !=======================================================================
+    if (nsboost <= 1) return
+
+    do i=1, ngr ! loop on low-res rings
+       i0 = ringphi(1,i) * nsboost - nsboost - irmin
+       do k=-1,1,2 ! West and East side of disc
+          kk = (k+5)/2 ! 2 or 3
+222       continue
+          iphi = ringphi(kk, i)
+          if (ringphi(2,i) <= ringphi(3,i) .and. iphi >= 0) then
+             call find_pixel_bounds(nside, nsboost, ringphi(1,i), iphi, phiw, phie)
+             do j=1, 2*nsboost+1
+                phic = (phie(i)+phiw(i))*0.5_dp ! pixel center
+                dph  = (phie(i)-phiw(i))*0.5_dp + dphi(i0+j) ! pixel size + circle radius
+                dd = abs(phi0 - phic)    ! distance from disc center to pixel border sample
+                dd = min(dd, twopi - dd) ! in [0,Pi]
+                if (dd <= dph) goto 1000 ! pixel touched by disc, move to next one
+             enddo
+             ringphi(kk, i)= iphi - k ! pixel not in disc, move edge pixel inwards
+             goto 222 ! try next pixel inward
+1000         continue
+          endif
+       enddo ! loop on side
+    enddo ! loop on low-res rings
+
+    ! remove empty rings
+    ngr_out = 0
+    do i=1,ngr
+       diff = ringphi(3,i) - ringphi(2,i)
+       if (ringphi(2,i) >=0 .and. ringphi(3,i) >=0 .and. diff /= -2 .and. diff /= -1) then
+          ngr_out = ngr_out + 1
+          ringphi(1:3, ngr_out) = ringphi(1:3, i)
+       endif
+    enddo
+    ! set empty rings to -1
+    do i=ngr_out+1, ngr
+       ringphi(2:3, i) = -1
+    enddo
+
+    ngr = ngr_out
+    return
+  end subroutine check_edge_pixels
+  !=======================================================================
+  subroutine find_pixel_bounds (nside, nsboost, iring, iphi, phiw, phie)
+    !=======================================================================
+    integer(i4b),               intent(in)  :: nside, nsboost, iring, iphi
+    real(dp),     dimension(1:2*nsboost+1), intent(out) :: phiw, phie
+    
+    real(dp),     dimension(1:2*nsboost+1) :: f, f1, phiw_t, phie_t
+    real(dp) :: c0, quad, phie1, phie2, phiw1, phiw2, cv
+    integer(i4b) :: npr, kshift, nq, ip, i
+    logical(lgt) :: transition
+  !=======================================================================
+
+    call pixels_per_ring(nside, iring, npr, kshift)
+    f = ((/ (i,i=0,2*nsboost) /) - nsboost) / nsboost
+
+    nq = npr/4 ! number of pixels on current ring in [0,Pi/2] (quadrant)
+    transition = (iring == nside .or. iring == nside*3)
+
+    if (nq == nside .or. transition) then ! equatorial region (and transition rings)
+
+       f1 = (1.0_dp-abs(f))*0.5_dp    ! triangle of height 1/2
+       f1 = halfpi * f1 / nq
+       c0 = halfpi * (iphi + kshift*0.5_dp) / nq
+       phiw = c0 - f1
+       phie = c0 + f1
+       if (transition) then ! store for future use
+          phiw_t = phiw
+          phie_t = phie
+       endif
+    endif
+
+    if (nq < nside .or. transition) then ! polar regions and transition rings
+       ip = mod(iphi,nq) ! in [0,nq-1]
+       quad = iphi / nq ! quadrant in [0,3]
+       if (iring <= nside*2) then
+          f1 = halfpi / (nq + f) 
+       else
+          f1 = halfpi / (nq - f)! swap sign for South pole
+       endif
+       do i=1, 2*nsboost+1
+          cv = f1(i)
+          phiw1 = min(cv *     ip,    halfpi)
+          phie1 = min(cv * (   ip+1), halfpi)
+          phiw2 = min(cv * (nq-ip-1), halfpi)
+          phie2 = min(cv * (nq-ip),   halfpi)
+          phiw(i) = max(phiw1, halfpi - phie2) + (quad * halfpi)
+          phie(i) = min(phie1, halfpi - phiw2) + (quad * halfpi)
+       enddo
+    endif
+
+    if (transition) then 
+       if (iring == nside) then ! transition in N hemisphere
+          phiw(nsboost+2:2*nsboost+1) = phiw_t(nsboost+2:2*nsboost+1) 
+          phie(nsboost+2:2*nsboost+1) = phie_t(nsboost+2:2*nsboost+1)
+       else ! transition in S hemisphere
+          phiw(1:nsboost+1) = phiw_t(1:nsboost+1)
+          phie(1:nsboost+1) = phie_t(1:nsboost+1)
+       endif
+    endif
+
+    return
+  end subroutine find_pixel_bounds
+  
+!   !=======================================================================
+!   subroutine correct_ring_phi(location, iring, iphi)
+!     !=======================================================================
+!     ! returns ring and phi indexes corrected from round-off errors
+!     ! appearing at large Nside
+!     ! if phi <0 :      move 1 ring North
+!     ! if phi >4*iring: move 1 ring South
+!     ! rings are counted from the closest pole starting at 1.
+!     integer(i4b), intent(in)    :: location !+1:North, -1:South
+!     integer(i4b), intent(inout) :: iring, iphi
+!     integer(i4b) :: delta
+!     !-----------------------------------------------------------------------
+!     delta = 0
+!     if (iphi < 0)        delta =  -1
+!     if (iphi >= 4*iring) delta =  +1
+!     if (delta /= 0) then
+!        if (abs(location) /= 1) then 
+!           stop 'wrong location'
+!        endif
+!        if (delta > 0) then ! too large iphi
+!           iphi  = iphi  - 4*iring  ! use old iring
+!           iring = iring + location ! move south
+!        else ! too small iphi
+!           iring = iring - location ! move north
+!           iphi  = iphi  +  4*iring ! use new iring
+!        endif
+!     endif
+!     return
+!   end subroutine correct_ring_phi
+  !=======================================================================
+  ! CHEAP_ISQRT
+  !       Returns exact Floor(sqrt(x)) where x is a (64 bit) integer.
+  !             y^2 <= x < (y+1)^2         (1)
+  !       The double precision floating point operation is not accurate enough
+  !       when dealing with 64 bit integers, especially in the vicinity of 
+  !       perfect squares. 
+  !=======================================================================
+#ifndef NO64BITS
+  function cheap_isqrt_8(lin) result (lout)
+    integer(i8b), intent(in) :: lin
+    integer(i8b) :: lout, diff
+    real(DP) :: dout, din
+    lout = floor(sqrt(dble(lin)), kind=I8B) ! round-off error may offset result
+    diff = lin - lout*lout ! test Eq (1)
+    if (diff <0)      lout = lout - 1
+    if (diff >2*lout) lout = lout + 1
+    return
+  end function cheap_isqrt_8
+#endif
+  function cheap_isqrt_4(lin) result (lout)
+    integer(i4b), intent(in) :: lin
+    integer(i4b) :: lout
+    lout = floor(sqrt(dble(lin)), kind=I4B)
+    return
+  end function cheap_isqrt_4
+  !=======================================================================
 
   ! perform 2 compilations of the same source file
 #undef DOI8Bi
@@ -908,6 +1352,7 @@ contains
   !   nest:    I4B, OPT   either 0 (ring scheme) or 1 (nested scheme)
   !   fmissval:SP/DP, OPT sentinel value given to missing pixels
   !   fill_holes: LGT, OPT 
+  ! 2012-07-17: Parallel OpenMP implementation
   !=================================================================
   subroutine medfiltmap_S( in_map, radius, med_map, nest, fmissval, fill_holes)
   !=================================================================
@@ -938,9 +1383,6 @@ contains
     np = npix * fraction * 1.2 + 50
     call assert(np < MAX_I4B, code//": too many pixels to compute median")
 
-    allocate(listpix(0:np-1),stat=status)
-    call assert_alloc(status,code,'listpix')
-
     do_nest = .false.
     if (present(nest)) then
        call assert(nest>=0 .and. nest <=1,code//': invalid NEST flag')
@@ -953,6 +1395,16 @@ contains
     fmissval_in = hpx_Sbadval
     if (present(fmissval)) fmissval_in = fmissval
 
+    ! make sure common arrays are initiated
+    call mk_pix2xy()
+!!!    print*,'************* Parallel Median **************'
+!$OMP parallel default(none) &
+!$OMP   shared(in_map, med_map, pix2x, pix2y, &
+!$OMP          nside, npix, radius, np, do_nest, do_fill, nest, fmissval_in) &
+!$OMP  private(listpix, vector, p, nlist, status)
+    allocate(listpix(0:np-1),stat=status)
+    call assert_alloc(status,code,'listpix')
+!$OMP do schedule(dynamic, 64)
     do p = 0, npix-1
        ! find pixel location
        if (do_nest) then
@@ -970,8 +1422,9 @@ contains
           med_map(p) = in_map(p)
        endif
     enddo
-
+!$OMP end do
     deallocate(listpix)
+!$OMP end parallel
     return
   end subroutine medfiltmap_S
   !=================================================================
@@ -1004,9 +1457,6 @@ contains
     np = npix * fraction * 1.2 + 50
     call assert(np < MAX_I4B, code//": too many pixels to compute median")
 
-    allocate(listpix(0:np-1),stat=status)
-    call assert_alloc(status,code,'listpix')
-
     do_nest = .false.
     if (present(nest)) then
        call assert(nest>=0 .and. nest <=1,code//': invalid NEST flag')
@@ -1019,6 +1469,16 @@ contains
     fmissval_in = hpx_Dbadval
     if (present(fmissval)) fmissval_in = fmissval
 
+    ! make sure common arrays are initiated
+    call mk_pix2xy()
+!!!    print*,'************* Parallel Median **************'
+!$OMP parallel default(none) &
+!$OMP   shared(in_map, med_map, pix2x, pix2y, &
+!$OMP          nside, npix, radius, np, do_nest, do_fill, nest, fmissval_in) &
+!$OMP  private(listpix, vector, p, nlist, status)
+    allocate(listpix(0:np-1),stat=status)
+    call assert_alloc(status,code,'listpix')
+!$OMP do schedule(dynamic, 64)
     do p = 0, npix-1
        ! find pixel location
        if (do_nest) then
@@ -1036,8 +1496,9 @@ contains
           med_map(p) = in_map(p)
        endif
     enddo
-
+!$OMP end do
     deallocate(listpix)
+!$OMP end parallel
     return
   end subroutine medfiltmap_D
   !**************************************************************
@@ -1465,17 +1926,14 @@ contains
     !     and phi (longitude measured eastward, in [0,2Pi[ radians)
     !     North pole is (x,y,z)=(0,0,1)
     !     added by EH, Feb 2000
+    ! 2011-08: replaced ACOS(z) by more accurate ATAN2(r,z)
     !=======================================================================
     REAL(KIND=DP), INTENT(IN), dimension(1:) :: vector
     REAL(KIND=DP), INTENT(OUT) :: theta, phi
 
-    REAL(KIND=DP) :: dnorm, z
     !=======================================================================
 
-    dnorm = SQRT(vector(1)**2+vector(2)**2+vector(3)**2)
-
-    z = vector(3) / dnorm
-    theta = ACOS(z)
+    theta = atan2(sqrt(vector(1)**2 + vector(2)**2), vector(3))
 
     phi = 0.0_dp
     if (vector(1) /= 0.0_dp .or. vector(2) /= 0.0_dp) &
@@ -1558,39 +2016,24 @@ contains
     !=======================================================================
     ! call angdist(v1, v2, dist)
     ! computes the angular distance dist (in rad) between 2 vectors v1 and v2
-    ! in general dist = acos ( v1 . v2 )
-    ! except if the 2 vectors are almost aligned.
+    ! dist = atan2 ( |v1 x v2| / (v1 . v2) )
+    ! (more accurate than acos(v1. v2) when dist close to 0 or Pi.
+    ! 2011-08-25: replaced ACOS with ATAN2
     !=======================================================================
     real(kind=DP), intent(IN), dimension(1:) :: v1, v2
     real(kind=DP), intent(OUT) :: dist
 
-    real(kind=DP), dimension(1:3) :: r1, r2, vdiff
-    real(kind=DP) :: diff, sprod
+    real(kind=DP), dimension(1:3) :: v3
+    real(kind=DP) :: sprod, vprod
     !=======================================================================
 
-    ! normalize both vectors
-    r1(1:3) = v1(1:3) / sqrt(dot_product(v1,v1))
-    r2(1:3) = v2(1:3) / sqrt(dot_product(v2,v2))
-
-    sprod = DOT_PRODUCT(r1, r2)
-
-    if (sprod > 0.999_dp) then
-       ! almost colinear vectors
-       vdiff(1:3) = r1(1:3) - r2(1:3)
-       diff = sqrt(dot_product(vdiff,vdiff)) ! norm of difference
-       dist = 2.0_dp * asin(diff * 0.5_dp)
-
-    else if (sprod < -0.999_dp) then
-       ! almost anti-colinear vectors
-       vdiff(1:3) = r1(1:3) + r2(1:3)
-       diff = sqrt(dot_product(vdiff,vdiff)) ! norm of sum
-       dist = PI - 2.0_dp * asin(diff * 0.5_dp)
-
-    else
-       ! other cases
-       dist = acos( sprod )
-    endif
-
+    ! scalar product     s = A. cos(theta)
+    sprod = dot_product(v1, v2)
+    ! vectorial product  v = A. sin(theta)
+    call vect_prod(v1, v2, v3)
+    vprod = sqrt(dot_product(v3,v3))
+    ! theta = atan( |v|/s) in [0,Pi]
+    dist = atan2( vprod, sprod)
 
     return
   end subroutine angdist

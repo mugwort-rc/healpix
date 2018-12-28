@@ -1,7 +1,7 @@
 /*
  * HEALPix Java code supported by the Gaia project.
  * Copyright (C) 2006-2011 Gaia Data Processing and Analysis Consortium
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -19,7 +19,8 @@
  */
 package healpix.plot3d.demo;
 
-import healpix.core.HealpixIndex;
+import healpix.essentials.HealpixBase;
+import healpix.essentials.Scheme;
 import healpix.core.dm.HealpixMap;
 import healpix.plot3d.canvas3d.Group3DAxis;
 import healpix.plot3d.canvas3d.Group3DCircle;
@@ -58,16 +59,16 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
  * Construct a canvas3D for plotting a sphere from a demo healpix map. Modified
  * version of MapCanvas from G.Giardino. That itself claims to be a "Rehash" of
  * Hipparcos Sky3d.
- * 
+ *
  * Richard Carr, 6th of May 2004. E. Joliet, 5th of March 2007, modified for
  * Gaia
- * 
+ *
  * @author ejoliet
  * @version $Id: MapCanvas3D.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 
 public class MapCanvas3D extends Canvas3D implements RotateAble {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -140,7 +141,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Just calls parent constructor.
-	 * 
+	 *
 	 * @param gc
 	 *            the GraphicsConfiguration to be used for rendering.
 	 */
@@ -150,7 +151,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * From Rotatable interface.
-	 * 
+	 *
 	 * @return the RotationInterpolator used for the animation.
 	 */
 	public RotationInterpolator getRotationInterpolator() {
@@ -185,7 +186,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * This sets the nside used for the display of the whole sphere.
-	 * 
+	 *
 	 * @param nside
 	 *            the healpix pixel density parameter.
 	 */
@@ -197,7 +198,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * This sets a new map for display.
-	 * 
+	 *
 	 * @param map
 	 *            the new map to display.
 	 */
@@ -212,7 +213,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * This sets a new map for display.
-	 * 
+	 *
 	 * @return the map currently shown.
 	 */
 	public HealpixMap getMap() {
@@ -221,7 +222,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * set up a timer object to drive animation.
-	 * 
+	 *
 	 * @param alpha
 	 *            specifies the timing parameters.
 	 */
@@ -231,7 +232,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Specify whether to make axes visible.
-	 * 
+	 *
 	 * @param b
 	 *            whether visible.
 	 */
@@ -248,7 +249,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Specify whether to make equator visible.
-	 * 
+	 *
 	 * @param b
 	 *            whether visible.
 	 */
@@ -265,7 +266,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Specify whether to make a view of the whole sphere visible.
-	 * 
+	 *
 	 * @param b
 	 *            whether visible.
 	 */
@@ -284,7 +285,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Specify whether to make the view of a single face visible.
-	 * 
+	 *
 	 * @param b
 	 *            whether visible.
 	 */
@@ -305,7 +306,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 	/**
 	 * Modify/specify which single face this canvas will display. Whether i is
 	 * actually shown is specified independently.
-	 * 
+	 *
 	 * @param f
 	 *            the face's id.
 	 */
@@ -315,7 +316,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * principal method used to configure the java3D model of the sky.
-	 * 
+	 *
 	 * @return a BranchGroup with the model contents.
 	 */
 	protected BranchGroup createSceneGraph() {
@@ -463,9 +464,9 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 		double max = theMap.getMax();
 		System.out.println("********** #Min(0)=" + min);
 		System.out.println("********** #Max(0)=" + max);
-		HealpixIndex index = null;
+		HealpixBase index = null;
 		try {
-			index = new HealpixIndex(theMap.nside());
+			index = new HealpixBase(theMap.nside(),Scheme.NESTED);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -491,7 +492,7 @@ public class MapCanvas3D extends Canvas3D implements RotateAble {
 
 	/**
 	 * Sets the appearance.
-	 * 
+	 *
 	 * @param shape the new appearance
 	 */
 	private void setAppearance(Shape3D shape) {

@@ -25,19 +25,19 @@
 /*
  *  Utilities for error reporting
  *
- *  Copyright (C) 2003 - 2010 Max-Planck-Society
+ *  Copyright (C) 2003-2011 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
 #include "error_handling.h"
 
-#include <iostream>
-#include <string>
-
 using namespace std;
 
 PlanckError::PlanckError(const string &message) : msg (message) {}
 PlanckError::PlanckError(const char *message) : msg (message) {}
+
+//virtual
+PlanckError::~PlanckError() {}
 
 void planck_failure__(const char *file, int line, const char *func,
   const string &msg)

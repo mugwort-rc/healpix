@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_e3eb46e9483d4687196e35ab1f9fe87a.html">libpsht</a>
+  <div class="navpath"><a class="el" href="dir_ff4430fd8013aef2f55568768abd08e8.html">libpsht</a>
   </div>
 </div>
 <div class="contents">
@@ -26,7 +26,7 @@
 <a href="ylmgen__c_8h-source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="ylmgen__c_8h.html#4dcd0d8a8d9f2158ab36f028eb638592">Ylmgen_init</a> (Ylmgen_C *gen, int l_max, int m_max, int spinrec, double epsilon)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="ylmgen__c_8h.html#da2c68ee4eabe2c4441bbb914401485d">Ylmgen_init</a> (Ylmgen_C *gen, int l_max, int m_max, int s_max, int spinrec, double epsilon)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="ylmgen__c_8h.html#9af01be14b30f2eb52ea59aeade160ab">Ylmgen_set_theta</a> (Ylmgen_C *gen, const double *theta, int nth)</td></tr>
 
@@ -40,8 +40,6 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">double *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="ylmgen__c_8h.html#8c6c1e35aa32b9839df9d98d10f7b332">Ylmgen_get_norm</a> (int lmax, int spin, int spinrec)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="ylmgen__c_8h.html#eab9764b4b0cbe13d34c8f1898befe0b">Ylmgen_maxspin</a> (void)</td></tr>
-
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Code for efficient calculation of Y_lm(phi=0,theta)<p>
@@ -49,7 +47,7 @@ Copyright (C) 2005-2011 Max-Planck-Society <dl class="author" compact><dt><b>Aut
 
 <p>Definition in file <a class="el" href="ylmgen__c_8h-source.html">ylmgen_c.h</a>.</p>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="4dcd0d8a8d9f2158ab36f028eb638592"></a><!-- doxytag: member="ylmgen_c.h::Ylmgen_init" ref="4dcd0d8a8d9f2158ab36f028eb638592" args="(Ylmgen_C *gen, int l_max, int m_max, int spinrec, double epsilon)" -->
+<a class="anchor" name="da2c68ee4eabe2c4441bbb914401485d"></a><!-- doxytag: member="ylmgen_c.h::Ylmgen_init" ref="da2c68ee4eabe2c4441bbb914401485d" args="(Ylmgen_C *gen, int l_max, int m_max, int s_max, int spinrec, double epsilon)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -70,6 +68,12 @@ Copyright (C) 2005-2011 Max-Planck-Society <dl class="author" compact><dt><b>Aut
           <td></td>
           <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>m_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>s_max</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -149,7 +153,7 @@ Passes am array <em>theta</em> of <em>nth</em> colatitudes that will be used in 
 <div class="memdoc">
 
 <p>
-Deallocates a generator previously initialised by <a class="el" href="ylmgen__c_8h.html#4dcd0d8a8d9f2158ab36f028eb638592">Ylmgen_init()</a>. 
+Deallocates a generator previously initialised by <a class="el" href="ylmgen__c_8h.html#da2c68ee4eabe2c4441bbb914401485d">Ylmgen_init()</a>. 
 </div>
 </div><p>
 <a class="anchor" name="3d2228d8f0e05c08f4f851d5a05dfa01"></a><!-- doxytag: member="ylmgen_c.h::Ylmgen_prepare" ref="3d2228d8f0e05c08f4f851d5a05dfa01" args="(Ylmgen_C *gen, int ith, int m)" -->
@@ -271,29 +275,9 @@ Recalculates (if necessary) the lambda_w and lambda_x values for spin &gt;0 tran
 Returns a pointer to an array with lmax+1 entries containing normalisation factors that must be applied to Y_lm values computed for <em>spin</em> with the given <em>spinrec</em> flag. The array must be deallocated (using free()) by the user. 
 </div>
 </div><p>
-<a class="anchor" name="eab9764b4b0cbe13d34c8f1898befe0b"></a><!-- doxytag: member="ylmgen_c.h::Ylmgen_maxspin" ref="eab9764b4b0cbe13d34c8f1898befe0b" args="(void)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Ylmgen_maxspin           </td>
-          <td>(</td>
-          <td class="paramtype">void&nbsp;</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Returns the maximum spin quantum number supported by the Ylmgen code. 
-</div>
-</div><p>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:05 2011 for LevelS SHT library
+Generated on Fri Nov 30 17:59:25 2012 for LevelS SHT library
 </a> </small></address>
 </body>
 </html>

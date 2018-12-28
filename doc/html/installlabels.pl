@@ -2,6 +2,10 @@
 # Associate labels original text with physical files.
 
 
+$key = q/install:cpp:query/;
+$external_labels{$key} = "$URL/" . q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:requirements/;
 $external_labels{$key} = "$URL/" . q|install.htm|; 
 $noresave{$key} = "$nosave";
@@ -54,7 +58,7 @@ $external_latex_labels{$key} = q|1|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:windows/;
-$external_latex_labels{$key} = q|6.1|; 
+$external_latex_labels{$key} = q|6.2|; 
 $noresave{$key} = "$nosave";
 
 $key = q/sec:using_gdl/;
@@ -82,11 +86,11 @@ $external_latex_labels{$key} = q|7|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:freef90compilers/;
-$external_latex_labels{$key} = q|8.3.4|; 
+$external_latex_labels{$key} = q|6.1|; 
 $noresave{$key} = "$nosave";
 
 $key = q/subsub:conf/;
-$external_latex_labels{$key} = q|3.1.1|; 
+$external_latex_labels{$key} = q|4.1.1|; 
 $noresave{$key} = "$nosave";
 
 1;

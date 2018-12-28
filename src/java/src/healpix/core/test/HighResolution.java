@@ -26,10 +26,11 @@ import healpix.tools.SpatialVector;
 
 /** 
  * demonstrates high resolution
+ * @deprecated
  */
 public class HighResolution {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		HealpixIndex t = new HealpixIndex();
 		
 		/** 
@@ -55,8 +56,8 @@ public class HighResolution {
 		/**
 		 * random points on equator which is worst case scenario (poles are best case)
 		 */		
-		SpatialVector p1 =  t.ang2Vec(Math.toRadians(90), Math.toRadians(30));
-		SpatialVector p2 =  t.ang2Vec(Math.toRadians(90), Math.toRadians(45));
+		SpatialVector p1 =  HealpixIndex.ang2Vec(Math.toRadians(90), Math.toRadians(30));
+		SpatialVector p2 =  HealpixIndex.ang2Vec(Math.toRadians(90), Math.toRadians(45));
 		
 		/**
 		 * create disc around given pixels

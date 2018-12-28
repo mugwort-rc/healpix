@@ -34,5 +34,6 @@ SPAN.bf		{   }
 DIV.navigation		{   }
 DIV.small		{   }
 SPAN.arabic		{   }
+SPAN.textit		{ font-style: italic  }
 SPAN.textbf		{ font-weight: bold  }
 SPAN.Alph		{   }

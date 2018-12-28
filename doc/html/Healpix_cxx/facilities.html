@@ -266,6 +266,20 @@ if ((nside_pixwin_in&gt;0)||(nside_pixwin_out&gt;0))
     directory containing the Healpix data files
 endif
 
+cl_in (string, default=""):
+  if supplied, the power spectrum from this file will be _removed_
+  from the input a_lm
+  NOTE: currently only supported for unpolarised a_lm
+
+cl_out (string, default=""):
+  if supplied, the power pectrum from this file will be applied
+  to the output a_lm
+  NOTE: currently only supported for unpolarised a_lm
+
+polarisation (bool):
+  if false, only the intensity a_lm are generated,
+  if true, T, G and C a_lm are generated
+
 double_precision (bool, default=false):
   if false, the a_lm are read/written in single precision,
   otherwise in double precision.
@@ -314,7 +328,7 @@ median_filter_cxx</a></h2>
 This program inputs a HEALPix map, runs a median filter with the desired radius on it and saves the result to another file.<p>
 <div class="fragment"><pre class="fragment">Usage: median_filter_cxx &lt;input map&gt; &lt;output map&gt; &lt;radius in arcmin&gt;</pre></div> </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:07 2011 for Healpix C++
+Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
 </a> </small></address>
 </body>
 </html>

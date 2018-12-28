@@ -2,6 +2,10 @@
 # Associate internals original text with physical files.
 
 
+$key = q/install:cpp:query/;
+$ref_files{$key} = "$dir".q|install.htm|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:requirements/;
 $ref_files{$key} = "$dir".q|install.htm|; 
 $noresave{$key} = "$nosave";

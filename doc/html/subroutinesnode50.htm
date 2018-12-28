@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>medfiltmap*</TITLE>
-<META NAME="description" CONTENT="medfiltmap*">
+<TITLE>long_count,&nbsp;long_size</TITLE>
+<META NAME="description" CONTENT="long_count,&nbsp;long_size">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,141 +28,142 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html819"
+<A NAME="tex2html836"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html825"
+<A NAME="tex2html842"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html829"
+<A NAME="tex2html846"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html827"
+<A NAME="tex2html844"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html820"
-  HREF="subroutinesnode49.htm">map2alm_spin*</A>
+<B> Previous:</B> <A NAME="tex2html837"
+  HREF="subroutinesnode49.htm">input_tod*</A>
 
-<B>Up:</B> <A NAME="tex2html826"
+<B>Up:</B> <A NAME="tex2html843"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html830"
-  HREF="subroutinesnode51.htm">median*</A>
+<B> Next:</B> <A NAME="tex2html847"
+  HREF="subroutinesnode51.htm">map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000500000000000000000"></A>
-<A NAME="sub:medfiltmap"></A>
+<H1><A NAME="SECTION000450000000000000000"></A>
+<A NAME="sub:long_intrinsic"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">medfiltmap*</FONT></font></b><hr><H2>This routine performs the median filtering of a <b>HEALPix</b> full sky map for a
-  given neighborhood radius </H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/pix_tools.F90
+<b><font size=+6><FONT COLOR="#CC0000">long_count,&nbsp;long_size</FONT></font></b><hr><H2>The Fortran90 module <TT>long_intrinsic</TT> contains a subset of  
+intrinsic functions (currently <TT>count</TT> and <TT>size</TT>) compiled so that they return <A HREF="subroutinesnode46.htm#sub:healpix_types">I8B</A> variables
+instead of the default integer (generally <A HREF="subroutinesnode46.htm#sub:healpix_types">I4B</A>),
+therefore allowing the handling of arrays with more than <SPAN CLASS="MATH">2<SUP>31</SUP>-1</SPAN>
+elements.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/long_intrinsic.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">medfiltmap*</FONT>(
-in_map, radius, med_map [,&nbsp;nest, fmissval, fill_holes]
-)</h2></blockquote>
 
+<BIG CLASS="LARGE"><SPAN  CLASS="textbf">FUNCTIONS: </SPAN></BIG>
+<BR>
+<TT>cnt = long_count(mask1)</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the I8B integer value that is
+the number of elements of the logical array <TT>mask1</TT> that have the value <TT>true</TT>.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
+<P>
+<TT>sz = long_size(array1 [,dim])</TT> 
+<BR><TT>sz = long_size(array2 [,dim])</TT> 
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=350>returns the I8B integer value that is
+the size of the 1D array <TT>array1</TT> or 2D array <TT>array2</TT> or their
+extent along the dimension <TT>dim</TT> if the scalar integer <TT>dim</TT> is provided.</TD>
+<TD ALIGN="LEFT">&nbsp;</TD></TR>
+</TABLE>
+<BR>
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
 <TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=235><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-in_map(0:npix-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Full sky <b>HEALPix</b> map to filter. <TT>npix</TT>
-                   should be valid <b>HEALPix</b> pixel number.</TD>
+cnt</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>number of elements with value <TT>true</TT></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>radius</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Radius in RADIANS of the disk on which the median is
-                   computed.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>sz</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>size or extent of array</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>med_map(0:npix-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Median filtered map: each pixel is the
-                   median of the input map valid neighboring pixels contained
-                   within a distance <TT>radius</TT></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nest OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>set to 1 if the map ordering is NESTED, set to 0 if
-                   it is RING.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fmissval OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to missing or
-                   non-valid pixels. Default: <TT>HPX_SBADVAL</TT> or <TT>HPX_DBADVAL</TT> <!-- MATH
- $= -1.6375\ 10^{30}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="130" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg86.png"
- ALT="$ = -1.6375\ 10^{30}$"></SPAN></TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>fill_holes OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>mask1(:)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to <TT>.true.</TT> will replace
-                   non-valid pixels by median of neighbors; if set to <TT>.false.</TT>
-                   will leave non-valid pixels unchanged. Default: <TT>.false.</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>1D logical array</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>array1(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B/ SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>1D integer or real array</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>array2(:,:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B/ SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>2D integer or real array</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>dim   (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=235>dimension (starting at 1) along which the array
+extent is measured.</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use healpix_types 
+ use <A HREF="subroutinesnode45.htm#sub:healpix_modules">healpix_modules</A> 
 <BR>
-use pix_tools 
-<BR>... 
+real(SP), dimension(:,:), allocatable :: bigarray 
 <BR>
-call medfiltmap(map, 0.5*DEG2RAD, med)  
-<BR></font></tt>
-<BR><blockquote>
-Output in <TT>med</TT> the median filter of <TT>map</TT>, using a filter radius of 0.5 Deg
-</blockquote>
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">medfiltmap*</FONT>.</h2>
-  <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">statistics</SPAN></B>
-<DD>module, containing:
-  <DT>
-<B><A HREF="subroutinesnode51.htm#sub:median">median</A></B>
-<DD>routine to compute the median of a data set		
-  <DT>
-<B><SPAN  CLASS="textbf">pix_tools</SPAN></B>
-<DD>module, containing:
-  <DT>
-<B><A HREF="subroutinesnode71.htm#sub:pix_tools">pix2vec_ring, pix2vec_nest</A></B>
-<DD>routines to find
-  the location of a pixel on the sky
-  <DT>
-<B><A HREF="subroutinesnode74.htm#sub:query_disc">query_disc</A></B>
-<DD>routine to find pixels lying
-  within a radius of a given point
-  </DL>
+allocate(bigarray(2_i8b**31+5, 3)) 
+<BR>
+print*,       size(bigarray),       size(bigarray,1),       size(bigarray,dim=2) 
+<BR>
+print*, long_size(bigarray), long_size(bigarray,1), long_size(bigarray,dim=2) 
+<BR>
+deallocate(bigarray)
+</font></tt>
+<BR><blockquote>Will return (with default compilation options)
+<PRE><TT>
+     -2147483633 -2147483643  3 
+<BR>
+6442450959 		 2147483653 		 3
+</TT></PRE>
+meaning that <TT>long_size</TT> handles correctly this large array while by default
+<TT>size</TT> does not.</blockquote>
 
 <P>
 
@@ -175,32 +176,32 @@ Output in <TT>med</TT> the median filter of <TT>map</TT>, using a filter radius 
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html819"
+<A NAME="tex2html836"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html825"
+<A NAME="tex2html842"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html829"
+<A NAME="tex2html846"
   HREF="subroutinesnode51.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html827"
+<A NAME="tex2html844"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html820"
-  HREF="subroutinesnode49.htm">map2alm_spin*</A>
+<B> Previous:</B> <A NAME="tex2html837"
+  HREF="subroutinesnode49.htm">input_tod*</A>
 
-<B>Up:</B> <A NAME="tex2html826"
+<B>Up:</B> <A NAME="tex2html843"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html830"
-  HREF="subroutinesnode51.htm">median*</A>
+<B> Next:</B> <A NAME="tex2html847"
+  HREF="subroutinesnode51.htm">map2alm*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

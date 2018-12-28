@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mollcursor</TITLE>
-<META NAME="description" CONTENT="mollcursor">
+<TITLE>hpx2dm</TITLE>
+<META NAME="description" CONTENT="hpx2dm">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,205 +28,210 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html515"
+<A NAME="tex2html557"
   HREF="idlnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html521"
+<A NAME="tex2html563"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html525"
+<A NAME="tex2html567"
   HREF="idlnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html523"
+<A NAME="tex2html565"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html516"
-  HREF="idlnode31.htm">median_filter</A>
+<B> Previous:</B> <A NAME="tex2html558"
+  HREF="idlnode31.htm">healpixwindow</A>
 
-<B>Up:</B> <A NAME="tex2html522"
+<B>Up:</B> <A NAME="tex2html564"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html526"
-  HREF="idlnode33.htm">mollview</A>
+<B> Next:</B> <A NAME="tex2html568"
+  HREF="idlnode33.htm">hpx2gs</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000320000000000000000"></A>
-<A NAME="idl:mollcursor"></A>
+<A NAME="idl:hpx2dm"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mollcursor</FONT></font></b><hr><H2>This IDL facility provides a point-and-click interface for finding
-the astronomical location, value and pixel index of the pixels nearest 
-to the pointed position on a Mollweide projection of a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/visu/mollcursor.pro
+<SMALL CLASS="FOOTNOTESIZE"> 
+</SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"> 
+ 
+</SMALL>
+<P>
+<b><font size=+6><FONT COLOR="#CC0000">hpx2dm</FONT></font></b><hr><H2>This IDL facility provides a means to turn a <b>HEALPix</b>  data set
+into a DomeMaster
+compliant image (azimuthal equidistant projection of the half-sphere
+in a PNG or lossless JPEG file) that can be projected on a planetarium.
+See eg 
+<A NAME="tex2html8"
+  HREF="http://fulldome.ryanwyatt.net/fulldome_domemasterSpec_v05.pdf">http://fulldome.ryanwyatt.net/fulldome_domemasterSpec_v05.pdf</A>
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/visu/hpx2dm.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-MOLLCURSOR, [cursor_type=, file_out=]
+<FONT COLOR="#CC0000">hpx2dm</FONT>, 
+<A HREF="#idl:hpx2dm:file">File</A>, 
+[ <A HREF="#idl:hpx2dm:select">Select</A>, ]
+[ <A HREF="#idl:hpx2dm:help">/HELP</A>, 
+<A HREF="#idl:hpx2dm:jpeg">JPEG=</A>, 
+<A HREF="#idl:hpx2dm:png">PNG=</A>, 
+<A HREF="#idl:hpx2dm:preview">PREVIEW=</A>, 
+<A HREF="#idl:hpx2dm:pxsize">PXSIZE=</A>, 
++ <A HREF="#idl:hpx2dm:other_keywords">most of azeqview keywords</A><SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="idlimg2.png"
+ ALT="$\ldots$"></SPAN>
+]
+
 </h2>
 <P>
-<hr><H1>QUALIFIERS</H1>
+<H1>QUALIFIERS</H1>
+<BR>
+</SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE">  
+<A NAME="idl:hpx2dm:file"></A>File    </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Required
+<BR>
+name of a FITS file containing 
+               the <b>HEALPix</b>  map in an extension or in the image field, <BR></SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>or</EM>    name of an </SMALL><SMALL CLASS="FOOTNOTESIZE"><EM>online</EM> variable (either array or
+structure) containing the <b>HEALPix</b>  map (See note below);
+<BR>
+if Save is set   :    name of an IDL saveset file containing
+               the <b>HEALPix</b>  map stored under the variable  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>data</TT> <BR><b> (default : none)</b></SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=60><SMALL CLASS="FOOTNOTESIZE"><A NAME="idl:hpx2dm:select"></A>Select    </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=425><SMALL CLASS="FOOTNOTESIZE"> Optional
+<BR>
+column of the BIN FITS table to be plotted, can be either  <BR>- a name : value given in TTYPEi of the FITS file <BR>
+NOT case sensitive and can be truncated, <BR>(only letters, digits and underscore are valid) <BR>- an integer        : number i of the column
+                            containing the data, starting with 1 (also valid if
+		  </SMALL><SMALL CLASS="FOOTNOTESIZE"><TT>File</TT> is an online array) <BR><b>default:</b>1 for full sky maps, 'SIGNAL' column for FITS files
+		  containing cut sky maps</SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="FOOTNOTESIZE">
+
+<P>
+<hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>cursor_type=</B>
-<DD>cursor type to be used 
-<BR>	<b>default:</b>34
- 	<DT>
-<B>file_out=</B>
-<DD>file containing on output the list of
- 	point selected with the cursor. 
-<BR>
-If set to 1, the file will
- 	take its default name: 'cursor_catalog.txt'. 
-<BR>
-If set to a non-empty character string, the file name will be that string
-  </DL><SMALL CLASS="FOOTNOTESIZE">
+<B><A NAME="idl:hpx2dm:jpeg"></A>JPEG=</B>
+<DD>name of the output <EM>lossless</EM>
+JPEG file
+<DT>
+<B><A NAME="idl:hpx2dm:png"></A>PNG=</B>
+<DD>name of the output PNG file
+
+<P>
+<DT>
+<B><A NAME="idl:hpx2dm:preview"></A>/PREVIEW</B>
+<DD>if set, the output JPEG or PNG
+file will be previewed
+
+<P>
+<DT>
+<B><A NAME="idl:hpx2dm:help"></A>/HELP</B>
+<DD>Prints out the documentation header 
+
+<P>
+<DT>
+<B><A NAME="idl:hpx2dm:pxsize"></A>PXSIZE=</B>
+<DD>number of pixels in each
+dimension of the square output image
+
+<P>
+<DT>
+<B><A NAME="idl:hpx2dm:other_keywords"></A>
+<A HREF="idlnode43.htm#idl:mollview:asinh">/ASINH</A>, </B>
+<DD><DT>
+<B><A HREF="idlnode43.htm#idl:mollview:colt">COLT</A>=,
+<A HREF="idlnode43.htm#idl:mollview:coord">COORD</A>=,
+<A HREF="idlnode43.htm#idl:mollview:factor">FACTOR</A>=,
+<A HREF="idlnode43.htm#idl:mollview:flip">/FLIP</A>,
+<A HREF="idlnode43.htm#idl:mollview:hbound">HBOUND</A>=,</B>
+<DD><DT>
+<B><A HREF="idlnode43.htm#idl:mollview:hist_equal">/HIST_EQUAL</A>,
+<A HREF="idlnode43.htm#idl:mollview:log">/LOG</A>,
+<A HREF="idlnode43.htm#idl:mollview:max">MAX</A>=,
+<A HREF="idlnode43.htm#idl:mollview:min">MIN</A>=, <A HREF="idlnode43.htm#idl:mollview:nested">/NESTED</A>,
+<A HREF="idlnode43.htm#idl:mollview:offset">OFFSET</A>=, </B>
+<DD><DT>
+<B><A HREF="#idl:mollview:quadcube">/QUADCUBE</A>,
+<A HREF="idlnode43.htm#idl:mollview:rot">ROT</A>=,
+<A HREF="idlnode43.htm#idl:mollview:save">SAVE</A>=,
+<A HREF="idlnode43.htm#idl:mollview:silent">/SILENT</A>, </B>
+<DD><DT>
+<B><A HREF="idlnode43.htm#idl:mollview:truecolors">TRUECOLORS</A>=</B>
+<DD>those keywords have the same meaning as in
+<A HREF="idlnode12.htm#idl:azeqview">azeqview</A> and 
+<A HREF="idlnode43.htm#idl:mollview">mollview</A>
+
+<P>
+</DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-mollcursor should be run immediately following mollview. It gives the
-longitude, latitude, map value and pixel number
-corresponding to the cursor position in the window containing the map generated
-by mollview. Mouse buttons are used to select the function :  
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">left button = display the information relative to the current cursor position, 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">middle button = print out this information in the IDL command window 
-</SMALL>
-<P>
-<SMALL CLASS="FOOTNOTESIZE">right button = quit mollcursor
-<BR>
-<BR><B>Note on Mac OS X, X11 and IDL cursor:</B> on some versions<A NAME="tex2html10"
-  HREF="idlfootnode.htm#foot5001"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>of Mac OS X
-, in particular Tiger (ie,
-10.4.*) and Leopard (ie, 10.5.*), the IDL function <TT>cursor</TT>, and therefore <b>HEALPix</b> <FONT COLOR="#CC0000">mollcursor</FONT>,
-gnomcursor, <SPAN CLASS="MATH"><IMG
- WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg9.png"
- ALT="$\ldots$"></SPAN> will not
-work properly under X11. To solve this problem, type 
-<BR>
-under Tiger (10.4): 
-<BR><SMALL CLASS="SMALL"><TT>defaults write com.apple.x11 wm_click_through -bool true</TT></SMALL> 
-<BR>
-or, under Leopard (10.5): 
-<BR><SMALL CLASS="SMALL"><TT>defaults write org.x.x11 wm_click_through -bool true</TT></SMALL> 
-<BR>
-at your X11 prompt and restart X11 (tips found respectively at
-<A NAME="tex2html11"
-  HREF="http://marc.sauvage.free.fr/SApMUG/Xnotes.html"><SMALL CLASS="SMALL">http://marc.sauvage.free.fr/SApMUG/Xnotes.html</SMALL></A>
-and 
-<A NAME="tex2html12"
-  HREF="https://sympa.obspm.fr/wws/arc/micros-mac/2008-06/msg00001.html"><SMALL CLASS="SMALL">https://sympa.obspm.fr/wws/arc/micros-mac/2008-06/msg00001.html</SMALL></A>). 
-To make the patch permanent, add the line above into your .bashrc (or
-.cshrc, depending on your shell) file, and restart X11.
-<BR>
-And finally, <FONT COLOR="#CC0000">mollcursor</FONT> obviously requires the '3 button mouse' to be enabled,
-which can be done in the X11 Preferences menu.
-
+<FONT COLOR="#CC0000">hpx2dm</FONT> reads in a <b>HEALPix</b> sky map in FITS format or from a memory array
+and generates a PNG or JPEG file containing a DomeMaster compliant map
+(azimuthal equidistant projection of the half-sky).
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mollcursor</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">hpx2dm</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">mollcursor</FONT>
+<B><A HREF="idlnode12.htm#idl:azeqview">azeqview</A></B>
+<DD>performs Azimuthal Equidistant
+projection required by <FONT COLOR="#CC0000">hpx2dm</FONT>.
   <DT>
-<B>ghostview</B>
-<DD>ghostview or a similar facility is required to view
-	  the Postscript image generated by <FONT COLOR="#CC0000">mollcursor</FONT>.
-  <DT>
-<B>xv</B>
-<DD>xv or a similar facility is required to view the
-            GIF/PNG image generated by <FONT COLOR="#CC0000">mollcursor</FONT>(a browser can also 
-            be used).
-  <DT>
-<B>synfast</B>
-<DD>This <b>HEALPix</b> facility will generate the FITS format 
-            sky map to be input to <FONT COLOR="#CC0000">mollcursor</FONT>.
-  <DT>
-<B><A HREF="idlnode10.htm#idl:cartview">cartview</A></B>
-<DD>IDL facility to generate a Cartesian projection of
-  	a <b>HEALPix</b> map.
-  <DT>
-<B><A HREF="idlnode9.htm#idl:cartcursor">cartcursor</A></B>
-<DD>interactive cursor to be used with cartview
-  <DT>
-<B><A HREF="idlnode21.htm#idl:gnomview">gnomview</A></B>
-<DD>IDL facility to generate a gnomonic projection of
-  	a <b>HEALPix</b> map.
-  <DT>
-<B><A HREF="idlnode20.htm#idl:gnomcursor">gnomcursor</A></B>
-<DD>interactive cursor to be used with gnomview
-  <DT>
-<B><A HREF="idlnode33.htm#idl:mollview">mollview</A></B>
-<DD>IDL facility to generate a Mollweide projection of
-  	a <b>HEALPix</b> map.
-  <DT>
-<B><A HREF="#idl:mollcursor">mollcursor</A></B>
-<DD>interactive cursor to be used with mollview
-  <DT>
-<B><A HREF="idlnode40.htm#idl:orthview">orthview</A></B>
-<DD>IDL facility to generate an orthographic projection of
-  	a <b>HEALPix</b> map.
-  <DT>
-<B><A HREF="idlnode39.htm#idl:orthcursor">orthcursor</A></B>
-<DD>interactive cursor to be used with orthview
+<B><A HREF="idlnode33.htm#idl:hpx2gs">hpx2gs</A></B>
+<DD>turns Healpix maps into GoogleEarth or
+GoogleSky images
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-mollcursor </SMALL></TD>
-<TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">  
-</SMALL></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>After mollview reads in a map and generates
-its mollweide projection, mollcursor is run to know the
-position and flux of bright synchrotron sources, for example.</blockquote>
-<P>
 <SMALL CLASS="FOOTNOTESIZE">
 </SMALL>
+<P>
+
 <P>
 <SMALL CLASS="FOOTNOTESIZE">
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html515"
+<A NAME="tex2html557"
   HREF="idlnode31.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html521"
+<A NAME="tex2html563"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html525"
+<A NAME="tex2html567"
   HREF="idlnode33.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html523"
+<A NAME="tex2html565"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html516"
-  HREF="idlnode31.htm">median_filter</A>
+<B> Previous:</B> <A NAME="tex2html558"
+  HREF="idlnode31.htm">healpixwindow</A>
 
-<B>Up:</B> <A NAME="tex2html522"
+<B>Up:</B> <A NAME="tex2html564"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html526"
-  HREF="idlnode33.htm">mollview</A>
+<B> Next:</B> <A NAME="tex2html568"
+  HREF="idlnode33.htm">hpx2gs</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

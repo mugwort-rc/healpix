@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>getsize_fits </TITLE>
-<META NAME="description" CONTENT="getsize_fits ">
+<TITLE>change_polcconv </TITLE>
+<META NAME="description" CONTENT="change_polcconv ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,137 +28,110 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html359"
+<A NAME="tex2html401"
   HREF="idlnode18.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html407"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html369"
+<A NAME="tex2html411"
   HREF="idlnode20.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html409"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html360"
-  HREF="idlnode18.htm">getdisc_ring</A>
+<B> Previous:</B> <A NAME="tex2html402"
+  HREF="idlnode18.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html366"
+<B>Up:</B> <A NAME="tex2html408"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html370"
-  HREF="idlnode20.htm">gnomcursor</A>
+<B> Next:</B> <A NAME="tex2html412"
+  HREF="idlnode20.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000190000000000000000"></A>
-<A NAME="idl:getsize_fits"></A>
+<A NAME="idl:change_polcconv"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">getsize_fits </FONT></font></b><hr><H2>This IDL function reads the number of maps and/or the pixel ordering of a FITS file containing a <b>HEALPix</b> map.</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/getsize_fits.pro
+<b><font size=+6><FONT COLOR="#CC0000">change_polcconv </FONT></font></b><hr><H2>This IDL facility  changes the coordinate convention in FITS file containing a polarised sky map.
+The main effect is to change the sign of the U Stokes parameter,
+and add/update the POLCCONV FITS header with either
+COSMO or IAU value.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/fits/change_polcconv.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-var = GETSIZE_FITS (File, [Nmaps =, Nside =, Mlpol =, Ordering =, Obs_Npix =, Type =, Header =])
+CHANGE_POLCCONV , File_In, File_Out [, /I2C, /C2I, /C2C, /I2I, /FORCE]
 
 </h2>
 <P>
 <hr><H1>QUALIFIERS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>File</B>
-<DD>name of a FITS file containing the <b>HEALPix</b> map(s).
+<B>File_In</B>
+<DD>name of a FITS file to be read
 
 <P>
 <DT>
-<B>var</B>
-<DD>contains on output the number of pixels stored in a map FITS file.
-     Each pixel is counted only once 
-     (even if several information is stored on each of them, see nmaps).
-     Depending on the data storage format, result may be : 
-<BR>       - equal or smaller to the number Npix of Healpix pixels available 
-          over the sky for the given resolution (Npix =
-     12*nside*nside) 
-<BR>       - equal or larger to the number of non blank pixels 
-         (obs_npix)
+<B>File_Out</B>
+<DD>name of a FITS file to be written, after modification of the
+          polarisation coordinate convention, if applicable
+
+<P>
+</DL><SMALL CLASS="FOOTNOTESIZE">
+
+<P>
+<hr><H1>KEYWORDS</H1>
+<BR> 
+  </SMALL><DL COMPACT><DT>
+<B>/I2C</B>
+<DD>changes from IAU to COSMO coordinate convention 
+<BR>            -if POLCCONV is not found or found with value 'IAU', it is
+             added/replaced with value 'COSMO', and the sign of the U stokes
+             parameter map is changed 
+<BR>            -if POLCCONV already has value 'COSMO', File_In is copied
+            unchanged into File_Out
 
 <P>
 <DT>
-<B>Nmaps=</B>
-<DD>contains on output the number of maps in the file
+<B>/C2I</B>
+<DD>changes from COSMO to IAU coordinate convention 
+<BR>            -if POLCCONV is not found or found with value 'COSMO', it is
+             added/replaced with value 'IAU', and the sign of the U stokes
+             parameter map is changed 
+<BR>            -if POLCCONV already has value 'IAU',  File_In is copied
+            unchanged into File_Out
 
 <P>
 <DT>
-<B>Nside=</B>
-<DD>contains on output the <b>HEALPix</b> resolution parameter <!-- MATH
- ${N_{\rm side}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg23.png"
- ALT="${N_{\rm side}}$"></SPAN>
+<B>/C2C</B>
+<DD>does NOT change coordinate system 
+<BR>            -if POLCCONV is found with value 'IAU', program will issue error
+            message and no file is written 
+<BR>            -in all other case POLCCONV is set/added with value 'COSMO', but
+             data is NOT changed
 
 <P>
 <DT>
-<B>Mlpol=</B>
-<DD>contains on output the maximum multipole used to generate the map 
+<B>/I2I</B>
+<DD>does NOT change coordinate system 
+<BR>            -if POLCCONV is found with value 'COSMO', program will issue error
+            message and no file is written 
+<BR>            -in all other case POLCCONV is set/added with value 'IAU', but
+             data is NOT changed
 
 <P>
 <DT>
-<B>Ordering=</B>
-<DD>contains on output the pixel ordering
-	scheme: either 'RING' or 'NESTED'
-
-<P>
-<DT>
-<B>Obs_Npix=</B>
-<DD>contains on output the number of non blanck pixels. It is set to -1 if it can not be determined from header
-
-<P>
-<DT>
-<B>Type=</B>
-<DD>Healpix/FITS file type
-<BR>             <SPAN CLASS="MATH">&lt;</SPAN>0 : file not found, or not valid
-<BR>
-0  : image only fits file, deprecated Healpix format
-                   (var <!-- MATH
- $=12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="89" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg24.png"
- ALT="$=12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-1  : ascii table, generally used for C(l) storage 
-<BR>
-2  : binary table : with implicit pixel indexing (full sky)
-                   (var <!-- MATH
- $=12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="89" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg24.png"
- ALT="$=12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-3  : binary table : with explicit pixel indexing (generally cut sky)
-                   (var <!-- MATH
- $\le 12{N_{\rm side}}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="89" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg25.png"
- ALT="$\le 12{N_{\rm side}}^2$"></SPAN>) 
-<BR>
-999  : unable to determine the type 
-
-<P>
-<DT>
-<B>Header=</B>
-<DD>contains on output the FITS extension header
+<B>/FORCE</B>
+<DD>if set, the value of POLCCONV read from the FITS header is
+          ignored.
+              The sign of U is swapped (if used with /C2I or /I2C), and the
+              FITS keyword is updated accordingly.
 
 <P>
 </DL><SMALL CLASS="FOOTNOTESIZE">
@@ -166,61 +139,57 @@ var = GETSIZE_FITS (File, [Nmaps =, Nside =, Mlpol =, Ordering =, Obs_Npix =, Ty
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-getsize_fits gets the number of pixels in a FITS file. If the file
-follows the <b>HEALPix</b> standard, the routine can also get the resolution
-parameter Nside, the ordering scheme, ..., and can determine the type
-of data set contained in the file.
+This routine will change the sign of the <SPAN CLASS="MATH"><I>U</I></SPAN> Stokes parameters (and related
+quantities, such as the <SPAN CLASS="MATH"><I>TU</I></SPAN> and <SPAN CLASS="MATH"><I>QU</I></SPAN> cross-correlations) and update the
+'POLCCONV' FITS keyword where applicable.
+The recognised format are: 
+<BR>- standard Healpix  full sky polarised format 
+<BR>- cut sky Healpix polarised format 
+<BR>- WMAP 2nd year polarised format
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">getsize_fits </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">change_polcconv </FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run getsize_fits <DT>
-<B><A HREF="idlnode47.htm#idl:read_fits_map">read_fits_map</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to read in maps
-  written by getsize_fits .
+<DD>version 6.1 or more is necessary to run change_polcconv <DT>
+<B><A HREF="idlnode67.htm#idl:write_fits_cut4">write_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to write a (polarised or unpolarised) cut sky map into a
+  FITS file.
   <DT>
-<B>sxaddpar</B>
-<DD>This IDL routine (included in <b>HEALPix</b> package) can be used to update
-  or add FITS keywords to <TT>Header</TT>
+<B><A HREF="idlnode56.htm#idl:read_fits_cut4">read_fits_cut4</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to read a (polarised or unpolarised) cut sky map from a
+  FITS file.
   <DT>
-<B><A HREF="idlnode51.htm#idl:reorder">reorder</A></B>
-<DD>This <b>HEALPix</b> IDL routine can be used to reorder a map from
-  NESTED scheme to RING scheme and vice-versa.
+<B><A HREF="idlnode70.htm#idl:write_tqu">write_tqu</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to write a polarised full sky map (with either the
+  standard Healpix format or the WMAP 2nd year format) into a
+  FITS file
   <DT>
-<B><A HREF="idlnode59.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD>routine to write multi-column binary FITS table
+<B><A HREF="idlnode59.htm#idl:read_tqu">read_tqu</A></B>
+<DD>This <b>HEALPix</b> IDL
+  facility can be used to read a polarised cut sky map from a
+  FITS file
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-npix = getsize_fits(!healpix.directory+'/test/map.fits', nside=nside, $ </SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<SPAN CLASS="MATH"><IMG
- WIDTH="23" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
- SRC="idlimg16.png"
- ALT="$\quad$"></SPAN> mlpol=lmax, type=filetype)</SMALL></TD>
-</TR>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
- print, npix, nside, lmax, filetype
+change_polcconv, 'map_cosmo.fits','map_iau.fits',/c2i
 </SMALL></TD>
+<TD></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
-<BR><blockquote><IMG
- WIDTH="558" HEIGHT="128" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg26.png"
- ALT="$\textstyle \parbox{\hsize}{ should produce something like \\
-{\em 196608 \ \ ...
-...s
-nside=128, the maximum multipole was 256, and this a full sky map
-(type 2).
-}$"></blockquote><SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
+<BR><blockquote> Modify the file 'map_cosmo.fits', which was using the 'COSMO' convention for
+  polarisation coordinate convention into 'map_iau.fits' which uses the 'IAU' convention
+</blockquote>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -228,32 +197,32 @@ nside=128, the maximum multipole was 256, and this a full sky map
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html359"
+<A NAME="tex2html401"
   HREF="idlnode18.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html365"
+<A NAME="tex2html407"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html369"
+<A NAME="tex2html411"
   HREF="idlnode20.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html367"
+<A NAME="tex2html409"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html360"
-  HREF="idlnode18.htm">getdisc_ring</A>
+<B> Previous:</B> <A NAME="tex2html402"
+  HREF="idlnode18.htm">cartview</A>
 
-<B>Up:</B> <A NAME="tex2html366"
+<B>Up:</B> <A NAME="tex2html408"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html370"
-  HREF="idlnode20.htm">gnomcursor</A>
+<B> Next:</B> <A NAME="tex2html412"
+  HREF="idlnode20.htm">cl2fits</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

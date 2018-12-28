@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>npix2nside </TITLE>
-<META NAME="description" CONTENT="npix2nside ">
+<TITLE>init_healpix and !healpix system variable</TITLE>
+<META NAME="description" CONTENT="init_healpix and !healpix system variable">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,156 +28,124 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html563"
+<A NAME="tex2html605"
   HREF="idlnode35.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html611"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html573"
+<A NAME="tex2html615"
   HREF="idlnode37.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html613"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html564"
-  HREF="idlnode35.htm">neighbours_ring</A>
+<B> Previous:</B> <A NAME="tex2html606"
+  HREF="idlnode35.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html570"
+<B>Up:</B> <A NAME="tex2html612"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html574"
-  HREF="idlnode37.htm">nside2npix</A>
+<B> Next:</B> <A NAME="tex2html616"
+  HREF="idlnode37.htm">iprocess_mask</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000360000000000000000"></A>
-<A NAME="idl:npix2nside"></A>
+<A NAME="idl:init_healpix"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">npix2nside </FONT></font></b><hr><H2>This IDL facility provides the <b>HEALPix</b> resolution parameter Nside corresponding to Npix
-pixels over the full sky.
-</H2><br>Location in HEALPix directory tree: <b>
-src/idl/toolkit/npix2nside.pro
+<b><font size=+6><FONT COLOR="#CC0000">init_healpix</FONT></font></b><hr><H2>This IDL facility creates an IDL system variable (!HEALPIX) containing various
+<b>HEALPix</b> related quantities</H2><br>Location in HEALPix directory tree: <b>
+src/idl/misc/init_healpix.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-Nside=NPIX2NSIDE (Npix [,ERROR=])
+INIT_HEALPIX [,VERBOSE=]
 </h2>
-<P>
-<hr><H1>QUALIFIERS</H1>
-<BR> 
-  </SMALL><DL COMPACT><DT>
-<B>Npix</B>
-<DD>number of pixels over the full sky (scalar integer),
-         should be a valid Npix 
-	(<!-- MATH
- $N_{\rm pix} = 12N_{\rm side}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="121" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg42.png"
- ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN> with <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg32.png"
- ALT="$N_{\rm side}$"></SPAN> power of 2 in <!-- MATH
- $\{1,\ldots,2^{29}\}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg43.png"
- ALT="$\{1,\ldots,2^{29}\}$"></SPAN>)
-    <DT>
-<B>Nside</B>
-<DD>on output: resolution parameter if Npix is valid, -1 otherwise
-  </DL><SMALL CLASS="FOOTNOTESIZE">
-
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>ERROR =</B>
-<DD>error flag, set to 1 on output if Npix is NOT valid, or
-    stays to 0 otherwise.
+<B>VERBOSE =</B>
+<DD>if set, turn on the verbose mode, giving a short
+    description of the variables just created.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-npix2nside checks that the given Npix is valid 
-(<!-- MATH
- $N_{\rm pix} = 12N_{\rm side}^2$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="121" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg42.png"
- ALT="$N_{\rm pix} = 12N_{\rm side}^2$"></SPAN> with <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg32.png"
- ALT="$N_{\rm side}$"></SPAN> a power of 2 in
-<!-- MATH
- $\{1,\ldots,2^{29}\}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="99" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg43.png"
- ALT="$\{1,\ldots,2^{29}\}$"></SPAN>) and then computes the
-corresponding resolution parameter <SPAN CLASS="MATH"><IMG
- WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="idlimg32.png"
- ALT="$N_{\rm side}$"></SPAN>.
+<FONT COLOR="#CC0000">init_healpix</FONT>  defines the IDL system variable and structure !HEALPIX
+containing several quantities and character string necessary to <b>HEALPix</b> , eg : allowed
+resolution parameters Nside, full path to package directory, package version...
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">npix2nside </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">init_healpix</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run npix2nside .	
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">init_healpix</FONT>.	
     <DT>
-<B><A HREF="idlnode37.htm#idl:nside2npix">nside2npix</A></B>
-<DD>computes Npix corresponding to Nside 
-    <DT>
-<B><A HREF="idlnode41.htm#idl:pix_tools">pix2xxx</A>, <A HREF="idlnode41.htm#idl:pix_tools">ang2xxx</A>, <A HREF="idlnode41.htm#idl:pix_tools">vec2xxx</A>, ... </B>
-<DD>conversion between vector or angles and pixel index and vice-versa
-    <DT>
-<B><A HREF="idlnode41.htm#idl:pix_tools">vec2pix</A>, <A HREF="idlnode41.htm#idl:pix_tools">pix2vec</A></B>
-<DD>conversion between vector and pixel index
-    <DT>
-<B><A HREF="idlnode41.htm#idl:pix_tools">nest2ring</A>, <A HREF="idlnode41.htm#idl:pix_tools">ring2nest</A></B>
-<DD>conversion between NESTED and RING indices
+<B>!HEALPIX</B>
+<DD>IDL system variable defined by <FONT COLOR="#CC0000">init_healpix</FONT>.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-Nside = npix2nside(49152, ERROR=error)
+<FONT COLOR="#CC0000">init_healpix</FONT>,/verbose
 </SMALL></TD>
 <TD></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
-Nside will be 64 because 49152 is a valid pixel number (=12*64<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> and 64 is a power of 2), and error will be 0</blockquote><HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+</font></tt><br><blockquote><FONT COLOR="#CC0000">init_healpix</FONT>  will create the system variable !Healpix, and give a short
+description of the tags available, as shown below
+</SMALL>
+<P>
+<SMALL CLASS="FOOTNOTESIZE"><TT><SMALL CLASS="FOOTNOTESIZE">Initializing !HEALPIX system variable <BR>
+This system variable contains some information on Healpix : <BR>
+!HEALPIX.VERSION   = current version number,
+<BR>
+!HEALPIX.DATE      = date of release,
+<BR>
+!HEALPIX.DIRECTORY = directory containing Healpix package,
+<BR>
+!HEALPIX.PATH      = structure containing:
+<BR>
+!HEALPIX.PATH.BIN  = structure containing binary path :
+<BR>
+!HEALPIX.PATH.BIN.CXX  =     C++
+<BR>
+!HEALPIX.PATH.BIN.F90  =     Fortran90
+<BR>
+!HEALPIX.PATH.DATA = path to data subdirectory,
+<BR>
+!HEALPIX.PATH.DOC  = path to doc subdirectories (.html, .pdf),
+<BR>
+!HEALPIX.PATH.TEST = path to test subdirectory,
+<BR>
+!HEALPIX.NSIDE     = list of all valid values of Nside parameter,
+<BR>
+!HEALPIX.BAD_VALUE = value of flag given to missing pixels in FITS files,
+<BR>
+!HEALPIX.COMMENT   = this description.
+</SMALL></TT>
+</blockquote><SMALL CLASS="FOOTNOTESIZE"></SMALL><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-Nside = npix2nside(49151, ERROR=error)
+help, !healpix, /structure
 </SMALL></TD>
 <TD></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt>
-<BR><blockquote>
-Nside will be -1 and error: 1, because 49151 is not a valid number of <b>HEALPix</b> 
-pixels over the full sky.</blockquote>
-<P>
-<SMALL CLASS="FOOTNOTESIZE"></SMALL>
-<P>
-
+</font></tt><br><blockquote>will print the content of the !Healpix system structure.
+</blockquote><SMALL CLASS="FOOTNOTESIZE">
+</SMALL>
 <P>
 
 <P>
@@ -185,32 +153,32 @@ pixels over the full sky.</blockquote>
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html563"
+<A NAME="tex2html605"
   HREF="idlnode35.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html569"
+<A NAME="tex2html611"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html573"
+<A NAME="tex2html615"
   HREF="idlnode37.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html571"
+<A NAME="tex2html613"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html564"
-  HREF="idlnode35.htm">neighbours_ring</A>
+<B> Previous:</B> <A NAME="tex2html606"
+  HREF="idlnode35.htm">index2lm</A>
 
-<B>Up:</B> <A NAME="tex2html570"
+<B>Up:</B> <A NAME="tex2html612"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html574"
-  HREF="idlnode37.htm">nside2npix</A>
+<B> Next:</B> <A NAME="tex2html616"
+  HREF="idlnode37.htm">iprocess_mask</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

@@ -25,13 +25,89 @@
 /*! \file psht_geomhelpers.c
  *  Spherical transform library
  *
- *  Copyright (C) 2006-2010 Max-Planck-Society
- *  \author Martin Reinecke
+ *  Copyright (C) 2006-2012 Max-Planck-Society
+ *  Copyright (C) 2007-2008 Pavel Holoborodko (for gauss_legendre_tbl)
+ *  \author Martin Reinecke \author Pavel Holoborodko
  */
 
 #include <math.h>
 #include "psht_geomhelpers.h"
 #include "c_utils.h"
+
+#if 0
+
+#include "svd_c.h"
+
+static void make_healpix_weights (int nside, double *weight)
+  {
+  int lmax = (int)(3.5*nside);
+  double dth1 = 1./(3*nside*nside);
+  double dth2 = 2./(3*nside);
+  int nring = 2*nside;
+  int npix = 12*nside*nside;
+  double **mat, *z=RALLOC(double,nring);
+  int *nir=RALLOC(int,nring);
+  double *b=RALLOC(double,nring);
+  svd_obj svd;
+  int ith, l;
+
+  ALLOC2D(mat,double,lmax/2+1,nring);
+  for (ith=0; ith<nring; ++ith)
+    {
+    if (ith<nside-1)
+      {
+      nir[ith] = 8*(ith+1);
+      z[ith] = 1 - dth1*(ith+1)*(ith+1);
+      }
+    else
+      {
+      nir[ith]=8*nside;
+      z[ith] = (2*nside-ith-1)*dth2;
+      }
+    }
+  nir[nring-1]/=2;
+
+  for (l=0; l<=lmax/2; ++l)
+    for (ith=0; ith<nring; ++ith)
+      mat[l][ith]=0;
+
+  for (ith=0; ith<nring; ++ith)
+    {
+    double p0 = 1;
+    double p1 = z[ith];
+    mat[0][ith] = p0;
+    for (l=2; l<=lmax; ++l)
+      {
+      double p2 = z[ith]*p1*(2*l-1) - p0*(l-1);
+      p2/=l;
+      if ((l%2)==0) mat[l/2][ith] = p2;
+      p0 = p1;
+      p1 = p2;
+      }
+    }
+
+  for (l=0; l<=lmax/2; ++l)
+    {
+    double bb=0;
+    for (ith=0; ith<nring; ++ith)
+      bb+=mat[l][ith]*nir[ith];
+    b[l] = -bb;
+    }
+  b[0] += npix;
+
+  svd_init(mat,1e-14,lmax/2+1,nring,&svd);
+  svd_solve(&svd,b);
+  svd_destroy(&svd);
+  for (l=0;l<nring;++l)
+    weight[l]=weight[2*nring-l-2] = 1.+b[l]/nir[l];
+
+  DEALLOC2D(mat);
+  DEALLOC(b);
+  DEALLOC(z);
+  DEALLOC(nir);
+  }
+
+#endif
 
 void psht_make_healpix_geom_info (int nside, int stride,
   psht_geom_info **geom_info)
@@ -67,7 +143,7 @@ void psht_make_weighted_healpix_geom_info (int nside, int stride,
       theta[m] = 2*asin(northring/(sqrt(6.)*nside));
       nph[m] = 4*northring;
       phi0[m] = pi/nph[m];
-      ofs[m] = 2*northring*(northring-1);
+      ofs[m] = 2*northring*(northring-1)*stride;
       }
     else
       {
@@ -79,15 +155,25 @@ void psht_make_weighted_healpix_geom_info (int nside, int stride,
         phi0[m] = 0;
       else
         phi0[m] = pi/nph[m];
-      ofs[m] = ncap + (northring-nside)*nph[m];
+      ofs[m] = (ncap + (northring-nside)*nph[m])*stride;
       }
     if (northring != ring) /* southern hemisphere */
       {
       theta[m] = pi-theta[m];
-      ofs[m] = npix - nph[m] - ofs[m];
+      ofs[m] = (npix - nph[m])*stride - ofs[m];
       }
     weight_[m]=4.*pi/npix*weight[northring-1];
     }
+
+#if 0
+  {
+  double *w2=RALLOC(double,nrings);
+  make_healpix_weights(nside,w2);
+  for (m=0; m<nrings; ++m)
+    weight_[m]*=w2[m];
+  DEALLOC(w2);
+  }
+#endif
 
   psht_make_geom_info (nrings, nph, ofs, stride_, phi0, theta, weight_,
     geom_info);
@@ -98,42 +184,6 @@ void psht_make_weighted_healpix_geom_info (int nside, int stride,
   DEALLOC(phi0);
   DEALLOC(ofs);
   DEALLOC(stride_);
-  }
-
-static void gauleg (double x1, double x2, double *x, double *w, int n)
-  {
-  const double pi = 3.141592653589793238462643383279502884197;
-  const double eps = 3.0E-14;
-
-  int m = (n+1)/2;
-  double xm = 0.5*(x2+x1);
-  double xl = 0.5*(x2-x1);
-  int i;
-  for(i=1; i<=m; ++i)
-    {
-    double z = cos(pi*(i-0.25)/(n+0.5));
-    double pp;
-    int dobreak=0;
-    while(1)
-      {
-      double p1 = 1.0, p2 = 0.0;
-      double z1 = z;
-      int j;
-      for(j=1; j<=n; ++j)
-        {
-        double p3 = p2;
-        p2 = p1;
-        p1 = ((2*j-1)*z*p2-(j-1)*p3)/j;
-        }
-      pp = n*(z*p1-p2)/(z*z-1);
-      z = z1 - p1/pp;
-      if (dobreak) break;
-      if (fabs(z-z1) <= eps) dobreak=1;
-      }
-    x[i-1] = xm - xl*z;
-    x[n-i] = xm + xl*z;
-    w[i-1] = w[n-i] = 2*xl/((1-z*z)*pp*pp);
-    }
   }
 
 static void makeweights (int bw, double *weights)
@@ -149,13 +199,76 @@ static void makeweights (int bw, double *weights)
       tmpsum += 1./(2*k+1) * sin((2*j+1)*(2*k+1)*fudge);
     tmpsum *= sin((2*j+1)*fudge);
     tmpsum *= 2./bw;
-    weights[j] = tmpsum ;
+    weights[j] = tmpsum;
     /* weights[j + 2*bw] = tmpsum * sin((2*j+1)*fudge); */
+    }
+  }
+
+/* Function adapted from GNU GSL file glfixed.c
+   Original author: Pavel Holoborodko (http://www.holoborodko.com)
+
+   Adjustments by M. Reinecke
+    - adjusted interface (keep epsilon internal, return full number of points)
+    - removed precomputed tables
+    - tweaked Newton iteration to obtain higher accuracy */
+static void gauss_legendre_tbl(int n, double* x, double* w)
+  {
+  const double pi = 3.141592653589793238462643383279502884197;
+  const double eps = 3e-14;
+  int i, k, m = (n+1)>>1;
+
+  double t0 = 1 - (1-1./n) / (8.*n*n);
+  double t1 = 1./(4.*n+2.);
+
+  for (i=1; i<=m; ++i)
+    {
+    double x0 = cos(pi * ((i<<2)-1) * t1) * t0;
+
+    int dobreak=0;
+    int j=0;
+    double dpdx;
+    while(1)
+      {
+      double P_1 = 1.0;
+      double P0 = x0;
+      double dx, x1;
+
+      for (k=2; k<=n; k++)
+        {
+        double P_2 = P_1;
+        P_1 = P0;
+//        P0 = ((2*k-1)*x0*P_1-(k-1)*P_2)/k;
+        P0 = x0*P_1 + (k-1.)/k * (x0*P_1-P_2);
+        }
+
+//      dpdx = ((x0*P0 - P_1) * n) / ((x0-1.)*(x0+1.));
+      dpdx = (x0*P0 - P_1) * n / (x0*x0-1.);
+
+      /* Newton step */
+      x1 = x0 - P0/dpdx;
+      dx = x0-x1;
+      x0 = x1;
+      if (dobreak) break;
+
+      if (fabs(dx)<=eps) dobreak=1;
+      UTIL_ASSERT(++j<100,"convergence problem");
+      }
+
+    x[i-1] = -x0;
+    x[n-i] = x0;
+//    w[i-1] = w[n-i] = 2. / (((1.-x0)*(1.+x0)) * dpdx * dpdx);
+    w[i-1] = w[n-i] = 2. / ((1.-x0*x0) * dpdx * dpdx);
     }
   }
 
 void psht_make_gauss_geom_info (int nrings, int nphi, int stride,
   psht_geom_info **geom_info)
+  {
+  psht_make_gauss_geom_info_2(nrings,nphi,stride,stride*nphi,geom_info);
+  }
+
+void psht_make_gauss_geom_info_2 (int nrings, int nphi, int stride_lon,
+  int stride_lat, psht_geom_info **geom_info)
   {
   const double pi=3.141592653589793238462643383279502884197;
 
@@ -167,15 +280,15 @@ void psht_make_gauss_geom_info (int nrings, int nphi, int stride,
   int *stride_=RALLOC(int,nrings);
   int m;
 
-  gauleg(-1,1,theta,weight,nrings);
+  gauss_legendre_tbl(nrings,theta,weight);
 
   for (m=0; m<nrings; ++m)
     {
-    theta[m] = acos(theta[m]);
+    theta[m] = acos(-theta[m]);
     nph[m]=nphi;
     phi0[m]=0;
-    ofs[m]=(ptrdiff_t)m*nphi;
-    stride_[m]=stride;
+    ofs[m]=(ptrdiff_t)m*stride_lat;
+    stride_[m]=stride_lon;
     weight[m]*=2*pi/nphi;
     }
 
@@ -192,6 +305,12 @@ void psht_make_gauss_geom_info (int nrings, int nphi, int stride,
 
 void psht_make_ecp_geom_info (int nrings, int nphi, double phi0, int stride,
   psht_geom_info **geom_info)
+  {
+  psht_make_ecp_geom_info_2(nrings, nphi, phi0, stride, stride*nphi, geom_info);
+  }
+
+void psht_make_ecp_geom_info_2 (int nrings, int nphi, double phi0,
+  int stride_lon, int stride_lat, psht_geom_info **geom_info)
   {
   const double pi=3.141592653589793238462643383279502884197;
 
@@ -212,8 +331,8 @@ void psht_make_ecp_geom_info (int nrings, int nphi, double phi0, int stride,
     theta[m] = (m+0.5)*pi/nrings;
     nph[m]=nphi;
     phi0_[m]=phi0;
-    ofs[m]=(ptrdiff_t)m*nphi;
-    stride_[m]=stride;
+    ofs[m]=(ptrdiff_t)m*stride_lat;
+    stride_[m]=stride_lon;
     weight[m]*=2*pi/nphi;
     }
 

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -46,6 +46,7 @@ pro mollview, file_in, select_in, $
               HXSIZE = hxsize, $
               IGLSIZE = iglsize, $
               IGRATICULE=igraticule, $
+              JPEG=jpeg, $
               LOG = log, $
               MAP_OUT = map_out, $
               MAX = max_set, $
@@ -92,7 +93,8 @@ pro mollview, file_in, select_in, $
 ;                       FACTOR=, FITS=, FLIP=, $
 ;                       GAL_CUT=, GIF=, GLSIZE=, GRATICULE=, $
 ;                       HALF_SKY =, HBOUND =, HELP =, HIST_EQUAL=, HXSIZE=, $
-;                       IGLSIZE=, IGRATICULE=igraticule, $
+;                       IGLSIZE=, IGRATICULE=, $
+;                       JPEG=, $
 ;                       LOG=, $
 ;                       MAP_OUT=, MAX=, MIN=, $ 
 ;                       NESTED=, NOBAR=, NOLABELS=, NOPOSITION =, $
@@ -102,7 +104,7 @@ pro mollview, file_in, select_in, $
 ;                       QUADCUBE= , $
 ;                       NO_DIPOLE=, NO_MONOPOLE=, $
 ;                       RESO_ARCMIN= , ROT=, $
-;                       SAVE=, SHADED=, SILENT=, SUBTITLE=, $
+;                       SAVE=, SHADED=, SILENT=, STAGGER=, SUBTITLE=, $
 ;                       TITLEPLOT=, TRANSPARENT=, TRUECOLORS= $
 ;                       UNITS=, WINDOW=, XPOS=, YPOS=]
 ;                        
@@ -147,9 +149,17 @@ pro mollview, file_in, select_in, $
 ;               controlled with !P.CHARTHICK.
 ;                default = 1
 ;
-; 	COLT : color table number, in [-40,40]
-;        	if not set, the color table will be 33 (Blue-Red)
-;              if colt<0, the IDL color table ABS(colt) is used, but the scale is
+; 	COLT : color table index:
+;              -Indexes [0,40] are reserved for standard IDL color tables, while
+;               [41,255] are used for user defined color tables read from disc (created and
+;               written to disc with MODIFYCT), if any.
+;              -If the index does not match any existing table, or if it is
+;              above 255, the current
+;               table (modifiable with TVLCT, XLOADCT, XPALETTE, ... 
+;               or eg, J.Davenport's cubehelix.pro implementation of D. Green cubehelix
+;               color scheme) is used instead.
+;              -If not set, the color table will be 33 (Blue-Red).
+;              -If colt<0, the IDL color table ABS(colt) is used, but the scale is
 ;              reversed (ie a red to blue scale becomes a blue to red scale).
 ;              (note: -0.1 can be used as negative 0)
 ;
@@ -177,7 +187,7 @@ pro mollview, file_in, select_in, $
 ;       the projected map in the primary image
 ;	      if set to 0 or not set : no .FITS done
 ;	      if set to 1            : output the plot in plot_XXX.fits
-;                with XXX = cartesian, gnomic, mollweide or orthographic
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
 ;	   * For compatibility with standard FITS viewers (including STIFF), 
 ;        unobserved pixels, and pixels outside the sphere, take the value {\tt
@@ -195,9 +205,10 @@ pro mollview, file_in, select_in, $
 ;
 ;	GIF : string containing the name of a .GIF output
 ;	      if set to 0 or not set : no .GIF done
-;	      if set to 1            : output the plot in plot_mollweide.gif
+;	      if set to 1            : output the plot in plot_XXX.gif
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             (see also : CROP, PNG, PS and PREVIEW)
+;             (see also : CROP, JPEG, PNG, PS and PREVIEW)
 ;
 ;       GLSIZE : character size of the graticule labels in units of CHARSIZE
 ;             default: 0 (ie, no labeling of graticules)
@@ -215,8 +226,17 @@ pro mollview, file_in, select_in, $
 ;          (centered on (0,0) or on the location parametrized by Rot) instead of the full sky
 ;             ** orthview only **
 ;        
-;       HBOUND: if set to hbound>0, overplot the boundaries of Healpix pixels
-;          for the resolution parameter Nside=hbound
+;       HBOUND: scalar or vector of up to 3 elements.
+;          For Hbound[i]>0, overplot the boundaries of Healpix pixels
+;           for the resolution parameter Nside=hbound[i].
+;           The first Nside will be plotted with solid lines, 
+;           the second one (if any) with dashes, 
+;           the third one (if any) with dots. Obviously, better results are
+;           obtained for Hbounds elements in growing order.
+;           Since 0-valued boundaries are not plotted, but used for linestyle
+;           assignment, providing Hbound=[0,4] (or [0,0,4]) will
+;           plot Nside=4 boundaries with dashes (resp. dots), while Hbound=4 would plot the same
+;           boundaries with solid lines.
 ;
 ;       HELP : if set, the routine header is printed (by doc_library)
 ;             and nothing else is done
@@ -242,6 +262,13 @@ pro mollview, file_in, select_in, $
 ;       IGRATICULE: if set, puts a graticule in the input coordinates
 ;          if both graticule and igraticule are set, these ones will
 ;          be represented by dashes
+;
+;	JPEG : string containing the name of a (lossless) .JPEG output
+;	      if set to 0 or not set : no .JPEG done
+;	      if set to 1            : output the plot in plot_XXX.jpeg
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
+;	      if set to a file name  : output the plot in that file 
+;             (see also : CROP, GIF, PNG, PS and PREVIEW)
 ;
 ; 	LOG: display the log of map (see also : HIST)
 ;         only applies to pixel with signal > 0.
@@ -326,9 +353,10 @@ pro mollview, file_in, select_in, $
 ;
 ;	PNG : string containing the name of a .PNG output
 ;	      if set to 0 or not set : no .PNG done
-;	      if set to 1            : output the plot in plot_gnomic.png
+;	      if set to 1            : output the plot in plot_XXX.png
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;             (see also : CROP, GIF, PS and PREVIEW)
+;             (see also : CROP, GIF, JPEG, PNG, PS and PREVIEW)
 ;
 ;       POLARIZATION: 
 ;         if set to 0, no polarization information is plotted.
@@ -343,19 +371,23 @@ pro mollview, file_in, select_in, $
 ;             the ANGLE phi = 0.5*ATAN(U/Q) of the polarisation is plotted
 ;             Note: the angles are color coded with a fixed color table (independant of Colt)
 ;
-;         if set to 3
+;         if set to 3 or [3, scale_factor, step_factor]
 ;             -the temperature is color coded (with a color table defined by Colt)
 ;             -and the polarisation is overplot as a headless vector
+;             Polarization can be a 3-element vector (the first element being 3).
+;             The second element controls the average length of vectors
+;             (default=1), while the third one controls the distance between
+;             vectors (default=1). Non positive values are replaced by 1.
 ;
 ;	PREVIEW : if set, there is a 'ghostview' preview of the postscript file (see : PS)
-;                    or a 'xv' preview of the gif or png file (see : GIF, PNG)
+;                    or a 'xv' preview of the gif or png file (see: CROP, GIF,
+;                    JPEG, PNG and PS)
 ;
 ;	PS :  if set to 0 or not set : output to screen
-;	      if set to 1            : output the plot in plot_mollweide.ps
-;                                                         plot_gnomic.ps
-;                                                         plot_cartesian.ps
+;	      if set to 1            : output the plot in plot_XXX.ps
+;                with XXX = azimequid, cartesian, gnomic, mollweide or orthographic
 ;	      if set to a file name  : output the plot in that file 
-;               (see : PREVIEW)
+;               (see: CROP, GIF, JPEG, PNG and PREVIEW)
 ;
 ; 	PXSIZE: number of horizontal screen_pixels / postscript_color_dots of the plot
 ;    		** mollview : default = 800, gnomview and cartview : default = 500 **
@@ -395,6 +427,17 @@ pro mollview, file_in, select_in, $
 ;                   ** orthview only **
 ;
 ;       SILENT: if set, the code runs silently
+;
+;       STAGGER: scalar or 2 element vector.
+;            - if stagger[0] is in ]0,2], 
+;             3 copies of the same sphere centered at [-stagger[0], 0, stagger[0]]
+;             (expressed in radius units) along the plot horizontal axis are
+;             shown in ORTHOGRAPHIC projection
+;             - stagger[1] (if defined), defines the angle of rotation (in degrees) applied
+;               to the left and right partial spheres:
+;             the lhs sphere is rotated downward by the angle provided, while the rhs one
+;             is rotated upward. Rotations are swapped if FLIP is set.
+;               ** orthview only **
 ;
 ; 	SUBTITLE : String containing the subtitle to the plot (see TITLEPLOT)
 ;
@@ -486,6 +529,7 @@ pro mollview, file_in, select_in, $
 ;       Oct-09:  added /TRUECOLORS to all routines and MAP_OUT= to Gnomview
 ;       Apr-10:  accept array of structures in Outline; added MAP_OUT= to
 ;       Cartview and Mollview
+;       Jan-12: added STAGGER to orthview; created azeqview; added JPEG to all
 ;-
 
 defsysv, '!healpix', exists = exists
@@ -520,6 +564,7 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HBOUND=, HELP=, '
     print,'              HIST_EQUAL=, HXSIZE=,'
     print,'              IGLSIZE=, IGRATICULE=,'
+    print,'              JPEG=,'
     print,'              LOG=, '
     print,'              MAP_OUT=, MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, '
     print,'              NO_DIPOLE, NO_MONOPLE, '
@@ -581,7 +626,8 @@ proj2out, $
   SUBTITLE = subtitle, TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /MOLL, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, EXECUTE=execute, SILENT=silent, GLSIZE=glsize, $
-  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick
+  IGLSIZE=iglsize, RETAIN=retain, TRUECOLORS=truecolors, TRANSPARENT=transparent, CHARTHICK=charthick, $
+  JPEG=jpeg
 
 
 w_num = !d.window

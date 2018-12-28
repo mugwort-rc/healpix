@@ -30,7 +30,6 @@
  */
 
 #include "xcomplex.h"
-#include "cxxutils.h"
 #include "paramfile.h"
 #include "healpix_data_io.h"
 #include "alm.h"
@@ -44,6 +43,7 @@
 #include "fitshandle.h"
 #include "levels_facilities.h"
 #include "lsconstants.h"
+#include "announce.h"
 
 using namespace std;
 
@@ -65,6 +65,11 @@ template<typename T> void anafast_cxx (paramfile &params)
     {
     Healpix_Map<T> map;
     read_Healpix_map_from_fits(infile,map,1,2);
+    tsize nmod = map.replaceUndefWith0();
+    if (nmod!=0)
+      cout << "WARNING: replaced " << nmod <<
+              " undefined map pixels with a value of 0" << endl;
+
     arr<double> weight;
     get_ring_weights (params,map.Nside(),weight);
 
@@ -89,6 +94,12 @@ template<typename T> void anafast_cxx (paramfile &params)
     {
     Healpix_Map<T> mapT, mapQ, mapU;
     read_Healpix_map_from_fits(infile,mapT,mapQ,mapU,2);
+    tsize nmod = mapT.replaceUndefWith0()+mapT.replaceUndefWith0()
+                +mapU.replaceUndefWith0();
+    if (nmod!=0)
+      cout << "WARNING: replaced " << nmod <<
+              " undefined map pixels with a value of 0" << endl;
+
     arr<double> weight;
     get_ring_weights (params,mapT.Nside(),weight);
 
@@ -120,8 +131,8 @@ template<typename T> void anafast_cxx (paramfile &params)
 
 int anafast_cxx_module (int argc, const char **argv)
   {
-  module_startup ("anafast_cxx", argc, argv, 2, "<parameter file>");
-  paramfile params (argv[1]);
+  module_startup ("anafast_cxx", argc, argv);
+  paramfile params (getParamsFromCmdline(argc,argv));
 
   bool dp = params.find<bool> ("double_precision",false);
   dp ? anafast_cxx<double>(params) : anafast_cxx<float>(params);

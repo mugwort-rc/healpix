@@ -25,7 +25,7 @@
 /*! \file arr.h
  *  Various high-performance array classes used by the Planck LevelS package.
  *
- *  Copyright (C) 2002 - 2010 Max-Planck-Society
+ *  Copyright (C) 2002-2012 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -33,38 +33,14 @@
 #define PLANCK_ARR_H
 
 #include <algorithm>
+#include <vector>
 #include <cstdlib>
-#include "cxxutils.h"
+#include "alloc_utils.h"
+#include "datatypes.h"
+#include "math_utils.h"
 
 /*! \defgroup arraygroup Array classes */
 /*! \{ */
-
-template <typename T> class normalAlloc__
-  {
-  public:
-    T *alloc(tsize sz) const { return (sz>0) ? new T[sz] : 0; }
-    void dealloc (T *ptr) const { delete[] ptr; }
-  };
-
-template <typename T, int align> class alignAlloc__
-  {
-  public:
-    T *alloc(tsize sz) const
-      {
-      using namespace std;
-      if (sz==0) return 0;
-      void *res;
-      planck_assert(posix_memalign(&res,align,sz*sizeof(T))==0,
-        "error in posix_memalign()");
-      return static_cast<T *>(res);
-      }
-    void dealloc(T *ptr) const
-      {
-      using namespace std;
-      if (ptr) free(ptr);
-      }
-  };
-
 
 /*! View of a 1D array */
 template <typename T> class arr_ref
@@ -165,7 +141,17 @@ template <typename T> class arr_ref
       {
       for (tsize m=0; m<s; ++m)
         if (d[m]==val) return m;
-      planck_fail ("entry '"+dataToString(val)+"' not found in array");
+      planck_fail ("entry not found in array");
+      }
+
+    /*! Returns \a true if the array has the same size as \a other and all
+        elements of both arrays are equal, else \a false. */
+    bool contentsEqual(const arr_ref &other) const
+      {
+      if (s!=other.s) return false;
+      for (tsize i=0; i<s; ++i)
+        if (d[i]!=other.d[i]) return false;
+      return true;
       }
   };
 
@@ -205,7 +191,7 @@ template <typename T, typename storageManager> class arrT: public arr_ref<T>
     /*! Creates an array with \a sz entries, and initializes them with
         \a inival. */
     arrT(tsize sz, const T &inival) : arr_ref<T>(stm.alloc(sz),sz), own(true)
-      { fill(inival); }
+      { this->fill(inival); }
     /*! Creates an array with \a sz entries, which uses the memory pointed
         to by \a ptr.
         \note \a ptr will <i>not</i> be deallocated by the destructor.
@@ -244,6 +230,22 @@ template <typename T, typename storageManager> class arrT: public arr_ref<T>
     /*! Deallocates the memory held by the array, and sets the array size
         to 0. */
     void dealloc() {if (own) stm.dealloc(this->d); reset();}
+    /*! Resizes the array to hold \a sz elements. The existing content of the
+        array is copied over to the new array to the extent possible.
+        \a sz can be 0. If \a sz is the same as the current size, no
+        reallocation is performed. */
+    void resize (tsize sz)
+      {
+      using namespace std;
+      if (sz==this->s) return;
+      T *tmp = stm.alloc(sz);
+      for (tsize m=0; m<min(sz,this->s); ++m)
+        tmp[m]=this->d[m];
+      if (own) stm.dealloc(this->d);
+      this->s = sz;
+      this->d = tmp;
+      own = true;
+      }
 
     /*! Changes the array to be a copy of \a orig. */
     arrT &operator= (const arrT &orig)
@@ -252,6 +254,19 @@ template <typename T, typename storageManager> class arrT: public arr_ref<T>
       alloc (orig.s);
       for (tsize m=0; m<this->s; ++m) this->d[m] = orig.d[m];
       return *this;
+      }
+
+    /*! Changes the array to be a copy of the std::vector \a orig. */
+    template<typename T2> void copyFrom (const std::vector<T2> &orig)
+      {
+      alloc (orig.size());
+      for (tsize m=0; m<this->s; ++m) this->d[m] = orig[m];
+      }
+    /*! Changes the std::vector \a vec to be a copy of the object. */
+    template<typename T2> void copyTo (std::vector<T2> &vec) const
+      {
+      vec.clear(); vec.reserve(this->s);
+      for (tsize m=0; m<this->s; ++m) vec.push_back(this->d[m]);
       }
 
     /*! Reserves space for \a sz elements, then copies \a sz elements
@@ -305,6 +320,9 @@ template <typename T>
           </ul>
         Other restrictions may apply. You have been warned. */
     arr (T *ptr, tsize sz): arrT<T,normalAlloc__<T> >(ptr,sz) {}
+    /*! Creates an array which is a copy of \a orig. The data in \a orig
+        is duplicated. */
+    arr (const arr &orig): arrT<T,normalAlloc__<T> >(orig) {}
   };
 
 /*! One-dimensional array type, with selectable storage alignment. */

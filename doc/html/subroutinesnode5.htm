@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Changes between releases 2.0 and 2.13</TITLE>
-<META NAME="description" CONTENT="Changes between releases 2.0 and 2.13">
+<TITLE>Changes between releases 2.14 and 2.20</TITLE>
+<META NAME="description" CONTENT="Changes between releases 2.14 and 2.20">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -20,7 +20,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="next" HREF="subroutinesnode6.htm">
 <LINK REL="previous" HREF="subroutinesnode4.htm">
-<LINK REL="up" HREF="subroutines.htm">
+<LINK REL="up" HREF="subroutinesnode4.htm">
 <LINK REL="next" HREF="subroutinesnode6.htm">
 </HEAD>
 
@@ -28,78 +28,114 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html279"
+<A NAME="tex2html298"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html285"
-  HREF="subroutines.htm">
+<A NAME="tex2html304"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html289"
+<A NAME="tex2html308"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html287"
+<A NAME="tex2html306"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html280"
-  HREF="subroutinesnode4.htm">Changes between releases 2.13</A>
+<B> Previous:</B> <A NAME="tex2html299"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html286"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html305"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html290"
-  HREF="subroutinesnode6.htm">Changes between releases 1.2</A>
+<B> Next:</B> <A NAME="tex2html309"
+  HREF="subroutinesnode6.htm">Changes between releases 2.13</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION00050000000000000000">
-Changes between releases 2.0 and 2.13</A>
-</H1>
+<H2><A NAME="SECTION00041000000000000000"></A>
+<A NAME="sub:new2p20"></A>
+<BR>
+Changes between releases 2.14 and
+2.20
+</H2>
 <DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New functions in version 2.13: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode35.htm#sub:get_healpix_xxx_dir">get_healpix_data_dir, get_healpix_main_dir, get_healpix_test_dir </A> return full path to <b>HEALPix</b> directories.
-</DL>
+ Spherical Harmonics Transform routines now transparently call <A NAME="tex2html3"
+  HREF="http://libpsht.sourceforge.net"><TT>libpsht</TT></A>
+C routines, leading to a significant (2 to 4) speed-up factor. This
+concerns temperature and polarized transforms (<A HREF="subroutinesnode13.htm#sub:alm2map">alm2map</A>, 
+<A HREF="subroutinesnode51.htm#sub:map2alm">map2alm</A>) <EM>without precomputation</EM> of the <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> as
+well as spin 
+weighted (<A HREF="subroutinesnode15.htm#sub:alm2map_spin">alm2map_spin</A>, 
+<A HREF="subroutinesnode53.htm#sub:map2alm_spin">map2alm_spin</A>) transforms for <!-- MATH
+ $0 < |s| \le 100$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="112" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg6.png"
+ ALT="$0 &lt; \vert s\vert \le 100$"></SPAN>,
+but <EM>not</EM> the generation of spatial derivatives
+(<A HREF="subroutinesnode14.htm#sub:alm2map_der">alm2map_der</A>) which still uses the original F90 code.
+The compilation and linking to <TT>libpsht</TT>, now shipped with <b>HEALPix</b> , is done
+automatically, without any extra download or installation for the user<A NAME="tex2html2"
+  HREF="subroutinesfootnode.htm#foot375"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A>.
+
+<P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- New routines in version 2.10: 
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode13.htm#sub:alm2map_spin">alm2map_spin</A>: synthesis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode48.htm#sub:map2alm_iterative">map2alm_iterative</A>: iterative analysis of map
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode49.htm#sub:map2alm_spin">map2alm_spin</A>: analysis of maps of
-arbitrary spin
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode41.htm#sub:healpix_modules">healpix_modules</A>: meta-module
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode107.htm#sub:write_minimal_header">write_minimal_header</A>: routine
-to write minimal FITS header
-	<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
-<A HREF="subroutinesnode69.htm#sub:parse_xxx">parse_check_unused</A>: prints out
-parameters present in parameter file but not used by the code.
-</DL>
+ All routines for Spherical Harmonics Transforms and most routines for
+pixel manipulations (
+<A HREF="subroutinesnode76.htm#sub:pix_tools">ang2xxx, pix2xxx, vec2xxx, <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg5.png"
+ ALT="$\ldots$"></SPAN></A>,
+<A HREF="subroutinesnode70.htm#sub:nside2npix">nside2npix</A>, 
+<A HREF="subroutinesnode69.htm#sub:npix2nside">npix2nside</A>, 
+<A HREF="subroutinesnode71.htm#sub:nside2ntemplates">nside2ntemplates</A>,  
+<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg5.png"
+ ALT="$\ldots$"></SPAN>)
+pixel queries (
+<A HREF="subroutinesnode79.htm#sub:query_disc">query_*</A>,  <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg5.png"
+ ALT="$\ldots$"></SPAN>) 
+and FITS I/O (<A HREF="subroutinesnode48.htm#sub:input_map">input_map</A>, 
+<A HREF="subroutinesnode73.htm#sub:output_map">output_map</A>, 
+<A HREF="subroutinesnode87.htm#sub:read_bintab">read_bintab</A>, 
+<A HREF="subroutinesnode109.htm#sub:write_bintab">write_bintab</A>,
+<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg5.png"
+ ALT="$\ldots$"></SPAN>)
+of sky maps
+now support resolution parameters <!-- MATH
+ ${N_{\rm side}}> 8192$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="106" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg7.png"
+ ALT="${N_{\rm side}}&gt; 8192$"></SPAN>. 
+This means that the number of
+pixels and the pixel indexes can now be stored in either
+<TT>integer(<A HREF="subroutinesnode46.htm#sub:healpix_types">I4B</A>)</TT> or
+<TT>integer(<A HREF="subroutinesnode46.htm#sub:healpix_types">I8B</A>)</TT> variables (on systems
+supporting 64 bit variables).
+<BR>
+The reading and writing of
+<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> containing files remains limited to <SPAN CLASS="MATH"><I>l</I> &lt; 46340</SPAN>, though. This
+restriction does not apply to <SPAN CLASS="MATH"><I>C</I>(<I>l</I>)</SPAN> containing files.
+
+<P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- Improved routines:
-<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode76.htm#sub:query_strip">query_strip</A>: the <TT>inclusive</TT> option now
-returns <EM>all</EM> (and only) the pixels overlapping, even partially, with the
-strip
+ As a positive side effect of their upgrade, the F90
+<A HREF="subroutinesnode76.htm#sub:pix_tools">pixel/coordinate conversion
+routines</A> are now up to 20% faster.
+
+<P>
 <DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode74.htm#sub:query_disc">query_disc</A>: when the disc center is on one of
-the poles, <EM>only</EM> the pixels overlapping with the disc are now returned.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode88.htm#sub:remove_dipole">remove_dipole</A>: can now deal with non-uniform
-pixel weights.
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode69.htm#sub:parse_xxx">parse_init</A>: silent mode
-<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
- <A HREF="subroutinesnode69.htm#sub:parse_xxx">parse_string</A>: can expand environment variables
-(${XXX}) and leading <code>~</code><SPAN CLASS="MATH"><IMG
- WIDTH="1" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="subroutinesimg11.png"
- ALT="$\!$"></SPAN><TT>/</TT>
-</DL>
+ Introduction of 
+<A HREF="subroutinesnode50.htm#sub:long_intrinsic"><TT>long_count</TT></A> and
+<A HREF="subroutinesnode50.htm#sub:long_intrinsic"><TT>long_size</TT></A> functions.
 
 <P>
 </DL>
@@ -108,32 +144,32 @@ pixel weights.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html279"
+<A NAME="tex2html298"
   HREF="subroutinesnode4.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html285"
-  HREF="subroutines.htm">
+<A NAME="tex2html304"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html289"
+<A NAME="tex2html308"
   HREF="subroutinesnode6.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html287"
+<A NAME="tex2html306"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html280"
-  HREF="subroutinesnode4.htm">Changes between releases 2.13</A>
+<B> Previous:</B> <A NAME="tex2html299"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B>Up:</B> <A NAME="tex2html286"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html305"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html290"
-  HREF="subroutinesnode6.htm">Changes between releases 1.2</A>
+<B> Next:</B> <A NAME="tex2html309"
+  HREF="subroutinesnode6.htm">Changes between releases 2.13</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

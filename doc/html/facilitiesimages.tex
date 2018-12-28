@@ -5,13 +5,14 @@
 \RequirePackage{ifthen}
 
 
-\usepackage{healpix,html,graphicx,makeidx}
+\usepackage{healpix,xr-hyper,html,graphicx,makeidx}
 %
 \renewcommand{\ell}{l}
 %
 \renewcommand{\lq}{'}%
-\providecommand{\hpxversion}{2.20a}%
+\providecommand{\hpxversion}{3.00}%
 \providecommand{\nside}{{N_{\rm side}}}%
+\providecommand{\npix}{{N_{\rm pix}}}%
 \providecommand{\myhtmlimage}[1]{ } 
 %
 \renewcommand{\contentsname}{{TABLE OF CONTENTS}}
@@ -23,7 +24,7 @@
 
 \sloppy
 \setcounter{secnumdepth}{0}
-\setcounter{tocdepth}{10}
+\setcounter{tocdepth}{1}
 
 
 
@@ -156,39 +157,41 @@
 % !!! IMAGES START HERE !!!
 
 \setcounter{secnumdepth}{0}
-\setcounter{tocdepth}{10}
+\setcounter{tocdepth}{1}
 \stepcounter{section}
 \stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline106}%
+\lthtmlinlinemathA{tex2html_wrap_inline136}%
 ${N_{\rm side}}> 8192$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
-\stepcounter{section}
+\stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline108}%
+\lthtmlinlinemathA{tex2html_wrap_inline138}%
 $\partial X/\partial\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline110}%
+\lthtmlinlinemathA{tex2html_wrap_inline140}%
 $\partial^2 X/(\partial\theta\partial\phi\sin\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline112}%
+\lthtmlinlinemathA{tex2html_wrap_inline142}%
 $\partial^2 X/\partial \theta^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
-\stepcounter{section}
-\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmldisplayA{displaymath219}%
+\lthtmldisplayA{displaymath277}%
 \begin{displaymath} a_{lm}^{\rm OUT} = a_{lm}^{\rm IN} \frac{B^{\rm OUT}(l) P^{\rm
  OUT}(l)}{B^{\rm IN}(l) P^{\rm IN}(l)}, 
 \end{displaymath}%
@@ -196,194 +199,214 @@ $\partial^2 X/\partial \theta^2$%
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline418}%
+\lthtmlinlinemathA{tex2html_wrap_inline476}%
 ${N_{\rm side}}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline737}%
+\lthtmlinlinemathA{tex2html_wrap_inline796}%
 ${\cal {O}}(N_{\rm pix}^{3/2} )$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline755}%
+\lthtmlinlinemathA{tex2html_wrap_inline814}%
 $\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline757}%
+\lthtmlinlinemathA{tex2html_wrap_inline816}%
 $\phi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline759}%
+\lthtmlinlinemathA{tex2html_wrap_inline818}%
 $\bullet$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline771}%
+\lthtmlinlinemathA{tex2html_wrap_inline830}%
 $l_{max} \approx 2\cdot nsmax$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline775}%
+\lthtmlinlinemathA{tex2html_wrap_inline834}%
 $l> 2\cdot nsmax$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline779}%
+\lthtmlinlinemathA{tex2html_wrap_inline838}%
 $l_{max} = 3 \cdot nsmax -1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline783}%
+\lthtmlinlinemathA{tex2html_wrap_inline842}%
 $ \delta C_l\propto \epsilon \cdot C_l$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline785}%
+\lthtmlinlinemathA{tex2html_wrap_inline844}%
 $\epsilon <0.1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline791}%
+\lthtmlinlinemathA{tex2html_wrap_inline850}%
 $2 \cdot nsmax < l_{max} < 3 \cdot nsmax - 1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline795}%
+\lthtmlinlinemathA{tex2html_wrap_inline854}%
 $l> 3 \cdot nsmax -1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline813}%
+\lthtmlinlinemathA{tex2html_wrap_inline874}%
 $0^\circ$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline855}%
+\lthtmlinlinemathA{tex2html_wrap_inline916}%
 $P_{lm}(\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1071}%
+\lthtmlinlinemathA{tex2html_wrap_inline1134}%
 $N_{side}\ge 2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1198}%
+\lthtmlinlinemathA{tex2html_wrap_inline1261}%
 $\pm$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1200}%
+\lthtmlinlinemathA{tex2html_wrap_inline1263}%
 $\mu$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1325}%
+\lthtmlinlinemathA{tex2html_wrap_inline1388}%
 $3\theta_{\rm pix}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1327}%
+\lthtmlinlinemathA{tex2html_wrap_inline1390}%
 $\theta_{\rm pix}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1504}%
+\lthtmlinlinemathA{tex2html_wrap_inline1568}%
 $8 N_\lambda N_p$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1506}%
+\lthtmlinlinemathA{tex2html_wrap_inline1570}%
 $N_\lambda = {\tt nsmax} ({\tt nlmax}+1)({\tt nlmax}+2)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1510}%
+\lthtmlinlinemathA{tex2html_wrap_inline1574}%
 $N_\lambda < 2^{31} = 2147483648$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1512}%
+\lthtmlinlinemathA{tex2html_wrap_inline1576}%
 $\le 1446$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1528}%
+\lthtmlinlinemathA{tex2html_wrap_inline1592}%
 $\ldots$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1733}%
+$\propto {N_{\rm pix}}^p
+\propto{N_{\rm side}}^{2p}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1743}%
+${N_{\rm side}}=512$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline1745}%
+${N_{\rm side}}=2048$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1937}%
+\lthtmlinlinemathA{tex2html_wrap_inline2182}%
 ${\cal {O}}(N_{\rm pix}^{1/2} l_{\rm max}^2)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1943}%
+\lthtmlinlinemathA{tex2html_wrap_inline2190}%
 $4\cdot$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1945}%
+\lthtmlinlinemathA{tex2html_wrap_inline2192}%
 $\alpha$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1947}%
+\lthtmlinlinemathA{tex2html_wrap_inline2194}%
 $\le 3$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1949}%
+\lthtmlinlinemathA{tex2html_wrap_inline2196}%
 $\alpha_i$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1953}%
+\lthtmlinlinemathA{tex2html_wrap_inline2200}%
 $[1, {\tt na}]$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath1835}%
+\lthtmldisplayA{displaymath2067}%
 \begin{displaymath}
 	\rho_{\rm SHO}(t) = \left| \psi_n\right|^2 = e^{-t^2/2\sigma_0^2} \left|\sum_{i=0}^{n} \alpha_i
 C_i H_i \left(\frac{t}{\sqrt{2}\sigma_0}\right)\right|^2 
@@ -392,32 +415,32 @@ C_i H_i \left(\frac{t}{\sqrt{2}\sigma_0}\right)\right|^2
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1961}%
+\lthtmlinlinemathA{tex2html_wrap_inline2208}%
 $\sigma_0^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1963}%
+\lthtmlinlinemathA{tex2html_wrap_inline2210}%
 $\left|\psi_0\right|^2,$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1967}%
+\lthtmlinlinemathA{tex2html_wrap_inline2214}%
 $i\ge 1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1969}%
+\lthtmlinlinemathA{tex2html_wrap_inline2216}%
 $\alpha_0 =
 \left(1 - \sum_i^n |\alpha_i|^2\right)^{1/2}$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmldisplayA{displaymath1851}%
+\lthtmldisplayA{displaymath2083}%
 \begin{displaymath}
 	a_{lm} \longrightarrow a_{lm} \left[C(l)\right]^{1/2} B(l) w_{\rm pix}(l) \nonumber
 \end{displaymath}%
@@ -425,53 +448,53 @@ $\alpha_0 =
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1981}%
+\lthtmlinlinemathA{tex2html_wrap_inline2228}%
 $C(l) B(l)^2
 w_{\rm pix}(l)^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1991}%
+\lthtmlinlinemathA{tex2html_wrap_inline2240}%
 $N_{\rm side}=128$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1993}%
+\lthtmlinlinemathA{tex2html_wrap_inline2242}%
 $\sigma_0=1$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline1995}%
+\lthtmlinlinemathA{tex2html_wrap_inline2244}%
 $\alpha_i = (0, 0, 0.2)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 \stepcounter{section}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2364}%
+\lthtmlinlinemathA{tex2html_wrap_inline2625}%
 $\left({\partial T}/{\partial \theta}, {\partial T}/{\partial \phi}/\sin\theta \right) 
 $%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2366}%
+\lthtmlinlinemathA{tex2html_wrap_inline2627}%
 $\left({\partial^2 T}/{\partial \theta^2}, {\partial^2 T}/{\partial
   \theta\partial\phi}/\sin\theta,\right. $%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2368}%
+\lthtmlinlinemathA{tex2html_wrap_inline2629}%
 $\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \right) $%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2376}%
+\lthtmlinlinemathA{tex2html_wrap_inline2637}%
 $\left({\partial T}/{\partial \theta}, {\partial Q}/{\partial \theta}, {\partial
   U}/{\partial \theta}; {\partial T}/{\partial \phi}/\sin\theta, \ldots \right) 
 $%
@@ -479,20 +502,20 @@ $%
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2378}%
+\lthtmlinlinemathA{tex2html_wrap_inline2639}%
 $\left({\partial^2 T}/{\partial \theta^2},\ldots; {\partial^2 T}/{\partial
   \theta\partial\phi}/\sin\theta,\ldots ;\right. $%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2380}%
+\lthtmlinlinemathA{tex2html_wrap_inline2641}%
 $\left.{\partial^2 T}/{\partial \phi^2}/\sin^2\theta \ldots \right) $%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2418}%
+\lthtmlinlinemathA{tex2html_wrap_inline2679}%
 $N_{\rm side}=32$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
@@ -501,61 +524,61 @@ $N_{\rm side}=32$%
 \stepcounter{section}
 \stepcounter{subsection}
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2774}%
+\lthtmlinlinemathA{tex2html_wrap_inline3035}%
 $\partial^2 X/(\partial\theta\partial\varphi\sin(\theta))$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2782}%
+\lthtmlinlinemathA{tex2html_wrap_inline3043}%
 $l(l+1)C(l)/2\pi$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2786}%
+\lthtmlinlinemathA{tex2html_wrap_inline3047}%
 $N_{\rm side} = 1024$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2790}%
+\lthtmlinlinemathA{tex2html_wrap_inline3051}%
 $\partial (Q,U)/\partial\theta$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2792}%
+\lthtmlinlinemathA{tex2html_wrap_inline3053}%
 $\partial^2 (Q,U)/\partial \theta^2$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2794}%
+\lthtmlinlinemathA{tex2html_wrap_inline3055}%
 $\partial^2 (Q,U)/(\partial\theta\partial\varphi\sin\theta)$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2796}%
+\lthtmlinlinemathA{tex2html_wrap_inline3057}%
 $\Lambda$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2806}%
+\lthtmlinlinemathA{tex2html_wrap_inline3067}%
 $\Delta I, \Delta Q$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2808}%
+\lthtmlinlinemathA{tex2html_wrap_inline3069}%
 $\Delta U$%
 \lthtmlinlinemathZ
 \lthtmlcheckvsize\clearpage}
 
 {\newpage\clearpage
-\lthtmlinlinemathA{tex2html_wrap_inline2810}%
+\lthtmlinlinemathA{tex2html_wrap_inline3071}%
 $\Delta \equiv \left(
 \frac{\partial^2}{\partial\theta^2}
 + \cot\theta\frac{\partial}{\partial\theta} + 

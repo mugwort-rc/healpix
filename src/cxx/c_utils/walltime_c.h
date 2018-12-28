@@ -42,15 +42,10 @@ extern "C" {
     <li> \a omp_get_wtime(), if OpenMP is available
     <li> \a MPI_Wtime(), if MPI is available
     <li> \a gettimeofday() otherwise
-    </li>
-    \note Only useful for measuring time differences. */
+    </ul>
+    \note Only useful for measuring time differences.
+    \note This function has an execution time between 10 and 100 nanoseconds. */
 double wallTime(void);
-
-int wTimer_num(void);
-void wTimer_reset(int n);
-void wTimer_start(int n);
-void wTimer_stop(int n);
-double wTimer_acc(int n);
 
 #ifdef __cplusplus
 }

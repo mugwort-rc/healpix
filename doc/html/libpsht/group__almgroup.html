@@ -26,7 +26,9 @@
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__almgroup.html#gac1bff87326aea7c3aa34cc440abc684">psht_make_alm_info</a> (int lmax, int mmax, int stride, const ptrdiff_t *mstart, <a class="el" href="structpsht__alm__info.html">psht_alm_info</a> **alm_info)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">ptrdiff_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__almgroup.html#g4077fbd8afc9d55fce7c0e87ede360a6">psht_alm_index</a> (const <a class="el" href="structpsht__alm__info.html">psht_alm_info</a> *self, int l, int m)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__almgroup.html#g1d4088766aecaeed65163cee47854e43">psht_make_general_alm_info</a> (int lmax, int nm, int stride, const int *mval, const ptrdiff_t *mvstart, <a class="el" href="structpsht__alm__info.html">psht_alm_info</a> **alm_info)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">ptrdiff_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__almgroup.html#g4bdae8067d2d2fb70311b8f0bf0d76cc">psht_alm_index</a> (const <a class="el" href="structpsht__alm__info.html">psht_alm_info</a> *self, int l, int mi)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__almgroup.html#g3a87d46637192176dc3b1b37126f3566">psht_destroy_alm_info</a> (<a class="el" href="structpsht__alm__info.html">psht_alm_info</a> *info)</td></tr>
 
@@ -93,7 +95,70 @@ Creates an Alm data structure information from the following parameters: <dl com
 
 </div>
 </div><p>
-<a class="anchor" name="g4077fbd8afc9d55fce7c0e87ede360a6"></a><!-- doxytag: member="psht.h::psht_alm_index" ref="g4077fbd8afc9d55fce7c0e87ede360a6" args="(const psht_alm_info *self, int l, int m)" -->
+<a class="anchor" name="g1d4088766aecaeed65163cee47854e43"></a><!-- doxytag: member="psht.h::psht_make_general_alm_info" ref="g1d4088766aecaeed65163cee47854e43" args="(int lmax, int nm, int stride, const int *mval, const ptrdiff_t *mvstart, psht_alm_info **alm_info)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void psht_make_general_alm_info           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>lmax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>mval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ptrdiff_t *&nbsp;</td>
+          <td class="paramname"> <em>mvstart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpsht__alm__info.html">psht_alm_info</a> **&nbsp;</td>
+          <td class="paramname"> <em>alm_info</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Creates an Alm data structure information from the following parameters: <dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>lmax</em>&nbsp;</td><td>maximum <em>l</em> quantum number (&gt;=0) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nm</em>&nbsp;</td><td>number of different <em>m</em> (&lt;=<em>lmax+1</em>) </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>stride</em>&nbsp;</td><td>the stride between consecutive a_lm entries </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mval</em>&nbsp;</td><td>array with <em>nm</em> entries containing the individual m values </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mvstart</em>&nbsp;</td><td>array with <em>nm</em> entries containing the (hypothetical) indices of the coefficients with the quantum numbers 0,<em>mval</em>[i] </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>alm_info</em>&nbsp;</td><td>will hold a pointer to the newly created data structure </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="g4bdae8067d2d2fb70311b8f0bf0d76cc"></a><!-- doxytag: member="psht.h::psht_alm_index" ref="g4bdae8067d2d2fb70311b8f0bf0d76cc" args="(const psht_alm_info *self, int l, int mi)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -113,7 +178,7 @@ Creates an Alm data structure information from the following parameters: <dl com
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>m</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>mi</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -125,7 +190,7 @@ Creates an Alm data structure information from the following parameters: <dl com
 <div class="memdoc">
 
 <p>
-Returns the index of the coefficient with quantum numbers <em>l</em>,<em>m</em>. 
+Returns the index of the coefficient with quantum numbers <em>l</em>, <em>mval</em>[mi]. 
 </div>
 </div><p>
 <a class="anchor" name="g3a87d46637192176dc3b1b37126f3566"></a><!-- doxytag: member="psht.h::psht_destroy_alm_info" ref="g3a87d46637192176dc3b1b37126f3566" args="(psht_alm_info *info)" -->
@@ -232,7 +297,7 @@ Initialises an a_lm data structure according to the scheme used by Fortran Healp
 </div><p>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:05 2011 for LevelS SHT library
+Generated on Fri Nov 30 17:59:25 2012 for LevelS SHT library
 </a> </small></address>
 </body>
 </html>

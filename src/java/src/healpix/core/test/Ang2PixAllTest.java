@@ -32,6 +32,7 @@ import junit.framework.TestCase;
 /**
  * Test the healpix pixel and angle related methods.
  * 
+ * @deprecated
  * @author ejoliet
  * @version $Id: Ang2PixAllTest.java 140506 2010-06-23 13:28:14Z womullan $
  */
@@ -160,9 +161,9 @@ public class Ang2PixAllTest extends TestCase {
 		System.out.println(pix + " -> " + pos + " HealpixIndex -> " + posHi[0]
 				+ " ," + posHi[1]);
 		assertEquals("Healpix and HealpixIndex disagree on theta for " + pix,
-				pos.theta(), posHi[0]);
+				pos.theta(), posHi[0],1e-15);
 		assertEquals("Healpix and HealpixIndex disagree on phi for " + pix, pos
-				.phi(), posHi[1]);
+				.phi(), posHi[1],1e-15);
 		pix++;
 
 		pos = Healpix.pix2ang_ring(nside, pix);
@@ -170,9 +171,9 @@ public class Ang2PixAllTest extends TestCase {
 		System.out.println(pix + " -> " + pos + " HealpixIndex -> " + posHi[0]
 				+ " ," + posHi[1]);
 		assertEquals("Healpix and HealpixIndex disagree on theta for " + pix,
-				pos.theta(), posHi[0]);
+				pos.theta(), posHi[0],1e-13);
 		assertEquals("Healpix and HealpixIndex disagree on phi for " + pix, pos
-				.phi(), posHi[1]);
+				.phi(), posHi[1],1e-13);
 		pix++;
 
 		pos = Healpix.pix2ang_ring(nside, pix);
@@ -180,9 +181,9 @@ public class Ang2PixAllTest extends TestCase {
 		System.out.println(pix + " -> " + pos + " HealpixIndex -> " + posHi[0]
 				+ " ," + posHi[1]);
 		assertEquals("Healpix and HealpixIndex disagree on theta for " + pix,
-				pos.theta(), posHi[0]);
+				pos.theta(), posHi[0],1e-13);
 		assertEquals("Healpix and HealpixIndex disagree on phi for " + pix, pos
-				.phi(), posHi[1]);
+				.phi(), posHi[1],1e-13);
 		pix++;
 
 	}

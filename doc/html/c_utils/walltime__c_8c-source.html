@@ -13,7 +13,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_7ec02883e2d57662e419b3c6231df79c.html">c_utils</a>
+  <div class="navpath"><a class="el" href="dir_db9afe51a7aa9afa58c462931c34d8d5.html">c_utils</a>
   </div>
 </div>
 <div class="contents">
@@ -44,7 +44,7 @@
 <a name="l00025"></a>00025 <span class="comment">/*</span>
 <a name="l00026"></a>00026 <span class="comment"> *  Functionality for reading wall clock time</span>
 <a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2010 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2010, 2011 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -71,33 +71,9 @@
 <a name="l00052"></a>00052   <span class="keywordflow">return</span> t.tv_sec + 1e-6*t.tv_usec;
 <a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
 <a name="l00054"></a>00054 <span class="preprocessor"></span>  }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="keyword">typedef</span> <span class="keyword">struct</span>
-<a name="l00057"></a>00057   {
-<a name="l00058"></a>00058   <span class="keywordtype">double</span> ts,ta;
-<a name="l00059"></a>00059   <span class="keywordtype">int</span> on;
-<a name="l00060"></a>00060   } wTimer;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="preprocessor">#define NTIMERS 100</span>
-<a name="l00063"></a>00063 <span class="preprocessor"></span>
-<a name="l00064"></a>00064 <span class="keyword">static</span> wTimer wT[NTIMERS];
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066 <span class="keywordtype">int</span> wTimer_num(<span class="keywordtype">void</span>)
-<a name="l00067"></a>00067   { <span class="keywordflow">return</span> NTIMERS; }
-<a name="l00068"></a>00068 <span class="keywordtype">void</span> wTimer_reset(<span class="keywordtype">int</span> n)
-<a name="l00069"></a>00069   { wT[n].ts=wT[n].ta=wT[n].on=0; }
-<a name="l00070"></a>00070 <span class="keywordtype">void</span> wTimer_start(<span class="keywordtype">int</span> n)
-<a name="l00071"></a>00071   { wT[n].ts=wallTime(); wT[n].on=1; }
-<a name="l00072"></a>00072 <span class="keywordtype">void</span> wTimer_stop(<span class="keywordtype">int</span> n)
-<a name="l00073"></a>00073   {
-<a name="l00074"></a>00074   <span class="keywordflow">if</span> (wT[n].on)
-<a name="l00075"></a>00075     { wT[n].ta+=wallTime()-wT[n].ts; wT[n].on=0; }
-<a name="l00076"></a>00076   }
-<a name="l00077"></a>00077 <span class="keywordtype">double</span> wTimer_acc(<span class="keywordtype">int</span> n)
-<a name="l00078"></a>00078   { <span class="keywordflow">return</span> wT[n].on ? wT[n].ta+wallTime()-wT[n].ts : wT[n].ta; }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:04 2011 for LevelS C support library
+Generated on Fri Nov 30 17:59:22 2012 for LevelS C support library
 </a> </small></address>
 </body>
 </html>

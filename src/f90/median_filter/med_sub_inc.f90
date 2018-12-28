@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -194,8 +194,7 @@
   call parse_check_unused(handle, code=lcode)
   call parse_summarize(handle,code=lcode,prec=KMAP)
   call parse_finish(handle)
-!  call parse_summarize(handle)
-!  call brag_openmp()
+  call brag_openmp()
 
   !-----------------------------------------------------------------------
   !              allocate space for arrays

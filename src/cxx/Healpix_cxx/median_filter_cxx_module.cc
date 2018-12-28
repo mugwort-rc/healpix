@@ -25,16 +25,17 @@
  */
 
 /*
- *  Copyright (C) 2005-2010 Max-Planck-Society
+ *  Copyright (C) 2005-2012 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
-#include "cxxutils.h"
 #include "healpix_map.h"
 #include "healpix_map_fitsio.h"
 #include "fitshandle.h"
 #include "levels_facilities.h"
 #include "lsconstants.h"
+#include "announce.h"
+#include "string_utils.h"
 
 using namespace std;
 
@@ -63,15 +64,19 @@ int median_filter_cxx_module (int argc, const char **argv)
   read_Healpix_map_from_fits(argv[1],inmap,1,2);
   Healpix_Map<float> outmap (inmap.Nside(), inmap.Scheme(), SET_NSIDE);
 
-  vector<int> list;
-  vector<float> list2;
+  rangeset<int> pixset;
+  vector<float> list;
   for (int m=0; m<inmap.Npix(); ++m)
     {
-    inmap.query_disc(inmap.pix2ang(m),radius,list);
-    list2.resize(list.size());
-    for (tsize i=0; i<list.size(); ++i)
-      list2[i] = inmap[list[i]];
-    outmap[m]=median(list2.begin(),list2.end());
+    inmap.query_disc(inmap.pix2ang(m),radius,pixset);
+    list.resize(pixset.nval());
+    tsize cnt=0;
+    for (tsize j=0; j<pixset.size(); ++j)
+      for (int i=pixset.ivbegin(j); i<pixset.ivend(j); ++i)
+        if (!approx(inmap[i],float(Healpix_undef)))
+          list[cnt++] = inmap[i];
+    outmap[m] = (cnt>0) ? median(list.begin(),list.begin()+cnt)
+                        : Healpix_undef;
     }
 
   write_Healpix_map_to_fits (argv[2],outmap,PLANCK_FLOAT32);

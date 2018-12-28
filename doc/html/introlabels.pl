@@ -297,12 +297,12 @@ $key = q/Pexpansion/;
 $external_latex_labels{$key} = q|6|; 
 $noresave{$key} = "$nosave";
 
-$key = q/conventions/;
-$external_latex_labels{$key} = q|A|; 
-$noresave{$key} = "$nosave";
-
 $key = q/eq:pixel_lp/;
 $external_latex_labels{$key} = q|30|; 
+$noresave{$key} = "$nosave";
+
+$key = q/conventions/;
+$external_latex_labels{$key} = q|A|; 
 $noresave{$key} = "$nosave";
 
 $key = q/fig:quadtree/;
@@ -365,12 +365,12 @@ $key = q/fig:HEALPIX/;
 $external_latex_labels{$key} = q|2|; 
 $noresave{$key} = "$nosave";
 
-$key = q/eq:rotateEB/;
-$external_latex_labels{$key} = q|16|; 
-$noresave{$key} = "$nosave";
-
 $key = q/subsub:relatoldversion/;
 $external_latex_labels{$key} = q|A.3.2|; 
+$noresave{$key} = "$nosave";
+
+$key = q/eq:rotateEB/;
+$external_latex_labels{$key} = q|16|; 
 $noresave{$key} = "$nosave";
 
 $key = q/eq:pixel_lmp/;

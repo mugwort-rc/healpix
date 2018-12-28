@@ -25,12 +25,11 @@
  */
 
 /*
- *  Copyright (C) 2003-2010 Max-Planck-Society
+ *  Copyright (C) 2003-2011 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
 #include "xcomplex.h"
-#include "cxxutils.h"
 #include "paramfile.h"
 #include "planck_rng.h"
 #include "alm.h"
@@ -41,6 +40,7 @@
 #include "fitshandle.h"
 #include "levels_facilities.h"
 #include "lsconstants.h"
+#include "announce.h"
 
 using namespace std;
 
@@ -83,8 +83,8 @@ template<typename T> void syn_alm_cxx (paramfile &params)
 
 int syn_alm_cxx_module (int argc, const char **argv)
   {
-  module_startup ("syn_alm_cxx", argc, argv, 2, "<parameter file>");
-  paramfile params (argv[1]);
+  module_startup ("syn_alm_cxx", argc, argv);
+  paramfile params (getParamsFromCmdline(argc,argv));
 
   bool dp = params.find<bool> ("double_precision",false);
   dp ? syn_alm_cxx<double>(params) : syn_alm_cxx<float>(params);

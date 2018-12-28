@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>concatnl</TITLE>
-<META NAME="description" CONTENT="concatnl">
+<TITLE>complex_fft</TITLE>
+<META NAME="description" CONTENT="complex_fft">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,53 +28,52 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html483"
+<A NAME="tex2html500"
   HREF="subroutinesnode21.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html489"
+<A NAME="tex2html506"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html493"
+<A NAME="tex2html510"
   HREF="subroutinesnode23.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html491"
+<A NAME="tex2html508"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html484"
-  HREF="subroutinesnode21.htm">compute_statistics*</A>
+<B> Previous:</B> <A NAME="tex2html501"
+  HREF="subroutinesnode21.htm">brag_openmp</A>
 
-<B>Up:</B> <A NAME="tex2html490"
+<B>Up:</B> <A NAME="tex2html507"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html494"
-  HREF="subroutinesnode23.htm">convert_inplace*</A>
+<B> Next:</B> <A NAME="tex2html511"
+  HREF="subroutinesnode23.htm">compute_statistics*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000220000000000000000"></A>
-<A NAME="sub:concatnl"></A>
+<H1><A NAME="SECTION000170000000000000000"></A>
+<A NAME="sub:complex_fft"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">concatnl</FONT></font></b><hr><H2>Function to concatenate up to 10 subtrings interspaced with LineFeed
-character. Upon printing each subtring will be on a different line.
-</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/paramfile_io.F90
+<b><font size=+6><FONT COLOR="#CC0000">complex_fft</FONT></font></b><hr><H2>This routine performs a forward or backward Fast Fourier Transformation
+on its argument <TT>data</TT>.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/healpix_fft.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">concatnl</FONT>(
-string1[, string2, string3, ...]
-)</h2>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">complex_fft</FONT>(
+data, backward
+)</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
@@ -85,46 +84,39 @@ string1[, string2, string3, ...]
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-string1</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+data(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>XXX</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>array containing the input and output data. It can be of type
+  real(sp), real(dp), complex(spc) or complex(dpc). If it is of type real,
+  it is interpreted as an array of size(data)/2 complex variables.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>backward</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the first substring to be concatenated.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>string2</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN optional</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the second substring (if any) to be concatenated.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>string3</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN optional</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>... up to 10 substrings can be concatenated.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>var</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>concatenation of the substrings interspaced with LineFeed character.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>Optional argument. If present and true, perform backward transformation, else forward</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use paramfile_io 
+use healpix_fft 
 <BR>
-print*,concatnl('a','bbbbbbbb','C 10 3') 
+call complex_fft (data, backward=.true.)
 </font></tt>
-<BR><blockquote><IMG
- WIDTH="104" HEIGHT="102" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg51.png"
- ALT="$\textstyle \parbox{2.2cm}{
-Will~return:
-\parbox[t]{2cm}{\tt{a\\ bbbbbbbb\\ C 10 3}}}$"></blockquote>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">concatnl</FONT></b></h3>
+<BR><blockquote>
+Performs a backward FFT on data.
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">complex_fft</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode69.htm#sub:parse_xxx">parse_xxx</A></B>
-<DD>parse an ASCII file for parameters definition
+<B><A HREF="subroutinesnode92.htm#sub:real_fft">real_fft</A></B>
+<DD>routine for FFT of real data
   </DL>
+
+<P>
 
 <P>
 
@@ -135,32 +127,32 @@ Will~return:
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html483"
+<A NAME="tex2html500"
   HREF="subroutinesnode21.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html489"
+<A NAME="tex2html506"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html493"
+<A NAME="tex2html510"
   HREF="subroutinesnode23.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html491"
+<A NAME="tex2html508"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html484"
-  HREF="subroutinesnode21.htm">compute_statistics*</A>
+<B> Previous:</B> <A NAME="tex2html501"
+  HREF="subroutinesnode21.htm">brag_openmp</A>
 
-<B>Up:</B> <A NAME="tex2html490"
+<B>Up:</B> <A NAME="tex2html507"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html494"
-  HREF="subroutinesnode23.htm">convert_inplace*</A>
+<B> Next:</B> <A NAME="tex2html511"
+  HREF="subroutinesnode23.htm">compute_statistics*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

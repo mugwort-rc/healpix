@@ -26,7 +26,7 @@
  *  This file contains the implementation of the FITS I/O helper class
  *  used by the Planck LevelS package.
  *
- *  Copyright (C) 2002 - 2009 Max-Planck-Society
+ *  Copyright (C) 2002-2011 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -35,8 +35,7 @@
 #include <vector>
 #include "fitsio.h"
 #include "fitshandle.h"
-#include "cxxutils.h"
-#include "safe_cast.h"
+#include "string_utils.h"
 
 #define FPTR (static_cast<fitsfile *> (fptr))
 #define OFPTR (static_cast<fitsfile *> (orig.fptr))
@@ -145,6 +144,8 @@ fitscolumn::fitscolumn()
 
 fitscolumn::fitscolumn (const string &nm, const string &un, int64 rc, PDT tp)
   : name_(nm), unit_(un), repcount_(rc), type_(tp) {}
+
+fitscolumn::~fitscolumn () {}
 
 void fitshandle::check_errors() const
   {
@@ -293,6 +294,12 @@ void fitshandle::getKeyHelper(const string &name) const
   check_errors();
   }
 
+fitshandle::fitshandle ()
+  : status(0), fptr(0), hdutype_(INVALID), bitpix_(INVALID), nrows_(0) {}
+
+fitshandle::~fitshandle()
+  { clean_all(); }
+
 void fitshandle::open (const string &fname)
   {
   clean_all();
@@ -329,6 +336,17 @@ void fitshandle::delete_file (const string &name)
   cerr << msg << endl;
   while (fits_read_errmsg(msg)) cerr << msg << endl;
   planck_fail("FITS error");
+  }
+
+string fitshandle::fileName() const
+  {
+  planck_assert(connected(),"handle not connected to a file");
+  char *fname = new char[2048];
+  fits_file_name(FPTR, fname, &status);
+  check_errors();
+  string result(fname);
+  delete[] fname;
+  return result;
   }
 
 void fitshandle::goto_hdu (int hdu)
@@ -648,6 +666,9 @@ void fitshandle::read_column_raw_void
         "read_column(): array too large");
       arr2b<char> tdata(safe_cast<tsize>(num),
                         safe_cast<tsize>(columns_[colnum-1].repcount()+1));
+      int dispwidth;
+      fits_get_col_display_width(FPTR, colnum, &dispwidth, &status);
+      planck_assert(dispwidth<=columns_[colnum-1].repcount(),"column too wide");
       fits_read_col (FPTR, TSTRING, colnum, offset+1, 1, num,
         0, tdata.p0(), 0, &status);
       check_errors();

@@ -47,6 +47,8 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpointing.html#c186609b0cd8afea23efd7d7d1d91339">from_vec3</a> (const <a class="el" href="classvec3__t.html">vec3</a> &amp;inp)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpointing.html#f7657589321e16bc4ecfc4599d3fd290">normalize_theta</a> ()</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpointing.html#b97bc266f1aa4284ef8667b1443ad259">normalize</a> ()</td></tr>
 
 <tr><td colspan="2"><br><h2>Public Attributes</h2></td></tr>
@@ -61,7 +63,7 @@
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Class representing a direction in 3D space or a location on the unit sphere. All angles in radians. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00044">44</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00043">43</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="069f655c84236d7763ee4dd1a68d1ec1"></a><!-- doxytag: member="pointing::pointing" ref="069f655c84236d7763ee4dd1a68d1ec1" args="()" -->
 <div class="memitem">
@@ -80,7 +82,7 @@ Class representing a direction in 3D space or a location on the unit sphere. All
 
 <p>
 Default constructor. <em>theta</em> and <em>phi</em> are not initialized. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00053">53</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00052">52</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
@@ -111,7 +113,7 @@ Default constructor. <em>theta</em> and <em>phi</em> are not initialized.
 
 <p>
 Creates a <a class="el" href="classpointing.html">pointing</a> with <em>Theta</em> and <em>Phi</em>. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00055">55</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00054">54</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
@@ -133,7 +135,7 @@ Creates a <a class="el" href="classpointing.html">pointing</a> with <em>Theta</e
 
 <p>
 Creates a <a class="el" href="classpointing.html">pointing</a> from the vector <em>inp</em>. <em>inp</em> need not be normalized. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00060">60</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00059">59</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
@@ -155,7 +157,7 @@ Creates a <a class="el" href="classpointing.html">pointing</a> from the vector <
 
 <p>
 Returns a normalized vector <a class="el" href="classpointing.html">pointing</a> in the same direction. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00064">64</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00063">63</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
@@ -168,7 +170,7 @@ Returns a normalized vector <a class="el" href="classpointing.html">pointing</a>
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
+          <td> const</td>
         </tr>
       </table>
 </div>
@@ -176,7 +178,7 @@ Returns a normalized vector <a class="el" href="classpointing.html">pointing</a>
 
 <p>
 Returns a normalized vector <a class="el" href="classpointing.html">pointing</a> in the same direction. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00067">67</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8cc-source.html#l00038">38</a> of file <a class="el" href="pointing_8cc-source.html">pointing.cc</a>.</p>
 
 </div>
 </div><p>
@@ -190,7 +192,7 @@ Returns a normalized vector <a class="el" href="classpointing.html">pointing</a>
           <td class="paramtype">const <a class="el" href="classvec3__t.html">vec3</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>inp</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -198,7 +200,28 @@ Returns a normalized vector <a class="el" href="classpointing.html">pointing</a>
 
 <p>
 Converts <em>inp</em> to <em>ptg</em>. <em>inp</em> need not be normalized. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00073">73</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8cc-source.html#l00043">43</a> of file <a class="el" href="pointing_8cc-source.html">pointing.cc</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="f7657589321e16bc4ecfc4599d3fd290"></a><!-- doxytag: member="pointing::normalize_theta" ref="f7657589321e16bc4ecfc4599d3fd290" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pointing::normalize_theta           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Changes the angles so that <em>0&lt;=theta&lt;=pi</em>. 
+<p>Definition at line <a class="el" href="pointing_8cc-source.html#l00049">49</a> of file <a class="el" href="pointing_8cc-source.html">pointing.cc</a>.</p>
 
 </div>
 </div><p>
@@ -211,7 +234,7 @@ Converts <em>inp</em> to <em>ptg</em>. <em>inp</em> need not be normalized.
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -219,7 +242,7 @@ Converts <em>inp</em> to <em>ptg</em>. <em>inp</em> need not be normalized.
 
 <p>
 Changes the angles so that <em>0&lt;=theta&lt;=pi</em> and <em>0&lt;=phi&lt;2*pi</em>. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00082">82</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8cc-source.html#l00058">58</a> of file <a class="el" href="pointing_8cc-source.html">pointing.cc</a>.</p>
 
 </div>
 </div><p>
@@ -237,7 +260,7 @@ Changes the angles so that <em>0&lt;=theta&lt;=pi</em> and <em>0&lt;=phi&lt;2*pi
 
 <p>
 Colatitude of the <a class="el" href="classpointing.html">pointing</a> (i.e. the North pole is at <em>theta=0</em>). 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00048">48</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00047">47</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
@@ -254,15 +277,15 @@ Colatitude of the <a class="el" href="classpointing.html">pointing</a> (i.e. the
 
 <p>
 Longitude of the <a class="el" href="classpointing.html">pointing</a>. 
-<p>Definition at line <a class="el" href="pointing_8h-source.html#l00050">50</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
+<p>Definition at line <a class="el" href="pointing_8h-source.html#l00049">49</a> of file <a class="el" href="pointing_8h-source.html">pointing.h</a>.</p>
 
 </div>
 </div><p>
-<hr>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="pointing_8h-source.html">pointing.h</a></ul>
+<hr>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="pointing_8h-source.html">pointing.h</a><li><a class="el" href="pointing_8cc-source.html">pointing.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:06 2011 for LevelS C++ support library
+Generated on Fri Nov 30 17:59:26 2012 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

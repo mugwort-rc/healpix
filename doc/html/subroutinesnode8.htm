@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>add_card</TITLE>
-<META NAME="description" CONTENT="add_card">
+<TITLE>Changes between releases 1.2 and 2.0</TITLE>
+<META NAME="description" CONTENT="Changes between releases 1.2 and 2.0">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -20,7 +20,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <LINK REL="next" HREF="subroutinesnode9.htm">
 <LINK REL="previous" HREF="subroutinesnode7.htm">
-<LINK REL="up" HREF="subroutines.htm">
+<LINK REL="up" HREF="subroutinesnode4.htm">
 <LINK REL="next" HREF="subroutinesnode9.htm">
 </HEAD>
 
@@ -28,181 +28,128 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html315"
+<A NAME="tex2html334"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html321"
-  HREF="subroutines.htm">
+<A NAME="tex2html340"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html325"
+<A NAME="tex2html344"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html323"
+<A NAME="tex2html342"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html316"
-  HREF="subroutinesnode7.htm">Changes between releases 1.1</A>
+<B> Previous:</B> <A NAME="tex2html335"
+  HREF="subroutinesnode7.htm">Changes between releases 2.0</A>
 
-<B>Up:</B> <A NAME="tex2html322"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html341"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html326"
-  HREF="subroutinesnode9.htm">add_dipole*</A>
+<B> Next:</B> <A NAME="tex2html345"
+  HREF="subroutinesnode9.htm">Changes between releases 1.1</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION00080000000000000000"></A>
-<A NAME="sub:add_card"></A>
-<BR>
- 
-</H1>
+<H2><A NAME="SECTION00044000000000000000">
+Changes between releases 1.2 and 2.0</A>
+</H2>
+Some new features have been added
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ Most routines dealing with maps and <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> (eg, create_alm, map2alm, alm2map,
+  convert_inplace, convert_nest2ring, udgrade_nest, udgrade_ring) or inputting or outputting  data (read_*, write_*)
+ now accept both single and double precision arguments.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The routines <A HREF="subroutinesnode51.htm#sub:map2alm"><TT>map2alm</TT></A> and  <A HREF="subroutinesnode93.htm#sub:remove_dipole"><TT>remove_dipole</TT></A> can now deal with
+  <EM>non-symmetric</EM> azimuthal cut sky. For backward compatibility, the former calling sequence
+  is still accepted.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ most routines are now parallelized with OpenMP (for shared memory architecture), and some of them are
+also parallelized with MPI (for distributed memory architecture)
+</DL>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">add_card</FONT></font></b><hr><H2>This routine writes a keyword of any kind into a FITS header. It is a wrapper to other routines that write keywords of different kinds.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/head_fits.F90
-</b>
+Some new routines have been introduced since version 1.2, as listed below.
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New routines in version 2.0
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode11.htm#sub:add_dipole">add_dipole</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode12.htm#sub:alm2cl">alm2cl</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode14.htm#sub:alm2map_der">alm2map_der</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode35.htm#sub:fits2cl">fits2cl</A> (replaces read_asctab)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode71.htm#sub:nside2ntemplates">nside2ntemplates</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode78.htm#sub:plm_gen">plm_gen</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode83.htm#sub:rand_gauss">rand_gauss</A>, <A HREF="subroutinesnode84.htm#sub:rand_init">rand_init</A>, <A HREF="subroutinesnode85.htm#sub:rand_uni">rand_uni</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode98.htm#sub:same_shape_pixels_xxx">same_shape_pixels_nest</A>, <A HREF="subroutinesnode98.htm#sub:same_shape_pixels_xxx">same_shape_pixels_ring</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode103.htm#sub:template_pixel_xxx">template_pixel_nest</A>, <A HREF="subroutinesnode103.htm#sub:template_pixel_xxx">template_pixel_ring</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <A HREF="subroutinesnode114.htm#sub:write_plm">write_plm</A> (replaces write_dbintab)
+</DL>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ New modules or modules with new name
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <SPAN  CLASS="textbf">misc_utils:</SPAN> fatal_error, <A HREF="subroutinesnode20.htm#sub:assert">assert</A>, assert_present, assert_not_present, 
+       assert_alloc, file_present, assert_directory_present, 
+<A HREF="subroutinesnode101.htm#sub:string">string</A>
+<A HREF="subroutinesnode101.htm#sub:string">strupcase</A>
+<A HREF="subroutinesnode101.htm#sub:string">strlowcase</A>
+, upcase, lowcase, wall_clock_time, 
+<A HREF="subroutinesnode21.htm#sub:brag_openmp">brag_openmp</A>
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ <SPAN  CLASS="textbf">rngmod:</SPAN> <A HREF="subroutinesnode83.htm#sub:rand_gauss">rand_gauss</A>, <A HREF="subroutinesnode84.htm#sub:rand_init">rand_init</A>, <A HREF="subroutinesnode85.htm#sub:rand_uni">rand_uni</A>
+</DL>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">add_card</FONT>(
-header, kwd, value <i><font color="#224422">[, comment, update]</font></i> 
-)</h2></blockquote>
-Arguments appearing in <i><font color="#224422">italic</font></i> are
-optional.
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ The following routines are superseded.
+<DL COMPACT><DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ read_asctab (replaced by <A HREF="subroutinesnode35.htm#sub:fits2cl">fits2cl</A>)
+<DT><DD><IMG WIDTH="14" HEIGHT="14" SRC="greenball.png" ALT="*">
+ write_dbintab (replaced by <A HREF="subroutinesnode114.htm#sub:write_plm">write_plm</A>)
+</DL>
 
 <P>
-<hr><H1>ARGUMENTS</H1>
-
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-header(LEN=80) DIMENSION(:)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The header to write the keyword to.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>kwd(LEN=*)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the FITS keyword to write. Should be shorter
-                   or equal to 8 characters.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>value</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>any</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the value to give to the keyword.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">comment(LEN=*)</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>comment to the keyword.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><i><font color="#224422">update</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>if set to <TT>.true.</TT>, the first occurence of the keyword <TT>kwd</TT> in <TT>header</TT> will be updated (and all other occurences removed); otherwise, the keyword will be appended at
-the end (and any previous occurence removed). If the keyword is either 'HISTORY'
-or 'COMMENT', <TT>update</TT> is ignored and the keyword is peacefully appended at the end of the header.</TD>
-</TR>
-</TABLE>
-
-<P>
-<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-character(len=80), dimension(1:120) :: header 
-<BR>
-header = '' ! very important 
-<BR>
-call add_card(header,'NSIDE',256,'the nside of the map')  
-<BR></font></tt>
-<BR><blockquote>
-Gives the keyword `NSIDE' the value 256 in the given header-string. It is
-important to make sure that the <TT>header</TT> string array is empty before attempting
-to write
-anything in it.
-</blockquote>
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">add_card</FONT>.</h2>
-  <DL COMPACT><DT>
-<B>write_hl</B>
-<DD>more general routine for adding a keyword to a header.
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.		
-  </DL>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">add_card</FONT></b></h3>
-<BR> 
-  <DL COMPACT><DT>
-<B><A HREF="subroutinesnode107.htm#sub:write_minimal_header">write_minimal_header</A></B>
-<DD>routine to
-write <b>HEALPix</b> compliant baseline FITS header
-  <DT>
-<B><A HREF="subroutinesnode34.htm#sub:get_card">get_card</A></B>
-<DD>general purpose routine to read any keywords from a header in a FITS file.
-  <DT>
-<B><A HREF="subroutinesnode28.htm#sub:del_card">del_card</A></B>
-<DD>routine to discard a keyword from a FITS header
-  <DT>
-<B><A HREF="subroutinesnode86.htm#sub:read_par">read_par</A>, <A HREF="subroutinesnode67.htm#sub:number_of_alms">number_of_alms</A></B>
-<DD>routines to read specific keywords from a
-  header in a FITS file.
-  <DT>
-<B><A HREF="subroutinesnode40.htm#sub:getsize_fits">getsize_fits</A></B>
-<DD>function returning the size of the data set in a fits
-  file and reading some other useful FITS keywords
-  <DT>
-<B><A HREF="subroutinesnode52.htm#sub:merge_headers">merge_headers</A></B>
-<DD>routine to merge two FITS headers
-  </DL>
-
-<P>
-
-<P>
-
-
-<P>
+</DL>
 
 <P>
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html315"
+<A NAME="tex2html334"
   HREF="subroutinesnode7.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html321"
-  HREF="subroutines.htm">
+<A NAME="tex2html340"
+  HREF="subroutinesnode4.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html325"
+<A NAME="tex2html344"
   HREF="subroutinesnode9.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html323"
+<A NAME="tex2html342"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html316"
-  HREF="subroutinesnode7.htm">Changes between releases 1.1</A>
+<B> Previous:</B> <A NAME="tex2html335"
+  HREF="subroutinesnode7.htm">Changes between releases 2.0</A>
 
-<B>Up:</B> <A NAME="tex2html322"
-  HREF="subroutines.htm">Healpix/F90 subroutines</A>
+<B>Up:</B> <A NAME="tex2html341"
+  HREF="subroutinesnode4.htm">Older Changes</A>
 
-<B> Next:</B> <A NAME="tex2html326"
-  HREF="subroutinesnode9.htm">add_dipole*</A>
+<B> Next:</B> <A NAME="tex2html345"
+  HREF="subroutinesnode9.htm">Changes between releases 1.1</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

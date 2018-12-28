@@ -62,7 +62,15 @@ Inheritance diagram for arrT&lt; T, storageManager &gt;:</div>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarrT.html#5f083163846f574a1a45bcd84b1f438a">dealloc</a> ()</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarrT.html#9995c79d030a46d1f74fefde7c8066d3">resize</a> (<a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classarrT.html">arrT</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classarrT.html#f4225130e5270ac93c85b116301a09c8">operator=</a> (const <a class="el" href="classarrT.html">arrT</a> &amp;orig)</td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classarrT.html#33951b62bd234ccacbec09872617c53a">copyFrom</a> (const std::vector&lt; T2 &gt; &amp;orig)</td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classarrT.html#6253ec554f54aba3d5e31e5e6ddefa22">copyTo</a> (std::vector&lt; T2 &gt; &amp;vec) const </td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classarrT.html#6d98d9a1f41cd73eda5fe095d0b9670b">copyFromPtr</a> (const T2 *ptr, <a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> sz)</td></tr>
@@ -77,7 +85,7 @@ Inheritance diagram for arrT&lt; T, storageManager &gt;:</div>
  class arrT&lt; T, storageManager &gt;</h3>
 
 One-dimensional array type, with selectable storage management. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00191">191</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00177">177</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="d87d97101083f4dd674f41d765ab256f"></a><!-- doxytag: member="arrT::arrT" ref="d87d97101083f4dd674f41d765ab256f" args="()" -->
 <div class="memitem">
@@ -98,7 +106,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates a zero-sized array. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00202">202</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00188">188</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -122,7 +130,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates an array with <em>sz</em> entries. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00204">204</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00190">190</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -155,7 +163,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates an array with <em>sz</em> entries, and initializes them with <em>inival</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00207">207</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00193">193</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -198,7 +206,7 @@ Creates an array with <em>sz</em> entries, which uses the memory pointed to by <
 </ul>
 Other restrictions may apply. You have been warned. </dd></dl>
 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00220">220</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00206">206</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -222,7 +230,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Creates an array which is a copy of <em>orig</em>. The data in <em>orig</em> is duplicated. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00223">223</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00209">209</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -245,7 +253,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Frees the memory allocated by the object. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00226">226</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00212">212</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -270,7 +278,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Allocates space for <em>sz</em> elements. The content of the array is undefined on exit. <em>sz</em> can be 0. If <em>sz</em> is the same as the current size, no reallocation is performed. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00231">231</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00217">217</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -303,7 +311,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Allocates space for <em>sz</em> elements. If <em>sz</em> is the same as the current size, no reallocation is performed. All elements are set to <em>inival</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00242">242</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00228">228</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -326,7 +334,31 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Deallocates the memory held by the array, and sets the array size to 0. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00246">246</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00232">232</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="9995c79d030a46d1f74fefde7c8066d3"></a><!-- doxytag: member="arrT::resize" ref="9995c79d030a46d1f74fefde7c8066d3" args="(tsize sz)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename storageManager&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classarrT.html">arrT</a>&lt; T, storageManager &gt;::resize           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a>&nbsp;</td>
+          <td class="paramname"> <em>sz</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Resizes the array to hold <em>sz</em> elements. The existing content of the array is copied over to the new array to the extent possible. <em>sz</em> can be 0. If <em>sz</em> is the same as the current size, no reallocation is performed. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00237">237</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -350,7 +382,59 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Changes the array to be a copy of <em>orig</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00249">249</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00251">251</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="33951b62bd234ccacbec09872617c53a"></a><!-- doxytag: member="arrT::copyFrom" ref="33951b62bd234ccacbec09872617c53a" args="(const std::vector&lt; T2 &gt; &amp;orig)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename storageManager&gt; </div>
+<div class="memtemplate">
+template&lt;typename T2&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classarrT.html">arrT</a>&lt; T, storageManager &gt;::copyFrom           </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T2 &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>orig</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Changes the array to be a copy of the std::vector <em>orig</em>. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00260">260</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="6253ec554f54aba3d5e31e5e6ddefa22"></a><!-- doxytag: member="arrT::copyTo" ref="6253ec554f54aba3d5e31e5e6ddefa22" args="(std::vector&lt; T2 &gt; &amp;vec) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename storageManager&gt; </div>
+<div class="memtemplate">
+template&lt;typename T2&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classarrT.html">arrT</a>&lt; T, storageManager &gt;::copyTo           </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; T2 &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>vec</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Changes the std::vector <em>vec</em> to be a copy of the object. 
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00266">266</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -385,7 +469,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Reserves space for <em>sz</em> elements, then copies <em>sz</em> elements from <em>ptr</em> into the array. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00259">259</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00274">274</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -410,7 +494,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 <p>
 Assigns the contents and size of <em>other</em> to the array. <dl class="note" compact><dt><b>Note:</b></dt><dd>On exit, <em>other</em> is zero-sized! </dd></dl>
 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00267">267</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00282">282</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -434,7 +518,7 @@ template&lt;typename T, typename storageManager&gt; </div>
 
 <p>
 Swaps contents and size with <em>other</em>. 
-<p>Definition at line <a class="el" href="arr_8h-source.html#l00276">276</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
+<p>Definition at line <a class="el" href="arr_8h-source.html#l00291">291</a> of file <a class="el" href="arr_8h-source.html">arr.h</a>.</p>
 
 </div>
 </div><p>
@@ -442,7 +526,7 @@ Swaps contents and size with <em>other</em>.
 <li><a class="el" href="arr_8h-source.html">arr.h</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:06 2011 for LevelS C++ support library
+Generated on Fri Nov 30 17:59:26 2012 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

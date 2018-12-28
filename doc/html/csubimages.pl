@@ -35,7 +35,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{pix}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="39" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg10.png"
+ SRC="|."$dir".q|csubimg11.png"
  ALT="${N_{\rm pix}}$">|; 
 
 $key = q/pi;MSF=1.6;LFS=12;AAT/;
@@ -65,7 +65,7 @@ $cached_env_img{$key} = q|<IMG
 $key = q/{N_{{rm{side}};MSF=1.6;LFS=12;AAT/;
 $cached_env_img{$key} = q|<IMG
  WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="|."$dir".q|csubimg11.png"
+ SRC="|."$dir".q|csubimg10.png"
  ALT="${N_{\rm side}}$">|; 
 
 $key = q/2pi;MSF=1.6;LFS=12;AAT/;

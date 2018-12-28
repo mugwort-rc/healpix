@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>write_plm</TITLE>
-<META NAME="description" CONTENT="write_plm">
+<TITLE>write_asctab*</TITLE>
+<META NAME="description" CONTENT="write_asctab*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,145 +28,105 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1515"
+<A NAME="tex2html1532"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1521"
+<A NAME="tex2html1538"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1525"
+<A NAME="tex2html1542"
   HREF="subroutinesnode109.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1523"
+<A NAME="tex2html1540"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1516"
-  HREF="subroutinesnode107.htm">write_minimal_header</A>
+<B> Previous:</B> <A NAME="tex2html1533"
+  HREF="subroutinesnode107.htm">vect_prod</A>
 
-<B>Up:</B> <A NAME="tex2html1522"
+<B>Up:</B> <A NAME="tex2html1539"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1526"
-  HREF="subroutinesnode109.htm">xcc_v_convert</A>
+<B> Next:</B> <A NAME="tex2html1543"
+  HREF="subroutinesnode109.htm">write_bintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION0001080000000000000000"></A>
-<A NAME="sub:write_plm"></A>
+<H1><A NAME="SECTION0001030000000000000000"></A>
+<A NAME="sub:write_asctab"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_plm</FONT></font></b><hr><H2>This routine creates a double precision binary FITS-file from a given array. The routine is used by the <b>HEALPix</b> facility plmgen to store precomputed <!-- MATH
- $P_{lm}(\theta)$
+<b><font size=+6><FONT COLOR="#CC0000">write_asctab*</FONT></font></b><hr><H2>This routine stores a power spectrum in an ascii FITS-file. The routine can store temperature coeffecients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> or both temperature and polarisation coeffecients <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>E</I></SUP></SPAN>, <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>B</I></SUP></SPAN>, <!-- MATH
+ $C_l^{T\times E}$
  -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
+<SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I> x <I>E</I></SUP></SPAN>.</H2><br>Location in HEALPix directory tree: <b>
 src/f90/mod/fitstools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">write_plm</FONT>(
-plm, nplm, nhar, header, nlheader, filename, nsmax, nlmax
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">write_asctab*</FONT>(
+clout, lmax, ncl, header, nlheader, filename
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-plm(0:nplm-1,1:nhar)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the array with the precomputed <!-- MATH
- $P_{lm}(\theta)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN> values.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nplm</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>Number of <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> values to store.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nhar</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>1 for scalar <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> only and 3 for tensor harmonics.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80) (1:nlheader)</TD>
+filename(LEN=<tt>filenamelen</tt>)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The header for the FITS-file.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the FITS file to which the power spectrum is written.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>lmax</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>Maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value to be written.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ncl</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>1 for temperature coeffecients only, 4 for polarisation.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>clout(0:lmax,1:ncl)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the powerspectrum to be saved in the file.</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlheader</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>number of header lines to write to the file.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>number of header lines to write to the file.</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>filename(LEN=<tt>filenamelen</tt>)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>header(LEN=80) (1:nlheader)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the precomputed <!-- MATH
- $P_{lm}(\theta)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN> values are written to this file.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nsmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> for the precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="31" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
- ALT="$P_{lm}\!\!$"></SPAN> s.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="31" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
- ALT="$P_{lm}\!\!$"></SPAN> s.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>the header to the FITS-file.</TD>
 </TR>
 </TABLE>
 
+<P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call write_plm (plm, 65*66*32, 1, header, 120, `plm_32.fits', 32, 64)  
+call write_asctab (cl,64,1,header,80,'cl.fits')  
 <BR></font></tt>
 <BR><blockquote>
-Makes a double precision binary FITS-file called `plm_32.fits' from the precomputed <!-- MATH
- $P_{lm}(\theta)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN> in the array plm(0:65*66*32-1,1:1). The number 65*66*32 corresponds to the number of precomputed <SPAN CLASS="MATH"><IMG
- WIDTH="31" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg113.png"
- ALT="$P_{lm}\!\!$"></SPAN> s needed for a <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB>=32</SPAN> <b>HEALPix</b> map synthesis/analysis. The header for the FITS-file is given in the string array header and the number of lines in the header is 120. 
+Writes a powerspectrum in the array cl(0:64,1:1) to a FITS-file called `cl.fits'. The cl array contains the temperature powerspectrum <SPAN CLASS="MATH"><I>C</I><SUB><I>l</I></SUB><SUP><I>T</I></SUP></SPAN> up to an <SPAN CLASS="MATH"><I>l</I></SPAN> value of 64. 80 header lines are written to the file from the array header(1:80).
 </blockquote>
 
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">write_plm</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">write_asctab*</FONT>.</h2>
   <DL COMPACT><DT>
 <B><SPAN  CLASS="textbf">fitstools</SPAN></B>
 <DD>module, containing:
@@ -179,20 +139,18 @@ Makes a double precision binary FITS-file called `plm_32.fits' from the precompu
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_plm</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_asctab*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode84.htm#sub:read_dbintab">read_dbintab</A>, <A HREF="subroutinesnode82.htm#sub:read_bintab">read_bintab</A></B>
-<DD>routines which reads a file created by write_plm. 
+<B><A HREF="subroutinesnode12.htm#sub:alm2cl">alm2cl</A></B>
+<DD>Routine computing the power spectrum from
+  spherical harmonics coefficients <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
   <DT>
-<B><A HREF="subroutinesnode47.htm#sub:map2alm">map2alm</A>, <A HREF="subroutinesnode11.htm#sub:alm2map">alm2map</A></B>
-<DD>routines using precomputed <!-- MATH
- $P_{lm}(\theta)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN>.
+<B><A HREF="subroutinesnode35.htm#sub:fits2cl">fits2cl</A></B>
+<DD>Routine to read a FITS file created by write_asctab.
+  <DT>
+<B><A HREF="subroutinesnode113.htm#sub:write_minimal_header">write_minimal_header</A></B>
+<DD>routine to write minimal FITS header
   </DL>
 
 <P>
@@ -202,34 +160,36 @@ Makes a double precision binary FITS-file called `plm_32.fits' from the precompu
 
 <P>
 
+<P>
+
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1515"
+<A NAME="tex2html1532"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1521"
+<A NAME="tex2html1538"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1525"
+<A NAME="tex2html1542"
   HREF="subroutinesnode109.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1523"
+<A NAME="tex2html1540"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1516"
-  HREF="subroutinesnode107.htm">write_minimal_header</A>
+<B> Previous:</B> <A NAME="tex2html1533"
+  HREF="subroutinesnode107.htm">vect_prod</A>
 
-<B>Up:</B> <A NAME="tex2html1522"
+<B>Up:</B> <A NAME="tex2html1539"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1526"
-  HREF="subroutinesnode109.htm">xcc_v_convert</A>
+<B> Next:</B> <A NAME="tex2html1543"
+  HREF="subroutinesnode109.htm">write_bintab*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

@@ -29,6 +29,11 @@
 # 2011-01-28: C++ configuration ask for preinstalled cfitsio library
 # 2011-01-31: keep track of previous choice of FITSDIR and FITSINC (within same session)
 #           : propose OpenMP by default
+# 2011-03-07: allow linking with shared libcfitsio for the C++ port
+# 2012-02-27: better parsing of config.* files in C++ configuration
+# 2012-05-30:    and ignore healpy specific config.* files.
+# 2012-11-05: supports python (healpy) configuration
+#             proposes -fPIC compilation of F90 code
 #=====================================
 #=========== General usage ===========
 #=====================================
@@ -78,8 +83,8 @@ echoLn () {
 }
 #-------------
 findFITSLib () {
-    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ ; do
-	if [ -r "${dir}/lib${LIBFITS}.a" ] ; then
+    for dir in $* /usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /usr/local/lib/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/lib ${HOME}/lib64 ./src/cxx/${HEALPIX_TARGET}/lib/ /softs/cfitsio/3.24/lib ; do
+	if [ -r "${dir}/lib${LIBFITS}.a" -o -r "${dir}/lib${LIBFITS}.so" ] ; then
 	    FITSDIR=$dir
 	    break
 	fi	    
@@ -87,11 +92,21 @@ findFITSLib () {
 }
 #-------------
 findFITSInclude () {
-    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ ; do
+    for dir in $* /usr/include /usr/local/include /usr/local/src/cfitsio ${HOME}/include ${HOME}/include64 ./src/cxx/${HEALPIX_TARGET}/include/ /softs/cfitsio/3.24/include ; do
 	if [ -r "${dir}/fitsio.h" ] ; then
 	    FITSINC=$dir
 	    break
 	fi
+    done
+}
+#-------------
+findFITSPrefix () {
+    for dir in $* /usr /usr/local /usr/local/lib/cfitsio /usr/local/cfitsio /usr/local/lib64/cftisio /usr/local/src/cfitsio ${HOME}/softs/cfitsio/3.24 ; do
+	testlib="${dir}/lib/lib${LIBFITS}"
+	if ( ([ -r "${testlib}.a" ] || [ -r "${testlib}.so" ] || [ -r "${testlib}.dylib" ]) && [ -r "${dir}/include/fitsio.h" ] ) ; then
+	    FITSPREFIX=$dir
+	    break
+	fi	    
     done
 }
 #-------------
@@ -313,7 +328,7 @@ pickCppCompilation() {
     
     echo 'Available configurations for C++ compilation are:'
     cd $CXXCONFDIR
-    list=`${LS} -1 config.* | ${AWK} -F. '{print $2}'`
+    list=`${LS} -1 config.* | ${GREP} -v \.in$ | ${GREP} -v healpy | ${AWK} -F. '{print $2}'`
     ii=1
     for option in $list ; do
 	echo "   ${ii}: ${option}"
@@ -359,8 +374,8 @@ editCppMakefile () {
     mv -f Makefile Makefile_tmp
     ${CAT} Makefile_tmp |\
 	${SED} "s|^HEALPIX_TARGET\(.*\)|HEALPIX_TARGET = ${HEALPIX_TARGET}|" |\
-	${SED} "s|^CFITSIO_EXT_LIB\(.*\)|CFITSIO_EXT_LIB = ${FITSDIR}/lib${LIBFITS}.a|" |\
-	${SED} "s|^CFITSIO_EXT_INC\(.*\)|CFITSIO_EXT_INC = ${FITSINC}|" |\
+	${SED} "s|^CFITSIO_EXT_LIB\(.*\)|CFITSIO_EXT_LIB = -L${FITSDIR} -l${LIBFITS}|" |\
+	${SED} "s|^CFITSIO_EXT_INC\(.*\)|CFITSIO_EXT_INC = -I${FITSINC}|" |\
 	${SED} "s|^ALL\(.*\) cpp-void \(.*\)|ALL\1 cpp-all \2|" |\
 	${SED} "s|^TESTS\(.*\) cpp-void \(.*\)|TESTS\1 cpp-test \2|" |\
 	${SED} "s|^CLEAN\(.*\) cpp-void \(.*\)|CLEAN\1 cpp-clean \2|" |\
@@ -404,9 +419,7 @@ Cpp_config () {
     HPX_CONF_CPP=$1
     setCppDefaults
 
-    echoLn "enter full name of cfitsio library (lib${LIBFITS}.a): "
-    read answer
-    [ "x$answer" != "x" ] && LIBFITS=`${BASENAME} $answer ".a" | ${SED} "s/^lib//"`
+    LIBFITS=cfitsio
 
     findFITSLib $LIBDIR $FITSDIR
     echoLn "enter location of cfitsio library ($FITSDIR): "
@@ -439,6 +452,57 @@ Cpp_config () {
     fi
 }
 
+#=====================================
+#=========== healpy Python pakage ===========
+#=====================================
+#-------------
+Healpy_config () {
+    # CFITSIO: make a first guess
+    LIBFITS=cfitsio
+    fullPath FITSDIR
+    guess2=`${DIRNAME} ${FITSDIR}`
+    guess3=`${DIRNAME} ${FITSINC}`
+    findFITSPrefix $FITSDIR $FITSINC ${guess2} ${guess3}
+    # ask user
+    echo "Enter directory prefix for CFitsio"
+    echoLn " ie containing lib/libcfitsio.* and include/fitsio.h ($FITSPREFIX): "
+    read answer
+    [ "x$answer" != "x" ] && FITSPREFIX=$answer
+    # double check
+    inc="${FITSPREFIX}/include/fitsio.h"
+    if [ ! -r $inc ]; then
+	echo "error: cfitsio include file $inc not found"
+	crashAndBurn
+    fi
+    # apply
+    editHealpyMakefile
+
+    # update paths for C and C++
+    FITSDIR=${FITSPREFIX}/lib
+    FITSINC=${FITSPREFIX}/include
+
+}
+#-------------
+editHealpyMakefile () {
+
+
+    echoLn "edit top Makefile for Python (healpy) ..."
+
+    mv -f Makefile Makefile_tmp
+    ${CAT} Makefile_tmp |\
+# 	${SED} "s|^P_CFITSIO_EXT_LIB\(.*\)|P_CFITSIO_EXT_LIB = ${FITSDIR}/lib${LIBFITS}.a|" |\
+# 	${SED} "s|^P_CFITSIO_EXT_INC\(.*\)|P_CFITSIO_EXT_INC = ${FITSINC}|" |\
+ 	${SED} "s|^CFITSIO_EXT_PREFIX\(.*\)|CFITSIO_EXT_PREFIX = ${FITSPREFIX}|" |\
+	${SED} "s|^ALL\(.*\) healpy-void\(.*\)|ALL\1 healpy-all \2|" |\
+	${SED} "s|^TESTS\(.*\) healpy-void\(.*\)|TESTS\1 healpy-test \2|" |\
+	${SED} "s|^CLEAN\(.*\) healpy-void\(.*\)|CLEAN\1 healpy-clean \2|" |\
+	${SED} "s|^DISTCLEAN\(.*\) healpy-void\(.*\)|DISTCLEAN\1 healpy-distclean \2|" |\
+	${SED} "s|^TIDY\(.*\) healpy-void\(.*\)|TIDY\1 healpy-tidy \2|" > Makefile
+	
+    echo " done."
+    edited_makefile=1
+
+}
 #=====================================
 #=========== IDL pakage ===========
 #=====================================
@@ -623,20 +687,31 @@ idl_config () {
 #   setF90Defaults: set default values of variables
 #   sun_modules : test weither the Sun compiler creates modules ending with .M or .mod
 #   ifc_modules : test weither the IFC compiler creates .d or .mod (version7) modules
+#   checkF90Fitsio: check that CFITSIO library contains Fortran wrapper
+#   checkF90FitsioLink: check that CFITSIO library links to Fortran test code
+#   checkF90FitsioVersion: check that CFITSIO library is recent enough
 #   GuessCompiler: tries to guess compiler from operating system
-#   askFFT: ask user for his choice of fft, find fftw library
+#####   askFFT: ask user for his choice of fft, find fftw library
 #   askOpenMP: ask user for compilation of OpenMP source files
+#   askF90PIC: ask user for -fPIC compilation of code
 #   countUnderScore: match trailing underscores with fftw
+#   IdentifyCParallCompiler: identify C compiler used for parallel compilation of SHT routines
 #   IdentifyCompiler : identify Non native f90 compiler
 #   add64bitF90Flags: add 64 bit flags to F90 (and C) compiler
+#   countF90Bits: count number of addressing bits in code produced by F90 compiler
+#   countCBits:   count number of addressing bits in code produced by C   compiler
+#   checkF90Compilation: check that F90 compiler actually works
+#   checkF90LongLong: check that F90 support 8 byte integers
 #   askUserF90:  ask user the f90 compiler command
-#   askUserMisc:  ask user to confirm or change various defaults
-#   editF90Makefile: create makefile from template
-#   makeProfile: create profile
-#   installProfile: modify user's shell profile if agreed
 #   showDefaultDirs: show default directories
 #   updateDirs: update those directories
 #   showActualDirs: show actual directories
+#   askUserMisc:  ask user to confirm or change various defaults
+#   askPgplot: ask if user wants to link with PGPlot
+#   editF90Makefile: create makefile from template
+#   generateConfF90File: generates configuration file for F90
+#   offerF90Compilation: propose to perform F90 compilation
+#   f90_config: top routine for F90
 #
 #-------------
 setF90Defaults () {
@@ -669,6 +744,7 @@ setF90Defaults () {
     PGLIBS=""
     PGLIBSDEF="-L/usr/local/pgplot -lpgplot -L/usr/X11R6/lib -lX11"
     WLRPATH="" # to add a directory to the (linker) runtime library search path
+    F90PIC="-fPIC"
 
     echo "you seem to be running $OS"
 
@@ -779,6 +855,45 @@ EOF
 	echo " - the library (C routines and F90 wrappers) was compiled "
 	echo "   with a number of bits compatible with ${FC} ${FFLAGS}"
 	crashAndBurn
+    fi
+
+    # clean up
+    ${RM} ${tmpfile}.*
+    
+
+}
+# ----------------
+checkF90FitsioVersion () {
+# check that FITSIO version is recent enough
+# requires compilation of F90 code
+    tmpfile=./to_be_removed # do not forget ./ to allow execution
+    # write simple test program
+cat > ${tmpfile}.f90 << EOF
+    program date_fitsio
+	real:: version
+	call ftvers(version)
+	write(*,'(f5.3)') version
+    end program date_fitsio
+EOF
+    # compile and link
+    ${FC} ${FFLAGS}  ${tmpfile}.f90 -o ${tmpfile}.x -L${FITSDIR} -l${LIBFITS} #${WLRPATH}
+
+    # run if executable
+    if [ -x ${tmpfile}.x ]; then
+	CFITSIOVERSION=`${tmpfile}.x` # available version of CFITSIO 
+	CFITSIOVREQ="3.14"            # required  version of CFITSIO
+	v1=`echo ${CFITSIOVERSION} | ${AWK} '{print $1*1000}'` # multiply by 1000 to get integer
+	v2=`echo ${CFITSIOVREQ}    | ${AWK} '{print $1*1000}'`
+	${RM} ${tmpfile}.*
+	if [ $v1 -lt $v2 ]; then
+	    echo 
+	    echo "CFITSIO version in ${FITSDIR}/lib${LIBFITS}.a  is  $CFITSIOVERSION "
+	    echo "CFITSIO >= ${CFITSIOVREQ} is expected for Healpix-F90"
+	    echo
+	    crashAndBurn
+	fi
+    else
+	echo "Warning: unable to check that CFITSIO is recent enough (>= ${CFITSIOVREQ})"
     fi
 
     # clean up
@@ -902,6 +1017,32 @@ askOpenMP () {
 	    echo "Contact healpix at jpl.nasa.gov if you already used OpenMP in this configuration."
 	    echo "Will perform serial implementation instead"
 	    #crashAndBurn
+	fi 
+    fi
+}
+# -----------------------------------------------------------------
+
+askF90PIC () {
+    DoF90PIC="1"
+    echo " "
+    echo " Do you want a Position Independent Compilation  (option  \"$F90PIC\") "
+    echoLn "(recommended if the Healpix-F90 library is to be linked to external codes)  (Y|n): "
+    read answer
+    if [ "x$answer" = "xy"  -o "x$answer" = "xY"  -o "x$answer" = "x" ]; then
+	if [ "x$F90PIC" != "x" ] ; then
+	    # update FFLAGS
+	    FFLAGS="$FFLAGS $F90PIC"
+ 	    # update CFLAGS
+ 	    CPIC="-fPIC" # hacked from setCDefaults
+	    case $OS in
+		AIX)
+		    CPIC="-G"
+		;;
+	    esac
+ 	    CFLAGS="$CFLAGS $CPIC"
+	else
+	    echo "PIC compilation flag not known for  \"$FCNAME\" under \"$OS\" "
+	    echo "standard static compilation will be performed"
 	fi 
     fi
 }
@@ -1145,7 +1286,7 @@ EOF
 }
 # -----------------------------------------------------------------
 checkF90Compilation () {
-    # check that F90 compiler actually work
+    # check that F90 compiler actually works
     # requires compilation and execution of F90 code
     tmpfile=./to_be_removed
 ${CAT} > ${tmpfile}.f90 <<EOF
@@ -1332,6 +1473,7 @@ askUserMisc () {
 
     checkF90Fitsio ${lib}
     checkF90FitsioLink
+    checkF90FitsioVersion
 
 }
 
@@ -1477,6 +1619,7 @@ f90_config () {
     askUserMisc
     askPgplot
     askOpenMP
+    askF90PIC
     #makeProfile
     generateConfF90File
     editF90Makefile
@@ -1503,7 +1646,12 @@ checkConfFiles () {
 #=====================================
 #=========== Top package ===========
 #=====================================
-
+#   mainMenu:
+#   installProfile: modify user's shell profile if agreed
+#   makeTopConf:
+#   readyTopMakefile:
+#   setTopDefaults:
+#   setConfDir:
 #-------------
 mainMenu () {
 
@@ -1514,8 +1662,9 @@ mainMenu () {
     echo "(2): configure Healpix C package, and edit Makefile"
     echo "(3): configure Healpix F90 package, and edit Makefile"
     echo "(4): configure Healpix C++ package, and edit Makefile"
-    echo "(5): see what configuration files have been created so far"
-    echo "(6): edit your shell configuration file to have easier access to Healpix codes"
+    echo "(5): configure Healpix Python (healpy) package, and edit Makefile"
+    echo "(8): see what configuration files have been created so far"
+    echo "(9): edit your shell configuration file to have easier access to Healpix codes"
     echo "(-1): reset"
     echo "     (will *REMOVE* the Makefile and configuration files, and exit)"
     echo "(0): exit"
@@ -1534,10 +1683,12 @@ mainMenu () {
 	x4)
 	   eval cppconffile=$HPX_CONF_CPP
 	   Cpp_config $cppconffile;;
-	x6)
-	   installProfile;;
-	x5)
+ 	x5)
+ 	   Healpy_config;;
+	x8)
 	   checkConfFiles;;
+	x9)
+	   installProfile;;
 	x0)
 	   goodBye;;
 	"x-1")
@@ -1697,6 +1848,7 @@ setTopDefaults() {
     LIBFITS="cfitsio"
     FITSDIR="/usr/local/lib"
     FITSINC="/usr/local/include"
+    FITSPREFIX="/usr/local"
 
     edited_makefile=0
 
@@ -1706,7 +1858,7 @@ setTopDefaults() {
     HPX_CONF_DIR_INPLACE=${HEALPIX}/confdir/${HPX_VERSION}_${OS}
 
 }
-
+#-------------
 setConfDir () {
 
     case $SHELL in

@@ -25,7 +25,7 @@
 /*! \file wigner.h
  *  Several C++ classes for calculating Wigner matrices
  *
- *  Copyright (C) 2009,2010 Max-Planck-Society
+ *  Copyright (C) 2009-2011 Max-Planck-Society
  *  \author Martin Reinecke and others (see individual classes)
  */
 
@@ -35,7 +35,7 @@
 #include <cmath>
 #include "arr.h"
 
-#include "sse_utils.h"
+#include "sse_utils_cxx.h"
 
 /*! Class for calculation of the Wigner matrix at pi/2, using Risbo recursion
     in a way that cannot easily be parallelised, but is fairly efficient on
@@ -113,9 +113,9 @@ class wigner_d_risbo_openmp
 
 /*! Class for calculation of the Wigner matrix elements by l-recursion.
     For details, see Prezeau & Reinecke 2010, http://arxiv.org/pdf/1002.1050 */
-class wignergen
+class wignergen_scalar
   {
-  private:
+  protected:
     typedef double dbl3[3];
 
     // members set in the constructor and kept fixed afterwards
@@ -133,9 +133,6 @@ class wignergen
 
     // members depending on theta
     arr<double> result;
-#ifdef PLANCK_HAVE_SSE2
-    arr_align<v2df,16> result2;
-#endif
 
     enum { large_exponent2=90, minscale=-4, maxscale=14 };
 
@@ -145,7 +142,7 @@ class wignergen
         in \a thetas. The generator will be allowed to regard values with
         absolute magnitudes smaller than \a epsilon as zero; a typical value
         is 1e-30. */
-    wignergen (int lmax_, const arr<double> &thetas, double epsilon);
+    wignergen_scalar (int lmax_, const arr<double> &thetas, double epsilon);
 
     /*! Prepares the object to produce Wigner matrix elements with \a m=m1_
         and \a m'=m2_ in subsequent calls to calc(). This operation is not cheap
@@ -160,10 +157,40 @@ class wignergen
         matrix element larger than \a epsilon; all values with smaller indices
         in the result array are undefined. */
     const arr<double> &calc (int nth, int &firstl);
+    void calc (int nth, int &firstl, arr<double> &resx) const;
+  };
 
-#ifdef PLANCK_HAVE_SSE2
-    const arr_align<v2df,16> &calc (int nth1, int nth2, int &firstl);
+class wignergen: public wignergen_scalar
+  {
+#ifdef __SSE2__
+  private:
+    arr_align<V2df,16> result2;
+
+  public:
+    wignergen (int lmax_, const arr<double> &thetas, double epsilon)
+      : wignergen_scalar (lmax_,thetas,epsilon), result2(lmax_+1) {}
+
+    using wignergen_scalar::calc;
+    const arr_align<V2df,16> &calc (int nth1, int nth2, int &firstl);
+    void calc (int nth1, int nth2, int &firstl, arr_align<V2df,16> &resx) const;
+#else
+  public:
+    wignergen (int lmax_, const arr<double> &thetas, double epsilon)
+      : wignergen_scalar (lmax_,thetas,epsilon) {}
 #endif
+  };
+
+class wigner_estimator
+  {
+  private:
+    int lmax, m1, m2, mbig;
+    double xlmax, epsPow, cosm1m2;
+
+  public:
+    wigner_estimator (int lmax_, double epsPow_);
+
+    void prepare_m (int m1_, int m2_);
+    bool canSkip (double theta) const;
   };
 
 #endif

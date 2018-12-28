@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mpi_map2alm_slave</TITLE>
-<META NAME="description" CONTENT="mpi_map2alm_slave">
+<TITLE>mpi_alm2map_slave</TITLE>
+<META NAME="description" CONTENT="mpi_alm2map_slave">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,38 +28,38 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html951"
+<A NAME="tex2html968"
   HREF="subroutinesnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html957"
+<A NAME="tex2html974"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html961"
+<A NAME="tex2html978"
   HREF="subroutinesnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html959"
+<A NAME="tex2html976"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html952"
-  HREF="subroutinesnode60.htm">mpi_map2alm_simple*</A>
+<B> Previous:</B> <A NAME="tex2html969"
+  HREF="subroutinesnode60.htm">mpi_alm2map_simple*</A>
 
-<B>Up:</B> <A NAME="tex2html958"
+<B>Up:</B> <A NAME="tex2html975"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html962"
-  HREF="subroutinesnode62.htm">nArguments</A>
+<B> Next:</B> <A NAME="tex2html979"
+  HREF="subroutinesnode62.htm">mpi_cleanup_alm_tools</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000610000000000000000"></A>
-<A NAME="sub:mpi_map2alm_slave"></A>
+<H1><A NAME="SECTION000560000000000000000"></A>
+<A NAME="sub:mpi_alm2map_slave"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mpi_map2alm_slave</FONT></font></b><hr><H2>This subroutine complements the master routine mpi_map2alm, and
+<b><font size=+6><FONT COLOR="#CC0000">mpi_alm2map_slave</FONT></font></b><hr><H2>This subroutine complements the master routine mpi_alm2map, and
 should be run by all slaves in the current MPI communicator. It is run
 without arguments, but after an appropriate call to
 initialize_mpi_alm_tools. 
@@ -68,7 +68,7 @@ src/f90/mod/mpi_alm_tools.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">mpi_map2alm_slave</FONT>(
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">mpi_alm2map_slave</FONT>(
 
 )</h2></blockquote>
 
@@ -88,13 +88,13 @@ call mpi_initialize_alm_tools(comm, nsmax, nlmax, nmmax,
 <BR>
 zbounds,polarization, precompute_plms)
 <BR>
-call mpi_map2alm(map, alms)
+call mpi_alm2map(alms, map)
 <BR>
 else 
 <BR>
 call mpi_initialize_alm_tools(comm)
 <BR>
-call mpi_map2alm_slave
+call mpi_alm2map_slave
 <BR>
 end
 <BR>
@@ -103,40 +103,40 @@ call mpi_cleanup_alm_tools
 <BR><blockquote>
 This example 1) initializes the mpi_alm_tools module (i.e.,
 allocates internal arrays and defines required parameters), 2)
-executes a parallel map2alm operation, and 3) frees the previously
+executes a parallel alm2map operation, and 3) frees the previously
 allocated memory.
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">mpi_map2alm_slave</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">mpi_alm2map_slave</FONT>.</h2>
   <DL COMPACT><DT>
 <B><SPAN  CLASS="textbf">alm_tools</SPAN></B>
 <DD>module
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mpi_map2alm_slave</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mpi_alm2map_slave</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode57.htm#sub:mpi_cleanup_alm_tools">mpi_cleanup_alm_tools</A></B>
+<B><A HREF="subroutinesnode62.htm#sub:mpi_cleanup_alm_tools">mpi_cleanup_alm_tools</A></B>
 <DD>Frees memory that is allocated by the current routine. 
    <DT>
-<B><A HREF="subroutinesnode58.htm#sub:mpi_initialize_alm_tools">mpi_initialize_alm_tools</A></B>
+<B><A HREF="subroutinesnode63.htm#sub:mpi_initialize_alm_tools">mpi_initialize_alm_tools</A></B>
 <DD>Allocates memory and defines variables for the mpi_alm_tools module. 
   <DT>
-<B><A HREF="subroutinesnode54.htm#sub:mpi_alm2map">mpi_alm2map</A></B>
+<B><A HREF="subroutinesnode59.htm#sub:mpi_alm2map">mpi_alm2map</A></B>
 <DD>Routine for executing a parallel inverse spherical harmonics transform (root processor interface)
   <DT>
-<B><A HREF="subroutinesnode56.htm#sub:mpi_alm2map_slave">mpi_alm2map_slave</A></B>
-<DD>Routine for executing a parallel inverse spherical harmonics transform (slave processor interface)
-  <DT>
-<B><A HREF="subroutinesnode59.htm#sub:mpi_map2alm">mpi_map2alm</A></B>
+<B><A HREF="subroutinesnode64.htm#sub:mpi_map2alm">mpi_map2alm</A></B>
 <DD>Routine for executing a parallel spherical harmonics transform (root processor interface)
   <DT>
-<B><A HREF="subroutinesnode55.htm#sub:mpi_alm2map_simple">mpi_alm2map_simple</A></B>
+<B><A HREF="subroutinesnode66.htm#sub:mpi_map2alm_slave">mpi_map2alm_slave</A></B>
+<DD>Routine for executing a parallel spherical harmonics transform (slave processor interface)
+  <DT>
+<B><A HREF="subroutinesnode60.htm#sub:mpi_alm2map_simple">mpi_alm2map_simple</A></B>
 <DD>One-line interface to the parallel inverse spherical harmonics transform 
   <DT>
-<B><A HREF="subroutinesnode60.htm#sub:mpi_map2alm_simple">mpi_map2alm_simple</A></B>
+<B><A HREF="subroutinesnode65.htm#sub:mpi_map2alm_simple">mpi_map2alm_simple</A></B>
 <DD>One-line interface to the parallel spherical harmonics transform 
   </DL>
 
@@ -147,34 +147,36 @@ allocated memory.
 
 <P>
 
+<P>
+
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html951"
+<A NAME="tex2html968"
   HREF="subroutinesnode60.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html957"
+<A NAME="tex2html974"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html961"
+<A NAME="tex2html978"
   HREF="subroutinesnode62.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html959"
+<A NAME="tex2html976"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html952"
-  HREF="subroutinesnode60.htm">mpi_map2alm_simple*</A>
+<B> Previous:</B> <A NAME="tex2html969"
+  HREF="subroutinesnode60.htm">mpi_alm2map_simple*</A>
 
-<B>Up:</B> <A NAME="tex2html958"
+<B>Up:</B> <A NAME="tex2html975"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html962"
-  HREF="subroutinesnode62.htm">nArguments</A>
+<B> Next:</B> <A NAME="tex2html979"
+  HREF="subroutinesnode62.htm">mpi_cleanup_alm_tools</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

@@ -23,7 +23,7 @@
  */
 
 /*
- *  Copyright (C) 2004-2010 Max-Planck-Society
+ *  Copyright (C) 2004-2011 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -44,10 +44,23 @@ class cfft
     cfft () : n(0), plan(0) {}
     cfft (tsize size_)
       : n(size_), plan(make_complex_plan(size_)) {}
+    cfft (const cfft &orig)
+      : n(orig.n), plan(copy_complex_plan(orig.plan)) {}
     ~cfft ()
       { if (plan!=0) kill_complex_plan (plan); }
+    cfft &operator=(const cfft &orig)
+      {
+      if (n!=orig.n)
+        {
+        if (plan!=0) kill_complex_plan (plan);
+        n=orig.n;
+        plan = copy_complex_plan(orig.plan);
+        }
+      return *this;
+      }
     void Set (tsize size_)
       {
+      if (n==size_) return;
       if (plan!=0) kill_complex_plan (plan);
       n=size_;
       plan=make_complex_plan(size_);
@@ -78,12 +91,25 @@ class rfft
 
   public:
     rfft () : n(0), plan(0) {}
+    rfft (const rfft &orig)
+      : n(orig.n), plan(copy_real_plan(orig.plan)) {}
     rfft (tsize size_)
       : n(size_), plan(make_real_plan(size_)) {}
     ~rfft ()
       { if (plan!=0) kill_real_plan (plan); }
+    rfft &operator=(const rfft &orig)
+      {
+      if (n!=orig.n)
+        {
+        if (plan!=0) kill_real_plan (plan);
+        n=orig.n;
+        plan = copy_real_plan(orig.plan);
+        }
+      return *this;
+      }
     void Set (tsize size_)
       {
+      if (n==size_) return;
       if (plan!=0) kill_real_plan (plan);
       n=size_;
       plan=make_real_plan(size_);

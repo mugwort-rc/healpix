@@ -57,6 +57,9 @@ Inheritance diagram for Alm&lt; T &gt;:</div>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classAlm.html#b6ac35e8dda618bdbd591464616e2460">ScaleL</a> (const <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; T2 &gt; &amp;factor)</td></tr>
 
 <tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
+<tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classAlm.html#b7a9a04a1cc8cc8fcc0e98860c29a95a">ScaleM</a> (const <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; T2 &gt; &amp;factor)</td></tr>
+
+<tr><td class="memTemplParams" nowrap colspan="2">template&lt;typename T2&gt; </td></tr>
 <tr><td class="memTemplItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classAlm.html#5f9d947a7751c2fa117d352d83400d5b">Add</a> (const T2 &amp;num)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">T &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAlm.html#0b757224fa983cf8c69486ffba1690aa">operator()</a> (int l, int m)</td></tr>
@@ -99,7 +102,7 @@ Inheritance diagram for Alm&lt; T &gt;:</div>
  class Alm&lt; T &gt;</h3>
 
 Class for storing spherical harmonic coefficients. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00095">95</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00087">87</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="921cfe5a3f8b5049dd05d4830d0f7350"></a><!-- doxytag: member="Alm::Alm" ref="921cfe5a3f8b5049dd05d4830d0f7350" args="(int lmax_=0, int mmax_=0)" -->
 <div class="memitem">
@@ -130,7 +133,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Constructs an <a class="el" href="classAlm.html">Alm</a> object with given <em>lmax</em> and <em>mmax</em>. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00102">102</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00094">94</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -166,7 +169,7 @@ template&lt;typename T&gt; </div>
 Deletes the old coefficients and allocates storage according to <em>lmax</em> and <em>mmax</em>. 
 <p>Reimplemented from <a class="el" href="classAlm__Base.html#e540fd9f626779cfaec37168f9b7c8c5">Alm_Base</a>.</p>
 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00107">107</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00099">99</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -205,7 +208,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Deallocates the old coefficients and uses the content of <em>data</em> for storage. <em>data</em> is deallocated during the call. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00115">115</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00107">107</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -228,7 +231,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Sets all coefficients to zero. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00123">123</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00115">115</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -254,7 +257,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Multiplies all coefficients by <em>factor</em>. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00127">127</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00119">119</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -280,7 +283,33 @@ template&lt;typename T2&gt; </div>
 
 <p>
 <em>a(l,m)</em> *= <em>factor</em>[l] for all <em>l</em>,m. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00130">130</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00122">122</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="b7a9a04a1cc8cc8fcc0e98860c29a95a"></a><!-- doxytag: member="Alm::ScaleM" ref="b7a9a04a1cc8cc8fcc0e98860c29a95a" args="(const arr&lt; T2 &gt; &amp;factor)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<div class="memtemplate">
+template&lt;typename T2&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classAlm.html">Alm</a>&lt; T &gt;::ScaleM           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; T2 &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>factor</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<em>a(l,m)</em> *= <em>factor</em>[m] for all <em>l</em>,m. 
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00131">131</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -306,7 +335,7 @@ template&lt;typename T2&gt; </div>
 
 <p>
 Adds <em>num</em> to a_00. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00139">139</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00140">140</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -339,7 +368,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a reference to the specified coefficient. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00143">143</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00144">144</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -372,7 +401,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a constant reference to the specified coefficient. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00146">146</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00147">147</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -396,7 +425,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a pointer for a given m, from which the address of a_lm can be obtained by adding l. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00151">151</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00152">152</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -420,7 +449,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a pointer for a given m, from which the address of a_lm can be obtained by adding l. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00155">155</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00156">156</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -443,7 +472,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Returns a constant reference to the a_lm data. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00159">159</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00160">160</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -467,7 +496,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Swaps the contents of two <a class="el" href="classAlm.html">Alm</a> objects. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00162">162</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00163">163</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -491,7 +520,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Adds all coefficients from <em>other</em> to the own coefficients. 
-<p>Definition at line <a class="el" href="alm_8h-source.html#l00169">169</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
+<p>Definition at line <a class="el" href="alm_8h-source.html#l00170">170</a> of file <a class="el" href="alm_8h-source.html">alm.h</a>.</p>
 
 </div>
 </div><p>
@@ -526,7 +555,7 @@ template&lt;typename T&gt; </div>
 <p>
 Applies a convolution with a Gaussian beam with an FWHM of <em>fwhm</em> (in radian) to <em>alm</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd>If <em>fwhm&lt;0</em>, a deconvolution with <em>-fwhm</em> is performed. </dd></dl>
 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00250">250</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00251">251</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -572,7 +601,7 @@ template&lt;typename T&gt; </div>
 <p>
 Applies a convolution with a Gaussian beam with an FWHM of <em>fwhm</em> (in radian) to <em>almT</em>, <em>almG</em> and <em>almC</em>. <dl class="note" compact><dt><b>Note:</b></dt><dd>If <em>fwhm&lt;0</em>, a deconvolution with <em>-fwhm</em> is performed. </dd></dl>
 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00267">267</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00268">268</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -619,7 +648,7 @@ template&lt;typename T&gt; </div>
 Rotates <em>alm</em> through the Euler angles <em>psi</em>, <em>theta</em> and <em>phi</em>. The Euler angle convention is right handed, rotations are active.<ul>
 <li><em>psi</em> is the first rotation about the z-axis (vertical)</li><li>then <em>theta</em> about the ORIGINAL (unrotated) y-axis</li><li>then <em>phi</em> about the ORIGINAL (unrotated) z-axis (vertical) </li></ul>
 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00295">295</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00296">296</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -678,7 +707,7 @@ template&lt;typename T&gt; </div>
 Rotates <em>almT</em>, <em>almG</em> and <em>almC</em> through the Euler angles <em>psi</em>, <em>theta</em> and <em>phi</em>. The Euler angle convention is right handed, rotations are active.<ul>
 <li><em>psi</em> is the first rotation about the z-axis (vertical)</li><li>then <em>theta</em> about the ORIGINAL (unrotated) y-axis</li><li>then <em>phi</em> about the ORIGINAL (unrotated) z-axis (vertical) </li></ul>
 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00351">351</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00352">352</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -711,7 +740,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Rotates <em>alm</em> through the rotation matrix <em>mat</em>. 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00425">425</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00426">426</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -756,7 +785,7 @@ template&lt;typename T&gt; </div>
 
 <p>
 Rotates <em>almT</em>, <em>almG</em> and <em>almC</em> through the rotation matrix <em>mat</em>. 
-<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00436">436</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
+<p>Definition at line <a class="el" href="alm__powspec__tools_8cc-source.html#l00437">437</a> of file <a class="el" href="alm__powspec__tools_8cc-source.html">alm_powspec_tools.cc</a>.</p>
 
 </div>
 </div><p>
@@ -764,7 +793,7 @@ Rotates <em>almT</em>, <em>almG</em> and <em>almC</em> through the rotation matr
 <li><a class="el" href="alm_8h-source.html">alm.h</a><li><a class="el" href="alm__powspec__tools_8h-source.html">alm_powspec_tools.h</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:07 2011 for Healpix C++
+Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
 </a> </small></address>
 </body>
 </html>

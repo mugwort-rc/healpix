@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -25,32 +25,39 @@
 ;  For more information about HEALPix see http://healpix.jpl.nasa.gov
 ;
 ; -----------------------------------------------------------------------------
-pro query_polygon, nside, vlist, listpix, nlist, help=help, nested=nested, inclusive=inclusive
+pro query_polygon, nside, vlist, listpix, nlist, $
+                   help=help, nested=nested, inclusive=inclusive, walltime=walltime
 
 ;+
 ;=======================================================================
-; query_polygon, nside, vlist, listpix, [nlist, HELP=, NESTED=, INCLUSIVE=]
+; query_polygon, nside, vlist, listpix, [nlist, HELP=, NESTED=, INCLUSIVE=, WALLTIME=]
 ;
-; finds pixels that lie within a CONVEX polygon defined by its vertex on the sphere
+; finds pixels that lie within a polygon defined by its vertex on the sphere.
+; The polygon must be CONVEX or have a single non-convex vertex.
 ;
 ; nside             : IN
 ; vlist(0:n-1, 0:2) : IN, list of vertices
-; listpix           : OUT
-; nlist             : OUT
-; nested              : IN, OPTIONAL
-; inclusive         : IN, OPTIONAL
+; listpix           : OUT, list of pixels lying in polygon
+; nlist             : OUT, number of those pixels
+; nested            : IN, OPTIONAL. If set output list in indexed in NESTED
+;                        scheme instead of RING
+; inclusive         : IN, OPTIONAL. Pixels touched by polygon are included in
+;                     list, not only those whose center is in the polygon
 ; help              : IN, OPTIONAL  prints this documentation header and exits
 ; 
 ; algorithm:
-;   the polygon is divided into triangles
-;   vertex 0 belongs to all the triangles
+;   the polygon is divided into triangles and query_triangle is called.
+;   vertex 0 (or the non-convex vertex) belongs to all the triangles
 ;
 ; v1.0, EH, Caltech, Dec-2001
 ; 2008-03-27, check # of params, added /HELP
 ; 2010-03-12: corrected typo in documentation header
+; 2011-06-09: deal properly with empty returned list
+;             Nested reordering done at the very final step
 ;=======================================================================
 ;-
 
+tstart = systime(1)
 routine = 'query_polygon'
 syntax = 'QUERY_POLYGON, Nside, Vlist, Listpix, [Nlist, HELP=, NESTED=, INCLUSIVE=]'
 
@@ -120,7 +127,7 @@ nlist = 0
 while (n_remain ge 3) do begin
     query_triangle,nside, $
                    vvlist[0,*], vvlist[n_remain-2,*], vvlist[n_remain-1,*], $
-                   list_tr, ntl, nested=nested, inclusive=inclusive
+                   list_tr, ntl, inclusive=inclusive
 
     if ntl gt 0 then begin
         if nlist le 0 then begin
@@ -135,13 +142,17 @@ while (n_remain ge 3) do begin
     n_remain = n_remain - 1
 endwhile
 
-; sort final list
-listpix = listpix[sort(listpix)]
+if (nlist gt 0) then begin
+; remove redondant pixels after sorting
+    listpix = listpix[uniq(listpix, sort(listpix))]
+    nlist = n_elements(listpix)
+; turn to NESTED indexing if requested
+    if (keyword_set(nested)) then ring2nest, nside, listpix, listpix
+endif else begin
+    listpix = [-1L]
+    nlist = 0L
+endelse
 
-; remove redondant pixels
-listpix = listpix[uniq(listpix)]
-
-nlist = n_elements(listpix)
-
+walltime = systime(1) - tstart
 return
 end

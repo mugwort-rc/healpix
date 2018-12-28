@@ -81,6 +81,8 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">const double &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPowSpec.html#aaa01b0cd15a77bd9aacc045f20dc562">gc</a> (int l) const </td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPowSpec.html#448df4934fd82a6bddea26cb8a80825e">Set</a> (int nspec, int lmax)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPowSpec.html#b15f92882def136dc6851f0b1b512fbb">Set</a> (<a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; double &gt; &amp;tt_new)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPowSpec.html#5cdba4260af5260a360ce219bc287104">Set</a> (<a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; double &gt; &amp;tt_new, <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; double &gt; &amp;gg_new, <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; double &gt; &amp;cc_new, <a class="elRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classarr.html">arr</a>&lt; double &gt; &amp;tg_new)</td></tr>
@@ -134,7 +136,7 @@ Class for storing unpolarised and polarised power spectra.
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -142,7 +144,7 @@ Class for storing unpolarised and polarised power spectra.
 
 <p>
 Constructs a <em><a class="el" href="classPowSpec.html">PowSpec</a></em> with <em>nspec</em> components and a maximum multipole of <em>lmax</em>. <em>nspec</em> can be 1 (TT), 4 (TT,GG,CC,TG) or 6 (TT,GG,CC,TG,TC,GC). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00052">52</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00047">47</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -164,7 +166,7 @@ Constructs a <em><a class="el" href="classPowSpec.html">PowSpec</a></em> with <e
 
 <p>
 Ensures that the internal array sizes are consistent with the <em>num_specs</em> variable. 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00047">47</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00053">53</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -185,7 +187,7 @@ Ensures that the internal array sizes are consistent with the <em>num_specs</em>
 
 <p>
 Checks whether the object can be an auto power spectrum. If this is not the case, an exception is thrown. 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00066">66</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00072">72</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -206,7 +208,7 @@ Checks whether the object can be an auto power spectrum. If this is not the case
 
 <p>
 Returns the number of spectral components. 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00080">80</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00065">65</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -227,7 +229,7 @@ Returns the number of spectral components.
 
 <p>
 Returns the maximum <em>l</em>. 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00082">82</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00067">67</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -248,7 +250,7 @@ Returns the maximum <em>l</em>.
 
 <p>
 Returns the TT array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00084">84</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00069">69</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -269,7 +271,7 @@ Returns the TT array (read-only).
 
 <p>
 Returns the GG array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00086">86</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00071">71</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -290,7 +292,7 @@ Returns the GG array (read-only).
 
 <p>
 Returns the CC array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00088">88</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00073">73</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -311,7 +313,7 @@ Returns the CC array (read-only).
 
 <p>
 Returns the TG array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00090">90</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00075">75</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -332,7 +334,7 @@ Returns the TG array (read-only).
 
 <p>
 Returns the TC array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00092">92</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00077">77</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -353,7 +355,7 @@ Returns the TC array (read-only).
 
 <p>
 Returns the GC array (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00094">94</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00079">79</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -375,7 +377,7 @@ Returns the GC array (read-only).
 
 <p>
 Returns TT(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00096">96</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00081">81</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -397,7 +399,7 @@ Returns TT(l) (read-write).
 
 <p>
 Returns GG(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00098">98</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00083">83</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -419,7 +421,7 @@ Returns GG(l) (read-write).
 
 <p>
 Returns CC(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00100">100</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00085">85</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -441,7 +443,7 @@ Returns CC(l) (read-write).
 
 <p>
 Returns TG(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00102">102</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00087">87</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -463,7 +465,7 @@ Returns TG(l) (read-write).
 
 <p>
 Returns TC(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00104">104</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00089">89</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -485,7 +487,7 @@ Returns TC(l) (read-write).
 
 <p>
 Returns GC(l) (read-write). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00106">106</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00091">91</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -507,7 +509,7 @@ Returns GC(l) (read-write).
 
 <p>
 Returns TT(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00108">108</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00093">93</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -529,7 +531,7 @@ Returns TT(l) (read-only).
 
 <p>
 Returns GG(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00110">110</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00095">95</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -551,7 +553,7 @@ Returns GG(l) (read-only).
 
 <p>
 Returns CC(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00112">112</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00097">97</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -573,7 +575,7 @@ Returns CC(l) (read-only).
 
 <p>
 Returns TG(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00114">114</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00099">99</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -595,7 +597,7 @@ Returns TG(l) (read-only).
 
 <p>
 Returns TC(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00116">116</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00101">101</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
 
 </div>
 </div><p>
@@ -617,7 +619,38 @@ Returns TC(l) (read-only).
 
 <p>
 Returns GC(l) (read-only). 
-<p>Definition at line <a class="el" href="powspec_8h-source.html#l00118">118</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8h-source.html#l00103">103</a> of file <a class="el" href="powspec_8h-source.html">powspec.h</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="448df4934fd82a6bddea26cb8a80825e"></a><!-- doxytag: member="PowSpec::Set" ref="448df4934fd82a6bddea26cb8a80825e" args="(int nspec, int lmax)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PowSpec::Set           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nspec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>lmax</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Re-allocates the object 
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00092">92</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -640,7 +673,7 @@ Returns GC(l) (read-only).
 <p>
 Sets the whole TT array. <dl class="note" compact><dt><b>Note:</b></dt><dd>On exit, <em>tt_new</em> is zero-sized! </dd></dl>
 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00086">86</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00111">111</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -684,7 +717,7 @@ Sets the whole TT array. <dl class="note" compact><dt><b>Note:</b></dt><dd>On ex
 <p>
 Sets the four first components. <dl class="note" compact><dt><b>Note:</b></dt><dd>On exit, all arguments are zero-sized! </dd></dl>
 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00096">96</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00121">121</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -740,7 +773,7 @@ Sets the four first components. <dl class="note" compact><dt><b>Note:</b></dt><d
 <p>
 Sets all components. <dl class="note" compact><dt><b>Note:</b></dt><dd>On exit, all arguments are zero-sized! </dd></dl>
 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00106">106</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00131">131</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -763,7 +796,7 @@ Sets all components. <dl class="note" compact><dt><b>Note:</b></dt><dd>On exit, 
 <p>
 Smooths the spectrum with a Gaussian beam. <em>fwhm</em> is given in radian. <dl class="note" compact><dt><b>Note:</b></dt><dd>This is only implememted for 1 and 4 spectra so far. </dd></dl>
 
-<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00115">115</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
+<p>Definition at line <a class="el" href="powspec_8cc-source.html#l00140">140</a> of file <a class="el" href="powspec_8cc-source.html">powspec.cc</a>.</p>
 
 </div>
 </div><p>
@@ -771,7 +804,7 @@ Smooths the spectrum with a Gaussian beam. <em>fwhm</em> is given in radian. <dl
 <li><a class="el" href="powspec_8h-source.html">powspec.h</a><li><a class="el" href="powspec_8cc-source.html">powspec.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:07 2011 for Healpix C++
+Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
 </a> </small></address>
 </body>
 </html>

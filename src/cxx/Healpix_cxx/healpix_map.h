@@ -25,7 +25,7 @@
  */
 
 /*! \file healpix_map.h
- *  Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008 Max-Planck-Society
+ *  Copyright (C) 2003-2011 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -121,10 +121,6 @@ template<typename T> class Healpix_Map: public Healpix_Base
       int fact = nside_/orig.nside_;
       planck_assert (nside_==orig.nside_*fact,
         "the larger Nside must be a multiple of the smaller one");
-      pix2xyf to_xyf = (orig.scheme_==RING) ?
-        &Healpix_Map::ring2xyf : &Healpix_Map::nest2xyf;
-      xyf2pix from_xyf = (scheme_==RING) ?
-        &Healpix_Map::xyf2ring : &Healpix_Map::xyf2nest;
 
 #pragma omp parallel
 {
@@ -133,11 +129,11 @@ template<typename T> class Healpix_Map: public Healpix_Base
       for (m=0; m<orig.npix_; ++m)
         {
         int x,y,f;
-        (orig.*to_xyf)(m,x,y,f);
+        orig.pix2xyf(m,x,y,f);
         for (int j=fact*y; j<fact*(y+1); ++j)
           for (int i=fact*x; i<fact*(x+1); ++i)
             {
-            int mypix = (this->*from_xyf)(i,j,f);
+            int mypix = xyf2pix(i,j,f);
             map[mypix] = orig.map[m];
             }
         }
@@ -180,39 +176,14 @@ template<typename T> class Healpix_Map: public Healpix_Base
         This is done in-place (i.e. with negligible space overhead). */
     void swap_scheme()
       {
-      static const int clen[] = { 0,7,5,4,12,10,13,18,14,19,18,17,27,21 };
-      static const int cycle[][30] = {
-        { },
-        { 0,1,8,12,16,21,40 },
-        { 0,1,2,40,114 },
-        { 0,4,160,263 },
-        { 0,4,30,49,51,87,526,1027,1105,1387,1807,2637 },
-        { 0,8,10,18,39,74,146,307,452,4737 },
-        { 0,1,2,7,9,17,80,410,1526,1921,32859,33566,38931 },
-        { 0,5,6,10,12,24,27,95,372,494,924,1409,3492,4248,9137,66043,103369,
-          156899 },
-        { 0,1,2,3,4,45,125,351,697,24337,102940,266194,341855,419857 },
-        { 0,1,2,3,9,16,1705,2082,2126,8177,12753,15410,52642,80493,83235,
-          88387,99444,1675361,2495125 },
-        { 0,2,6,8,9,11,20,50,93,152,183,2137,13671,44794,486954,741908,
-          4803258,5692573 },
-        { 0,1,5,6,44,53,470,2847,3433,4906,13654,14710,400447,1797382,
-          2744492,18775974,23541521 },
-        { 0,4,9,10,16,33,83,117,318,451,5759,10015,128975,171834,211256,
-          347608,1278690,2154097,2590798,3427694,5581717,21012301,27023976,
-          72522811,95032729,139166747,171822389 },
-        { 0,5,10,267,344,363,2968,3159,9083,18437,76602,147614,1246902,
-          1593138,2035574,6529391,9511830,11340287,29565945,281666026,
-          677946848 } };
-
       swapfunc swapper = (scheme_ == NEST) ?
         &Healpix_Base::ring2nest : &Healpix_Base::nest2ring;
 
-      planck_assert (order_>=0, "swap_scheme(): need hierarchical map");
+      arr<int> cycle=swap_cycles();
 
-      for (int m=0; m<clen[order_]; ++m)
+      for (tsize m=0; m<cycle.size(); ++m)
         {
-        int istart = cycle[order_][m];
+        int istart = cycle[m];
 
         T pixbuf = map[istart];
         int iold = istart, inew = (this->*swapper)(istart);
@@ -231,8 +202,15 @@ template<typename T> class Healpix_Map: public Healpix_Base
     T interpolation (const fix_arr<int,4> &pix,
       const fix_arr<double,4> &wgt) const
       {
-      return T(map[pix[0]]*wgt[0] + map[pix[1]]*wgt[1]
-             + map[pix[2]]*wgt[2] + map[pix[3]]*wgt[3]);
+      double wtot=0;
+      T res=T(0);
+      for (tsize i=0; i<4; ++i)
+        {
+        T val=map[pix[i]];
+        if (!approx<double>(val,Healpix_undef))
+          { res+=T(val*wgt[i]); wtot+=wgt[i]; }
+        }
+      return (wtot==0.) ? T(Healpix_undef) : T(res/wtot);
       }
     /*! Returns the interpolated map value at \a ptg */
     T interpolated_value (const pointing &ptg) const
@@ -267,7 +245,7 @@ template<typename T> class Healpix_Map: public Healpix_Base
       for (int m=0; m<npix_; ++m)
         if (!approx<double>(map[m],Healpix_undef))
           { ++pix; avg+=map[m]; }
-      return avg/pix;
+      return (pix>0) ? avg/pix : Healpix_undef;
       }
 
     /*! Adds \a val to all defined map pixels. */
@@ -297,7 +275,7 @@ template<typename T> class Healpix_Map: public Healpix_Base
       for (int m=0; m<npix_; ++m)
         if (!approx<double>(map[m],Healpix_undef))
           { ++pix; result+=map[m]*map[m]; }
-      return sqrt(result/pix);
+      return (pix>0) ? sqrt(result/pix) : Healpix_undef;
       }
     /*! Returns the maximum absolute value in the map, ignoring undefined
         pixels. */
@@ -310,6 +288,25 @@ template<typename T> class Healpix_Map: public Healpix_Base
         if (!approx<double>(map[m],Healpix_undef))
           { result = max(result,abs(map[m])); }
       return result;
+      }
+    /*! Returns \a true, if no pixel has the value \a Healpix_undef,
+        else \a false. */
+    bool fullyDefined() const
+      {
+      for (int m=0; m<npix_; ++m)
+        if (approx<double>(map[m],Healpix_undef))
+          return false;
+      return true;
+      }
+    /*! Sets all pixels with the value \a Healpix_undef to 0, and returns
+        the number of modified pixels. */
+    tsize replaceUndefWith0()
+      {
+      tsize res=0;
+      for (int m=0; m<npix_; ++m)
+        if (approx<double>(map[m],Healpix_undef))
+          { map[m]=0.; ++res; }
+      return res;
       }
   };
 

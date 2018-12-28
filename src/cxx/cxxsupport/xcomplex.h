@@ -26,7 +26,7 @@
  *  Class for representing complex numbers, strongly inspired by C++'s
  *  std::complex
  *
- *  Copyright (C) 2003-2010 Max-Planck-Society
+ *  Copyright (C) 2003-2011 Max-Planck-Society
  *  \author Martin Reinecke
  */
 
@@ -109,15 +109,15 @@ template<typename T> class xcomplex
     /*! Multiplies \a *this by \a b. */
     xcomplex &operator*= (const xcomplex &b)
       {
-      T tmp=re;
-      re=tmp*b.re-im*b.im; im=tmp*b.im+im*b.re;
+      T tr=re*b.re-im*b.im, ti=re*b.im+im*b.re;
+      re=tr; im=ti;
       return *this;
       }
     /*! Divides \a *this by \a b. */
     xcomplex &operator/= (const xcomplex &b)
       {
       std::complex<T> tmp=*this;
-      tmp /= b;
+      tmp /= std::complex<T>(b);
       *this=tmp;
       return *this;
       }
@@ -166,6 +166,10 @@ template<typename T> class xcomplex
     xcomplex conj() const
       { return xcomplex (re,-im); }
 
+    /*! Returns \a *this*i. */
+    xcomplex times_i() const
+      { return xcomplex (-im,re); }
+
     /*! Returns the norm of \a *this. */
     T norm() const
       { return re*re + im*im; }
@@ -186,6 +190,13 @@ template <typename T> inline T abs (const xcomplex<T> &num)
   using namespace std;
   return abs(complex<T>(num));
   }
+/*! Returns the exponential of \a num.
+    \relates xcomplex */
+template <typename T> inline xcomplex<T> exp (const xcomplex<T> &num)
+  {
+  using namespace std;
+  return xcomplex<T>(exp(complex<T>(num)));
+  }
 /*! Returns \a f1*f2.
     \relates xcomplex */
 template <typename T> inline xcomplex<T> operator*
@@ -201,6 +212,9 @@ template <typename T> inline xcomplex<T> operator/
 template<typename T>
   inline std::ostream &operator<< (std::ostream &os, const xcomplex<T> &val)
   { os << "(" << val.re << "," << val.im << ")"; return os; }
+
+typedef xcomplex<double> dcomplex;
+typedef xcomplex<float>  fcomplex;
 
 /*! \} */
 

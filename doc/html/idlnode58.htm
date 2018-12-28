@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>write_fits_map </TITLE>
-<META NAME="description" CONTENT="write_fits_map ">
+<TITLE>read_fits_s </TITLE>
+<META NAME="description" CONTENT="read_fits_s ">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,44 +28,42 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html827"
+<A NAME="tex2html869"
   HREF="idlnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html875"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html837"
+<A NAME="tex2html879"
   HREF="idlnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html877"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html828"
-  HREF="idlnode57.htm">write_fits_cut4</A>
+<B> Previous:</B> <A NAME="tex2html870"
+  HREF="idlnode57.htm">read_fits_map</A>
 
-<B>Up:</B> <A NAME="tex2html834"
+<B>Up:</B> <A NAME="tex2html876"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html838"
-  HREF="idlnode59.htm">write_fits_sb</A>
+<B> Next:</B> <A NAME="tex2html880"
+  HREF="idlnode59.htm">read_tqu</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000580000000000000000"></A>
-<A NAME="idl:write_fits_map"></A>
+<A NAME="idl:read_fits_s"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_fits_map </FONT></font></b><hr><H2>This IDL facility writes out a <b>HEALPix</b> map into a FITS file according to
-the <b>HEALPix</b> convention</H2><br>Location in HEALPix directory tree: <b>
-src/idl/fits/write_fits_map.pro
+<b><font size=+6><FONT COLOR="#CC0000">read_fits_s </FONT></font></b><hr><H2>This IDL facility reads a FITS file into an IDL structure.</H2><br>Location in HEALPix directory tree: <b>
+src/idl/fits/read_fits_s.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-WRITE_FITS_MAP , File, T_sky, [Header, Coordsys=, Error=, Help=, Nested=, Ring=,
-Ordering=, Units=]
+READ_FITS_S , File, Prim_stc, [Xten_stc, MERGE=, EXTENSION=]
 
 </h2>
 <P>
@@ -73,129 +71,93 @@ Ordering=, Units=]
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>File</B>
-<DD>name of a FITS file in which the map is to be written
+<DD>name of a FITS file containing 
+               the healpix map(s) in an extension or in the image field 
 
 <P>
 <DT>
-<B>T_sky</B>
-<DD>variable containing the <b>HEALPix</b> map
+<B>Prim_stc</B>
+<DD>variable containing on output an IDL structure with the following fields: 
+<BR>		- primary header (tag : 0, tag name : HDR) 
+<BR>		- primary image (if any, tag : 1, tag name : IMG)
 
 <P>
 <DT>
-<B>Header</B>
+<B>Xten_stc</B>
 <DD>(optional), 
 <BR>
-string variable containing on input  the information to be added
-		  to the extension header. (If already present, FITS reserved
-		  keywords will be automatically updated).
+variable containing on output an IDL structure with the following fields: 
+<BR>		- extension header (tag : 0, tag name : HDR) 
+<BR>		- data column 1 (if any, tag : 1, tag name given by TTYPE1 (with all
+                    spaces removed and only letters, digits and underscore) 
+<BR>		- data column 2 (if any, tag : 2, tag name given by TTYPE2)  
+<BR>		...
 
 <P>
 <DT>
-<B>Coordsys=</B>
+<B>EXTENSION=</B>
 <DD>(optional), 
 <BR>
-if set to either 'C', 'E' or 'G',  specifies that the
-		Healpix coordinate system is respectively Celestial=equatorial,
-		  Ecliptic or Galactic.
-		(The relevant keyword is then added/updated in the extension
-		  header, but the map is NOT rotated)
-
-<P>
-<DT>
-<B>Error=</B>
-<DD>(optional output), 
-<BR>
-will take value 1 if file can not be written
-
-<P>
-<DT>
-<B>Ordering=</B>
-<DD>(optional), 
-<BR>
-if set to either 'ring' or 'nested' (case un-sensitive),
-		  specifies that the map is respectively in RING or NESTED
-		  ordering scheme
-<BR>		<i>see also:</i>Nested and Ring
-
-<P>
-<DT>
-<B>Units=</B>
-<DD>(optional), 
-<BR>
-string describing the physical units of the data set
+scalar integer containing on input the extension to be read (0 based)
+<BR>	<b>default:</b>0
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>Help</B>
-<DD>if set, an extensive help is displayed and no
-	file is written
-	<DT>
-<B>Nested</B>
-<DD>if set, specifies that the map is in the NESTED ordering
-	scheme
-<BR>	<i>see also:</i>Ordering and Ring 
-	<DT>
-<B>Ring</B>
-<DD>if set, specifies that the map is in the RING ordering
-	scheme
-<BR>	<i>see also:</i>Ordering and Nested
+<B>MERGE=</B>
+<DD>if set <TT>Prim_stc</TT> contains : 
+<BR>		- the concatenated primary and extension header (tag name : HDR) 
+<BR>		- primary image (if any, tag name : IMG) 
+<BR>		- data column 1 ... 
+<BR>
+and <TT>Exten_stc</TT> is set to 0 
+<BR>	<b>default:</b>: not set (or set to 0)
    </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-write_fits_map writes out the full sky <b>HEALPix</b> map <TT>T_sky</TT> into the FITS file
-<TT>File</TT>. Extra information about the map can be given in <TT>Header</TT> according to the FITS header conventions. Coordinate systems 
-can also be specified by <TT>Coordsys</TT>. Specifying the
-ordering scheme is compulsary and can be done either in <TT>Header</TT> 
-or by setting <TT>Ordering</TT> or <TT>Nested</TT> or <TT>Ring</TT> to the 
-correct value. If <TT>Ordering</TT> or <TT>Nested</TT> or <TT>Ring</TT> is set,
-its value overrides what is given in <TT>Header</TT>.
+<FONT COLOR="#CC0000">read_fits_s </FONT>reads in any type of FITS file (Image, Binary table or Ascii table) 
+and outputs the data in IDL structures
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_fits_map </FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">read_fits_s </FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run write_fits_map <DT>
-<B><A HREF="idlnode47.htm#idl:read_fits_map">read_fits_map</A></B>
-<DD>This <b>HEALPix</b> IDL facility can be used to read in maps
-  written by write_fits_map .
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">read_fits_s </FONT>
   <DT>
-<B>sxaddpar</B>
-<DD>This IDL routine (included in <b>HEALPix</b> package) can be used to update
-  or add FITS keywords to <TT>Header</TT>
+<B>synfast</B>
+<DD>This <b>HEALPix</b> facility will generate the FITS format 
+            sky map that can be read by <FONT COLOR="#CC0000">read_fits_s </FONT>.
   <DT>
-<B><A HREF="idlnode51.htm#idl:reorder">reorder</A></B>
-<DD>This <b>HEALPix</b> IDL routine can be used to reorder a map from
-  NESTED scheme to RING scheme and vice-versa.
-  <DT>
-<B><A HREF="idlnode57.htm#idl:write_fits_cut4">write_fits_cut4</A>,
-<A HREF="#idl:write_fits_map">write_fits_map</A></B>
+<B><A HREF="idlnode56.htm#idl:read_fits_cut4">read_fits_cut4</A>,
+<A HREF="idlnode57.htm#idl:read_fits_map">read_fits_map</A></B>
 <DD><DT>
-<B><A HREF="idlnode60.htm#idl:write_tqu">write_tqu</A>,
-<A HREF="idlnode59.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD><b>HEALPix</b> IDL routines to write cut-sky maps, full-sky maps, polarized full-sky maps and
-arbitrary data sets into FITS files
+<B><A HREF="idlnode59.htm#idl:read_tqu">read_tqu</A>,
+<A HREF="#idl:read_fits_s">read_fits_s</A></B>
+<DD><b>HEALPix</b> IDL routines to read cut-sky maps, full-sky maps, polarized full-sky maps and
+arbitrary data sets from FITS files
   <DT>
-<B><A HREF="idlnode59.htm#idl:write_fits_sb">write_fits_sb</A></B>
-<DD>routine to write multi-column binary FITS table
+<B><A HREF="idlnode69.htm#idl:write_fits_sb">write_fits_sb</A></B>
+<DD>This <b>HEALPix</b> IDL facility can be used to generate FITS format 
+            sky maps readable by <FONT COLOR="#CC0000">read_fits_s </FONT>.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
 </SMALL><TABLE CELLPADDING=3>
 <TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-write_fits_map, 'file.fits', map, coordsys='G', ordering='ring' </SMALL></TD>
+<FONT COLOR="#CC0000">read_fits_s </FONT>,  'dmr_skymap_90a_4yr.fits', pdata, xdata </SMALL></TD>
 </TR>
 </TABLE><SMALL CLASS="FOOTNOTESIZE">
 </font></tt>
-<BR><blockquote>write_fits_sb writes out the RING ordered map <TT>map</TT> in Galactic
-coordinates into the file <TT>file.fits</TT>.
-</blockquote>
+<BR><blockquote><FONT COLOR="#CC0000">read_fits_s </FONT>reads in the file 'dmr_skymap_90a_4yr.fits'. On output, pdata
+contains the primary header and xdata is a structure whose first field is the
+extension header, and the other fields are vectors with respective tag names 
+PIXEL, SIGNAL, N_OBS, SERROR, ... (see <TT>help,/struc,xdata</TT>)</blockquote>
 <P>
 
 <P>
@@ -203,32 +165,32 @@ coordinates into the file <TT>file.fits</TT>.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html827"
+<A NAME="tex2html869"
   HREF="idlnode57.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html833"
+<A NAME="tex2html875"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html837"
+<A NAME="tex2html879"
   HREF="idlnode59.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html835"
+<A NAME="tex2html877"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html828"
-  HREF="idlnode57.htm">write_fits_cut4</A>
+<B> Previous:</B> <A NAME="tex2html870"
+  HREF="idlnode57.htm">read_fits_map</A>
 
-<B>Up:</B> <A NAME="tex2html834"
+<B>Up:</B> <A NAME="tex2html876"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html838"
-  HREF="idlnode59.htm">write_fits_sb</A>
+<B> Next:</B> <A NAME="tex2html880"
+  HREF="idlnode59.htm">read_tqu</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

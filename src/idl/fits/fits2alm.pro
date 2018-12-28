@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -44,6 +44,7 @@
 ; OPTIONAL INPUT:
 ;       signal   = String defining the signal coefficients to read
 ;                  Valid options: 'T' 'E' 'B' 'ALL' 
+;                  Default: 'T'
 ;
 ; OUTPUTS:
 ;       index    = Integer array containing the index for the corresponding 
@@ -92,6 +93,8 @@
 ;  Jan 2008, EH: calls tbfree to remove heap pointer created by TBINFO
 ;       Jan 2009: calls init_astrolib
 ;       Nov 2009: added LMIN, LMAX and HELP
+;       Feb 2012: issues warning if an extension is not found, 
+;         and crashes if none of the requested data is available.
 ;
 ; requires the THE IDL ASTRONOMY USER'S LIBRARY 
 ; that can be found at http://idlastro.gsfc.nasa.gov/homepage.html
@@ -118,7 +121,7 @@ endelse
 
 if (ngood eq 0) then begin
     index2lm, final_range, ll, mm
-    message,'No alm''s found in specified ell range '+string(ll[0])+string(ll[1]),level=-1
+    message_patch,'No alm''s found in specified ell range '+string(ll[0])+string(ll[1]),level=-1
 endif
 
 return
@@ -182,11 +185,17 @@ fits_info,fitsfile, /silent, n_ext=n_ext
 ; simply read the extensions from the FITS file
 savehdr = ''
 nrows_old = -1
+nsig_eff = 0
 for i = 0,nsig-1 do begin
     exten = extension+i
     if (exten gt n_ext) then begin
-        message,' Required extension does not exist in file'
-    endif
+        message,/info,' WARNING: Required extension does not exist in file: '+fitsfile
+        message,/info,'          Output data will be shorted than expected.'
+        goto, skip
+    endif else begin
+        nsig_eff +=1
+    endelse
+    
 
     ; read data
     fits_read, fitsfile, tmpout, xhdr, /no_pdu, exten_no = exten
@@ -224,9 +233,16 @@ for i = 0,nsig-1 do begin
         for jc=2,ncols do alm_array[*,jc-2,i] =  tbget(tab_xhdr, tmpout, jc)
     endelse
 
+    skip:
+
 endfor
 
-alm_array = reform(alm_array)
+if (nsig_eff eq 0) then begin
+    message,'ERROR: None of the requested data found. Aborting'
+endif
+
+if (nsig_eff lt nsig) then alm_array = alm_array[*,*,0:nsig_eff-1]
+alm_array = reform(alm_array, /Overwrite)
 xhdr = savehdr
 tbfree, tab_xhdr
 

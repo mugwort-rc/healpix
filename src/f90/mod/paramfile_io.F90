@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------------
 !
-!  Copyright (C) 1997-2010 Krzysztof M. Gorski, Eric Hivon,
+!  Copyright (C) 1997-2012 Krzysztof M. Gorski, Eric Hivon,
 !                          Benjamin D. Wandelt, Anthony J. Banday, 
 !                          Matthias Bartelmann, Hans K. Eriksen, 
 !                          Frode K. Hansen, Martin Reinecke
@@ -39,6 +39,8 @@
 ! v1.5: 2009-09-07, introduces get_healpix_main_dir, get_healpix_data_dir, get_healpix_test_dir
 ! v1.6: 2009-11-26: bug correction in get_healpix_*_dir
 ! v1.7: 2011-01-03: addition of get_healpix_pixel_window_file & get_healpix_ring_weight_file
+! v1.8: 2012-10-29: replaced F90 inquire with misc_utils's file_present which will accept remote files
+! v1.9: 2012-11-14: deal correctly with undefined HEALPIX (or equivalent) in get_healpix_data_dir
 module paramfile_io
   use healpix_types
   use extension
@@ -71,7 +73,7 @@ contains
 
 !=====================================================================
 subroutine notify_user (keyname, rdef, rmin, rmax, ddef, dmin, dmax, &
-  idef, imin, imax, ldef, lmin, lmax, logdef, chdef, descr)
+  idef, imin, imax, ldef, lmin, lmax, logdef, chdef, descr, ivalid)
   !=====================================================================
   ! prompts user for next parameter when in interactive mode
   !=====================================================================
@@ -82,6 +84,7 @@ subroutine notify_user (keyname, rdef, rmin, rmax, ddef, dmin, dmax, &
   integer(i8b), intent(in), optional :: ldef, lmin, lmax
   logical, intent(in), optional :: logdef
   character(len=*), intent(in), optional :: chdef, descr
+  integer(i4b), intent(in), optional, dimension(1:) :: ivalid
 
   if (present(descr)) then
      write(*,'(a)') trim(descr)
@@ -105,6 +108,9 @@ subroutine notify_user (keyname, rdef, rmin, rmax, ddef, dmin, dmax, &
   else
      if (present(imin)) print *, "min value: ", imin
      if (present(imax)) print *, "max value: ", imax
+  endif
+  if (present(ivalid)) then
+     print *, "allowed values: ",ivalid(1:)
   endif
   if (present(lmin) .and. present(lmax)) then
      print *, "allowed range: ", lmin, lmax
@@ -313,7 +319,8 @@ end subroutine parse_finish
 
 !===================================================================
 subroutine find_param (handle,keyname,result,found,rdef,rmin,rmax, &
-    ddef,dmin,dmax,idef,imin,imax,ldef,lmin,lmax,logdef,chdef,descr)
+    ddef,dmin,dmax,idef,imin,imax,ldef,lmin,lmax,logdef,chdef,descr, &
+    ivalid)
   !===================================================================
   ! extract parameter from file or read from standard input
   !===================================================================
@@ -327,6 +334,7 @@ subroutine find_param (handle,keyname,result,found,rdef,rmin,rmax, &
   integer(i8b), intent(in), optional :: ldef, lmin, lmax
   logical, intent(in), optional :: logdef
   character(len=*), intent(in), optional :: chdef, descr
+  integer(i4b), intent(in), optional, dimension(1:) :: ivalid
 
   character(len=filenamelen) :: line, name, value
   integer i
@@ -336,7 +344,8 @@ subroutine find_param (handle,keyname,result,found,rdef,rmin,rmax, &
 
   if (handle%interactive) then
      call notify_user (keyname,rdef,rmin,rmax,ddef,dmin,dmax, &
-          &            idef,imin,imax,ldef,lmin,lmax,logdef,chdef,descr)
+          &            idef,imin,imax,ldef,lmin,lmax,logdef,chdef,descr, &
+          &            ivalid)
      read (*,'(a)',err=5) result
      found = (trim(result)/='')
      do i=1,size(handle%keylist)
@@ -480,25 +489,27 @@ function parse_double (handle, keyname, default, vmin, vmax, descr)
 end function parse_double
 
 !==================================================================
-function parse_int (handle, keyname, default, vmin, vmax, descr)
+function parse_int (handle, keyname, default, vmin, vmax, descr, valid)
   !==================================================================
   ! parse 4 byte integer parameter
   !==================================================================
   type(paramfile_handle), intent(inout) :: handle
   character(len=*), intent(in) :: keyname
   integer(i4b), intent(in), optional :: default, vmin, vmax
+  integer(i4b), intent(in), optional, dimension(1:) :: valid
   character(len=*), intent(in), optional :: descr
   integer(i4b) :: parse_int
 
   character(len=filenamelen) :: result
   character(len=30)          :: about_def
   logical :: found
+  integer(i4b) :: i
   !==================================================================
 
 10 continue
   about_def = ''
   call find_param (handle, trim(keyname), result, found, idef=default, &
-       &           imin=vmin, imax=vmax, descr=descr)
+       &           imin=vmin, imax=vmax, descr=descr, ivalid=valid)
   if (found) then
     read (result,*,err=5) parse_int
   else
@@ -523,6 +534,16 @@ function parse_int (handle, keyname, default, vmin, vmax, descr)
       print *,'Parser: error: value for ', trim(keyname),' too large.'
       goto 2
     endif
+  endif
+  if (present(valid)) then
+     found = .false.
+     do i=1, size(valid)
+        if (parse_int == valid(i)) found=.true.
+     enddo
+     if (.not.found) then
+        print *,'Parser: error: invalid value for '//trim(keyname)
+        goto 2
+     endif
   endif
 
   return ! normal exit
@@ -690,14 +711,16 @@ function parse_string (handle, keyname, default, descr, filestatus, options)
 
   if (present(filestatus) .and. trim(parse_string) /= '') then
      if (trim(filestatus)=='new' .or. trim(filestatus)=='NEW') then
-        inquire(file=trim(parse_string),exist=there)
+        !inquire(file=trim(parse_string),exist=there)
+        there = file_present(trim(parse_string))
         if (there) then
            print *, 'Parser: error: output file ' // trim(parse_string) // &
                 ' already exists!'
            goto 2
         end if
      else if (trim(filestatus)=='old' .or. trim(filestatus)=='OLD') then
-        inquire(file=trim(parse_string),exist=there)
+        !inquire(file=trim(parse_string),exist=there)
+        there = file_present(trim(parse_string))
         if (.not. there) then
            print *, 'Parser: error: input file ' // trim(parse_string) // &
                 ' does not exist!'
@@ -810,9 +833,10 @@ function scan_directories(directories, filename, fullpath)
      directory=trim(adjustl(directories(index(i)+1:index(i+1)-1)))
         do k = 1, size(separator)
            string = trim(directory)//trim(separator(k))//trim(filename)
-           inquire(&
-                &  file=string, &
-                &  exist=found)
+!            inquire(&
+!                 &  file=string, &
+!                 &  exist=found)
+           found = file_present(string)
            if (found) goto 10
         enddo
   enddo
@@ -881,11 +905,12 @@ end function scan_directories
     !    HEALPIXDATA
     ! 2) the environment variable
     !    $HEALPIXDATA
-    ! otherwise, it will return the list of directories
+    ! otherwise, it will return the list of directories:
     !  .
     !  ../data
     !  ./data
     !  ..
+    !       (and if $HEALPIX is defined)
     !  $HEALPIX
     !  $HEALPIX/data
     !  $HEALPIX/../data
@@ -893,6 +918,7 @@ end function scan_directories
     ! separated by LineFeed
     !
     ! bug correction 2009-11-26
+    ! treat correctly the case where HEALPIX not defined 2012-11-14
     !-----------------------------------------------------------
     hdd = ''
 !    print*,'get_healpix_data'
@@ -904,7 +930,7 @@ end function scan_directories
     if (trim(hdd) == '') then
        def_dir  = concatnl("","../data","./data","..")
        healpixdir = get_healpix_main_dir()
-       if (trim(healpixdir) /= "") then
+       if (trim(healpixdir) /= "") then ! if $HEALPIX defined
 !          def_dir = concatnl(&
           hdd = concatnl(&
                & def_dir, &
@@ -912,6 +938,8 @@ end function scan_directories
                & trim(healpixdir)//"/data", &
                & trim(healpixdir)//"/../data", &
                & trim(healpixdir)//char(92)//"data") !backslash
+       else ! if $HEALPIX (or equivalent) not defined
+          hdd = def_dir
        endif
     endif
 #endif

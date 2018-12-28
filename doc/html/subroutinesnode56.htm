@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>mpi_alm2map_slave</TITLE>
-<META NAME="description" CONTENT="mpi_alm2map_slave">
+<TITLE>median*</TITLE>
+<META NAME="description" CONTENT="median*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,116 +28,121 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html891"
+<A NAME="tex2html908"
   HREF="subroutinesnode55.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html897"
+<A NAME="tex2html914"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html918"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html916"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html892"
-  HREF="subroutinesnode55.htm">mpi_alm2map_simple*</A>
+<B> Previous:</B> <A NAME="tex2html909"
+  HREF="subroutinesnode55.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html898"
+<B>Up:</B> <A NAME="tex2html915"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html902"
-  HREF="subroutinesnode57.htm">mpi_cleanup_alm_tools</A>
+<B> Next:</B> <A NAME="tex2html919"
+  HREF="subroutinesnode57.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000560000000000000000"></A>
-<A NAME="sub:mpi_alm2map_slave"></A>
+<H1><A NAME="SECTION000510000000000000000"></A>
+<A NAME="sub:median"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">mpi_alm2map_slave</FONT></font></b><hr><H2>This subroutine complements the master routine mpi_alm2map, and
-should be run by all slaves in the current MPI communicator. It is run
-without arguments, but after an appropriate call to
-initialize_mpi_alm_tools. 
-</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/mpi_alm_tools.f90
+<b><font size=+6><FONT COLOR="#CC0000">median*</FONT></font></b><hr><H2>This function computes the median of a data set</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/statistics.f90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">mpi_alm2map_slave</FONT>(
-
-)</h2></blockquote>
+<hr><h1>FORMAT </h1><h2>var=<FONT COLOR="#CC0000">median*</FONT>(
+data [,&nbsp;badval, even]
+)</h2>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
-None.
-
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+var</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>median of the data set, defined as the middle number (or
+                   the average of the 2 middle numbers) once the valid data points are
+                   sorted in monotonous order</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>data(:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>data set</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>badval (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>sentinel value given to bad data points. Data points with this
+                   value will be ignored during calculation of the median. If
+                   not set, all points will be considered. <B>Do not set to 0!</B>.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>even (OPTIONAL)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to <TT>.true.</TT> and the number of
+                   valid data points is even, will output the average of the 2
+                   middle points (which doubles the calculation time). If the
+                   number of points is odd, the single middle point is output
+                   and this keyword is ignored.</TD>
+</TR>
+</TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-call mpi_comm_rank(comm, myid, ierr)
+use statistics, only: median 
+<BR>... 
 <BR>
-if (myid == root) then
-<BR>
-call mpi_initialize_alm_tools(comm, nsmax, nlmax, nmmax, 
-<BR>
-zbounds,polarization, precompute_plms)
-<BR>
-call mpi_alm2map(alms, map)
-<BR>
-else 
-<BR>
-call mpi_initialize_alm_tools(comm)
-<BR>
-call mpi_alm2map_slave
-<BR>
-end
-<BR>
-call mpi_cleanup_alm_tools
+med = median(map, even=.true.)  
 <BR></font></tt>
 <BR><blockquote>
-This example 1) initializes the mpi_alm_tools module (i.e.,
-allocates internal arrays and defines required parameters), 2)
-executes a parallel alm2map operation, and 3) frees the previously
-allocated memory.
+Outputs in <TT>med</TT> the median of <TT>map</TT>
 </blockquote>
 
 <P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">mpi_alm2map_slave</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">median*</FONT>.</h2>
   <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">alm_tools</SPAN></B>
-<DD>module
+<B><SPAN  CLASS="textbf">m_indmed</SPAN></B>
+<DD>module of the Orderpack 2.0 package, written by:
+  Michel Olagnon,  <A NAME="tex2html10"
+  HREF="http://www.fortran-2000.com/rank/">http://www.fortran-2000.com/rank/</A>
+<DT>
+<B>indmed</B>
+<DD>routine to output rank of median
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">mpi_alm2map_slave</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">median*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B><A HREF="subroutinesnode57.htm#sub:mpi_cleanup_alm_tools">mpi_cleanup_alm_tools</A></B>
-<DD>Frees memory that is allocated by the current routine. 
-   <DT>
-<B><A HREF="subroutinesnode58.htm#sub:mpi_initialize_alm_tools">mpi_initialize_alm_tools</A></B>
-<DD>Allocates memory and defines variables for the mpi_alm_tools module. 
-  <DT>
-<B><A HREF="subroutinesnode54.htm#sub:mpi_alm2map">mpi_alm2map</A></B>
-<DD>Routine for executing a parallel inverse spherical harmonics transform (root processor interface)
-  <DT>
-<B><A HREF="subroutinesnode59.htm#sub:mpi_map2alm">mpi_map2alm</A></B>
-<DD>Routine for executing a parallel spherical harmonics transform (root processor interface)
-  <DT>
-<B><A HREF="subroutinesnode61.htm#sub:mpi_map2alm_slave">mpi_map2alm_slave</A></B>
-<DD>Routine for executing a parallel spherical harmonics transform (slave processor interface)
-  <DT>
-<B><A HREF="subroutinesnode55.htm#sub:mpi_alm2map_simple">mpi_alm2map_simple</A></B>
-<DD>One-line interface to the parallel inverse spherical harmonics transform 
-  <DT>
-<B><A HREF="subroutinesnode60.htm#sub:mpi_map2alm_simple">mpi_map2alm_simple</A></B>
-<DD>One-line interface to the parallel spherical harmonics transform 
+<B><A HREF="subroutinesnode23.htm#sub:compute_statistics">compute_statistics</A></B>
+<DD>routine min, max,
+  absolute deviation, and first four order moments of a data set
   </DL>
 
 <P>
@@ -151,32 +156,32 @@ allocated memory.
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html891"
+<A NAME="tex2html908"
   HREF="subroutinesnode55.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html897"
+<A NAME="tex2html914"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html901"
+<A NAME="tex2html918"
   HREF="subroutinesnode57.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html899"
+<A NAME="tex2html916"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html892"
-  HREF="subroutinesnode55.htm">mpi_alm2map_simple*</A>
+<B> Previous:</B> <A NAME="tex2html909"
+  HREF="subroutinesnode55.htm">medfiltmap*</A>
 
-<B>Up:</B> <A NAME="tex2html898"
+<B>Up:</B> <A NAME="tex2html915"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html902"
-  HREF="subroutinesnode57.htm">mpi_cleanup_alm_tools</A>
+<B> Next:</B> <A NAME="tex2html919"
+  HREF="subroutinesnode57.htm">merge_headers</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

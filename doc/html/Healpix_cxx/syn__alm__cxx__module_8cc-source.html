@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_dfb0d583cd2cf51bf95d53ff10fe0f27.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_43603e55c9d04d7e4ac4eacf65a335c5.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -47,28 +47,28 @@
 <a name="l00025"></a>00025 <span class="comment"> */</span>
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027 <span class="comment">/*</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2010 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2003-2011 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/xcomplex_8h.html">xcomplex.h</a>"</span>
-<a name="l00033"></a>00033 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/cxxutils_8h.html">cxxutils.h</a>"</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include "paramfile.h"</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/planck__rng_8h.html">planck_rng.h</a>"</span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include "<a class="code" href="alm_8h.html">alm.h</a>"</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include "<a class="code" href="alm__fitsio_8h.html">alm_fitsio.h</a>"</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include "powspec.h"</span>
-<a name="l00039"></a>00039 <span class="preprocessor">#include "<a class="code" href="powspec__fitsio_8h.html">powspec_fitsio.h</a>"</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include "<a class="code" href="alm__powspec__tools_8h.html">alm_powspec_tools.h</a>"</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/fitshandle_8h.html">fitshandle.h</a>"</span>
-<a name="l00042"></a>00042 <span class="preprocessor">#include "levels_facilities.h"</span>
-<a name="l00043"></a>00043 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/lsconstants_8h.html">lsconstants.h</a>"</span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html">paramfile.h</a>"</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/planck__rng_8h.html">planck_rng.h</a>"</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include "<a class="code" href="alm_8h.html">alm.h</a>"</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include "<a class="code" href="alm__fitsio_8h.html">alm_fitsio.h</a>"</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include "powspec.h"</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include "<a class="code" href="powspec__fitsio_8h.html">powspec_fitsio.h</a>"</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include "<a class="code" href="alm__powspec__tools_8h.html">alm_powspec_tools.h</a>"</span>
+<a name="l00040"></a>00040 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/fitshandle_8h.html">fitshandle.h</a>"</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include "levels_facilities.h"</span>
+<a name="l00042"></a>00042 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/lsconstants_8h.html">lsconstants.h</a>"</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html">announce.h</a>"</span>
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">using namespace </span>std;
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047 <span class="keyword">namespace </span>{
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> syn_alm_cxx (paramfile &amp;params)
+<a name="l00049"></a>00049 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> syn_alm_cxx (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> &amp;params)
 <a name="l00050"></a>00050   {
 <a name="l00051"></a>00051   <span class="keywordtype">int</span> nlmax = params.template find&lt;int&gt;(<span class="stringliteral">"nlmax"</span>);
 <a name="l00052"></a>00052   <span class="keywordtype">int</span> nmmax = params.template find&lt;int&gt;(<span class="stringliteral">"nmmax"</span>,nlmax);
@@ -105,8 +105,8 @@
 <a name="l00083"></a>00083 
 <a name="l00084"></a>00084 <span class="keywordtype">int</span> syn_alm_cxx_module (<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
 <a name="l00085"></a>00085   {
-<a name="l00086"></a>00086   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/cxxutils_8h.html#0147a01a3c85b08029a9af4252f6581b">module_startup</a> (<span class="stringliteral">"syn_alm_cxx"</span>, argc, argv, 2, <span class="stringliteral">"&lt;parameter file&gt;"</span>);
-<a name="l00087"></a>00087   paramfile params (argv[1]);
+<a name="l00086"></a>00086   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"syn_alm_cxx"</span>, argc, argv);
+<a name="l00087"></a>00087   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> params (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html#6ebe5a9e4d4518a0ad41d270fe796c37">getParamsFromCmdline</a>(argc,argv));
 <a name="l00088"></a>00088 
 <a name="l00089"></a>00089   <span class="keywordtype">bool</span> dp = params.find&lt;<span class="keywordtype">bool</span>&gt; (<span class="stringliteral">"double_precision"</span>,<span class="keyword">false</span>);
 <a name="l00090"></a>00090   dp ? syn_alm_cxx&lt;double&gt;(params) : syn_alm_cxx&lt;float&gt;(params);
@@ -114,7 +114,7 @@
 <a name="l00092"></a>00092   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:07 2011 for Healpix C++
+Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
 </a> </small></address>
 </body>
 </html>

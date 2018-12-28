@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2003-2010 Max-Planck-Society
+ *  Copyright (C) 2003-2011 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -35,6 +35,7 @@
 #include "fitshandle.h"
 #include "xcomplex.h"
 #include "safe_cast.h"
+#include "share_utils.h"
 
 using namespace std;
 
@@ -112,7 +113,7 @@ template<typename T> void read_Alm_from_fits
 
     for (tsize i=0; i<ppix; ++i)
       {
-      if (index[i]>max_index) return;
+      if (index[i]>max_index) continue;
 
       int l = isqrt(index[i]-1);
       int m = index[i] - l*l - l - 1;

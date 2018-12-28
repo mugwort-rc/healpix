@@ -13,7 +13,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_7ec02883e2d57662e419b3c6231df79c.html">c_utils</a>
+  <div class="navpath"><a class="el" href="dir_db9afe51a7aa9afa58c462931c34d8d5.html">c_utils</a>
   </div>
 </div>
 <div class="contents">
@@ -44,65 +44,137 @@
 <a name="l00025"></a>00025 <span class="comment">/*</span>
 <a name="l00026"></a>00026 <span class="comment"> *  Convenience functions</span>
 <a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2008, 2009, 2010 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2008, 2009, 2010, 2011, 2012 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  Author: Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
 <a name="l00033"></a>00033 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include "<a class="code" href="c__utils_8h.html">c_utils.h</a>"</span>
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keywordtype">void</span> util_fail_ (<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg)
-<a name="l00037"></a>00037   {
-<a name="l00038"></a>00038   fprintf(stderr,<span class="stringliteral">"%s, %i (%s):\n%s\n"</span>,file,line,func,msg);
-<a name="l00039"></a>00039   exit(1);
-<a name="l00040"></a>00040   }
-<a name="l00041"></a>00041 <span class="keywordtype">void</span> util_warn_ (<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg)
-<a name="l00042"></a>00042   {
-<a name="l00043"></a>00043   fprintf(stderr,<span class="stringliteral">"%s, %i (%s):\n%s\n"</span>,file,line,func,msg);
-<a name="l00044"></a>00044   exit(1);
-<a name="l00045"></a>00045   }
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="comment">/* This function tries to avoid allocations with a total size close to a high</span>
-<a name="l00048"></a>00048 <span class="comment">   power of two (called the "critical stride" here), by adding a few more bytes</span>
-<a name="l00049"></a>00049 <span class="comment">   if necssary. This lowers the probability that two arrays differ by a multiple</span>
-<a name="l00050"></a>00050 <span class="comment">   of the critical stride in their starting address, which in turn lowers the</span>
-<a name="l00051"></a>00051 <span class="comment">   risk of cache line contention. */</span>
-<a name="l00052"></a>00052 <span class="keyword">static</span> <span class="keywordtype">size_t</span> manipsize(<span class="keywordtype">size_t</span> sz)
-<a name="l00053"></a>00053   {
-<a name="l00054"></a>00054   <span class="keyword">const</span> <span class="keywordtype">size_t</span> critical_stride=4096, cacheline=64, overhead=32;
-<a name="l00055"></a>00055   <span class="keywordflow">if</span> (sz &lt; (critical_stride/2)) <span class="keywordflow">return</span> sz;
-<a name="l00056"></a>00056   <span class="keywordflow">if</span> (((sz+overhead)%critical_stride)&gt;(2*cacheline)) <span class="keywordflow">return</span> sz;
-<a name="l00057"></a>00057   <span class="keywordflow">return</span> sz+2*cacheline;
-<a name="l00058"></a>00058   }
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 <span class="preprocessor">#ifdef __SSE__</span>
-<a name="l00061"></a>00061 <span class="preprocessor"></span><span class="preprocessor">#include &lt;xmmintrin.h&gt;</span>
-<a name="l00062"></a>00062 <span class="keywordtype">void</span> *util_malloc_ (<span class="keywordtype">size_t</span> sz)
-<a name="l00063"></a>00063   {
-<a name="l00064"></a>00064   <span class="keywordtype">void</span> *res;
-<a name="l00065"></a>00065   <span class="keywordflow">if</span> (sz==0) <span class="keywordflow">return</span> NULL;
-<a name="l00066"></a>00066   res = _mm_malloc(manipsize(sz),16);
-<a name="l00067"></a>00067   UTIL_ASSERT(res,<span class="stringliteral">"_mm_malloc() failed"</span>);
-<a name="l00068"></a>00068   <span class="keywordflow">return</span> res;
-<a name="l00069"></a>00069   }
-<a name="l00070"></a>00070 <span class="keywordtype">void</span> util_free_ (<span class="keywordtype">void</span> *ptr)
-<a name="l00071"></a>00071   { <span class="keywordflow">if</span> ((ptr)!=NULL) _mm_free(ptr); }
-<a name="l00072"></a>00072 <span class="preprocessor">#else</span>
-<a name="l00073"></a>00073 <span class="preprocessor"></span><span class="keywordtype">void</span> *util_malloc_ (<span class="keywordtype">size_t</span> sz)
-<a name="l00074"></a>00074   {
-<a name="l00075"></a>00075   <span class="keywordtype">void</span> *res;
-<a name="l00076"></a>00076   <span class="keywordflow">if</span> (sz==0) <span class="keywordflow">return</span> NULL;
-<a name="l00077"></a>00077   res = malloc(manipsize(sz));
-<a name="l00078"></a>00078   UTIL_ASSERT(res,<span class="stringliteral">"malloc() failed"</span>);
-<a name="l00079"></a>00079   <span class="keywordflow">return</span> res;
-<a name="l00080"></a>00080   }
-<a name="l00081"></a>00081 <span class="keywordtype">void</span> util_free_ (<span class="keywordtype">void</span> *ptr)
-<a name="l00082"></a>00082   { <span class="keywordflow">if</span> ((ptr)!=NULL) free(ptr); }
-<a name="l00083"></a>00083 <span class="preprocessor">#endif</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;string.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include "<a class="code" href="c__utils_8h.html">c_utils.h</a>"</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#ifdef _OPENMP</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#include &lt;omp.h&gt;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#endif</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#ifdef USE_MPI</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span><span class="preprocessor">#include &lt;mpi.h&gt;</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#endif</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span>
+<a name="l00043"></a>00043 <span class="keywordtype">void</span> util_fail_ (<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg)
+<a name="l00044"></a>00044   {
+<a name="l00045"></a>00045   fprintf(stderr,<span class="stringliteral">"%s, %i (%s):\n%s\n"</span>,file,line,func,msg);
+<a name="l00046"></a>00046   exit(1);
+<a name="l00047"></a>00047   }
+<a name="l00048"></a>00048 <span class="keywordtype">void</span> util_warn_ (<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg)
+<a name="l00049"></a>00049   {
+<a name="l00050"></a>00050   fprintf(stderr,<span class="stringliteral">"%s, %i (%s):\n%s\n"</span>,file,line,func,msg);
+<a name="l00051"></a>00051   }
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053 <span class="comment">/* This function tries to avoid allocations with a total size close to a high</span>
+<a name="l00054"></a>00054 <span class="comment">   power of two (called the "critical stride" here), by adding a few more bytes</span>
+<a name="l00055"></a>00055 <span class="comment">   if necssary. This lowers the probability that two arrays differ by a multiple</span>
+<a name="l00056"></a>00056 <span class="comment">   of the critical stride in their starting address, which in turn lowers the</span>
+<a name="l00057"></a>00057 <span class="comment">   risk of cache line contention. */</span>
+<a name="l00058"></a>00058 <span class="keyword">static</span> <span class="keywordtype">size_t</span> manipsize(<span class="keywordtype">size_t</span> sz)
+<a name="l00059"></a>00059   {
+<a name="l00060"></a>00060   <span class="keyword">const</span> <span class="keywordtype">size_t</span> critical_stride=4096, cacheline=64, overhead=32;
+<a name="l00061"></a>00061   <span class="keywordflow">if</span> (sz &lt; (critical_stride/2)) <span class="keywordflow">return</span> sz;
+<a name="l00062"></a>00062   <span class="keywordflow">if</span> (((sz+overhead)%critical_stride)&gt;(2*cacheline)) <span class="keywordflow">return</span> sz;
+<a name="l00063"></a>00063   <span class="keywordflow">return</span> sz+2*cacheline;
+<a name="l00064"></a>00064   }
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="preprocessor">#ifdef __SSE__</span>
+<a name="l00067"></a>00067 <span class="preprocessor"></span><span class="preprocessor">#include &lt;xmmintrin.h&gt;</span>
+<a name="l00068"></a>00068 <span class="keywordtype">void</span> *util_malloc_ (<span class="keywordtype">size_t</span> sz)
+<a name="l00069"></a>00069   {
+<a name="l00070"></a>00070   <span class="keywordtype">void</span> *res;
+<a name="l00071"></a>00071   <span class="keywordflow">if</span> (sz==0) <span class="keywordflow">return</span> NULL;
+<a name="l00072"></a>00072   res = _mm_malloc(manipsize(sz),16);
+<a name="l00073"></a>00073   <a class="code" href="c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(res,<span class="stringliteral">"_mm_malloc() failed"</span>);
+<a name="l00074"></a>00074   <span class="keywordflow">return</span> res;
+<a name="l00075"></a>00075   }
+<a name="l00076"></a>00076 <span class="keywordtype">void</span> util_free_ (<span class="keywordtype">void</span> *ptr)
+<a name="l00077"></a>00077   { <span class="keywordflow">if</span> ((ptr)!=NULL) _mm_free(ptr); }
+<a name="l00078"></a>00078 <span class="preprocessor">#else</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span><span class="keywordtype">void</span> *util_malloc_ (<span class="keywordtype">size_t</span> sz)
+<a name="l00080"></a>00080   {
+<a name="l00081"></a>00081   <span class="keywordtype">void</span> *res;
+<a name="l00082"></a>00082   <span class="keywordflow">if</span> (sz==0) <span class="keywordflow">return</span> NULL;
+<a name="l00083"></a>00083   res = malloc(manipsize(sz));
+<a name="l00084"></a>00084   <a class="code" href="c__utils_8h.html#7e5fd40bf70aec3dfcb389d5e5a0e4b1">UTIL_ASSERT</a>(res,<span class="stringliteral">"malloc() failed"</span>);
+<a name="l00085"></a>00085   <span class="keywordflow">return</span> res;
+<a name="l00086"></a>00086   }
+<a name="l00087"></a>00087 <span class="keywordtype">void</span> util_free_ (<span class="keywordtype">void</span> *ptr)
+<a name="l00088"></a>00088   { <span class="keywordflow">if</span> ((ptr)!=NULL) free(ptr); }
+<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
+<a name="l00090"></a>00090 <span class="preprocessor"></span>
+<a name="l00091"></a>00091 <span class="keyword">static</span> <span class="keywordtype">void</span> OpenMP_status(<span class="keywordtype">void</span>)
+<a name="l00092"></a>00092   {
+<a name="l00093"></a>00093 <span class="preprocessor">#ifndef _OPENMP</span>
+<a name="l00094"></a>00094 <span class="preprocessor"></span>  printf(<span class="stringliteral">"OpenMP: not supported by this binary\n"</span>);
+<a name="l00095"></a>00095 <span class="preprocessor">#else</span>
+<a name="l00096"></a>00096 <span class="preprocessor"></span>  <span class="keywordtype">int</span> threads = omp_get_max_threads();
+<a name="l00097"></a>00097   <span class="keywordflow">if</span> (threads&gt;1)
+<a name="l00098"></a>00098     printf(<span class="stringliteral">"OpenMP active: max. %d threads.\n"</span>,threads);
+<a name="l00099"></a>00099   <span class="keywordflow">else</span>
+<a name="l00100"></a>00100     printf(<span class="stringliteral">"OpenMP active, but running with 1 thread only.\n"</span>);
+<a name="l00101"></a>00101 <span class="preprocessor">#endif</span>
+<a name="l00102"></a>00102 <span class="preprocessor"></span>  }
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104 <span class="keyword">static</span> <span class="keywordtype">void</span> MPI_status(<span class="keywordtype">void</span>)
+<a name="l00105"></a>00105   {
+<a name="l00106"></a>00106 <span class="preprocessor">#ifndef USE_MPI</span>
+<a name="l00107"></a>00107 <span class="preprocessor"></span>  printf(<span class="stringliteral">"MPI: not supported by this binary\n"</span>);
+<a name="l00108"></a>00108 <span class="preprocessor">#else</span>
+<a name="l00109"></a>00109 <span class="preprocessor"></span>  <span class="keywordtype">int</span> tasks;
+<a name="l00110"></a>00110   MPI_Comm_size(MPI_COMM_WORLD,&amp;tasks);
+<a name="l00111"></a>00111   <span class="keywordflow">if</span> (tasks&gt;1)
+<a name="l00112"></a>00112     printf(<span class="stringliteral">"MPI active with %d tasks.\n"</span>,tasks);
+<a name="l00113"></a>00113   <span class="keywordflow">else</span>
+<a name="l00114"></a>00114     printf(<span class="stringliteral">"MPI active, but running with 1 task only.\n"</span>);
+<a name="l00115"></a>00115 <span class="preprocessor">#endif</span>
+<a name="l00116"></a>00116 <span class="preprocessor"></span>  }
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118 <span class="keyword">static</span> <span class="keywordtype">void</span> vec_status(<span class="keywordtype">void</span>)
+<a name="l00119"></a>00119   {
+<a name="l00120"></a>00120   printf(<span class="stringliteral">"Vector math: "</span>);
+<a name="l00121"></a>00121 <span class="preprocessor">#if(defined(__AVX__))</span>
+<a name="l00122"></a>00122 <span class="preprocessor"></span>  printf(<span class="stringliteral">"AVX\n"</span>);
+<a name="l00123"></a>00123 <span class="preprocessor">#elif(defined(__SSE2__))</span>
+<a name="l00124"></a>00124 <span class="preprocessor"></span>  printf(<span class="stringliteral">"SSE2\n"</span>);
+<a name="l00125"></a>00125 <span class="preprocessor">#elif(defined(__SSE__))</span>
+<a name="l00126"></a>00126 <span class="preprocessor"></span>  printf(<span class="stringliteral">"SSE\n"</span>);
+<a name="l00127"></a>00127 <span class="preprocessor">#else</span>
+<a name="l00128"></a>00128 <span class="preprocessor"></span>  printf(<span class="stringliteral">"not supported by this binary\n"</span>);
+<a name="l00129"></a>00129 <span class="preprocessor">#endif</span>
+<a name="l00130"></a>00130 <span class="preprocessor"></span>  }
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132 <span class="keywordtype">void</span> announce_c (<span class="keyword">const</span> <span class="keywordtype">char</span> *name)
+<a name="l00133"></a>00133   {
+<a name="l00134"></a>00134   <span class="keywordtype">size_t</span> m, nlen=strlen(name);
+<a name="l00135"></a>00135   printf(<span class="stringliteral">"\n+-"</span>);
+<a name="l00136"></a>00136   <span class="keywordflow">for</span> (m=0; m&lt;nlen; ++m) printf(<span class="stringliteral">"-"</span>);
+<a name="l00137"></a>00137   printf(<span class="stringliteral">"-+\n"</span>);
+<a name="l00138"></a>00138   printf(<span class="stringliteral">"| %s |\n"</span>, name);
+<a name="l00139"></a>00139   printf(<span class="stringliteral">"+-"</span>);
+<a name="l00140"></a>00140   <span class="keywordflow">for</span> (m=0; m&lt;nlen; ++m) printf(<span class="stringliteral">"-"</span>);
+<a name="l00141"></a>00141   printf(<span class="stringliteral">"-+\n\n"</span>);
+<a name="l00142"></a>00142   vec_status();
+<a name="l00143"></a>00143   OpenMP_status();
+<a name="l00144"></a>00144   MPI_status();
+<a name="l00145"></a>00145   printf(<span class="stringliteral">"\n"</span>);
+<a name="l00146"></a>00146   }
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148 <span class="keywordtype">void</span> module_startup_c (<span class="keyword">const</span> <span class="keywordtype">char</span> *name, <span class="keywordtype">int</span> argc, <span class="keywordtype">int</span> argc_expected,
+<a name="l00149"></a>00149   <span class="keyword">const</span> <span class="keywordtype">char</span> *argv_expected, <span class="keywordtype">int</span> verbose)
+<a name="l00150"></a>00150   {
+<a name="l00151"></a>00151   <span class="keywordflow">if</span> (verbose) announce_c (name);
+<a name="l00152"></a>00152   <span class="keywordflow">if</span> (argc==argc_expected) <span class="keywordflow">return</span>;
+<a name="l00153"></a>00153   <span class="keywordflow">if</span> (verbose) fprintf(stderr, <span class="stringliteral">"Usage: %s %s\n"</span>, name, argv_expected);
+<a name="l00154"></a>00154   exit(1);
+<a name="l00155"></a>00155   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:04 2011 for LevelS C support library
+Generated on Fri Nov 30 17:59:22 2012 for LevelS C support library
 </a> </small></address>
 </body>
 </html>

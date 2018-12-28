@@ -1,7 +1,7 @@
 /*
  * HEALPix Java code supported by the Gaia project.
  * Copyright (C) 2006-2011 Gaia Data Processing and Analysis Consortium
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -20,7 +20,7 @@
 package healpix.plot3d.gui.healpix3d;
 
 import healpix.core.dm.HealpixMap;
-import healpix.tools.SpatialVector;
+import healpix.essentials.Vec3;
 
 import javax.media.j3d.Geometry;
 import javax.media.j3d.GeometryArray;
@@ -31,7 +31,7 @@ import javax.vecmath.Point3d;
  * Despite name represents a single Healpix face. Uses a coloured quadrilateral
  * to indicate a data value for each pixel. DataSphere deals with different map
  * inside a HealpixMap object - e.g. read from fits file-.
- * 
+ *
  * @version $Id: HealpixPixelDataSphere.java 49444 2008-05-07 10:23:02Z ejoliet $
  */
 public class HealpixPixelDataSphere extends HealSphere {
@@ -69,16 +69,9 @@ public class HealpixPixelDataSphere extends HealSphere {
 	/** The max. */
 	protected double min, max;
 
-	// --------------------------------------------------------------------------
-	/** Default constructor. */
-	public HealpixPixelDataSphere() {
-		super();
-
-	}
-
 	/**
 	 * Used to get the data sphere from a ith map
-	 * 
+	 *
 	 * @param ch
 	 *            the map data
 	 * @param imap
@@ -87,7 +80,7 @@ public class HealpixPixelDataSphere extends HealSphere {
 	 *            ith quad array
 	 */
 	public HealpixPixelDataSphere(HealpixMap ch, int imap, int iQuads) {
-		super(ch.nside());
+		super(ch.nside(),ch.getScheme());
 		this.imap = imap;
 		this.ch = ch;
 		this.q = iQuads;
@@ -123,7 +116,7 @@ public class HealpixPixelDataSphere extends HealSphere {
 			// quads2[q] = new QuadArrayExt(4,GeometryArray.COORDINATES
 			// | GeometryArray.COLOR_3);
 			int pixindex = q;
-			SpatialVector[] points = index.corners_nest(pixindex, 1);
+			Vec3[] points = index.boundaries(pixindex, 1);
 			double val = (double) ch.get(imap, pixindex);// ch.getPixAsFloat(pixindex);
 			// System.out.println("********** val(ipix=" +
 			// pixindex+"):"+val);
@@ -150,8 +143,8 @@ public class HealpixPixelDataSphere extends HealSphere {
 			offset = q * ppq;
 			// System.out.println("Points length:"+points.length);
 			for (int v = 0; v < points.length; v++) {
-				Point3d p3d = new Point3d(points[v].x(), points[v].y(),
-						points[v].z());
+				Point3d p3d = new Point3d(points[v].x, points[v].y,
+						points[v].z);
 				System.out.println(q + ".- point=" + v + "offset=" + offset);
 				System.out.println("point setCoord(offset+v,...)="
 						+ (offset + v));

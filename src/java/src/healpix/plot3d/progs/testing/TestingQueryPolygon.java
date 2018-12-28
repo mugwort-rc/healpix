@@ -1,7 +1,7 @@
 /*
  * HEALPix Java code supported by the Gaia project.
  * Copyright (C) 2006-2011 Gaia Data Processing and Analysis Consortium
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -24,7 +24,7 @@ import healpix.core.HealpixIndex;
 import healpix.core.base.set.LongIterator;
 import healpix.core.base.set.LongRangeSet;
 import healpix.core.dm.HealpixMap;
-import healpix.core.dm.AbstractHealpixMap.Scheme;
+import healpix.essentials.Scheme;
 import healpix.plot3d.gui.view.MapView3d;
 import healpix.tools.HealpixMapCreator;
 import healpix.tools.SpatialVector;
@@ -35,28 +35,28 @@ import java.util.List;
 /**
  * Testing query polygon to detect prime meridian black zone defect in Planck
  * Usage: java -cp jhealpix.jar healpix.plot3d.progs.testing.TestingQueryPolygon
- * 
+ *
  * @author ejoliet
  * @version $Id: Healpix3DMapViewer.java 26131 2007-06-27 16:02:03Z ejoliet $
  */
 public class TestingQueryPolygon {
 
 	/** The vlist. */
-	private static ArrayList<Object> vlist;
+	private static ArrayList<SpatialVector> vlist;
 
 	/**
 	 * The main method.
-	 * 
+	 *
 	 * @param args
 	 *            the arguments
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
 		try {
 			MapView3d mview = new MapView3d(false);
-			vlist = new ArrayList<Object>();
+			vlist = new ArrayList<SpatialVector>();
 //			 HealpixMap map = getMapWithPixRingTriangle();
 			HealpixMap map = getMapWithPixNest();
 //			 HealpixMap map = getMap3PixelsRing();
@@ -74,9 +74,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map.
-	 * 
+	 *
 	 * @return the map
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -112,7 +112,7 @@ public class TestingQueryPolygon {
 				.nside(), vlist, 1, 0);
 		pixlist = new HealpixIndex(map.nside()).query_triangle(map.nside(),
 				vec1, vec2, vec3, 1, 0);
-		LongIterator it = pixlist.longIterator(); 
+		LongIterator it = pixlist.longIterator();
 		while(it.hasNext()){
 			map.setValueCell(((Long)it.next()).intValue(), 0.5);
 			// System.out.println(ip);
@@ -127,9 +127,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map with pix ring triangle.
-	 * 
+	 *
 	 * @return the map with pix ring triangle
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -140,13 +140,10 @@ public class TestingQueryPolygon {
 		HealpixMap map = cr.getMap();
 		map.setScheme(Scheme.NESTED);
 
-		ArrayList vlist1 = new ArrayList();
 		HealpixIndex pt = new HealpixIndex(nside);
 		int nest = 0;
-		long ipix = 0;
 		int inclusive = 1;
 		int triang[] = { 71, 135, 105 }; // crossing 360
-		int pixels[] = { 71, 72, 88, 103, 104, 135, };// 120 is missing
 		// because center
 		// outside the triangle
 		// (inclusive=0)
@@ -162,7 +159,7 @@ public class TestingQueryPolygon {
 //		ArrayList pixlist;
 		LongRangeSet pixlist;
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], nest, inclusive);
-		LongIterator it = pixlist.longIterator(); 
+		LongIterator it = pixlist.longIterator();
 		while(it.hasNext()){
 			long ip = ((Long) it.next()).longValue();
 			map.add((int) pt.ring2nest(ip), 5);
@@ -175,9 +172,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map3 pixels ring.
-	 * 
+	 *
 	 * @return the map3 pixels ring
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -188,7 +185,6 @@ public class TestingQueryPolygon {
 		map.setScheme(Scheme.NESTED);
 		// int[] ipringtest = {19,13,28};//crossing
 		int[] ipringtest = { 71, 135, 105 };// crossing (nside = 4)
-		ArrayList vlist1 = new ArrayList();
 		HealpixIndex pt = new HealpixIndex(nside);
 		System.out.println("Start test Query Triangle");
 		SpatialVector v[] = new SpatialVector[3];
@@ -203,7 +199,7 @@ public class TestingQueryPolygon {
 //		ArrayList pixlist;
 		LongRangeSet pixlist;
 		pixlist = pt.query_triangle(nside, v[0], v[1], v[2], 0, 0);
-		LongIterator it = pixlist.longIterator(); 
+		LongIterator it = pixlist.longIterator();
 		while(it.hasNext()){
 			long ip = ((Long) it.next()).longValue();
 			map.add((int) pt.ring2nest( ip), 5);
@@ -214,9 +210,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map with pix ring.
-	 * 
+	 *
 	 * @return the map with pix ring
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -227,31 +223,31 @@ public class TestingQueryPolygon {
 		HealpixMap map = cr.getMap();
 		map.setScheme(Scheme.RING);
 
-		ArrayList vlist1 = new ArrayList();
+		ArrayList<SpatialVector> vlist1 = new ArrayList<SpatialVector>();
 		SpatialVector v = null;
 		HealpixIndex pt = new HealpixIndex(nside);
 
 		double pv = 3;
 		v = pt.pix2vec_ring(1);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		map.setValueCell((int) 1, 9);
 
 		addVec(v, map, pv++);
 		v = pt.pix2vec_ring(48);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_ring(94);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_ring(112);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_ring(81);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		addVec(v, map, pv++);
 
 		LongRangeSet pixlist = pt.query_polygon(nside, vlist1, 0, 0);
-		LongIterator it = pixlist.longIterator(); 
+		LongIterator it = pixlist.longIterator();
 		while(it.hasNext()){
 			Long ip = it.next();
 			map.add( ip.intValue(), 0.5);
@@ -264,9 +260,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map with pix nest.
-	 * 
+	 *
 	 * @return the map with pix nest
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -287,7 +283,7 @@ public class TestingQueryPolygon {
 
 		for (int i = 0; i < arr.length; i++) {
 			v = pt.pix2vec_nest(arr[i]);
-			vlist1.add((Object) v);			
+			vlist1.add((Object) v);
 			addVec(nside,v, map, pv);
 			map.setValueCell(arr[i], pv);
 		}
@@ -309,9 +305,9 @@ public class TestingQueryPolygon {
 
 	/**
 	 * Gets the map with pix nest.
-	 * 
+	 *
 	 * @return the map with pix nest
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
@@ -321,31 +317,31 @@ public class TestingQueryPolygon {
 		HealpixMap map = cr.getMap();
 		map.setScheme(Scheme.NESTED);
 
-		ArrayList vlist1 = new ArrayList();
+		ArrayList<SpatialVector> vlist1 = new ArrayList<SpatialVector>();
 		SpatialVector v = null;
 		HealpixIndex pt = new HealpixIndex(nside);
 
 		double pv = 3;
 		v = pt.pix2vec_nest(21);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		map.setValueCell((int) 21, pv);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_nest(16);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		map.setValueCell(16, pv);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_nest(104);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		map.setValueCell(104, pv);
 		addVec(v, map, pv++);
 		v = pt.pix2vec_nest(109);
 		map.setValueCell(109, pv);
-		vlist1.add((Object) v);
+		vlist1.add(v);
 		addVec(v, map, pv++);
 
 		addVec(v, map, pv++);
 		LongRangeSet pixlist = pt.query_polygon(nside, vlist1, 1, 0);
-		LongIterator it = pixlist.longIterator(); 
+		LongIterator it = pixlist.longIterator();
 		while(it.hasNext()){
 			Long ip = it.next();
 			map.add(ip.intValue(), 0.5);
@@ -357,39 +353,22 @@ public class TestingQueryPolygon {
 	}
 
 	/**
-	 * @param vec1
-	 * @param vec2
-	 * @return
-	 */
-	private static double[] diffVec(SpatialVector vec1, SpatialVector vec2) {
-		double x, y, z;
-		x = -vec1.x() + vec2.x();
-		y = -vec1.y() + vec2.y();
-		z = -vec1.z() + vec2.z();
-		return new double[] { x, y, z };
-	}
-
-	/**
 	 * Adds the vec.
-	 * 
+	 *
 	 * @param vec
 	 *            the vec
 	 * @param map
 	 *            the map
 	 * @param v
 	 *            the v
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public static void addVec(SpatialVector vec, HealpixMap map,
 			double v) throws Exception {
 
-		int nside = 4;
-		HealpixIndex hi = new HealpixIndex(nside);
-
-		// double angs[] = HealpixIndex.ang(vec);
-		double angs[] = hi.vec2Ang(vec);
+		double angs[] = HealpixIndex.vec2Ang(vec);
 
 		AngularPosition ang2 = new AngularPosition(angs[0], angs[1]);
 
@@ -400,10 +379,7 @@ public class TestingQueryPolygon {
 	public static void addVec(int nside, SpatialVector vec, HealpixMap map,
 			double v) throws Exception {
 
-		HealpixIndex hi = new HealpixIndex(nside);
-
-		// double angs[] = HealpixIndex.ang(vec);
-		double angs[] = hi.vec2Ang(vec);
+		double angs[] = HealpixIndex.vec2Ang(vec);
 
 		AngularPosition ang2 = new AngularPosition(angs[0], angs[1]);
 

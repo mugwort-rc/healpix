@@ -7,6 +7,8 @@ healpix.core.dm
 healpix.core.dm.test
 healpix.core.dm.util
 healpix.core.test
+healpix.essentials
+healpix.essentials.test
 healpix.fits
 healpix.fits.test
 healpix.plot3d

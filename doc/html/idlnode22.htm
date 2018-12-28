@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>healpix_doc: PDF and HTML documentation</TITLE>
-<META NAME="description" CONTENT="healpix_doc: PDF and HTML documentation">
+<TITLE>euler_matrix_new</TITLE>
+<META NAME="description" CONTENT="euler_matrix_new">
 <META NAME="keywords" CONTENT="idl">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,109 +28,131 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html395"
+<A NAME="tex2html437"
   HREF="idlnode21.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html401"
+<A NAME="tex2html443"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html405"
+<A NAME="tex2html447"
   HREF="idlnode23.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html403"
+<A NAME="tex2html445"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html396"
-  HREF="idlnode21.htm">gnomview</A>
+<B> Previous:</B> <A NAME="tex2html438"
+  HREF="idlnode21.htm">convert_oldhpx2cmbfast</A>
 
-<B>Up:</B> <A NAME="tex2html402"
+<B>Up:</B> <A NAME="tex2html444"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html406"
-  HREF="idlnode23.htm">healpixwindow</A>
+<B> Next:</B> <A NAME="tex2html448"
+  HREF="idlnode23.htm">fits2alm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
 <H1><A NAME="SECTION000220000000000000000"></A>
-<A NAME="idl:healpix_doc"></A>
+<A NAME="idl:euler_matrix_new"></A>
 <BR>
  
 </H1>
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">healpix_doc</FONT></font></b><hr><H2>This IDL facility displays HTML or PDF <b>HEALPix</b> documentation</H2><br>Location in HEALPix directory tree: <b>
-src/idl/misc/healpix_doc.pro
+<b><font size=+6><FONT COLOR="#CC0000">euler_matrix_new</FONT></font></b><hr><H2>This IDL facility provides a means to generate a 3D rotation Euler
+matrix parametrized by three angles and three axes of rotation.
+</H2><br>Location in HEALPix directory tree: <b>
+src/idl/misc/euler_matrix_new.pro
 </b>
 <P>
 <hr><h1>FORMAT </h1><h2>IDL>
-<FONT COLOR="#CC0000">healpix_doc</FONT>, [HTML=<TT>|</TT> PDF=] [, HELP=,  WHOLE=] 
+matrix = EULER_MATRIX_NEW(a1, a2, a3 [, X=, Y=, ZYX=, DEG=]) 
 </h2>
+<P>
+<hr><H1>QUALIFIERS</H1>
+<BR> 
+  </SMALL><DL COMPACT><DT>
+<B>matrix</B>
+<DD>a 3x3 array containing the Euler matrix
+    <DT>
+<B>a1</B>
+<DD>input, float scalar, 
+    angle of the first rotation, expressed in radians,
+    unless DEG (see below) is set
+    <DT>
+<B>a2</B>
+<DD>angle of the second rotation, same units as a1
+    <DT>
+<B>a3</B>
+<DD>angle of the third rotation, same units as a1
+  </DL><SMALL CLASS="FOOTNOTESIZE">
+
 <P>
 <hr><H1>KEYWORDS</H1>
 <BR> 
   </SMALL><DL COMPACT><DT>
-<B>HELP=</B>
-<DD>if set, an extensive help on <FONT COLOR="#CC0000">healpix_doc</FONT> is displayed.
+<B>DEG=</B>
+<DD>if set, the angles are in degrees instead of radians
     <DT>
-<B>HTML=</B>
-<DD>if set, the <b>HEALPix</b> (IDL) HTML documentation is shown with a web browser.
-            If the browser is already in use, a new tab is open.
-    <DT>
-<B>PDF=</B>
-<DD>if set, the <b>HEALPix</b> (IDL) PDF documentation is shown with a pdf viewer.
+<B>X=</B>
+<DD>if set, uses the classical mechanics convention (ZXZ):
 <BR>
-Either HTML or PDF must be set.
-    <DT>
-<B>WHOLE=</B>
-<DD>if set, the whole <b>HEALPix</b> documentation is accessible,
-              not just the IDL related part.
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate X axis, 
+<BR>
+rotation a3 around final Z axis 
+<BR>        (see Goldstein for more details). 
+<BR>	<b>default:</b>this convention is used
+
+<P>
+<DT>
+<B>Y=</B>
+<DD>if set, uses the quantum mechanics convention (ZYZ):
+<BR>
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate Y axis, 
+<BR>
+rotation a3 around final Z axis.
+
+<P>
+<DT>
+<B>ZYX=</B>
+<DD>if set, uses the aeronautics convention (ZYX):
+<BR>
+rotation a1 around original Z axis, 
+<BR>
+rotation a2 around intermediate Y axis, 
+<BR>
+rotation a3 around final X axis.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 <SMALL CLASS="FOOTNOTESIZE">  
 </SMALL>
 <P>
 <hr><H1>DESCRIPTION</H1>
 <BR> <blockquote>
-<FONT COLOR="#CC0000">healpix_doc</FONT>  calls <TT>Online_help</TT> to open either the HTML or PDF <b>HEALPix</b> 
-documentation. The browser and viewer used are those found by the 
-<TT>$IDL_DIR/bin/online_help_html</TT> and 
-<TT>$IDL_DIR/bin/online_help_pdf</TT> scripts respectively.
-The content of the <TT>!healpix</TT> system variable is used to
-determine the documentation path.
+<IMG
+ WIDTH="559" HEIGHT="363" ALIGN="MIDDLE" BORDER="0"
+ SRC="idlimg44.png"
+ ALT="$\textstyle \parbox{\hsize}{\facname \ ~\ allows the generation of a rotation Eu...
+...,/Y)) \\ [.2cm]
+euler\_matrix\_new(a,b,c,/Z) = euler\_matrix($-$a, b,$-$c,/Z)
+}$">
 </blockquote>
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">healpix_doc</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">euler_matrix_new</FONT></b></h3>
 <BR> 
   </SMALL><DL COMPACT><DT>
 <B>idl</B>
-<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">healpix_doc</FONT>.	
+<DD>version 6.1 or more is necessary to run <FONT COLOR="#CC0000">euler_matrix_new</FONT>.
     <DT>
-<B>!HEALPIX</B>
-<DD>IDL system variable defined by <FONT COLOR="#CC0000">healpix_doc</FONT>.
+<B><A HREF="idlnode62.htm#idl:rotate_coord">rotate_coord</A></B>
+<DD>apply a rotation to a set of position vectors and
+    polarization Stokes parameters.
   </DL><SMALL CLASS="FOOTNOTESIZE">
 
 <P>
-<hr><H1>EXAMPLE # 1:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">healpix_doc</FONT>, /html, /whole
-</SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote>will open the whole <b>HEALPix</b> HTML documentation in a web browser.
-</blockquote><hr><H1>EXAMPLE # 2:</H1><tt><FONT SIZE=+1>
-</SMALL><TABLE CELLPADDING=3>
-<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
-<FONT COLOR="#CC0000">healpix_doc</FONT>, /pdf
-</SMALL></TD>
-<TD></TD>
-</TR>
-</TABLE><SMALL CLASS="FOOTNOTESIZE">
-</font></tt><br><blockquote>will open the IDL related <b>HEALPix</b> PDF documentation.
-</blockquote><SMALL CLASS="FOOTNOTESIZE">
-</SMALL>
-<P>
-
+<SMALL CLASS="FOOTNOTESIZE"></SMALL>
 <P>
 
 <P>
@@ -138,32 +160,32 @@ determine the documentation path.
  </SMALL>
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html395"
+<A NAME="tex2html437"
   HREF="idlnode21.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html401"
+<A NAME="tex2html443"
   HREF="idl.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html405"
+<A NAME="tex2html447"
   HREF="idlnode23.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html403"
+<A NAME="tex2html445"
   HREF="idlnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html396"
-  HREF="idlnode21.htm">gnomview</A>
+<B> Previous:</B> <A NAME="tex2html438"
+  HREF="idlnode21.htm">convert_oldhpx2cmbfast</A>
 
-<B>Up:</B> <A NAME="tex2html402"
+<B>Up:</B> <A NAME="tex2html444"
   HREF="idl.htm">Healpix/IDL subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html406"
-  HREF="idlnode23.htm">healpixwindow</A>
+<B> Next:</B> <A NAME="tex2html448"
+  HREF="idlnode23.htm">fits2alm</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

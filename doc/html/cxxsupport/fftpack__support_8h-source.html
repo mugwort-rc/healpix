@@ -15,7 +15,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_038dec09ca34cdff7797ea20e0152b70.html">cxxsupport</a>
+  <div class="navpath"><a class="el" href="dir_cac88011186692732a8b7a313a7c72cd.html">cxxsupport</a>
   </div>
 </div>
 <div class="contents">
@@ -44,7 +44,7 @@
 <a name="l00023"></a>00023 <span class="comment"> */</span>
 <a name="l00024"></a>00024 
 <a name="l00025"></a>00025 <span class="comment">/*</span>
-<a name="l00026"></a>00026 <span class="comment"> *  Copyright (C) 2004-2010 Max-Planck-Society</span>
+<a name="l00026"></a>00026 <span class="comment"> *  Copyright (C) 2004-2011 Max-Planck-Society</span>
 <a name="l00027"></a>00027 <span class="comment"> *  \author Martin Reinecke</span>
 <a name="l00028"></a>00028 <span class="comment"> */</span>
 <a name="l00029"></a>00029 
@@ -65,72 +65,98 @@
 <a name="l00044"></a>00044     cfft () : n(0), plan(0) {}
 <a name="l00045"></a>00045     cfft (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
 <a name="l00046"></a>00046       : n(size_), plan(<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g923109e0bae57c9a452d7253ab65866e">make_complex_plan</a>(size_)) {}
-<a name="l00047"></a>00047     ~cfft ()
-<a name="l00048"></a>00048       { <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g5e71a1207fb345cbca1f24a1ec960aa5">kill_complex_plan</a> (plan); }
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> Set (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
-<a name="l00050"></a>00050       {
-<a name="l00051"></a>00051       <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g5e71a1207fb345cbca1f24a1ec960aa5">kill_complex_plan</a> (plan);
-<a name="l00052"></a>00052       n=size_;
-<a name="l00053"></a>00053       plan=<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g923109e0bae57c9a452d7253ab65866e">make_complex_plan</a>(size_);
-<a name="l00054"></a>00054       }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size()<span class="keyword"> const</span>
-<a name="l00057"></a>00057 <span class="keyword">      </span>{ <span class="keywordflow">return</span> n; }
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059     <span class="keywordtype">void</span> forward (<span class="keywordtype">double</span> *data)
-<a name="l00060"></a>00060       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g600cff8cc414c884d4745f93cf5eece9">complex_plan_forward</a>(plan,data); }
-<a name="l00061"></a>00061     <span class="keywordtype">void</span> backward (<span class="keywordtype">double</span> *data)
-<a name="l00062"></a>00062       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g4abf6dcd0417dda9282efb7abd05ba04">complex_plan_backward</a>(plan,data); }
-<a name="l00063"></a>00063     <span class="keywordtype">void</span> forward (<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> *data)
-<a name="l00064"></a>00064       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g600cff8cc414c884d4745f93cf5eece9">complex_plan_forward</a>(plan,&amp;(data-&gt;<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>)); }
-<a name="l00065"></a>00065     <span class="keywordtype">void</span> backward (<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> *data)
-<a name="l00066"></a>00066       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g4abf6dcd0417dda9282efb7abd05ba04">complex_plan_backward</a>(plan,&amp;(data-&gt;<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>)); }
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> forward (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
-<a name="l00068"></a>00068       { forward(&amp;(data[0].re)); }
-<a name="l00069"></a>00069     <span class="keywordtype">void</span> backward (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
-<a name="l00070"></a>00070       { backward(&amp;(data[0].re)); }
-<a name="l00071"></a>00071   };
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073 <span class="keyword">class </span>rfft
-<a name="l00074"></a>00074   {
-<a name="l00075"></a>00075   <span class="keyword">private</span>:
-<a name="l00076"></a>00076     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> n;
-<a name="l00077"></a>00077     <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g01cf96553a6e1029c88bcb73953c0a03">real_plan</a> plan;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079   <span class="keyword">public</span>:
-<a name="l00080"></a>00080     rfft () : n(0), plan(0) {}
-<a name="l00081"></a>00081     rfft (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
-<a name="l00082"></a>00082       : n(size_), plan(<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g397f92197c892e508a6d43d518857519">make_real_plan</a>(size_)) {}
-<a name="l00083"></a>00083     ~rfft ()
-<a name="l00084"></a>00084       { <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g3cae36519dd9c682248b0d81aafb7f6a">kill_real_plan</a> (plan); }
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> Set (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
-<a name="l00086"></a>00086       {
-<a name="l00087"></a>00087       <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g3cae36519dd9c682248b0d81aafb7f6a">kill_real_plan</a> (plan);
-<a name="l00088"></a>00088       n=size_;
-<a name="l00089"></a>00089       plan=<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g397f92197c892e508a6d43d518857519">make_real_plan</a>(size_);
-<a name="l00090"></a>00090       }
+<a name="l00047"></a>00047     cfft (<span class="keyword">const</span> cfft &amp;orig)
+<a name="l00048"></a>00048       : n(orig.n), plan(<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g81f27115233a06ba2c0cad2cc9ce480c">copy_complex_plan</a>(orig.plan)) {}
+<a name="l00049"></a>00049     ~cfft ()
+<a name="l00050"></a>00050       { <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g5e71a1207fb345cbca1f24a1ec960aa5">kill_complex_plan</a> (plan); }
+<a name="l00051"></a>00051     cfft &amp;operator=(<span class="keyword">const</span> cfft &amp;orig)
+<a name="l00052"></a>00052       {
+<a name="l00053"></a>00053       <span class="keywordflow">if</span> (n!=orig.n)
+<a name="l00054"></a>00054         {
+<a name="l00055"></a>00055         <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g5e71a1207fb345cbca1f24a1ec960aa5">kill_complex_plan</a> (plan);
+<a name="l00056"></a>00056         n=orig.n;
+<a name="l00057"></a>00057         plan = <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g81f27115233a06ba2c0cad2cc9ce480c">copy_complex_plan</a>(orig.plan);
+<a name="l00058"></a>00058         }
+<a name="l00059"></a>00059       <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00060"></a>00060       }
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> Set (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
+<a name="l00062"></a>00062       {
+<a name="l00063"></a>00063       <span class="keywordflow">if</span> (n==size_) <span class="keywordflow">return</span>;
+<a name="l00064"></a>00064       <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g5e71a1207fb345cbca1f24a1ec960aa5">kill_complex_plan</a> (plan);
+<a name="l00065"></a>00065       n=size_;
+<a name="l00066"></a>00066       plan=<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g923109e0bae57c9a452d7253ab65866e">make_complex_plan</a>(size_);
+<a name="l00067"></a>00067       }
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size()<span class="keyword"> const</span>
+<a name="l00070"></a>00070 <span class="keyword">      </span>{ <span class="keywordflow">return</span> n; }
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> forward (<span class="keywordtype">double</span> *data)
+<a name="l00073"></a>00073       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g600cff8cc414c884d4745f93cf5eece9">complex_plan_forward</a>(plan,data); }
+<a name="l00074"></a>00074     <span class="keywordtype">void</span> backward (<span class="keywordtype">double</span> *data)
+<a name="l00075"></a>00075       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g4abf6dcd0417dda9282efb7abd05ba04">complex_plan_backward</a>(plan,data); }
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> forward (<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> *data)
+<a name="l00077"></a>00077       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g600cff8cc414c884d4745f93cf5eece9">complex_plan_forward</a>(plan,&amp;(data-&gt;<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>)); }
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> backward (<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> *data)
+<a name="l00079"></a>00079       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g4abf6dcd0417dda9282efb7abd05ba04">complex_plan_backward</a>(plan,&amp;(data-&gt;<a class="code" href="classxcomplex.html#9943b8821c880b412f52ef53b2817ea6">re</a>)); }
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> forward (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
+<a name="l00081"></a>00081       { forward(&amp;(data[0].re)); }
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> backward (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
+<a name="l00083"></a>00083       { backward(&amp;(data[0].re)); }
+<a name="l00084"></a>00084   };
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="keyword">class </span>rfft
+<a name="l00087"></a>00087   {
+<a name="l00088"></a>00088   <span class="keyword">private</span>:
+<a name="l00089"></a>00089     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> n;
+<a name="l00090"></a>00090     <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g01cf96553a6e1029c88bcb73953c0a03">real_plan</a> plan;
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size()<span class="keyword"> const</span>
-<a name="l00093"></a>00093 <span class="keyword">      </span>{ <span class="keywordflow">return</span> n; }
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095     <span class="keywordtype">void</span> forward_fftpack (<span class="keywordtype">double</span> *data)
-<a name="l00096"></a>00096       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g881d91c603d371fb8fcfdc00cb09f190">real_plan_forward_fftpack</a>(plan,data); }
-<a name="l00097"></a>00097     <span class="keywordtype">void</span> backward_fftpack (<span class="keywordtype">double</span> *data)
-<a name="l00098"></a>00098       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#ge91b78ab6652b6901ceb8c8ffa503634">real_plan_backward_fftpack</a>(plan,data); }
-<a name="l00099"></a>00099     <span class="keywordtype">void</span> forward_fftpack (<a class="code" href="classarr.html">arr&lt;double&gt;</a> &amp;data)
-<a name="l00100"></a>00100       { forward_fftpack(&amp;(data[0])); }
-<a name="l00101"></a>00101     <span class="keywordtype">void</span> backward_fftpack (<a class="code" href="classarr.html">arr&lt;double&gt;</a> &amp;data)
-<a name="l00102"></a>00102       { backward_fftpack(&amp;(data[0])); }
-<a name="l00103"></a>00103     <span class="keywordtype">void</span> forward_c (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
-<a name="l00104"></a>00104       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#gbc6fc2ed5f56297cbbe59fcc90d41102">real_plan_forward_c</a>(plan,&amp;(data[0].re)); }
-<a name="l00105"></a>00105     <span class="keywordtype">void</span> backward_c (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
-<a name="l00106"></a>00106       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g1cb3eff4cc6194d7083d89275e637155">real_plan_backward_c</a>(plan,&amp;(data[0].re)); }
-<a name="l00107"></a>00107   };
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 <span class="preprocessor">#endif</span>
+<a name="l00092"></a>00092   <span class="keyword">public</span>:
+<a name="l00093"></a>00093     rfft () : n(0), plan(0) {}
+<a name="l00094"></a>00094     rfft (<span class="keyword">const</span> rfft &amp;orig)
+<a name="l00095"></a>00095       : n(orig.n), plan(<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g39d68907c614b9a7b040fb1066dd208c">copy_real_plan</a>(orig.plan)) {}
+<a name="l00096"></a>00096     rfft (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
+<a name="l00097"></a>00097       : n(size_), plan(<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g397f92197c892e508a6d43d518857519">make_real_plan</a>(size_)) {}
+<a name="l00098"></a>00098     ~rfft ()
+<a name="l00099"></a>00099       { <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g3cae36519dd9c682248b0d81aafb7f6a">kill_real_plan</a> (plan); }
+<a name="l00100"></a>00100     rfft &amp;operator=(<span class="keyword">const</span> rfft &amp;orig)
+<a name="l00101"></a>00101       {
+<a name="l00102"></a>00102       <span class="keywordflow">if</span> (n!=orig.n)
+<a name="l00103"></a>00103         {
+<a name="l00104"></a>00104         <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g3cae36519dd9c682248b0d81aafb7f6a">kill_real_plan</a> (plan);
+<a name="l00105"></a>00105         n=orig.n;
+<a name="l00106"></a>00106         plan = <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g39d68907c614b9a7b040fb1066dd208c">copy_real_plan</a>(orig.plan);
+<a name="l00107"></a>00107         }
+<a name="l00108"></a>00108       <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00109"></a>00109       }
+<a name="l00110"></a>00110     <span class="keywordtype">void</span> Set (<a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size_)
+<a name="l00111"></a>00111       {
+<a name="l00112"></a>00112       <span class="keywordflow">if</span> (n==size_) <span class="keywordflow">return</span>;
+<a name="l00113"></a>00113       <span class="keywordflow">if</span> (plan!=0) <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g3cae36519dd9c682248b0d81aafb7f6a">kill_real_plan</a> (plan);
+<a name="l00114"></a>00114       n=size_;
+<a name="l00115"></a>00115       plan=<a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g397f92197c892e508a6d43d518857519">make_real_plan</a>(size_);
+<a name="l00116"></a>00116       }
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118     <a class="code" href="datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> size()<span class="keyword"> const</span>
+<a name="l00119"></a>00119 <span class="keyword">      </span>{ <span class="keywordflow">return</span> n; }
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> forward_fftpack (<span class="keywordtype">double</span> *data)
+<a name="l00122"></a>00122       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g881d91c603d371fb8fcfdc00cb09f190">real_plan_forward_fftpack</a>(plan,data); }
+<a name="l00123"></a>00123     <span class="keywordtype">void</span> backward_fftpack (<span class="keywordtype">double</span> *data)
+<a name="l00124"></a>00124       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#ge91b78ab6652b6901ceb8c8ffa503634">real_plan_backward_fftpack</a>(plan,data); }
+<a name="l00125"></a>00125     <span class="keywordtype">void</span> forward_fftpack (<a class="code" href="classarr.html">arr&lt;double&gt;</a> &amp;data)
+<a name="l00126"></a>00126       { forward_fftpack(&amp;(data[0])); }
+<a name="l00127"></a>00127     <span class="keywordtype">void</span> backward_fftpack (<a class="code" href="classarr.html">arr&lt;double&gt;</a> &amp;data)
+<a name="l00128"></a>00128       { backward_fftpack(&amp;(data[0])); }
+<a name="l00129"></a>00129     <span class="keywordtype">void</span> forward_c (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
+<a name="l00130"></a>00130       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#gbc6fc2ed5f56297cbbe59fcc90d41102">real_plan_forward_c</a>(plan,&amp;(data[0].re)); }
+<a name="l00131"></a>00131     <span class="keywordtype">void</span> backward_c (<a class="code" href="classarr.html">arr</a>&lt;<a class="code" href="classxcomplex.html">xcomplex&lt;double&gt;</a> &gt;&amp;data)
+<a name="l00132"></a>00132       { <a class="codeRef" doxygen="libfftpack.tag:../libfftpack/" href="../libfftpack/group__fftgroup.html#g1cb3eff4cc6194d7083d89275e637155">real_plan_backward_c</a>(plan,&amp;(data[0].re)); }
+<a name="l00133"></a>00133   };
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:06 2011 for LevelS C++ support library
+Generated on Fri Nov 30 17:59:25 2012 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

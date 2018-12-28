@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2004, 2005, 2006, 2007, 2008 Max-Planck-Society
+ *  Copyright (C) 2004-2012 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -49,7 +49,6 @@ Candidates for testing the validity of the Healpix routines:
 
 #include <iostream>
 #include "healpix_base.h"
-#include "healpix_base2.h"
 #include "healpix_map.h"
 #include "arr.h"
 #include "planck_rng.h"
@@ -58,6 +57,8 @@ Candidates for testing the validity of the Healpix routines:
 #include "alm_healpix_tools.h"
 #include "alm_powspec_tools.h"
 #include "geom_utils.h"
+#include "walltimer.h"
+#include "announce.h"
 
 using namespace std;
 
@@ -72,360 +73,193 @@ void random_dir (pointing &ptg)
   ptg.theta = acos(rng.rand_uni()*2-1);
   ptg.phi = rng.rand_uni()*twopi;
   }
-
-void check_ringnestring()
+void random_zphi (double &z, double &phi)
   {
-  cout << "testing ring2nest(nest2ring(m))==m" << endl;
-  for (int order=0; order<=13; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base base (order,RING);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int pix = int(rng.rand_uni()*base.Npix());
-      if (base.ring2nest(base.nest2ring(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      }
-    }
+  z = rng.rand_uni()*2-1;
+  phi = rng.rand_uni()*twopi;
   }
-void check_ringnestring2()
+
+template<typename I> string bname()
+  { return string("(basetype: ")+type2typename<I>()+")"; }
+
+template<typename I> void check_ringnestring()
   {
-  cout << "testing ring2nest(nest2ring(m))==m" << endl;
-  for (int order=0; order<=29; ++order)
+  cout << "testing ring2nest(nest2ring(m))==m " << bname<I>() << endl;
+  for (int order=0; order<=T_Healpix_Base<I>::order_max; ++order)
     {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base (order,RING);
+    T_Healpix_Base<I> base (order,RING);
     for (int m=0; m<nsamples; ++m)
       {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
+      I pix = I(rng.rand_uni()*base.Npix());
       if (base.ring2nest(base.nest2ring(pix))!=pix)
         cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
       }
     }
   }
 
-void check_nestpeanonest()
+template<typename I> void check_nestpeanonest()
   {
-  cout << "testing peano2nest(nest2peano(m))==m" << endl;
-  for (int order=0; order<=13; ++order)
+  cout << "testing peano2nest(nest2peano(m))==m " << bname<I>() << endl;
+  for (int order=0; order<=T_Healpix_Base<I>::order_max; ++order)
     {
-    cout << "order = " << order << endl;
-    Healpix_Base base (order,NEST);
+    T_Healpix_Base<I> base (order,NEST);
     for (int m=0; m<nsamples; ++m)
       {
-      int pix = int(rng.rand_uni()*base.Npix());
-      if (base.peano2nest(base.nest2peano(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      }
-    }
-  }
-void check_nestpeanonest2()
-  {
-  cout << "testing peano2nest(nest2peano(m))==m" << endl;
-  for (int order=0; order<=29; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base (order,NEST);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
+      I pix = I(rng.rand_uni()*base.Npix());
       if (base.peano2nest(base.nest2peano(pix))!=pix)
         cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
       }
     }
   }
 
-void check_pixangpix()
+template<typename I> void check_pixzphipix()
   {
-  cout << "testing ang2pix(pix2ang(m))==m" << endl;
-  for (int order=0; order<=13; ++order)
+  cout << "testing zphi2pix(pix2zphi(m))==m " << bname<I>() << endl;
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
     {
-    cout << "order = " << order << endl;
-    Healpix_Base base1 (order,RING);
-    Healpix_Base base2 (order,NEST);
+    T_Healpix_Base<I> base1 (order,RING), base2 (order,NEST);
     for (int m=0; m<nsamples; ++m)
       {
-      int pix = int(rng.rand_uni()*base1.Npix());
+      double z,phi;
+      I pix = I(rng.rand_uni()*base1.Npix());
+      base1.pix2zphi(pix,z,phi);
+      if (base1.zphi2pix(z,phi)!=pix)
+        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
+      base2.pix2zphi(pix,z,phi);
+      if (base2.zphi2pix(z,phi)!=pix)
+        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
+      }
+    }
+  for (I nside=3; nside<(I(1)<<omax); nside+=nside/2+1)
+    {
+    T_Healpix_Base<I> base (nside,RING,SET_NSIDE);
+    for (int m=0; m<nsamples; ++m)
+      {
+      double z,phi;
+      I pix = I(rng.rand_uni()*base.Npix());
+      base.pix2zphi(pix,z,phi);
+      if (base.zphi2pix(z,phi)!=pix)
+        cout << "  PROBLEM: nside = " << nside << ", pixel = " << pix << endl;
+      }
+    }
+  }
+
+template<typename I> void check_zphipixzphi()
+  {
+  cout << "testing pix2zphi(zphi2pix(ptg)) approx zphi " << bname<I>() << endl;
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base1 (order,NEST), base2 (order,RING);
+    double mincos = min (cos(base1.max_pixrad()),0.999999999999999);
+    for (int m=0; m<nsamples; ++m)
+      {
+      double z,phi,z2,phi2;
+      random_zphi (z,phi);
+      base1.pix2zphi(base1.zphi2pix(z,phi),z2,phi2);
+      if (cosdist_zphi(z,phi,z2,phi2)<mincos)
+        cout << "  PROBLEM: order = " << order
+             << ", zphi = " << z << ", " << phi << endl;
+      base2.pix2zphi(base2.zphi2pix(z,phi),z2,phi2);
+      if (cosdist_zphi(z,phi,z2,phi2)<mincos)
+        cout << "  PROBLEM: order = " << order
+             << ", zphi = " << z << ", " << phi << endl;
+      }
+    }
+  for (int nside=3; nside<(I(1)<<omax); nside+=nside/2+1)
+    {
+    T_Healpix_Base<I> base (nside,RING,SET_NSIDE);
+    double mincos = min (cos(base.max_pixrad()),0.999999999999999);
+    for (int m=0; m<nsamples; ++m)
+      {
+      double z,phi,z2,phi2;
+      random_zphi (z,phi);
+      base.pix2zphi(base.zphi2pix(z,phi),z2,phi2);
+      if (cosdist_zphi(z,phi,z2,phi2)<mincos)
+        cout << "  PROBLEM: nside = " << nside
+             << ", zphi = " << z << ", " << phi << endl;
+      }
+    }
+  }
+
+template<typename I> void check_pixangpix()
+  {
+  cout << "testing ang2pix(pix2ang(m))==m " << bname<I>() << endl;
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base1 (order,RING), base2 (order,NEST);
+    for (int m=0; m<nsamples; ++m)
+      {
+      I pix = I(rng.rand_uni()*base1.Npix());
       if (base1.ang2pix(base1.pix2ang(pix))!=pix)
         cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
       if (base2.ang2pix(base2.pix2ang(pix))!=pix)
         cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
       }
     }
-  for (int nside=3; nside<(1<<13); nside+=nside/2+1)
+  for (I nside=3; nside<(I(1)<<omax); nside+=nside/2+1)
     {
-    cout << "nside = " << nside << endl;
-    Healpix_Base base (nside,RING,SET_NSIDE);
+    T_Healpix_Base<I> base (nside,RING,SET_NSIDE);
     for (int m=0; m<nsamples; ++m)
       {
-      int pix = int(rng.rand_uni()*base.Npix());
-      if (base.ang2pix(base.pix2ang(pix))!=pix)
-        cout << "  PROBLEM: nside = " << nside << ", pixel = " << pix << endl;
-      }
-    }
-  }
-void check_pixangpix2()
-  {
-  cout << "testing ang2pix(pix2ang(m))==m" << endl;
-  for (int order=0; order<=29; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base1 (order,RING);
-    Healpix_Base2 base2 (order,NEST);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base1.Npix());
-      if (base1.ang2pix(base1.pix2ang(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      if (base2.ang2pix(base2.pix2ang(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<29); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base2 base (nside,RING,SET_NSIDE);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
+      I pix = I(rng.rand_uni()*base.Npix());
       if (base.ang2pix(base.pix2ang(pix))!=pix)
         cout << "  PROBLEM: nside = " << nside << ", pixel = " << pix << endl;
       }
     }
   }
 
-void check_pixvecpix()
+template<typename I> void check_neighbors()
   {
-  cout << "testing vec2pix(pix2vec(m))==m" << endl;
-  for (int order=0; order<=13; ++order)
+  cout << "testing neighbor function " << bname<I>() << endl;
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
     {
-    cout << "order = " << order << endl;
-    Healpix_Base base1 (order,RING);
-    Healpix_Base base2 (order,NEST);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int pix = int(rng.rand_uni()*base1.Npix());
-      if (base1.vec2pix(base1.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      if (base2.vec2pix(base2.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<13); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base base (nside,RING,SET_NSIDE);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int pix = int(rng.rand_uni()*base.Npix());
-      if (base.vec2pix(base.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: nside = " << nside << ", pixel = " << pix << endl;
-      }
-    }
-  }
-void check_pixvecpix2()
-  {
-  cout << "testing vec2pix(pix2vec(m))==m" << endl;
-  for (int order=0; order<=29; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base1 (order,RING);
-    Healpix_Base2 base2 (order,NEST);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base1.Npix());
-      if (base1.vec2pix(base1.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      if (base2.vec2pix(base2.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: order = " << order << ", pixel = " << pix << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<29); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base2 base (nside,RING,SET_NSIDE);
-    for (int m=0; m<nsamples; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
-      if (base.vec2pix(base.pix2vec(pix))!=pix)
-        cout << "  PROBLEM: nside = " << nside << ", pixel = " << pix << endl;
-      }
-    }
-  }
-
-void check_angpixang()
-  {
-  cout << "testing pix2ang(ang2pix(ptg)) approx ptg" << endl;
-  for (int order=0; order<=13; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base base1 (order,NEST);
-    Healpix_Base base2 (order,RING);
-    double maxang = base1.max_pixrad();
-    for (int m=0; m<nsamples; ++m)
-      {
-      pointing ptg;
-      random_dir (ptg);
-      if (v_angle(base1.pix2ang(base1.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: order = " << order << ", ptg = " << ptg << endl;
-      if (v_angle(base2.pix2ang(base2.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: order = " << order << ", ptg = " << ptg << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<13); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base base (nside,RING,SET_NSIDE);
-    double maxang = base.max_pixrad();
-    for (int m=0; m<nsamples; ++m)
-      {
-      pointing ptg;
-      random_dir (ptg);
-      if (v_angle(base.pix2ang(base.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: nside = " << nside << ", ptg = " << ptg << endl;
-      }
-    }
-  }
-void check_angpixang2()
-  {
-  cout << "testing pix2ang(ang2pix(ptg)) approx ptg" << endl;
-  for (int order=0; order<=29; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base1 (order,NEST);
-    Healpix_Base2 base2 (order,RING);
-    double maxang = base1.max_pixrad();
-    for (int m=0; m<nsamples; ++m)
-      {
-      pointing ptg;
-      random_dir (ptg);
-      if (v_angle(base1.pix2ang(base1.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: order = " << order << ", ptg = " << ptg << endl;
-      if (v_angle(base2.pix2ang(base2.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: order = " << order << ", ptg = " << ptg << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<29); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base2 base (nside,RING,SET_NSIDE);
-    double maxang = base.max_pixrad();
-    for (int m=0; m<nsamples; ++m)
-      {
-      pointing ptg;
-      random_dir (ptg);
-      if (v_angle(base.pix2ang(base.ang2pix(ptg)),ptg)>maxang)
-        cout << "  PROBLEM: nside = " << nside << ", ptg = " << ptg << endl;
-      }
-    }
-  }
-
-void check_neighbors()
-  {
-  cout << "testing neighbor function" << endl;
-  for (int order=0; order<=13; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base base (order,NEST), base2(order,RING);
+    T_Healpix_Base<I> base (order,NEST), base2(order,RING);
     double maxang = 2.01*base.max_pixrad();
     for (int m=0; m<nsamples/10; ++m)
       {
-      int pix = int(rng.rand_uni()*base.Npix());
-      fix_arr<int,8> nb;
-      vec3 pixpt = base.pix2ang(pix);
+      I pix = I(rng.rand_uni()*base.Npix());
+      fix_arr<I,8> nb,nb2;
+      vec3 pixpt = base.pix2vec(pix);
       base.neighbors(pix,nb);
+      base2.neighbors(base.nest2ring(pix),nb2);
+      for (int n=0; n<8; ++n)
+        if (nb[n]<0)
+          planck_assert(nb2[n]<0,"neighbor inconsistency");
+        else
+          planck_assert(base.nest2ring(nb[n])==nb2[n],"neighbor inconsistency");
       sort(&nb[0],&nb[0]+8);
       int check=0;
       for (int n=0; n<8; ++n)
         {
         if (nb[n]<0)
-          {
           ++check;
-          }
         else
           {
-          if (v_angle(base.pix2ang(nb[n]),pixpt)>maxang)
+          if (v_angle(base.pix2vec(nb[n]),pixpt)>maxang)
             cout << " PROBLEM: order = " << order << ", pix = " << pix << endl;
           if ((n>0) && (nb[n]==nb[n-1]))
             cout << " PROBLEM: order = " << order << ", pix = " << pix << endl;
           }
         }
       planck_assert((check<=1)||((order==0)&&(check<=2)),"too few neighbors");
-      pixpt = base2.pix2ang(pix);
-      base2.neighbors(pix,nb);
-      for (int n=0; n<8; ++n)
-        if ((nb[n]>=0) && (v_angle(base2.pix2ang(nb[n]),pixpt)>maxang))
-          cout << "  PROBLEM2: order = " << order << ", pix = " << pix << endl;
       }
     }
-  for (int nside=3; nside<(1<<13); nside+=nside/2+1)
+  for (I nside=3; nside<(I(1)<<omax); nside+=nside/2+1)
     {
-    cout << "nside = " << nside << endl;
-    Healpix_Base base (nside,RING,SET_NSIDE);
+    T_Healpix_Base<I> base (nside,RING,SET_NSIDE);
     double maxang = 2.01*base.max_pixrad();
     for (int m=0; m<nsamples/10; ++m)
       {
-      int pix = int(rng.rand_uni()*base.Npix());
-      fix_arr<int,8> nb;
-      vec3 pixpt = base.pix2ang(pix);
+      I pix = I(rng.rand_uni()*base.Npix());
+      fix_arr<I,8> nb;
+      vec3 pixpt = base.pix2vec(pix);
       base.neighbors(pix,nb);
       for (int n=0; n<8; ++n)
-        if ((nb[n]>=0) && (v_angle(base.pix2ang(nb[n]),pixpt)>maxang))
-          cout << "  PROBLEM: nside = " << nside << ", pix = " << pix << endl;
-      }
-    }
-  }
-void check_neighbors2()
-  {
-  cout << "testing neighbor function" << endl;
-  for (int order=0; order<=29; ++order)
-    {
-    cout << "order = " << order << endl;
-    Healpix_Base2 base (order,NEST), base2(order,RING);
-    double maxang = 2.01*base.max_pixrad();
-    for (int m=0; m<nsamples/10; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
-      fix_arr<int64,8> nb;
-      vec3 pixpt = base.pix2ang(pix);
-      base.neighbors(pix,nb);
-      sort(&nb[0],&nb[0]+8);
-      int check=0;
-      for (int n=0; n<8; ++n)
-        {
-        if (nb[n]<0)
-          {
-          ++check;
-          }
-        else
-          {
-          if (v_angle(base.pix2ang(nb[n]),pixpt)>maxang)
-            cout << " PROBLEM: order = " << order << ", pix = " << pix << endl;
-          if ((n>0) && (nb[n]==nb[n-1]))
-            cout << " PROBLEM: order = " << order << ", pix = " << pix << endl;
-          }
-        }
-      planck_assert((check<=1)||((order==0)&&(check<=2)),"too few neighbors");
-      pixpt = base2.pix2ang(pix);
-      base2.neighbors(pix,nb);
-      for (int n=0; n<8; ++n)
-        if ((nb[n]>=0) && (v_angle(base2.pix2ang(nb[n]),pixpt)>maxang))
-          cout << "  PROBLEM2: order = " << order << ", pix = " << pix << endl;
-      }
-    }
-  for (int nside=3; nside<(1<<29); nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
-    Healpix_Base2 base (nside,RING,SET_NSIDE);
-    double maxang = 2.01*base.max_pixrad();
-    for (int m=0; m<nsamples/10; ++m)
-      {
-      int64 pix = int64(rng.rand_uni()*base.Npix());
-      fix_arr<int64,8> nb;
-      vec3 pixpt = base.pix2ang(pix);
-      base.neighbors(pix,nb);
-      for (int n=0; n<8; ++n)
-        if ((nb[n]>=0) && (v_angle(base.pix2ang(nb[n]),pixpt)>maxang))
+        if ((nb[n]>=0) && (v_angle(base.pix2vec(nb[n]),pixpt)>maxang))
           cout << "  PROBLEM: nside = " << nside << ", pix = " << pix << endl;
       }
     }
@@ -437,7 +271,6 @@ void check_swap_scheme()
        << endl << "(for orders 0 to 10)." << endl;
   for (int order=0; order<=10; ++order)
     {
-    cout << "order = " << order << endl;
     Healpix_Map<uint8> map(order,NEST);
     for (int m=0; m<map.Npix(); ++m) map[m]=uint8(m&0xFF);
     map.swap_scheme();
@@ -448,34 +281,113 @@ void check_swap_scheme()
     }
   }
 
-void check_query_disc()
+void check_query_disc_strict (Healpix_Ordering_Scheme scheme)
   {
   cout << "testing whether all pixels found by query_disc() really" << endl
        << "lie inside the disk (and vice versa)" << endl;
+  cout << "Ordering scheme: " << (scheme==RING ? "RING" : "NEST") << endl;
   for (int order=0; order<=5; ++order)
     {
-    cout << "order = " << order << endl;
-    Healpix_Map <bool> map (order,RING);
+    Healpix_Map<bool> map (order,scheme);
     map.fill(false);
-    vector<int> list;
+    Healpix_Map<vec3> vmap(order,scheme);
+    for (int m=0; m<vmap.Npix(); ++m)
+      vmap[m]=vmap.pix2vec(m);
+    rangeset<int> pixset;
     for (int m=0; m<100000; ++m)
       {
       pointing ptg;
       random_dir (ptg);
       double rad = pi/1 * rng.rand_uni();
-      map.query_disc(ptg,rad,list);
+      map.query_disc(ptg,rad,pixset);
       vec3 vptg=ptg;
       double cosrad=cos(rad);
-      for (tsize i=0; i<list.size(); ++i)
-        map[list[i]] = true;
+      for (tsize j=0; j<pixset.size(); ++j)
+        for (int i=pixset.ivbegin(j); i<pixset.ivend(j); ++i)
+          map[i] = true;
       for (int i=0; i<map.Npix(); ++i)
         {
-        bool inside = dotprod(vec3(map.pix2ang(i)),vptg)>cosrad;
+        bool inside = dotprod(vmap[i],vptg)>cosrad;
         if (inside^map[i])
           cout << "  PROBLEM: order = " << order << ", ptg = " << ptg << endl;
         }
-      for (tsize i=0; i<list.size(); ++i)
-        map[list[i]] = false;
+      for (tsize j=0; j<pixset.size(); ++j)
+        for (int i=pixset.ivbegin(j); i<pixset.ivend(j); ++i)
+          map[i] = false;
+      }
+    }
+  }
+
+template<typename I>void check_query_disc()
+  {
+  cout << "checking query_disc() " << bname<I>() << endl;
+  int omax=min(20,T_Healpix_Base<I>::order_max);
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> rbase (order,RING), nbase (order,NEST);
+    rangeset<I> pixset;
+    int niter=max(1,min(1000,100000>>order));
+    for (int m=0; m<niter; ++m)
+      {
+      pointing ptg;
+      random_dir (ptg);
+      double rad = pi/1 * rng.rand_uni();
+      rbase.query_disc(ptg,rad,pixset);
+      rangeset<I> pslast=pixset;
+      for (tsize fct=5; fct>0; --fct)
+        {
+        rangeset<I> psi;
+        rbase.query_disc_inclusive(ptg,rad,psi,fct);
+        if (!psi.contains(pslast))
+          cout << "  PROBLEM: pixel sets inconsistent" << endl;
+        swap(pslast,psi);
+        }
+      I nval = pixset.nval();
+      nbase.query_disc(ptg,rad,pixset);
+      pslast=pixset;
+      for (tsize fct=8; fct>0; fct>>=1)
+        {
+        rangeset<I> psi;
+        nbase.query_disc_inclusive(ptg,rad,psi,fct);
+        if (!psi.contains(pslast))
+          cout << "  PROBLEM: pixel sets inconsistent" << endl;
+        swap(pslast,psi);
+        }
+      if (nval!=pixset.nval())
+        cout << "  PROBLEM: number of pixels different: "
+             << nval << " vs. " << pixset.nval() << endl;
+      }
+    }
+  }
+template<typename I>void check_query_polygon()
+  {
+  cout << "checking query_polygon() " << bname<I>() << endl;
+  int omax=min(20,T_Healpix_Base<I>::order_max);
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> rbase (order,RING), nbase (order,NEST);
+    rangeset<I> pixset;
+    int niter=max(1,min(1000,100000>>order));
+    for (int m=0; m<niter; ++m)
+      {
+      vector<pointing> corner(3);
+      random_dir(corner[0]); random_dir(corner[1]); random_dir(corner[2]);
+      rbase.query_polygon(corner,pixset);
+      I nval = pixset.nval();
+      nbase.query_polygon(corner,pixset);
+      if (nval!=pixset.nval())
+        cout << "  PROBLEM: number of pixels different: "
+             << nval << " vs. " << pixset.nval() << endl;
+      rbase.query_polygon_inclusive(corner,pixset,4);
+      I nv1=pixset.nval();
+      nbase.query_polygon_inclusive(corner,pixset,4);
+      I nv2=pixset.nval();
+      if (nv1<nv2)
+        cout << "  PROBLEM: inclusive(RING)<inclusive(NEST): "
+             << nv1 << " vs. " << nv2 << endl;
+      if (nv2<nval)
+        cout << "  PROBLEM: inclusive(NEST)<non-inclusive: "
+             << nv2 << " vs. " << nval << endl;
       }
     }
   }
@@ -517,28 +429,17 @@ void check_import()
   {
   cout << "testing out-of-place swapping" << endl;
   for (int order=0; order<=7; ++order)
-    {
-    cout << "order = " << order << endl;
     helper_oop(order);
-    }
   cout << "testing downgrade(upgrade(map)) == map" << endl;
   for (int order=0; order<=7; ++order)
     {
-    cout << "order = " << order << endl;
-    cout << "RING, RING" << endl;
     helper_udgrade(order,RING,RING);
-    cout << "RING, NEST" << endl;
     helper_udgrade(order,RING,NEST);
-    cout << "NEST, NEST" << endl;
     helper_udgrade(order,NEST,NEST);
-    cout << "NEST, RING" << endl;
     helper_udgrade(order,NEST,RING);
     }
   for (int nside=3; nside<500; nside+=nside/2+1)
-    {
-    cout << "nside = " << nside << endl;
     helper_udgrade2(nside);
-    }
   }
 
 void check_average()
@@ -546,7 +447,6 @@ void check_average()
   cout << "testing whether average(map) == average(downgraded map)" << endl;
   for (int order=1; order<=10; ++order)
     {
-    cout << "order = " << order << endl;
     Healpix_Map<double> map (order,RING), map2(1,RING);
     for (int m=0; m<map.Npix(); ++m)
       map[m] = rng.rand_uni()+0.01;
@@ -557,7 +457,6 @@ void check_average()
     }
   for (int nside=3; nside<1000; nside += nside/2+1)
     {
-    cout << "nside = " << nside << endl;
     Healpix_Map<double> map (nside,RING,SET_NSIDE), map2(1,RING,SET_NSIDE);
     for (int m=0; m<map.Npix(); ++m)
       map[m] = rng.rand_uni()+0.01;
@@ -680,30 +579,362 @@ void check_rot_alm ()
   check_alm (oalm, alm, epsilon);
   }
 
+void check_isqrt()
+  {
+  cout << "testing whether isqrt() works reliably" << endl;
+  uint64 val=uint64(0xF234)<<16, valsq=val*val;
+  if (isqrt(valsq)!=val) cout << "PROBLEM1" << endl;
+  if (isqrt(valsq-1)!=val-1) cout << "PROBLEM2" << endl;
+  }
+
+void check_pix2ang_acc()
+  {
+  cout << "testing accuracy of pix2ang at the poles" << endl;
+  for (int m=0; m<=29;++m)
+    {
+    Healpix_Base2 base(m,RING);
+    if (base.pix2ang(1).theta==0.)
+      cout << "PROBLEM: order " << m << endl;
+    }
+  }
+
+const int nsteps=1000000;
+
+template<typename I>void perf_neighbors(const string &name,
+  Healpix_Ordering_Scheme scheme)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    fix_arr<I,8> nres;
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      base.neighbors(pix,nres);
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_pix2ang(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      pointing p(base.pix2ang(pix));
+      dummy+=p.theta+p.phi;
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_pix2vec(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      vec3 v(base.pix2vec(pix));
+      dummy+=v.x+v.y+v.z;
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_pix2zphi(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    double z,phi;
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      base.pix2zphi(pix,z,phi);
+      dummy+=z+phi;
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_zphi2pix(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  double dz=2./sqrt(nsteps);
+  double dph=twopi/sqrt(nsteps);
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    for (double z=-1; z<1; z+=dz)
+      for (double phi=0; phi<twopi; phi+=dph)
+        {
+        dummy+=base.zphi2pix(z,phi);
+        ++cnt;
+        }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_ang2pix(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  double dth=pi/sqrt(nsteps);
+  double dph=twopi/sqrt(nsteps);
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,scheme);
+    for (double theta=0; theta<pi; theta+=dth)
+      for (double phi=0; phi<twopi; phi+=dph)
+        {
+        dummy+=base.ang2pix(pointing(theta+1e-15*phi,phi));
+        ++cnt;
+        }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_ring2nest(const string &name,double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,RING);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      dummy+=base.ring2nest(pix);
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_nest2ring(const string &name,double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,RING);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      dummy+=base.nest2ring(pix);
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_peano2nest(const string &name,double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,NEST);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      dummy+=base.peano2nest(pix);
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_nest2peano(const string &name,double &dummy)
+  {
+  tsize cnt=0;
+  wallTimers.start(name);
+  int omax=T_Healpix_Base<I>::order_max;
+  for (int order=0; order<=omax; ++order)
+    {
+    T_Healpix_Base<I> base (order,NEST);
+    I dpix=max(base.Npix()/nsteps,I(1));
+    for (I pix=0; pix<base.Npix(); pix+=dpix)
+      {
+      dummy+=base.nest2peano(pix);
+      ++cnt;
+      }
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-6 << "MOps/s" << endl;
+  }
+template<typename I>void perf_query_disc(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  T_Healpix_Base<I> base(1024,scheme,SET_NSIDE);
+  wallTimers.start(name);
+  for (int m=0; m<1000; ++m)
+    {
+    rangeset<I> pix;
+    base.query_disc(vec3(1,0,0),halfpi/9,pix);
+    dummy+=pix.size();
+    ++cnt;
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-3 << "kOps/s" << endl;
+  }
+template<typename I>void perf_query_triangle(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  T_Healpix_Base<I> base(1024,scheme,SET_NSIDE);
+  vector<pointing> corner;
+  corner.push_back(vec3(1,0.01,0.01));
+  corner.push_back(vec3(0.01,1,0.01));
+  corner.push_back(vec3(0.01,0.01,1));
+  wallTimers.start(name);
+  for (int m=0; m<1000; ++m)
+    {
+    rangeset<I> pix;
+    base.query_polygon(corner,pix);
+    dummy+=pix.size();
+    ++cnt;
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-3 << "kOps/s" << endl;
+  }
+template<typename I>void perf_query_polygon(const string &name,
+  Healpix_Ordering_Scheme scheme, double &dummy)
+  {
+  tsize cnt=0;
+  T_Healpix_Base<I> base(1024,scheme,SET_NSIDE);
+  vector<pointing> corner;
+  corner.push_back(vec3(1,0.01,0.01));
+  corner.push_back(vec3(1,1,-0.3));
+  corner.push_back(vec3(0.01,1,0.01));
+  corner.push_back(vec3(0.01,0.01,1));
+  wallTimers.start(name);
+  for (int m=0; m<1000; ++m)
+    {
+    rangeset<I> pix;
+    base.query_polygon(corner,pix);
+    dummy+=pix.size();
+    ++cnt;
+    }
+  wallTimers.stop(name);
+  cout << name << ": " << cnt/wallTimers.acc(name)*1e-3 << "kOps/s" << endl;
+  }
+
+void perftest()
+  {
+  double dummy=0;
+  cout << "Measuring performance of Healpix_Base methods." << endl;
+  perf_pix2zphi<int>   ("pix2zphi (RING):int  ",RING,dummy);
+  perf_pix2zphi<int>   ("pix2zphi (NEST):int  ",NEST,dummy);
+  perf_pix2zphi<int64> ("pix2zphi (RING):int64",RING,dummy);
+  perf_pix2zphi<int64> ("pix2zphi (NEST):int64",NEST,dummy);
+  perf_zphi2pix<int>   ("zphi2pix (RING):int  ",RING,dummy);
+  perf_zphi2pix<int>   ("zphi2pix (NEST):int  ",NEST,dummy);
+  perf_zphi2pix<int64> ("zphi2pix (RING):int64",RING,dummy);
+  perf_zphi2pix<int64> ("zphi2pix (NEST):int64",NEST,dummy);
+  perf_pix2ang<int>    ("pix2ang  (RING):int  ",RING,dummy);
+  perf_pix2ang<int>    ("pix2ang  (NEST):int  ",NEST,dummy);
+  perf_pix2ang<int64>  ("pix2ang  (RING):int64",RING,dummy);
+  perf_pix2ang<int64>  ("pix2ang  (NEST):int64",NEST,dummy);
+  perf_ang2pix<int>    ("ang2pix  (RING):int  ",RING,dummy);
+  perf_ang2pix<int>    ("ang2pix  (NEST):int  ",NEST,dummy);
+  perf_ang2pix<int64>  ("ang2pix  (RING):int64",RING,dummy);
+  perf_ang2pix<int64>  ("ang2pix  (NEST):int64",NEST,dummy);
+  perf_pix2vec<int>    ("pix2vec  (RING):int  ",RING,dummy);
+  perf_pix2vec<int>    ("pix2vec  (NEST):int  ",NEST,dummy);
+  perf_pix2vec<int64>  ("pix2vec  (RING):int64",RING,dummy);
+  perf_pix2vec<int64>  ("pix2vec  (NEST):int64",NEST,dummy);
+  perf_neighbors<int>  ("neighbors(NEST):int  ",NEST);
+  perf_neighbors<int>  ("neighbors(RING):int  ",RING);
+  perf_neighbors<int64>("neighbors(NEST):int64",NEST);
+  perf_neighbors<int64>("neighbors(RING):int64",RING);
+  perf_ring2nest<int>  ("ring2nest      :int  ",dummy);
+  perf_ring2nest<int64>("ring2nest      :int64",dummy);
+  perf_nest2ring<int>  ("nest2ring      :int  ",dummy);
+  perf_nest2ring<int64>("nest2ring      :int64",dummy);
+  perf_peano2nest<int>  ("peano2nest     :int  ",dummy);
+  perf_peano2nest<int64>("peano2nest     :int64",dummy);
+  perf_nest2peano<int>  ("nest2peano     :int  ",dummy);
+  perf_nest2peano<int64>("nest2peano     :int64",dummy);
+  perf_query_disc<int>      ("query_disc    (RING):int  ",RING,dummy);
+  perf_query_disc<int>      ("query_disc    (NEST):int  ",NEST,dummy);
+  perf_query_disc<int64>    ("query_disc    (RING):int64",RING,dummy);
+  perf_query_disc<int64>    ("query_disc    (NEST):int64",NEST,dummy);
+  perf_query_triangle<int>  ("query_triangle(RING):int  ",RING,dummy);
+  perf_query_triangle<int>  ("query_triangle(NEST):int  ",NEST,dummy);
+  perf_query_triangle<int64>("query_triangle(RING):int64",RING,dummy);
+  perf_query_triangle<int64>("query_triangle(NEST):int64",NEST,dummy);
+  perf_query_polygon<int>   ("query_polygon (RING):int  ",RING,dummy);
+  perf_query_polygon<int>   ("query_polygon (NEST):int  ",NEST,dummy);
+  perf_query_polygon<int64> ("query_polygon (RING):int64",RING,dummy);
+  perf_query_polygon<int64> ("query_polygon (NEST):int64",NEST,dummy);
+
+  if (dummy<0) cout << dummy << endl;
+  }
 } // unnamed namespace
 
 int main(int argc, const char **argv)
   {
   module_startup ("hpxtest",argc,argv,1,"");
-
+  perftest();
+  check_isqrt();
+  check_pix2ang_acc();
   check_smooth_alm();
   check_rot_alm();
   check_alm2map2alm(620,620,256);
   check_alm2map2alm(620,2,256);
   check_average();
   check_import();
-  check_neighbors();
-  check_neighbors2();
-  check_pixangpix();
-  check_pixangpix2();
-  check_pixvecpix();
-  check_pixvecpix2();
-  check_angpixang();
-  check_angpixang2();
-  check_ringnestring();
-  check_ringnestring2();
-  check_nestpeanonest();
-  check_nestpeanonest2();
-  check_query_disc();
+  check_ringnestring<int>();
+  check_ringnestring<int64>();
+  check_nestpeanonest<int>();
+  check_nestpeanonest<int64>();
+  check_pixzphipix<int>();
+  check_pixzphipix<int64>();
+  check_zphipixzphi<int>();
+  check_zphipixzphi<int64>();
+  check_pixangpix<int>();
+  check_pixangpix<int64>();
+  check_neighbors<int>();
+  check_neighbors<int64>();
   check_swap_scheme();
+  check_query_disc_strict(RING);
+  check_query_disc_strict(NEST);
+  check_query_disc<int>();
+  check_query_disc<int64>();
+  check_query_polygon<int>();
+  check_query_polygon<int64>();
   }

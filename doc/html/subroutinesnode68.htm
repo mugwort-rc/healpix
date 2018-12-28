@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>output_map*</TITLE>
-<META NAME="description" CONTENT="output_map*">
+<TITLE>neighbours_nest</TITLE>
+<META NAME="description" CONTENT="neighbours_nest">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,152 +28,146 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1035"
+<A NAME="tex2html1052"
   HREF="subroutinesnode67.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1041"
+<A NAME="tex2html1058"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1045"
+<A NAME="tex2html1062"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1043"
+<A NAME="tex2html1060"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1036"
-  HREF="subroutinesnode67.htm">number_of_alms</A>
+<B> Previous:</B> <A NAME="tex2html1053"
+  HREF="subroutinesnode67.htm">nArguments</A>
 
-<B>Up:</B> <A NAME="tex2html1042"
+<B>Up:</B> <A NAME="tex2html1059"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1046"
-  HREF="subroutinesnode69.htm">parse_xxx</A>
+<B> Next:</B> <A NAME="tex2html1063"
+  HREF="subroutinesnode69.htm">npix2nside</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000680000000000000000"></A>
-<A NAME="sub:output_map"></A>
+<H1><A NAME="SECTION000630000000000000000"></A>
+<A NAME="sub:neighbours_nest"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">output_map*</FONT></font></b><hr><H2>This routine writes a full sky <b>HEALPix</b> map into a FITS file. The map can be
-  either single or double precision real. It <EM>has</EM> to be 2-dimensional.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.F90
+<b><font size=+6><FONT COLOR="#CC0000">neighbours_nest</FONT></font></b><hr><H2>This subroutine returns the number and locations (in terms of pixel
+numbers) of the topological neighbours of a central pixel. The pixels
+are ordered in a clockwise sense about the central pixel with the
+southernmost pixel in first element. For the 4 pixels in the southern corners of the
+equatorial faces which have two equally southern neighbours the
+routine returns the southwestern pixel first and proceeds clockwise.</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/pix_tools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">output_map*</FONT>(
-map, header, filename <i><font color="#224422">[,extno]</font></i>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">neighbours_nest</FONT>(
+nside, ipix, list, nneigh
 )</h2></blockquote>
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=40><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=175><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-map(0:,1:)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>full sky map(s) to be output</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>header(LEN=80)(1:)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>string array containing the
-                   FITS header to be included in the file</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>filename(LEN=*)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>filename of the FITS-file to
-                   contain <b>HEALPix</b> map(s).</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extno</font></i></TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
+nside</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=40>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>extension number in which to write the data (0
-                   based). <b>default:</b>0</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg12.png"
+ ALT="${N_{\rm side}}$"></SPAN> parameter of the map.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ipix</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The NESTED pixel index of the central pixel.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>list(8)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>On exit, the vector of neighbouring pixels. This
+                   contains <TT>nneigh</TT> relevant elements.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nneigh</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=175>The number of neighbours (mostly 8, except at
+                   8 sites, where there are only 7 neighbours).</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use healpix_types 
+use pix_tools 
 <BR>
-use fits_tools, only : output_map 
+integer :: nneigh, list(1:8) 
 <BR>
-real(sp), dimension(0:12*16**2-1, 1:1) :: map 
+call neighbours_nest(4, 1, list, nneigh)  
 <BR>
-character(len=80), dimension(1:10) :: header 
+print*,nneigh 
 <BR>
-header(:) = '' 
-<BR>
-map(:,:) = 1. 
-<BR>
-call output_map(map, header, 'map.fits')
+print*,list(1:nneigh)
 </font></tt>
-<BR><blockquote>generates a simple map (made of 1s) and outputs it into the FITS file <TT>map.fits</TT>
-</blockquote>
+<BR><blockquote>
+This returns <TT>nneigh</TT><SPAN CLASS="MATH">=8</SPAN> and a vector <TT>list</TT>, which contains the pixel
+numbers ( 90,  0,  2,  3,  6,  4,  94,  91).</blockquote>
 
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">output_map*</FONT>.</h2>
+<P>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">neighbours_nest</FONT>.</h2>
   <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
+<B>mk_xy2pix, mk_pix2xy</B>
+<DD>precomputing arrays for the conversion
+ of NESTED pixel numbers to Cartesian coords in each face.
+ <DT>
+<B>pix2xy_nest, xy2pix_nest</B>
+<DD>Conversion between NESTED pixel numbers to Cartesian coords in each face.
+ <DT>
+<B><SPAN  CLASS="textbf">bit_manipulation</SPAN></B>
 <DD>module, containing:
-  <DT>
-<B>printerror</B>
-<DD>routine for printing FITS error messages.
-  <DT>
-<B>write_bintab</B>
-<DD>routine to write a binary table into a FITS file.
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.		
+ <DT>
+<B>invMSB, invLSB,swapLSBMSB,invswapLSBMSB</B>
+<DD>functions which manipulate the bit vector which
+ represents the NESTED pixel numbers. They correspond to
+ NorthWest&lt;-&gt;SouthEast, SouthWest&lt;-&gt;NorthEast, East&lt;-&gt;West and
+ North-South flips of the diamond faces, respectively.
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">output_map*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">neighbours_nest</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>anafast</B>
-<DD>executable that reads a <b>HEALPix</b> map from a FITS file
-  and analyses it. 
+<B><A HREF="subroutinesnode76.htm#sub:pix_tools">pix2ang</A>, <A HREF="subroutinesnode76.htm#sub:pix_tools">ang2pix</A></B>
+<DD>convert between angle and pixel number.
   <DT>
-<B>synfast</B>
-<DD>executable that generate full sky <b>HEALPix</b> maps
-  <DT>
-<B><A HREF="subroutinesnode44.htm#sub:input_map">input_map</A></B>
-<DD>subroutine to read a <b>HEALPix</b> map from a a FITS file
-  <DT>
-<B><A HREF="subroutinesnode104.htm#sub:write_bintabh">write_bintabh</A></B>
-<DD>subroutine to write a large
-  array into a FITS file piece by piece
-  <DT>
-<B><A HREF="subroutinesnode45.htm#sub:input_tod">input_tod*</A></B>
-<DD>subroutine to read an arbitrary subsection of
-  a large binary table
-  <DT>
-<B><A HREF="subroutinesnode107.htm#sub:write_minimal_header">write_minimal_header</A></B>
-<DD>routine to
-write minimal FITS header
+<B><A HREF="subroutinesnode76.htm#sub:pix_tools">pix2vec</A>, <A HREF="subroutinesnode76.htm#sub:pix_tools">vec2pix</A></B>
+<DD>convert between a cartesian vector and pixel number.
   </DL>
 
 <P>
 
 <P>
-
 
 <P>
 
@@ -181,32 +175,32 @@ write minimal FITS header
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1035"
+<A NAME="tex2html1052"
   HREF="subroutinesnode67.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1041"
+<A NAME="tex2html1058"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1045"
+<A NAME="tex2html1062"
   HREF="subroutinesnode69.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1043"
+<A NAME="tex2html1060"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1036"
-  HREF="subroutinesnode67.htm">number_of_alms</A>
+<B> Previous:</B> <A NAME="tex2html1053"
+  HREF="subroutinesnode67.htm">nArguments</A>
 
-<B>Up:</B> <A NAME="tex2html1042"
+<B>Up:</B> <A NAME="tex2html1059"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1046"
-  HREF="subroutinesnode69.htm">parse_xxx</A>
+<B> Next:</B> <A NAME="tex2html1063"
+  HREF="subroutinesnode69.htm">npix2nside</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

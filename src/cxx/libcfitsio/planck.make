@@ -2,12 +2,12 @@ PKG:=libcfitsio
 
 ifeq ($(EXTERNAL_CFITSIO),yes)
 
-LIB_$(PKG):=$(CFITSIO_EXT_LIB)
-FULL_INCLUDE+= -I$(CFITSIO_EXT_INC)
+CXX_EXTRALIBS+=$(CFITSIO_EXT_LIB)
+FULL_INCLUDE+= $(CFITSIO_EXT_INC)
 
 else
 
-PACKAGE:=$(SRCROOT)/libcfitsio/cfitsio3260.tar.gz
+PACKAGE:=$(SRCROOT)/libcfitsio/cfitsio3280.tar.gz
 
 SD:=$(SRCROOT)/$(PKG)
 OD:=$(BLDROOT)/$(PKG)

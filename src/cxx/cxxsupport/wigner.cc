@@ -25,7 +25,7 @@
 /*! \file wigner.cc
  *  Several C++ classes for calculating Wigner matrices
  *
- *  Copyright (C) 2009,2010 Max-Planck-Society
+ *  Copyright (C) 2009-2011 Max-Planck-Society
  *  \author Martin Reinecke and others (see individual classes)
  */
 
@@ -262,7 +262,8 @@ const arr2<double> &wigner_d_risbo_openmp::recurse ()
   }
 
 
-wignergen::wignergen (int lmax_, const arr<double> &thetas, double epsilon)
+wignergen_scalar::wignergen_scalar (int lmax_, const arr<double> &thetas,
+  double epsilon)
   : eps(epsilon), lmax(lmax_),
     logsum(2*lmax+1), lc05(thetas.size()), ls05(thetas.size()),
     flm1(2*lmax+1), flm2(2*lmax+1),
@@ -271,9 +272,6 @@ wignergen::wignergen (int lmax_, const arr<double> &thetas, double epsilon)
     m1(-1234567890), m2(-1234567890), am1(-1234567890), am2(-1234567890),
     mlo(-1234567890), mhi(-1234567890),
     fx(lmax+2), result(lmax+1)
-#ifdef PLANCK_HAVE_SSE2
-    , result2(lmax+1)
-#endif
   {
   planck_assert(lmax>0,"lmax too small");
   logsum[0] = 0.;
@@ -310,7 +308,7 @@ wignergen::wignergen (int lmax_, const arr<double> &thetas, double epsilon)
     fx[l][0]=fx[l][1]=fx[l][2]=0.;
   }
 
-void wignergen::prepare (int m1_, int m2_)
+void wignergen_scalar::prepare (int m1_, int m2_)
   {
   if ((m1_==m1) && (m2_==m2)) return;
 
@@ -360,12 +358,18 @@ void wignergen::prepare (int m1_, int m2_)
     }
   }
 
-const arr<double> &wignergen::calc (int nth, int &firstl)
+const arr<double> &wignergen_scalar::calc (int nth, int &firstl)
+  {
+  calc(nth, firstl, result);
+  return result;
+  }
+
+void wignergen_scalar::calc (int nth, int &firstl, arr<double> &resx) const
   {
   int l=mhi;
   const dbl3 *fy = &fx[0];
   const double cth = costh[nth];
-  double *res = &result[0];
+  double *res = &resx[0];
   long double logval = prefactor + lc05[nth]*cosPow + ls05[nth]*sinPow;
   logval *= inv_ln2;
   int scale = int (logval/large_exponent2)-minscale;
@@ -388,7 +392,7 @@ const arr<double> &wignergen::calc (int nth, int &firstl)
       }
     }
 
-  if (scale<0) { firstl=lmax+1; return result; }
+  if (scale<0) { firstl=lmax+1; return; }
   rec1 *= cf[scale];
   rec2 *= cf[scale];
 
@@ -406,7 +410,7 @@ const arr<double> &wignergen::calc (int nth, int &firstl)
     }
 
   firstl = l;
-  if (l>lmax) return result;
+  if (l>lmax) return;
 
   res[l]=rec2;
 
@@ -422,18 +426,16 @@ const arr<double> &wignergen::calc (int nth, int &firstl)
     if (++l>lmax) break;
     res[l] = rec2 = (cth - fy[l][1])*fy[l][0]*rec1 - fy[l][2]*rec2;
     }
-
-  return result;
   }
 
-#ifdef PLANCK_HAVE_SSE2
+#ifdef __SSE2__
 
 #define RENORMALIZE \
   do \
     { \
     double rec1a, rec1b, rec2a, rec2b, cfa, cfb; \
-    read_v2df (rec1, &rec1a, &rec1b); read_v2df (rec2, &rec2a, &rec2b); \
-    read_v2df (corfac, &cfa, &cfb); \
+    rec1.writeTo(rec1a,rec1b); rec2.writeTo(rec2a,rec2b); \
+    corfac.writeTo(cfa,cfb); \
     while (abs(rec2a)>fbig) \
       { \
       rec1a*=fsmall; rec2a*=fsmall; ++scale1; \
@@ -444,52 +446,58 @@ const arr<double> &wignergen::calc (int nth, int &firstl)
       rec1b*=fsmall; rec2b*=fsmall; ++scale2; \
       cfb = (scale2<0) ? 0. : cf[scale2]; \
       } \
-    rec1=build_v2df(rec1a,rec1b); rec2=build_v2df(rec2a,rec2b); \
-    corfac=build_v2df(cfa,cfb); \
+    rec1.readFrom(rec1a,rec1b); rec2.readFrom(rec2a,rec2b); \
+    corfac.readFrom(cfa,cfb); \
     } \
   while(0)
 
 #define GETPRE(prea,preb,lv) \
-  prea=_mm_mul_pd(_mm_sub_pd(cth,_mm_set1_pd(fy[lv][1])),_mm_set1_pd(fy[lv][0])); \
-  preb=_mm_set1_pd(fy[lv][2]);
+  prea=(cth-fy[lv][1])*fy[lv][0]; \
+  preb=fy[lv][2];
 
 #define NEXTSTEP(prea,preb,prec,pred,reca,recb,lv) \
   { \
-  prec = _mm_set1_pd(fy[lv][1]); \
-  preb = _mm_mul_pd(preb,reca); \
-  prea = _mm_mul_pd(prea,recb); \
-  v2df t0 = _mm_set1_pd(fy[lv][0]); \
-  prec = _mm_sub_pd(cth,prec); \
-  pred = _mm_set1_pd(fy[lv][2]); \
-  reca = _mm_sub_pd(prea,preb); \
-  prec = _mm_mul_pd(prec,t0); \
+  prec = fy[lv][1]; \
+  preb *= reca; \
+  prea *= recb; \
+  V2df t0 (fy[lv][0]); \
+  prec = cth-prec; \
+  pred = fy[lv][2]; \
+  reca = prea-preb; \
+  prec *= t0; \
   }
 
-const arr_align<v2df,16> &wignergen::calc (int nth1, int nth2, int &firstl)
+const arr_align<V2df,16> &wignergen::calc (int nth1, int nth2, int &firstl)
+  {
+  calc(nth1, nth2, firstl, result2);
+  return result2;
+  }
+
+void wignergen::calc (int nth1, int nth2, int &firstl,
+  arr_align<V2df,16> &resx) const
   {
   int l=mhi;
   const dbl3 *fy = &fx[0];
-  const v2df cth = build_v2df(costh[nth1],costh[nth2]);
-  v2df *res = &result2[0];
+  const V2df cth(costh[nth1],costh[nth2]);
+  V2df *res = &resx[0];
   long double logval1 = prefactor + lc05[nth1]*cosPow + ls05[nth1]*sinPow,
               logval2 = prefactor + lc05[nth2]*cosPow + ls05[nth2]*sinPow;
   logval1 *= inv_ln2;
   logval2 *= inv_ln2;
   int scale1 = int (logval1/large_exponent2)-minscale,
       scale2 = int (logval2/large_exponent2)-minscale;
-  v2df rec1 = _mm_setzero_pd();
+  V2df rec1(0.);
   double tr1 = double(exp(ln2*(logval1-(scale1+minscale)*large_exponent2))),
          tr2 = double(exp(ln2*(logval2-(scale2+minscale)*large_exponent2)));
   if (preMinus ^ (thetaflip[nth1] && ((am1+am2)&1))) tr1 = -tr1;
   if (preMinus ^ (thetaflip[nth2] && ((am1+am2)&1))) tr2 = -tr2;
-  v2df rec2 = build_v2df(tr1,tr2);
-  v2df corfac = build_v2df ( (scale1<0) ? 0. : cf[scale1],
-                             (scale2<0) ? 0. : cf[scale2]);
+  V2df rec2(tr1,tr2);
+  V2df corfac ((scale1<0) ? 0. : cf[scale1], (scale2<0) ? 0. : cf[scale2]);
 
-  v2df eps2=build_v2df(eps,eps);
-  v2df fbig2=build_v2df(fbig,fbig);
+  V2df eps2(eps);
+  V2df fbig2(fbig);
 
-  v2df pre0,pre1,pre2,pre3;
+  V2df pre0,pre1,pre2,pre3;
 
   GETPRE(pre0,pre1,l+1)
   if ((scale1<0) && (scale2<0))
@@ -500,7 +508,7 @@ const arr_align<v2df,16> &wignergen::calc (int nth1, int nth2, int &firstl)
       NEXTSTEP(pre0,pre1,pre2,pre3,rec1,rec2,l+1)
       if (++l>lmax) break;
       NEXTSTEP(pre2,pre3,pre0,pre1,rec2,rec1,l+1)
-      if (v2df_any_gt(rec2,fbig2))
+      if (any(abs(rec2).gt(fbig2)))
         {
         RENORMALIZE;
         if ((scale1>=0) || (scale2>=0)) break;
@@ -513,53 +521,53 @@ const arr_align<v2df,16> &wignergen::calc (int nth1, int nth2, int &firstl)
     GETPRE(pre0,pre1,l+1)
     while (true)
       {
-      v2df t1;
-      res[l]=t1=_mm_mul_pd(rec2,corfac);
-      if (v2df_any_gt(t1,eps2))
+      V2df t1;
+      res[l]=t1=rec2*corfac;
+      if (any(abs(t1).gt(eps2)))
         break;
 
       if (++l>lmax) break;
       NEXTSTEP(pre0,pre1,pre2,pre3,rec1,rec2,l+1)
 
-      res[l]=t1=_mm_mul_pd(rec1,corfac);
-      if (v2df_any_gt(t1,eps2))
+      res[l]=t1=rec1*corfac;
+      if (any(abs(t1).gt(eps2)))
         { swap(rec1,rec2); break; }
 
       if (++l>lmax) break;
       NEXTSTEP(pre2,pre3,pre0,pre1,rec2,rec1,l+1)
 
-      if (v2df_any_gt(rec2,fbig2))
+      if (any(abs(rec2).gt(fbig2)))
         RENORMALIZE;
       }
     }
   firstl=l;
-  if (l>lmax) return result2;
+  if (l>lmax) return;
 
   GETPRE(pre0,pre1,l+1)
   while (true)
     {
-    v2df t1;
-    res[l]=t1=_mm_mul_pd(rec2,corfac);
-    if (v2df_all_ge(t1,eps2))
+    V2df t1;
+    res[l]=t1=rec2*corfac;
+    if (all(abs(t1).ge(eps2)))
       break;
 
     if (++l>lmax) break;
     NEXTSTEP(pre0,pre1,pre2,pre3,rec1,rec2,l+1)
 
-    res[l]=t1=_mm_mul_pd(rec1,corfac);
-    if (v2df_all_ge(t1,eps2))
+    res[l]=t1=rec1*corfac;
+    if (all(abs(t1).ge(eps2)))
       { swap(rec1,rec2); break; }
 
     if (++l>lmax) break;
     NEXTSTEP(pre2,pre3,pre0,pre1,rec2,rec1,l+1)
 
-    if (v2df_any_gt(rec2,fbig2))
+    if (any(abs(rec2).gt(fbig2)))
       RENORMALIZE;
     }
 
-  if (l>lmax) return result2;
-  rec1 = _mm_mul_pd (rec1,corfac);
-  rec2 = _mm_mul_pd (rec2,corfac);
+  if (l>lmax) return;
+  rec1*=corfac;
+  rec2*=corfac;
 
   GETPRE(pre0,pre1,l+1)
   for (;l<lmax-1;l+=2)
@@ -576,8 +584,27 @@ const arr_align<v2df,16> &wignergen::calc (int nth1, int nth2, int &firstl)
     NEXTSTEP(pre0,pre1,pre2,pre3,rec1,rec2,l+1)
     res[l] = rec1;
     }
-
-  return result2;
   }
 
-#endif /* PLANCK_HAVE_SSE2 */
+#endif /* __SSE2__ */
+
+wigner_estimator::wigner_estimator (int lmax_, double epsPow_)
+  : lmax(lmax_), xlmax(1./lmax_), epsPow(epsPow_) {}
+
+void wigner_estimator::prepare_m (int m1_, int m2_)
+  {
+  m1=abs(m1_); m2=abs(m2_);
+  mbig=max(m1,m2);
+  double cos1=m1*xlmax, cos2=m2*xlmax;
+  double s1s2=sqrt((1.-cos1*cos1)*(1.-cos2*cos2));
+  cosm1m2=cos1*cos2+s1s2;
+  }
+
+bool wigner_estimator::canSkip (double theta) const
+  {
+  if (mbig==lmax) return false; // don't have a good criterion for this case
+  double delta = m1*m1 + m2*m2 - abs(2.*m1*m2*cos(theta));
+  double sth = sin(theta);
+  if (abs_approx(sth,0.,1e-7)) return (delta>1.); // close to a pole
+  return (((sqrt(delta)-epsPow)*cosm1m2/abs(sth)) > lmax);
+  }

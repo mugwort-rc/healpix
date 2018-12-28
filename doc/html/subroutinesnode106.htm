@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>write_fits_cut4</TITLE>
-<META NAME="description" CONTENT="write_fits_cut4">
+<TITLE>vec2ang</TITLE>
+<META NAME="description" CONTENT="vec2ang">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,52 +28,66 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1491"
+<A NAME="tex2html1508"
   HREF="subroutinesnode105.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1497"
+<A NAME="tex2html1514"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1501"
+<A NAME="tex2html1518"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1499"
+<A NAME="tex2html1516"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1492"
-  HREF="subroutinesnode105.htm">write_dbintab</A>
+<B> Previous:</B> <A NAME="tex2html1509"
+  HREF="subroutinesnode105.htm">udgrade_ring*</A>
 
-<B>Up:</B> <A NAME="tex2html1498"
+<B>Up:</B> <A NAME="tex2html1515"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1502"
-  HREF="subroutinesnode107.htm">write_minimal_header</A>
+<B> Next:</B> <A NAME="tex2html1519"
+  HREF="subroutinesnode107.htm">vect_prod</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION0001060000000000000000"></A>
-<A NAME="sub:write_fits_cut4"></A>
+<H1><A NAME="SECTION0001010000000000000000"></A>
+<A NAME="sub:vec2ang"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_fits_cut4</FONT></font></b><hr><H2>This routine writes a cut sky <b>HEALPix</b> map into a FITS file. The format used for the
-FITS file follows the one used for Boomerang98 and is adapted from COBE/DMR. 
-This routine can be used to store polarized maps, where the
-information relative to the Stokes parameters I, Q and U are placed in extension
-0, 1 and 2 respectively by successive invocation of the routine.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.F90
+<b><font size=+6><FONT COLOR="#CC0000">vec2ang</FONT></font></b><hr><H2>Routine to convert the 3D position vector <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN> of point into its position
+  angles  <SPAN CLASS="MATH"><IMG
+ WIDTH="48" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg37.png"
+ ALT="$(\theta,\phi) $"></SPAN> on the sphere with
+<!-- MATH
+ $x = \sin\theta\cos\phi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="118" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg38.png"
+ ALT="$x = \sin\theta\cos\phi $"></SPAN>, <!-- MATH
+ $y=\sin\theta\sin\phi$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="115" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg39.png"
+ ALT="$y=\sin\theta\sin\phi $"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="77" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg40.png"
+ ALT="$z=\cos\theta $"></SPAN>.
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/pix_tools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">write_fits_cut4</FONT>(
-filename, np, pixel, signal, n_obs, serror <i><font color="#224422">[, header, coord, nside, order,
-units, extno, polarisation]</font></i>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">vec2ang</FONT>(
+vector, theta, phi
 )</h2></blockquote>
-Arguments appearing in <i><font color="#224422">italic</font></i> are
-optional.
 
 <P>
 <hr><H1>ARGUMENTS</H1>
@@ -81,152 +95,54 @@ optional.
 <TABLE CELLPADDING=3 BORDER="1">
 <TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&amp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
 </TR>
 <TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
-filename(LEN=<tt>filenamelen</tt>)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from,
-                   containing a cut sky map</TD>
+vector(3)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>three dimensional cartesian position vector
+                   <SPAN CLASS="MATH">(<I>x</I>,<I>y</I>,<I>z</I>)</SPAN>. The north pole is <SPAN CLASS="MATH">(0,0,1)</SPAN></TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>np</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels to be written in the file</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>theta</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>colatitude in radians measured southward from north pole (in
+    [0,<SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg2.png"
+ ALT="$\pi$"></SPAN>]).</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>pixel(0:np-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>index of observed (or valid) pixels</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>signal(0:np-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value of signal in each observed pixel</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>n_obs(0:np-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of observation per pixel</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>serror(0:np-1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><EM>rms</EM> of signal in pixel, for white noise,
-                   this is <!-- MATH
- $\propto 1/\sqrt{{\rm n\_obs}}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="104" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg114.png"
- ALT="$ \propto 1/\sqrt{{\rm n\_obs}}$"></SPAN>.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header</font></i>(LEN=80)(1:)  (OPTIONAL)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">coord</font></i>(LEN=1)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>astrophysical coordinates ('C' or 'Q'
-                   Celestial/eQuatorial, 'G' for Galactic, 'E' for Ecliptic)</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">nside</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b> resolution parameter of data set</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">order</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250><b>HEALPix</b> ordering scheme, 1: RING, 2: NESTED</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header</font></i>(LEN=80)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS header to be included in the FITS file</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">units</font></i>(LEN=20)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maps units (applies only to Signal and
-                   Serror)</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extension</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>(0 based) extension number in which to write data. <b>default:</b>0.
-	  If set to 0 (or not set) <EM>a new file is written from scratch</EM>.
-	  If set to a value
-		  larger than 1, the corresponding extension is added or
-		  updated, as long as all previous extensions already exist.
-		  All extensions of the same file should use the same Nside,
-Order and Coord</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">polarisaton</font></i></TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>if set to a non zero value, specifies that file will contain the I, Q and U polarisation
-           Stokes parameter in extensions 0, 1 and 2 respectively, and sets the
-FITS header keywords accordingly. If not set, the keywords found in <TT>header</TT> will prevail.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>Note: the information relative to Nside, Order and Coord <EM>has</EM> to be
-                   given, either thru these keyword or via the FITS Header.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>phi</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>longitude in radians measured eastward (in [0, <SPAN CLASS="MATH"><IMG
+ WIDTH="25" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="subroutinesimg71.png"
+ ALT="$2\pi$"></SPAN>]).</TD>
 </TR>
 </TABLE>
 
 <P>
-
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">write_fits_cut4</FONT>.</h2>
-  <DL COMPACT><DT>
-<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
-<DD>module, containing:
-  <DT>
-<B>printerror</B>
-<DD>routine for printing FITS error messages.
-  <DT>
-<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
-<DD>library for FITS file handling.		
-  </DL>
-
-<P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">write_fits_cut4</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">vec2ang</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
-<B>anafast</B>
-<DD>executable that reads a <b>HEALPix</b> map and analyses it. 
+<B><A HREF="subroutinesnode18.htm#sub:ang2vec">ang2vec</A></B>
+<DD>converts the position angles of a point on the sphere 
+into its 3D position vector.
   <DT>
-<B>synfast</B>
-<DD>executable that generate full sky <b>HEALPix</b> maps
+<B><A HREF="subroutinesnode19.htm#sub:angdist">angdist</A></B>
+<DD>computes the angular distance between 2 vectors
   <DT>
-<B><A HREF="subroutinesnode40.htm#sub:getsize_fits">getsize_fits</A></B>
-<DD>routine to know the size of a FITS file and its type (eg, full sky vs cut sky)
-  <DT>
-<B><A HREF="subroutinesnode44.htm#sub:input_map">input_map</A></B>
-<DD>all purpose routine to input a map of any kind from a FITS file
-  <DT>
-<B><A HREF="subroutinesnode68.htm#sub:output_map">output_map</A></B>
-<DD>subroutine to write a FITS file from a <b>HEALPix</b> map
-  <DT>
-<B><A HREF="subroutinesnode85.htm#sub:read_fits_cut4">read_fits_cut4</A></B>
-<DD>subroutine to read a <b>HEALPix</b> cut sky map from a FITS file
-  <DT>
-<B><A HREF="subroutinesnode107.htm#sub:write_minimal_header">write_minimal_header</A></B>
-<DD>routine to write minimal FITS header
+<B><A HREF="subroutinesnode107.htm#sub:vect_prod">vect_prod</A></B>
+<DD>computes the vector product between two 3D vectors
   </DL>
-
-<P>
 
 <P>
 
@@ -237,32 +153,32 @@ FITS header keywords accordingly. If not set, the keywords found in <TT>header</
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1491"
+<A NAME="tex2html1508"
   HREF="subroutinesnode105.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1497"
+<A NAME="tex2html1514"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1501"
+<A NAME="tex2html1518"
   HREF="subroutinesnode107.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1499"
+<A NAME="tex2html1516"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1492"
-  HREF="subroutinesnode105.htm">write_dbintab</A>
+<B> Previous:</B> <A NAME="tex2html1509"
+  HREF="subroutinesnode105.htm">udgrade_ring*</A>
 
-<B>Up:</B> <A NAME="tex2html1498"
+<B>Up:</B> <A NAME="tex2html1515"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1502"
-  HREF="subroutinesnode107.htm">write_minimal_header</A>
+<B> Next:</B> <A NAME="tex2html1519"
+  HREF="subroutinesnode107.htm">vect_prod</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

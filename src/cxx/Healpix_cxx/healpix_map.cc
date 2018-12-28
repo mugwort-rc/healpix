@@ -25,7 +25,7 @@
  */
 
 /*
- *  Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008 Max-Planck-Society
+ *  Copyright (C) 2003-2012 Max-Planck-Society
  *  Author: Martin Reinecke
  */
 
@@ -40,12 +40,8 @@ template<typename T> void Healpix_Map<T>::Import_degrade
   int fact = orig.nside_/nside_;
   planck_assert (orig.nside_==nside_*fact,
     "the larger Nside must be a multiple of the smaller one");
-  pix2xyf to_xyf = (scheme_==RING) ?
-    &Healpix_Map::ring2xyf : &Healpix_Map::nest2xyf;
-  xyf2pix from_xyf = (orig.scheme_==RING) ?
-    &Healpix_Map::xyf2ring : &Healpix_Map::xyf2nest;
 
-  int minhits = pessimistic ? fact : 1;
+  int minhits = pessimistic ? fact*fact : 1;
 #pragma omp parallel
 {
   int m;
@@ -53,13 +49,13 @@ template<typename T> void Healpix_Map<T>::Import_degrade
   for (m=0; m<npix_; ++m)
     {
     int x,y,f;
-    (this->*to_xyf)(m,x,y,f);
+    pix2xyf(m,x,y,f);
     int hits = 0;
     double sum = 0;
     for (int j=fact*y; j<fact*(y+1); ++j)
       for (int i=fact*x; i<fact*(x+1); ++i)
         {
-        int opix = (orig.*from_xyf)(i,j,f);
+        int opix = orig.xyf2pix(i,j,f);
         if (!approx<double>(orig.map[opix],Healpix_undef))
           {
           ++hits;

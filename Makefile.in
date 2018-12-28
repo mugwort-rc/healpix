@@ -4,11 +4,11 @@
 
 # ------------------------------ global variables --------------------------
 
-ALL     = c-void cpp-void f90-void
-TESTS   = c-void cpp-void f90-void
-CLEAN   = c-void cpp-void f90-void
-TIDY    = c-void cpp-void f90-void
-DISTCLEAN = c-void cpp-void f90-void
+ALL       = c-void cpp-void f90-void healpy-void 
+TESTS     = c-void cpp-void f90-void healpy-void 
+CLEAN     = c-void cpp-void f90-void healpy-void 
+TIDY      = c-void cpp-void f90-void healpy-void 
+DISTCLEAN = c-void cpp-void f90-void healpy-void 
 
 RM	= rm -f
 
@@ -78,6 +78,10 @@ EXTERNAL_CFITSIO=yes
 CFITSIO_EXT_LIB=
 CFITSIO_EXT_INC=
 export HEALPIX_TARGET EXTERNAL_CFITSIO CFITSIO_EXT_LIB CFITSIO_EXT_INC
+
+# ------------------------------ variables for Python healpy --------------------------
+
+CFITSIO_EXT_PREFIX=
 # ------------------------------- global rules -------------------------
 
 all: $(ALL)
@@ -100,7 +104,7 @@ distclean: $(DISTCLEAN)
 # ------------------------------- F90 rules ----------------------------
 
 
-f90-prog	= map2gif anafast smoothing synfast ud_grade hotspot plmgen alteralm median_filter ngsims_full_sky
+f90-prog	= map2gif anafast smoothing synfast ud_grade hotspot plmgen alteralm median_filter ngsims_full_sky process_mask
 
 f90-all: f90-libpsht f90-modules f90-libgif $(f90-prog)
 
@@ -148,6 +152,9 @@ median_filter: f90-libpsht f90-modules
 ngsims_full_sky: f90-libpsht f90-modules
 	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
 
+process_mask: f90-libpsht f90-modules
+	@cd src/f90/$@; $(MAKE) $(F90_MKFLAGS)
+
 f90-test: f90-all
 	@cd test; \
 	$(RM) test*; \
@@ -165,8 +172,10 @@ f90-test: f90-all
 	$(F90_BINDIR)/map2gif -inp test_mf.fits -out test_mf.gif -bar t -ttl 'Median Filtered Map'; \
 	$(F90_BINDIR)/sky_ng_sim ngfs.par ; \
 	$(F90_BINDIR)/map2gif -inp test_ngfs.fits -out test_ngfs.gif -bar t -ttl 'Non-Gaussian Map'; \
+	$(F90_BINDIR)/process_mask prmask.par ; \
+	$(F90_BINDIR)/map2gif -inp test_distmask.fits -out test_distmask.gif -bar t -ttl 'Distance to mask border'; \
 	echo "Healpix F90 tests done" ; \
-	echo "success rate: `ls -1 test*fits | wc -l`/9"
+	echo "success rate: `ls -1 test*fits | wc -l`/10"
 
 f90-clean:
 	for p in $(f90-prog) lib mod psht; do \
@@ -242,7 +251,6 @@ c-void:
 cpp-all:
 	@cd src/cxx; \
 	$(MAKE) ; \
-	$(MAKE) doc ; \
 	cd ../..
 
 cpp-test: cpp-all
@@ -264,3 +272,32 @@ cpp-distclean: cpp-tidy
 
 cpp-void:
 
+# ------------------------------- healpy rules ----------------------------
+
+# CFITSIO_EXT_LIB and _INC only are necessary when going thru a Makefile
+healpy-all:
+	@cd src/healpy; \
+	export EXTERNAL_CFITSIO=yes ; \
+	export CFITSIO_EXT_PREFIX=$(CFITSIO_EXT_PREFIX) ; \
+	export CFITSIO_EXT_LIB="-L$(CFITSIO_EXT_PREFIX)/lib -lcfitsio" ; \
+	export CFITSIO_EXT_INC="-I$(CFITSIO_EXT_PREFIX)/include" ; \
+	python setup.py build ; \
+	python setup.py install --user ; \
+	cd ../..
+
+healpy-test: healpy-all
+	@echo ' ' ;\
+	echo 'no healpy test currently available' ;\
+	echo ' ' ;\
+
+healpy-clean:
+	@cd src/healpy ; \
+	export CFITSIO_EXT_PREFIX=$(CFITSIO_EXT_PREFIX) ; \
+	python setup.py clean --all ; \
+	cd ../..
+
+healpy-tidy: healpy-clean
+
+healpy-distclean: healpy-tidy
+
+healpy-void:

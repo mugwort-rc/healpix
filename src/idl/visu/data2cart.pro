@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -75,9 +75,9 @@ du_dv = 1.    ; aspect ratio
 fudge = 1.00  ; 
 if keyword_set(flip) then flipconv=1 else flipconv = -1  ; longitude increase leftward by default (astro convention)
 if undefined(polarization) then polarization=0
-do_polamplitude = (polarization eq 1)
-do_poldirection = (polarization eq 2)
-do_polvector    = (polarization eq 3)
+do_polamplitude = (polarization[0] eq 1)
+do_poldirection = (polarization[0] eq 2)
+do_polvector    = (polarization[0] eq 3)
 
 !P.BACKGROUND = 1               ; white background
 !P.COLOR = 0                    ; black foreground
@@ -211,7 +211,7 @@ if arg_present(map_out) then map_out = proj2map_out(grid, offmap=plan_off, bad_d
 if keyword_set(fits) then begin 
     proj2fits, grid, fits, $
                projection = 'CART', flip=flip, $
-               rot = rot_ang, coord=coord_out, reso = reso_arcmin, unit = sunits, min=mindata, max = maxdata
+               rot = rot_ang, coord=coord_out, reso_arcmin = resgrid*60., unit = sunits, min=mindata, max = maxdata
 endif
 
 ; -------------------------------------------------------------

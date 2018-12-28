@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_dfb0d583cd2cf51bf95d53ff10fe0f27.html">Healpix_cxx</a>
+  <div class="navpath"><a class="el" href="dir_43603e55c9d04d7e4ac4eacf65a335c5.html">Healpix_cxx</a>
   </div>
 </div>
 <div class="contents">
@@ -52,19 +52,19 @@
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 <span class="preprocessor">#include &lt;fstream&gt;</span>
-<a name="l00033"></a>00033 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/cxxutils_8h.html">cxxutils.h</a>"</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include "paramfile.h"</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include "<a class="code" href="healpix__map_8h.html">healpix_map.h</a>"</span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include "<a class="code" href="healpix__map__fitsio_8h.html">healpix_map_fitsio.h</a>"</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/fitshandle_8h.html">fitshandle.h</a>"</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include "levels_facilities.h"</span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html">paramfile.h</a>"</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include "<a class="code" href="healpix__map_8h.html">healpix_map.h</a>"</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include "<a class="code" href="healpix__map__fitsio_8h.html">healpix_map_fitsio.h</a>"</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/fitshandle_8h.html">fitshandle.h</a>"</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include "levels_facilities.h"</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include "<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html">announce.h</a>"</span>
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040 <span class="keyword">using namespace </span>std;
 <a name="l00041"></a>00041 
 <a name="l00042"></a>00042 <span class="keywordtype">int</span> hotspots_cxx_module (<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv)
 <a name="l00043"></a>00043   {
-<a name="l00044"></a>00044   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/cxxutils_8h.html#0147a01a3c85b08029a9af4252f6581b">module_startup</a> (<span class="stringliteral">"hotspots_cxx"</span>, argc, argv, 2, <span class="stringliteral">"&lt;parameter file&gt;"</span>);
-<a name="l00045"></a>00045   paramfile params (argv[1]);
+<a name="l00044"></a>00044   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/announce_8h.html#7c0b66fbd68bd0e1a00b2dace3bbff41">module_startup</a> (<span class="stringliteral">"hotspots_cxx"</span>, argc, argv);
+<a name="l00045"></a>00045   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classparamfile.html">paramfile</a> params (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/paramfile_8h.html#6ebe5a9e4d4518a0ad41d270fe796c37">getParamsFromCmdline</a>(argc,argv));
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047   <span class="keywordtype">string</span> infile = params.find&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">"infile"</span>);
 <a name="l00048"></a>00048   <span class="keywordtype">string</span> mapfile = params.find&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">"outmap"</span>,<span class="stringliteral">""</span>);
@@ -79,7 +79,7 @@
 <a name="l00057"></a>00057   <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;float&gt;</a> inmap;
 <a name="l00058"></a>00058   <a class="code" href="group__healpix__map__fitsio__group.html#gc9bb9ebd33781ca2ae9b47de4baa1723">read_Healpix_map_from_fits</a>(infile,inmap,1,2);
 <a name="l00059"></a>00059   <a class="code" href="classHealpix__Map.html">Healpix_Map&lt;float&gt;</a> outmap;
-<a name="l00060"></a>00060   <span class="keywordflow">if</span> (have_mapfile) outmap.<a class="code" href="classHealpix__Map.html#932b9e92af1359300c15db3106e06078">Set</a>(inmap.<a class="code" href="classHealpix__Base.html#6f71c42e9b1b72fe1a0c98466206ec1a">Order</a>(),inmap.<a class="code" href="classHealpix__Base.html#034007cd291363d9c55a1def359a5a68">Scheme</a>());
+<a name="l00060"></a>00060   <span class="keywordflow">if</span> (have_mapfile) outmap.<a class="code" href="classHealpix__Map.html#932b9e92af1359300c15db3106e06078">Set</a>(inmap.<a class="code" href="classT__Healpix__Base.html#2c8569e4bd3e54d239dc80d72f732ee3">Order</a>(),inmap.<a class="code" href="classT__Healpix__Base.html#a6dec992036d38e42028d55ff6e6c499">Scheme</a>());
 <a name="l00061"></a>00061 
 <a name="l00062"></a>00062   ofstream minout, maxout;
 <a name="l00063"></a>00063   <span class="keywordflow">if</span> (have_minfile) minout.open(minfile.c_str());
@@ -87,12 +87,12 @@
 <a name="l00065"></a>00065 
 <a name="l00066"></a>00066   <a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfix__arr.html">fix_arr&lt;int,8&gt;</a> nb;
 <a name="l00067"></a>00067 <span class="comment">// FIXME: This should be parallelized</span>
-<a name="l00068"></a>00068   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;inmap.<a class="code" href="classHealpix__Base.html#c8797409a93d264511f17a47e56fc526">Npix</a>(); ++m)
+<a name="l00068"></a>00068   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m=0; m&lt;inmap.<a class="code" href="classT__Healpix__Base.html#a714c85bcf62ee2971d307fdd37334b9">Npix</a>(); ++m)
 <a name="l00069"></a>00069     {
 <a name="l00070"></a>00070     <span class="keywordtype">float</span> value = inmap[m];
 <a name="l00071"></a>00071     <span class="keywordflow">if</span> (!approx&lt;double&gt;(value, <a class="code" href="healpix__map_8h.html#e2a4c592445abef24754fd3760207af8" title="Healpix value representing &amp;quot;undefined&amp;quot;.">Healpix_undef</a>))
 <a name="l00072"></a>00072       {
-<a name="l00073"></a>00073       inmap.<a class="code" href="classHealpix__Base.html#f3eabd08fa25c9d8e49e3363f1e0f9a1">neighbors</a>(m,nb);
+<a name="l00073"></a>00073       inmap.<a class="code" href="classT__Healpix__Base.html#69d2b7c0160f674a2a50aa466fc597ed">neighbors</a>(m,nb);
 <a name="l00074"></a>00074       <span class="keywordtype">bool</span> ismax=<span class="keyword">true</span>, ismin=<span class="keyword">true</span>;
 <a name="l00075"></a>00075       <span class="keywordflow">for</span> (<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/datatypes_8h.html#4f13f1d6de679cc32ad61090e13a8eb1">tsize</a> n=0; n&lt;nb.<a class="codeRef" doxygen="cxxsupport.tag:../cxxsupport/" href="../cxxsupport/classfix__arr.html#a8b413dec7c3198513c7db5c78bf9ed1">size</a>(); ++n)
 <a name="l00076"></a>00076         {
@@ -119,7 +119,7 @@
 <a name="l00097"></a>00097   }
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:07 2011 for Healpix C++
+Generated on Fri Nov 30 17:59:27 2012 for Healpix C++
 </a> </small></address>
 </body>
 </html>

@@ -70,7 +70,7 @@
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Class for rotation transforms in 3D space 
-<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00043">43</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00042">42</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="033fcc6055d83c413fa4f046ad4577bc"></a><!-- doxytag: member="rotmatrix::rotmatrix" ref="033fcc6055d83c413fa4f046ad4577bc" args="(double a00, double a01, double a02, double a10, double a11, double a12, double a20, double a21, double a22)" -->
 <div class="memitem">
@@ -141,7 +141,7 @@ Class for rotation transforms in 3D space
 
 <p>
 Constructs a rotation matrix from its nine entries 
-<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00051">51</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00050">50</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
 
 </div>
 </div><p>
@@ -179,7 +179,7 @@ Constructs a rotation matrix from its nine entries
 <p>
 Constructs a rotation matrix so that <em>a</em> is the first column, <em>b</em> is the second column and <em>c</em> is the third column. <dl class="note" compact><dt><b>Note:</b></dt><dd>The vectors <em>a</em>, <em>b</em> and <em>c</em> must form an orthonormal system! </dd></dl>
 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00039">39</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00038">38</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -201,7 +201,7 @@ Constructs a rotation matrix so that <em>a</em> is the first column, <em>b</em> 
 
 <p>
 Sets the matrix to the identity matrix. 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00046">46</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00045">45</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -222,7 +222,7 @@ Sets the matrix to the identity matrix.
 
 <p>
 Sets all matrix elements to zero. 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00053">53</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00052">52</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -243,7 +243,7 @@ Sets all matrix elements to zero.
 
 <p>
 Transposes the matrix. 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00059">59</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00058">58</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -273,8 +273,8 @@ Transposes the matrix.
 <div class="memdoc">
 
 <p>
-Extracts a unit-length rotation axis <em>axis</em> and a rotation angle <em>angle</em> from the matrix. 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00066">66</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+Extracts a unit-length rotation axis <em>axis</em> and a rotation angle <em>angle</em> (in radian) from the matrix. 
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00065">65</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -297,15 +297,15 @@ Extracts a unit-length rotation axis <em>axis</em> and a rotation angle <em>angl
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td><code> [inline]</code></td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Constructs a matrix which causes a rotation by <em>angle</em> around <em>axis</em>. <em>axis</em> must have unit length. 
-<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00079">79</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
+Constructs a matrix which causes a rotation by <em>angle</em> radians around <em>axis</em>. <em>axis</em> must have unit length. 
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00117">117</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -347,7 +347,7 @@ Creates a rotation matrix <em>A</em>, which performs the following operations on
 <dl class="note" compact><dt><b>Note:</b></dt><dd><em>alpha</em>, <em>beta</em> and <em>gamma</em> are given in radians, the rotations are right handed.<p>
 This transformation rotates the <em>vectors</em>, not the coordinate axes! </dd></dl>
 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00119">119</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00136">136</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -386,7 +386,7 @@ This transformation rotates the <em>vectors</em>, not the coordinate axes! </dd>
 Extracts the Euler angles <em>alpha</em>, <em>beta</em> and <em>gamma</em> from the matrix. For their definition see <a class="el" href="classrotmatrix.html#6dcbdb81fcfdc044080bfeca200c95d9">Make_CPAC_Euler_Matrix()</a>.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>In case of ambiguity <em>alpha</em> will be 0. </dd></dl>
 
-<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00130">130</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8cc-source.html#l00147">147</a> of file <a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a>.</p>
 
 </div>
 </div><p>
@@ -408,7 +408,7 @@ Extracts the Euler angles <em>alpha</em>, <em>beta</em> and <em>gamma</em> from 
 
 <p>
 Returns the vector <em>vec</em>, transformed by the matrix. 
-<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00118">118</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00101">101</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
 
 </div>
 </div><p>
@@ -439,7 +439,7 @@ Returns the vector <em>vec</em>, transformed by the matrix.
 
 <p>
 Returns the vector <em>vec</em>, transformed by the matrix, in <em>vec2</em>. 
-<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00126">126</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
+<p>Definition at line <a class="el" href="rotmatrix_8h-source.html#l00109">109</a> of file <a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a>.</p>
 
 </div>
 </div><p>
@@ -447,7 +447,7 @@ Returns the vector <em>vec</em>, transformed by the matrix, in <em>vec2</em>.
 <li><a class="el" href="rotmatrix_8h-source.html">rotmatrix.h</a><li><a class="el" href="rotmatrix_8cc-source.html">rotmatrix.cc</a></ul>
 </div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:06 2011 for LevelS C++ support library
+Generated on Fri Nov 30 17:59:26 2012 for LevelS C++ support library
 </a> </small></address>
 </body>
 </html>

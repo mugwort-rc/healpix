@@ -16,7 +16,7 @@
       <li><a href="dirs.html"><span>Directories</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_e3eb46e9483d4687196e35ab1f9fe87a.html">libpsht</a>
+  <div class="navpath"><a class="el" href="dir_ff4430fd8013aef2f55568768abd08e8.html">libpsht</a>
   </div>
 </div>
 <div class="contents">
@@ -47,7 +47,7 @@
 <a name="l00025"></a>00025 <span class="comment">/*! \file psht_geomhelpers.h</span>
 <a name="l00026"></a>00026 <span class="comment"> *  PSHT helper function for the creation of grid geometries</span>
 <a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2006, 2007, 2008 Max-Planck-Society</span>
+<a name="l00028"></a>00028 <span class="comment"> *  Copyright (C) 2006-2011 Max-Planck-Society</span>
 <a name="l00029"></a>00029 <span class="comment"> *  \author Martin Reinecke</span>
 <a name="l00030"></a>00030 <span class="comment"> */</span>
 <a name="l00031"></a>00031 
@@ -76,25 +76,56 @@
 <a name="l00054"></a>00054 <span class="comment">/*! Creates a geometry information describing a Gaussian map with \a nrings</span>
 <a name="l00055"></a>00055 <span class="comment">    iso-latitude rings and \a nphi pixels per ring. The azimuth of the first</span>
 <a name="l00056"></a>00056 <span class="comment">    pixel in each ring is 0.</span>
-<a name="l00057"></a>00057 <span class="comment">    \ingroup geominfogroup */</span>
-<a name="l00058"></a>00058 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#gde2ca6547fec343c63078d6840fc147e">psht_make_gauss_geom_info</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">int</span> stride,
-<a name="l00059"></a>00059   <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
-<a name="l00060"></a>00060 <span class="comment"></span>
-<a name="l00061"></a>00061 <span class="comment">/*! Creates a geometry information describing an ECP map with \a nrings</span>
-<a name="l00062"></a>00062 <span class="comment">    iso-latitude rings and \a nphi pixels per ring. The azimuth of the first</span>
-<a name="l00063"></a>00063 <span class="comment">    pixel in each ring is \a phi0 (in radians).</span>
-<a name="l00064"></a>00064 <span class="comment">    \ingroup geominfogroup */</span>
-<a name="l00065"></a>00065 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#g1b1974ae49d77cfd181583a62a300013">psht_make_ecp_geom_info</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">double</span> phi0, <span class="keywordtype">int</span> stride,
-<a name="l00066"></a>00066   <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068 <span class="preprocessor">#ifdef __cplusplus</span>
-<a name="l00069"></a>00069 <span class="preprocessor"></span>}
-<a name="l00070"></a>00070 <span class="preprocessor">#endif</span>
-<a name="l00071"></a>00071 <span class="preprocessor"></span>
-<a name="l00072"></a>00072 <span class="preprocessor">#endif</span>
+<a name="l00057"></a>00057 <span class="comment">    \ingroup geominfogroup</span>
+<a name="l00058"></a>00058 <span class="comment">    \deprecated */</span>
+<a name="l00059"></a>00059 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#gde2ca6547fec343c63078d6840fc147e">psht_make_gauss_geom_info</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">int</span> stride,
+<a name="l00060"></a>00060   <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
+<a name="l00061"></a>00061 <span class="comment"></span>
+<a name="l00062"></a>00062 <span class="comment">/*! Creates a geometry information describing a Gaussian map with \a nrings</span>
+<a name="l00063"></a>00063 <span class="comment">    iso-latitude rings and \a nphi pixels per ring. The azimuth of the first</span>
+<a name="l00064"></a>00064 <span class="comment">    pixel in each ring is 0. The index difference between two adjacent pixels</span>
+<a name="l00065"></a>00065 <span class="comment">    in an iso-latitude ring is \a stride_lon, the index difference between the</span>
+<a name="l00066"></a>00066 <span class="comment">    two start pixels in consecutive iso-latitude rings is \a stride_lat.</span>
+<a name="l00067"></a>00067 <span class="comment">    \ingroup geominfogroup */</span>
+<a name="l00068"></a>00068 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#g7446d105678f6fcc34a12b28af7c32f6">psht_make_gauss_geom_info_2</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">int</span> stride_lon,
+<a name="l00069"></a>00069   <span class="keywordtype">int</span> stride_lat, <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
+<a name="l00070"></a>00070 <span class="comment"></span>
+<a name="l00071"></a>00071 <span class="comment">/*! Creates a geometry information describing an ECP map with \a nrings</span>
+<a name="l00072"></a>00072 <span class="comment">    iso-latitude rings and \a nphi pixels per ring. The azimuth of the first</span>
+<a name="l00073"></a>00073 <span class="comment">    pixel in each ring is \a phi0 (in radians).</span>
+<a name="l00074"></a>00074 <span class="comment">    \note The spacing of pixel centers is equidistant in colatitude and</span>
+<a name="l00075"></a>00075 <span class="comment">      longitude.</span>
+<a name="l00076"></a>00076 <span class="comment">    \note \a nrings must be an even number.</span>
+<a name="l00077"></a>00077 <span class="comment">    \note The sphere is pixelized in a way that the colatitude of the first ring</span>
+<a name="l00078"></a>00078 <span class="comment">      is \a 0.5*(pi/nrings). There are no pixel centers at the poles.</span>
+<a name="l00079"></a>00079 <span class="comment">    \ingroup geominfogroup</span>
+<a name="l00080"></a>00080 <span class="comment">    \deprecated */</span>
+<a name="l00081"></a>00081 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#g1b1974ae49d77cfd181583a62a300013">psht_make_ecp_geom_info</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">double</span> phi0, <span class="keywordtype">int</span> stride,
+<a name="l00082"></a>00082   <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
+<a name="l00083"></a>00083 <span class="comment"></span>
+<a name="l00084"></a>00084 <span class="comment">/*! Creates a geometry information describing an ECP map with \a nrings</span>
+<a name="l00085"></a>00085 <span class="comment">    iso-latitude rings and \a nphi pixels per ring. The azimuth of the first</span>
+<a name="l00086"></a>00086 <span class="comment">    pixel in each ring is \a phi0 (in radians). The index difference between</span>
+<a name="l00087"></a>00087 <span class="comment">    two adjacent pixels in an iso-latitude ring is \a stride_lon, the index</span>
+<a name="l00088"></a>00088 <span class="comment">    difference between the two start pixels in consecutive iso-latitude rings</span>
+<a name="l00089"></a>00089 <span class="comment">    is \a stride_lat.</span>
+<a name="l00090"></a>00090 <span class="comment">    \note The spacing of pixel centers is equidistant in colatitude and</span>
+<a name="l00091"></a>00091 <span class="comment">      longitude.</span>
+<a name="l00092"></a>00092 <span class="comment">    \note \a nrings must be an even number.</span>
+<a name="l00093"></a>00093 <span class="comment">    \note The sphere is pixelized in a way that the colatitude of the first ring</span>
+<a name="l00094"></a>00094 <span class="comment">      is \a 0.5*(pi/nrings). There are no pixel centers at the poles.</span>
+<a name="l00095"></a>00095 <span class="comment">    \ingroup geominfogroup */</span>
+<a name="l00096"></a>00096 <span class="keywordtype">void</span> <a class="code" href="group__geominfogroup.html#g89f636fdce073155edc101c2d6d5c3de">psht_make_ecp_geom_info_2</a> (<span class="keywordtype">int</span> nrings, <span class="keywordtype">int</span> nphi, <span class="keywordtype">double</span> phi0,
+<a name="l00097"></a>00097   <span class="keywordtype">int</span> stride_lon, <span class="keywordtype">int</span> stride_lat, <a class="code" href="structpsht__geom__info.html">psht_geom_info</a> **geom_info);
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00100"></a>00100 <span class="preprocessor"></span>}
+<a name="l00101"></a>00101 <span class="preprocessor">#endif</span>
+<a name="l00102"></a>00102 <span class="preprocessor"></span>
+<a name="l00103"></a>00103 <span class="preprocessor">#endif</span>
 </pre></div></div>
 <hr><address style="align: right;"><small>
-Generated on Wed Feb 9 17:05:05 2011 for LevelS SHT library
+Generated on Fri Nov 30 17:59:25 2012 for LevelS SHT library
 </a> </small></address>
 </body>
 </html>

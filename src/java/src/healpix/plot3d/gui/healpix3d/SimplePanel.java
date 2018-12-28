@@ -84,8 +84,6 @@ public class SimplePanel extends JPanel implements ItemListener {
 	/** The grid. */
 	private JCheckBox grid;
 
-	private float initialTransparency = 0;
-
 	/** initialiser */
 	protected void init() {
 		GridBagLayout gridbag = new GridBagLayout();
@@ -100,6 +98,7 @@ public class SimplePanel extends JPanel implements ItemListener {
 		add(jlTitle);
 		nside = new JComboBox();// new Choice();
 		nside.setForeground(Color.blue);
+		nside.addItem("1");
 		nside.addItem("2");
 		nside.addItem("4");
 		nside.addItem("8");
@@ -247,7 +246,6 @@ public class SimplePanel extends JPanel implements ItemListener {
 	/** Set canvas */
 	private void setCanvas(MapCanvas canvas) {
 		this.canvas = canvas;
-		this.initialTransparency = canvas.getTransparency()*10;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 ; -----------------------------------------------------------------------------
 ;
-;  Copyright (C) 1997-2010  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
+;  Copyright (C) 1997-2012  Krzysztof M. Gorski, Eric Hivon, Anthony J. Banday
 ;
 ;
 ;
@@ -45,6 +45,7 @@ PRO cartview, file_in, select_in, $
               HXSIZE = hxsize, $
               IGLSIZE = iglsize, $
               IGRATICULE = igraticule, $
+              JPEG=jpeg, $
               LOG = log, $
               MAP_OUT=map_out, $
               MAX = max_set, $
@@ -112,9 +113,10 @@ if (n_params() lt 1 or n_params() gt 2) then begin
     print,'              HBOUND, HELP=, '
     print,'              HIST_EQUAL=, HXSIZE=,'
     print,'              IGLSIZE=, IGRATICULE=,'
+    print,'              JPEG=,'
     print,'              LOG=, '
     print,'              MAX=, MIN=, NESTED=, NOBAR=, NOLABELS=, NOPOSITION = '
-    print,'              NO_DIPOLE, NO_MONOPLE, '
+;    print,'              NO_DIPOLE, NO_MONOPLE, '
     print,'              OFFSET=, ONLINE=, OUTLINE=,'
     print,'              PNG=,'
     print,'              POLARIZATION=, PREVIEW=, '
@@ -176,7 +178,8 @@ proj2out, $
   TITLEPLOT = titleplot, XPOS = xpos, YPOS = ypos, $
   POLARIZATION=polarization, OUTLINE=outline, /CART, FLIP=flip, COORD_IN=coord_in, IGRATICULE=igraticule, $
   HBOUND = hbound, WINDOW = window, TRANSPARENT = transparent, EXECUTE=execute, $
-  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick
+  SILENT=silent, GLSIZE = glsize, IGLSIZE = iglsize, RETAIN=retain, TRUECOLORS=truecolors, CHARTHICK=charthick, $
+  JPEG=jpeg
 
 w_num = !d.window
 ; restore original color table and PLOTS settings

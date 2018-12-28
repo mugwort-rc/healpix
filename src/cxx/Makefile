@@ -1,3 +1,4 @@
+HEALPIX_TARGET?=auto
 ifndef HEALPIX_TARGET
   HEALPIX_TARGET:=$(error HEALPIX_TARGET undefined. Please see README.compilation for help)UNDEFINED
 endif
@@ -6,8 +7,6 @@ default: compile_all
 SRCROOT:=$(shell pwd)
 include $(SRCROOT)/config/config.$(HEALPIX_TARGET)
 include $(SRCROOT)/config/rules.common
-
-.SILENT:
 
 .PHONY: test
 
@@ -22,6 +21,7 @@ include libcfitsio/planck.make
 include c_utils/planck.make
 include libfftpack/planck.make
 include libpsht/planck.make
+#include libsharp/planck.make
 include cxxsupport/planck.make
 include Healpix_cxx/planck.make
 include alice/planck.make
@@ -51,4 +51,4 @@ $(notdir $(all_cbin) $(all_cxxbin)) : % : $(BINDIR)/%
 $(notdir $(all_lib)) libcfitsio.a : % : $(LIBDIR)/%
 
 test: compile_all
-	cd test; ./runtest.sh
+	cd test; HEALPIX_TARGET=$(HEALPIX_TARGET) ./runtest.sh

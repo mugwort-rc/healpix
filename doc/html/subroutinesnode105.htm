@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>write_dbintab</TITLE>
-<META NAME="description" CONTENT="write_dbintab">
+<TITLE>udgrade_ring*</TITLE>
+<META NAME="description" CONTENT="udgrade_ring*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,51 +28,173 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html1479"
+<A NAME="tex2html1496"
   HREF="subroutinesnode104.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1485"
+<A NAME="tex2html1502"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1489"
+<A NAME="tex2html1506"
   HREF="subroutinesnode106.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1487"
+<A NAME="tex2html1504"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1480"
-  HREF="subroutinesnode104.htm">write_bintabh</A>
+<B> Previous:</B> <A NAME="tex2html1497"
+  HREF="subroutinesnode104.htm">udgrade_nest*</A>
 
-<B>Up:</B> <A NAME="tex2html1486"
+<B>Up:</B> <A NAME="tex2html1503"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1490"
-  HREF="subroutinesnode106.htm">write_fits_cut4</A>
+<B> Next:</B> <A NAME="tex2html1507"
+  HREF="subroutinesnode106.htm">vec2ang</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION0001050000000000000000"></A>
-<A NAME="sub:write_dbintab"></A>
+<H1><A NAME="SECTION0001000000000000000000"></A>
+<A NAME="sub:udgrade_ring"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">write_dbintab</FONT></font></b><hr><H2>This routine is obsolete. 
+<b><font size=+6><FONT COLOR="#CC0000">udgrade_ring*</FONT></font></b><hr><H2>Routine to degrade or prograde the pixel size of a <b>HEALPix</b> map indexed with
+  the RING scheme. The degradation/progradation is done assuming an
+intensive quantity (like temperature) that does NOT scale with surface area. <BR>
+In case of degradation, a big pixel that contains one or several bad pixels will
+take the average of the valid small pixels, unless a 'pessimistic' behavior
+is assumed in which case the big pixel will take the bad pixel sentinel value.
+In case of progradation, a bad pixel only spawns bad pixels.
 <BR>
-To write <SPAN CLASS="MATH"><I>P</I><SUB><I>lm</I></SUB></SPAN> polynoms into a FITS file,
-use 
-<A HREF="subroutinesnode108.htm#sub:write_plm">write_plm</A> 
-instead. 
-<BR>
-To write a Healpix map into a FITS file,
-use 
-<A HREF="subroutinesnode103.htm#sub:write_bintab">write_bintab</A> 
-or 
-<A HREF="subroutinesnode68.htm#sub:output_map">output_map</A>.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/fitstools.F90
+The routine accepts both mono and bi-dimensional maps.
+</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/udgrade_nr.f90
 </b>
+
+<P>
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">udgrade_ring*</FONT>(
+map_in, nside_in, map_out, nside_out <i><font color="#224422">[, fmissval, pessimistic]</font></i>
+)</h2></blockquote>
+Arguments appearing in <i><font color="#224422">italic</font></i> are
+optional.
+
+<P>
+<hr><H1>ARGUMENTS</H1>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=50><SPAN  CLASS="textbf">in/out</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=225><SPAN  CLASS="textbf">description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+map_in(0:12*nside_in**2-1)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>mono-dimensional full sky map to be
+                   prograded or degraded. The routine finds the second
+                   dimension (nd) by itself. <SPAN  CLASS="textbf">Note that the map is modified on
+                   output (reordered into NESTED scheme).</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_in(0:12*nside_in**2-1,1:nd)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>INOUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>bi-dimensional full sky map to be
+                   prograded or degraded. <SPAN  CLASS="textbf">Note that the map is modified on
+                   output (reordered into NESTED scheme).</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nside_in</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg12.png"
+ ALT="${N_{\rm side}}$"></SPAN> resolution parameter of the input
+                   map. Must be a power of 2.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_out(0:12*nside_out**2-1)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>mono-dimensional full sky map after
+                   degradation or progradation.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map_out(0:12*nside_out**2-1,1:nd)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>bi-dimensional full sky map after
+                   degradation or progradation. The second dimension
+                   (nd) should match that of the input map.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nside_out</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>the <!-- MATH
+ ${N_{\rm side}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg12.png"
+ ALT="${N_{\rm side}}$"></SPAN> resolution parameter of the output
+                   map. Must be a power of 2. If nside_out <SPAN CLASS="MATH">&gt;</SPAN> nside_in, the
+                   map is prograded (ie, more and smaller pixels) with each
+                   pixel having the same value as its parent; otherwise, the
+                   map in degraded (ie, fewer larger pixels), with each pixel
+                   being the average of its <SPAN CLASS="MATH">(</SPAN>nside_in/nside_out<SPAN CLASS="MATH">)<SUP>2</SUP></SPAN> components.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">fmissval</font></i></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>sentinel value given to bad pixels in input and output
+                   maps.<b>default:</b><A HREF="subroutinesnode46.htm#sub:healpix_types">\tt HPX_SBADVAL</A> or <A HREF="subroutinesnode46.htm#sub:healpix_types">\tt HPX_DBADVAL</A></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">pessimistic</font></i></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>LGT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=50>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=225>if set to <TT>.true.</TT>, during a degradation, a big pixel containing at least a small
+                   bad pixel will be returned as bad as well, instead of taking
+                   the average of the remaing valid pixels. <b>default:</b><TT>.false.</TT></TD>
+</TR>
+</TABLE>
+
+<P>
+<HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
+use udgrade_nr 
+<BR>
+call udgrade_ring(map_hi, 256, map_low, 64)  
+<BR></font></tt>
+<BR><blockquote>
+Degrades a RING ordered map with <!-- MATH
+ ${N_{\rm side}}=256$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg54.png"
+ ALT="${N_{\rm side}}=256$"></SPAN> into a RING map with <!-- MATH
+ ${N_{\rm side}}=64$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="87" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="subroutinesimg35.png"
+ ALT="${N_{\rm side}}=64$"></SPAN>
+</blockquote>
+
+<P>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">udgrade_ring*</FONT></b></h3>
+<BR> 
+  <DL COMPACT><DT>
+<B><A HREF="subroutinesnode104.htm#sub:udgrade_nest">udgrade_nest</A></B>
+<DD>prograde or degrade a NESTED
+  ordered map.
+</DL>
 
 <P>
 
@@ -85,32 +207,32 @@ src/f90/mod/fitstools.F90
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html1479"
+<A NAME="tex2html1496"
   HREF="subroutinesnode104.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html1485"
+<A NAME="tex2html1502"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html1489"
+<A NAME="tex2html1506"
   HREF="subroutinesnode106.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html1487"
+<A NAME="tex2html1504"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html1480"
-  HREF="subroutinesnode104.htm">write_bintabh</A>
+<B> Previous:</B> <A NAME="tex2html1497"
+  HREF="subroutinesnode104.htm">udgrade_nest*</A>
 
-<B>Up:</B> <A NAME="tex2html1486"
+<B>Up:</B> <A NAME="tex2html1503"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html1490"
-  HREF="subroutinesnode106.htm">write_fits_cut4</A>
+<B> Next:</B> <A NAME="tex2html1507"
+  HREF="subroutinesnode106.htm">vec2ang</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

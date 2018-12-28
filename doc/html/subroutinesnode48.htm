@@ -7,8 +7,8 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>map2alm_iterative*</TITLE>
-<META NAME="description" CONTENT="map2alm_iterative*">
+<TITLE>input_map*</TITLE>
+<META NAME="description" CONTENT="input_map*">
 <META NAME="keywords" CONTENT="subroutines">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
@@ -28,253 +28,179 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <DIV CLASS="navigation"><body text="#000000" bgcolor="#FFFFFA">
 <!--Navigation Panel-->
-<A NAME="tex2html795"
+<A NAME="tex2html812"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html801"
+<A NAME="tex2html818"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html805"
+<A NAME="tex2html822"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html803"
+<A NAME="tex2html820"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html796"
-  HREF="subroutinesnode47.htm">map2alm*</A>
+<B> Previous:</B> <A NAME="tex2html813"
+  HREF="subroutinesnode47.htm">in_ring</A>
 
-<B>Up:</B> <A NAME="tex2html802"
+<B>Up:</B> <A NAME="tex2html819"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html806"
-  HREF="subroutinesnode49.htm">map2alm_spin*</A>
+<B> Next:</B> <A NAME="tex2html823"
+  HREF="subroutinesnode49.htm">input_tod*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 
-<H1><A NAME="SECTION000480000000000000000"></A>
-<A NAME="sub:map2alm_iterative"></A>
+<H1><A NAME="SECTION000430000000000000000"></A>
+<A NAME="sub:input_map"></A>
 <BR>
  
 </H1>
 
 <P>
-<b><font size=+6><FONT COLOR="#CC0000">map2alm_iterative*</FONT></font></b><hr><H2>This routine covers and extends the functionalities of <A HREF="subroutinesnode47.htm#sub:map2alm">map2alm</A>: it
-analyzes a (polarised) <b>HEALPix</b> <EM>RING ordered</EM> map and returns
-its <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients for temperature (and polarisation) up to a specified
-multipole, and use precomputed harmonics if those
-are provided, but it also can also perform an iterative (Jacobi) determination of the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>, and
-apply a pixel mask if one is provided.</H2><br>Location in HEALPix directory tree: <b>
-src/f90/mod/alm_tools.F90
+<b><font size=+6><FONT COLOR="#CC0000">input_map*</FONT></font></b><hr><H2>This routine reads a <b>HEALPix</b> map from a FITS file. This can deal with full sky
+as well as cut sky maps</H2><br>Location in HEALPix directory tree: <b>
+src/f90/mod/fitstools.F90
 </b>
 
 <P>
-<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">map2alm_iterative*</FONT>(
-nsmax, nlmax, nmmax, iter_order, map_TQU, alm_TGC [, zbounds, w8ring_TQU ,
-plm, mask]
+<hr><h1>FORMAT </h1><blockquote><h2>call <FONT COLOR="#CC0000">input_map*</FONT>(
+filename, map, npixtot, nmaps <i><font color="#224422">[, fmissval, header, units, extno]</font></i>
 )</h2></blockquote>
+Arguments appearing in <i><font color="#224422">italic</font></i> are
+optional.
 
 <P>
 <hr><H1>ARGUMENTS</H1>
 
 <TABLE CELLPADDING=3 BORDER="1">
-<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" WIDTH=150><SPAN  CLASS="textbf">name&nbsp;&amp;&nbsp;dimensionality</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">kind</SPAN></TH>
 <TH ALIGN="LEFT" VALIGN="TOP" WIDTH=25><SPAN  CLASS="textbf">in/out</SPAN></TH>
-<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=200><SPAN  CLASS="textbf">description</SPAN></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=250><SPAN  CLASS="textbf">description</SPAN></TH>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>
-nsmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+filename(len=<tt>filenamelen</tt>)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> value of the map to analyse.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS file to be read from,
+                   containing a full sky or cut sky map</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nlmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>l</I></SPAN> value for the analysis.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>nmmax</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the maximum <SPAN CLASS="MATH"><I>m</I></SPAN> value for the analysis.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>iter_order</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>the order of Jacobi iteration. Increasing that order
-improves the accuracy of the final <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> but increases the computation time <!-- MATH
- $T_{\rm CPU} \propto 1 + 2 \times$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="127" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg85.png"
- ALT="$
-T_{\rm CPU} \propto 1 + 2 \times $"></SPAN>iter_order. 
-iter_order <SPAN CLASS="MATH">=0</SPAN> is a straight analysis, while iter_order <SPAN CLASS="MATH">=3</SPAN> is usually a
-good compromise.</TD>
-</TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>map_TQU(0:12*nsmax**2-1, 1:p)</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>map(0:npixtot-1,1:nmaps)</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>INOUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>input map. <SPAN CLASS="MATH"><I>p</I></SPAN> is 1 or 3
-depending if temperature (T) only or temperature and polarisation (T, Q, U) are
-to be analysed. It will be altered on output if a mask is provided.</TD>
-</TR>
-</TABLE>
-
-<P>
-<TABLE CELLPADDING=3 BORDER="1">
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>alm_TGC(1:p, 0:nlmax, 0:nmmax)</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SPC/ DPC</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>The <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> values output
-from the analysis. 
-<SPAN CLASS="MATH"><I>p</I></SPAN> is 1 or 3 depending on whether polarisation is included or not. In the former
-case, the first index is (1,2,3) corresponding to (T,E,B).</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>full sky map(s) constructed
+                   from the data present in the file, missing pixels are filled
+                   with fmissval</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>zbounds(1:2), OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>npixtot</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B/ I8B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>section of the map on which to perform the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN>
-                   analysis, expressed in terms of <!-- MATH
- $z=\sin({\rm latitude}) =
-                   \cos(\theta).$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="219" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg83.png"
- ALT="$z=\sin({\rm latitude}) =
-\cos(\theta).$"></SPAN> If zbounds(1)<SPAN CLASS="MATH">&lt;</SPAN>zbounds(2), the analysis is
-                   performed <EM>on</EM> the strip zbounds(1)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(2); if not,
-                   it is performed <EM>outside</EM> of the strip
-                   zbounds(2)<SPAN CLASS="MATH">&lt;<I>z</I>&lt;</SPAN>zbounds(1). If absent, the whole map is
-analyzed</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of pixels in the full sky map</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>w8ring_TQU(1:2*nsmax,1:p), OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>nmaps</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>ring weights for
-quadrature corrections. p is 1 for a temperature analysis and 3 for (T,Q,U). If absent, the
-ring weights are all set to 1.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>number of maps in the file</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>plm(0:,1:p), OPTIONAL</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>DP</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>If this
-optional matrix is passed, precomputed scalar (and tensor) <!-- MATH
- $P_{lm}(\theta)$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="subroutinesimg17.png"
- ALT="$P_{lm}(\theta)$"></SPAN> are
-used instead of recursion.</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>&nbsp;</TD>
 </TR>
-<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>mask(0:12*nsmax**2-1,1:q), OPTIONAL</TD>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150>
+<i><font color="#224422">fmissval</font></i></TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>SP/ DP</TD>
 <TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
-<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=200>pixel mask,
-assumed to have the same resolution (and RING ordering) as the map. The map <TT>map_TQU</TT> is
-multiplied by that mask before being analyzed, and will therefore be altered on
-output. 
-<SPAN CLASS="MATH"><I>q</I></SPAN> should be in <SPAN CLASS="MATH">{1,2,3}</SPAN>. If <SPAN CLASS="MATH"><I>p</I>=<I>q</I>=3</SPAN>, then each of
-the 3 masks is applied to the respective map. If <SPAN CLASS="MATH"><I>p</I>=3</SPAN> and <SPAN CLASS="MATH"><I>q</I>=2</SPAN>, the first mask
-is applied to the first map, and the second mask to the second (Q) and third (U)
-map. If <SPAN CLASS="MATH"><I>p</I>=3</SPAN> and <SPAN CLASS="MATH"><I>q</I>=1</SPAN>, the same mask is applied to the 3 maps. Note: the output
-<SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> are computed directly on the masked map, and are <EM>not</EM> corrected for the
-loss of power, correlation or leakage created by the mask.</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>value to be given to missing pixels, its default
+                   value is 0</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">header</font></i>(LEN=80)(1:)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>FITS extension header</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">units</font></i>(LEN=20)(1:nmaps)</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>CHR</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>OUT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>maps units</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=150><i><font color="#224422">extno</font></i></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>I4B</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=25>IN</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=250>extension number to read the data from
+                   (0 based).<b>default:</b>0 (the first extension is read)</TD>
 </TR>
 </TABLE>
 
 <P>
 <HR><H1>EXAMPLE:</H1><tt><FONT SIZE=+1>
-use healpix_types
+use pix_tools, only: nside2npix 
 <BR>
-use alm_tools
+use fitstools, only: getsize_fits, input_map 
+<BR>...
 <BR>
-use pix_tools
-<BR>
-integer(i4b) :: nside, lmax, npix, iter 
-<BR>
-real(sp), allocatable, dimension(:,:) :: map 
-<BR>
-real(sp), allocatable, dimension(:) :: mask 
-<BR>
-complex(spc), allocatable, dimension(:,:,:) :: alm 
-<BR>
-<BR>
-nside = 256 
-<BR>
-lmax = 512 
-<BR>
-iter = 2
+npixtot = getsize_fits('map.fits',nmaps=nmaps, nside=nside) 
 <BR>
 npix = nside2npix(nside) 
 <BR>
-allocate(map(0:npix-1,1:3)) 
+allocate(map(0:npix-1,1:nmaps)) 
 <BR>
-allocate(mask(0:npix-1)) 
-<BR>
-mask(0:) = 0. ! set unvalid pixels to 0
-<BR>
-mask(0:10000-1) = 1. ! valid pixels 
-<BR>
-allocate(alm(1:3, 0:lmax, 0:lmax)
-<BR>
-call map2alm_iterative(nside, lmax, lmax, iter, map, alm, mask=mask)  
+call input_map('map.fits', map, npix, nmaps)  
 <BR></font></tt>
 <BR><blockquote>
-Analyses temperature and polarisation signals in the first 10000 pixels of <TT>map</TT> (as
-determined by <TT>mask</TT>). The map has
-an <SPAN CLASS="MATH"><I>N</I><SUB><I>side</I></SUB></SPAN> of 256, and the analysis is supposed to be performed up
-to 512 in <SPAN CLASS="MATH"><I>l</I></SPAN> and m. The resulting <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients for
-temperature and polarisation are returned in <TT>alm</TT>. Uniform weights are
-assumed. In order to improve the <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> accuracy, 2 Jacobi iterations are performed.
+Reads into <TT>map</TT> the content of the FITS file 'map.fits'
 </blockquote>
-
-<P>
-<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">map2alm_iterative*</FONT>.</h2>
+<hr><H1>MODULES & ROUTINES</H1><H2>This section lists the modules and routines used by <FONT COLOR="#CC0000">input_map*</FONT>.</h2>
   <DL COMPACT><DT>
-<B>ring_analysis</B>
-<DD>Performs FFT for the ring analysis.
-  <DT>
-<B><A HREF="subroutinesnode47.htm#sub:map2alm">map2alm</A></B>
-<DD>Perform the alm analysis
-  <DT>
-<B><SPAN  CLASS="textbf">misc_util</SPAN></B>
+<B><SPAN  CLASS="textbf">fitstools</SPAN></B>
 <DD>module, containing:
   <DT>
-<B>assert_alloc</B>
-<DD>routine to print error message when an array is not
-  properly allocated		
+<B>printerror</B>
+<DD>routine for printing FITS error messages.
+  <DT>
+<B><A HREF="subroutinesnode87.htm#sub:read_bintab">read_bintab</A></B>
+<DD>routine to read a binary table
+  from a FITS file
+  <DT>
+<B><A HREF="subroutinesnode90.htm#sub:read_fits_cut4">read_fits_cut4</A></B>
+<DD>routine to read cut sky
+  map from a FITS file
+  <DT>
+<B><SPAN  CLASS="textbf">cfitsio</SPAN></B>
+<DD>library for FITS file handling.
   </DL>
 
 <P>
-<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">map2alm_iterative*</FONT></b></h3>
+<hr><H1>RELATED ROUTINES</H1><h3>This section lists the routines related to <b><FONT COLOR="#CC0000">input_map*</FONT></b></h3>
 <BR> 
   <DL COMPACT><DT>
 <B>anafast</B>
-<DD>executable using <FONT COLOR="#CC0000">map2alm_iterative*</FONT> to analyse maps.
+<DD>executable that reads a <b>HEALPix</b> map and analyses it. 
   <DT>
-<B><A HREF="subroutinesnode11.htm#sub:alm2map">alm2map</A></B>
-<DD>routine performing the inverse transform of <FONT COLOR="#CC0000">map2alm_iterative*</FONT>.
+<B>synfast</B>
+<DD>executable that generate full sky <b>HEALPix</b> maps
   <DT>
-<B><A HREF="subroutinesnode13.htm#sub:alm2map_spin">alm2map_spin</A></B>
-<DD>synthesize spin weighted
-maps.
+<B><A HREF="subroutinesnode44.htm#sub:getsize_fits">getsize_fits</A></B>
+<DD>subroutine to know the size of a FITS file.
   <DT>
-<B><A HREF="subroutinesnode29.htm#sub:dump_alms">dump_alms</A></B>
-<DD>write <SPAN CLASS="MATH"><I>a</I><SUB><I>lm</I></SUB></SPAN> coefficients
-computed by <FONT COLOR="#CC0000">map2alm_iterative*</FONT>into a FITS file
+<B><A HREF="subroutinesnode73.htm#sub:output_map">output_map</A></B>
+<DD>subroutine to write a FITS file
+  from a <b>HEALPix</b> map
   <DT>
-<B><A HREF="subroutinesnode49.htm#sub:map2alm_spin">map2alm_spin</A></B>
-<DD>analyze spin weighted maps.
+<B><A HREF="subroutinesnode110.htm#sub:write_bintabh">write_bintabh</A></B>
+<DD>subroutine to write a large
+  array into a FITS file piece by piece
+  <DT>
+<B><A HREF="subroutinesnode49.htm#sub:input_tod">input_tod*</A></B>
+<DD>subroutine to read an arbitrary subsection of
+  a large binary table
   </DL>
 
 <P>
@@ -288,32 +214,32 @@ computed by <FONT COLOR="#CC0000">map2alm_iterative*</FONT>into a FITS file
 
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
-<A NAME="tex2html795"
+<A NAME="tex2html812"
   HREF="subroutinesnode47.htm">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
-<A NAME="tex2html801"
+<A NAME="tex2html818"
   HREF="subroutines.htm">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
-<A NAME="tex2html805"
+<A NAME="tex2html822"
   HREF="subroutinesnode49.htm">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
-<A NAME="tex2html803"
+<A NAME="tex2html820"
   HREF="subroutinesnode1.htm">
 <IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
 <BR>
-<B> Previous:</B> <A NAME="tex2html796"
-  HREF="subroutinesnode47.htm">map2alm*</A>
+<B> Previous:</B> <A NAME="tex2html813"
+  HREF="subroutinesnode47.htm">in_ring</A>
 
-<B>Up:</B> <A NAME="tex2html802"
+<B>Up:</B> <A NAME="tex2html819"
   HREF="subroutines.htm">Healpix/F90 subroutines</A>
 
-<B> Next:</B> <A NAME="tex2html806"
-  HREF="subroutinesnode49.htm">map2alm_spin*</A>
+<B> Next:</B> <A NAME="tex2html823"
+  HREF="subroutinesnode49.htm">input_tod*</A>
 <B> Top:</B> <a href="main.htm">Main Page</a></DIV>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Eric Hivon
-2011-02-09
+2012-11-30
 </ADDRESS>
 </BODY>
 </HTML>

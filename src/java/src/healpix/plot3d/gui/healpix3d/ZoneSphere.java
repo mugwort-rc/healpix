@@ -1,7 +1,7 @@
 /*
  * HEALPix Java code supported by the Gaia project.
  * Copyright (C) 2006-2011 Gaia Data Processing and Analysis Consortium
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -19,9 +19,10 @@
  */
 package healpix.plot3d.gui.healpix3d;
 
-import healpix.core.Healpix;
+import healpix.essentials.Pointing;
+import healpix.essentials.Scheme;
 import healpix.tools.Constants;
-import healpix.tools.SpatialVector;
+import healpix.essentials.Vec3;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;
@@ -31,7 +32,7 @@ import javax.media.j3d.LineArray;
 
 /**
  * Part of the {@link HealSphere}
- * 
+ *
  * @author ejoliet
  * @version $Id: ZoneSphere.java 114558 2009-12-01 17:02:57Z ejoliet $
  */
@@ -41,22 +42,13 @@ public class ZoneSphere extends HealSphere {
 	protected int i_zone = 0;
 
 	/**
-	 * create sphere visual object
-	 */
-	public ZoneSphere() {
-		super();
-		this.setGeometry(createGeometry());
-		this.setAppearance(createAppearance());
-	}
-
-	/**
 	 * Instantiates a new zone sphere.
-	 * 
+	 *
 	 * @param nside the nside
 	 * @param zone the zone
 	 */
 	public ZoneSphere(int nside, int zone) {
-		super(nside);
+		super(nside,Scheme.RING);
 		this.i_zone = zone;
 
 		this.setGeometry(createGeometry());
@@ -67,10 +59,10 @@ public class ZoneSphere extends HealSphere {
 	 * @see healpix.plot3d.gui.healpix3d.HealSphere#createGeometry()
 	 */
 	protected Geometry createGeometry() {
-		double nms[], theta_center, phi_center;
+		double theta_center, phi_center;
 		// double thn, ths;
 		// double philr[];
-		int ppq = (step * 2 + 2) * 2; // points per quad
+		int ppq = step*8; // points per quad
 		int i_phi_count, rpix;
 		int ns4 = 4 * nside;
 		int ns3 = 3 * nside;
@@ -84,8 +76,7 @@ public class ZoneSphere extends HealSphere {
 		// - Zone");
 
 		for (int i_th = 1; i_th < ns4; i_th++) {
-			nms = Healpix.integration_limits_in_costh(nside, i_th);
-			theta_center = Math.acos(nms[1]);
+			theta_center = Math.acos(index.ring2z(i_th));
 			// thn = Math.acos(nms[0]);
 			// ths = Math.acos(nms[2]);
 			i_phi_count = Math.min(i_th, Math.min(nside, ns4 - i_th));
@@ -101,8 +92,7 @@ public class ZoneSphere extends HealSphere {
 							* Constants.PI / 2.0 / (double) i_phi_count;
 				}
 				try {
-					rpix = Healpix
-							.ang2pix_ring(nside, theta_center, phi_center);
+					rpix = (int)index.ang2pix(new Pointing(theta_center, phi_center));
 					// int npix =
 					// Healpix.ang2pix_nest(nside,theta_center,phi_center);
 					// philr = Healpix.pixel_boundaries(nside, i_th, i_phi,
@@ -110,7 +100,7 @@ public class ZoneSphere extends HealSphere {
 
 					int offset = q * ppq;
 					q++;
-					SpatialVector[] corners = index.corners_ring(rpix, step);
+					Vec3[] corners = index.boundaries(rpix, step);
 					addPix(corners, offset, quads);
 				} catch (Exception e) {
 					e.printStackTrace();
